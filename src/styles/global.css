@@ -8,40 +8,34 @@
   --font-display: 'Bricolage Grotesque Variable', 'Helvetica Neue', Arial, sans-serif;
   --font-body: 'Hanken Grotesk Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  /* Colors that never change with the theme */
-  --sun: #ffd43b; /* the hero band: "helder" means bright */
-  --dark-ink: #16181a; /* text on any bright color panel, in both modes */
-
   /* Light theme */
-  --paper: #fff9e6; /* page background, a pale warm tint instead of plain white */
-  --surface: #ffffff; /* cards and panels */
-  --ink: #16181a;
-  --ink-soft: #4f5458; /* secondary text */
-  --rule: #16181a; /* the visible borders */
-  --accent: #d9381e; /* the site accent: vermilion */
-  --accent-text: #c4301a; /* the same accent, darker, for small text on paper */
-  --on-accent: #ffffff;
-  --footer-bg: #16181a;
-  --footer-fg: #fff9e6;
+  --paper: #fbfbf9; /* page background */
+  --surface: #ffffff; /* panels and boxes */
+  --ink: #111418;
+  --ink-soft: #596069; /* secondary text */
+  --line: #e3e4df; /* hairlines */
+  --line-strong: #c8cac4; /* borders that need to be seen */
+  --accent: #e44e18; /* the site accent: a Dutch orange. Large type and thin lines only */
+  --accent-text: #c2410c; /* the same orange, darker, for small text */
+  --hero-tint: #fff1e6; /* soft warm color behind the homepage hero */
 
   /* Layout */
   --gutter: clamp(1rem, 4vw, 2rem);
   --page-width: 76rem;
-  --border: 2px;
+  --radius: 6px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #121413;
-    --surface: #1b1e1c;
-    --ink: #f4f0e4;
-    --ink-soft: #aeb3ad;
-    --rule: #f4f0e4;
-    --accent: #ff6b4a;
-    --accent-text: #ff7d5f;
-    --on-accent: #16181a;
-    --footer-bg: #0a0b0b;
-    --footer-fg: #f4f0e4;
+    --paper: #0f1113;
+    --surface: #171a1d;
+    --ink: #f1f1ec;
+    --ink-soft: #a3a9b1;
+    --line: #262a2e;
+    --line-strong: #3b4147;
+    --accent: #ff7a45;
+    --accent-text: #ff8d5f;
+    --hero-tint: #1a1410;
   }
 }
 
@@ -115,9 +109,9 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.05;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   text-wrap: balance;
 }
 
@@ -126,18 +120,13 @@ p {
 }
 
 ::selection {
-  background: var(--sun);
-  color: var(--dark-ink);
+  background: var(--accent);
+  color: #111418;
 }
 
 /* ---------- Focus ---------- */
-/* One visible focus style everywhere. Sections on bright colors reset --focus. */
-:root {
-  --focus: var(--ink);
-}
-
 :focus-visible {
-  outline: 3px solid var(--focus);
+  outline: 3px solid var(--ink);
   outline-offset: 3px;
 }
 
@@ -165,8 +154,8 @@ p {
   top: 0.75rem;
   z-index: 100;
   padding: 0.6rem 1rem;
-  background: var(--dark-ink);
-  color: #ffffff;
+  background: var(--ink);
+  color: var(--paper);
   font-weight: 600;
   text-decoration: none;
   transform: translateY(-200%);
@@ -174,7 +163,7 @@ p {
 
 .skip-link:focus-visible {
   transform: none;
-  outline-color: #ffffff;
+  outline-color: var(--paper);
   outline-offset: -6px;
 }
 

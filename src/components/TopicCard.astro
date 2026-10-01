@@ -2,172 +2,217 @@
 // One card in the homepage grid. The whole card is clickable: the link sits on
 // the title and a pseudo-element stretches it over the card, so screen readers
 // read just the title instead of the whole card.
+// The preview drawing is inlined (not an <img>) so parts of it can move on hover.
 import type { Topic } from '../data/topics';
 
 interface Props {
   topic: Topic;
   /** Display number, for example "01". */
   number: string;
-  /** Load the preview right away (true) or only when scrolled near (false). */
-  eager?: boolean;
 }
 
-const { topic, number, eager = true } = Astro.props;
+const drawings = import.meta.glob('../previews/*.svg', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+
+const { topic, number } = Astro.props;
+const drawing = drawings[`../previews/${topic.preview}.svg`];
+if (!drawing) {
+  throw new Error(`Missing preview: add src/previews/${topic.preview}.svg`);
+}
 const isDraft = topic.status === 'draft';
 ---
 
 <article class="card" data-card data-category={topic.category} style={`--topic: ${topic.accent};`}>
-  <div class="top">
+  <div class="art" aria-hidden="true">
+    <Fragment set:html={drawing} />
+    <span class="open">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </svg>
+    </span>
+  </div>
+
+  <div class="meta">
     <span class="num">{number}</span>
-    <span class="meta">
+    <span class="tags">
       {isDraft && <span class="draft">Draft</span>}
       <span>{topic.category}</span>
     </span>
   </div>
 
-  <div class="art">
-    <img
-      src={topic.preview}
-      alt=""
-      width="400"
-      height="280"
-      loading={eager ? 'eager' : 'lazy'}
-      decoding="async"
-    />
-  </div>
-
-  <div class="body">
-    <h3 class="title">
-      <a class="link" href={`/${topic.slug}/`}>{topic.title}</a>
-    </h3>
-    <p class="hook">{topic.hook}</p>
-    <span class="go" aria-hidden="true">
-      Open
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 12h15M13 6l6 6-6 6" />
-      </svg>
-    </span>
-  </div>
+  <h3 class="title">
+    <a class="link" href={`/${topic.slug}/`}>{topic.title}</a>
+  </h3>
+  <p class="hook">{topic.hook}</p>
 </article>
 
 <style>
   .card {
-    /* State colors. The hover and focus rules below swap them. */
-    --fg: var(--ink);
-    --fg-soft: var(--ink-soft);
+    /* Colors are mixed from the topic's one accent, so they work in light and dark mode */
+    --tint: color-mix(in oklab, var(--topic) 22%, var(--surface));
+    --tint-hover: color-mix(in oklab, var(--topic) 38%, var(--surface));
+    --art-line: color-mix(in oklab, var(--topic) 62%, var(--ink));
+    --art-fill: var(--surface);
+    /* 0 at rest, 1 on hover: drives the small movements inside the drawing */
+    --mv: 0;
 
     position: relative;
-    isolation: isolate;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
-    background: var(--surface);
-    color: var(--fg);
-    border: var(--border) solid var(--rule);
-    /* Negative margins make neighbouring cards share one border line */
-    margin: 0 calc(var(--border) * -1) calc(var(--border) * -1) 0;
-    transition: color 0.2s;
   }
 
-  /* The accent color rises from the bottom of the card on hover */
-  .card::before {
-    content: '';
+  .art {
+    position: relative;
+    aspect-ratio: 400 / 280;
+    background: var(--tint);
+    color: var(--art-line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: background-color 0.3s;
+  }
+
+  /* Styles for the inlined drawing. The .m, .grow, .f and .s classes are used inside the SVG files. */
+  .art :global(svg) {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .art :global(.f) {
+    fill: var(--art-fill);
+  }
+
+  .art :global(.s) {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  /* .m moves by --dx / --dy, .grow stretches upwards by --g. Both wait --i steps. */
+  .art :global(.m) {
+    transform: translate(calc(var(--mv) * var(--dx, 0px)), calc(var(--mv) * var(--dy, 0px)));
+    transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i, 0) * 45ms);
+  }
+
+  .art :global(.grow) {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    transform: scaleY(calc(1 + var(--mv) * var(--g, 0.1)));
+    transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i, 0) * 45ms);
+  }
+
+  /* Round arrow button in the corner of the drawing */
+  .open {
     position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: var(--topic);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+    right: 0.9rem;
+    bottom: 0.9rem;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.25s, transform 0.25s;
   }
 
-  .card:has(.link:focus-visible) {
-    --fg: var(--dark-ink);
-    --fg-soft: #2a2e31;
+  .open svg {
+    stroke: currentColor;
   }
 
-  .card:has(.link:focus-visible)::before {
-    transform: scaleY(1);
+  /* Hover and keyboard focus share the same state */
+  .card:has(.link:focus-visible) .art {
+    background: var(--tint-hover);
+  }
+
+  .card:has(.link:focus-visible) .open {
+    opacity: 1;
+    transform: none;
   }
 
   @media (hover: hover) {
-    .card:hover {
-      --fg: var(--dark-ink);
-      --fg-soft: #2a2e31;
+    .card:hover .art {
+      background: var(--tint-hover);
     }
 
-    .card:hover::before {
-      transform: scaleY(1);
-    }
-
-    .card:hover .art img {
-      transform: translateY(-4px) rotate(-1.5deg) scale(1.04);
-    }
-
-    .card:hover .go svg {
-      transform: translateX(5px);
+    .card:hover .open {
+      opacity: 1;
+      transform: none;
     }
 
     .card:hover .link {
       text-decoration: underline;
+      text-decoration-color: var(--accent);
       text-decoration-thickness: 0.07em;
-      text-underline-offset: 0.14em;
+      text-underline-offset: 0.16em;
     }
   }
 
-  .top {
+  /* Touch screens have no hover, so the arrow is always there */
+  @media (hover: none) {
+    .open {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .card:has(.link:focus-visible) {
+      --mv: 1;
+    }
+
+    @media (hover: hover) {
+      .card:hover {
+        --mv: 1;
+      }
+    }
+  }
+
+  .meta {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
     gap: 1rem;
-    padding: 0.7rem 1rem;
-    border-bottom: var(--border) solid var(--rule);
+    margin-top: 1rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-soft);
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   .num {
     font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-weight: 800;
+    font-weight: 600;
     font-variant-numeric: tabular-nums;
+    color: var(--ink);
   }
 
-  .meta {
+  .tags {
     display: inline-flex;
-    align-items: center;
+    align-items: baseline;
     gap: 0.6rem;
   }
 
   /* Only shown in `npm run dev`, drafts are never built for production */
   .draft {
-    padding: 0.05rem 0.5rem;
-    border: 1.5px solid currentColor;
+    padding: 0 0.5rem;
+    border: 1px solid var(--line-strong);
     border-radius: 999px;
     font-size: 0.78rem;
   }
 
-  .art {
-    background: var(--topic);
-    border-bottom: var(--border) solid var(--rule);
-    overflow: hidden;
-  }
-
-  .art img {
-    width: 100%;
-    height: auto;
-    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
-  }
-
-  .body {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    padding: 1.1rem 1rem 1.2rem;
-  }
-
   .title {
-    font-size: clamp(1.5rem, 1.1rem + 1.2vw, 1.85rem);
+    margin-top: 0.6rem;
+    font-size: clamp(1.45rem, 1.1rem + 1.1vw, 1.8rem);
   }
 
   .link {
@@ -181,6 +226,7 @@ const isDraft = topic.status === 'draft';
     position: absolute;
     inset: 0;
     z-index: 1;
+    border-radius: var(--radius);
   }
 
   .link:focus-visible {
@@ -188,26 +234,13 @@ const isDraft = topic.status === 'draft';
   }
 
   .link:focus-visible::after {
-    outline: 4px solid var(--dark-ink);
-    outline-offset: -8px;
+    outline: 3px solid var(--ink);
+    outline-offset: 6px;
   }
 
   .hook {
-    margin-top: 0.6rem;
-    color: var(--fg-soft);
-    transition: color 0.2s;
-  }
-
-  .go {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: auto;
-    padding-top: 1.25rem;
-    font-weight: 700;
-  }
-
-  .go svg {
-    transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+    margin-top: 0.5rem;
+    max-width: 34ch;
+    color: var(--ink-soft);
   }
 </style>

@@ -1,8 +1,8 @@
 ---
 // The HTML shell used by every page: meta tags, fonts, header, footer.
-import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource-variable/bricolage-grotesque/opsz.css';
 import '@fontsource-variable/hanken-grotesk';
-import displayFont from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url';
+import displayFont from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-opsz-normal.woff2?url';
 import bodyFont from '@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2?url';
 import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
@@ -13,7 +13,7 @@ interface Props {
   title: string;
   /** Meta description, also used for link previews. */
   description: string;
-  /** Flat color behind the header and the top of the page (hex). Omit for the plain page color. */
+  /** Any CSS color for the area behind the header and the top of the page. Omit for the plain page color. */
   band?: string;
   /** Link preview image, path inside /public. */
   image?: string;
@@ -32,10 +32,7 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const imageUrl = new URL(image, Astro.site);
 
-// Pages with a colored band always use dark text on it, in light and dark mode.
-const bodyStyle = band
-  ? `--band: ${band}; --on-band: #16181a;`
-  : '--band: var(--paper); --on-band: var(--ink);';
+const bodyStyle = `--band: ${band ?? 'var(--paper)'};`;
 ---
 
 <!doctype html>
@@ -49,8 +46,8 @@ const bodyStyle = band
     {noindex && <meta name="robots" content="noindex" />}
 
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content={band ?? '#fff9e6'} media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content={band ?? '#121413'} media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fbfbf9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f1113" media="(prefers-color-scheme: dark)" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 

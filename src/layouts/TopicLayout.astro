@@ -1,7 +1,7 @@
 ---
 // The shared frame for every topic page. Topics differ only inside the slot;
 // the header, title, takeaways and next-topic link stay the same on purpose.
-// The topic's accent color paints the top band and is available to the slot
+// The topic's accent color tints the top band and is available to the slot
 // as the CSS variable --topic.
 import BaseLayout from './BaseLayout.astro';
 import { getTopic, getNextTopic, getTopicNumber } from '../data/topics';
@@ -24,7 +24,7 @@ const number = getTopicNumber(slug);
 <BaseLayout
   title={`${topic.title} | Helder Labs Learn`}
   description={topic.hook}
-  band={topic.accent}
+  band={`color-mix(in oklab, ${topic.accent} 20%, var(--paper))`}
   noindex={topic.status === 'draft'}
 >
   <div style={`--topic: ${topic.accent};`}>
@@ -66,12 +66,12 @@ const number = getTopicNumber(slug);
     <section class="more wrap">
       {
         next ? (
-          <nav aria-label="Next topic" style={`--next: ${next.accent};`}>
+          <nav aria-label="Next topic" style={`--topic: ${next.accent};`}>
             <a class="next" href={`/${next.slug}/`}>
               <span class="next-label">Next topic</span>
               <span class="next-title">{next.title}</span>
               <span class="next-hook">{next.hook}</span>
-              <svg class="arrow" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg class="arrow" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M4 12h15M13 6l6 6-6 6" />
               </svg>
             </a>
@@ -88,55 +88,56 @@ const number = getTopicNumber(slug);
 
 <style>
   .head {
-    --focus: var(--on-band);
     background: var(--band);
-    color: var(--on-band);
-    border-bottom: var(--border) solid var(--dark-ink);
   }
 
   .head-inner {
     display: grid;
     gap: 1rem 3rem;
-    padding-block: 0.5rem clamp(2rem, 5vw, 3.5rem);
+    padding-block: 0.5rem clamp(2.5rem, 6vw, 4.5rem);
   }
 
   .back {
     justify-self: start;
     margin-bottom: clamp(0.75rem, 3vw, 2rem);
-    font-weight: 700;
-    text-underline-offset: 0.25em;
+    font-weight: 500;
+    color: var(--ink-soft);
+    text-underline-offset: 0.3em;
     text-decoration-thickness: 2px;
     text-decoration-color: transparent;
-    transition: text-decoration-color 0.15s;
+    transition: color 0.15s, text-decoration-color 0.15s;
   }
 
   .back:hover {
-    text-decoration-color: currentColor;
+    color: var(--ink);
+    text-decoration-color: var(--accent);
   }
 
   .meta {
     display: flex;
     gap: 0.9rem;
-    font-weight: 600;
+    color: var(--ink-soft);
+    font-weight: 500;
   }
 
   .num {
     font-family: var(--font-display);
-    font-weight: 800;
+    font-weight: 600;
+    color: var(--ink);
   }
 
   h1 {
-    font-size: clamp(2.5rem, 1.2rem + 6.5vw, 6rem);
-    font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -0.035em;
+    font-size: clamp(2.5rem, 1.2rem + 6vw, 5.5rem);
+    font-weight: 600;
+    line-height: 0.96;
+    letter-spacing: -0.03em;
   }
 
   .intro {
     max-width: 30rem;
+    color: var(--ink-soft);
     font-size: clamp(1.1rem, 1rem + 0.4vw, 1.25rem);
-    font-weight: 500;
-    line-height: 1.4;
+    line-height: 1.45;
   }
 
   /* Title on the left, intro on the right, like the homepage hero */
@@ -160,13 +161,14 @@ const number = getTopicNumber(slug);
     min-height: 22rem;
     padding: clamp(1rem, 3vw, 2rem);
     background: var(--surface);
-    border: var(--border) solid var(--rule);
+    border: 1px solid var(--line-strong);
+    border-radius: calc(var(--radius) + 2px);
   }
 
   .takeaways {
     display: grid;
     gap: 1.25rem 3rem;
-    padding-top: clamp(2.5rem, 7vw, 5rem);
+    padding-top: clamp(3rem, 8vw, 5.5rem);
   }
 
   .takeaways h2 {
@@ -185,14 +187,14 @@ const number = getTopicNumber(slug);
     grid-template-columns: 2.5rem 1fr;
     gap: 0.75rem;
     padding-top: 1rem;
-    border-top: var(--border) solid var(--rule);
+    border-top: 1px solid var(--line-strong);
     font-size: 1.15rem;
   }
 
   .list li::before {
     content: counter(takeaway, decimal-leading-zero);
     font-family: var(--font-display);
-    font-weight: 800;
+    font-weight: 600;
     color: var(--accent-text);
   }
 
@@ -208,89 +210,62 @@ const number = getTopicNumber(slug);
   }
 
   .more {
-    padding-top: clamp(2.5rem, 7vw, 5rem);
+    padding-top: clamp(3rem, 8vw, 5.5rem);
   }
 
+  /* The next topic is a tinted panel in that topic's own color */
   .next {
-    --fg: var(--ink);
-    --fg-soft: var(--ink-soft);
+    --soft: var(--ink-soft);
 
     position: relative;
-    isolation: isolate;
-    overflow: hidden;
     display: grid;
     gap: 0.4rem;
-    padding: 1.25rem 4.5rem 1.4rem 1.25rem;
-    background: var(--surface);
-    color: var(--fg);
-    border: var(--border) solid var(--rule);
+    padding: 1.4rem 4.5rem 1.5rem 1.4rem;
+    background: color-mix(in oklab, var(--topic) 20%, var(--surface));
+    border-radius: calc(var(--radius) + 2px);
     text-decoration: none;
-    transition: color 0.2s;
+    transition: background-color 0.3s;
   }
 
-  /* Same color rise as the homepage cards */
-  .next::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: var(--next);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
-  }
-
+  /* On the deeper tint the secondary text switches to full ink to stay readable */
+  .next:hover,
   .next:focus-visible {
-    --fg: var(--dark-ink);
-    --fg-soft: #2a2e31;
-    outline-offset: 4px;
-  }
-
-  .next:focus-visible::before {
-    transform: scaleY(1);
-  }
-
-  @media (hover: hover) {
-    .next:hover {
-      --fg: var(--dark-ink);
-      --fg-soft: #2a2e31;
-    }
-
-    .next:hover::before {
-      transform: scaleY(1);
-    }
-
-    .next:hover .arrow {
-      transform: translateY(-50%) translateX(5px);
-    }
+    --soft: var(--ink);
+    background: color-mix(in oklab, var(--topic) 36%, var(--surface));
   }
 
   .next-label {
-    font-weight: 600;
-    color: var(--fg-soft);
+    color: var(--soft);
+    font-weight: 500;
   }
 
   .next-title {
     font-family: var(--font-display);
     font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.4rem);
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1.05;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
   }
 
   .next-hook {
-    color: var(--fg-soft);
+    color: var(--soft);
   }
 
   .arrow {
     position: absolute;
-    right: 1.25rem;
+    right: 1.4rem;
     top: 50%;
     transform: translateY(-50%);
     transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .next:hover .arrow {
+      transform: translateY(-50%) translateX(5px);
+    }
+  }
+
   .back-bottom {
-    font-weight: 700;
+    font-weight: 500;
   }
 </style>

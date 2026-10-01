@@ -12,7 +12,7 @@ const categories = getCategories();
 <BaseLayout
   title="Helder Labs Learn: interactive explainers"
   description="Interactive explainers from Helder Labs. Learn things by playing with them."
-  band="#ffd43b"
+  band="var(--hero-tint)"
 >
   <section class="hero">
     <div class="wrap hero-inner">
@@ -58,8 +58,8 @@ const categories = getCategories();
     {
       topics.length > 0 ? (
         <div class="grid">
-          {topics.map((t, i) => (
-            <TopicCard topic={t} number={getTopicNumber(t.slug)} eager={i < 3} />
+          {topics.map((t) => (
+            <TopicCard topic={t} number={getTopicNumber(t.slug)} />
           ))}
         </div>
       ) : (
@@ -71,46 +71,61 @@ const categories = getCategories();
 
 <style>
   .hero {
-    --focus: var(--on-band);
     background: var(--band);
-    color: var(--on-band);
-    border-bottom: var(--border) solid var(--dark-ink);
   }
 
   .hero-inner {
     display: grid;
-    gap: 1.25rem 3rem;
-    padding-block: clamp(1rem, 3vw, 2.25rem) clamp(1.75rem, 4vw, 3rem);
+    gap: 1.5rem 3rem;
+    padding-block: clamp(1rem, 3.5vw, 2.5rem) clamp(2rem, 5vw, 3.5rem);
   }
 
   .hero-title {
-    font-size: clamp(3.4rem, 13.5vw, 7.5rem);
-    font-weight: 800;
-    line-height: 0.88;
-    letter-spacing: -0.04em;
+    font-size: clamp(3.4rem, 12.5vw, 7.25rem);
+    font-weight: 600;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
   }
 
   .hero-title span {
     display: block;
   }
 
-  /* The darker vermilion keeps large text above 3:1 on the yellow */
   .learn {
-    color: #c4301a;
+    color: var(--accent);
+  }
+
+  .lede {
+    max-width: 23rem;
+    color: var(--ink-soft);
+    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
+    line-height: 1.4;
   }
 
   .lede span {
     display: block;
   }
 
-  .lede {
-    max-width: 23rem;
-    font-size: clamp(1.15rem, 1rem + 0.6vw, 1.4rem);
-    font-weight: 600;
-    line-height: 1.3;
+  /* "Helder" means clear: the name comes into focus when the page loads */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-title {
+      animation: come-into-focus 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
   }
 
-  /* Hero text on the left, one-line description pinned to the bottom right */
+  @keyframes come-into-focus {
+    from {
+      filter: blur(14px);
+      opacity: 0;
+    }
+
+    to {
+      filter: blur(0);
+      opacity: 1;
+    }
+  }
+
+  /* Title on the left, one-line description pinned to the bottom right */
   @media (min-width: 52rem) {
     .hero-inner {
       grid-template-columns: minmax(0, 1fr) 23rem;
@@ -118,61 +133,59 @@ const categories = getCategories();
     }
 
     .lede {
-      padding-bottom: 0.9rem;
+      padding-bottom: 0.8rem;
     }
   }
 
+  /* A thin color index: one segment per topic */
   .strip {
     display: flex;
-    height: 1rem;
-    border-top: var(--border) solid var(--dark-ink);
+    height: 4px;
   }
 
   .strip span {
     flex: 1;
   }
 
-  .strip span + span {
-    border-left: var(--border) solid var(--dark-ink);
-  }
-
   .topics {
-    padding-top: clamp(1.25rem, 3vw, 2rem);
+    padding-top: clamp(1rem, 3vw, 1.75rem);
   }
 
   .filter {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    padding-bottom: 1.25rem;
+    gap: 0 1.75rem;
+    margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+    border-bottom: 1px solid var(--line);
   }
 
   .filter button {
-    padding: 0.4rem 1.05rem;
-    border: var(--border) solid var(--rule);
-    border-radius: 999px;
-    background: transparent;
-    font-weight: 600;
+    margin-bottom: -1px;
+    padding: 0.7rem 0;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: none;
+    color: var(--ink-soft);
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.15s, color 0.15s;
+    transition: color 0.15s, border-color 0.15s;
   }
 
   .filter button:hover {
-    background: var(--sun);
-    color: var(--dark-ink);
+    color: var(--ink);
   }
 
   .filter button[aria-pressed='true'] {
-    background: var(--ink);
-    color: var(--paper);
+    border-bottom-color: var(--accent);
+    color: var(--ink);
+    font-weight: 600;
   }
 
   /* Auto-fills columns: 1 on phones, 2 on tablets, 3 on desktop */
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
-    /* Room for the 2px the cards overlap on the right and bottom */
-    padding: 0 var(--border) var(--border) 0;
+    gap: clamp(2.5rem, 5vw, 3.5rem) clamp(1.5rem, 3vw, 2.25rem);
   }
 
   .empty {

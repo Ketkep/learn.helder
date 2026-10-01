@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { topics } from './src/data/topics.ts';
 
 // Astro builds every folder in src/pages. Draft topics must not go live,
-// so after a production build we delete their pages and preview images from dist.
+// so after a production build we delete their output folders from dist.
 // (In `npm run dev` nothing is deleted, so drafts stay visible locally.)
 function pruneDrafts() {
   return {
@@ -14,8 +14,6 @@ function pruneDrafts() {
         for (const topic of topics.filter((t) => t.status === 'draft')) {
           const folder = fileURLToPath(new URL(`./${topic.slug}/`, dir));
           rmSync(folder, { recursive: true, force: true });
-          // Also drop the draft's preview image, so unfinished art is not published
-          rmSync(fileURLToPath(new URL(`.${topic.preview}`, dir)), { force: true });
         }
       },
     },

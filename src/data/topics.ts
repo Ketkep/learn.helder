@@ -11,9 +11,9 @@ export interface Topic {
   /** One line that makes people want to click. */
   hook: string;
   category: string;
-  /** Bright color (hex). Text on top of it is always dark, so keep it light enough. */
+  /** One mid-tone color (hex). Panels, drawings and tints are mixed from it, in light and dark mode. */
   accent: string;
-  /** Image path inside /public. A simple SVG works best. */
+  /** Name of an SVG file in src/previews, without ".svg". */
   preview: string;
   /** YYYY-MM-DD. Topics are ordered by this date, oldest first. */
   dateAdded: string;
@@ -30,8 +30,8 @@ export const topics: Topic[] = [
     title: 'English tenses on a timeline',
     hook: 'Drag through time and see why English needs so many tenses.',
     category: 'Language',
-    accent: '#8EC5FF',
-    preview: '/previews/english-tenses-on-a-timeline.svg',
+    accent: '#5B8FD9',
+    preview: 'english-tenses-on-a-timeline',
     dateAdded: '2026-10-01',
     status: 'live',
   },
@@ -40,8 +40,8 @@ export const topics: Topic[] = [
     title: 'Compound interest',
     hook: 'Move the sliders and watch small amounts grow.',
     category: 'Money',
-    accent: '#7BDCA6',
-    preview: '/previews/compound-interest.svg',
+    accent: '#4FAE82',
+    preview: 'compound-interest',
     dateAdded: '2026-10-01',
     status: 'live',
   },
@@ -50,8 +50,8 @@ export const topics: Topic[] = [
     title: 'How a website reaches your screen',
     hook: 'Follow one click from your browser to a server and back.',
     category: 'Technology',
-    accent: '#FFA66B',
-    preview: '/previews/how-a-website-reaches-your-screen.svg',
+    accent: '#E5739B',
+    preview: 'how-a-website-reaches-your-screen',
     dateAdded: '2026-10-01',
     status: 'live',
   },

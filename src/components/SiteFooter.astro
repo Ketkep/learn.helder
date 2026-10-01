@@ -18,17 +18,15 @@ const year = new Date().getFullYear();
 
 <style>
   .site-footer {
-    --focus: var(--footer-fg);
-    margin-top: clamp(3rem, 8vw, 6rem);
-    background: var(--footer-bg);
-    color: var(--footer-fg);
-    border-top: var(--border) solid var(--rule);
+    margin-top: clamp(4rem, 9vw, 7rem);
+    border-top: 1px solid var(--line);
+    color: var(--ink-soft);
   }
 
   .inner {
     display: grid;
     gap: 1.5rem 2rem;
-    padding-block: 2.5rem;
+    padding-block: 2.5rem 3rem;
   }
 
   .made {
@@ -38,13 +36,14 @@ const year = new Date().getFullYear();
 
   .made strong {
     font-family: var(--font-display);
-    font-size: 1.35rem;
+    font-size: 1.2rem;
+    font-weight: 600;
     letter-spacing: -0.01em;
+    color: var(--ink);
   }
 
   .made span,
   .copy {
-    opacity: 0.8;
     font-size: 0.95rem;
   }
 
@@ -52,12 +51,14 @@ const year = new Date().getFullYear();
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem 1.75rem;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   .links a {
-    text-underline-offset: 0.25em;
+    color: var(--ink);
+    text-decoration-color: var(--accent);
     text-decoration-thickness: 2px;
+    text-underline-offset: 0.3em;
   }
 
   @media (min-width: 48rem) {

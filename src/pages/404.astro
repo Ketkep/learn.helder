@@ -5,7 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout
   title="Page not found | Helder Labs Learn"
   description="This page does not exist."
-  band="#ffd43b"
+  band="var(--hero-tint)"
   noindex
 >
   <section class="lost">
@@ -20,10 +20,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
   .lost {
-    --focus: var(--on-band);
     background: var(--band);
-    color: var(--on-band);
-    border-bottom: var(--border) solid var(--dark-ink);
   }
 
   .inner {
@@ -35,8 +32,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .code {
     font-family: var(--font-display);
+    color: var(--accent);
     font-size: clamp(5rem, 22vw, 12rem);
-    font-weight: 800;
+    font-weight: 600;
     line-height: 0.85;
     letter-spacing: -0.05em;
   }
@@ -47,6 +45,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .home {
     margin-top: 0.5rem;
-    font-weight: 700;
+    font-weight: 500;
   }
 </style>

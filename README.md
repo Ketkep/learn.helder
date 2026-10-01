@@ -36,14 +36,18 @@ Three steps.
   title: 'My new topic',
   hook: 'One line that makes people want to click.',
   category: 'Science',             // a new category appears in the filter by itself
-  accent: '#FFD43B',               // a bright color, text on it is always dark
-  preview: '/previews/my-new-topic.svg',
+  accent: '#E0A12A',               // one mid-tone color, the tints and line colors are mixed from it
+  preview: 'my-new-topic',         // name of the drawing in src/previews
   dateAdded: '2026-11-01',         // topics are ordered by this date, oldest first
   status: 'draft',                 // change to 'live' when it is ready
 },
 ```
 
-**2. Add the preview image.** Put a simple SVG at `public/previews/my-new-topic.svg`. Use viewBox `0 0 400 280`, a transparent background and dark `#16181a` lines. It sits on the topic's accent color. Look at the existing files in that folder for the style.
+**2. Add the preview drawing.** Put a simple SVG at `src/previews/my-new-topic.svg`. Use viewBox `0 0 400 280` and no colors of its own: the card draws it with thin lines in a dark shade of the topic's color. Copy one of the existing files in that folder and change the shapes. Three helper classes are available inside the SVG:
+
+- `class="f"` fills a shape with the panel's light color.
+- `class="s"` makes a shape solid (dots, markers).
+- `class="m"` with `style="--dx: 40px"` (or `--dy`) moves a shape on hover. `class="grow"` with `style="--g: 0.1"` stretches it upwards.
 
 **3. Create the page.** Make the folder `src/pages/my-new-topic/` with a file `index.astro` inside:
 
@@ -82,7 +86,7 @@ The three starter topics are placeholders set to `live`, so the deployed site sh
 
 - `status: 'draft'` topics show in `npm run dev` with a small "Draft" label.
 - `status: 'live'` topics show everywhere.
-- In `npm run build`, the pages and preview images of draft topics are deleted from the output, so unfinished work never goes online.
+- In `npm run build`, the pages of draft topics are deleted from the output, so unfinished work never goes online.
 
 ## Where things are
 
@@ -93,13 +97,16 @@ src/pages/<slug>/        one folder per topic
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
 src/components/          header, footer, topic card, "coming soon" block
 src/styles/global.css    colors, fonts, spacing: change the look here
-public/                  favicon, link preview image, topic previews
+src/previews/            one SVG drawing per topic, shown on the cards
+public/                  favicon and the link preview image
 ```
 
 ## Design notes
 
 - Colors, fonts and spacing are CSS variables at the top of `src/styles/global.css`. Light and dark mode follow the system setting.
 - Fonts are Bricolage Grotesque (headings) and Hanken Grotesk (text), installed through `@fontsource` so they are served from this site and not from Google.
+- The look is thin hairlines, soft tinted panels and one orange accent. Each topic's panel color is mixed from the one `accent` value in the registry, so it also works in dark mode.
+- The name in the hero comes into focus when the page loads ("helder" means clear). The card drawings move a little on hover. Both are switched off for people who ask for reduced motion.
 - The favicon is a placeholder. The link preview image `public/og-image.png` is a 1200 by 630 picture of the hero. Replace both when the brand artwork is ready.
 
 ## Writing rules for this site

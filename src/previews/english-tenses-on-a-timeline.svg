@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -12 400 280">
+  <!-- The time axis with an arrow at the future end -->
+  <path d="M32 196H368" />
+  <path d="M352 186l16 10-16 10" />
+  <path d="M72 188v16M112 188v16M152 188v16M248 188v16M288 188v16M328 188v16" />
+  <!-- Past: solid hops. Future: dotted hop. -->
+  <path d="M72 184C80 128 144 128 152 184" />
+  <path d="M112 184C124 92 184 92 192 184" />
+  <path d="M208 184C224 112 296 112 328 184" stroke-dasharray="1 9" stroke-width="3" />
+  <!-- The "now" marker slides along the line on hover -->
+  <g class="m" style="--dx: 64px">
+    <path d="M200 76V204" />
+    <circle class="f" cx="200" cy="64" r="12" />
+    <circle class="s" cx="200" cy="64" r="4" />
+  </g>
+</svg>
