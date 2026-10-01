@@ -21,6 +21,9 @@ export interface Topic {
   status: TopicStatus;
 }
 
+// The three entries below are placeholders so the design has cards to show.
+// Replace them with real topics, or set them to 'draft', before you point
+// learn.helderlabs.com at this site.
 export const topics: Topic[] = [
   {
     slug: 'english-tenses-on-a-timeline',
@@ -30,7 +33,7 @@ export const topics: Topic[] = [
     accent: '#8EC5FF',
     preview: '/previews/english-tenses-on-a-timeline.svg',
     dateAdded: '2026-10-01',
-    status: 'draft',
+    status: 'live',
   },
   {
     slug: 'compound-interest',
@@ -40,7 +43,7 @@ export const topics: Topic[] = [
     accent: '#7BDCA6',
     preview: '/previews/compound-interest.svg',
     dateAdded: '2026-10-01',
-    status: 'draft',
+    status: 'live',
   },
   {
     slug: 'how-a-website-reaches-your-screen',
@@ -50,7 +53,7 @@ export const topics: Topic[] = [
     accent: '#FFA66B',
     preview: '/previews/how-a-website-reaches-your-screen.svg',
     dateAdded: '2026-10-01',
-    status: 'draft',
+    status: 'live',
   },
 ];
 

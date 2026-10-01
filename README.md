@@ -66,6 +66,18 @@ import TopicLayout from '../../layouts/TopicLayout.astro';
 
 The slug in the folder name, the registry and the `slug` prop must be identical. Title, hook, color, next-topic link and the header all come from the registry and the layout, so you only build what is inside the slot. Inside it, the CSS variable `var(--topic)` holds the topic's accent color.
 
+## Put it online with Vercel
+
+You do not need to run anything on your own computer for this.
+
+1. Go to [vercel.com](https://vercel.com) and sign in with GitHub.
+2. Click **Add New**, then **Project**, and import the `learn.helder` repository. If it is not in the list, use **Adjust GitHub App Permissions** and allow that repository.
+3. Leave every setting as it is. Vercel detects Astro and uses `npm run build` and the `dist` folder by itself. Click **Deploy**.
+4. After about a minute you get a link ending in `.vercel.app`. Every time new code is pushed to the repository, Vercel rebuilds the site by itself.
+5. For learn.helderlabs.com: open the project, go to **Settings**, then **Domains**, and add the domain. Vercel shows the exact DNS record to create where helderlabs.com is managed.
+
+The three starter topics are placeholders set to `live`, so the deployed site shows cards. Before you attach learn.helderlabs.com, replace them with real topics or set them to `draft`.
+
 ## Draft and live
 
 - `status: 'draft'` topics show in `npm run dev` with a small "Draft" label.
