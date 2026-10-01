@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page not found | Helder Labs Learn"
+  description="This page does not exist."
+  band="#ffd43b"
+  noindex
+>
+  <section class="lost">
+    <div class="wrap inner">
+      <p class="code">404</p>
+      <h1>This page does not exist</h1>
+      <p>The link may be old, or the topic is not published yet.</p>
+      <a class="home" href="/"><span aria-hidden="true">&larr;</span> All topics</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lost {
+    --focus: var(--on-band);
+    background: var(--band);
+    color: var(--on-band);
+    border-bottom: var(--border) solid var(--dark-ink);
+  }
+
+  .inner {
+    display: grid;
+    gap: 1rem;
+    justify-items: start;
+    padding-block: clamp(2rem, 8vw, 6rem);
+  }
+
+  .code {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 22vw, 12rem);
+    font-weight: 800;
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+  }
+
+  h1 {
+    font-size: clamp(1.75rem, 1.2rem + 2.5vw, 3rem);
+  }
+
+  .home {
+    margin-top: 0.5rem;
+    font-weight: 700;
+  }
+</style>

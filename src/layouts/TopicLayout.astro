@@ -1,0 +1,296 @@
+---
+// The shared frame for every topic page. Topics differ only inside the slot;
+// the header, title, takeaways and next-topic link stay the same on purpose.
+// The topic's accent color paints the top band and is available to the slot
+// as the CSS variable --topic.
+import BaseLayout from './BaseLayout.astro';
+import { getTopic, getNextTopic, getTopicNumber } from '../data/topics';
+
+interface Props {
+  /** Must match the entry in src/data/topics.ts. Title, hook and color come from there. */
+  slug: string;
+  /** A short paragraph under the title. */
+  intro: string;
+  /** Plain sentences for the "Key takeaways" block. */
+  takeaways?: string[];
+}
+
+const { slug, intro, takeaways = [] } = Astro.props;
+const topic = getTopic(slug);
+const next = getNextTopic(slug);
+const number = getTopicNumber(slug);
+---
+
+<BaseLayout
+  title={`${topic.title} | Helder Labs Learn`}
+  description={topic.hook}
+  band={topic.accent}
+  noindex={topic.status === 'draft'}
+>
+  <div style={`--topic: ${topic.accent};`}>
+    <section class="head">
+      <div class="wrap head-inner">
+        <a class="back" href="/">
+          <span aria-hidden="true">&larr;</span> All topics
+        </a>
+        <p class="meta">
+          <span class="num">{number}</span>
+          <span>{topic.category}</span>
+        </p>
+        <h1>{topic.title}</h1>
+        <p class="intro">{intro}</p>
+      </div>
+    </section>
+
+    <section class="stage wrap" aria-label="Interactive explainer">
+      <div class="stage-box">
+        <slot />
+      </div>
+    </section>
+
+    <section class="takeaways wrap" aria-labelledby="takeaways-heading">
+      <h2 id="takeaways-heading">Key takeaways</h2>
+      {
+        takeaways.length > 0 ? (
+          <ol class="list">
+            {takeaways.map((t) => (
+              <li>{t}</li>
+            ))}
+          </ol>
+        ) : (
+          <p class="pending">The takeaways will appear here when the explainer is ready.</p>
+        )
+      }
+    </section>
+
+    <section class="more wrap">
+      {
+        next ? (
+          <nav aria-label="Next topic" style={`--next: ${next.accent};`}>
+            <a class="next" href={`/${next.slug}/`}>
+              <span class="next-label">Next topic</span>
+              <span class="next-title">{next.title}</span>
+              <span class="next-hook">{next.hook}</span>
+              <svg class="arrow" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 12h15M13 6l6 6-6 6" />
+              </svg>
+            </a>
+          </nav>
+        ) : (
+          <a class="back-bottom" href="/">
+            <span aria-hidden="true">&larr;</span> Back to all topics
+          </a>
+        )
+      }
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .head {
+    --focus: var(--on-band);
+    background: var(--band);
+    color: var(--on-band);
+    border-bottom: var(--border) solid var(--dark-ink);
+  }
+
+  .head-inner {
+    display: grid;
+    gap: 1rem 3rem;
+    padding-block: 0.5rem clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .back {
+    justify-self: start;
+    margin-bottom: clamp(0.75rem, 3vw, 2rem);
+    font-weight: 700;
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: 2px;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.15s;
+  }
+
+  .back:hover {
+    text-decoration-color: currentColor;
+  }
+
+  .meta {
+    display: flex;
+    gap: 0.9rem;
+    font-weight: 600;
+  }
+
+  .num {
+    font-family: var(--font-display);
+    font-weight: 800;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 1.2rem + 6.5vw, 6rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+  }
+
+  .intro {
+    max-width: 30rem;
+    font-size: clamp(1.1rem, 1rem + 0.4vw, 1.25rem);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* Title on the left, intro on the right, like the homepage hero */
+  @media (min-width: 60rem) {
+    .head-inner {
+      grid-template-columns: minmax(0, 1fr) 22rem;
+      align-items: end;
+    }
+
+    .back,
+    .meta {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .stage {
+    padding-top: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .stage-box {
+    min-height: 22rem;
+    padding: clamp(1rem, 3vw, 2rem);
+    background: var(--surface);
+    border: var(--border) solid var(--rule);
+  }
+
+  .takeaways {
+    display: grid;
+    gap: 1.25rem 3rem;
+    padding-top: clamp(2.5rem, 7vw, 5rem);
+  }
+
+  .takeaways h2 {
+    font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.75rem);
+  }
+
+  .list {
+    counter-reset: takeaway;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .list li {
+    counter-increment: takeaway;
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: var(--border) solid var(--rule);
+    font-size: 1.15rem;
+  }
+
+  .list li::before {
+    content: counter(takeaway, decimal-leading-zero);
+    font-family: var(--font-display);
+    font-weight: 800;
+    color: var(--accent-text);
+  }
+
+  .pending {
+    color: var(--ink-soft);
+  }
+
+  @media (min-width: 60rem) {
+    .takeaways {
+      grid-template-columns: 22rem minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+
+  .more {
+    padding-top: clamp(2.5rem, 7vw, 5rem);
+  }
+
+  .next {
+    --fg: var(--ink);
+    --fg-soft: var(--ink-soft);
+
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: grid;
+    gap: 0.4rem;
+    padding: 1.25rem 4.5rem 1.4rem 1.25rem;
+    background: var(--surface);
+    color: var(--fg);
+    border: var(--border) solid var(--rule);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  /* Same color rise as the homepage cards */
+  .next::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--next);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .next:focus-visible {
+    --fg: var(--dark-ink);
+    --fg-soft: #2a2e31;
+    outline-offset: 4px;
+  }
+
+  .next:focus-visible::before {
+    transform: scaleY(1);
+  }
+
+  @media (hover: hover) {
+    .next:hover {
+      --fg: var(--dark-ink);
+      --fg-soft: #2a2e31;
+    }
+
+    .next:hover::before {
+      transform: scaleY(1);
+    }
+
+    .next:hover .arrow {
+      transform: translateY(-50%) translateX(5px);
+    }
+  }
+
+  .next-label {
+    font-weight: 600;
+    color: var(--fg-soft);
+  }
+
+  .next-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .next-hook {
+    color: var(--fg-soft);
+  }
+
+  .arrow {
+    position: absolute;
+    right: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .back-bottom {
+    font-weight: 700;
+  }
+</style>

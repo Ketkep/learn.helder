@@ -1,0 +1,73 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap inner">
+    <p class="made">
+      <strong>Helder Labs Learn</strong>
+      <span>This site uses no cookies and does no tracking.</span>
+    </p>
+    <ul class="links">
+      <li><a href="https://helderlabs.com">helderlabs.com</a></li>
+      <li><a href="https://games.helderlabs.com">games.helderlabs.com</a></li>
+    </ul>
+    <p class="copy">&copy; {year} Helder Labs</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    --focus: var(--footer-fg);
+    margin-top: clamp(3rem, 8vw, 6rem);
+    background: var(--footer-bg);
+    color: var(--footer-fg);
+    border-top: var(--border) solid var(--rule);
+  }
+
+  .inner {
+    display: grid;
+    gap: 1.5rem 2rem;
+    padding-block: 2.5rem;
+  }
+
+  .made {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .made strong {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    letter-spacing: -0.01em;
+  }
+
+  .made span,
+  .copy {
+    opacity: 0.8;
+    font-size: 0.95rem;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.75rem;
+    font-weight: 600;
+  }
+
+  .links a {
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: 2px;
+  }
+
+  @media (min-width: 48rem) {
+    .inner {
+      grid-template-columns: 1fr auto;
+      align-items: end;
+    }
+
+    .copy {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

@@ -1,0 +1,77 @@
+---
+// Site header. It sits on the same flat color as the top of the page (--band),
+// so header and hero read as one block.
+---
+
+<header class="site-header">
+  <div class="wrap inner">
+    <a class="wordmark" href="/" aria-label="Helder Labs Learn, home">
+      <svg class="mark" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5" />
+        <circle cx="12" cy="12" r="4.5" fill="currentColor" />
+      </svg>
+      <span>Helder Labs <span class="wordmark-light">Learn</span></span>
+    </a>
+    <nav aria-label="Other Helder Labs sites">
+      <a href="https://helderlabs.com">helderlabs.com</a>
+      <a href="https://games.helderlabs.com">Games</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    --focus: var(--on-band);
+    background: var(--band);
+    color: var(--on-band);
+  }
+
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 4.25rem;
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+  }
+
+  .wordmark-light {
+    font-weight: 400;
+  }
+
+  nav {
+    display: flex;
+    gap: clamp(0.9rem, 3vw, 1.75rem);
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  nav a {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.25em;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.15s;
+  }
+
+  nav a:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* On very narrow phones the wordmark is enough, the footer has the same links */
+  @media (max-width: 24rem) {
+    .wordmark-light {
+      display: none;
+    }
+  }
+</style>

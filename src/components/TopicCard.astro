@@ -1,0 +1,213 @@
+---
+// One card in the homepage grid. The whole card is clickable: the link sits on
+// the title and a pseudo-element stretches it over the card, so screen readers
+// read just the title instead of the whole card.
+import type { Topic } from '../data/topics';
+
+interface Props {
+  topic: Topic;
+  /** Display number, for example "01". */
+  number: string;
+  /** Load the preview right away (true) or only when scrolled near (false). */
+  eager?: boolean;
+}
+
+const { topic, number, eager = true } = Astro.props;
+const isDraft = topic.status === 'draft';
+---
+
+<article class="card" data-card data-category={topic.category} style={`--topic: ${topic.accent};`}>
+  <div class="top">
+    <span class="num">{number}</span>
+    <span class="meta">
+      {isDraft && <span class="draft">Draft</span>}
+      <span>{topic.category}</span>
+    </span>
+  </div>
+
+  <div class="art">
+    <img
+      src={topic.preview}
+      alt=""
+      width="400"
+      height="280"
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+    />
+  </div>
+
+  <div class="body">
+    <h3 class="title">
+      <a class="link" href={`/${topic.slug}/`}>{topic.title}</a>
+    </h3>
+    <p class="hook">{topic.hook}</p>
+    <span class="go" aria-hidden="true">
+      Open
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 12h15M13 6l6 6-6 6" />
+      </svg>
+    </span>
+  </div>
+</article>
+
+<style>
+  .card {
+    /* State colors. The hover and focus rules below swap them. */
+    --fg: var(--ink);
+    --fg-soft: var(--ink-soft);
+
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    color: var(--fg);
+    border: var(--border) solid var(--rule);
+    /* Negative margins make neighbouring cards share one border line */
+    margin: 0 calc(var(--border) * -1) calc(var(--border) * -1) 0;
+    transition: color 0.2s;
+  }
+
+  /* The accent color rises from the bottom of the card on hover */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--topic);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .card:has(.link:focus-visible) {
+    --fg: var(--dark-ink);
+    --fg-soft: #2a2e31;
+  }
+
+  .card:has(.link:focus-visible)::before {
+    transform: scaleY(1);
+  }
+
+  @media (hover: hover) {
+    .card:hover {
+      --fg: var(--dark-ink);
+      --fg-soft: #2a2e31;
+    }
+
+    .card:hover::before {
+      transform: scaleY(1);
+    }
+
+    .card:hover .art img {
+      transform: translateY(-4px) rotate(-1.5deg) scale(1.04);
+    }
+
+    .card:hover .go svg {
+      transform: translateX(5px);
+    }
+
+    .card:hover .link {
+      text-decoration: underline;
+      text-decoration-thickness: 0.07em;
+      text-underline-offset: 0.14em;
+    }
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.7rem 1rem;
+    border-bottom: var(--border) solid var(--rule);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .num {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  /* Only shown in `npm run dev`, drafts are never built for production */
+  .draft {
+    padding: 0.05rem 0.5rem;
+    border: 1.5px solid currentColor;
+    border-radius: 999px;
+    font-size: 0.78rem;
+  }
+
+  .art {
+    background: var(--topic);
+    border-bottom: var(--border) solid var(--rule);
+    overflow: hidden;
+  }
+
+  .art img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 1.1rem 1rem 1.2rem;
+  }
+
+  .title {
+    font-size: clamp(1.5rem, 1.1rem + 1.2vw, 1.85rem);
+  }
+
+  .link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Stretches the link over the whole card */
+  .link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .link:focus-visible {
+    outline: none;
+  }
+
+  .link:focus-visible::after {
+    outline: 4px solid var(--dark-ink);
+    outline-offset: -8px;
+  }
+
+  .hook {
+    margin-top: 0.6rem;
+    color: var(--fg-soft);
+    transition: color 0.2s;
+  }
+
+  .go {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    font-weight: 700;
+  }
+
+  .go svg {
+    transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+</style>
