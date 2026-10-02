@@ -15,9 +15,15 @@ interface Props {
   intro: string;
   /** Plain sentences for the "Key takeaways" block. */
   takeaways?: string[];
+  /** Where the facts come from. Shown as a list at the bottom of the page. */
+  sources?: { label: string; url: string; for: string }[];
+  /** A sentence or two above the list of sources, for example how the page was checked. */
+  sourcesNote?: string;
+  /** Drop the padded box around the slot. For pages that lay out their own space. */
+  bare?: boolean;
 }
 
-const { slug, intro, takeaways = [] } = Astro.props;
+const { slug, intro, takeaways = [], sources = [], sourcesNote, bare = false } = Astro.props;
 const topic = getTopic(slug);
 const next = getNextTopic(slug);
 const number = getTopicNumber(slug);
@@ -51,10 +57,16 @@ const ink = readableInk(topic.accent);
       </div>
     </section>
 
-    <section class="stage wrap" aria-label="Interactive explainer">
-      <div class="stage-box">
-        <slot />
-      </div>
+    <section class:list={['stage', 'wrap', { bare }]} aria-label="Interactive explainer">
+      {
+        bare ? (
+          <slot />
+        ) : (
+          <div class="stage-box">
+            <slot />
+          </div>
+        )
+      }
     </section>
 
     <section class="takeaways wrap" aria-labelledby="takeaways-heading">
@@ -71,6 +83,25 @@ const ink = readableInk(topic.accent);
         )
       }
     </section>
+
+    {
+      sources.length > 0 && (
+        <section class="sources wrap" aria-labelledby="sources-heading">
+          <h2 id="sources-heading">Sources</h2>
+          <div class="sources-body">
+            {sourcesNote && <p class="sources-note">{sourcesNote}</p>}
+            <ul class="sources-list">
+              {sources.map((src) => (
+                <li>
+                  <a href={src.url}>{src.label}</a>
+                  <span>{src.for}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )
+    }
 
     <section class="more wrap">
       {
@@ -186,6 +217,11 @@ const ink = readableInk(topic.accent);
     padding-top: clamp(1.75rem, 4vw, 2.75rem);
   }
 
+  /* A page that lays out its own space gets a little less air above it */
+  .stage.bare {
+    padding-top: clamp(1.25rem, 3vw, 2.25rem);
+  }
+
   .stage-box {
     min-height: 22rem;
     padding: clamp(1rem, 3vw, 2rem);
@@ -236,6 +272,63 @@ const ink = readableInk(topic.accent);
     .takeaways {
       grid-template-columns: 22rem minmax(0, 1fr);
       align-items: start;
+    }
+  }
+
+  .sources {
+    display: grid;
+    gap: 1.25rem 3rem;
+    padding-top: clamp(3rem, 8vw, 5.5rem);
+  }
+
+  .sources h2 {
+    font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
+  }
+
+  .sources-body {
+    display: grid;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .sources-note {
+    max-width: 40rem;
+    font-size: 1.05rem;
+  }
+
+  .sources-list {
+    display: grid;
+    gap: 0;
+  }
+
+  .sources-list li {
+    display: grid;
+    gap: 0.1rem 1.5rem;
+    padding-block: 0.7rem;
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .sources-list a {
+    font-weight: 600;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.25em;
+  }
+
+  .sources-list span {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  @media (min-width: 60rem) {
+    .sources {
+      grid-template-columns: 22rem minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .sources-list li {
+      grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+      align-items: baseline;
     }
   }
 

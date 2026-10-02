@@ -1,0 +1,136 @@
+---
+// A reference grid at the end of the page: eight gambits with a small board each.
+import '../../styles/chess.css';
+import { guide } from '../../data/gambits';
+import { fenAfter } from '../../lib/chess/analyze';
+import { diagram } from '../../lib/chess/diagram';
+
+const entries = guide.map((g) => {
+  const text = g.moves.map((m, i) => (i % 2 === 0 ? `${i / 2 + 1}.${m}` : m)).join(' ');
+  return { ...g, text, svg: diagram(fenAfter(g.moves), { label: `The board after ${text}` }) };
+});
+---
+
+<section class="guide" aria-labelledby="guide-heading">
+  <h2 id="guide-heading">Eight gambits at a glance</h2>
+  <p class="lead">Every one of them gives something up. Here is what, and what the player hopes to get.</p>
+
+  <ul class="grid">
+    {
+      entries.map((g) => (
+        <li class="card">
+          <div class="pic" data-by={g.by}>
+            <Fragment set:html={g.svg} />
+          </div>
+          <div class="text">
+            <h3>{g.name}</h3>
+            <p class="moves">{g.text}</p>
+            <p class="gives">
+              <span class="by">{g.by} gives:</span> {g.gives}
+            </p>
+            <p class="idea">{g.idea}</p>
+            {g.note && <p class="note">{g.note}</p>}
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .guide {
+    display: grid;
+    gap: 0.75rem;
+    padding-top: clamp(2.5rem, 7vw, 5rem);
+  }
+
+  h2 {
+    font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
+  }
+
+  .lead {
+    max-width: 36rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+    gap: 1.25rem;
+  }
+
+  .card {
+    display: grid;
+    grid-template-columns: 7.2rem 1fr;
+    gap: 0.9rem;
+    align-content: start;
+    padding: 0.9rem;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+  }
+
+  .pic {
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 0 0 2px var(--ink);
+    align-self: start;
+  }
+
+  .text {
+    display: grid;
+    gap: 0.3rem;
+    min-width: 0;
+    align-content: start;
+  }
+
+  h3 {
+    font-size: 1.35rem;
+    line-height: 1.05;
+  }
+
+  .moves {
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .gives {
+    font-size: 0.92rem;
+  }
+
+  .by {
+    color: var(--accent-text);
+    font-weight: 700;
+  }
+
+  .idea {
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .note {
+    padding-top: 0.35rem;
+    border-top: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    line-height: 1.4;
+  }
+
+  /* Four across on a wide screen: the board goes on top, text under it */
+  @media (min-width: 70rem) {
+    .grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .card {
+      grid-template-columns: 1fr;
+    }
+
+    .pic {
+      width: 9.5rem;
+    }
+  }
+</style>

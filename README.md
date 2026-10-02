@@ -51,7 +51,7 @@ Three steps.
 - `class="m"` with `style="--dx: 40px"` (or `--dy`) slides a shape when the cover is hovered. `class="grow"` with `style="--g: 0.1"` stretches it upwards. Add `--i: 2` to delay it by a few steps.
 - Plain `<text>` is styled for you (small, in the text color).
 
-For bigger animations, a drawing can contain its own `<style>` block. The three current covers do this: `gambits-in-chess.svg` plays a whole little story on a board, `pyramids-in-peru.svg` is a drawn stepped pyramid in three flat tones (made with a small script that does the isometric math) where the knob climbs the stairs, goes into the temple and the sun comes up, and `the-dutch-golden-age.svg` sails a ship past canal houses. A few rules keep this tidy:
+For bigger animations, a drawing can contain its own `<style>` block. The three current covers do this: `gambits-in-chess.svg` plays a whole little story on a board (a legal game: 1.d4 d5 2.c4 dxc4 3.e3 Nf6 4.Bxc4), `pyramids-in-peru.svg` is a drawn stepped pyramid in three flat tones (made with a small script that does the isometric math) where the knob climbs the stairs, goes into the temple and the sun comes up, and `the-dutch-golden-age.svg` sails a ship past canal houses. A few rules keep this tidy:
 
 - Start your class names and `@keyframes` names with a short prefix for the topic (`ch-`, `pe-`, `nl-`), so two drawings never clash.
 - Put the selector `:is(a, .head-art):is(:hover, :focus-visible, .is-playing)` in front of a rule to run an animation only while the cover is hovered, focused or playing. The same drawing is shown on the topic page, where `.head-art` is the target. `.is-playing` is set by `src/scripts/cover-play.ts`: on touch screens, which have no hover, a cover plays while it is mostly on screen.
@@ -89,7 +89,31 @@ You do not need to run anything on your own computer for this.
 4. After about a minute you get a link ending in `.vercel.app`. Every time new code is pushed to the repository, Vercel rebuilds the site by itself.
 5. For learn.helderlabs.com: open the project, go to **Settings**, then **Domains**, and add the domain. Vercel shows the exact DNS record to create where helderlabs.com is managed.
 
-The three topics (chess gambits, pyramids in Peru, the Dutch Golden Age) are set to `live`, but their pages still say "Coming soon". That is fine while you look at the site on the `.vercel.app` link. Before you attach learn.helderlabs.com, either build the pages or set any topic you are not ready to show to `draft`.
+The gambits page is built. The other two topics (pyramids in Peru, the Dutch Golden Age) are set to `live`, but their pages still say "Coming soon". That is fine while you look at the site on the `.vercel.app` link. Before you attach learn.helderlabs.com, either build those pages or set the topics you are not ready to show to `draft`.
+
+## The gambits page: how the film works
+
+The page is a scrolling film. A "screen" with a chess board is pinned next to the text (on a phone, above it). When a scene comes into view, the screen plays it: pieces slide, subtitles appear, and the **ledger** (what the gambit costs and what it gets) fills in. The reader can scrub, step, replay, make a move on the board, or pick an answer.
+
+Everything about the chess is worked out when the site is built, by `src/lib/chess/analyze.ts` (it uses the `chess.js` package). A move that is not legal stops the build, so a typo in the notation cannot reach the page. The browser never runs a chess engine and does not load `chess.js`: it only plays back the finished result (`src/scripts/film/`, about 7 KB compressed).
+
+To change what the page says, edit `src/data/gambits.ts`:
+
+- `lines`: the games, as lists of moves in standard notation without move numbers, with short notes on chosen moves. A note can draw marker arrows and circles. Move numbers here are plies: 1 is White's first move, 2 is Black's reply.
+- `scenes`: the text of each scene, and what the screen does. There are three kinds: `replay` (a game plays and can be scrubbed), `try` (the reader makes one move) and `choose` (the reader picks an answer, which can lead to a second question).
+- `guide`: the entries of the field guide at the end. The small boards are drawn from the moves.
+- `takeaways` and `sources`: the last two blocks of the page.
+
+The ledger counts three simple things, all explained on the page: material (pawn 1, knight and bishop 3, rook 5, queen 9), how many of the four centre squares a side holds, and how many squares around a king are attacked. They are counts, not an engine's opinion.
+
+Other things to know:
+
+- Sound is made in the browser (no audio files) and is on by default, with a button to turn it off. Browsers keep sound locked until the first tap, click or key press, so the first moves of a visit can be silent. The choice is saved in `localStorage` under `sound`.
+- With reduced motion switched on, nothing plays by itself: no title cards, no autoplay, no sliding. The reader steps through with the buttons. Moves can be made with a mouse, a finger or the keyboard (Tab to the board, arrow keys to move around, Enter to pick up and put down).
+- Without JavaScript the screen is hidden and each scene shows a still board and its moves instead.
+- The chess pieces are drawn for this site (`src/lib/chess/pieces.ts`). The board takes its colors from the topic color.
+- The history on the page comes from the pages listed under Sources at the bottom. A search for the best move in the traps was done with the Stockfish engine while writing, not at build time.
+- `TopicLayout` takes two optional props that any topic can use: `sources` (a list shown at the bottom of the page) and `bare` (no padded box around the explainer).
 
 ## Draft and live
 
@@ -101,14 +125,19 @@ The three topics (chess gambits, pyramids in Peru, the Dutch Golden Age) are set
 
 ```
 src/data/topics.ts       the list of all topics
+src/data/gambits.ts      everything the chess page says: games, scenes, field guide, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
 src/components/          header, footer, topic card, "coming soon" block
+src/components/chess/    the chess page: the film, the field guide, the piece sprite
 src/styles/global.css    colors, fonts, spacing: change the look here
+src/styles/chess.css     boards and pieces
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
+src/lib/chess/           chess pieces, still diagrams, and the build-time analysis of games
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
+src/scripts/film/        the browser side of the chess film: board, controller, sound
 public/                  favicon and the link preview image
 ```
 

@@ -1,11 +1,56 @@
 ---
 import TopicLayout from '../../layouts/TopicLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import PieceSprite from '../../components/chess/PieceSprite.astro';
+import Film from '../../components/chess/Film.astro';
+import FieldGuide from '../../components/chess/FieldGuide.astro';
+import { takeaways, sources } from '../../data/gambits';
 ---
 
 <TopicLayout
   slug="gambits-in-chess"
   intro="A gambit gives up a pawn early, on purpose, to get speed and space in return. Is that a good deal? It depends on what you do with the extra moves."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote="The history comes from the pages below. Every move on this page was run through a chess program, move by move, and the checkmates were confirmed the same way. Claims about the best move were checked with the Stockfish engine."
+  bare
 >
-  <ComingSoon />
+  <PieceSprite />
+  <Film />
+  <FieldGuide />
+
+  <section class="method" aria-labelledby="method-heading">
+    <h2 id="method-heading">How the ledger counts</h2>
+    <div class="method-text">
+      <p>The ledger on the screen is a simple count, not a chess engine.</p>
+      <p><strong>Material</strong> adds up the pieces: a pawn is 1, a knight or bishop 3, a rook 5 and a queen 9. The number is your side minus the other side.</p>
+      <p><strong>Centre squares</strong> counts how many of d4, e4, d5 and e5 a side stands on or attacks. The number is your side minus the other side.</p>
+      <p><strong>King in danger</strong> counts the squares next to a king (and the king's own square) that the other side attacks.</p>
+    </div>
+  </section>
 </TopicLayout>
+
+<style>
+  .method {
+    display: grid;
+    gap: 1rem 3rem;
+    padding-top: clamp(3rem, 8vw, 5rem);
+  }
+
+  .method h2 {
+    font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
+  }
+
+  .method-text {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 40rem;
+    font-size: 1.05rem;
+  }
+
+  @media (min-width: 60rem) {
+    .method {
+      grid-template-columns: 22rem minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+</style>

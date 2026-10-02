@@ -1,0 +1,9 @@
+---
+// The chess pieces, defined once for the whole page. Every board and diagram reuses them
+// with <use href="#pc-n"> and so on. Place this component once, near the top of the page.
+import { pieceSymbols } from '../../lib/chess/pieces';
+---
+
+<svg class="pc-sym" width="0" height="0" aria-hidden="true" focusable="false" style="position: absolute">
+  <defs set:html={pieceSymbols} />
+</svg>

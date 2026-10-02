@@ -1,0 +1,867 @@
+---
+// The interactive film for the chess page: a pinned "screen" with the board, subtitles, the ledger
+// and the player controls, next to the scenes of text that you scroll through.
+// The chess is worked out here, at build time. The browser only plays it back (see scripts/film).
+import '../../styles/chess.css';
+import { lines, scenes } from '../../data/gambits';
+import { analyzeLine, legalMap, type LineData } from '../../lib/chess/analyze';
+import { diagram } from '../../lib/chess/diagram';
+
+// Work out every game once
+const runs: Record<string, LineData & { notes: (typeof lines)[string]['notes'] }> = {};
+for (const [key, def] of Object.entries(lines)) {
+  const data = analyzeLine(def.moves, { side: def.side, kingOf: def.kingOf });
+  runs[key] = { ...data, notes: def.notes ?? {} };
+}
+
+// Where the reader makes a move, the browser needs the list of legal moves
+const legal: Record<string, Record<string, string[]>> = {};
+for (const s of scenes) {
+  if (s.flow.type === 'try') legal[s.id] = legalMap(runs[s.flow.line].plies[s.flow.setup - 1].fen);
+}
+
+const payload = {
+  lines: runs,
+  scenes: scenes.map(({ id, kicker, title, ledger, flow }) => ({ id, kicker, title, ledger, flow })),
+  legal,
+};
+// "<" cannot appear inside a script tag, so write it as an escape
+const json = JSON.stringify(payload).replace(/</g, '\\u003c');
+
+/** A still picture for people without JavaScript: the last position of the scene's game. */
+function fallback(index: number) {
+  const f = scenes[index].flow;
+  const key = f.type === 'choose' ? f.first.options[0].line : f.line;
+  const run = runs[key];
+  const sans = run.plies.map((p, i) => (i % 2 === 0 ? `${i / 2 + 1}.${p.san}` : p.san)).join(' ');
+  const last = run.plies[run.plies.length - 1];
+  return { svg: diagram(last.fen, { label: `The board after ${sans}`, coords: true }), moves: sans };
+}
+---
+
+<div class="film" data-film>
+  <div class="stage" data-stage>
+    <div class="screen">
+      <div class="top">
+        <p class="now"><span class="now-k" data-now-kicker></span><span class="now-t" data-now-title></span></p>
+        <button class="snd" type="button" data-sound aria-pressed="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" focusable="false">
+            <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+            <path class="wave" d="M15 9a4 4 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path class="slash" d="M16 8.5l5 7M21 8.5l-5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <span data-sound-label>Sound on</span>
+        </button>
+      </div>
+
+      <div class="body">
+        <div class="board-box">
+          <svg class="cb" data-board viewBox="0 0 800 800" role="img" aria-label="Chess board" aria-describedby="board-desc"></svg>
+          <p id="board-desc" class="visually-hidden" data-board-desc></p>
+          <div class="card" data-card aria-hidden="true">
+            <span class="card-k" data-card-k></span>
+            <span class="card-t" data-card-t></span>
+          </div>
+        </div>
+
+        <div class="side">
+          <div class="subs" data-tone="plain">
+            <p class="subs-move" data-sub-move></p>
+            <p class="subs-text" data-sub-text aria-live="polite"></p>
+          </div>
+          <div class="actions" data-actions></div>
+          <div class="ledger" data-ledger aria-label="The deal so far" role="group" hidden></div>
+        </div>
+      </div>
+
+      <div class="transport" role="group" aria-label="Player controls">
+        <button type="button" class="tb" data-t="first" aria-label="Back to the start">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" focusable="false"><path d="M5 5h2.4v14H5zM19 5.2v13.6L9 12z" /></svg>
+        </button>
+        <button type="button" class="tb" data-t="prev" aria-label="Back one move">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" focusable="false"><path d="M17 5.2v13.6L7 12z" /></svg>
+        </button>
+        <button type="button" class="tb play" data-t="play" aria-label="Play">
+          <svg class="i-play" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5v14l11-7z" /></svg>
+          <svg class="i-pause" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z" /></svg>
+        </button>
+        <button type="button" class="tb" data-t="next" aria-label="Forward one move">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" focusable="false"><path d="M7 5.2v13.6L17 12z" /></svg>
+        </button>
+        <label class="scrub-wrap">
+          <span class="visually-hidden">Move</span>
+          <input class="scrub" type="range" min="0" max="0" value="0" step="1" data-scrub />
+        </label>
+        <span class="count" data-count aria-hidden="true">0 / 0</span>
+        <button type="button" class="tb" data-t="replay" aria-label="Replay this scene">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12a7 7 0 1 1-2.3-5.2" /><path d="M19.5 4v4.8h-4.8" /></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="scenes">
+    {
+      scenes.map((s, i) => {
+        const still = fallback(i);
+        return (
+          <section class="scene" data-scene={s.id} aria-labelledby={`h-${s.id}`}>
+            <p class="kicker">{s.kicker}</p>
+            <h2 id={`h-${s.id}`}>{s.title}</h2>
+            {s.paras.map((p) => <p class="para">{p}</p>)}
+            {
+              s.fact && (
+                <aside class="fact">
+                  <p class="fact-label">{s.fact.label}</p>
+                  <p>{s.fact.text}</p>
+                </aside>
+              )
+            }
+            <figure class="still">
+              <Fragment set:html={still.svg} />
+              <figcaption>{still.moves}</figcaption>
+            </figure>
+          </section>
+        );
+      })
+    }
+  </div>
+
+  <script type="application/json" data-film-data is:inline set:html={json} />
+</div>
+
+<script>
+  import '../../scripts/film/film';
+</script>
+
+<style>
+  .film {
+    --screen: #111b26;
+    --screen-ink: #f6eedd;
+    --screen-soft: #aebbc9;
+    --paid: #ee8d84;
+    --got: #8fd8c4;
+    --knob: #ff7a45;
+
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  /* ---------- The scenes: the text you scroll through ---------- */
+  .scenes {
+    position: relative;
+    min-width: 0;
+  }
+
+  .scene {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    min-height: 62svh;
+    padding-block: 2.25rem;
+    scroll-margin-top: 1rem;
+  }
+
+  .scene:last-child {
+    min-height: 80svh;
+  }
+
+  .kicker {
+    color: var(--accent-text);
+    font-family: var(--font-hand);
+    font-size: 1.7rem;
+    line-height: 1;
+  }
+
+  .scene h2 {
+    font-size: clamp(2.1rem, 1.5rem + 2.6vw, 3.4rem);
+    line-height: 1;
+  }
+
+  .para {
+    max-width: 34rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .fact {
+    max-width: 34rem;
+    padding: 0.9rem 1.1rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-left: 5px solid var(--accent);
+    border-radius: var(--radius);
+    font-size: 1rem;
+  }
+
+  .fact-label {
+    margin-bottom: 0.15rem;
+    color: var(--accent-text);
+    font-family: var(--font-hand);
+    font-size: 1.45rem;
+    line-height: 1.1;
+  }
+
+  /* The still picture is only for people without JavaScript */
+  .still {
+    display: none;
+    max-width: 20rem;
+  }
+
+  .still figcaption {
+    margin-top: 0.5rem;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+
+  :global(html:not(.js)) .still {
+    display: block;
+  }
+
+  :global(html:not(.js)) .stage {
+    display: none;
+  }
+
+  /* ---------- The screen: pinned while you read ---------- */
+  .stage {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    container-type: inline-size;
+    /* A phone shows the screen as a band at the top, edge to edge */
+    margin-inline: calc(var(--gutter) * -1);
+  }
+
+  .screen {
+    display: grid;
+    gap: 0.6rem;
+    padding: 0.6rem var(--gutter) 0.7rem;
+    background: var(--screen);
+    color: var(--screen-ink);
+    box-shadow:
+      0 14px 28px -16px rgb(0 0 0 / 0.55),
+      inset 0 0 0 1px rgb(255 255 255 / 0.09);
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    min-height: 1.9rem;
+  }
+
+  .now {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .now-k {
+    color: var(--knob);
+    font-family: var(--font-hand);
+    font-size: 1.35rem;
+    line-height: 1;
+  }
+
+  .now-t {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+  }
+
+  .snd {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.2rem 0.65rem 0.2rem 0.5rem;
+    border: 1px solid rgb(255 255 255 / 0.28);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--screen-ink);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .snd:hover {
+    background: rgb(255 255 255 / 0.1);
+  }
+
+  .snd[aria-pressed='true'] .slash,
+  .snd[aria-pressed='false'] .wave {
+    display: none;
+  }
+
+  .body {
+    display: grid;
+    gap: 0.6rem;
+    align-items: start;
+  }
+
+  .board-box {
+    position: relative;
+    justify-self: center;
+    /* On a phone the board gets about a third of the screen height */
+    width: min(100%, 36svh);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 0 3px rgb(255 255 255 / 0.9);
+  }
+
+  .card {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    gap: 0.25rem;
+    padding: 1rem;
+    background: rgb(10 17 25 / 0.93);
+    color: var(--screen-ink);
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .card-k {
+    color: var(--knob);
+    font-family: var(--font-hand);
+    font-size: clamp(1.6rem, 6cqi, 2.4rem);
+    line-height: 1;
+  }
+
+  .card-t {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 8cqi, 3rem);
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .card.show {
+      animation: card 1.25s both;
+    }
+  }
+
+  @keyframes card {
+    0% {
+      opacity: 0;
+    }
+    14% {
+      opacity: 1;
+    }
+    72% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /* ---------- Subtitles, questions and the ledger ---------- */
+  .side {
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+    min-width: 0;
+  }
+
+  .subs {
+    min-height: 4.6rem;
+    padding-left: 0.75rem;
+    border-left: 4px solid var(--knob);
+  }
+
+  .subs[data-tone='good'] {
+    border-left-color: var(--got);
+  }
+
+  .subs[data-tone='bad'] {
+    border-left-color: var(--paid);
+  }
+
+  .subs-move {
+    min-height: 1.2em;
+    color: var(--knob);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .subs-text {
+    font-size: 0.98rem;
+    line-height: 1.38;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .actions:empty {
+    display: none;
+  }
+
+  :global(.act) {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--screen-ink);
+    border-radius: 999px;
+    background: var(--screen-ink);
+    color: #121315;
+    font-size: 0.98rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      background-color 0.15s,
+      border-color 0.15s;
+  }
+
+  :global(.act:hover) {
+    background: var(--knob);
+    border-color: var(--knob);
+  }
+
+  :global(.act.ghost) {
+    background: transparent;
+    color: var(--screen-ink);
+  }
+
+  :global(.act.ghost:hover) {
+    background: rgb(255 255 255 / 0.12);
+    border-color: var(--screen-ink);
+  }
+
+  .stage :global(:focus-visible) {
+    outline: 3px solid var(--screen-ink);
+    outline-offset: 3px;
+  }
+
+  .ledger {
+    display: grid;
+    gap: 0.4rem;
+    padding-top: 0.2rem;
+  }
+
+  .ledger[hidden] {
+    display: none;
+  }
+
+  :global(.lg-head) {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-hand);
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+
+  :global(.lg-head span:first-child) {
+    color: var(--paid);
+  }
+
+  :global(.lg-head span:last-child) {
+    color: var(--got);
+  }
+
+  :global(.lg-row) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    row-gap: 0.2rem;
+    font-size: 0.88rem;
+  }
+
+  :global(.lg-label) {
+    grid-area: 1 / 1;
+    color: var(--screen-soft);
+    font-weight: 600;
+  }
+
+  :global(.lg-num) {
+    grid-area: 1 / 2;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+  }
+
+  :global(.lg-bar) {
+    position: relative;
+    grid-area: 2 / 1 / 3 / 3;
+    height: 0.62rem;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.12);
+    overflow: hidden;
+  }
+
+  :global(.lg-bar)::after {
+    content: '';
+    position: absolute;
+    left: calc(50% - 1px);
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--screen-ink);
+    opacity: 0.7;
+  }
+
+  :global(.lg-bar i) {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    transition: width 0.5s cubic-bezier(0.3, 0.7, 0.2, 1);
+  }
+
+  :global(.lg-bar .neg) {
+    right: 50%;
+    background: var(--paid);
+  }
+
+  :global(.lg-bar .pos) {
+    left: 50%;
+    background: var(--got);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.lg-bar i) {
+      transition: none;
+    }
+  }
+
+  /* ---------- The player controls ---------- */
+  .transport {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+  }
+
+  .tb {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--screen-ink);
+    cursor: pointer;
+  }
+
+  .tb:hover:not(:disabled) {
+    background: rgb(255 255 255 / 0.12);
+  }
+
+  .tb:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .tb.play {
+    width: 2.7rem;
+    height: 2.7rem;
+    margin-inline: 0.2rem;
+    background: var(--screen-ink);
+    color: #121315;
+  }
+
+  .tb.play:hover:not(:disabled) {
+    background: var(--knob);
+  }
+
+  .tb .i-pause,
+  .tb.is-playing .i-play {
+    display: none;
+  }
+
+  .tb.is-playing .i-pause {
+    display: block;
+  }
+
+  .scrub-wrap {
+    display: block;
+    flex: 1;
+    min-width: 3rem;
+    margin-inline: 0.4rem;
+  }
+
+  .scrub {
+    --p: 0%;
+
+    display: block;
+    width: 100%;
+    height: 1.6rem;
+    margin: 0;
+    background: transparent;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .scrub:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  /* The knob from the brand is the thumb of the slider */
+  .scrub::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(to right, var(--knob) var(--p), rgb(255 255 255 / 0.25) var(--p));
+  }
+
+  .scrub::-moz-range-track {
+    height: 4px;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.25);
+  }
+
+  .scrub::-moz-range-progress {
+    height: 4px;
+    border-radius: 999px;
+    background: var(--knob);
+  }
+
+  .scrub::-webkit-slider-thumb {
+    width: 1.3rem;
+    height: 1.3rem;
+    margin-top: calc((4px - 1.3rem) / 2);
+    border: 3px solid var(--screen-ink);
+    border-radius: 50%;
+    background: var(--knob);
+    appearance: none;
+  }
+
+  .scrub::-moz-range-thumb {
+    box-sizing: border-box;
+    width: 1.3rem;
+    height: 1.3rem;
+    border: 3px solid var(--screen-ink);
+    border-radius: 50%;
+    background: var(--knob);
+  }
+
+  .count {
+    flex: none;
+    min-width: 3.6rem;
+    color: var(--screen-soft);
+    font-size: 0.82rem;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  /* ---------- Wide screens: text on the left, screen on the right ---------- */
+  @media (min-width: 60rem) {
+    .film {
+      grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+      gap: clamp(2rem, 4vw, 3.5rem);
+      align-items: start;
+    }
+
+    .scenes {
+      grid-column: 1;
+      grid-row: 1;
+      padding-left: 2rem;
+      border-left: 3px solid var(--line-strong);
+    }
+
+    .scene {
+      min-height: 84svh;
+    }
+
+    .scene::before {
+      content: '';
+      position: absolute;
+      left: calc(-2rem - 10px);
+      top: 3.45rem;
+      width: 17px;
+      height: 17px;
+      border: 3px solid var(--ink);
+      border-radius: 50%;
+      background: var(--paper);
+      transition:
+        background-color 0.3s,
+        transform 0.3s;
+    }
+
+    .scene.is-active::before {
+      background: var(--accent);
+      transform: scale(1.35);
+    }
+
+    .stage {
+      grid-column: 2;
+      grid-row: 1;
+      top: 1rem;
+      margin-inline: 0;
+    }
+
+    .screen {
+      padding: 0.9rem 1.1rem 1rem;
+      border-radius: 14px;
+    }
+  }
+
+  /* When the screen is wide enough, the board sits beside the subtitles and the ledger.
+     Board 30rem + gap 1.25rem + side 12rem + padding 2.2rem fits in 46rem. */
+  @container (min-width: 46rem) {
+    .body {
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+
+    .board-box {
+      width: min(30rem, max(20rem, 100svh - 11rem));
+      justify-self: start;
+    }
+
+    .subs-text {
+      font-size: 1.05rem;
+    }
+  }
+
+  /* A phone: the ledger fits beside the board, which saves a lot of height */
+  @container (max-width: 27.99rem) {
+    .body {
+      grid-template-columns: min(28svh, 55%) minmax(0, 1fr);
+      grid-template-areas:
+        'board ledger'
+        'subs subs'
+        'actions actions';
+      column-gap: 0.75rem;
+      align-items: start;
+    }
+
+    .side {
+      display: contents;
+    }
+
+    .board-box {
+      grid-area: board;
+      width: 100%;
+      justify-self: start;
+    }
+
+    .ledger {
+      grid-area: ledger;
+      align-self: center;
+    }
+
+    .subs {
+      grid-area: subs;
+    }
+
+    .actions {
+      grid-area: actions;
+    }
+
+    /* No ledger in this scene: the board goes in the middle */
+    .body:has(.ledger[hidden]) {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'board'
+        'subs'
+        'actions';
+    }
+
+    .body:has(.ledger[hidden]) .board-box {
+      justify-self: center;
+    }
+  }
+
+  /* A medium screen stacks everything. The board is as big as the height allows. */
+  @container (min-width: 28rem) and (max-width: 45.99rem) {
+    .board-box {
+      width: min(100%, max(16rem, 100svh - 26rem));
+    }
+  }
+
+  @media (max-width: 59.99rem) {
+    /* The scenes sit under the pinned screen. Leave room so each can reach the reading line. */
+    .scene {
+      min-height: 52svh;
+      padding-block: 1.75rem;
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .count {
+      display: none;
+    }
+  }
+
+  /* A phone held sideways has no height to spare, so let the screen scroll away */
+  @media (max-width: 59.99rem) and (max-height: 34rem) {
+    .stage {
+      position: static;
+    }
+
+    .board-box {
+      width: min(100%, 60svh);
+    }
+  }
+
+  /* On a phone the screen is pinned over the text, so it has to stay small:
+     a smaller board, subtitles that flow as one paragraph, and one-line ledger rows. */
+  @media (max-width: 59.99rem) {
+    .screen {
+      gap: 0.35rem;
+      padding-block: 0.4rem 0.45rem;
+    }
+
+    .top {
+      min-height: 1.7rem;
+    }
+
+    .board-box {
+      width: min(100%, 28svh);
+    }
+
+    .subs {
+      min-height: 0;
+      max-height: 5.4rem;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    .subs-move,
+    .subs-text {
+      display: inline;
+      font-size: 0.92rem;
+      line-height: 1.35;
+    }
+
+    .subs-move {
+      margin-right: 0.4rem;
+    }
+
+    .subs-move:empty {
+      display: none;
+    }
+
+    :global(.act) {
+      padding: 0.4rem 0.85rem;
+      font-size: 0.92rem;
+    }
+
+    .tb {
+      width: 2.1rem;
+      height: 2.1rem;
+    }
+
+    .tb.play {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+
+    .scrub {
+      height: 1.4rem;
+    }
+  }
+</style>
