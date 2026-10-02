@@ -1,126 +1,142 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
   <style>
-    .pe-far { fill: color-mix(in oklab, var(--cover) 82%, var(--on-cover)); }
-    .pe-near { fill: color-mix(in oklab, var(--cover) 66%, var(--on-cover)); }
-    .pe-b1 { fill: color-mix(in oklab, var(--cover) 6%, var(--on-cover)); }
-    .pe-b2 { fill: color-mix(in oklab, var(--cover) 26%, var(--on-cover)); }
-    .pe-b3 { fill: color-mix(in oklab, var(--cover) 44%, var(--on-cover)); }
-    .pe-st { fill: color-mix(in oklab, var(--cover) 36%, white); }
-    .pe-hl { fill: #fff; fill-opacity: 0.2; }
-    .pe-body { fill: var(--on-cover); }
-    .pe-leg { fill: none; stroke: var(--on-cover); stroke-width: 2.6; stroke-linecap: round; }
-    .pe-bag { fill: var(--accent); stroke: var(--on-cover); stroke-width: 1.8; }
-    .pe-halo { transform-box: fill-box; transform-origin: 50% 50%; }
-    .pe-sway, .pe-wing { transform-box: fill-box; }
-    .pe-sway { transform-origin: 50% 50%; }
-    .pe-wing { transform-origin: 0% 50%; }
-    svg text.pe-cap { font-size: 14px; }
+    .pe-sunpale { fill: color-mix(in oklab, var(--cover) 62%, #fff3dc); }
+    .pe-sunlit { fill: var(--accent); stroke: var(--on-cover); stroke-width: 3; }
+    .pe-ground { fill: color-mix(in oklab, var(--cover) 86%, var(--on-cover)); }
+    .pe-l { fill: color-mix(in oklab, var(--cover) 22%, var(--on-cover)); }
+    .pe-r { fill: color-mix(in oklab, var(--cover) 52%, var(--on-cover)); }
+    .pe-t { fill: color-mix(in oklab, var(--cover) 58%, #fff3dc); }
+    .pe-riser { fill: color-mix(in oklab, var(--cover) 30%, #fff3dc); }
+    .pe-tread { fill: #fff3dc; }
+    .pe-tl { fill: color-mix(in oklab, var(--cover) 30%, var(--on-cover)); }
+    .pe-tr { fill: color-mix(in oklab, var(--cover) 65%, #fff3dc); }
+    .pe-tt { fill: #fff3dc; }
+    .pe-door { fill: var(--on-cover); }
+    .pe-door-lit { fill: var(--accent); opacity: 0; }
+    .pe-ballx, .pe-bally, .pe-balls { transform-box: view-box; }
+    .pe-balls { transform-box: fill-box; transform-origin: 50% 50%; }
     @media (prefers-reduced-motion: no-preference) {
-      /* The blocks drop in one after another, bottom tier first, and stay */
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pe-blk { animation: pe-drop 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) both; animation-delay: calc(var(--i) * 0.05s); }
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pe-sunwrap { animation: pe-rise 2.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pe-halo { animation: pe-spin 14s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pe-fly { animation: pe-glide 13s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pe-sway { animation: pe-bank 3.4s ease-in-out infinite alternate; }
-      /* Once the pyramid stands, people carry loads up the staircase, a step at a time */
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pe-person { animation: pe-climb 5.6s steps(7, end) infinite backwards; animation-delay: calc(3.2s + var(--w) * 1.9s); }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pe-ballx { animation: pe-kx 9.0s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pe-bally { animation: pe-ky 9.0s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pe-balls { animation: pe-ks 9.0s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pe-sunlit { animation: pe-sun 9.0s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pe-door-lit { animation: pe-doorlit 9.0s linear infinite; }
     }
-    @keyframes pe-drop {
-      from { opacity: 0; transform: translateY(-36px); }
-      70% { opacity: 1; }
-      to { opacity: 1; transform: translateY(0); }
+    /* The knob climbs the stairs one hop at a time, goes into the temple, and the sun comes up.
+       Then the knob bounces back down. Sideways and up-and-down are two animations, so the hops curve. */
+    @keyframes pe-kx {
+      0% { transform: translateX(0px); }
+      6.67% { transform: translateX(0px); }
+      12.22% { transform: translateX(-19px); }
+      17.78% { transform: translateX(-33px); }
+      23.33% { transform: translateX(-47px); }
+      28.89% { transform: translateX(-61px); }
+      34.44% { transform: translateX(-74px); }
+      37.78% { transform: translateX(-82px); }
+      71.11% { transform: translateX(-82px); }
+      72.22% { transform: translateX(-82px); }
+      74.67% { transform: translateX(-61px); }
+      77.11% { transform: translateX(-47px); }
+      79.56% { transform: translateX(-33px); }
+      82% { transform: translateX(-19px); }
+      84.44% { transform: translateX(0px); }
+      100% { transform: translateX(0px); }
     }
-    @keyframes pe-rise { from { transform: translateY(130px); } to { transform: translateY(0); } }
-    @keyframes pe-spin { to { transform: rotate(360deg); } }
-    /* The condor crosses from the left edge to the right edge, then comes round again */
-    @keyframes pe-glide { 0% { transform: translate(-230px, 6px); } 100% { transform: translate(310px, -14px); } }
-    @keyframes pe-bank { from { transform: rotate(-7deg); } to { transform: rotate(7deg); } }
-    @keyframes pe-climb {
-      0% { transform: translate(200px, 262px); opacity: 0; }
-      8% { opacity: 1; }
-      88% { opacity: 1; }
-      100% { transform: translate(200px, 122px); opacity: 0; }
+    @keyframes pe-ky {
+      0% { transform: translateY(0px); animation-timing-function: linear; }
+      6.67% { transform: translateY(0px); animation-timing-function: ease-out; }
+      9.17% { transform: translateY(-43.5px); animation-timing-function: ease-in; }
+      12.22% { transform: translateY(-29.5px); animation-timing-function: ease-out; }
+      14.72% { transform: translateY(-70.5px); animation-timing-function: ease-in; }
+      17.78% { transform: translateY(-56.5px); animation-timing-function: ease-out; }
+      20.28% { transform: translateY(-97.5px); animation-timing-function: ease-in; }
+      23.33% { transform: translateY(-83.5px); animation-timing-function: ease-out; }
+      25.83% { transform: translateY(-124.5px); animation-timing-function: ease-in; }
+      28.89% { transform: translateY(-110.5px); animation-timing-function: ease-out; }
+      31.39% { transform: translateY(-151px); animation-timing-function: ease-in; }
+      34.44% { transform: translateY(-137px); animation-timing-function: ease-out; }
+      37.78% { transform: translateY(-139px); animation-timing-function: linear; }
+      71.11% { transform: translateY(-139px); animation-timing-function: ease-out; }
+      72.22% { transform: translateY(-139px); animation-timing-function: ease-out; }
+      73.32% { transform: translateY(-148px); animation-timing-function: ease-in; }
+      74.67% { transform: translateY(-110.5px); animation-timing-function: ease-out; }
+      75.77% { transform: translateY(-119.5px); animation-timing-function: ease-in; }
+      77.11% { transform: translateY(-83.5px); animation-timing-function: ease-out; }
+      78.21% { transform: translateY(-92.5px); animation-timing-function: ease-in; }
+      79.56% { transform: translateY(-56.5px); animation-timing-function: ease-out; }
+      80.66% { transform: translateY(-65.5px); animation-timing-function: ease-in; }
+      82% { transform: translateY(-29.5px); animation-timing-function: ease-out; }
+      83.1% { transform: translateY(-38.5px); animation-timing-function: ease-in; }
+      84.44% { transform: translateY(0px); animation-timing-function: ease-out; }
+      100% { transform: translateY(0px); animation-timing-function: linear; }
+    }
+    @keyframes pe-ks {
+      0% { transform: scale(1); opacity: 1; }
+      34.44% { transform: scale(1); opacity: 1; }
+      37.78% { transform: scale(0.25); opacity: 0; }
+      71.11% { transform: scale(0.25); opacity: 0; }
+      72.44% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes pe-sun {
+      0% { transform: translateY(46px); opacity: 0; animation-timing-function: ease-out; }
+      38.89% { transform: translateY(46px); opacity: 0; animation-timing-function: ease-out; }
+      52.22% { transform: translateY(0px); opacity: 1; animation-timing-function: linear; }
+      71.11% { transform: translateY(0px); opacity: 1; animation-timing-function: ease-in; }
+      83.33% { transform: translateY(46px); opacity: 0; animation-timing-function: linear; }
+      100% { transform: translateY(46px); opacity: 0; animation-timing-function: linear; }
+    }
+    @keyframes pe-doorlit {
+      0% { opacity: 0; }
+      37.22% { opacity: 0; }
+      39.11% { opacity: 1; }
+      71.67% { opacity: 1; }
+      73.89% { opacity: 0; }
+      100% { opacity: 0; }
     }
   </style>
 
-  <defs><clipPath id="pe-clip"><rect x="0" y="0" width="400" height="262"/></clipPath></defs>
-  <!-- The sun rises from behind the mountains (it is drawn first, so they pass in front) -->
-  <g class="pe-sunwrap">
-    <g class="pe-halo"><circle class="l dash" cx="322" cy="92" r="40"/></g>
-    <circle class="knob" cx="322" cy="92" r="27"/>
+  <!-- The sun: a pale one at rest, an orange one rises behind the pyramid when played -->
+  <circle class="pe-sunpale" cx="200" cy="72" r="50"/>
+  <circle class="pe-sunlit" cx="200" cy="72" r="50" opacity="0" transform-origin="200 72"/>
+
+  <!-- The ground, then the terraces from the bottom up -->
+  <polygon class="pe-ground" points="200,110 384,202 200,294 16,202"/>
+  <polygon class="pe-l" points="40,202 200,282 200,262 40,182"/>
+  <polygon class="pe-r" points="360,202 200,282 200,262 360,182"/>
+  <polygon class="pe-t" points="200,102 360,182 200,262 40,182"/>
+  <polygon class="pe-riser" points="291,236.5 269,247.5 269,227.5 291,216.5"/>
+  <polygon class="pe-tread" points="291,216.5 269,227.5 255,220.5 277,209.5"/>
+  <polygon class="pe-l" points="68,182 200,248 200,228 68,162"/>
+  <polygon class="pe-r" points="332,182 200,248 200,228 332,162"/>
+  <polygon class="pe-t" points="200,96 332,162 200,228 68,162"/>
+  <polygon class="pe-riser" points="277,209.5 255,220.5 255,200.5 277,189.5"/>
+  <polygon class="pe-tread" points="277,189.5 255,200.5 241,193.5 263,182.5"/>
+  <polygon class="pe-l" points="96,162 200,214 200,194 96,142"/>
+  <polygon class="pe-r" points="304,162 200,214 200,194 304,142"/>
+  <polygon class="pe-t" points="200,90 304,142 200,194 96,142"/>
+  <polygon class="pe-riser" points="263,182.5 241,193.5 241,173.5 263,162.5"/>
+  <polygon class="pe-tread" points="263,162.5 241,173.5 227,166.5 249,155.5"/>
+  <polygon class="pe-l" points="124,142 200,180 200,160 124,122"/>
+  <polygon class="pe-r" points="276,142 200,180 200,160 276,122"/>
+  <polygon class="pe-t" points="200,84 276,122 200,160 124,122"/>
+  <polygon class="pe-riser" points="249,155.5 227,166.5 227,146.5 249,135.5"/>
+  <polygon class="pe-tread" points="249,135.5 227,146.5 213,139.5 235,128.5"/>
+  <polygon class="pe-l" points="152,122 200,146 200,126 152,102"/>
+  <polygon class="pe-r" points="248,122 200,146 200,126 248,102"/>
+  <polygon class="pe-t" points="200,78 248,102 200,126 152,102"/>
+  <polygon class="pe-riser" points="235,128.5 213,139.5 213,119.5 235,108.5"/>
+  <polygon class="pe-tread" points="235,108.5 213,119.5 201,113.5 223,102.5"/>
+  <polygon class="pe-tl" points="176,102 200,114 200,96 176,84"/>
+  <polygon class="pe-tr" points="224,102 200,114 200,96 224,84"/>
+  <polygon class="pe-tt" points="200,72 224,84 200,96 176,84"/>
+  <polygon class="pe-door" points="217,105.5 207,110.5 207,98.5 217,93.5"/>
+  <polygon class="pe-door-lit" points="217,105.5 207,110.5 207,98.5 217,93.5"/>
+
+  <!-- The knob that climbs -->
+  <g transform="translate(292 240)">
+    <g class="pe-ballx"><g class="pe-bally"><g class="pe-balls"><circle class="knob" cx="0" cy="0" r="8"/></g></g></g>
   </g>
 
-  <!-- An Andean condor glides across the sky -->
-  <g clip-path="url(#pe-clip)"><g transform="translate(150 66)"><g class="pe-fly"><g class="pe-sway">
-      <g class="pe-wing"><path class="pe-body" d="M3 -2C14 -10 34 -14 58 -6L52 -3L60 0L52 3L58 7L49 6L53 12L44 9C32 6 16 5 3 4Z"/></g>
-      <g class="pe-wing" transform="scale(-1 1)"><path class="pe-body" d="M3 -2C14 -10 34 -14 58 -6L52 -3L60 0L52 3L58 7L49 6L53 12L44 9C32 6 16 5 3 4Z"/></g>
-      <ellipse class="pe-body" cx="0" cy="3" rx="4.6" ry="9"/>
-      <path class="pe-body" d="M-4 10L0 21L4 10Z"/>
-      <circle class="pe-body" cx="0" cy="-9" r="3"/>
-      <ellipse class="pe-st" cx="0" cy="-4.5" rx="3.6" ry="1.7"/>
-    </g></g></g></g>
-
-  <!-- The Andes, two ranges -->
-  <path class="pe-far" d="M0 262V196L28 164L58 192L92 150L128 190L160 170L200 262Z"/>
-  <path class="pe-far" d="M200 262L240 184L276 156L312 190L346 160L378 188L400 170V262Z"/>
-  <path class="pe-near" d="M0 262V216L34 192L66 214L104 180L146 220L200 262Z"/>
-  <path class="pe-near" d="M200 262L252 214L292 196L330 180L364 204L400 190V262Z"/>
-  <path class="l" d="M0 262H400"/>
-
-  <!-- The pyramid: 49 blocks and a temple. The light column in the middle is the staircase. -->
-  <g class="pe-blk" style="--i:0"><rect class="pe-b1" x="19" y="243" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="21.5" y="244.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:1"><rect class="pe-b2" x="47" y="243" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="49.5" y="244.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:2"><rect class="pe-b1" x="75" y="243" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="77.5" y="244.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:3"><rect class="pe-b3" x="103" y="243" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="105.5" y="244.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:4"><rect class="pe-b2" x="131" y="243" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="133.5" y="244.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:5"><rect class="pe-b2" x="159" y="243" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="161.5" y="244.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:6"><rect class="pe-st" x="187" y="243" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="189.5" y="244.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:7"><rect class="pe-b1" x="215" y="243" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="217.5" y="244.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:8"><rect class="pe-b1" x="243" y="243" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="245.5" y="244.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:9"><rect class="pe-b1" x="271" y="243" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="273.5" y="244.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:10"><rect class="pe-b1" x="299" y="243" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="301.5" y="244.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:11"><rect class="pe-b2" x="327" y="243" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="329.5" y="244.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:12"><rect class="pe-b3" x="355" y="243" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="357.5" y="244.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:13"><rect class="pe-b2" x="47" y="223" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="49.5" y="224.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:14"><rect class="pe-b1" x="75" y="223" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="77.5" y="224.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:15"><rect class="pe-b1" x="103" y="223" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="105.5" y="224.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:16"><rect class="pe-b3" x="131" y="223" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="133.5" y="224.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:17"><rect class="pe-b3" x="159" y="223" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="161.5" y="224.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:18"><rect class="pe-st" x="187" y="223" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="189.5" y="224.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:19"><rect class="pe-b2" x="215" y="223" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="217.5" y="224.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:20"><rect class="pe-b2" x="243" y="223" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="245.5" y="224.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:21"><rect class="pe-b1" x="271" y="223" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="273.5" y="224.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:22"><rect class="pe-b1" x="299" y="223" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="301.5" y="224.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:23"><rect class="pe-b2" x="327" y="223" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="329.5" y="224.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:24"><rect class="pe-b1" x="75" y="203" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="77.5" y="204.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:25"><rect class="pe-b1" x="103" y="203" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="105.5" y="204.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:26"><rect class="pe-b3" x="131" y="203" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="133.5" y="204.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:27"><rect class="pe-b2" x="159" y="203" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="161.5" y="204.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:28"><rect class="pe-st" x="187" y="203" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="189.5" y="204.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:29"><rect class="pe-b2" x="215" y="203" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="217.5" y="204.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:30"><rect class="pe-b1" x="243" y="203" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="245.5" y="204.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:31"><rect class="pe-b1" x="271" y="203" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="273.5" y="204.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:32"><rect class="pe-b2" x="299" y="203" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="301.5" y="204.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:33"><rect class="pe-b2" x="103" y="183" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="105.5" y="184.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:34"><rect class="pe-b3" x="131" y="183" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="133.5" y="184.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:35"><rect class="pe-b3" x="159" y="183" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="161.5" y="184.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:36"><rect class="pe-st" x="187" y="183" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="189.5" y="184.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:37"><rect class="pe-b2" x="215" y="183" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="217.5" y="184.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:38"><rect class="pe-b1" x="243" y="183" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="245.5" y="184.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:39"><rect class="pe-b3" x="271" y="183" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="273.5" y="184.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:40"><rect class="pe-b2" x="131" y="163" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="133.5" y="164.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:41"><rect class="pe-b3" x="159" y="163" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="161.5" y="164.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:42"><rect class="pe-st" x="187" y="163" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="189.5" y="164.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:43"><rect class="pe-b2" x="215" y="163" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="217.5" y="164.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:44"><rect class="pe-b3" x="243" y="163" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="245.5" y="164.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:45"><rect class="pe-b1" x="159" y="143" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="161.5" y="144.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:46"><rect class="pe-st" x="187" y="143" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="189.5" y="144.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:47"><rect class="pe-b1" x="215" y="143" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="217.5" y="144.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:48"><rect class="pe-st" x="187" y="123" width="26" height="18" rx="2.2"/><rect class="pe-hl" x="189.5" y="124.2" width="21" height="2.6" rx="1.3"/></g>
-  <g class="pe-blk" style="--i:49"><rect class="pe-b1" x="187" y="103" width="26" height="19" rx="2.2"/><rect class="cv" x="194" y="108" width="12" height="14"/></g>
-
-  <!-- People carrying orange sacks up the staircase -->
-  <g class="pe-person" style="--w:0; transform: translate(200px, 242px)"><path class="pe-leg" d="M-3.4 -7L-4.4 0M3.4 -7L4.4 0"/><rect class="pe-bag" x="-9.5" y="-21" width="19" height="15" rx="5.5"/><circle class="pe-body" cx="-1.5" cy="-24.5" r="3.6"/></g><g class="pe-person" style="--w:1; transform: translate(200px, 182px)"><path class="pe-leg" d="M-3.4 -7L-4.4 0M3.4 -7L4.4 0"/><rect class="pe-bag" x="-9.5" y="-21" width="19" height="15" rx="5.5"/><circle class="pe-body" cx="-1.5" cy="-24.5" r="3.6"/></g><g class="pe-person" style="--w:2; transform: translate(200px, 142px)"><path class="pe-leg" d="M-3.4 -7L-4.4 0M3.4 -7L4.4 0"/><rect class="pe-bag" x="-9.5" y="-21" width="19" height="15" rx="5.5"/><circle class="pe-body" cx="-1.5" cy="-24.5" r="3.6"/></g>
-
-  <text class="pe-cap" x="200" y="288" text-anchor="middle">built by hand, block by block</text>
+  <text x="14" y="284">Caral, 3000 BC</text>
 </svg>
