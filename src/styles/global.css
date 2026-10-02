@@ -8,16 +8,23 @@
   /* Young Serif only exists in one weight, so never ask for bold or italic with it */
   --font-display: 'Young Serif', Georgia, 'Times New Roman', serif;
   --font-body: 'Hanken Grotesk Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* The marker pen: only for the hand-written notes */
+  --font-hand: 'Covered By Your Grace', 'Segoe Print', 'Comic Sans MS', cursive;
 
-  /* Light theme */
-  --paper: #f3f2ee; /* page background */
-  --surface: #ffffff; /* panels and boxes */
-  --ink: #121315;
-  --ink-soft: #595c61; /* secondary text */
-  --line: #dcdbd5; /* hairlines */
-  --line-strong: #bdbcb5; /* lines that need to be seen */
-  --accent: #e4501a; /* the knob: the one orange that appears on every cover */
-  --accent-text: #c2410c; /* the same orange, darker, for small text */
+  /* Light theme. The page is a colored wall, not white. */
+  --paper: #f6d9d1; /* the wall */
+  --surface: #fff7f3; /* panels and boxes */
+  --ink: #241a1d;
+  --ink-soft: #5a4549; /* secondary text */
+  --line: #e6c3b9; /* soft lines */
+  --line-strong: #c79a8e; /* lines that need to be seen */
+  --accent: #e4501a; /* the knob and the marker pen */
+  --accent-text: #b4340a; /* the same orange, darker, for small text */
+  --shelf: #2d2024; /* the planks the covers stand on */
+  --footer-bg: #2d2024;
+  --footer-fg: #f6d9d1;
+  --lamp-light: rgb(255 255 255 / 0.42); /* the cone of light, only when the lamp is on */
+  --bulb: #fff3dc;
 
   /* Covers are objects, so these two never change with the theme */
   --cream: #fff3dc;
@@ -32,17 +39,45 @@
   --radius: 6px;
 }
 
+/* Dark theme. It follows the system setting, unless the lamp has set data-theme by hand.
+   The same values appear twice: once for "system says dark", once for "lamp says dark". */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #0f1011;
-    --surface: #18181a;
-    --ink: #f3f1ea;
-    --ink-soft: #a5a49e;
-    --line: #2a2a2d;
-    --line-strong: #434347;
+  :root:not([data-theme='light']) {
+    --paper: #1e1519;
+    --surface: #2b1f25;
+    --ink: #f7e8e2;
+    --ink-soft: #c6adaa;
+    --line: #3b2b32;
+    --line-strong: #5a444d;
     --accent: #ff7a45;
-    --accent-text: #ff8d5f;
+    --accent-text: #ff9a70;
+    --shelf: #46343b;
+    --footer-bg: #130d10;
+    --footer-fg: #f7e8e2;
+    --lamp-light: rgb(255 255 255 / 0);
+    --bulb: #6a565a;
   }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --paper: #1e1519;
+  --surface: #2b1f25;
+  --ink: #f7e8e2;
+  --ink-soft: #c6adaa;
+  --line: #3b2b32;
+  --line-strong: #5a444d;
+  --accent: #ff7a45;
+  --accent-text: #ff9a70;
+  --shelf: #46343b;
+  --footer-bg: #130d10;
+  --footer-fg: #f7e8e2;
+  --lamp-light: rgb(255 255 255 / 0);
+  --bulb: #6a565a;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
 }
 
 /* ---------- Reset ---------- */
@@ -175,7 +210,28 @@ p {
 }
 
 /* ---------- Motion ---------- */
+/* When the lamp switches the theme, colors fade instead of jumping */
+html.theme-fade,
+html.theme-fade *,
+html.theme-fade *::before,
+html.theme-fade *::after {
+  transition:
+    background-color 0.45s,
+    color 0.45s,
+    border-color 0.45s,
+    fill 0.45s,
+    stroke 0.45s !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  /* Same specificity as the theme fade above, and later, so this wins */
+  html.theme-fade,
+  html.theme-fade *,
+  html.theme-fade *::before,
+  html.theme-fade *::after {
+    transition-duration: 0.01ms !important;
+  }
+
   *,
   *::before,
   *::after {

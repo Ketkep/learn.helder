@@ -1,8 +1,9 @@
 ---
-// Homepage: hero, category filter and the topic grid. The grid is built from
+// Homepage: hero, category filter and the shelf of covers. The shelf is built from
 // src/data/topics.ts, so nothing here changes when a topic is added.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TopicCard from '../components/TopicCard.astro';
+import Lamp from '../components/Lamp.astro';
 import { getVisibleTopics, getCategories, getTopicNumber } from '../data/topics';
 
 const topics = getVisibleTopics();
@@ -11,51 +12,21 @@ const categories = getCategories();
 
 <BaseLayout
   title="Helder Labs Learn: interactive explainers"
-  description="Interactive explainers from Helder Labs. Learn things by playing with them."
+  description="Interactive explainers from Helder Labs, one topic at a time."
 >
-  <!-- Runs before the page is first painted. If the hero animation is going to play, the
-       title is hidden until the animation takes over, so it never flashes in its final place. -->
-  <script is:inline slot="head">
-    (function () {
-      var root = document.documentElement;
-      root.classList.add('js');
-      try {
-        var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (!reduce && !sessionStorage.getItem('hero-played')) {
-          root.classList.add('intro');
-          // Safety net: never leave the title hidden if the animation script fails
-          setTimeout(function () {
-            root.classList.remove('intro');
-          }, 4000);
-        }
-      } catch (e) {}
-    })();
-  </script>
-
-  <section class="hero" data-hero>
+  <section class="hero">
     <div class="wrap hero-inner">
-      <h1 class="hero-title" data-title>
-        <span class="plain"><span class="line">Helder Labs</span> <span class="line">Learn</span></span>
-        <!-- Filled by the animation script: a moving copy of every letter -->
-        <span class="letters" aria-hidden="true"></span>
+      <h1 class="hero-title">
+        <span class="line">Helder Labs</span>
+        <span class="line">
+          <!-- The orange marker circle draws itself around the word -->
+          <span class="circled">Learn<svg class="doodle" viewBox="0 0 240 110" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M34 30C74 6 172 4 214 28C242 44 228 88 168 99C112 110 40 100 14 74C-2 54 14 28 54 14C74 8 98 6 120 8" /></svg></span>
+        </span>
       </h1>
 
-      <p class="lede">
-        <span>Interactive explainers.</span>
-        <span>Learn things by playing with them.</span>
-      </p>
+      <p class="lede">Interactive explainers, one topic at a time.</p>
 
-      <!-- "Helder" means clear. The knob tidies up everything it rolls over. Needs JavaScript. -->
-      <div class="ruler-block">
-        <div class="ruler" data-ruler>
-          <canvas aria-hidden="true"></canvas>
-          <input id="clarity" type="range" min="0" max="100" step="1" value="100" aria-valuetext="100 percent clear" />
-        </div>
-        <div class="ruler-caption">
-          <label for="clarity">Drag to clear things up</label>
-          <output data-ruler-value aria-hidden="true">100% clear</output>
-        </div>
-      </div>
+      <Lamp />
     </div>
   </section>
 
@@ -65,13 +36,13 @@ const categories = getCategories();
     {
       categories.length > 1 && (
         <div class="filter" role="group" aria-label="Filter topics by category" data-filter hidden>
+          <span class="filter-label" aria-hidden="true">show:</span>
           <button type="button" data-category="all" aria-pressed="true">All</button>
           {categories.map((c) => (
             <button type="button" data-category={c} aria-pressed="false">
               {c}
             </button>
           ))}
-          <span class="knob" aria-hidden="true" />
         </div>
       )
     }
@@ -92,16 +63,33 @@ const categories = getCategories();
 </BaseLayout>
 
 <style>
+  .hero {
+    position: relative;
+    /* Keeps the lamp's long wire and its cone of light inside the hero */
+    overflow: hidden;
+  }
+
   .hero-inner {
-    display: grid;
-    gap: 1.5rem 3rem;
-    padding-block: clamp(1rem, 3vw, 2rem) clamp(1.5rem, 4vw, 2.5rem);
+    position: relative;
+    padding-block: clamp(1rem, 3vw, 2rem) clamp(1.75rem, 4vw, 3rem);
+  }
+
+  /* The lamp hangs at the top right. On phones it gets a row of its own above the title. */
+  @media (max-width: 52rem) {
+    .hero-inner {
+      padding-top: 6.5rem;
+    }
+  }
+
+  .hero-title,
+  .lede {
+    position: relative;
+    z-index: 1; /* above the lamp's light */
   }
 
   .hero-title {
-    position: relative;
-    font-size: clamp(3.5rem, 11.5vw, 7.5rem);
-    line-height: 0.96;
+    font-size: clamp(3.4rem, 11vw, 7.25rem);
+    line-height: 1.04;
     letter-spacing: -0.02em;
   }
 
@@ -109,191 +97,119 @@ const categories = getCategories();
     display: block;
   }
 
-  /* The moving copy of the letters sits exactly on top of the real title.
-     While the animation runs, the copy is shown and the real title is hidden. */
-  .letters {
+  .circled {
+    position: relative;
+    display: inline-block;
+  }
+
+  .doodle {
     position: absolute;
-    inset: 0;
-    visibility: hidden;
+    top: -0.14em;
+    left: -0.26em;
+    width: calc(100% + 0.52em);
+    height: calc(100% + 0.3em);
+    overflow: visible;
     pointer-events: none;
   }
 
-  .letters :global(.ltr) {
-    position: absolute;
-    display: block;
-    white-space: pre;
-    transform-origin: 50% 60%;
+  .doodle path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 4.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    /* A dash as long as the whole path, then a gap: moving the offset draws the line.
+       The gap also stops the round pen tip from showing as a dot before it starts. */
+    stroke-dasharray: 1 2;
+    stroke-dashoffset: 0;
   }
 
-  .hero.is-animating .letters {
-    visibility: visible;
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html:not(.seen)) .doodle path {
+      animation: draw 1s cubic-bezier(0.5, 0.1, 0.3, 1) 0.8s both;
+    }
   }
 
-  /* Hidden with opacity, not visibility, so screen readers can still read the title */
-  .hero.is-animating .plain,
-  :global(.intro) .plain {
-    opacity: 0;
+  @keyframes draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
   }
 
   .lede {
-    max-width: 22rem;
-    color: var(--ink-soft);
-    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
-    line-height: 1.4;
-  }
-
-  .lede span {
-    display: block;
-  }
-
-  /* The ruler needs JavaScript, so it only takes up room when JavaScript is on */
-  .ruler-block {
-    display: none;
-    grid-column: 1 / -1;
-  }
-
-  :global(.js) .ruler-block {
-    display: block;
-  }
-
-  .ruler {
-    position: relative;
-    height: 5.25rem;
-    cursor: grab;
-  }
-
-  .ruler:active {
-    cursor: grabbing;
-  }
-
-  .ruler canvas {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  /* An invisible slider on top of the drawing gives mouse, touch and keyboard for free */
-  .ruler input {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    opacity: 0;
-    cursor: inherit;
-    touch-action: pan-y;
-    -webkit-appearance: none;
-    appearance: none;
-  }
-
-  /* The thumb is as wide as the knob, so the invisible slider and the drawn knob line up */
-  .ruler input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 30px;
-    height: 60px;
-  }
-
-  .ruler input::-moz-range-thumb {
-    width: 30px;
-    height: 60px;
-    border: 0;
-  }
-
-  .ruler:has(input:focus-visible) {
-    outline: 3px solid var(--ink);
-    outline-offset: 4px;
-    border-radius: 8px;
-  }
-
-  .ruler-caption {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-top: 0.4rem;
-    color: var(--ink-soft);
-    font-size: 0.95rem;
+    max-width: 30rem;
+    margin-top: 1.25rem;
+    text-wrap: balance;
+    font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.6rem);
     font-weight: 500;
-  }
-
-  .ruler-caption output {
-    font-variant-numeric: tabular-nums;
-  }
-
-  /* Title on the left, the one-line description pinned to its bottom right, the ruler below */
-  @media (min-width: 52rem) {
-    .hero-inner {
-      grid-template-columns: minmax(0, 1fr) 22rem;
-      align-items: end;
-    }
-
-    .lede {
-      padding-bottom: 0.4rem;
-    }
+    line-height: 1.3;
   }
 
   .topics {
-    padding-top: 0;
+    padding-top: clamp(0.5rem, 2vw, 1rem);
   }
 
-  /* The filter is a slider too: a track with a knob under the chosen tab */
+  /* The filter looks like stickers stuck on the wall, each a little crooked */
   .filter {
-    position: relative;
     display: flex;
-    gap: 1.75rem;
-    margin-bottom: clamp(1.75rem, 3vw, 2.25rem);
-    padding-bottom: 1.1rem;
-    overflow-x: auto;
-    scrollbar-width: none;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 0.7rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
   }
 
-  .filter::before {
-    content: '';
-    position: absolute;
-    right: 0;
-    bottom: 7px;
-    left: 0;
-    height: 2px;
-    background: var(--line-strong);
+  .filter-label {
+    margin-right: 0.3rem;
+    color: var(--accent-text);
+    font-family: var(--font-hand);
+    font-size: 1.7rem;
+    line-height: 1;
+    rotate: -4deg;
   }
 
   .filter button {
-    flex: none;
-    padding: 0.4rem 0;
-    border: 0;
-    background: none;
-    color: var(--ink-soft);
-    font-weight: 500;
-    cursor: pointer;
-    transition: color 0.15s;
-  }
-
-  .filter button:hover,
-  .filter button[aria-pressed='true'] {
-    color: var(--ink);
-  }
-
-  .filter button[aria-pressed='true'] {
-    font-weight: 700;
-  }
-
-  .knob {
-    position: absolute;
-    bottom: 0;
-    left: -8px;
-    width: 16px;
-    height: 16px;
+    padding: 0.3rem 1rem;
     border: 2px solid var(--ink);
-    border-radius: 50%;
-    background: var(--accent);
-    transform: translateX(var(--x, 0px));
-    transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      rotate 0.2s,
+      background-color 0.15s,
+      color 0.15s;
+  }
+
+  .filter button:nth-of-type(odd) {
+    rotate: -1.4deg;
+  }
+
+  .filter button:nth-of-type(even) {
+    rotate: 1.1deg;
+  }
+
+  .filter button:hover {
+    rotate: 0deg;
+    background: color-mix(in srgb, var(--ink) 10%, transparent);
+  }
+
+  .filter button[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--paper);
   }
 
   /* The shelf: 1 cover per row on phones, 2 on tablets, 3 on desktop */
   .grid {
+    --gap: clamp(1.75rem, 4vw, 2.75rem);
+
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
-    gap: clamp(2.5rem, 5vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
+    gap: clamp(2.5rem, 5vw, 3.5rem) var(--gap);
   }
 
   .empty {
@@ -301,37 +217,21 @@ const categories = getCategories();
     font-size: 1.25rem;
   }
 </style>
-<script>
-  // 1. The hero animation (the ruler and the knob) lives in its own file.
-  import '../scripts/hero-ruler';
 
-  // 2. Category filter: shows or hides cards by their data-category, and slides the knob.
-  // Without JavaScript the buttons stay hidden and every card stays visible.
+<script>
+  // The lamp (pull it to switch between light and dark) lives in its own file.
+  import '../scripts/lamp';
+
+  // Category filter: shows or hides covers by their data-category.
+  // Without JavaScript the buttons stay hidden and every cover stays visible.
   const bar = document.querySelector<HTMLElement>('[data-filter]');
 
   if (bar) {
     const buttons = bar.querySelectorAll<HTMLButtonElement>('button[data-category]');
     const cards = document.querySelectorAll<HTMLElement>('[data-card]');
-    const knob = bar.querySelector<HTMLElement>('.knob');
     const status = document.querySelector<HTMLElement>('[data-filter-status]');
 
-    const moveKnob = (button: HTMLElement) => {
-      knob?.style.setProperty('--x', `${button.offsetLeft + button.offsetWidth / 2}px`);
-    };
-
-    const current = () => bar.querySelector<HTMLButtonElement>('button[aria-pressed="true"]');
-
     bar.hidden = false;
-    moveKnob(buttons[0]);
-    // Place it again once the font has loaded and the tab widths are final
-    document.fonts.ready.then(() => {
-      const pressed = current();
-      if (pressed) moveKnob(pressed);
-    });
-    window.addEventListener('resize', () => {
-      const pressed = current();
-      if (pressed) moveKnob(pressed);
-    });
 
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
@@ -339,7 +239,6 @@ const categories = getCategories();
         let shown = 0;
 
         buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
-        moveKnob(button);
 
         cards.forEach((card) => {
           const match = chosen === 'all' || card.dataset.category === chosen;

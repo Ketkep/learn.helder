@@ -1,6 +1,7 @@
 ---
 // The HTML shell used by every page: meta tags, fonts, header, footer.
 import '@fontsource/young-serif/400.css';
+import '@fontsource/covered-by-your-grace/400.css';
 import '@fontsource-variable/hanken-grotesk';
 import displayFont from '@fontsource/young-serif/files/young-serif-latin-400-normal.woff2?url';
 import bodyFont from '@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2?url';
@@ -49,8 +50,8 @@ const bodyStyle = `--band: ${band ?? 'var(--paper)'}; --on-band: ${bandInk ?? 'v
     {noindex && <meta name="robots" content="noindex" />}
 
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#fbfbf9" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0f1113" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6d9d1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1e1519" media="(prefers-color-scheme: dark)" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
@@ -66,7 +67,22 @@ const bodyStyle = `--band: ${band ?? 'var(--paper)'}; --on-band: ${bandInk ?? 'v
     <!-- Load the main font files early so the big headings do not jump -->
     <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
-    <slot name="head" />
+
+    <!-- Runs before the first paint: remembers the lamp's choice of theme, and whether the
+         hand-drawn marks have already been shown in this visit -->
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var theme = localStorage.getItem('theme');
+          if (theme === 'light' || theme === 'dark') root.setAttribute('data-theme', theme);
+        } catch (e) {}
+        try {
+          if (sessionStorage.getItem('seen')) root.classList.add('seen');
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body style={bodyStyle}>
     <a class="skip-link" href="#main">Skip to content</a>

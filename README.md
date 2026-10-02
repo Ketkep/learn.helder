@@ -101,21 +101,23 @@ src/components/          header, footer, topic card, "coming soon" block
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
-src/scripts/             the hero animation (hero-ruler.ts)
+src/scripts/             the lamp (lamp.ts): pull the cord to switch light and dark
 public/                  favicon and the link preview image
 ```
 
 ## Design notes
 
-- The idea: the topics are a series, like small books. Each topic is a cover in its own color with a spine and a little paper grain. The topic page is the inside of that book and uses the same color.
-- The recurring detail is the slider knob. It is the logo, it sits on every cover, it rides the filter line, and it is the hero slider. Most explainers have something you drag, so the knob stands for all of them.
-- Colors, fonts and spacing are CSS variables at the top of `src/styles/global.css`. Light and dark mode follow the system setting. Covers keep their color in both modes, like objects on a shelf.
-- Fonts are Young Serif (headings and titles) and Hanken Grotesk (text), installed through `@fontsource` so they are served from this site and not from Google. Young Serif has one weight, so do not make it bold or italic.
+- The idea: the topics are a series, like small books. Each topic is a cover in its own color with a spine and a little paper grain, standing on a shelf. The topic page is the inside of that book and uses the same color.
+- The page is a colored wall, not white: blush pink in light mode and a dark plum in dark mode. The planks, the footer (the baseboard), the lamp and the marker marks all belong to that room. Other wall colors were tried (mint, butter, sky). The blush one lets all three covers stand out. To change the wall, edit the color variables at the top of `src/styles/global.css` (there are two dark blocks, keep them the same).
+- The recurring detail is the slider knob. It is the logo, it sits on every cover, and it ends the lamp's pull cord. Most explainers have something you drag or move, so the knob stands for all of them.
+- The lamp ("helder" means bright) hangs in the hero. Pull its cord (drag it, tap it, or press Enter or Space on it) and the page switches between light and dark. The lamp is on in light mode and off in dark mode. The choice is saved in the browser (`localStorage`, key `theme`) and wins over the system setting from then on. The code is in `src/scripts/lamp.ts` and `src/components/Lamp.astro`.
+- The marks drawn in orange marker (the circle around "Learn") and the hand-written "pull me" hint draw themselves on the first visit of a session. They are plain SVG paths drawn with a stroke animation. The hint disappears after the first pull. To see the intro again, open the site in a new private window.
+- Colors, fonts and spacing are CSS variables at the top of `src/styles/global.css`. Covers keep their color in both modes, like objects on a shelf.
+- Fonts are Young Serif (headings and titles), Hanken Grotesk (text) and Covered By Your Grace (only the hand-written notes), installed through `@fontsource` so they are served from this site and not from Google. Young Serif has one weight, so do not make it bold or italic.
 - Picking a cover color: take a mid-dark or mid-light color with some personality. Cream text is used on dark covers and near-black text on light ones. Check the result is readable before you publish.
-- "Helder" means clear, so the hero is a small show about tidying up. On the first visit the title letters are scattered and blurred and a pile of loose sticks is tumbling around. The orange knob rolls across a ruler and tidies everything it passes: the sticks line up into a ruler and the letters spring into place. Afterwards you can drag the knob back and everything ahead of it gets messy again. The code is in `src/scripts/hero-ruler.ts`, and one number (how far the knob has travelled) drives all of it.
-- The intro plays once per browser session, so going back to the homepage does not replay it. To see it again, open the site in a new private window. It is skipped for people who ask for reduced motion (the knob can still be dragged), and with JavaScript off the ruler is not shown and the title is plain text.
-- The cover drawings move a little on hover. That is also switched off for reduced motion.
-- The favicon is a placeholder. The link preview image `public/og-image.png` is a 1200 by 630 picture made from the covers. Replace both when the brand artwork is ready.
+- Movement is switched off for people who ask for reduced motion: no lamp swing, no drawing animation, no cover lift. The lamp still works when used.
+- The whole cover is one link (cover and caption), so clicking anywhere on it opens the topic.
+- The favicon is a placeholder. The link preview image `public/og-image.png` is a 1200 by 630 picture of the hero. Replace both when the brand artwork is ready.
 
 ## Writing rules for this site
 

@@ -4,10 +4,10 @@ const year = new Date().getFullYear();
 
 <footer class="site-footer">
   <div class="wrap inner">
-    <p class="made">
-      <strong>Helder Labs Learn</strong>
-      <span>This site uses no cookies and does no tracking.</span>
-    </p>
+    <div class="about">
+      <p class="name">Helder Labs Learn</p>
+      <p>Set in Young Serif and Hanken Grotesk. No cookies, no tracking.</p>
+    </div>
     <ul class="links">
       <li><a href="https://helderlabs.com">helderlabs.com</a></li>
       <li><a href="https://games.helderlabs.com">games.helderlabs.com</a></li>
@@ -17,47 +17,51 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
+  /* The baseboard: a dark strip under the wall */
   .site-footer {
     margin-top: clamp(4rem, 9vw, 7rem);
-    border-top: 1px solid var(--line);
-    color: var(--ink-soft);
+    background: var(--footer-bg);
+    color: var(--footer-fg);
   }
 
   .inner {
     display: grid;
     gap: 1.5rem 2rem;
-    padding-block: 2.5rem 3rem;
+    padding-block: 2.75rem 3rem;
   }
 
-  .made {
+  .about {
     display: grid;
-    gap: 0.25rem;
-  }
-
-  .made strong {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    font-weight: 400;
-    color: var(--ink);
-  }
-
-  .made span,
-  .copy {
+    gap: 0.3rem;
     font-size: 0.95rem;
+  }
+
+  .name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1.1;
   }
 
   .links {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem 1.75rem;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .links a {
-    color: var(--ink);
     text-decoration-color: var(--accent);
     text-decoration-thickness: 2px;
     text-underline-offset: 0.3em;
+  }
+
+  .copy {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  .site-footer :focus-visible {
+    outline-color: var(--footer-fg);
   }
 
   @media (min-width: 48rem) {

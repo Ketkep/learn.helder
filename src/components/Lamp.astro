@@ -1,0 +1,262 @@
+---
+// A hanging lamp. Pulling the cord (drag it, tap it, or press Enter) switches the page
+// between light and dark. The lamp is on in the light theme and off in the dark theme.
+// The behaviour lives in src/scripts/lamp.ts. Needs JavaScript, so it is hidden without it.
+---
+
+<div class="lamp" data-lamp>
+  <svg class="art" viewBox="0 0 200 300" aria-hidden="true" focusable="false">
+    <g class="swing">
+      <!-- The light: only visible when the lamp is on (the color comes from --lamp-light) -->
+      <path class="cone" d="M46 127L154 127L246 410A146 26 0 0 1 -46 410Z" />
+      <path class="wire" d="M100 -600V60" />
+      <rect class="cap" x="93" y="54" width="14" height="16" rx="3" />
+      <path class="shade" d="M40 122C40 86 68 66 100 66C132 66 160 86 160 122Z" />
+      <path class="shine" d="M54 112C57 94 68 82 84 75" />
+      <rect class="rim" x="34" y="120" width="132" height="9" rx="4.5" />
+      <circle class="bulb" cx="100" cy="138" r="14" />
+      <!-- The pull cord and its knob: the same orange knob as on the covers -->
+      <line class="pull" x1="150" y1="126" x2="150" y2="202" data-pull-line />
+      <circle class="knob" cx="150" cy="208" r="10" data-pull-knob />
+    </g>
+
+    <!-- The hand-written hint. It goes away after the first pull. -->
+    <g class="hint">
+      <text x="2" y="238" transform="rotate(-7 2 238)">pull me</text>
+      <path class="hint-arrow" pathLength="1" d="M72 226C92 224 110 218 132 210M121 202L134 209L122 218" />
+    </g>
+  </svg>
+
+  <button
+    type="button"
+    class="lamp-button"
+    role="switch"
+    aria-checked="true"
+    aria-label="Lamp. Switches the page between light and dark."
+    data-lamp-button
+  ></button>
+</div>
+
+<style>
+  .lamp {
+    position: absolute;
+    top: 0;
+    right: clamp(0.25rem, 5vw, 5rem);
+    display: none;
+    width: clamp(6.5rem, 14vw, 11rem);
+    aspect-ratio: 2 / 3;
+  }
+
+  :global(.js) .lamp {
+    display: block;
+  }
+
+  .art {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .swing {
+    transform-origin: 100px 0;
+    transform-box: view-box;
+  }
+
+  .cone {
+    fill: var(--lamp-light);
+  }
+
+  .wire {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 2.5;
+  }
+
+  .cap,
+  .rim {
+    fill: #2d2024;
+  }
+
+  .shade {
+    fill: #f1b434;
+  }
+
+  .shine {
+    fill: none;
+    stroke: #fff3dc;
+    stroke-width: 5;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+
+  .bulb {
+    fill: var(--bulb);
+  }
+
+  .pull {
+    stroke: var(--ink);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+  }
+
+  .knob {
+    fill: var(--accent);
+    stroke: var(--ink);
+    stroke-width: 2.5;
+  }
+
+  .hint text {
+    fill: var(--accent-text);
+    font-family: var(--font-hand);
+    font-size: 30px;
+  }
+
+  .hint-arrow {
+    fill: none;
+    stroke: var(--accent-text);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1 2;
+    stroke-dashoffset: 0;
+  }
+
+  .lamp:global(.pulled) .hint {
+    display: none;
+  }
+
+  /* An invisible round button over the knob, so it can be dragged, tapped or reached with Tab */
+  .lamp-button {
+    position: absolute;
+    z-index: 3;
+    left: calc(150 / 200 * 100% - 1.375rem);
+    top: calc(208 / 300 * 100% - 1.375rem);
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .lamp-button:active {
+    cursor: grabbing;
+  }
+
+  /* The lamp drops in and swings to a stop on the first visit, then sways very slightly */
+  @media (prefers-reduced-motion: no-preference) {
+    .swing {
+      animation: sway 7s ease-in-out infinite alternate;
+    }
+
+    :global(html:not(.seen)) .swing {
+      animation:
+        drop-in 2.8s linear both,
+        sway 7s ease-in-out 2.8s infinite alternate;
+    }
+
+    :global(html:not(.seen)) .hint text {
+      animation: write-on 0.7s steps(8, end) 2.2s both;
+    }
+
+    :global(html:not(.seen)) .hint-arrow {
+      animation: draw 0.7s ease-out 2.8s both;
+    }
+
+    .lamp:global(.flicker) .bulb,
+    .lamp:global(.flicker) .cone {
+      animation: flicker 0.7s linear;
+    }
+  }
+
+  @keyframes sway {
+    from {
+      transform: rotate(-1.2deg);
+    }
+
+    to {
+      transform: rotate(1.2deg);
+    }
+  }
+
+  /* Falls from above, then swings like a pendulum and settles */
+  @keyframes drop-in {
+    0% {
+      transform: translateY(-90px) rotate(0deg);
+    }
+
+    14% {
+      transform: translateY(0) rotate(0deg);
+      animation-timing-function: ease-out;
+    }
+
+    28% {
+      transform: translateY(0) rotate(9deg);
+    }
+
+    44% {
+      transform: translateY(0) rotate(-6deg);
+    }
+
+    60% {
+      transform: translateY(0) rotate(3.6deg);
+    }
+
+    78% {
+      transform: translateY(0) rotate(-1.8deg);
+    }
+
+    100% {
+      transform: translateY(0) rotate(-1.2deg);
+    }
+  }
+
+  @keyframes write-on {
+    from {
+      clip-path: inset(-20% 100% -20% -5%);
+    }
+
+    to {
+      clip-path: inset(-20% -5% -20% -5%);
+    }
+  }
+
+  @keyframes draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes flicker {
+    0% {
+      opacity: 0.25;
+    }
+
+    18% {
+      opacity: 1;
+    }
+
+    34% {
+      opacity: 0.45;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 52rem) {
+    .hint {
+      display: none;
+    }
+  }
+</style>
