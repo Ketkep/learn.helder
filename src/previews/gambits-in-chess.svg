@@ -9,69 +9,78 @@
     svg text.ch-title { font-size: 13px; opacity: 0.85; }
     svg text.ch-note { font-size: 16px; }
     svg text.ch-cap { font-size: 17px; }
-    .ch-c2, .ch-late, .ch-cap2, .ch-cap3 { opacity: 0; }
+    .ch-m2, .ch-m3, .ch-m4, .ch-cap2, .ch-cap3 { opacity: 0; }
     .ch-mark { transform-box: fill-box; transform-origin: 50% 50%; transform: scale(0); }
     @media (prefers-reduced-motion: no-preference) {
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-layer { animation: ch-layer 7s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-cpawn { animation: ch-c 7s ease-in-out infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-bpawn { animation: ch-d 7s ease-in-out infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-bishop { animation: ch-bs 7s ease-in-out infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-mark { animation: ch-mark 7s ease-out infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-cap1 { animation: ch-cap1 7s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-cap2 { animation: ch-cap2 7s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-cap3 { animation: ch-cap3 7s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-c2 { animation: ch-c2 7s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-late { animation: ch-late 7s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-layer { animation: ch-layer 8s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-cpawn { animation: ch-c 8s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-bpawn { animation: ch-d 8s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-epawn { animation: ch-e 8s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-bishop { animation: ch-bs 8s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-mark { animation: ch-mark 8s ease-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-cap1 { animation: ch-cap1 8s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-cap2 { animation: ch-cap2 8s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-cap3 { animation: ch-cap3 8s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-m2 { animation: ch-m2 8s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-m3 { animation: ch-m3 8s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-m4 { animation: ch-m4 8s linear infinite; }
     }
-    @keyframes ch-layer { 0% { opacity: 0; } 5% { opacity: 1; } 90% { opacity: 1; } 98%, 100% { opacity: 0; } }
-    /* The offered pawn steps forward two squares, then gets taken and tumbles away */
+    @keyframes ch-layer { 0% { opacity: 0; } 5% { opacity: 1; } 91% { opacity: 1; } 98%, 100% { opacity: 0; } }
+    /* White offers the c-pawn two squares forward. Black takes it, and it leaves the board. */
     @keyframes ch-c {
-      0%, 10% { transform: translateY(0); opacity: 1; }
-      24%, 40% { transform: translateY(-92px); opacity: 1; }
-      46%, 100% { transform: translateY(-92px) scale(0.3) rotate(50deg); opacity: 0; }
+      0%, 9% { transform: translateY(0); opacity: 1; }
+      21%, 34% { transform: translateY(-92px); opacity: 1; }
+      40%, 100% { transform: translateY(-92px) scale(0.3) rotate(50deg); opacity: 0; }
     }
-    /* The black pawn takes it, then is taken in turn by the bishop */
+    /* The black pawn takes on c4. The bishop takes it in turn. */
     @keyframes ch-d {
-      0%, 28% { transform: translate(0, 0); opacity: 1; }
-      40%, 66% { transform: translate(-46px, 46px); opacity: 1; }
-      74%, 100% { transform: translate(-46px, 46px) scale(0.3) rotate(-50deg); opacity: 0; }
+      0%, 25% { transform: translate(0, 0); opacity: 1; }
+      36%, 74% { transform: translate(-46px, 46px); opacity: 1; }
+      80%, 100% { transform: translate(-46px, 46px) scale(0.3) rotate(-50deg); opacity: 0; }
     }
+    /* The e-pawn steps aside, opening the diagonal */
+    @keyframes ch-e { 0%, 46% { transform: translateY(0); } 54%, 100% { transform: translateY(-46px); } }
     /* The bishop slides along the diagonal and wins the pawn back */
-    @keyframes ch-bs { 0%, 58% { transform: translate(0, 0); } 74%, 100% { transform: translate(-92px, -92px); } }
+    @keyframes ch-bs { 0%, 64% { transform: translate(0, 0); } 78%, 100% { transform: translate(-138px, -138px); } }
     @keyframes ch-mark {
-      0%, 74% { transform: scale(0); opacity: 0; }
-      80% { transform: scale(1.3); opacity: 1; }
-      86%, 100% { transform: scale(1); opacity: 1; }
+      0%, 78% { transform: scale(0); opacity: 0; }
+      83% { transform: scale(1.3); opacity: 1; }
+      88%, 100% { transform: scale(1); opacity: 1; }
     }
-    @keyframes ch-cap1 { 0%, 26% { opacity: 1; } 30%, 100% { opacity: 0; } }
-    @keyframes ch-cap2 { 0%, 30% { opacity: 0; } 34%, 56% { opacity: 1; } 60%, 100% { opacity: 0; } }
-    @keyframes ch-cap3 { 0%, 60% { opacity: 0; } 64%, 100% { opacity: 1; } }
-    @keyframes ch-c2 { 0%, 18% { opacity: 0; } 24%, 100% { opacity: 1; } }
-    @keyframes ch-late { 0%, 40% { opacity: 0; } 46%, 100% { opacity: 1; } }
+    @keyframes ch-cap1 { 0%, 24% { opacity: 1; } 28%, 100% { opacity: 0; } }
+    @keyframes ch-cap2 { 0%, 28% { opacity: 0; } 32%, 62% { opacity: 1; } 66%, 100% { opacity: 0; } }
+    @keyframes ch-cap3 { 0%, 66% { opacity: 0; } 70%, 100% { opacity: 1; } }
+    @keyframes ch-m2 { 0%, 18% { opacity: 0; } 24%, 100% { opacity: 1; } }
+    @keyframes ch-m3 { 0%, 46% { opacity: 0; } 52%, 100% { opacity: 1; } }
+    @keyframes ch-m4 { 0%, 64% { opacity: 0; } 70%, 100% { opacity: 1; } }
   </style>
 
-  <!-- A piece of the board: files c to f, ranks 5 down to 2. White is at the bottom. -->
-  <rect class="ch-sd" x="36" y="70" width="46" height="46"/><rect class="ch-sl" x="82" y="70" width="46" height="46"/><rect class="ch-sd" x="128" y="70" width="46" height="46"/><rect class="ch-sl" x="174" y="70" width="46" height="46"/><rect class="ch-sl" x="36" y="116" width="46" height="46"/><rect class="ch-sd" x="82" y="116" width="46" height="46"/><rect class="ch-sl" x="128" y="116" width="46" height="46"/><rect class="ch-sd" x="174" y="116" width="46" height="46"/><rect class="ch-sd" x="36" y="162" width="46" height="46"/><rect class="ch-sl" x="82" y="162" width="46" height="46"/><rect class="ch-sd" x="128" y="162" width="46" height="46"/><rect class="ch-sl" x="174" y="162" width="46" height="46"/><rect class="ch-sl" x="36" y="208" width="46" height="46"/><rect class="ch-sd" x="82" y="208" width="46" height="46"/><rect class="ch-sl" x="128" y="208" width="46" height="46"/><rect class="ch-sd" x="174" y="208" width="46" height="46"/>
-  <rect class="ch-frame" x="36" y="70" width="184" height="184"/>
+  <!-- A piece of the board: files c to f, ranks 5 down to 1. White is at the bottom. -->
+  <rect class="ch-sd" x="36" y="40" width="46" height="46"/><rect class="ch-sl" x="82" y="40" width="46" height="46"/><rect class="ch-sd" x="128" y="40" width="46" height="46"/><rect class="ch-sl" x="174" y="40" width="46" height="46"/><rect class="ch-sl" x="36" y="86" width="46" height="46"/><rect class="ch-sd" x="82" y="86" width="46" height="46"/><rect class="ch-sl" x="128" y="86" width="46" height="46"/><rect class="ch-sd" x="174" y="86" width="46" height="46"/><rect class="ch-sd" x="36" y="132" width="46" height="46"/><rect class="ch-sl" x="82" y="132" width="46" height="46"/><rect class="ch-sd" x="128" y="132" width="46" height="46"/><rect class="ch-sl" x="174" y="132" width="46" height="46"/><rect class="ch-sl" x="36" y="178" width="46" height="46"/><rect class="ch-sd" x="82" y="178" width="46" height="46"/><rect class="ch-sl" x="128" y="178" width="46" height="46"/><rect class="ch-sd" x="174" y="178" width="46" height="46"/><rect class="ch-sd" x="36" y="224" width="46" height="46"/><rect class="ch-sl" x="82" y="224" width="46" height="46"/><rect class="ch-sd" x="128" y="224" width="46" height="46"/><rect class="ch-sl" x="174" y="224" width="46" height="46"/>
+  <rect class="ch-frame" x="36" y="40" width="184" height="230"/>
 
   <g class="ch-layer">
     <!-- The orange knob marks the square where the pawn is won back: c4 -->
-    <circle class="knob ch-mark" cx="59" cy="139" r="17"/>
+    <circle class="knob ch-mark" cx="59.0" cy="109.0" r="17"/>
 
     <!-- White pawn on d4 stays put -->
-    <g transform="translate(82 116)"><g class="ch-w"><circle cx="23" cy="13" r="6.5"/><rect x="17" y="19" width="12" height="3.5" rx="1.7"/><path d="M19 22.5C19 28 15 31 13.5 37H32.5C31 31 27 28 27 22.5Z"/><rect x="11" y="36.5" width="24" height="5" rx="2.5"/></g></g>
+    <g transform="translate(82 86)"><g class="ch-w"><circle cx="23" cy="13" r="6.5"/><rect x="17" y="19" width="12" height="3.5" rx="1.7"/><path d="M19 22.5C19 28 15 31 13.5 37H32.5C31 31 27 28 27 22.5Z"/><rect x="11" y="36.5" width="24" height="5" rx="2.5"/></g></g>
     <!-- Black pawn on d5 -->
-    <g transform="translate(82 70)"><g class="ch-anim ch-bpawn"><g class="ch-b"><circle cx="23" cy="13" r="6.5"/><rect x="17" y="19" width="12" height="3.5" rx="1.7"/><path d="M19 22.5C19 28 15 31 13.5 37H32.5C31 31 27 28 27 22.5Z"/><rect x="11" y="36.5" width="24" height="5" rx="2.5"/></g></g></g>
+    <g transform="translate(82 40)"><g class="ch-anim ch-bpawn"><g class="ch-b"><circle cx="23" cy="13" r="6.5"/><rect x="17" y="19" width="12" height="3.5" rx="1.7"/><path d="M19 22.5C19 28 15 31 13.5 37H32.5C31 31 27 28 27 22.5Z"/><rect x="11" y="36.5" width="24" height="5" rx="2.5"/></g></g></g>
     <!-- White pawn on c2: the one that gets offered -->
-    <g transform="translate(36 208)"><g class="ch-anim ch-cpawn"><g class="ch-w"><circle cx="23" cy="13" r="6.5"/><rect x="17" y="19" width="12" height="3.5" rx="1.7"/><path d="M19 22.5C19 28 15 31 13.5 37H32.5C31 31 27 28 27 22.5Z"/><rect x="11" y="36.5" width="24" height="5" rx="2.5"/></g></g></g>
-    <!-- White bishop on e2 -->
-    <g transform="translate(128 208)"><g class="ch-anim ch-bishop"><g class="ch-w"><circle cx="23" cy="9" r="3.2"/><path d="M23 12C14 17 14 26 18.5 30H27.5C32 26 32 17 23 12Z"/><path d="M20.5 22L25.5 16.5" fill="none"/><rect x="15.5" y="30" width="15" height="3.5" rx="1.7"/><path d="M17 33.5H29L32 38H14Z"/><rect x="11" y="38" width="24" height="4.5" rx="2.2"/></g></g></g>
+    <g transform="translate(36 178)"><g class="ch-anim ch-cpawn"><g class="ch-w"><circle cx="23" cy="13" r="6.5"/><rect x="17" y="19" width="12" height="3.5" rx="1.7"/><path d="M19 22.5C19 28 15 31 13.5 37H32.5C31 31 27 28 27 22.5Z"/><rect x="11" y="36.5" width="24" height="5" rx="2.5"/></g></g></g>
+    <!-- White pawn on e2 steps to e3 -->
+    <g transform="translate(128 178)"><g class="ch-anim ch-epawn"><g class="ch-w"><circle cx="23" cy="13" r="6.5"/><rect x="17" y="19" width="12" height="3.5" rx="1.7"/><path d="M19 22.5C19 28 15 31 13.5 37H32.5C31 31 27 28 27 22.5Z"/><rect x="11" y="36.5" width="24" height="5" rx="2.5"/></g></g></g>
+    <!-- White bishop on f1 -->
+    <g transform="translate(174 224)"><g class="ch-anim ch-bishop"><g class="ch-w"><circle cx="23" cy="9" r="3.2"/><path d="M23 12C14 17 14 26 18.5 30H27.5C32 26 32 17 23 12Z"/><path d="M20.5 22L25.5 16.5" fill="none"/><rect x="15.5" y="30" width="15" height="3.5" rx="1.7"/><path d="M17 33.5H29L32 38H14Z"/><rect x="11" y="38" width="24" height="4.5" rx="2.2"/></g></g></g>
 
-    <text class="ch-title" x="248" y="92">Queen's Gambit</text>
-    <text class="ch-note" x="248" y="118">1. d4 d5</text>
-    <text class="ch-note ch-c2" x="248" y="142">2. c4<tspan class="ch-late"> dxc4</tspan></text>
-    <text class="ch-cap ch-cap1" x="248" y="206">a pawn, offered</text>
-    <text class="ch-cap ch-cap2" x="248" y="206">taken</text>
-    <text class="ch-cap ch-cap3" x="248" y="206">won back</text>
+    <text class="ch-title" x="248" y="62">Queen's Gambit</text>
+    <text class="ch-note" x="248" y="88">1. d4 d5</text>
+    <text class="ch-note ch-m2" x="248" y="112">2. c4 dxc4</text>
+    <text class="ch-note ch-m3" x="248" y="136">3. e3 Nf6</text>
+    <text class="ch-note ch-m4" x="248" y="160">4. Bxc4</text>
+    <text class="ch-cap ch-cap1" x="248" y="258">a pawn, offered</text>
+    <text class="ch-cap ch-cap2" x="248" y="258">taken</text>
+    <text class="ch-cap ch-cap3" x="248" y="258">won back</text>
   </g>
 </svg>
