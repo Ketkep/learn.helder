@@ -17,14 +17,14 @@
     .nl-pr { transform-origin: 40px 252px; transform: rotate(4deg); }
     svg text.nl-voc { fill: var(--cover); font-size: 15px; font-weight: 700; letter-spacing: 1px; }
     @media (prefers-reduced-motion: no-preference) {
-      :is(a, .head-art):is(:hover, :focus-visible) .nl-glide { animation: nl-glide 12s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible) .nl-bob { animation: nl-bob 2.2s ease-in-out infinite alternate; }
-      :is(a, .head-art):is(:hover, :focus-visible) .nl-blades { animation: nl-spin 7s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible) .nl-w1 { animation: nl-drift 2.4s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible) .nl-w2 { animation: nl-drift 3.4s linear infinite reverse; }
-      :is(a, .head-art):is(:hover, :focus-visible) .nl-w3 { animation: nl-drift 2.8s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible) .nl-pl { animation: nl-open-l 3.2s ease-in-out infinite alternate; }
-      :is(a, .head-art):is(:hover, :focus-visible) .nl-pr { animation: nl-open-r 3.2s ease-in-out infinite alternate; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .nl-glide { animation: nl-glide 12s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .nl-bob { animation: nl-bob 2.2s ease-in-out infinite alternate; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .nl-blades { animation: nl-spin 7s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .nl-w1 { animation: nl-drift 2.4s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .nl-w2 { animation: nl-drift 3.4s linear infinite reverse; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .nl-w3 { animation: nl-drift 2.8s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .nl-pl { animation: nl-open-l 3.2s ease-in-out infinite alternate; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .nl-pr { animation: nl-open-r 3.2s ease-in-out infinite alternate; }
     }
     /* The ship sails off to the left, and another one arrives from the right */
     @keyframes nl-glide {

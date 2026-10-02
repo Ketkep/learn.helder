@@ -54,7 +54,7 @@ Three steps.
 For bigger animations, a drawing can contain its own `<style>` block. The three current covers do this: `gambits-in-chess.svg` plays a whole little story on a board, `pyramids-in-peru.svg` moves the sun across the sky with the shadow following it, and `the-dutch-golden-age.svg` sails a ship past canal houses. A few rules keep this tidy:
 
 - Start your class names and `@keyframes` names with a short prefix for the topic (`ch-`, `pe-`, `nl-`), so two drawings never clash.
-- Put the selector `:is(a, .head-art):is(:hover, :focus-visible)` in front of a rule to run an animation only while the cover is hovered or focused. The same drawing is shown on the topic page, where `.head-art` is the hover target.
+- Put the selector `:is(a, .head-art):is(:hover, :focus-visible, .is-playing)` in front of a rule to run an animation only while the cover is hovered, focused or playing. The same drawing is shown on the topic page, where `.head-art` is the target. `.is-playing` is set by `src/scripts/cover-play.ts`: on touch screens, which have no hover, a cover plays while it is mostly on screen.
 - Wrap animations in `@media (prefers-reduced-motion: no-preference)`, so people who ask for less motion get a still drawing.
 - Colors: use `var(--cover)` (the cover color), `var(--on-cover)` (the text color on it) and `var(--accent)` (the orange knob), mixed with `color-mix(in oklab, ...)` if you need a lighter or darker shade.
 
@@ -108,7 +108,7 @@ src/components/          header, footer, topic card, "coming soon" block
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
-src/scripts/             the lamp (lamp.ts): pull the cord to switch light and dark
+src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 public/                  favicon and the link preview image
 ```
 
@@ -122,6 +122,7 @@ public/                  favicon and the link preview image
 - Colors, fonts and spacing are CSS variables at the top of `src/styles/global.css`. Covers keep their color in both modes, like objects on a shelf.
 - Fonts are Young Serif (headings and titles), Hanken Grotesk (text) and Covered By Your Grace (only the hand-written notes), installed through `@fontsource` so they are served from this site and not from Google. Young Serif has one weight, so do not make it bold or italic.
 - Picking a cover color: take a mid-dark or mid-light color with some personality. Cream text is used on dark covers and near-black text on light ones. Check the result is readable before you publish.
+- Touch screens (tablets and phones) have no hover, so a cover plays its animation while it is mostly on screen, and stops when you scroll away. With a mouse, covers play on hover or keyboard focus.
 - Movement is switched off for people who ask for reduced motion: no lamp swing, no drawing animation, no cover lift. The lamp still works when used.
 - The whole cover is one link (cover and caption), so clicking anywhere on it opens the topic.
 - The favicon is a placeholder. The link preview image `public/og-image.png` is a 1200 by 630 picture of the hero. Replace both when the brand artwork is ready.

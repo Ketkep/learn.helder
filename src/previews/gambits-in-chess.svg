@@ -12,16 +12,16 @@
     .ch-c2, .ch-late, .ch-cap2, .ch-cap3 { opacity: 0; }
     .ch-mark { transform-box: fill-box; transform-origin: 50% 50%; transform: scale(0); }
     @media (prefers-reduced-motion: no-preference) {
-      :is(a, .head-art):is(:hover, :focus-visible) .ch-layer { animation: ch-layer 7s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible) .ch-cpawn { animation: ch-c 7s ease-in-out infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible) .ch-bpawn { animation: ch-d 7s ease-in-out infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible) .ch-bishop { animation: ch-bs 7s ease-in-out infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible) .ch-mark { animation: ch-mark 7s ease-out infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible) .ch-cap1 { animation: ch-cap1 7s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible) .ch-cap2 { animation: ch-cap2 7s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible) .ch-cap3 { animation: ch-cap3 7s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible) .ch-c2 { animation: ch-c2 7s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible) .ch-late { animation: ch-late 7s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-layer { animation: ch-layer 7s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-cpawn { animation: ch-c 7s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-bpawn { animation: ch-d 7s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-bishop { animation: ch-bs 7s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-mark { animation: ch-mark 7s ease-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-cap1 { animation: ch-cap1 7s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-cap2 { animation: ch-cap2 7s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-cap3 { animation: ch-cap3 7s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-c2 { animation: ch-c2 7s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ch-late { animation: ch-late 7s linear infinite; }
     }
     @keyframes ch-layer { 0% { opacity: 0; } 5% { opacity: 1; } 90% { opacity: 1; } 98%, 100% { opacity: 0; } }
     /* The offered pawn steps forward two squares, then gets taken and tumbles away */

@@ -11,9 +11,9 @@
     .pe-rays { transform-box: fill-box; transform-origin: 50% 50%; }
     svg text.pe-cap { font-size: 14px; }
     @media (prefers-reduced-motion: no-preference) {
-      :is(a, .head-art):is(:hover, :focus-visible) .pe-sun { animation: pe-sun 8s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible) .pe-shadow { animation: pe-shadow 8s linear infinite; }
-      :is(a, .head-art):is(:hover, :focus-visible) .pe-rays { animation: pe-spin 10s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pe-sun { animation: pe-sun 8s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pe-shadow { animation: pe-shadow 8s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pe-rays { animation: pe-spin 10s linear infinite; }
     }
     /* The sun crosses the sky from left to right and sets behind the mountains */
     @keyframes pe-sun {
