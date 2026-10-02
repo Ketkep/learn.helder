@@ -11,7 +11,7 @@ export interface Topic {
   /** One line that makes people want to click. */
   hook: string;
   category: string;
-  /** One mid-tone color (hex). Panels, drawings and tints are mixed from it, in light and dark mode. */
+  /** The cover color (hex). Text and drawing colors on it are picked automatically. */
   accent: string;
   /** Name of an SVG file in src/previews, without ".svg". */
   preview: string;
@@ -30,7 +30,7 @@ export const topics: Topic[] = [
     title: 'English tenses on a timeline',
     hook: 'Drag through time and see why English needs so many tenses.',
     category: 'Language',
-    accent: '#5B8FD9',
+    accent: '#2F55D4',
     preview: 'english-tenses-on-a-timeline',
     dateAdded: '2026-10-01',
     status: 'live',
@@ -40,7 +40,7 @@ export const topics: Topic[] = [
     title: 'Compound interest',
     hook: 'Move the sliders and watch small amounts grow.',
     category: 'Money',
-    accent: '#4FAE82',
+    accent: '#1F7A5A',
     preview: 'compound-interest',
     dateAdded: '2026-10-01',
     status: 'live',
@@ -50,7 +50,7 @@ export const topics: Topic[] = [
     title: 'How a website reaches your screen',
     hook: 'Follow one click from your browser to a server and back.',
     category: 'Technology',
-    accent: '#E5739B',
+    accent: '#F1B434',
     preview: 'how-a-website-reaches-your-screen',
     dateAdded: '2026-10-01',
     status: 'live',

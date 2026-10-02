@@ -12,30 +12,27 @@ const categories = getCategories();
 <BaseLayout
   title="Helder Labs Learn: interactive explainers"
   description="Interactive explainers from Helder Labs. Learn things by playing with them."
-  band="var(--hero-tint)"
 >
-  <section class="hero">
+  <section class="hero" data-hero>
     <div class="wrap hero-inner">
-      <h1 class="hero-title">
-        <span>Helder Labs</span>
-        <span class="learn">Learn</span>
-      </h1>
+      <div class="hero-main">
+        <h1 class="hero-title">
+          <span class="focus">Helder Labs</span>
+          <span class="focus">Learn</span>
+        </h1>
+
+        <!-- "Helder" means clear. This slider blurs and clears the title. Needs JavaScript. -->
+        <div class="clarity" data-clarity hidden>
+          <input id="clarity" type="range" min="0" max="100" value="100" aria-valuetext="100 percent clear" />
+          <label for="clarity">Drag to clear things up</label>
+        </div>
+      </div>
+
       <p class="lede">
         <span>Interactive explainers.</span>
         <span>Learn things by playing with them.</span>
       </p>
     </div>
-
-    <!-- One segment per topic, in the topic's own color -->
-    {
-      topics.length > 0 && (
-        <div class="strip" aria-hidden="true">
-          {topics.map((t) => (
-            <span style={`background: ${t.accent};`} />
-          ))}
-        </div>
-      )
-    }
   </section>
 
   <section class="topics wrap" aria-labelledby="topics-heading">
@@ -50,6 +47,7 @@ const categories = getCategories();
               {c}
             </button>
           ))}
+          <span class="knob" aria-hidden="true" />
         </div>
       )
     }
@@ -70,40 +68,22 @@ const categories = getCategories();
 </BaseLayout>
 
 <style>
-  .hero {
-    background: var(--band);
-  }
-
   .hero-inner {
     display: grid;
-    gap: 1.5rem 3rem;
-    padding-block: clamp(1rem, 3.5vw, 2.5rem) clamp(2rem, 5vw, 3.5rem);
+    gap: 1.75rem 3rem;
+    padding-block: clamp(1rem, 3vw, 2rem) clamp(1.75rem, 4vw, 2.75rem);
   }
 
   .hero-title {
-    font-size: clamp(3.4rem, 12.5vw, 7.25rem);
-    font-weight: 600;
-    line-height: 0.92;
+    font-size: clamp(3.5rem, 11.5vw, 7.5rem);
+    line-height: 0.96;
     letter-spacing: -0.02em;
   }
 
-  .hero-title span {
+  .hero-title .focus {
     display: block;
-  }
-
-  .learn {
-    color: var(--accent);
-  }
-
-  .lede {
-    max-width: 23rem;
-    color: var(--ink-soft);
-    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
-    line-height: 1.4;
-  }
-
-  .lede span {
-    display: block;
+    /* 1 is sharp, 0 is blurred. The slider sets --clarity. */
+    filter: blur(calc((1 - var(--clarity, 1)) * 20px));
   }
 
   /* "Helder" means clear: the name comes into focus when the page loads */
@@ -125,67 +105,157 @@ const categories = getCategories();
     }
   }
 
-  /* Title on the left, one-line description pinned to the bottom right */
+  .clarity {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.25rem;
+    margin-top: 1.5rem;
+    max-width: 34rem;
+  }
+
+  .clarity label {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .clarity input {
+    flex: 1 1 14rem;
+    height: 2rem;
+    margin: 0;
+    background: none;
+    cursor: grab;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .clarity input:active {
+    cursor: grabbing;
+  }
+
+  .clarity input:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 4px;
+    border-radius: 999px;
+  }
+
+  .clarity input::-webkit-slider-runnable-track {
+    height: 2px;
+    background: var(--ink);
+  }
+
+  .clarity input::-moz-range-track {
+    height: 2px;
+    background: var(--ink);
+  }
+
+  /* The knob: the same orange knob that sits on every cover */
+  .clarity input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 1.9rem;
+    height: 1.9rem;
+    margin-top: calc(-0.95rem + 1px);
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .clarity input::-moz-range-thumb {
+    width: 1.9rem;
+    height: 1.9rem;
+    box-sizing: border-box;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .lede {
+    max-width: 22rem;
+    color: var(--ink-soft);
+    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
+    line-height: 1.4;
+  }
+
+  .lede span {
+    display: block;
+  }
+
+  /* Title and slider on the left, the one-line description pinned to the bottom right */
   @media (min-width: 52rem) {
     .hero-inner {
-      grid-template-columns: minmax(0, 1fr) 23rem;
+      grid-template-columns: minmax(0, 1fr) 22rem;
       align-items: end;
     }
 
     .lede {
-      padding-bottom: 0.8rem;
+      padding-bottom: 0.4rem;
     }
   }
 
-  /* A thin color index: one segment per topic */
-  .strip {
-    display: flex;
-    height: 4px;
-  }
-
-  .strip span {
-    flex: 1;
-  }
-
   .topics {
-    padding-top: clamp(1rem, 3vw, 1.75rem);
+    padding-top: 0;
   }
 
+  /* The filter is a slider too: a track with a knob under the chosen tab */
   .filter {
+    position: relative;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0 1.75rem;
-    margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
-    border-bottom: 1px solid var(--line);
+    gap: 1.75rem;
+    margin-bottom: clamp(1.75rem, 3vw, 2.25rem);
+    padding-bottom: 1.1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .filter::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 7px;
+    left: 0;
+    height: 2px;
+    background: var(--line-strong);
   }
 
   .filter button {
-    margin-bottom: -1px;
-    padding: 0.7rem 0;
+    flex: none;
+    padding: 0.4rem 0;
     border: 0;
-    border-bottom: 2px solid transparent;
     background: none;
     color: var(--ink-soft);
     font-weight: 500;
     cursor: pointer;
-    transition: color 0.15s, border-color 0.15s;
+    transition: color 0.15s;
   }
 
-  .filter button:hover {
+  .filter button:hover,
+  .filter button[aria-pressed='true'] {
     color: var(--ink);
   }
 
   .filter button[aria-pressed='true'] {
-    border-bottom-color: var(--accent);
-    color: var(--ink);
-    font-weight: 600;
+    font-weight: 700;
   }
 
-  /* Auto-fills columns: 1 on phones, 2 on tablets, 3 on desktop */
+  .knob {
+    position: absolute;
+    bottom: 0;
+    left: -8px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    background: var(--accent);
+    transform: translateX(var(--x, 0px));
+    transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  /* The shelf: 1 cover per row on phones, 2 on tablets, 3 on desktop */
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
-    gap: clamp(2.5rem, 5vw, 3.5rem) clamp(1.5rem, 3vw, 2.25rem);
+    gap: clamp(2.5rem, 5vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
   }
 
   .empty {
@@ -193,18 +263,47 @@ const categories = getCategories();
     font-size: 1.25rem;
   }
 </style>
-
 <script>
-  // Category filter: shows or hides cards by their data-category.
+  // 1. Clarity slider in the hero: blurs and clears the title.
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  const clarity = document.querySelector<HTMLElement>('[data-clarity]');
+  const range = clarity?.querySelector<HTMLInputElement>('input');
+
+  if (hero && clarity && range) {
+    clarity.hidden = false;
+    range.addEventListener('input', () => {
+      hero.style.setProperty('--clarity', String(Number(range.value) / 100));
+      range.setAttribute('aria-valuetext', `${range.value} percent clear`);
+    });
+  }
+
+  // 2. Category filter: shows or hides cards by their data-category, and slides the knob.
   // Without JavaScript the buttons stay hidden and every card stays visible.
   const bar = document.querySelector<HTMLElement>('[data-filter]');
 
   if (bar) {
     const buttons = bar.querySelectorAll<HTMLButtonElement>('button[data-category]');
     const cards = document.querySelectorAll<HTMLElement>('[data-card]');
+    const knob = bar.querySelector<HTMLElement>('.knob');
     const status = document.querySelector<HTMLElement>('[data-filter-status]');
 
+    const moveKnob = (button: HTMLElement) => {
+      knob?.style.setProperty('--x', `${button.offsetLeft + button.offsetWidth / 2}px`);
+    };
+
+    const current = () => bar.querySelector<HTMLButtonElement>('button[aria-pressed="true"]');
+
     bar.hidden = false;
+    moveKnob(buttons[0]);
+    // Place it again once the font has loaded and the tab widths are final
+    document.fonts.ready.then(() => {
+      const pressed = current();
+      if (pressed) moveKnob(pressed);
+    });
+    window.addEventListener('resize', () => {
+      const pressed = current();
+      if (pressed) moveKnob(pressed);
+    });
 
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
@@ -212,6 +311,7 @@ const categories = getCategories();
         let shown = 0;
 
         buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+        moveKnob(button);
 
         cards.forEach((card) => {
           const match = chosen === 'all' || card.dataset.category === chosen;

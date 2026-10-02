@@ -36,18 +36,20 @@ Three steps.
   title: 'My new topic',
   hook: 'One line that makes people want to click.',
   category: 'Science',             // a new category appears in the filter by itself
-  accent: '#E0A12A',               // one mid-tone color, the tints and line colors are mixed from it
+  accent: '#B8452E',               // the cover color. Text and drawing colors on it are picked for you
   preview: 'my-new-topic',         // name of the drawing in src/previews
   dateAdded: '2026-11-01',         // topics are ordered by this date, oldest first
   status: 'draft',                 // change to 'live' when it is ready
 },
 ```
 
-**2. Add the preview drawing.** Put a simple SVG at `src/previews/my-new-topic.svg`. Use viewBox `0 0 400 280` and no colors of its own: the card draws it with thin lines in a dark shade of the topic's color. Copy one of the existing files in that folder and change the shapes. Three helper classes are available inside the SVG:
+**2. Draw the cover.** Put a simple SVG at `src/previews/my-new-topic.svg`. Use viewBox `0 0 400 300` and no colors of its own: the cover supplies them, so the drawing works on any cover color and in both light and dark mode. Copy one of the existing files in that folder and change the shapes. These classes are available inside the SVG:
 
-- `class="f"` fills a shape with the panel's light color.
-- `class="s"` makes a shape solid (dots, markers).
-- `class="m"` with `style="--dx: 40px"` (or `--dy`) moves a shape on hover. `class="grow"` with `style="--g: 0.1"` stretches it upwards.
+- `class="a"` a solid shape in the text color. `class="b"` a softer shape. `class="c"` a very faint one. `class="cv"` a shape in the cover color (to cut a hole).
+- `class="l"` a line, and `class="l dash"` a dotted line.
+- `class="knob"` the orange knob. Every cover has one, it is the brand's signature. Use it for the thing the reader moves.
+- `class="m"` with `style="--dx: 40px"` (or `--dy`) slides a shape when the cover is hovered. `class="grow"` with `style="--g: 0.1"` stretches it upwards. Add `--i: 2` to delay it by a few steps.
+- Plain `<text>` is styled for you (small, in the text color).
 
 **3. Create the page.** Make the folder `src/pages/my-new-topic/` with a file `index.astro` inside:
 
@@ -97,17 +99,20 @@ src/pages/<slug>/        one folder per topic
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
 src/components/          header, footer, topic card, "coming soon" block
 src/styles/global.css    colors, fonts, spacing: change the look here
-src/previews/            one SVG drawing per topic, shown on the cards
+src/previews/            one SVG drawing per topic, shown on its cover
+src/lib/                 small helpers (cover text color, loading the drawings)
 public/                  favicon and the link preview image
 ```
 
 ## Design notes
 
-- Colors, fonts and spacing are CSS variables at the top of `src/styles/global.css`. Light and dark mode follow the system setting.
-- Fonts are Bricolage Grotesque (headings) and Hanken Grotesk (text), installed through `@fontsource` so they are served from this site and not from Google.
-- The look is thin hairlines, soft tinted panels and one orange accent. Each topic's panel color is mixed from the one `accent` value in the registry, so it also works in dark mode.
-- The name in the hero comes into focus when the page loads ("helder" means clear). The card drawings move a little on hover. Both are switched off for people who ask for reduced motion.
-- The favicon is a placeholder. The link preview image `public/og-image.png` is a 1200 by 630 picture of the hero. Replace both when the brand artwork is ready.
+- The idea: the topics are a series, like small books. Each topic is a cover in its own color with a spine and a little paper grain. The topic page is the inside of that book and uses the same color.
+- The recurring detail is the slider knob. It is the logo, it sits on every cover, it rides the filter line, and it is the hero slider. Most explainers have something you drag, so the knob stands for all of them.
+- Colors, fonts and spacing are CSS variables at the top of `src/styles/global.css`. Light and dark mode follow the system setting. Covers keep their color in both modes, like objects on a shelf.
+- Fonts are Young Serif (headings and titles) and Hanken Grotesk (text), installed through `@fontsource` so they are served from this site and not from Google. Young Serif has one weight, so do not make it bold or italic.
+- Picking a cover color: take a mid-dark or mid-light color with some personality. Cream text is used on dark covers and near-black text on light ones. Check the result is readable before you publish.
+- "Helder" means clear: the hero title comes into focus when the page loads, and the slider under it blurs and clears it again. The cover drawings move a little on hover. Both are switched off for people who ask for reduced motion (the slider still works when dragged).
+- The favicon is a placeholder. The link preview image `public/og-image.png` is a 1200 by 630 picture made from the covers. Replace both when the brand artwork is ready.
 
 ## Writing rules for this site
 

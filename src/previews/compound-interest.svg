@@ -1,21 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
   <!-- Bars that grow faster each step. On hover they grow a little more. -->
-  <rect class="f grow" style="--g: 0.04; --i: 0" x="48" y="178" width="30" height="18" rx="2" />
-  <rect class="f grow" style="--g: 0.05; --i: 1" x="94" y="170" width="30" height="26" rx="2" />
-  <rect class="f grow" style="--g: 0.06; --i: 2" x="140" y="160" width="30" height="36" rx="2" />
-  <rect class="f grow" style="--g: 0.07; --i: 3" x="186" y="146" width="30" height="50" rx="2" />
-  <rect class="f grow" style="--g: 0.08; --i: 4" x="232" y="126" width="30" height="70" rx="2" />
-  <rect class="f grow" style="--g: 0.09; --i: 5" x="278" y="98" width="30" height="98" rx="2" />
-  <rect class="f grow" style="--g: 0.1; --i: 6" x="324" y="60" width="30" height="136" rx="2" />
-  <path d="M32 196H368" />
-  <!-- A coin that hops on the tallest bar -->
-  <g class="m" style="--dy: -14px; --i: 6">
-    <circle class="f" cx="339" cy="42" r="14" />
-    <circle cx="339" cy="42" r="5" />
+  <rect class="b grow" style="--g: 0.05; --i: 0" x="44" y="190" width="38" height="26" />
+  <rect class="b grow" style="--g: 0.06; --i: 1" x="98" y="178" width="38" height="38" />
+  <rect class="b grow" style="--g: 0.07; --i: 2" x="152" y="160" width="38" height="56" />
+  <rect class="b grow" style="--g: 0.08; --i: 3" x="206" y="134" width="38" height="82" />
+  <rect class="b grow" style="--g: 0.09; --i: 4" x="260" y="98" width="38" height="118" />
+  <rect class="a grow" style="--g: 0.1; --i: 5" x="314" y="52" width="38" height="164" />
+  <path class="l" d="M24 216H376" />
+  <text x="63" y="240" text-anchor="middle">year 1</text>
+  <text x="333" y="240" text-anchor="middle">year 30</text>
+  <!-- A knob that hops on the tallest bar -->
+  <g class="m" style="--dy: -14px; --i: 5">
+    <circle class="knob" cx="333" cy="32" r="15" />
   </g>
-  <!-- Two sliders -->
-  <path d="M48 232H352" />
-  <g class="m" style="--dx: 70px"><circle class="f" cx="140" cy="232" r="9" /></g>
-  <path d="M48 256H352" />
-  <g class="m" style="--dx: -50px"><circle class="f" cx="270" cy="256" r="9" /></g>
+  <!-- The slider that drives it -->
+  <path class="l" d="M44 272H356" />
+  <g class="m" style="--dx: 140px"><circle class="knob" cx="130" cy="272" r="11" /></g>
 </svg>

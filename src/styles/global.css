@@ -5,19 +5,26 @@
 :root {
   color-scheme: light dark;
 
-  --font-display: 'Bricolage Grotesque Variable', 'Helvetica Neue', Arial, sans-serif;
+  /* Young Serif only exists in one weight, so never ask for bold or italic with it */
+  --font-display: 'Young Serif', Georgia, 'Times New Roman', serif;
   --font-body: 'Hanken Grotesk Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* Light theme */
-  --paper: #fbfbf9; /* page background */
+  --paper: #f3f2ee; /* page background */
   --surface: #ffffff; /* panels and boxes */
-  --ink: #111418;
-  --ink-soft: #596069; /* secondary text */
-  --line: #e3e4df; /* hairlines */
-  --line-strong: #c8cac4; /* borders that need to be seen */
-  --accent: #e44e18; /* the site accent: a Dutch orange. Large type and thin lines only */
+  --ink: #121315;
+  --ink-soft: #595c61; /* secondary text */
+  --line: #dcdbd5; /* hairlines */
+  --line-strong: #bdbcb5; /* lines that need to be seen */
+  --accent: #e4501a; /* the knob: the one orange that appears on every cover */
   --accent-text: #c2410c; /* the same orange, darker, for small text */
-  --hero-tint: #fff1e6; /* soft warm color behind the homepage hero */
+
+  /* Covers are objects, so these two never change with the theme */
+  --cream: #fff3dc;
+  --dark: #121315;
+
+  /* A fine paper grain laid over covers (an SVG noise filter, no image file) */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .2 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 
   /* Layout */
   --gutter: clamp(1rem, 4vw, 2rem);
@@ -27,15 +34,14 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #0f1113;
-    --surface: #171a1d;
-    --ink: #f1f1ec;
-    --ink-soft: #a3a9b1;
-    --line: #262a2e;
-    --line-strong: #3b4147;
+    --paper: #0f1011;
+    --surface: #18181a;
+    --ink: #f3f1ea;
+    --ink-soft: #a5a49e;
+    --line: #2a2a2d;
+    --line-strong: #434347;
     --accent: #ff7a45;
     --accent-text: #ff8d5f;
-    --hero-tint: #1a1410;
   }
 }
 
@@ -62,6 +68,7 @@ body {
   font-family: var(--font-body);
   font-size: 1.0625rem;
   line-height: 1.55;
+  font-synthesis: none;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -109,9 +116,9 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
   text-wrap: balance;
 }
 
@@ -121,7 +128,7 @@ p {
 
 ::selection {
   background: var(--accent);
-  color: #111418;
+  color: var(--dark);
 }
 
 /* ---------- Focus ---------- */

@@ -1,25 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -10 400 280">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
   <!-- Browser window -->
-  <rect class="f" x="28" y="76" width="128" height="120" rx="8" />
-  <path d="M28 100H156" />
-  <circle class="s" cx="42" cy="88" r="2.5" />
-  <circle class="s" cx="53" cy="88" r="2.5" />
-  <circle class="s" cx="64" cy="88" r="2.5" />
-  <path d="M44 124h56M44 142h84" />
-  <rect x="44" y="158" width="40" height="22" rx="3" />
+  <rect class="c" x="28" y="62" width="132" height="130" rx="10" />
+  <rect class="l" x="28" y="62" width="132" height="130" rx="10" />
+  <path class="l" d="M28 90H160" />
+  <circle class="a" cx="42" cy="76" r="3" />
+  <circle class="a" cx="53" cy="76" r="3" />
+  <circle class="a" cx="64" cy="76" r="3" />
+  <path class="l" d="M44 112h58M44 130h86" />
+  <rect class="b" x="44" y="148" width="42" height="28" rx="3" />
   <!-- Server stack -->
-  <rect class="f" x="272" y="64" width="100" height="36" rx="8" />
-  <rect class="f" x="272" y="108" width="100" height="36" rx="8" />
-  <rect class="f" x="272" y="152" width="100" height="36" rx="8" />
-  <path d="M286 82h34M286 126h34M286 170h34" />
-  <circle class="s" cx="356" cy="82" r="3.5" />
-  <circle class="s" cx="356" cy="126" r="3.5" />
-  <circle class="s" cx="356" cy="170" r="3.5" />
-  <!-- The request goes right, the answer comes back left -->
-  <path d="M168 120H256" stroke-dasharray="1 8" stroke-width="3" />
-  <path d="M244 112l12 8-12 8" />
-  <path d="M256 156H168" stroke-dasharray="1 8" stroke-width="3" />
-  <path d="M180 148l-12 8 12 8" />
-  <rect class="s m" style="--dx: 36px" x="190" y="112" width="16" height="16" rx="3" />
-  <rect class="f m" style="--dx: -36px" x="210" y="148" width="16" height="16" rx="3" />
+  <rect class="a" x="268" y="58" width="104" height="40" rx="8" />
+  <rect class="a" x="268" y="106" width="104" height="40" rx="8" />
+  <rect class="a" x="268" y="154" width="104" height="40" rx="8" />
+  <circle class="cv" cx="352" cy="78" r="4" />
+  <circle class="cv" cx="352" cy="126" r="4" />
+  <circle class="cv" cx="352" cy="174" r="4" />
+  <!-- The click goes right, the page comes back left -->
+  <path class="l dash" d="M176 112H252" />
+  <path class="l" d="M242 102l10 10-10 10" />
+  <path class="l dash" d="M252 156H176" />
+  <path class="l" d="M186 146l-10 10 10 10" />
+  <g class="m" style="--dx: 44px"><circle class="knob" cx="200" cy="112" r="12" /></g>
+  <g class="m" style="--dx: -44px"><circle class="a" cx="228" cy="156" r="9" /></g>
+  <text x="214" y="96" text-anchor="middle">click</text>
+  <text x="214" y="190" text-anchor="middle">page</text>
 </svg>

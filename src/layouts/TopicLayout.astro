@@ -1,10 +1,12 @@
 ---
 // The shared frame for every topic page. Topics differ only inside the slot;
-// the header, title, takeaways and next-topic link stay the same on purpose.
-// The topic's accent color tints the top band and is available to the slot
-// as the CSS variable --topic.
+// the header, title, takeaways and next-topic link stay the same on purpose,
+// so the site feels like one series. The topic's cover color paints the top band
+// and is available to the slot as the CSS variable --topic.
 import BaseLayout from './BaseLayout.astro';
+import CoverArt from '../components/CoverArt.astro';
 import { getTopic, getNextTopic, getTopicNumber } from '../data/topics';
+import { readableInk } from '../lib/color';
 
 interface Props {
   /** Must match the entry in src/data/topics.ts. Title, hook and color come from there. */
@@ -19,26 +21,33 @@ const { slug, intro, takeaways = [] } = Astro.props;
 const topic = getTopic(slug);
 const next = getNextTopic(slug);
 const number = getTopicNumber(slug);
+const ink = readableInk(topic.accent);
 ---
 
 <BaseLayout
   title={`${topic.title} | Helder Labs Learn`}
   description={topic.hook}
-  band={`color-mix(in oklab, ${topic.accent} 20%, var(--paper))`}
+  band={topic.accent}
+  bandInk={ink}
   noindex={topic.status === 'draft'}
 >
   <div style={`--topic: ${topic.accent};`}>
-    <section class="head">
+    <section class="head" style={`--cover: ${topic.accent}; --on-cover: ${ink};`}>
       <div class="wrap head-inner">
-        <a class="back" href="/">
-          <span aria-hidden="true">&larr;</span> All topics
-        </a>
-        <p class="meta">
-          <span class="num">{number}</span>
-          <span>{topic.category}</span>
-        </p>
-        <h1>{topic.title}</h1>
-        <p class="intro">{intro}</p>
+        <div class="head-text">
+          <a class="back" href="/">
+            <span aria-hidden="true">&larr;</span> All topics
+          </a>
+          <p class="meta">
+            <span>{number}</span>
+            <span>{topic.category}</span>
+          </p>
+          <h1>{topic.title}</h1>
+          <p class="intro">{intro}</p>
+        </div>
+        <div class="head-art">
+          <CoverArt name={topic.preview} />
+        </div>
       </div>
     </section>
 
@@ -66,14 +75,20 @@ const number = getTopicNumber(slug);
     <section class="more wrap">
       {
         next ? (
-          <nav aria-label="Next topic" style={`--topic: ${next.accent};`}>
-            <a class="next" href={`/${next.slug}/`}>
+          <nav aria-label="Next topic">
+            <a
+              class="next"
+              href={`/${next.slug}/`}
+              style={`--cover: ${next.accent}; --on-cover: ${readableInk(next.accent)};`}
+            >
               <span class="next-label">Next topic</span>
               <span class="next-title">{next.title}</span>
               <span class="next-hook">{next.hook}</span>
-              <svg class="arrow" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M4 12h15M13 6l6 6-6 6" />
-              </svg>
+              <span class="next-knob" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 12h15M13 6l6 6-6 6" />
+                </svg>
+              </span>
             </a>
           </nav>
         ) : (
@@ -88,73 +103,87 @@ const number = getTopicNumber(slug);
 
 <style>
   .head {
+    overflow: hidden;
     background: var(--band);
+    color: var(--on-band);
   }
 
   .head-inner {
     display: grid;
     gap: 1rem 3rem;
-    padding-block: 0.5rem clamp(2.5rem, 6vw, 4.5rem);
+    padding-top: 0.5rem;
+    padding-bottom: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .head-text {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
   }
 
   .back {
     justify-self: start;
-    margin-bottom: clamp(0.75rem, 3vw, 2rem);
+    margin-bottom: clamp(0.5rem, 2vw, 1.5rem);
     font-weight: 500;
-    color: var(--ink-soft);
     text-underline-offset: 0.3em;
     text-decoration-thickness: 2px;
     text-decoration-color: transparent;
-    transition: color 0.15s, text-decoration-color 0.15s;
+    transition: text-decoration-color 0.15s;
   }
 
   .back:hover {
-    color: var(--ink);
-    text-decoration-color: var(--accent);
+    text-decoration-color: currentColor;
   }
 
   .meta {
     display: flex;
     gap: 0.9rem;
-    color: var(--ink-soft);
-    font-weight: 500;
-  }
-
-  .num {
-    font-family: var(--font-display);
     font-weight: 600;
-    color: var(--ink);
   }
 
   h1 {
-    font-size: clamp(2.5rem, 1.2rem + 6vw, 5.5rem);
-    font-weight: 600;
-    line-height: 0.96;
-    letter-spacing: -0.03em;
+    font-size: clamp(2.6rem, 1.2rem + 5.2vw, 5rem);
+    line-height: 0.98;
+    letter-spacing: -0.015em;
   }
 
   .intro {
-    max-width: 30rem;
-    color: var(--ink-soft);
+    max-width: 31rem;
+    margin-top: 0.6rem;
     font-size: clamp(1.1rem, 1rem + 0.4vw, 1.25rem);
     line-height: 1.45;
   }
 
-  /* Title on the left, intro on the right, like the homepage hero */
+  /* The cover drawing sits on the band, bottom right. Only on wide screens. */
+  .head-art {
+    display: none;
+  }
+
   @media (min-width: 60rem) {
     .head-inner {
-      grid-template-columns: minmax(0, 1fr) 22rem;
+      grid-template-columns: minmax(0, 1fr) 25rem;
       align-items: end;
+      padding-bottom: 1.25rem;
     }
 
-    .back,
-    .meta {
-      grid-column: 1 / -1;
+    .head-text {
+      padding-bottom: clamp(1.25rem, 4vw, 3.25rem);
+    }
+
+    .head-art {
+      display: block;
+      --mv: 0;
+    }
+  }
+
+  @media (min-width: 60rem) and (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .head-art:hover {
+      --mv: 1;
     }
   }
 
   .stage {
-    padding-top: clamp(1.5rem, 4vw, 2.5rem);
+    padding-top: clamp(1.75rem, 4vw, 2.75rem);
   }
 
   .stage-box {
@@ -172,7 +201,7 @@ const number = getTopicNumber(slug);
   }
 
   .takeaways h2 {
-    font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.75rem);
+    font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
   }
 
   .list {
@@ -184,7 +213,7 @@ const number = getTopicNumber(slug);
   .list li {
     counter-increment: takeaway;
     display: grid;
-    grid-template-columns: 2.5rem 1fr;
+    grid-template-columns: 2.75rem 1fr;
     gap: 0.75rem;
     padding-top: 1rem;
     border-top: 1px solid var(--line-strong);
@@ -194,7 +223,8 @@ const number = getTopicNumber(slug);
   .list li::before {
     content: counter(takeaway, decimal-leading-zero);
     font-family: var(--font-display);
-    font-weight: 600;
+    font-size: 1.3rem;
+    line-height: 1.2;
     color: var(--accent-text);
   }
 
@@ -213,55 +243,75 @@ const number = getTopicNumber(slug);
     padding-top: clamp(3rem, 8vw, 5.5rem);
   }
 
-  /* The next topic is a tinted panel in that topic's own color */
+  /* The next topic is a small cover of its own: same color, same spine */
   .next {
-    --soft: var(--ink-soft);
-
     position: relative;
     display: grid;
     gap: 0.4rem;
-    padding: 1.4rem 4.5rem 1.5rem 1.4rem;
-    background: color-mix(in oklab, var(--topic) 20%, var(--surface));
-    border-radius: calc(var(--radius) + 2px);
+    padding: 1.5rem 5.5rem 1.6rem 2rem;
+    background: var(--grain), var(--cover);
+    color: var(--on-cover);
+    border-radius: 3px 9px 9px 3px;
+    box-shadow:
+      inset 11px 0 0 rgb(0 0 0 / 0.16),
+      inset 12px 0 0 rgb(255 255 255 / 0.16),
+      0 1px 2px rgb(0 0 0 / 0.18);
     text-decoration: none;
-    transition: background-color 0.3s;
+    transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.4s;
   }
 
-  /* On the deeper tint the secondary text switches to full ink to stay readable */
+  .next:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 5px;
+  }
+
   .next:hover,
   .next:focus-visible {
-    --soft: var(--ink);
-    background: color-mix(in oklab, var(--topic) 36%, var(--surface));
+    box-shadow:
+      inset 11px 0 0 rgb(0 0 0 / 0.16),
+      inset 12px 0 0 rgb(255 255 255 / 0.16),
+      0 22px 32px -14px rgb(0 0 0 / 0.45);
   }
 
   .next-label {
-    color: var(--soft);
-    font-weight: 500;
+    font-weight: 600;
+    opacity: 0.85;
   }
 
   .next-title {
     font-family: var(--font-display);
-    font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.4rem);
-    font-weight: 600;
-    line-height: 1.05;
-    letter-spacing: -0.025em;
+    font-size: clamp(1.8rem, 1.3rem + 1.8vw, 2.7rem);
+    line-height: 1;
   }
 
   .next-hook {
-    color: var(--soft);
+    max-width: 38rem;
   }
 
-  .arrow {
+  /* The same orange knob as on the covers, with an arrow in it */
+  .next-knob {
     position: absolute;
-    right: 1.4rem;
     top: 50%;
+    right: 1.5rem;
+    display: grid;
+    place-items: center;
+    width: 3.1rem;
+    height: 3.1rem;
+    border: 3px solid var(--on-cover);
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--dark);
     transform: translateY(-50%);
-    transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-    .next:hover .arrow {
-      transform: translateY(-50%) translateX(5px);
+    .next:hover {
+      transform: translateY(-4px);
+    }
+
+    .next:hover .next-knob {
+      transform: translateY(-50%) translateX(6px);
     }
   }
 

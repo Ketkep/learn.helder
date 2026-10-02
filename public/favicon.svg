@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- Placeholder favicon: dark tile with an orange ring and dot -->
-  <rect width="32" height="32" rx="8" fill="#111418" />
-  <circle cx="16" cy="16" r="8" fill="none" stroke="#e44e18" stroke-width="3" />
-  <circle cx="16" cy="16" r="3" fill="#ffffff" />
+  <!-- Placeholder favicon: the logo, a slider line with an orange knob -->
+  <rect width="32" height="32" rx="8" fill="#121315" />
+  <path d="M6 16h20" stroke="#fff3dc" stroke-width="3" stroke-linecap="round" />
+  <circle cx="19" cy="16" r="6.5" fill="#e4501a" stroke="#fff3dc" stroke-width="3" />
 </svg>
