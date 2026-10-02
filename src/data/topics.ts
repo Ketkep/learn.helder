@@ -21,38 +21,36 @@ export interface Topic {
   status: TopicStatus;
 }
 
-// The three entries below are placeholders so the design has cards to show.
-// Replace them with real topics, or set them to 'draft', before you point
-// learn.helderlabs.com at this site.
+// The topics, in the order they were added. Their pages are still "Coming soon".
 export const topics: Topic[] = [
   {
-    slug: 'english-tenses-on-a-timeline',
-    title: 'English tenses on a timeline',
-    hook: 'Drag through time and see why English needs so many tenses.',
-    category: 'Language',
-    accent: '#2F55D4',
-    preview: 'english-tenses-on-a-timeline',
-    dateAdded: '2026-10-01',
+    slug: 'gambits-in-chess',
+    title: 'Gambits in chess',
+    hook: 'Give away a pawn on purpose and see what you get for it.',
+    category: 'Games',
+    accent: '#9B2F36',
+    preview: 'gambits-in-chess',
+    dateAdded: '2026-10-02',
     status: 'live',
   },
   {
-    slug: 'compound-interest',
-    title: 'Compound interest',
-    hook: 'Move the sliders and watch small amounts grow.',
-    category: 'Money',
-    accent: '#1F7A5A',
-    preview: 'compound-interest',
-    dateAdded: '2026-10-01',
+    slug: 'pyramids-in-peru',
+    title: 'Pyramids in Peru',
+    hook: 'Huge stepped pyramids, built thousands of years before the Incas.',
+    category: 'Archaeology',
+    accent: '#D9A441',
+    preview: 'pyramids-in-peru',
+    dateAdded: '2026-10-02',
     status: 'live',
   },
   {
-    slug: 'how-a-website-reaches-your-screen',
-    title: 'How a website reaches your screen',
-    hook: 'Follow one click from your browser to a server and back.',
-    category: 'Technology',
-    accent: '#F1B434',
-    preview: 'how-a-website-reaches-your-screen',
-    dateAdded: '2026-10-01',
+    slug: 'the-dutch-golden-age',
+    title: 'The Dutch Golden Age',
+    hook: 'How a small country at the edge of Europe became a trading giant.',
+    category: 'History',
+    accent: '#2B4F9E',
+    preview: 'the-dutch-golden-age',
+    dateAdded: '2026-10-02',
     status: 'live',
   },
 ];

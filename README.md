@@ -51,6 +51,13 @@ Three steps.
 - `class="m"` with `style="--dx: 40px"` (or `--dy`) slides a shape when the cover is hovered. `class="grow"` with `style="--g: 0.1"` stretches it upwards. Add `--i: 2` to delay it by a few steps.
 - Plain `<text>` is styled for you (small, in the text color).
 
+For bigger animations, a drawing can contain its own `<style>` block. The three current covers do this: `gambits-in-chess.svg` plays a whole little story on a board, `pyramids-in-peru.svg` moves the sun across the sky with the shadow following it, and `the-dutch-golden-age.svg` sails a ship past canal houses. A few rules keep this tidy:
+
+- Start your class names and `@keyframes` names with a short prefix for the topic (`ch-`, `pe-`, `nl-`), so two drawings never clash.
+- Put the selector `:is(a, .head-art):is(:hover, :focus-visible)` in front of a rule to run an animation only while the cover is hovered or focused. The same drawing is shown on the topic page, where `.head-art` is the hover target.
+- Wrap animations in `@media (prefers-reduced-motion: no-preference)`, so people who ask for less motion get a still drawing.
+- Colors: use `var(--cover)` (the cover color), `var(--on-cover)` (the text color on it) and `var(--accent)` (the orange knob), mixed with `color-mix(in oklab, ...)` if you need a lighter or darker shade.
+
 **3. Create the page.** Make the folder `src/pages/my-new-topic/` with a file `index.astro` inside:
 
 ```astro
@@ -82,7 +89,7 @@ You do not need to run anything on your own computer for this.
 4. After about a minute you get a link ending in `.vercel.app`. Every time new code is pushed to the repository, Vercel rebuilds the site by itself.
 5. For learn.helderlabs.com: open the project, go to **Settings**, then **Domains**, and add the domain. Vercel shows the exact DNS record to create where helderlabs.com is managed.
 
-The three starter topics are placeholders set to `live`, so the deployed site shows cards. Before you attach learn.helderlabs.com, replace them with real topics or set them to `draft`.
+The three topics (chess gambits, pyramids in Peru, the Dutch Golden Age) are set to `live`, but their pages still say "Coming soon". That is fine while you look at the site on the `.vercel.app` link. Before you attach learn.helderlabs.com, either build the pages or set any topic you are not ready to show to `draft`.
 
 ## Draft and live
 

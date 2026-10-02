@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .pe-mtn { fill: color-mix(in oklab, var(--cover) 80%, var(--on-cover)); }
+    .pe-t1 { fill: color-mix(in oklab, var(--cover) 44%, var(--on-cover)); }
+    .pe-t2 { fill: color-mix(in oklab, var(--cover) 54%, var(--on-cover)); }
+    .pe-edge { fill: none; stroke: color-mix(in oklab, var(--cover) 62%, white); stroke-width: 2.5; stroke-linecap: round; }
+    .pe-stairs { fill: color-mix(in oklab, var(--cover) 50%, white); }
+    .pe-step { fill: none; stroke: color-mix(in oklab, var(--cover) 62%, var(--on-cover)); stroke-width: 2; }
+    .pe-shadow { fill: color-mix(in oklab, var(--cover) 50%, black); transform-origin: 200px 250px; transform: scaleX(0.771); }
+    .pe-sun { transform: translate(84.4px, 148.0px); }
+    .pe-rays { transform-box: fill-box; transform-origin: 50% 50%; }
+    svg text.pe-cap { font-size: 14px; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible) .pe-sun { animation: pe-sun 8s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible) .pe-shadow { animation: pe-shadow 8s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible) .pe-rays { animation: pe-spin 10s linear infinite; }
+    }
+    /* The sun crosses the sky from left to right and sets behind the mountains */
+    @keyframes pe-sun {
+      0% { transform: translate(50.0px, 250.0px); }
+      10% { transform: translate(57.3px, 200.6px); }
+      20% { transform: translate(78.6px, 156.0px); }
+      30% { transform: translate(111.8px, 120.6px); }
+      40% { transform: translate(153.6px, 97.8px); }
+      50% { transform: translate(200.0px, 90.0px); }
+      60% { transform: translate(246.4px, 97.8px); }
+      70% { transform: translate(288.2px, 120.6px); }
+      80% { transform: translate(321.4px, 156.0px); }
+      90% { transform: translate(342.7px, 200.6px); }
+      100% { transform: translate(350.0px, 250.0px); }
+    }
+    /* The shadow swings from right to left. It is shortest at noon, and gone when the sun is down. */
+    @keyframes pe-shadow {
+      0% { transform: scaleX(1.000); opacity: 0; }
+      10% { transform: scaleX(0.951); opacity: 1; }
+      20% { transform: scaleX(0.809); opacity: 1; }
+      30% { transform: scaleX(0.588); opacity: 1; }
+      40% { transform: scaleX(0.309); opacity: 1; }
+      50% { transform: scaleX(0.000); opacity: 1; }
+      60% { transform: scaleX(-0.309); opacity: 1; }
+      70% { transform: scaleX(-0.588); opacity: 1; }
+      80% { transform: scaleX(-0.809); opacity: 1; }
+      90% { transform: scaleX(-0.951); opacity: 1; }
+      100% { transform: scaleX(-1.000); opacity: 0; }
+    }
+    @keyframes pe-spin { to { transform: rotate(360deg); } }
+  </style>
+
+  <!-- The sun first, so the mountains and the pyramid pass in front of it -->
+  <defs><clipPath id="pe-clip"><rect x="0" y="0" width="400" height="250"/></clipPath></defs>
+  <g clip-path="url(#pe-clip)"><g class="pe-sun"><g class="pe-rays"><path class="l" d="M22.0 0.0L31.0 0.0"/><path class="l" d="M19.1 11.0L26.8 15.5"/><path class="l" d="M11.0 19.1L15.5 26.8"/><path class="l" d="M0.0 22.0L0.0 31.0"/><path class="l" d="M-11.0 19.1L-15.5 26.8"/><path class="l" d="M-19.1 11.0L-26.8 15.5"/><path class="l" d="M-22.0 0.0L-31.0 0.0"/><path class="l" d="M-19.1 -11.0L-26.8 -15.5"/><path class="l" d="M-11.0 -19.1L-15.5 -26.8"/><path class="l" d="M-0.0 -22.0L-0.0 -31.0"/><path class="l" d="M11.0 -19.1L15.5 -26.8"/><path class="l" d="M19.1 -11.0L26.8 -15.5"/></g><circle class="knob" cx="0" cy="0" r="17"/></g></g>
+
+  <!-- The Andes -->
+  <path class="pe-mtn" d="M0 250V200L42 168L80 206L118 178L160 226L200 250Z"/>
+  <path class="pe-mtn" d="M200 250L240 232L280 172L322 208L356 176L400 214V250Z"/>
+
+  <rect class="pe-shadow" x="200" y="250" width="170" height="15"/>
+  <path class="l" d="M0 250H400"/>
+
+  <!-- A stepped pyramid with a staircase up the middle and a small temple on top -->
+  <rect class="pe-t1" x="90" y="224" width="220" height="26"/><path class="pe-edge" d="M90 224H310"/><rect class="pe-t2" x="112" y="198" width="176" height="26"/><path class="pe-edge" d="M112 198H288"/><rect class="pe-t1" x="134" y="172" width="132" height="26"/><path class="pe-edge" d="M134 172H266"/><rect class="pe-t2" x="156" y="146" width="88" height="26"/><path class="pe-edge" d="M156 146H244"/><rect class="pe-t1" x="176" y="124" width="48" height="22"/><path class="pe-edge" d="M176 124H224"/>
+  <path class="pe-stairs" d="M176 250L188 124H212L224 250Z"/>
+  <path class="pe-step" d="M186.8 136.6H213.2"/><path class="pe-step" d="M185.6 149.2H214.4"/><path class="pe-step" d="M184.4 161.8H215.6"/><path class="pe-step" d="M183.2 174.4H216.8"/><path class="pe-step" d="M182.0 187.0H218.0"/><path class="pe-step" d="M180.8 199.6H219.2"/><path class="pe-step" d="M179.6 212.2H220.4"/><path class="pe-step" d="M178.4 224.8H221.6"/><path class="pe-step" d="M177.2 237.4H222.8"/>
+  <rect class="pe-t2" x="182" y="106" width="36" height="18"/>
+  <path class="pe-edge" d="M182 106H218"/>
+  <rect class="cv" x="194" y="112" width="12" height="12"/>
+
+  <text class="pe-cap" x="200" y="285" text-anchor="middle">the shadow follows the sun</text>
+</svg>

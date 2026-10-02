@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .nl-h1 { fill: color-mix(in oklab, var(--cover) 56%, var(--on-cover)); }
+    .nl-h2 { fill: color-mix(in oklab, var(--cover) 70%, var(--on-cover)); }
+    .nl-water { fill: color-mix(in oklab, var(--cover) 78%, black); }
+    .nl-wave { fill: none; stroke: var(--on-cover); stroke-width: 3; stroke-linecap: round; opacity: 0.45; }
+    .nl-lat { fill: none; stroke: var(--cover); stroke-width: 1.6; }
+    .nl-sail { fill: #fff3dc; stroke: var(--cover); stroke-width: 2; stroke-linejoin: round; }
+    .nl-ship { fill: #fff3dc; }
+    .nl-gun { fill: var(--cover); }
+    .nl-flag { fill: var(--accent); }
+    .nl-petal { fill: var(--accent); stroke: var(--on-cover); stroke-width: 2.5; stroke-linejoin: round; transform-box: view-box; }
+    .nl-bob { transform-box: fill-box; transform-origin: 50% 85%; }
+    .nl-glide, .nl-blades { transform-box: view-box; }
+    .nl-blades { transform-origin: 340px 138px; transform: rotate(20deg); }
+    .nl-pl { transform-origin: 40px 252px; transform: rotate(-4deg); }
+    .nl-pr { transform-origin: 40px 252px; transform: rotate(4deg); }
+    svg text.nl-voc { fill: var(--cover); font-size: 15px; font-weight: 700; letter-spacing: 1px; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible) .nl-glide { animation: nl-glide 12s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible) .nl-bob { animation: nl-bob 2.2s ease-in-out infinite alternate; }
+      :is(a, .head-art):is(:hover, :focus-visible) .nl-blades { animation: nl-spin 7s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible) .nl-w1 { animation: nl-drift 2.4s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible) .nl-w2 { animation: nl-drift 3.4s linear infinite reverse; }
+      :is(a, .head-art):is(:hover, :focus-visible) .nl-w3 { animation: nl-drift 2.8s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible) .nl-pl { animation: nl-open-l 3.2s ease-in-out infinite alternate; }
+      :is(a, .head-art):is(:hover, :focus-visible) .nl-pr { animation: nl-open-r 3.2s ease-in-out infinite alternate; }
+    }
+    /* The ship sails off to the left, and another one arrives from the right */
+    @keyframes nl-glide {
+      0% { transform: translateX(0); }
+      66.6% { transform: translateX(-440px); }
+      66.7% { transform: translateX(220px); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes nl-bob { from { transform: rotate(-1.6deg) translateY(0); } to { transform: rotate(1.6deg) translateY(2.5px); } }
+    @keyframes nl-spin { from { transform: rotate(20deg); } to { transform: rotate(380deg); } }
+    @keyframes nl-drift { to { stroke-dashoffset: -36; } }
+    @keyframes nl-open-l { from { transform: rotate(-4deg); } to { transform: rotate(-34deg); } }
+    @keyframes nl-open-r { from { transform: rotate(4deg); } to { transform: rotate(34deg); } }
+  </style>
+  <defs><clipPath id="nl-clip"><rect x="0" y="0" width="400" height="300"/></clipPath></defs>
+
+  <!-- The sun -->
+  <circle class="knob" cx="46" cy="80" r="15"/>
+
+  <!-- Gabled canal houses, and a windmill on the right -->
+  <path class="nl-h1" d="M24 200L24 136L34 136L34 128L42 128L42 120L58 120L58 128L66 128L66 136L76 136L76 200Z"/><rect class="cv" x="33" y="148" width="9" height="14" rx="1.5"/><rect class="cv" x="58" y="148" width="9" height="14" rx="1.5"/><rect class="cv" x="33" y="172" width="9" height="14" rx="1.5"/><rect class="cv" x="58" y="172" width="9" height="14" rx="1.5"/><rect class="cv" x="45.0" y="184" width="10" height="16" rx="1.5"/><path class="nl-h2" d="M80 200V132C80 120 92 122 92 112C92 102 100 100 104 92C108 100 116 102 116 112C116 122 128 120 128 132V200Z"/><rect class="cv" x="89" y="148" width="9" height="14" rx="1.5"/><rect class="cv" x="110" y="148" width="9" height="14" rx="1.5"/><rect class="cv" x="89" y="172" width="9" height="14" rx="1.5"/><rect class="cv" x="110" y="172" width="9" height="14" rx="1.5"/><rect class="cv" x="99.0" y="184" width="10" height="16" rx="1.5"/><path class="nl-h1" d="M132 200V118H146V100H150V92H166V100H170V118H184V200Z"/><rect class="cv" x="141" y="148" width="9" height="14" rx="1.5"/><rect class="cv" x="166" y="148" width="9" height="14" rx="1.5"/><rect class="cv" x="141" y="172" width="9" height="14" rx="1.5"/><rect class="cv" x="166" y="172" width="9" height="14" rx="1.5"/><rect class="cv" x="153.0" y="184" width="10" height="16" rx="1.5"/><path class="nl-h2" d="M188 200V140L196 140L196 132L204 132L204 124L220 124L220 132L228 132L228 140L236 140V200Z"/><rect class="cv" x="197" y="148" width="9" height="14" rx="1.5"/><rect class="cv" x="218" y="148" width="9" height="14" rx="1.5"/><rect class="cv" x="197" y="172" width="9" height="14" rx="1.5"/><rect class="cv" x="218" y="172" width="9" height="14" rx="1.5"/><rect class="cv" x="207.0" y="184" width="10" height="16" rx="1.5"/><path class="nl-h1" d="M240 200V130C240 118 252 120 252 110C252 100 262 98 266 90C270 98 280 100 280 110C280 120 292 118 292 130V200Z"/><rect class="cv" x="249" y="148" width="9" height="14" rx="1.5"/><rect class="cv" x="274" y="148" width="9" height="14" rx="1.5"/><rect class="cv" x="249" y="172" width="9" height="14" rx="1.5"/><rect class="cv" x="274" y="172" width="9" height="14" rx="1.5"/><rect class="cv" x="261.0" y="184" width="10" height="16" rx="1.5"/>
+  <path class="nl-h2" d="M326 200L333 142H347L354 200Z"/>
+  <path class="nl-h1" d="M329 142L340 128L351 142Z"/>
+  <rect class="cv" x="336" y="182" width="8" height="18" rx="1.5"/>
+  <g class="nl-blades"><g transform="rotate(0 340 138)"><rect class="a" x="336.5" y="92" width="7" height="42" rx="1.5"/><path class="nl-lat" d="M336.5 104H343.5M336.5 114H343.5M336.5 124H343.5"/></g><g transform="rotate(90 340 138)"><rect class="a" x="336.5" y="92" width="7" height="42" rx="1.5"/><path class="nl-lat" d="M336.5 104H343.5M336.5 114H343.5M336.5 124H343.5"/></g><g transform="rotate(180 340 138)"><rect class="a" x="336.5" y="92" width="7" height="42" rx="1.5"/><path class="nl-lat" d="M336.5 104H343.5M336.5 114H343.5M336.5 124H343.5"/></g><g transform="rotate(270 340 138)"><rect class="a" x="336.5" y="92" width="7" height="42" rx="1.5"/><path class="nl-lat" d="M336.5 104H343.5M336.5 114H343.5M336.5 124H343.5"/></g></g>
+  <circle class="a" cx="340" cy="138" r="4"/>
+
+  <!-- The canal -->
+  <rect class="nl-water" x="0" y="200" width="400" height="100"/>
+  <path class="nl-wave nl-w1" d="M0 216H400" stroke-dasharray="14 22"/>
+  <path class="nl-wave nl-w2" d="M0 234H400" stroke-dasharray="22 14"/>
+  <path class="nl-wave nl-w3" d="M0 256H400" stroke-dasharray="10 26"/>
+  <path class="nl-wave nl-w1" d="M0 278H400" stroke-dasharray="18 18"/>
+
+  <!-- A ship under sail (the letters on the sail are the VOC, the Dutch East India Company) -->
+  <g clip-path="url(#nl-clip)">
+    <g transform="translate(246 230)">
+      <g class="nl-glide"><g class="nl-bob">
+        <path class="nl-ship" d="M-68 -22L-52 -18H60L76 -8C68 14 40 24 4 24C-34 24 -62 14 -70 -6Z"/>
+        <path class="nl-wave" style="opacity: 1; stroke: var(--cover); stroke-width: 2.5" d="M-62 -3C-40 5 40 5 66 -4"/>
+        <circle class="nl-gun" cx="-36" cy="9" r="2.2"/><circle class="nl-gun" cx="-18" cy="11" r="2.2"/><circle class="nl-gun" cx="0" cy="12" r="2.2"/><circle class="nl-gun" cx="18" cy="11" r="2.2"/><circle class="nl-gun" cx="36" cy="9" r="2.2"/>
+        <rect class="nl-ship" x="-37" y="-100" width="3" height="84"/><rect class="nl-ship" x="3" y="-116" width="3" height="100"/><rect class="nl-ship" x="40" y="-92" width="3" height="76"/>
+        <path class="nl-sail" d="M-52 -88Q-35.5 -82 -19 -88L-19 -60Q-35.5 -54 -52 -60Z"/>
+        <path class="nl-sail" d="M-55 -56Q-35.5 -49 -16 -56L-16 -26Q-35.5 -19 -55 -26Z"/>
+        <path class="nl-sail" d="M26 -80Q41.5 -75 57 -80L57 -56Q41.5 -51 26 -56Z"/>
+        <path class="nl-sail" d="M23 -52Q41.5 -46 60 -52L60 -26Q41.5 -20 23 -26Z"/>
+        <path class="nl-sail" d="M-24 -104Q4.5 -96 33 -104L33 -66Q4.5 -58 -24 -66Z"/>
+        <path class="nl-sail" d="M-28 -60Q4.5 -50 37 -60L37 -24Q4.5 -14 -28 -24Z"/>
+        <text class="nl-voc" x="4.5" y="-37" text-anchor="middle">VOC</text>
+        <path class="nl-flag" d="M6 -116L26 -111L6 -106Z"/>
+        <path class="l" d="M70 -12L90 -24"/>
+      </g></g>
+    </g>
+  </g>
+
+  <!-- A tulip that opens and closes -->
+  <path class="l" d="M40 252V298"/>
+  <path class="b" d="M40 290C52 286 58 274 58 264C48 268 42 278 40 290Z"/>
+  <path class="nl-petal nl-pl" d="M40 252C30 250 26 238 30 228C36 234 40 242 40 252Z"/>
+  <path class="nl-petal nl-pr" d="M40 252C50 250 54 238 50 228C44 234 40 242 40 252Z"/>
+  <path class="nl-petal" d="M40 252C32 246 32 232 40 224C48 232 48 246 40 252Z"/>
+</svg>
