@@ -101,6 +101,7 @@ src/components/          header, footer, topic card, "coming soon" block
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
+src/scripts/             the hero animation (hero-ruler.ts)
 public/                  favicon and the link preview image
 ```
 
@@ -111,7 +112,9 @@ public/                  favicon and the link preview image
 - Colors, fonts and spacing are CSS variables at the top of `src/styles/global.css`. Light and dark mode follow the system setting. Covers keep their color in both modes, like objects on a shelf.
 - Fonts are Young Serif (headings and titles) and Hanken Grotesk (text), installed through `@fontsource` so they are served from this site and not from Google. Young Serif has one weight, so do not make it bold or italic.
 - Picking a cover color: take a mid-dark or mid-light color with some personality. Cream text is used on dark covers and near-black text on light ones. Check the result is readable before you publish.
-- "Helder" means clear: the hero title comes into focus when the page loads, and the slider under it blurs and clears it again. The cover drawings move a little on hover. Both are switched off for people who ask for reduced motion (the slider still works when dragged).
+- "Helder" means clear, so the hero is a small show about tidying up. On the first visit the title letters are scattered and blurred and a pile of loose sticks is tumbling around. The orange knob rolls across a ruler and tidies everything it passes: the sticks line up into a ruler and the letters spring into place. Afterwards you can drag the knob back and everything ahead of it gets messy again. The code is in `src/scripts/hero-ruler.ts`, and one number (how far the knob has travelled) drives all of it.
+- The intro plays once per browser session, so going back to the homepage does not replay it. To see it again, open the site in a new private window. It is skipped for people who ask for reduced motion (the knob can still be dragged), and with JavaScript off the ruler is not shown and the title is plain text.
+- The cover drawings move a little on hover. That is also switched off for reduced motion.
 - The favicon is a placeholder. The link preview image `public/og-image.png` is a 1200 by 630 picture made from the covers. Replace both when the brand artwork is ready.
 
 ## Writing rules for this site

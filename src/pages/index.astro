@@ -13,25 +13,49 @@ const categories = getCategories();
   title="Helder Labs Learn: interactive explainers"
   description="Interactive explainers from Helder Labs. Learn things by playing with them."
 >
+  <!-- Runs before the page is first painted. If the hero animation is going to play, the
+       title is hidden until the animation takes over, so it never flashes in its final place. -->
+  <script is:inline slot="head">
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      try {
+        var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!reduce && !sessionStorage.getItem('hero-played')) {
+          root.classList.add('intro');
+          // Safety net: never leave the title hidden if the animation script fails
+          setTimeout(function () {
+            root.classList.remove('intro');
+          }, 4000);
+        }
+      } catch (e) {}
+    })();
+  </script>
+
   <section class="hero" data-hero>
     <div class="wrap hero-inner">
-      <div class="hero-main">
-        <h1 class="hero-title">
-          <span class="focus">Helder Labs</span>
-          <span class="focus">Learn</span>
-        </h1>
-
-        <!-- "Helder" means clear. This slider blurs and clears the title. Needs JavaScript. -->
-        <div class="clarity" data-clarity hidden>
-          <input id="clarity" type="range" min="0" max="100" value="100" aria-valuetext="100 percent clear" />
-          <label for="clarity">Drag to clear things up</label>
-        </div>
-      </div>
+      <h1 class="hero-title" data-title>
+        <span class="plain"><span class="line">Helder Labs</span> <span class="line">Learn</span></span>
+        <!-- Filled by the animation script: a moving copy of every letter -->
+        <span class="letters" aria-hidden="true"></span>
+      </h1>
 
       <p class="lede">
         <span>Interactive explainers.</span>
         <span>Learn things by playing with them.</span>
       </p>
+
+      <!-- "Helder" means clear. The knob tidies up everything it rolls over. Needs JavaScript. -->
+      <div class="ruler-block">
+        <div class="ruler" data-ruler>
+          <canvas aria-hidden="true"></canvas>
+          <input id="clarity" type="range" min="0" max="100" step="1" value="100" aria-valuetext="100 percent clear" />
+        </div>
+        <div class="ruler-caption">
+          <label for="clarity">Drag to clear things up</label>
+          <output data-ruler-value aria-hidden="true">100% clear</output>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -70,104 +94,45 @@ const categories = getCategories();
 <style>
   .hero-inner {
     display: grid;
-    gap: 1.75rem 3rem;
-    padding-block: clamp(1rem, 3vw, 2rem) clamp(1.75rem, 4vw, 2.75rem);
+    gap: 1.5rem 3rem;
+    padding-block: clamp(1rem, 3vw, 2rem) clamp(1.5rem, 4vw, 2.5rem);
   }
 
   .hero-title {
+    position: relative;
     font-size: clamp(3.5rem, 11.5vw, 7.5rem);
     line-height: 0.96;
     letter-spacing: -0.02em;
   }
 
-  .hero-title .focus {
+  .hero-title .line {
     display: block;
-    /* 1 is sharp, 0 is blurred. The slider sets --clarity. */
-    filter: blur(calc((1 - var(--clarity, 1)) * 20px));
   }
 
-  /* "Helder" means clear: the name comes into focus when the page loads */
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-title {
-      animation: come-into-focus 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-    }
+  /* The moving copy of the letters sits exactly on top of the real title.
+     While the animation runs, the copy is shown and the real title is hidden. */
+  .letters {
+    position: absolute;
+    inset: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 
-  @keyframes come-into-focus {
-    from {
-      filter: blur(14px);
-      opacity: 0;
-    }
-
-    to {
-      filter: blur(0);
-      opacity: 1;
-    }
+  .letters :global(.ltr) {
+    position: absolute;
+    display: block;
+    white-space: pre;
+    transform-origin: 50% 60%;
   }
 
-  .clarity {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem 1.25rem;
-    margin-top: 1.5rem;
-    max-width: 34rem;
+  .hero.is-animating .letters {
+    visibility: visible;
   }
 
-  .clarity label {
-    color: var(--ink-soft);
-    font-size: 0.95rem;
-    font-weight: 500;
-  }
-
-  .clarity input {
-    flex: 1 1 14rem;
-    height: 2rem;
-    margin: 0;
-    background: none;
-    cursor: grab;
-    -webkit-appearance: none;
-    appearance: none;
-  }
-
-  .clarity input:active {
-    cursor: grabbing;
-  }
-
-  .clarity input:focus-visible {
-    outline: 3px solid var(--ink);
-    outline-offset: 4px;
-    border-radius: 999px;
-  }
-
-  .clarity input::-webkit-slider-runnable-track {
-    height: 2px;
-    background: var(--ink);
-  }
-
-  .clarity input::-moz-range-track {
-    height: 2px;
-    background: var(--ink);
-  }
-
-  /* The knob: the same orange knob that sits on every cover */
-  .clarity input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 1.9rem;
-    height: 1.9rem;
-    margin-top: calc(-0.95rem + 1px);
-    border: 2px solid var(--ink);
-    border-radius: 50%;
-    background: var(--accent);
-  }
-
-  .clarity input::-moz-range-thumb {
-    width: 1.9rem;
-    height: 1.9rem;
-    box-sizing: border-box;
-    border: 2px solid var(--ink);
-    border-radius: 50%;
-    background: var(--accent);
+  /* Hidden with opacity, not visibility, so screen readers can still read the title */
+  .hero.is-animating .plain,
+  :global(.intro) .plain {
+    opacity: 0;
   }
 
   .lede {
@@ -181,7 +146,80 @@ const categories = getCategories();
     display: block;
   }
 
-  /* Title and slider on the left, the one-line description pinned to the bottom right */
+  /* The ruler needs JavaScript, so it only takes up room when JavaScript is on */
+  .ruler-block {
+    display: none;
+    grid-column: 1 / -1;
+  }
+
+  :global(.js) .ruler-block {
+    display: block;
+  }
+
+  .ruler {
+    position: relative;
+    height: 5.25rem;
+    cursor: grab;
+  }
+
+  .ruler:active {
+    cursor: grabbing;
+  }
+
+  .ruler canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* An invisible slider on top of the drawing gives mouse, touch and keyboard for free */
+  .ruler input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: inherit;
+    touch-action: pan-y;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  /* The thumb is as wide as the knob, so the invisible slider and the drawn knob line up */
+  .ruler input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 30px;
+    height: 60px;
+  }
+
+  .ruler input::-moz-range-thumb {
+    width: 30px;
+    height: 60px;
+    border: 0;
+  }
+
+  .ruler:has(input:focus-visible) {
+    outline: 3px solid var(--ink);
+    outline-offset: 4px;
+    border-radius: 8px;
+  }
+
+  .ruler-caption {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.4rem;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .ruler-caption output {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Title on the left, the one-line description pinned to its bottom right, the ruler below */
   @media (min-width: 52rem) {
     .hero-inner {
       grid-template-columns: minmax(0, 1fr) 22rem;
@@ -264,18 +302,8 @@ const categories = getCategories();
   }
 </style>
 <script>
-  // 1. Clarity slider in the hero: blurs and clears the title.
-  const hero = document.querySelector<HTMLElement>('[data-hero]');
-  const clarity = document.querySelector<HTMLElement>('[data-clarity]');
-  const range = clarity?.querySelector<HTMLInputElement>('input');
-
-  if (hero && clarity && range) {
-    clarity.hidden = false;
-    range.addEventListener('input', () => {
-      hero.style.setProperty('--clarity', String(Number(range.value) / 100));
-      range.setAttribute('aria-valuetext', `${range.value} percent clear`);
-    });
-  }
+  // 1. The hero animation (the ruler and the knob) lives in its own file.
+  import '../scripts/hero-ruler';
 
   // 2. Category filter: shows or hides cards by their data-category, and slides the knob.
   // Without JavaScript the buttons stay hidden and every card stays visible.

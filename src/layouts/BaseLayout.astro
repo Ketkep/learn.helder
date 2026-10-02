@@ -66,6 +66,7 @@ const bodyStyle = `--band: ${band ?? 'var(--paper)'}; --on-band: ${bandInk ?? 'v
     <!-- Load the main font files early so the big headings do not jump -->
     <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <slot name="head" />
   </head>
   <body style={bodyStyle}>
     <a class="skip-link" href="#main">Skip to content</a>
