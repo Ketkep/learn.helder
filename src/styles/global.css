@@ -11,19 +11,19 @@
   /* The marker pen: only for the hand-written notes */
   --font-hand: 'Covered By Your Grace', 'Segoe Print', 'Comic Sans MS', cursive;
 
-  /* Light theme. The page is a colored wall, not white. */
-  --paper: #f6d9d1; /* the wall */
-  --surface: #fff7f3; /* panels and boxes */
-  --ink: #241a1d;
-  --ink-soft: #5a4549; /* secondary text */
-  --line: #e6c3b9; /* soft lines */
-  --line-strong: #c79a8e; /* lines that need to be seen */
+  /* Light theme. The page is a colored wall, not white: sky blue. */
+  --paper: #cfe2f1; /* the wall */
+  --surface: #f4f9fd; /* panels and boxes */
+  --ink: #121f2c;
+  --ink-soft: #3d5368; /* secondary text */
+  --line: #a9c6de; /* soft lines */
+  --line-strong: #85a8c6; /* lines that need to be seen */
   --accent: #e4501a; /* the knob and the marker pen */
   --accent-text: #b4340a; /* the same orange, darker, for small text */
-  --shelf: #2d2024; /* the planks the covers stand on */
-  --footer-bg: #2d2024;
-  --footer-fg: #f6d9d1;
-  --lamp-light: rgb(255 255 255 / 0.42); /* the cone of light, only when the lamp is on */
+  --shelf: #1c2c3c; /* the planks the covers stand on */
+  --footer-bg: #1c2c3c;
+  --footer-fg: #cfe2f1;
+  --lamp-light: rgb(255 255 255 / 0.5); /* the cone of light, only when the lamp is on */
   --bulb: #fff3dc;
 
   /* Covers are objects, so these two never change with the theme */
@@ -43,37 +43,37 @@
    The same values appear twice: once for "system says dark", once for "lamp says dark". */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --paper: #1e1519;
-    --surface: #2b1f25;
-    --ink: #f7e8e2;
-    --ink-soft: #c6adaa;
-    --line: #3b2b32;
-    --line-strong: #5a444d;
+    --paper: #0f1721;
+    --surface: #18222f;
+    --ink: #e6eff8;
+    --ink-soft: #a7b9cc;
+    --line: #223244;
+    --line-strong: #3d536b;
     --accent: #ff7a45;
     --accent-text: #ff9a70;
-    --shelf: #46343b;
-    --footer-bg: #130d10;
-    --footer-fg: #f7e8e2;
+    --shelf: #34495f;
+    --footer-bg: #0a1017;
+    --footer-fg: #e6eff8;
     --lamp-light: rgb(255 255 255 / 0);
-    --bulb: #6a565a;
+    --bulb: #4f6074;
   }
 }
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --paper: #1e1519;
-  --surface: #2b1f25;
-  --ink: #f7e8e2;
-  --ink-soft: #c6adaa;
-  --line: #3b2b32;
-  --line-strong: #5a444d;
+  --paper: #0f1721;
+  --surface: #18222f;
+  --ink: #e6eff8;
+  --ink-soft: #a7b9cc;
+  --line: #223244;
+  --line-strong: #3d536b;
   --accent: #ff7a45;
   --accent-text: #ff9a70;
-  --shelf: #46343b;
-  --footer-bg: #130d10;
-  --footer-fg: #f7e8e2;
+  --shelf: #34495f;
+  --footer-bg: #0a1017;
+  --footer-fg: #e6eff8;
   --lamp-light: rgb(255 255 255 / 0);
-  --bulb: #6a565a;
+  --bulb: #4f6074;
 }
 
 :root[data-theme='light'] {
