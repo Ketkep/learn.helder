@@ -1,0 +1,554 @@
+/* The dig: a page you scroll down through, one layer of earth at a time.
+   Shared styles for the shots, the gauge and the tools. The pictures themselves are styled
+   inside each tool component. */
+
+.dig {
+  position: relative;
+  color: var(--ink);
+}
+
+/* ---------- The gauge: the year you have dug down to ---------- */
+.dig .gauge-rail {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+}
+
+.dig .gauge {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.35rem var(--gutter);
+  background: var(--surface);
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink);
+}
+
+.dig .g-readout {
+  display: grid;
+  min-width: 6.6rem;
+  line-height: 1.05;
+}
+
+.dig .g-year {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.dig .g-era {
+  color: var(--ink-soft);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.dig .g-ruler {
+  position: relative;
+  flex: 1;
+  height: 1.9rem;
+}
+
+/* The ruler: a line with a tick every tenth */
+.dig .g-ruler::before,
+.dig .g-ruler::after {
+  content: '';
+  position: absolute;
+}
+
+.dig .g-ruler::before {
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  background: var(--ink);
+}
+
+.dig .g-ruler::after {
+  left: 0;
+  right: 0;
+  top: 25%;
+  bottom: 25%;
+  background: repeating-linear-gradient(to right, var(--ink) 0, var(--ink) 2px, transparent 2px, transparent 10%);
+}
+
+.dig .g-knob {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--prog, 0) * 100%);
+  z-index: 1;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin: -0.6rem 0 0 -0.6rem;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+@media (min-width: 60rem) {
+  /* On a wide screen the gauge stands at the left edge, like a depth ruler beside a trench */
+  .dig .gauge-rail {
+    height: 100vh;
+    height: 100svh;
+    margin-bottom: -100vh;
+    margin-bottom: -100svh;
+    pointer-events: none;
+  }
+
+  .dig .gauge {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    bottom: 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    width: 5.9rem;
+    padding: 0.8rem 0.5rem;
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+  }
+
+  .dig .g-readout {
+    min-width: 0;
+    text-align: center;
+  }
+
+  .dig .g-year {
+    font-size: 1.1rem;
+    white-space: nowrap;
+  }
+
+  .dig .g-ruler {
+    flex: 1;
+    width: 100%;
+    height: auto;
+  }
+
+  .dig .g-ruler::before {
+    left: 50%;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    height: auto;
+    margin: 0 0 0 -1px;
+  }
+
+  .dig .g-ruler::after {
+    left: 25%;
+    right: 25%;
+    top: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(to bottom, var(--ink) 0, var(--ink) 2px, transparent 2px, transparent 10%);
+  }
+
+  .dig .g-knob {
+    top: calc(var(--prog, 0) * 100%);
+    left: 50%;
+  }
+}
+
+/* ---------- A shot: one layer of earth, one tool ---------- */
+.dig .shot {
+  --wash: rgb(0 0 0 / 0.08);
+
+  position: relative;
+  display: grid;
+  align-content: center;
+  min-height: 90vh;
+  min-height: 90svh;
+  padding: 4.6rem var(--gutter) 3.6rem;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.dig .shot[data-dark] {
+  --wash: rgb(255 255 255 / 0.14);
+}
+
+/* The wavy line where one layer meets the next */
+.dig .shot > .edge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 100%;
+  height: 2.4rem;
+  transform: translateY(-99%);
+  pointer-events: none;
+}
+
+.dig .shot-inner {
+  display: grid;
+  gap: 1.6rem 3rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+/* On a phone the explanation comes first, then the tool, then the extra facts */
+@media (max-width: 59.99rem) {
+  .dig .shot-inner {
+    gap: 1rem;
+  }
+
+  .dig .copy {
+    display: contents;
+  }
+
+  .dig .tool {
+    order: 4;
+    margin-top: 0.4rem;
+  }
+
+  .dig .tag {
+    order: 5;
+    margin-top: 0.6rem;
+  }
+}
+
+@media (min-width: 60rem) {
+  .dig .shot {
+    padding-left: calc(var(--gutter) + 7rem);
+  }
+
+  .dig .shot-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: center;
+  }
+}
+
+.dig .shot :focus-visible {
+  outline-color: var(--fg);
+}
+
+.dig .copy {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.dig .kicker {
+  color: var(--fg-soft);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.dig .shot h2 {
+  font-size: clamp(2.2rem, 1.5rem + 2.8vw, 3.6rem);
+  line-height: 1;
+}
+
+.dig .para {
+  max-width: 34rem;
+  font-size: 1.08rem;
+  line-height: 1.55;
+}
+
+/* A paper tag tied to a find, with one extra fact */
+.dig .tag {
+  position: relative;
+  max-width: 31rem;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: #fff3dc;
+  color: #121315;
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.28);
+  transform: rotate(-0.5deg);
+}
+
+.dig .tag:nth-of-type(even) {
+  transform: rotate(0.5deg);
+}
+
+.dig .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.4);
+}
+
+.dig .tag-label {
+  color: #8a2f0b;
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.dig .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+/* ---------- The frame around each picture, with a documentary caption under it ---------- */
+.dig .tool {
+  min-width: 0;
+}
+
+.dig .frame {
+  margin: 0;
+  overflow: hidden;
+  border: 3px solid #121315;
+  border-radius: 8px;
+  background: #121315;
+  box-shadow: 0 18px 30px -18px rgb(0 0 0 / 0.6);
+}
+
+.dig .frame > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.dig .chyron {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.85rem;
+  background: #121315;
+  color: #fff3dc;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.dig .chyron::before {
+  content: '';
+  flex: none;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #ff7a45;
+}
+
+/* ---------- Controls ---------- */
+.dig .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+  margin-top: 0.95rem;
+}
+
+.dig .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.dig .btn:hover:not(:disabled) {
+  background: var(--wash);
+}
+
+.dig .btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.dig .btn.fill {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+.dig .btn.fill:hover:not(:disabled) {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #121315;
+}
+
+.dig .btn[aria-pressed='true'],
+.dig .btn[aria-checked='true'] {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+.dig .status {
+  min-height: 3.4rem;
+  margin-top: 0.7rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.dig .status strong {
+  font-weight: 700;
+}
+
+/* A slider with the brand knob as its handle */
+.dig .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 9rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.dig .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.dig .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.dig .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.dig .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.dig .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.dig .field {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 14rem;
+  font-weight: 600;
+}
+
+/* ---------- The strip about the Inca, between two shots ---------- */
+.dig .strip {
+  position: relative;
+  display: grid;
+  gap: 0.2rem 1.5rem;
+  padding: 2.6rem var(--gutter) 2.2rem;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.dig .strip > .edge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 100%;
+  height: 2.4rem;
+  transform: translateY(-99%);
+}
+
+.dig .strip-inner {
+  display: grid;
+  gap: 0.4rem 2rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .dig .strip {
+    padding-left: calc(var(--gutter) + 7rem);
+  }
+
+  .dig .strip-inner {
+    grid-template-columns: 9rem minmax(0, 40rem);
+    align-items: center;
+  }
+}
+
+.dig .strip-year {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+/* ---------- The opening card ---------- */
+.dig .opening {
+  display: grid;
+  align-content: center;
+  min-height: 70vh;
+  min-height: 70svh;
+  padding: 3.4rem var(--gutter) 3.4rem;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+@media (min-width: 60rem) {
+  .dig .opening {
+    padding-left: calc(var(--gutter) + 7rem);
+  }
+}
+
+.dig .opening-inner {
+  display: grid;
+  gap: 1rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.dig .opening h2 {
+  font-size: clamp(2.4rem, 1.5rem + 3.6vw, 4.4rem);
+  line-height: 1;
+}
+
+.dig .scroll-hint {
+  color: var(--fg-soft);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+}
+
+/* ---------- Sound switch ---------- */
+.dig .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.7rem 0.2rem 0.55rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dig .snd[aria-pressed='true'] .slash,
+.dig .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dig * {
+    scroll-behavior: auto !important;
+  }
+}

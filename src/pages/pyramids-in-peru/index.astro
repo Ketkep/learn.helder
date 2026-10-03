@@ -1,11 +1,16 @@
 ---
 import TopicLayout from '../../layouts/TopicLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import Dig from '../../components/peru/Dig.astro';
+import { takeaways, sources } from '../../data/peru';
 ---
 
 <TopicLayout
   slug="pyramids-in-peru"
   intro="Long before the Incas, people in what is now Peru built huge stepped pyramids from stone and mud brick. Some are about 5,000 years old."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote="The facts on this page come from the pages below. The pictures are drawings, and the wall and shake tools are simple models that show an idea, not measurements."
+  wide
 >
-  <ComingSoon />
+  <Dig />
 </TopicLayout>

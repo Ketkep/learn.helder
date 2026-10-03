@@ -21,9 +21,11 @@ interface Props {
   sourcesNote?: string;
   /** Drop the padded box around the slot. For pages that lay out their own space. */
   bare?: boolean;
+  /** Let the slot run the full width of the screen, like a film frame. Implies `bare`. */
+  wide?: boolean;
 }
 
-const { slug, intro, takeaways = [], sources = [], sourcesNote, bare = false } = Astro.props;
+const { slug, intro, takeaways = [], sources = [], sourcesNote, bare = false, wide = false } = Astro.props;
 const topic = getTopic(slug);
 const next = getNextTopic(slug);
 const number = getTopicNumber(slug);
@@ -57,9 +59,9 @@ const ink = readableInk(topic.accent);
       </div>
     </section>
 
-    <section class:list={['stage', 'wrap', { bare }]} aria-label="Interactive explainer">
+    <section class:list={['stage', { wrap: !wide, bare: bare || wide, full: wide }]} aria-label="Interactive explainer">
       {
-        bare ? (
+        bare || wide ? (
           <slot />
         ) : (
           <div class="stage-box">
@@ -220,6 +222,11 @@ const ink = readableInk(topic.accent);
   /* A page that lays out its own space gets a little less air above it */
   .stage.bare {
     padding-top: clamp(1.25rem, 3vw, 2.25rem);
+  }
+
+  /* A full-width stage starts right under the colored band, like the next shot of a film */
+  .stage.full {
+    padding-top: 0;
   }
 
   .stage-box {

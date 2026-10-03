@@ -1,0 +1,166 @@
+---
+// Shot 6: back at camp. A toy shake table with three walls: rigid stone, bricks on end, and stone bags.
+import { seeded } from '../../lib/rand';
+
+interface Props {
+  chyron: string;
+}
+const { chyron } = Astro.props;
+
+const rnd = seeded(12);
+const tones = ['#bdb6a6', '#aaa391', '#cac4b5'];
+const GROUND = 360;
+
+// Rigid: rows of stone blocks laid with mortar, so the whole wall acts as one piece
+const rigid: { x: number; y: number; w: number; h: number; tone: string }[] = [];
+for (let r = 0; r < 6; r++) {
+  const y = GROUND - 44 * (r + 1);
+  const cuts = r % 2 === 0 ? [[-100, 100], [0, 100]] : [[-100, 50], [-50, 100], [50, 50]];
+  for (const [x, w] of cuts) rigid.push({ x: x + 1.5, y: y + 1.5, w: w - 3, h: 41, tone: tones[Math.floor(rnd() * 3)] });
+}
+
+// Bricks on end: three shelves of seven
+const shelves = [0, 1, 2].map((s) => ({
+  s,
+  y: GROUND - 96 * (s + 1) + 4,
+  bricks: Array.from({ length: 7 }, (_, k) => ({ x: -101 + k * 30, lean: (rnd() - 0.5) * 2 })),
+}));
+
+// Stone bags: five rows of three
+const bagRows = [0, 1, 2, 3, 4].map((r) => ({
+  r,
+  y: GROUND - 54 * (r + 1) + 2,
+  bags: [0, 1, 2].map((c) => ({
+    x: -102 + c * 68 + 2,
+    stones: [0, 1].map((i) => ({ cx: 18 + i * 26 + rnd() * 6, cy: 20 + rnd() * 8, rx: 10 + rnd() * 4, ry: 9 + rnd() * 3, tone: tones[Math.floor(rnd() * 3)] })),
+  })),
+}));
+
+const centres = { rigid: 140, shelf: 400, bags: 660 };
+---
+
+<figure class="frame tool-lab" data-lab-tool>
+  <svg viewBox="0 0 800 450" role="img" aria-label="Three walls on shake tables: a rigid stone wall, a wall of bricks on end, and a wall of stone-filled bags." data-lab-svg>
+    <defs>
+      <pattern id="peru-net2" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="12" stroke="#7a5f2d" stroke-width="2" />
+        <line x1="0" y1="0" x2="12" y2="0" stroke="#7a5f2d" stroke-width="2" />
+      </pattern>
+    </defs>
+    <rect x="0" y="0" width="800" height="450" fill="#1d2833" />
+    <rect x="0" y="386" width="800" height="64" fill="#141c24" />
+
+    <!-- 1. Rigid stone -->
+    <g class="model" data-model="rigid" transform={`translate(${centres.rigid} 0)`}>
+      <g class="slab" data-slab>
+        <rect x="-122" y={GROUND} width="244" height="26" rx="3" fill="#5b4a38" />
+        <g class="wall">
+          {rigid.map((b, i) => <rect class="blk" data-blk={i} x={b.x} y={b.y} width={b.w} height={b.h} rx="2" fill={b.tone} stroke="#6f685b" stroke-width="2" />)}
+        </g>
+        <path class="crack" d={`M-30 ${GROUND - 262}L-18 ${GROUND - 220}L-34 ${GROUND - 186}L-10 ${GROUND - 140}L-26 ${GROUND - 96}L-8 ${GROUND - 50}`} fill="none" stroke="#121315" stroke-width="3.5" stroke-linejoin="round" />
+      </g>
+    </g>
+
+    <!-- 2. Bricks on end -->
+    <g class="model" data-model="shelf" transform={`translate(${centres.shelf} 0)`}>
+      <g class="slab" data-slab>
+        <rect x="-122" y={GROUND} width="244" height="26" rx="3" fill="#5b4a38" />
+        <g class="wall">
+          {
+            shelves.map((sh) => (
+              <g class="row" data-row={sh.s}>
+                {sh.bricks.map((b, k) => <rect class="brk" data-lean={b.lean.toFixed(2)} data-k={k} x={b.x} y={sh.y} width="24" height="88" rx="3" fill={['#c98d52', '#b9794a', '#d3a066'][(sh.s + k) % 3]} style={`transform-origin: ${b.x + 12}px ${sh.y + 88}px; transform: rotate(${b.lean.toFixed(2)}deg);`} />)}
+                <rect x="-104" y={sh.y + 88} width="208" height="6" fill="#3b2a1c" />
+              </g>
+            ))
+          }
+        </g>
+      </g>
+    </g>
+
+    <!-- 3. Stone bags -->
+    <g class="model" data-model="bags" transform={`translate(${centres.bags} 0)`}>
+      <g class="slab" data-slab>
+        <rect x="-122" y={GROUND} width="244" height="26" rx="3" fill="#5b4a38" />
+        <g class="wall">
+          {
+            bagRows.map((row) => (
+              <g class="row" data-row={row.r} style={`transform-origin: 0px ${GROUND}px;`}>
+                {
+                  row.bags.map((b) => (
+                    <g>
+                      <rect x={b.x} y={row.y} width="64" height="50" rx="17" fill="#d8c27a" stroke="#7a5f2d" stroke-width="2.5" />
+                      {b.stones.map((s) => <ellipse cx={b.x + s.cx} cy={row.y + s.cy} rx={s.rx} ry={s.ry} fill={s.tone} stroke="#6f685b" stroke-width="1.5" />)}
+                      <rect x={b.x} y={row.y} width="64" height="50" rx="17" fill="url(#peru-net2)" opacity="0.5" />
+                    </g>
+                  ))
+                }
+              </g>
+            ))
+          }
+        </g>
+      </g>
+    </g>
+  </svg>
+  <figcaption class="chyron">{chyron}</figcaption>
+</figure>
+
+<div class="results" aria-live="polite">
+  <p class="res" data-result="rigid"><strong>Rigid stone</strong><span>Not shaken yet.</span></p>
+  <p class="res" data-result="shelf"><strong>Bricks on end</strong><span>Not shaken yet.</span></p>
+  <p class="res" data-result="bags"><strong>Stone bags</strong><span>Not shaken yet.</span></p>
+</div>
+
+<div class="controls">
+  <label class="field">
+    <span>Strength <output data-lab-out>5</output></span>
+    <input class="range" type="range" min="1" max="10" value="5" step="1" data-lab-range />
+  </label>
+  <button type="button" class="btn fill" data-lab-shake>Shake</button>
+  <button type="button" class="btn" data-lab-reset disabled>Rebuild</button>
+</div>
+<p class="status" aria-live="polite" data-lab-status>Set the strength, then press Shake. A gentle shake is about 3. A violent one is 9 or 10.</p>
+
+<style>
+  .tool-lab .blk {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+  }
+
+  .tool-lab .crack {
+    opacity: 0;
+  }
+
+  .tool-lab[data-cracks] [data-model='rigid'] .crack {
+    opacity: 1;
+  }
+
+  .results {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+  }
+
+  .res {
+    display: grid;
+    gap: 0.1rem;
+    align-content: start;
+    font-size: 0.88rem;
+    line-height: 1.35;
+  }
+
+  .res strong {
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 32rem) {
+    .res {
+      font-size: 0.8rem;
+    }
+
+    .res strong {
+      font-size: 0.85rem;
+    }
+  }
+</style>

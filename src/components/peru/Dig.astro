@@ -1,0 +1,155 @@
+---
+// The whole dig: a gauge that shows the year, an opening card, and seven shots, each one layer
+// deeper and with one tool. The pictures are in the Tool components. The behaviour is in
+// src/scripts/peru. Without scripts this is a normal page you can scroll and read.
+import '../../styles/dig.css';
+import { intro, incaStrip, shots } from '../../data/peru';
+import { mix } from '../../lib/color';
+import { seeded } from '../../lib/rand';
+import { smooth } from '../../lib/svgpath';
+import ToolBrush from './ToolBrush.astro';
+import ToolWall from './ToolWall.astro';
+import ToolMarks from './ToolMarks.astro';
+import ToolPeel from './ToolPeel.astro';
+import ToolTrade from './ToolTrade.astro';
+import ToolLab from './ToolLab.astro';
+import ToolRuler from './ToolRuler.astro';
+
+const tools: Record<string, typeof ToolBrush> = {
+  surface: ToolBrush,
+  lima: ToolWall,
+  moche: ToolMarks,
+  caral: ToolPeel,
+  trade: ToolTrade,
+  lab: ToolLab,
+  ruler: ToolRuler,
+};
+
+// The colors of the layers, from sky to deep earth, worked out from the cover color
+const AMBER = '#D9A441';
+const CREAM = '#fff3dc';
+const INK = '#121315';
+const NIGHT = '#18222d';
+const SKY = '#bfdcf0';
+const layers = {
+  opening: { bg: SKY, fg: INK, dark: false },
+  surface: { bg: mix(AMBER, CREAM, 30), fg: INK, dark: false },
+  strip: { bg: mix(AMBER, CREAM, 48), fg: INK, dark: false },
+  lima: { bg: mix(AMBER, CREAM, 66), fg: INK, dark: false },
+  moche: { bg: mix(AMBER, CREAM, 88), fg: INK, dark: false },
+  caral: { bg: mix(AMBER, INK, 56), fg: CREAM, dark: true },
+  trade: { bg: mix(AMBER, INK, 38), fg: CREAM, dark: true },
+  lab: { bg: NIGHT, fg: CREAM, dark: true },
+  ruler: { bg: NIGHT, fg: CREAM, dark: true },
+} as const;
+
+type LayerKey = keyof typeof layers;
+const style = (k: LayerKey) => `--bg: ${layers[k].bg}; --fg: ${layers[k].fg}; --fg-soft: ${mix(layers[k].fg, layers[k].bg, 82)};`;
+
+// The wavy line at the top of every layer: a different one each time, always the same on every build
+function edge(i: number) {
+  const r = seeded(300 + i);
+  const pts: [number, number][] = Array.from({ length: 13 }, (_, k) => [k * 100, 10 + r() * 20]);
+  return `${smooth(pts)}L1200 40L0 40Z`;
+}
+
+// Ticks on the gauge are drawn with CSS, so there is nothing to build here
+---
+
+<div class="dig" data-dig>
+  <div class="gauge-rail">
+    <div class="gauge">
+      <div class="g-readout" aria-hidden="true">
+        <span class="g-year" data-year>Today</span>
+        <span class="g-era" data-era>Top of the hole</span>
+      </div>
+      <div class="g-ruler" aria-hidden="true"><span class="g-knob" data-knob></span></div>
+      <button class="snd" type="button" data-sound aria-pressed="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+          <path class="wave" d="M15 9a4 4 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <path class="slash" d="M16 8.5l5 7M21 8.5l-5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span class="visually-hidden" data-sound-label>Sound on</span>
+      </button>
+    </div>
+  </div>
+
+  <section class="opening" data-shot data-from="2026" data-to="2026" data-era="Top of the hole" style={style('opening')} aria-labelledby="dig-intro">
+    <div class="opening-inner">
+      <p class="kicker">Field notes</p>
+      <h2 id="dig-intro">{intro.title}</h2>
+      {intro.paras.map((p) => <p class="para">{p}</p>)}
+      <p class="scroll-hint" aria-hidden="true">Scroll to dig</p>
+    </div>
+  </section>
+
+  {
+    shots.map((s, i) => {
+      const Tool = tools[s.id];
+      const key = s.id as LayerKey;
+      return (
+        <>
+          {
+            i === 1 && (
+              <section class="strip" data-shot data-from={incaStrip.year} data-to={incaStrip.year} data-era={incaStrip.era} style={style('strip')} aria-label="The Inca">
+                <svg class="edge" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><path d={edge(90)} fill="var(--bg)" /></svg>
+                <div class="strip-inner">
+                  <p class="strip-year" aria-hidden="true">{incaStrip.year}</p>
+                  <p class="para">{incaStrip.text}</p>
+                </div>
+              </section>
+            )
+          }
+          <section
+            class="shot"
+            id={`dig-${s.id}`}
+            data-shot
+            data-from={s.from}
+            data-to={s.to}
+            data-era={s.era}
+            data-dark={layers[key].dark ? '' : undefined}
+            style={style(key)}
+            aria-labelledby={`dig-${s.id}-h`}
+          >
+            <svg class="edge" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><path d={edge(i)} fill="var(--bg)" /></svg>
+            <div class="shot-inner">
+              <div class="copy">
+                <p class="kicker">{s.kicker}</p>
+                <h2 id={`dig-${s.id}-h`}>{s.title}</h2>
+                {s.paras.map((p) => <p class="para">{p}</p>)}
+                {
+                  s.tags?.map((t) => (
+                    <aside class="tag">
+                      <p class="tag-label">{t.label}</p>
+                      <p class="tag-text">{t.text}</p>
+                    </aside>
+                  ))
+                }
+              </div>
+              <div class="tool">
+                <Tool chyron={s.chyron} />
+              </div>
+            </div>
+          </section>
+        </>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/peru/dig';
+</script>
+
+<style>
+  .dig .snd {
+    width: 2.2rem;
+    height: 2.2rem;
+    padding: 0;
+    flex: none;
+    place-items: center;
+    justify-content: center;
+    pointer-events: auto;
+  }
+</style>

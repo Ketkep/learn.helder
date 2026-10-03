@@ -1,0 +1,109 @@
+---
+// Shot 3: a wall of Moche bricks. Many are stamped with a mark. Pick a mark to see where it was used.
+import { marks, markWall } from '../../data/peru';
+
+interface Props {
+  chyron: string;
+}
+const { chyron } = Astro.props;
+
+// The six stamps, drawn in a 24 by 24 box
+const glyphs: Record<string, string> = {
+  a: '<circle cx="12" cy="12" r="7" fill="none"/>',
+  b: '<path d="M12 4V20M4 12H20" fill="none"/>',
+  c: '<path d="M3 15L8 8L12 16L16 8L21 15" fill="none"/>',
+  d: '<path d="M12 4L20.5 19H3.5Z" fill="none"/>',
+  e: '<circle cx="6.5" cy="12" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="17.5" cy="12" r="2.2"/>',
+  f: '<path d="M7 5V19M12 5V19M17 5V19" fill="none"/>',
+};
+
+const W = 78;
+const H = 52;
+const GAP = 6;
+const x0 = (800 - (8 * (W + GAP) - GAP)) / 2;
+const y0 = 46;
+
+const bricks = markWall.flatMap((row, r) =>
+  [...row].map((m, c) => ({ m, x: x0 + c * (W + GAP), y: y0 + r * (H + GAP) })),
+);
+const counts = Object.fromEntries(marks.map((k) => [k.id, bricks.filter((b) => b.m === k.id).length]));
+---
+
+<figure class="frame tool-marks" data-marks-tool>
+  <svg viewBox="0 0 800 450" role="img" aria-label="A wall of 40 adobe bricks. Each brick has one of six stamps." data-marks-svg>
+    <rect x="0" y="0" width="800" height="450" fill="#bfdcf0" />
+    <rect x="0" y="372" width="800" height="78" fill="#d9b878" />
+    <rect x={x0 - 12} y={y0 - 12} width={8 * (W + GAP) - GAP + 24} height={5 * (H + GAP) - GAP + 24} rx="6" fill="#5a3b22" />
+    {
+      bricks.map((b) => (
+        <g class="brick" data-mark={b.m} data-brick>
+          <rect x={b.x} y={b.y} width={W} height={H} rx="4" fill="#c98d52" stroke="#8c5a31" stroke-width="2" />
+          <svg x={b.x + (W - 34) / 2} y={b.y + (H - 34) / 2} width="34" height="34" viewBox="0 0 24 24" fill="#3b2a1c" stroke="#3b2a1c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" set:html={glyphs[b.m]} />
+        </g>
+      ))
+    }
+    <text x={x0 - 12} y="418" font-family="Hanken Grotesk Variable, system-ui, sans-serif" font-weight="700" font-size="22" fill="#121315">A sketch of a wall, not a survey</text>
+  </svg>
+  <figcaption class="chyron">{chyron}</figcaption>
+</figure>
+
+<div class="controls legend" role="group" aria-label="Pick a mark">
+  {
+    marks.map((m) => (
+      <button type="button" class="btn mark" aria-pressed="false" data-mark-btn={m.id}>
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" set:html={glyphs[m.id]} />
+        <span>{m.name}</span>
+        <span class="count">{counts[m.id]}</span>
+      </button>
+    ))
+  }
+</div>
+<p class="status" aria-live="polite" data-marks-status>Pick a mark to see where it was used. You can also tap a brick.</p>
+
+<style>
+  .legend {
+    gap: 0.5rem;
+  }
+
+  .mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.85rem 0.4rem 0.7rem;
+  }
+
+  .count {
+    min-width: 1.5rem;
+    padding: 0 0.35rem;
+    border-radius: 999px;
+    background: var(--wash);
+    font-size: 0.82rem;
+    text-align: center;
+  }
+
+  .tool-marks .brick {
+    cursor: pointer;
+    transition: opacity 0.25s;
+  }
+
+  .tool-marks .brick rect {
+    transition: fill 0.25s;
+  }
+
+  .tool-marks .brick.dim {
+    opacity: 0.28;
+  }
+
+  .tool-marks .brick.on rect {
+    fill: #ffd08a;
+    stroke: #121315;
+    stroke-width: 3;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tool-marks .brick,
+    .tool-marks .brick rect {
+      transition: none;
+    }
+  }
+</style>

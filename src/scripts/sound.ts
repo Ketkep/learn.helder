@@ -1,8 +1,23 @@
-// Small sounds for the chess film, made in the browser. There are no audio files.
+// Small sounds for the topic pages, made in the browser. There are no audio files.
 // Browsers keep sound locked until the reader has touched the page once, so nothing plays
 // before the first tap, click or key press. After that, sounds follow the toggle.
 
-export type Sound = 'move' | 'capture' | 'check' | 'mate' | 'good' | 'bad' | 'tick' | 'pop';
+export type Sound =
+  | 'move'
+  | 'capture'
+  | 'check'
+  | 'mate'
+  | 'good'
+  | 'bad'
+  | 'tick'
+  | 'pop'
+  | 'scrape'
+  | 'rumble'
+  | 'crack'
+  | 'thud'
+  | 'coin'
+  | 'clink'
+  | 'whoosh';
 
 let ctx: AudioContext | null = null;
 let master: GainNode | null = null;
@@ -46,7 +61,7 @@ export function unlock() {
 
 /** A short burst of filtered noise: the click of a piece on a wooden board. */
 function tap(at: number, loudness: number, tone = 900, length = 0.07) {
-  if (!ctx || !master || !noise) return;
+  if (!ctx || !master || !noise || loudness <= 0) return;
   const src = ctx.createBufferSource();
   src.buffer = noise;
   const band = ctx.createBiquadFilter();
@@ -63,7 +78,7 @@ function tap(at: number, loudness: number, tone = 900, length = 0.07) {
 
 /** A plain tone with a quick fade in and a long fade out. */
 function tone(at: number, freq: number, length: number, loudness: number, type: OscillatorType = 'sine', slideTo?: number) {
-  if (!ctx || !master) return;
+  if (!ctx || !master || loudness <= 0) return;
   const osc = ctx.createOscillator();
   osc.type = type;
   osc.frequency.setValueAtTime(freq, at);
@@ -77,7 +92,8 @@ function tone(at: number, freq: number, length: number, loudness: number, type: 
   osc.stop(at + length + 0.05);
 }
 
-export function play(kind: Sound) {
+/** `power` is 0 to 1 and scales the loudness (and, for a rumble, how long it lasts). */
+export function play(kind: Sound, power = 1) {
   if (!enabled || !ctx || !master) return;
   if (ctx.state === 'suspended') void ctx.resume();
   const t = ctx.currentTime + 0.005;
@@ -115,6 +131,35 @@ export function play(kind: Sound) {
       break;
     case 'pop':
       tone(t, 420, 0.1, 0.1, 'sine', 640);
+      break;
+    case 'scrape':
+      // A brush on dry earth: short, dry, high noise
+      tap(t, 0.16 * power, 3200, 0.09);
+      break;
+    case 'rumble':
+      // Low noise and a deep tone, for an earthquake
+      tap(t, 0.5 * power, 110, 1.2 + 1.6 * power);
+      tone(t, 48, 1.2 + 1.6 * power, 0.22 * power, 'sine', 34);
+      break;
+    case 'crack':
+      tap(t, 0.8, 1500, 0.12);
+      tone(t, 260, 0.14, 0.14, 'triangle', 90);
+      break;
+    case 'thud':
+      tone(t, 95, 0.2, 0.3, 'sine', 52);
+      tap(t, 0.2, 200, 0.08);
+      break;
+    case 'coin':
+      // A small ring of metal
+      tone(t, 1320, 0.5, 0.09, 'sine');
+      tone(t + 0.01, 1980, 0.35, 0.05, 'sine');
+      break;
+    case 'clink':
+      tone(t, 1760, 0.18, 0.07, 'sine');
+      tone(t + 0.03, 2350, 0.14, 0.04, 'sine');
+      break;
+    case 'whoosh':
+      tap(t, 0.22 * power, 900, 0.5);
       break;
   }
 }

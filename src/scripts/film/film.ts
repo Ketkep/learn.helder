@@ -4,7 +4,7 @@
 // reader's taps. It does not know the rules of chess.
 
 import { Board, wait } from './board';
-import * as sound from './sound';
+import * as sound from '../sound';
 import type { Ply, Ledger } from '../../lib/chess/analyze';
 import type { Choice, Flow, Note, Option, Row, Scene } from '../../data/gambits';
 

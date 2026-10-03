@@ -1,0 +1,158 @@
+---
+// Shot 5: the coast and the valley. Switch the trade in cotton and fish on and off.
+
+interface Props {
+  chyron: string;
+}
+const { chyron } = Astro.props;
+
+// A simple person: a head, a body and two legs. (x, y) is where the feet are.
+function person(x: number, y: number, color: string, s = 1) {
+  const h = 46 * s;
+  return `<g transform="translate(${x} ${y})"><path d="M-5 0L-4 ${-h * 0.4}M5 0L4 ${-h * 0.4}" stroke="#121315" stroke-width="${3 * s}" stroke-linecap="round" fill="none"/><rect x="${-9 * s}" y="${-h * 0.85}" width="${18 * s}" height="${h * 0.48}" rx="${5 * s}" fill="${color}" stroke="#121315" stroke-width="${2.5 * s}"/><circle cx="0" cy="${-h * 0.98}" r="${7 * s}" fill="#e8b98a" stroke="#121315" stroke-width="${2.5 * s}"/></g>`;
+}
+
+// Cotton plants in three rows
+const plants: { x: number; y: number }[] = [];
+for (let r = 0; r < 3; r++) for (let k = 0; k < 11; k++) plants.push({ x: 330 + k * 40 + (r % 2) * 14, y: 390 + r * 20 });
+// A small catch of fish
+const fish = (x: number, y: number) =>
+  `<g transform="translate(${x} ${y})"><ellipse cx="0" cy="0" rx="13" ry="5.5" fill="#c9d3dc" stroke="#121315" stroke-width="2"/><path d="M12 0L21 -6V6Z" fill="#c9d3dc" stroke="#121315" stroke-width="2" stroke-linejoin="round"/><circle cx="-7" cy="-1" r="1.4" fill="#121315"/></g>`;
+const bigCatch = [[0, 0], [20, 6], [-18, 8], [8, -12], [-8, -10], [28, -6], [-30, 0], [0, 12]].map(([dx, dy]) => fish(268 + dx, 396 + dy)).join('');
+const smallCatch = [[0, 6], [16, 8]].map(([dx, dy]) => fish(268 + dx, 400 + dy)).join('');
+---
+
+<figure class="frame tool-trade" data-trade-tool data-cotton="on" data-fish="on">
+  <svg viewBox="0 0 800 450" role="img" aria-label="The coast on the left and a farming valley on the right, with a path between them. People carry cotton to the coast and fish to the valley." data-trade-svg>
+    <rect x="0" y="0" width="800" height="450" fill="#bfdcf0" />
+    <polygon points="250,230 330,170 420,220 520,150 640,210 720,168 800,220 800,300 250,300" fill="#c9ad82" />
+
+    <!-- The sea and the beach -->
+    <rect x="0" y="262" width="262" height="188" fill="#6fa3c7" />
+    {[0, 1, 2, 3].map((i) => <path d={`M${10 + (i % 2) * 24} ${292 + i * 38}q16 -12 32 0t32 0t32 0t32 0t32 0`} fill="none" stroke="#e8f4fb" stroke-width="4" stroke-linecap="round" />)}
+    <path d="M248 300C268 296 300 300 330 318V450H240Z" fill="#e2cc98" />
+
+    <!-- The valley: fields of cotton and a pyramid -->
+    <rect x="300" y="318" width="500" height="132" fill="#a8b068" />
+    <path d="M300 318H800" stroke="#7d8a45" stroke-width="3" />
+    <g class="city" data-city>
+      <polygon points="610,318 610,292 640,292 640,268 668,268 668,244 696,244 696,268 724,268 724,292 752,292 752,318" fill="#c98d52" stroke="#121315" stroke-width="3" stroke-linejoin="round" />
+      <rect class="top-tier" x="664" y="226" width="36" height="18" fill="#d9a566" stroke="#121315" stroke-width="3" />
+    </g>
+    {
+      plants.map((p) => (
+        <g>
+          <line x1={p.x} y1={p.y} x2={p.x} y2={p.y - 16} stroke="#5f6b32" stroke-width="3" stroke-linecap="round" />
+          <circle cx={p.x - 5} cy={p.y - 18} r="6" fill="#fff8ea" stroke="#121315" stroke-width="2" />
+          <circle cx={p.x + 5} cy={p.y - 20} r="6" fill="#fff8ea" stroke="#121315" stroke-width="2" />
+        </g>
+      ))
+    }
+
+    <!-- The coast: fishers, a net and a catch -->
+    <g set:html={person(170, 296, '#6a8bb0')} />
+    <g class="net-ok">
+      <path d="M196 262Q222 250 246 268V298H196Z" fill="none" stroke="#121315" stroke-width="2.5" />
+      <path d="M204 262V298M214 258V298M224 256V298M234 260V298M196 276H246M196 288H246" stroke="#121315" stroke-width="2" fill="none" />
+    </g>
+    <g class="net-torn">
+      <path d="M196 262Q214 254 226 262M236 270Q242 272 246 270V298H196V280" fill="none" stroke="#121315" stroke-width="2.5" stroke-dasharray="6 6" />
+      <path d="M206 266V298M216 262V282" stroke="#121315" stroke-width="2" fill="none" />
+    </g>
+    <g class="catch-big" set:html={bigCatch} />
+    <g class="catch-small" set:html={smallCatch} />
+
+    <!-- The valley: workers, more of them when fish arrives -->
+    <g class="crowd-few">
+      <g set:html={person(540, 330, '#c0623c')} />
+      <g set:html={person(580, 336, '#d08a4a')} />
+    </g>
+    <g class="crowd-full">
+      <g set:html={person(540, 330, '#c0623c')} />
+      <g set:html={person(580, 336, '#d08a4a')} />
+      <g set:html={person(620, 330, '#8a6ab0')} />
+      <g set:html={person(660, 336, '#c0623c')} />
+      <g set:html={person(700, 330, '#d08a4a')} />
+      <g set:html={person(740, 336, '#6a8bb0')} />
+    </g>
+
+    <!-- The path, and the two carriers who walk it -->
+    <path d="M270 322Q340 338 420 330T560 322" fill="none" stroke="#c4a76c" stroke-width="9" stroke-linecap="round" stroke-dasharray="1 14" />
+    <g class="carrier cotton">
+      <g set:html={person(0, 0, '#d08a4a')} />
+      <circle cx="-14" cy="-52" r="12" fill="#fff8ea" stroke="#121315" stroke-width="2.5" />
+      <circle cx="-4" cy="-58" r="12" fill="#fff8ea" stroke="#121315" stroke-width="2.5" />
+    </g>
+    <g class="carrier fishy">
+      <g set:html={person(0, 0, '#6a8bb0')} />
+      <rect x="-14" y="-60" width="28" height="12" rx="3" fill="#b88b52" stroke="#121315" stroke-width="2.5" />
+      <ellipse cx="0" cy="-64" rx="10" ry="4" fill="#c9d3dc" stroke="#121315" stroke-width="2" />
+    </g>
+
+    <g font-family="Covered By Your Grace, cursive" font-size="40" fill="#121315">
+      <text x="24" y="226">the coast</text>
+      <text x="440" y="196">the valley</text>
+    </g>
+  </svg>
+  <figcaption class="chyron">{chyron}</figcaption>
+</figure>
+
+<div class="controls">
+  <button type="button" class="btn" role="switch" aria-checked="true" data-trade-switch="cotton">Cotton goes to the coast</button>
+  <button type="button" class="btn" role="switch" aria-checked="true" data-trade-switch="fish">Fish goes to the valley</button>
+</div>
+<p class="status" aria-live="polite" data-trade-status>Cotton goes to the coast and fish comes back. Nets catch fish, and fish feeds the valley. A big town can grow.</p>
+
+<style>
+  /* What shows depends on the two switches */
+  .tool-trade[data-cotton='on'] .net-torn,
+  .tool-trade[data-cotton='on'] .catch-small,
+  .tool-trade[data-cotton='off'] .net-ok,
+  .tool-trade[data-cotton='off'] .catch-big,
+  .tool-trade[data-cotton='off'] .cotton,
+  .tool-trade[data-fish='on'] .crowd-few,
+  .tool-trade[data-fish='off'] .crowd-full,
+  .tool-trade[data-fish='off'] .fishy,
+  .tool-trade:not([data-cotton='on'][data-fish='on']) .top-tier {
+    display: none;
+  }
+
+  .tool-trade .carrier {
+    transform: translate(420px, 336px);
+  }
+
+  .tool-trade .fishy {
+    transform: translate(290px, 346px);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .tool-trade .cotton {
+      animation: to-coast 6s linear infinite;
+    }
+
+    .tool-trade .fishy {
+      animation: to-valley 6s linear infinite;
+      animation-delay: -3s;
+    }
+  }
+
+  @keyframes to-coast {
+    from {
+      transform: translate(520px, 336px);
+    }
+
+    to {
+      transform: translate(290px, 346px);
+    }
+  }
+
+  @keyframes to-valley {
+    from {
+      transform: translate(290px, 346px);
+    }
+
+    to {
+      transform: translate(520px, 336px);
+    }
+  }
+</style>

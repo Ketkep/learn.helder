@@ -1,0 +1,150 @@
+---
+// Shot 2: a wall in Lima. Lay the bricks flat, or stand them on end like books on a shelf.
+import { seeded } from '../../lib/rand';
+
+interface Props {
+  chyron: string;
+}
+const { chyron } = Astro.props;
+
+const tones = ['#c98d52', '#b9794a', '#d3a066'];
+
+// Bricks laid flat, in rows that overlap like most walls
+const flat: { x: number; y: number; tone: string }[] = [];
+for (let r = 0; r < 9; r++) {
+  const offset = r % 2 ? -48 : 0;
+  for (let k = 0; k < 8; k++) {
+    flat.push({ x: 100 + offset + k * 97, y: 52 + r * 34, tone: tones[(r * 3 + k) % 3] });
+  }
+}
+
+// Bricks on end, with gaps, four shelves high. Each one leans a tiny bit differently.
+const rnd = seeded(21);
+const stood: { x: number; y: number; tone: string; lean: number; k: number }[] = [];
+for (let r = 0; r < 4; r++) {
+  for (let k = 0; k < 18; k++) {
+    stood.push({ x: 103 + k * 33, y: 54 + r * 78, tone: tones[(r + k * 2) % 3], lean: (rnd() - 0.5) * 2.4, k: rnd() });
+  }
+}
+---
+
+<figure class="frame tool-wall" data-wall-tool data-mode="flat">
+  <svg viewBox="0 0 800 450" role="img" aria-label="A close view of an adobe wall. The bricks can be laid flat or stood on end." data-wall-svg>
+    <defs>
+      <clipPath id="peru-wall-clip"><rect x="100" y="50" width="600" height="316" /></clipPath>
+    </defs>
+    <rect x="0" y="0" width="800" height="450" fill="#bfdcf0" />
+    <rect x="0" y="366" width="800" height="84" fill="#d9b878" />
+    <rect x="86" y="46" width="628" height="324" rx="4" fill="#5a3b22" />
+
+    <g clip-path="url(#peru-wall-clip)">
+      <g class="layer flat" data-flat>
+        {flat.map((b) => <rect x={b.x} y={b.y} width="94" height="31" rx="3" fill={b.tone} />)}
+      </g>
+      <g class="layer end" data-end>
+        {
+          stood.map((b) => (
+            <rect
+              class="stood"
+              x={b.x}
+              y={b.y}
+              width="26"
+              height="68"
+              rx="3"
+              fill={b.tone}
+              style={`--lean: ${b.lean.toFixed(2)}deg; --k: ${b.k.toFixed(2)}s; transform-origin: ${b.x + 13}px ${b.y + 68}px;`}
+            />
+          ))
+        }
+        {[0, 1, 2, 3].map((r) => <rect x="100" y={54 + r * 78 + 68} width="600" height="6" fill="#3b2a1c" />)}
+      </g>
+    </g>
+    <rect x="86" y="46" width="628" height="324" rx="4" fill="none" stroke="#121315" stroke-width="4" />
+
+    <g font-family="Hanken Grotesk Variable, system-ui, sans-serif" font-weight="700" font-size="22" fill="#121315">
+      <text x="100" y="408">A close view of the wall</text>
+    </g>
+  </svg>
+  <figcaption class="chyron">{chyron}</figcaption>
+</figure>
+
+<div class="controls">
+  <div class="group" role="radiogroup" aria-label="How the bricks are laid">
+    <button type="button" class="btn" role="radio" aria-checked="true" data-mode-btn="flat">Laid flat</button>
+    <button type="button" class="btn" role="radio" aria-checked="false" data-mode-btn="end">On end</button>
+  </div>
+  <button type="button" class="btn fill" data-wall-nudge>Give it a shove</button>
+</div>
+<p class="status" aria-live="polite" data-wall-status>Bricks laid flat in rows, like most walls. A hard, solid wall.</p>
+
+<style>
+  .group {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .tool-wall .layer {
+    transition: opacity 0.45s;
+  }
+
+  .tool-wall[data-mode='flat'] .end,
+  .tool-wall[data-mode='end'] .flat {
+    opacity: 0;
+  }
+
+  .tool-wall .stood {
+    transform-box: view-box;
+    transform: rotate(var(--lean));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* A flat wall moves as one block */
+    .tool-wall.shove[data-mode='flat'] .flat {
+      animation: rigid 0.9s ease-in-out;
+    }
+
+    /* Bricks on end rock one by one and settle back */
+    .tool-wall.shove[data-mode='end'] .stood {
+      animation: rock 1.1s ease-in-out;
+      animation-delay: var(--k);
+    }
+  }
+
+  @keyframes rigid {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+
+    20% {
+      transform: translateX(-7px);
+    }
+
+    45% {
+      transform: translateX(7px);
+    }
+
+    70% {
+      transform: translateX(-4px);
+    }
+  }
+
+  @keyframes rock {
+    0%,
+    100% {
+      transform: rotate(var(--lean));
+    }
+
+    25% {
+      transform: rotate(calc(var(--lean) - 3.5deg));
+    }
+
+    55% {
+      transform: rotate(calc(var(--lean) + 3.5deg));
+    }
+
+    80% {
+      transform: rotate(calc(var(--lean) - 1.2deg));
+    }
+  }
+</style>

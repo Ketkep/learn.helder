@@ -1,0 +1,112 @@
+---
+// Shot 4: a terrace wall at Caral. Slide to peel the stone face away and see the bags of stones behind it.
+import { seeded } from '../../lib/rand';
+
+interface Props {
+  chyron: string;
+}
+const { chyron } = Astro.props;
+
+const X = 120;
+const Y = 70;
+const W = 560;
+const H = 300;
+
+// The face: neat stone blocks in rows that overlap
+const rnd = seeded(33);
+const stoneTones = ['#bdb6a6', '#aaa391', '#cac4b5'];
+const face: { x: number; y: number; w: number; tone: string }[] = [];
+for (let r = 0; r < 6; r++) {
+  let x = X - (r % 2 ? 42 : 0);
+  while (x < X + W) {
+    const w = 78 + Math.floor(rnd() * 34);
+    face.push({ x, y: Y + r * 50, w, tone: stoneTones[Math.floor(rnd() * 3)] });
+    x += w + 3;
+  }
+}
+
+// The fill behind it: bags woven from reeds, each full of stones
+const bags: { x: number; y: number; stones: { cx: number; cy: number; rx: number; ry: number; tone: string }[] }[] = [];
+for (let r = 0; r < 5; r++) {
+  for (let c = 0; c < 7; c++) {
+    const x = X + c * 80 + (r % 2 ? 0 : 0) + 3;
+    const y = Y + r * 60 + 3;
+    const stones = Array.from({ length: 4 }, (_, i) => ({
+      cx: x + 14 + (i % 2) * 28 + rnd() * 10,
+      cy: y + 13 + Math.floor(i / 2) * 22 + rnd() * 5,
+      rx: 9 + rnd() * 5,
+      ry: 8 + rnd() * 4,
+      tone: stoneTones[Math.floor(rnd() * 3)],
+    }));
+    bags.push({ x, y, stones });
+  }
+}
+---
+
+<figure class="frame tool-peel" data-peel-tool>
+  <svg viewBox="0 0 800 450" role="img" aria-label="A cutaway of a pyramid terrace wall. The front of the wall is stone. Behind it are bags woven from reeds and filled with stones." data-peel-svg>
+    <defs>
+      <clipPath id="peru-peel-clip"><rect data-peel-rect x={X} y={Y} width={W} height={H} /></clipPath>
+      <pattern id="peru-net" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="14" stroke="#7a5f2d" stroke-width="2" />
+        <line x1="0" y1="0" x2="14" y2="0" stroke="#7a5f2d" stroke-width="2" />
+      </pattern>
+    </defs>
+    <rect x="0" y="0" width="800" height="450" fill="#3b2a1c" />
+    <rect x={X - 12} y={Y - 12} width={W + 24} height={H + 24} rx="6" fill="#22180f" />
+
+    <!-- Behind the wall: bags of stones in reed nets -->
+    <g data-peel-inside>
+      {
+        bags.map((b) => (
+          <g>
+            <rect x={b.x} y={b.y} width="74" height="54" rx="18" fill="#d8c27a" stroke="#7a5f2d" stroke-width="2.5" />
+            {b.stones.map((s) => <ellipse cx={s.cx} cy={s.cy} rx={s.rx} ry={s.ry} fill={s.tone} stroke="#6f685b" stroke-width="1.5" />)}
+            <rect x={b.x} y={b.y} width="74" height="54" rx="18" fill="url(#peru-net)" opacity="0.55" />
+          </g>
+        ))
+      }
+    </g>
+
+    <!-- The face of the wall. Sliding peels it away from the left. -->
+    <g clip-path="url(#peru-peel-clip)" data-peel-face>
+      <rect x={X} y={Y} width={W} height={H} fill="#7d776a" />
+      {face.map((s) => <rect x={s.x} y={s.y} width={s.w} height="47" rx="3" fill={s.tone} stroke="#6f685b" stroke-width="2" />)}
+    </g>
+    <rect data-peel-edge x={X + W} y={Y} width="7" height={H} fill="#121315" opacity="0.55" />
+
+    <rect x={X - 12} y={Y - 12} width={W + 24} height={H + 24} rx="6" fill="none" stroke="#121315" stroke-width="4" />
+
+    <g class="note" data-peel-notes font-family="Covered By Your Grace, cursive" font-size="38" fill="#fff3dc">
+      <g data-note="bag"><text x="150" y="420">reed bag</text></g>
+      <g data-note="stone"><text x="330" y="420">stones inside</text></g>
+      <g data-note="face"><text x="540" y="420">stone face</text></g>
+    </g>
+  </svg>
+  <figcaption class="chyron">{chyron}</figcaption>
+</figure>
+
+<div class="controls">
+  <label class="field">
+    <span>Peel the wall</span>
+    <input class="range" type="range" min="0" max="100" value="0" step="1" data-peel-range aria-describedby="peel-status" />
+  </label>
+</div>
+<p class="status" id="peel-status" aria-live="polite" data-peel-status>A wall of neat stone blocks. It looks solid. Slide to peel it open.</p>
+
+<style>
+  .tool-peel .note [data-note] {
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .tool-peel .note [data-note].show {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tool-peel .note [data-note] {
+      transition: none;
+    }
+  }
+</style>

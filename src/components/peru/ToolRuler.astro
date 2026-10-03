@@ -1,0 +1,200 @@
+---
+// Shot 7: the year line. Drag the year and see which of the places on this page were alive.
+import { spans, jumps, yearRange } from '../../data/peru';
+
+interface Props {
+  chyron: string;
+}
+const { chyron } = Astro.props;
+
+const total = yearRange.max - yearRange.min;
+const pos = (y: number) => ((y - yearRange.min) / total) * 100;
+const rows = spans.map((s) => {
+  const left = pos(s.from);
+  // Short spans still need a bar you can see
+  const width = Math.max(pos(s.to) - left, 1.2);
+  return { ...s, left, width };
+});
+const ticks = [
+  { year: -3000, label: '3000 BC', minor: false },
+  { year: -2000, label: '2000 BC', minor: true },
+  { year: -1000, label: '1000 BC', minor: false },
+  { year: 1, label: 'AD 1', minor: false },
+  { year: 1000, label: 'AD 1000', minor: true },
+  { year: 2026, label: 'Today', minor: false },
+];
+---
+
+<figure class="frame tool-ruler" data-ruler-tool data-min={yearRange.min} data-max={yearRange.max}>
+  <div class="board" data-ruler-board>
+    <div class="plot" data-ruler-plot>
+      <div class="axis" aria-hidden="true">
+        {ticks.map((t) => <span class:list={['tick', { minor: t.minor }]} style={`left: ${pos(t.year)}%`}>{t.label}</span>)}
+      </div>
+      <ul class="rows">
+        {
+          rows.map((r) => (
+            <li class="row" data-span={r.id} data-from={r.from} data-to={r.to}>
+              <span class="row-label">{r.label}</span>
+              <span class="track"><span class="bar" style={`left: ${r.left}%; width: ${r.width}%`}></span></span>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="now" data-now style="left: 100%" aria-hidden="true"><span class="now-knob"></span></div>
+    </div>
+  </div>
+  <figcaption class="chyron">{chyron}</figcaption>
+</figure>
+
+<div class="controls">
+  <label class="field">
+    <span>Year <output data-ruler-out>Today</output></span>
+    <input class="range" type="range" min={yearRange.min} max={yearRange.max} value={yearRange.max} step="10" data-ruler-range />
+  </label>
+</div>
+<div class="controls jumps" role="group" aria-label="Jump to a year">
+  {jumps.map((j) => <button type="button" class="btn" data-year={j.year}>{j.label}</button>)}
+</div>
+<p class="status" aria-live="polite" data-ruler-status>Today. All five of these are long over, but you can still visit the pyramids.</p>
+
+<style>
+  .tool-ruler {
+    background: #fff3dc;
+    color: #121315;
+  }
+
+  .tool-ruler .board {
+    padding: 2.3rem 1rem 1rem;
+  }
+
+  .tool-ruler .plot {
+    position: relative;
+  }
+
+  .tool-ruler .axis {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -1.5rem;
+    height: 1.2rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  .tool-ruler .tick {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 34rem) {
+    .tool-ruler .tick.minor {
+      display: none;
+    }
+  }
+
+  .tool-ruler .tick:first-child {
+    transform: none;
+  }
+
+  .tool-ruler .tick:last-child {
+    transform: translateX(-100%);
+  }
+
+  .tool-ruler .rows {
+    position: relative;
+    display: grid;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tool-ruler .row {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  /* Rows that are not happening in the chosen year step back, but stay readable */
+  .tool-ruler .row:not(.live) .row-label {
+    color: #5d5648;
+    font-weight: 600;
+  }
+
+  .tool-ruler .row:not(.live) .bar {
+    opacity: 0.4;
+  }
+
+  .tool-ruler .row-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .tool-ruler .track {
+    position: relative;
+    height: 0.85rem;
+    border-radius: 999px;
+    background: rgb(18 19 21 / 0.12);
+  }
+
+  .tool-ruler .bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-radius: 999px;
+    background: #8a2f0b;
+  }
+
+  .tool-ruler .row.live .bar {
+    background: #e4501a;
+    box-shadow: 0 0 0 2px #121315;
+  }
+
+  /* The vertical line that follows the year */
+  .tool-ruler .now {
+    position: absolute;
+    top: -0.3rem;
+    bottom: 0;
+    width: 0;
+    pointer-events: none;
+  }
+
+  .tool-ruler .now::before {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #121315;
+  }
+
+  .tool-ruler .now-knob {
+    position: absolute;
+    left: -0.55rem;
+    top: -0.2rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border: 3px solid #121315;
+    border-radius: 50%;
+    background: #ff7a45;
+  }
+
+  .tool-ruler .chyron {
+    margin-top: 0;
+  }
+
+  .jumps {
+    margin-top: 0.4rem;
+    gap: 0.45rem;
+  }
+
+  .jumps .btn {
+    padding: 0.35rem 0.8rem;
+    font-size: 0.88rem;
+  }
+
+</style>
