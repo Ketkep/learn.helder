@@ -1,11 +1,16 @@
 ---
 import TopicLayout from '../../layouts/TopicLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import Roll from '../../components/dutch/Roll.astro';
+import { takeaways, sources } from '../../data/dutch';
 ---
 
 <TopicLayout
   slug="the-dutch-golden-age"
   intro="In the 1600s the Dutch Republic was small, but its ships, banks and painters made it one of the richest places in Europe."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote="The facts on this page come from the pages below. The pictures are drawings. The risk game, the sailors and the sawmill race use pretend numbers next to the real ones, and the page says so where it happens."
+  wide
 >
-  <ComingSoon />
+  <Roll />
 </TopicLayout>

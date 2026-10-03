@@ -1,0 +1,145 @@
+---
+// Stop 4: the voyage to Batavia. Slide the months and the ship sails along the route, while
+// the crew (100 dots) shrinks by the real average for the ship you pick.
+import Card from './Card.astro';
+import type { Station } from '../../data/dutch';
+import { ships, voyageMonths } from '../../data/dutch';
+import { land, routePath, landmarks, place, MAP_W, MAP_H } from '../../lib/dutch/map';
+import { seeded } from '../../lib/rand';
+
+// The order the sailors are lost in: shuffled, but the same on every build
+const rnd = seeded(404);
+const order = Array.from({ length: 100 }, (_, i) => i)
+  .map((i) => ({ i, r: rnd() }))
+  .sort((a, b) => a.r - b.r)
+  .map((o) => o.i);
+const rank = order.reduce<number[]>((acc, dot, n) => ((acc[dot] = n), acc), []);
+
+interface Props {
+  s: Station;
+}
+const { s } = Astro.props;
+---
+
+<div class="stop">
+  <div class="panel story" data-panel><Card s={s} /></div>
+  <div class="panel sub" data-panel>
+    <figure class="scene vy-scene" data-vy data-months={voyageMonths} data-landmarks={JSON.stringify(landmarks)} data-ships={JSON.stringify(ships)}>
+      <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} role="img" aria-label="A map. A sailing ship follows a dotted route from the Netherlands in the north west, down the coast of Africa, around the Cape of Good Hope and across the Indian Ocean to Batavia on the island of Java.">
+        <rect width={MAP_W} height={MAP_H} rx="10" fill="#a9cbe6"></rect>
+        <g fill="none" stroke="#e8f4fb" stroke-width="3" stroke-linecap="round" opacity="0.8">
+          <path d="M30 150q10 -7 20 0t20 0t20 0"></path>
+          <path d="M400 290q10 -7 20 0t20 0t20 0"></path>
+          <path d="M560 310q10 -7 20 0t20 0"></path>
+          <path d="M200 40q10 -7 20 0t20 0t20 0"></path>
+        </g>
+        <g clip-path="url(#vy-clip)">
+          <path d={land} fill="#efe0be" stroke="#14213d" stroke-width="2.4" stroke-linejoin="round"></path>
+        </g>
+        <path d={routePath} fill="none" stroke="#14213d" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"></path>
+        <path data-vy-route d={routePath} fill="none" stroke="none"></path>
+        <circle cx={place.start.x} cy={place.start.y} r="5" fill="#e4501a" stroke="#14213d" stroke-width="2.4"></circle>
+        <circle cx={place.end.x} cy={place.end.y} r="5" fill="#e4501a" stroke="#14213d" stroke-width="2.4"></circle>
+        <circle cx={place.cape.x} cy={place.cape.y} r="3.5" fill="#14213d"></circle>
+        <g font-family="Covered By Your Grace, cursive" font-size="26" fill="#14213d">
+          <text x={place.start.x + 12} y={place.start.y + 20}>Netherlands</text>
+          <text x={place.end.x - 12} y={place.end.y + 22} text-anchor="end">Batavia</text>
+          <text x={place.cape.x - 40} y={place.cape.y - 36} font-size="22" text-anchor="end">Cape of Good Hope</text>
+          <text x={place.africa.x} y={place.africa.y} opacity="0.4" font-size="42" text-anchor="middle">Africa</text>
+        </g>
+        <g data-vy-ship>
+          <use href="#nl-ship" x="-42" y="-74" width="84" height="77"></use>
+        </g>
+        <defs>
+          <clipPath id="vy-clip"><rect width={MAP_W} height={MAP_H} rx="10"></rect></clipPath>
+        </defs>
+      </svg>
+    </figure>
+
+    <div class="widget vy-widget needs-js">
+      <div class="controls vy-month">
+        <label class="label" for="vy-month">Month</label>
+        <input class="range" id="vy-month" type="range" min="0" max={voyageMonths} step="0.1" value="0" data-vy-month />
+        <output class="label" for="vy-month" data-vy-out>0.0</output>
+        <button type="button" class="btn fill" data-vy-sail>Sail</button>
+      </div>
+      <div class="controls" role="group" aria-label="Which ship">
+        {ships.map((s, i) => <button type="button" class="btn" aria-pressed={i === 1 ? 'true' : 'false'} aria-label={`${s.label} ship`} data-vy-ship-btn={i}>{s.label}</button>)}
+      </div>
+      <div class="vy-row">
+        <div class="vy-text">
+          <p class="status" data-vy-status>At sea for 0 months. All 100 are alive.</p>
+          <p class="info">Pretend: people die evenly along the way. The real numbers are for the whole trip.</p>
+        </div>
+        <svg class="vy-crew" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+          {
+            Array.from({ length: 100 }, (_, n) => (
+              <circle class="vy-dot" cx={5 + (n % 10) * 10} cy={5 + Math.floor(n / 10) * 10} r="3.7" data-rank={rank[n]}></circle>
+            ))
+          }
+        </svg>
+      </div>
+      <p class="visually-hidden" role="status" aria-live="polite" data-vy-live></p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .vy-scene svg {
+    max-height: min(16.5rem, 34vh);
+    margin-inline: auto;
+  }
+
+  .vy-month {
+    flex-wrap: nowrap;
+  }
+
+  .vy-month .range {
+    min-width: 4rem;
+  }
+
+  .vy-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 5.2rem;
+    align-items: center;
+    gap: 0.4rem 0.9rem;
+  }
+
+  .vy-text {
+    display: grid;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+
+  .vy-crew {
+    width: 100%;
+    height: auto;
+  }
+
+  .vy-dot {
+    fill: #2b4f9e;
+    stroke: #14213d;
+    stroke-width: 1.4;
+  }
+
+  .vy-dot.dead {
+    fill: none;
+    stroke-width: 1;
+    opacity: 0.35;
+  }
+
+  .vy-text .status {
+    min-height: 2.6rem;
+  }
+
+  @media (min-width: 60rem) {
+    .vy-row {
+      grid-template-columns: minmax(0, 1fr) 6.2rem;
+    }
+  }
+
+  .info {
+    font-size: 0.88rem;
+    line-height: 1.4;
+  }
+</style>

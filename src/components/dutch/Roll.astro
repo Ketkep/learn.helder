@@ -1,0 +1,140 @@
+---
+// The whole Dutch film: a pinned screen that slides sideways past a set of stops, a coin that
+// rolls along a film strip, and a bar with the year. The pictures are in the Station components
+// and the behaviour is in src/scripts/dutch. Without scripts this is a normal page you can
+// scroll and read.
+import '../../styles/roll.css';
+import { stations, passing } from '../../data/dutch';
+import { shipSymbol } from '../../lib/dutch/art';
+import { farTile, midTile, holeTile } from '../../lib/dutch/layers';
+import Coin from './Coin.astro';
+import StationStart from './StationStart.astro';
+import StationWind from './StationWind.astro';
+import StationExchange from './StationExchange.astro';
+import StationVoyage from './StationVoyage.astro';
+import StationTulip from './StationTulip.astro';
+import StationStudio from './StationStudio.astro';
+import StationFlip from './StationFlip.astro';
+import StationEnd from './StationEnd.astro';
+
+const plays: Record<string, typeof StationStart> = {
+  start: StationStart,
+  wind: StationWind,
+  exchange: StationExchange,
+  voyage: StationVoyage,
+  tulip: StationTulip,
+  studio: StationStudio,
+  flip: StationFlip,
+  end: StationEnd,
+};
+
+// The sky behind each stop. The camera blends from one to the next while it rolls.
+// "layers" says how much of the far clouds and houses show (the painter's room is nearly empty).
+const look: Record<string, { sky: string; layers: number }> = {
+  start: { sky: '#bcd6ec', layers: 1 },
+  wind: { sky: '#a9cbe6', layers: 1 },
+  exchange: { sky: '#efdcb5', layers: 1 },
+  voyage: { sky: '#82b4d2', layers: 1 },
+  tulip: { sky: '#efd2c2', layers: 1 },
+  studio: { sky: '#2b211c', layers: 0.12 },
+  flip: { sky: '#bcd6ec', layers: 1 },
+  end: { sky: '#4b5a70', layers: 0.6 },
+};
+
+const far = farTile();
+const mid = midTile();
+const holes = holeTile();
+---
+
+<div class="roll" data-roll>
+  <!-- The ship is drawn once here and used in several pictures -->
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+    <defs set:html={shipSymbol()} />
+  </svg>
+
+  <div class="rig" data-rig>
+    <div class="sky" aria-hidden="true"></div>
+    <div class="far" data-far data-aspect={far.aspect} style={`background-image: ${far.url}`} aria-hidden="true"></div>
+    <div class="mid" data-mid data-aspect={mid.aspect} style={`background-image: ${mid.url}`} aria-hidden="true"></div>
+    <div class="strip" aria-hidden="true">
+      <div class="holes" data-holes style={`background-image: ${holes.url}`}></div>
+    </div>
+
+    <div class="hud">
+      <div class="hud-now" aria-hidden="true">
+        <span class="hud-year" data-year>{stations[0].year}</span>
+        <span class="hud-title" data-title>{stations[0].short}</span>
+      </div>
+      <nav class="route" aria-label="Stops on the way">
+        <ol>
+          {
+            stations.map((s, i) => (
+              <li>
+                <button type="button" data-jump={i} aria-label={`Go to stop ${i + 1}: ${s.title}`}>
+                  <span class="dot"></span>
+                </button>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+      <button class="snd needs-js" type="button" data-sound aria-pressed="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"></path>
+          <path class="wave" d="M15 9a4 4 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          <path class="slash" d="M16 8.5l5 7M21 8.5l-5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        </svg>
+        <span class="visually-hidden" data-sound-label>Sound on</span>
+      </button>
+    </div>
+
+    <div class="world" data-world>
+      {
+        stations.map((s) => {
+          const Play = plays[s.id];
+          const lines = passing.find((p) => p.after === s.id)?.lines ?? [];
+          return (
+            <>
+              <article
+                class="station"
+                data-station={s.id}
+                data-year={s.year}
+                data-title={s.short}
+                data-sky={look[s.id].sky}
+                data-layers={look[s.id].layers}
+                style={`--sky: ${look[s.id].sky}`}
+                aria-labelledby={`roll-${s.id}`}
+              >
+                <Play s={s} />
+              </article>
+              {
+                lines.length > 0 && (
+                  <aside class="passage" data-passage aria-label="Meanwhile">
+                    <ul class="signs">
+                      {lines.map((l) => (
+                        <li class="sign" data-year={l.year}>
+                          <p class="sign-year">{l.year}</p>
+                          <p class="sign-text">{l.text}</p>
+                          <span class="post" aria-hidden="true" />
+                        </li>
+                      ))}
+                    </ul>
+                  </aside>
+                )
+              }
+            </>
+          );
+        })
+      }
+    </div>
+
+    <div class="coin" data-coin aria-hidden="true">
+      <div class="coin-spin" data-spin><Coin side="front" /></div>
+    </div>
+    <p class="hint" aria-hidden="true">Scroll to roll the coin</p>
+  </div>
+</div>
+
+<script>
+  import '../../scripts/dutch/roll';
+</script>

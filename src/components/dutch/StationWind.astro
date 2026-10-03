@@ -1,0 +1,120 @@
+---
+// Stop 2: the wind sawmill against two people with a hand saw. Turn the wind, then race.
+import Card from './Card.astro';
+import type { Station } from '../../data/dutch';
+import { windmill, person, slab, P } from '../../lib/dutch/art';
+import { wind } from '../../data/dutch';
+
+const COLS = 10;
+// Sixty beams as little squares in a pile. The ones not yet sawn show faintly.
+const slots = (x0: number, bottom: number) =>
+  Array.from({ length: wind.beams }, (_, i) => ({
+    x: x0 + (i % COLS) * 12,
+    y: bottom - (Math.floor(i / COLS) + 1) * 11,
+  }));
+const millPile = slots(272, 340);
+const handPile = slots(582, 340);
+
+interface Props {
+  s: Station;
+}
+const { s } = Astro.props;
+---
+
+<div class="stop">
+  <div class="panel story" data-panel><Card s={s} /></div>
+  <div class="panel sub" data-panel>
+    <figure class="scene wind-scene" data-wind-scene data-beams={wind.beams} data-mill-days={wind.millDays} data-hand-days={wind.handDays}>
+      <svg viewBox="0 0 720 380" role="img" aria-label="On the left, a windmill that saws wood, with a pile of beams beside it. On the right, two people saw a log by hand, with a much smaller pile of beams.">
+        <g set:html={windmill(136, 344, 215, { angle: 14, roof: P.brick })}></g>
+        <!-- a log waiting by the mill -->
+        <rect x="178" y="322" width="56" height="18" rx="9" fill={P.wood} stroke={P.ink} stroke-width="3"></rect>
+        {millPile.map((b) => <rect class="beam m" x={b.x} y={b.y} width="11" height="9" rx="1.5"></rect>)}
+
+        <!-- two people with a long saw, a log on trestles -->
+        <path d="M418 344L430 284L442 344M508 344L520 284L532 344" fill="none" stroke={P.ink} stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <rect x="404" y="262" width="142" height="22" rx="11" fill={P.wood} stroke={P.ink} stroke-width="3"></rect>
+        <ellipse cx="539" cy="273" rx="6" ry="9" fill={P.woodD} stroke={P.ink} stroke-width="2"></ellipse>
+        <g class="saw">
+          <rect x="471" y="228" width="6" height="108" fill="#c9d3dc" stroke={P.ink} stroke-width="2.5"></rect>
+          <rect x="462" y="222" width="24" height="8" rx="3" fill={P.woodD} stroke={P.ink} stroke-width="2.5"></rect>
+          <rect x="462" y="334" width="24" height="8" rx="3" fill={P.woodD} stroke={P.ink} stroke-width="2.5"></rect>
+        </g>
+        <g set:html={person(450, 262, 1.1, { coat: P.brickD, hat: 'brim' })}></g>
+        <g set:html={person(500, 344, 1, { coat: P.blueM, hat: 'cap' })}></g>
+        {handPile.map((b) => <rect class="beam h" x={b.x} y={b.y} width="11" height="9" rx="1.5"></rect>)}
+
+        <g set:html={slab(720, 380)}></g>
+        <g font-family="Covered By Your Grace, cursive" font-size="34" fill={P.ink}>
+          <text x="272" y="262">the sawmill</text>
+          <text x="586" y="262">by hand</text>
+        </g>
+      </svg>
+    </figure>
+
+    <div class="widget wind-widget needs-js">
+      <div class="controls">
+        <label class="label" for="wind-speed">Wind</label>
+        <input class="range" id="wind-speed" type="range" min="10" max="100" step="1" value="50" data-wind aria-describedby="wind-note" />
+        <output class="label" for="wind-speed" data-wind-out>50%</output>
+      </div>
+      <div class="controls">
+        <label class="label" for="wind-day">Day</label>
+        <input class="range" id="wind-day" type="range" min="0" max={wind.handDays} step="1" value="0" data-day />
+        <output class="label" for="wind-day" data-day-out>0</output>
+        <button type="button" class="btn fill" data-race>Race</button>
+      </div>
+      <p class="tally" aria-hidden="true">
+        <span>Sawmill <strong data-mill-count>0</strong> of {wind.beams}</span>
+        <span>By hand <strong data-hand-count>0</strong> of {wind.beams}</span>
+      </p>
+      <p class="status" id="wind-note" role="status" data-wind-status>Pretend wind: a full wind gives the real five days. Less wind, slower mill. Press Race.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .beam {
+    fill: #b88b52;
+    stroke: #14213d;
+    stroke-width: 1.4;
+    opacity: 0.16;
+  }
+
+  .beam.on {
+    opacity: 1;
+  }
+
+  .tally {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 1.4rem;
+    font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tally strong {
+    font-size: 1.2rem;
+  }
+
+  .saw {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .racing .saw {
+      animation: saw 0.55s ease-in-out infinite alternate;
+    }
+  }
+
+  @keyframes saw {
+    from {
+      transform: translateY(-9px);
+    }
+
+    to {
+      transform: translateY(9px);
+    }
+  }
+</style>

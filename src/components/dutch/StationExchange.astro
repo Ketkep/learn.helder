@@ -1,0 +1,175 @@
+---
+// Stop 3: spread 100 guilders over more ships. The bars show every possible result and how
+// likely it is, worked out exactly by the script (no dice until you send the fleet).
+import Card from './Card.astro';
+import type { Station } from '../../data/dutch';
+import { house, person, slab, P } from '../../lib/dutch/art';
+import { fleets, risk } from '../../data/dutch';
+
+// A stack of coins for the money in the maid's hands
+const coins = [0, 1, 2, 3, 4].map((i) => ({ y: 336 - i * 7 }));
+
+interface Props {
+  s: Station;
+}
+const { s } = Astro.props;
+---
+
+<div class="stop">
+  <div class="panel story" data-panel><Card s={s} /></div>
+  <div class="col">
+  <div class="panel sub" data-panel>
+    <div class="ex-top">
+      <figure class="scene ex-scene" data-ex data-fleets={fleets.join(',')} data-chance={risk.chance} data-payback={risk.payback} data-stake={risk.stake}>
+        <svg viewBox="0 0 720 330" role="img" aria-label="A woman with 100 guilders stands on a quay beside a tall house. Ships float in the water next to her.">
+          <g set:html={house(16, 294, 84, 200, { gable: 'bell', wall: P.brick })}></g>
+          <rect x="196" y="262" width="518" height="32" fill={P.water}></rect>
+          <g data-ex-fleet></g>
+          <g set:html={person(128, 294, 1.5, { coat: P.blueD, hat: 'cap' })}></g>
+          {coins.map((c) => <ellipse cx="168" cy={c.y - 42} rx="14" ry="5" fill="#e4501a" stroke={P.ink} stroke-width="2.4"></ellipse>)}
+          <g set:html={slab(720, 330)}></g>
+          <text x="12" y="34" font-family="Covered By Your Grace, cursive" font-size="32" fill={P.ink}>100 guilders</text>
+        </svg>
+      </figure>
+
+      <figure class="ex-chart needs-js">
+        <svg viewBox="0 0 300 140" aria-hidden="true" focusable="false">
+          <g data-ex-bars></g>
+          <path d="M12 100H288" stroke="#14213d" stroke-width="2.4" stroke-linecap="round"></path>
+          <path class="ex-mark" d="M183 26V100" stroke="#14213d" stroke-width="2" stroke-dasharray="4 4"></path>
+          <path class="ex-mark" d="M241.5 26V100" stroke="#e4501a" stroke-width="2.6"></path>
+          <g font-size="11" font-weight="700" fill="#14213d" font-family="inherit">
+            <text x="183" y="20" text-anchor="middle">put in</text>
+            <text x="241.5" y="20" text-anchor="middle" fill="#b4340a">average</text>
+            <text x="18" y="117" text-anchor="middle">0</text>
+            <text x="183" y="117" text-anchor="middle">100</text>
+            <text x="282" y="117" text-anchor="end">160</text>
+          </g>
+        </svg>
+        <figcaption>Chance of each result</figcaption>
+      </figure>
+    </div>
+    <div class="widget ex-controls needs-js">
+      <div class="controls">
+        <label class="label" for="ex-ships">Spread over</label>
+        <input class="range" id="ex-ships" type="range" min="0" max={fleets.length - 1} step="1" value="0" data-ex-slider />
+        <output class="label" for="ex-ships" data-ex-out>1 ship</output>
+        <button type="button" class="btn fill" data-ex-send>Send the fleet</button>
+      </div>
+      <p class="status" role="status" data-ex-status></p>
+    </div>
+  </div>
+  <div class="panel sub" data-panel>
+    <div class="widget ex-facts needs-js">
+      <p class="info" data-ex-info>
+        Pretend ships: {Math.round(risk.chance * 100)} in 100 come home, and each pays back {risk.payback} times the money in it.
+      </p>
+    </div>
+  </div>
+  </div>
+</div>
+
+<style is:global>
+  .ex-top {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .ex-scene svg {
+    max-height: min(8.5rem, 24vh);
+    margin-inline: auto;
+  }
+
+  .ex-chart svg {
+    max-height: min(6.4rem, 18vh);
+    margin-inline: auto;
+  }
+
+  .ex-controls .status {
+    min-height: 2.6rem;
+  }
+
+  @media (min-width: 60rem) {
+    .ex-scene svg,
+    .ex-chart svg {
+      max-height: none;
+    }
+  }
+
+  .ex-chart {
+    margin: 0;
+    padding: 0.4rem 0.6rem 0.5rem;
+    background: var(--r-paper);
+    border: 3px solid var(--r-ink);
+    border-radius: 6px;
+  }
+
+  .ex-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .ex-chart figcaption {
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .ex-bar {
+    fill: #2b4f9e;
+    stroke: #14213d;
+    stroke-width: 1.6;
+  }
+
+  .ex-bar.mine {
+    fill: #e4501a;
+  }
+
+  .roll .info {
+    font-size: 0.93rem;
+    line-height: 1.45;
+  }
+
+  .ex-ship {
+    transform-box: fill-box;
+    transform-origin: 50% 90%;
+    transition: transform 0.9s ease-in, opacity 0.9s ease-in;
+  }
+
+  .ex-ship.lost {
+    transform: translateY(46px) rotate(24deg);
+    opacity: 0.12;
+  }
+
+  .ex-coin {
+    opacity: 0;
+    fill: #e4501a;
+    stroke: #14213d;
+    stroke-width: 2.4;
+    transition: opacity 0.3s;
+  }
+
+  .ex-ship.home .ex-coin {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ex-ship.home {
+      animation: ex-hop 0.5s ease-out;
+    }
+  }
+
+  @keyframes ex-hop {
+    40% {
+      transform: translateY(-9px);
+    }
+  }
+
+  @media (min-width: 60rem) {
+    .ex-top {
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+      align-items: end;
+    }
+  }
+</style>

@@ -1,0 +1,131 @@
+---
+// Stop 6: a dark room and a lamp. Drag the lamp, and the people it lights step out of the dark.
+import Card from './Card.astro';
+import type { Station } from '../../data/dutch';
+import { sitters } from '../../data/dutch';
+import { room, figures, places } from '../../lib/dutch/nightwatch';
+
+interface Props {
+  s: Station;
+}
+const { s } = Astro.props;
+const labels: Record<string, string> = { captain: 'The captain', lieutenant: 'The lieutenant', guard: 'A guardsman' };
+---
+
+<div class="stop">
+  <div class="panel story" data-panel><Card s={s} /></div>
+  <div class="panel sub" data-panel>
+    <figure class="scene st-scene" data-st data-places={JSON.stringify(places)} data-sitters={JSON.stringify(sitters)}>
+      <div class="st-frame" data-st-frame>
+        <svg viewBox="0 0 720 400" role="img" aria-label="A dark room. A group of militia men stands in it: a captain in black with a red sash, a lieutenant in bright yellow, a flag bearer, a drummer and some guards. A lamp lights only part of the picture.">
+          <defs>
+            <radialGradient id="st-fade">
+              <stop offset="0" stop-color="#fff"></stop>
+              <stop offset="0.62" stop-color="#fff"></stop>
+              <stop offset="1" stop-color="#000"></stop>
+            </radialGradient>
+            <radialGradient id="st-glow">
+              <stop offset="0" stop-color="#ffd58a" stop-opacity="0.55"></stop>
+              <stop offset="1" stop-color="#ffd58a" stop-opacity="0"></stop>
+            </radialGradient>
+            <mask id="st-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="720" height="400">
+              <rect width="720" height="400" fill="#000"></rect>
+              <circle data-st-light cx="360" cy="200" r="900" fill="url(#st-fade)"></circle>
+            </mask>
+          </defs>
+          <g set:html={room(false) + figures(false)}></g>
+          <g mask="url(#st-mask)" set:html={room(true) + figures(true)}></g>
+          <circle data-st-glow cx="360" cy="200" r="0" fill="url(#st-glow)"></circle>
+          <rect x="3" y="3" width="714" height="394" rx="6" fill="none" stroke="#8a6234" stroke-width="6"></rect>
+          <rect x="7" y="7" width="706" height="386" rx="4" fill="none" stroke="#14213d" stroke-width="2"></rect>
+        </svg>
+        <button type="button" class="st-lamp" data-st-lamp aria-describedby="st-status" aria-label="Lamp. Drag it, or press the arrow keys, to light the picture."></button>
+      </div>
+      <figcaption>A simple drawing of the scene, not a copy of the painting.</figcaption>
+    </figure>
+    <div class="widget st-widget needs-js">
+      <div class="controls" role="group" aria-label="Light one person">
+        {places.map((p) => <button type="button" class="btn" data-st-go={p.id}>{labels[p.id]}</button>)}
+      </div>
+      <p class="status" id="st-status" role="status" data-st-status>Drag the lamp across the dark room, or pick a person.</p>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .st-frame {
+    position: relative;
+    width: 100%;
+    max-width: 29rem;
+    max-width: min(100%, calc(min(16.5rem, 38vh) * 1.8));
+    margin-inline: auto;
+    border-radius: 8px;
+    box-shadow: 0 16px 26px -16px rgb(0 0 0 / 0.7);
+  }
+
+  .st-frame svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: none;
+  }
+
+  .st-scene figcaption {
+    margin-top: 0.4rem;
+    color: #fff3dc;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  .st-lamp {
+    position: absolute;
+    left: 18%;
+    top: 75%;
+    width: 2.9rem;
+    height: 2.9rem;
+    padding: 0;
+    border: 3px solid #14213d;
+    border-radius: 50%;
+    background: #ff7a45;
+    box-shadow:
+      0 0 0 4px rgb(255 213 138 / 0.5),
+      0 0 22px 10px rgb(255 213 138 / 0.45);
+    cursor: grab;
+    transform: translate(-50%, -50%);
+    touch-action: none;
+  }
+
+  .st-lamp:active {
+    cursor: grabbing;
+  }
+
+  .st-lamp:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+  }
+
+  .st-lamp::after {
+    content: '';
+    position: absolute;
+    top: 0.55rem;
+    right: 0.55rem;
+    bottom: 0.55rem;
+    left: 0.55rem;
+    border-radius: 50%;
+    background: #fff3dc;
+    opacity: 0.85;
+  }
+
+  /* Before the script runs the whole picture is lit, so there is no lamp to drag */
+  .st-lamp {
+    display: none;
+  }
+
+  .st-scene.on .st-lamp {
+    display: block;
+  }
+
+  .st-widget .status {
+    min-height: 4.4rem;
+  }
+</style>

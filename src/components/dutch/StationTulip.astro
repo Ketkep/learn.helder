@@ -1,0 +1,155 @@
+---
+// Stop 5, in two parts. First: the legend next to what the old records show. Then: how many
+// years of a craftsman's pay one bulb cost, on a slider.
+import Card from './Card.astro';
+import type { Station } from '../../data/dutch';
+import { tulip, person, slab, P } from '../../lib/dutch/art';
+import { tulips, tulipViews } from '../../data/dutch';
+
+interface Props {
+  s: Station;
+}
+const { s } = Astro.props;
+
+// A row of tulips for the first picture
+const colors: [string, string][] = [
+  [P.orange, P.cream],
+  [P.brick, P.cream],
+  [P.gold, P.cream],
+  [P.blue, P.blueP],
+  [P.brickD, P.skin],
+  [P.orange, P.cream],
+  [P.gold, P.paper],
+];
+const row = colors.map(([petal, edge], i) => tulip(52 + i * 84, 104, 1.1, petal, edge)).join('');
+
+// 34 little coins, each one a year of a craftsman's pay
+const coins = Array.from({ length: 34 }, (_, i) => ({ x: 12 + (i % 17) * 19.5, y: i < 17 ? 14 : 38 }));
+---
+
+<div class="stop">
+  <div class="panel story" data-panel><Card s={s} /></div>
+  <div class="panel sub" data-panel>
+    <figure class="scene tl-band">
+      <svg viewBox="0 0 720 140" role="img" aria-label="A row of tulips in different colors, and a merchant looking at them.">
+        <g set:html={row}></g>
+        <g set:html={person(676, 104, 1.25, { coat: P.blueD, hat: 'brim' })}></g>
+        <g set:html={slab(720, 140)}></g>
+      </svg>
+    </figure>
+    <div class="widget tl-compare" data-tl-compare>
+      <div class="controls needs-js" role="group" aria-label="Which version of the story">
+        <button type="button" class="btn" aria-pressed="true" data-tl-mode="legend">The legend</button>
+        <button type="button" class="btn" aria-pressed="false" data-tl-mode="records">The records</button>
+      </div>
+      {
+        (['legend', 'records'] as const).map((key) => (
+          <section class={`tl-view ${key}`} data-tl-view={key}>
+            <h3 class="tl-h">{tulipViews[key].title}</h3>
+            <ul class="claims">
+              {tulipViews[key].items.map((t) => <li>{t}</li>)}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<div class="stop">
+  <div class="panel sub" data-panel>
+    <h3 class="visually-hidden">What one bulb cost</h3>
+    <figure class="scene tl-stage" data-tl data-wage={tulips.wage} data-record={tulips.record} data-asking={tulips.asking}>
+      <svg viewBox="0 0 720 240" role="img" aria-label="A tulip on a stone stand with a price tag, and a craftsman who says his pay for a whole year is 300 guilders.">
+        <rect x="104" y="164" width="112" height="40" rx="4" fill={P.stone} stroke={P.ink} stroke-width="3"></rect>
+        <g set:html={tulip(160, 164, 1.55, P.orange, P.cream)}></g>
+        <g transform="translate(212 84) rotate(-7)">
+          <path d="M-12 14L-34 30" stroke={P.ink} stroke-width="2" fill="none"></path>
+          <rect x="0" y="0" width="128" height="56" rx="6" fill={P.paper} stroke={P.ink} stroke-width="3"></rect>
+          <text data-tl-tag x="64" y="30" text-anchor="middle" font-size="26" font-family="Young Serif, Georgia, serif" fill={P.ink}>300</text>
+          <text x="64" y="47" text-anchor="middle" font-size="13" font-weight="700" fill={P.ink} font-family="sans-serif">guilders</text>
+        </g>
+        <g set:html={person(594, 204, 1.9, { coat: P.blueM, hat: 'brim' })}></g>
+        <g font-family="Covered By Your Grace, cursive" font-size="30" fill={P.ink}>
+          <text x="400" y="62">my whole year of work</text>
+          <text x="400" y="94">earns {tulips.wage} guilders</text>
+        </g>
+        <g set:html={slab(720, 240)}></g>
+      </svg>
+    </figure>
+    <div class="widget tl-price needs-js">
+      <div class="controls">
+        <label class="label" for="tl-price">Price of one bulb</label>
+        <input class="range" id="tl-price" type="range" min="0" max={tulips.asking} step="100" value={tulips.wage} data-tl-slider />
+      </div>
+      <div class="controls">
+        <button type="button" class="btn" data-tl-preset={tulips.wage} aria-label={`Set the price to ${tulips.wage} guilders, a craftsman's pay for a year`}>A year's pay</button>
+        <button type="button" class="btn" data-tl-preset={tulips.record} aria-label={`Set the price to ${tulips.record.toLocaleString('en-US')} guilders, the highest sale in the records`}>Highest sale</button>
+        <button type="button" class="btn" data-tl-preset={tulips.asking} aria-label={`Set the price to ${tulips.asking.toLocaleString('en-US')} guilders, the asking price for the rarest bulb`}>Rarest ask</button>
+      </div>
+      <svg class="tl-coins" viewBox="0 0 340 52" aria-hidden="true" focusable="false">
+        {coins.map((c, i) => <circle class="tl-coin" cx={c.x} cy={c.y} r="8" data-i={i}></circle>)}
+      </svg>
+      <p class="status" role="status" data-tl-status></p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .tl-band svg {
+    max-height: 7.5rem;
+    max-height: min(7.5rem, 15vh);
+  }
+
+  .tl-stage svg {
+    max-height: min(13rem, 30vh);
+  }
+
+  .claims {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .claims li {
+    padding-left: 1rem;
+    border-left: 4px solid #e4501a;
+    font-size: 0.97rem;
+    line-height: 1.42;
+  }
+
+  .tl-view.records .claims li {
+    border-left-color: #2b4f9e;
+  }
+
+  .tl-view {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .tl-view[hidden] {
+    display: none;
+  }
+
+  .tl-h {
+    font-family: var(--font-hand);
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .tl-compare.on .tl-h {
+    display: none;
+  }
+
+  .tl-coins {
+    width: 100%;
+    height: auto;
+  }
+
+  .tl-coin {
+    fill: #e4501a;
+    stroke: #14213d;
+    stroke-width: 1.8;
+    opacity: 0.14;
+  }
+</style>

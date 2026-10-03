@@ -89,7 +89,7 @@ You do not need to run anything on your own computer for this.
 4. After about a minute you get a link ending in `.vercel.app`. Every time new code is pushed to the repository, Vercel rebuilds the site by itself.
 5. For learn.helderlabs.com: open the project, go to **Settings**, then **Domains**, and add the domain. Vercel shows the exact DNS record to create where helderlabs.com is managed.
 
-The gambits page is built. The other two topics (pyramids in Peru, the Dutch Golden Age) are set to `live`, but their pages still say "Coming soon". That is fine while you look at the site on the `.vercel.app` link. Before you attach learn.helderlabs.com, either build those pages or set the topics you are not ready to show to `draft`.
+All three topics are built and set to `live`. Before you attach learn.helderlabs.com, skim the Sources list at the bottom of each page: the facts were gathered through search results, and some of the source sites could not be opened directly while writing.
 
 ## The gambits page: how the film works
 
@@ -113,7 +113,30 @@ Other things to know:
 - Without JavaScript the screen is hidden and each scene shows a still board and its moves instead.
 - The chess pieces are drawn for this site (`src/lib/chess/pieces.ts`). The board takes its colors from the topic color.
 - The history on the page comes from the pages listed under Sources at the bottom. A search for the best move in the traps was done with the Stockfish engine while writing, not at build time.
-- `TopicLayout` takes two optional props that any topic can use: `sources` (a list shown at the bottom of the page) and `bare` (no padded box around the explainer).
+- `TopicLayout` takes optional props that any topic can use: `sources` (a list shown at the bottom of the page), `sourcesNote` (a sentence above that list), `bare` (no padded box around the explainer) and `wide` (the explainer runs the full width of the screen, like a film frame).
+
+## The Peru page: how the dig works
+
+The page is one hole you scroll down through. A gauge shows the year you have dug down to (it sits at the left edge on a wide screen and along the top on a phone). Each layer of earth is one shot with a short text, a paper tag with an extra fact, and one tool to try: a brush that wipes sand off a pyramid, a wall of bricks to shove, a wall of stamped bricks, a wall you peel open, a switch for the cotton and fish trade, a shaking table, and a year line.
+
+- `src/data/peru.ts` holds all the words, the brick stamps, the year line and the sources.
+- `src/components/peru/Dig.astro` is the frame. Each tool is its own file, `Tool*.astro`, and has a matching script in `src/scripts/peru/`.
+- The layers get their colors from the cover color with `mix()` (`src/lib/color.ts`), so nothing depends on `color-mix()`.
+- The pictures are drawn with small helpers: `src/lib/rand.ts` (the same random numbers on every build) and `src/lib/svgpath.ts` (smooth curves).
+- The wall and shake tools are toy models. They show an idea, not engineering numbers, and the page says so.
+
+## The Dutch page: how the film works
+
+The page is a sideways tracking shot. A coin (the orange knob) rolls along a film strip while a set of stops slides past a pinned screen. Each stop pauses for a while so you can use its toy: a wind sawmill race, a share game (the bars are the exact chances, worked out in the script), a voyage to Batavia with a crew that shrinks, the tulip legend next to the records and a price slider, a dark room you light with a lamp, a coin to flip, and a sluice to open.
+
+- `src/data/dutch.ts` holds all the words, the pretend numbers (they are marked as pretend on the page), the sea route and the sources.
+- `src/components/dutch/Roll.astro` is the frame (the sky, the far and near strips, the bar with the year, the film strip, the coin, the "Meanwhile" signs). `Station*.astro` is one stop each. A stop has a `.stop` block with a text card (`.story`) and one or more pictures (`.sub`). Two pictures in a `.col` stack on a wide screen and become two screens on a phone. The tulip stop has two `.stop` blocks.
+- `src/scripts/dutch/roll.ts` is the camera. It turns the stops into a timeline of waiting and sliding, moves the layers at different speeds, turns the coin, blends the sky color, and updates the bar. A card whose text is too tall gets slightly smaller text instead of running into the coin. One script per stop starts its toy.
+- `src/lib/dutch/` has the drawing helpers (`art.ts`: houses, windmill, ship, people, tulip), the repeating background strips (`layers.ts`), the map (`map.ts`) and the Night Watch drawing (`nightwatch.ts`).
+- When the screen is too short, or the reader asked for less motion, the camera does not run. The page is then a plain stack and every toy still works. Without scripts only the pictures and the words show.
+- The film mode needs a screen at least 40rem tall on a wide screen and 34rem tall on a phone. Change this in `src/scripts/dutch/roll.ts` (`mq`).
+- On a wide screen the stops are whole screens. On a phone every `.story` and `.sub` is its own screen, so long stops take more scrolling.
+- The sound switch and all the sounds are shared with the other pages: `src/scripts/sound.ts` makes the sounds, `src/scripts/soundButton.ts` runs the switch.
 
 ## Draft and live
 
@@ -126,18 +149,29 @@ Other things to know:
 ```
 src/data/topics.ts       the list of all topics
 src/data/gambits.ts      everything the chess page says: games, scenes, field guide, sources
+src/data/peru.ts         everything the Peru page says: shots, brick stamps, year line, sources
+src/data/dutch.ts        everything the Dutch page says: stops, pretend numbers, route, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
 src/components/          header, footer, topic card, "coming soon" block
 src/components/chess/    the chess page: the film, the field guide, the piece sprite
+src/components/peru/     the Peru page: the dig and its seven tools
+src/components/dutch/    the Dutch page: the film frame, one file per stop, the coin
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
+src/styles/dig.css       the Peru dig: gauge, layers, controls
+src/styles/roll.css      the Dutch film: plain mode, film mode, bar, strip, controls
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/chess/           chess pieces, still diagrams, and the build-time analysis of games
+src/lib/dutch/           drawing helpers, background strips, map and painting for the Dutch page
+src/lib/rand.ts          repeatable random numbers.  src/lib/svgpath.ts: smooth curves for drawings
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
-src/scripts/film/        the browser side of the chess film: board, controller, sound
+src/scripts/film/        the browser side of the chess film: board and controller
+src/scripts/peru/        one script per Peru tool, plus the gauge
+src/scripts/dutch/       the camera (roll.ts) and one script per Dutch stop
+src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image
 ```
 

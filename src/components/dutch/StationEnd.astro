@@ -1,0 +1,115 @@
+---
+// Stop 8: the Disaster Year. Open the sluice and the land floods in front of the army.
+import Card from './Card.astro';
+import type { Station } from '../../data/dutch';
+import { house, person, slab, P } from '../../lib/dutch/art';
+
+interface Props {
+  s: Station;
+}
+const { s } = Astro.props;
+
+// Eight soldiers on the dry land, walking towards the dike
+const soldiers = Array.from({ length: 8 }, (_, i) => ({ x: 372 + i * 42 + (i % 2) * 6, y: 294 }));
+---
+
+<div class="stop">
+  <div class="panel story" data-panel><Card s={s} /></div>
+  <div class="panel sub" data-panel>
+    <figure class="scene en-scene" data-en>
+      <svg viewBox="0 0 720 330" role="img" aria-label="A town behind a dike on the left. On the right, a line of soldiers walks across flat land towards the dike. A sluice gate in the dike can be opened to flood the land.">
+        <g set:html={house(18, 294, 66, 150, { gable: 'step', wall: P.brick })}></g>
+        <g set:html={house(88, 294, 60, 170, { gable: 'bell', wall: P.blue })}></g>
+        <rect x="134" y="166" width="34" height="128" fill={P.stone} stroke={P.ink} stroke-width="3" stroke-linejoin="round"></rect>
+        <path d="M129 166L151 112L173 166Z" fill={P.brickD} stroke={P.ink} stroke-width="3" stroke-linejoin="round"></path>
+        <circle cx="151" cy="196" r="9" fill={P.paper} stroke={P.ink} stroke-width="2.4"></circle>
+        <path d="M151 190V196L156 198" fill="none" stroke={P.ink} stroke-width="2" stroke-linecap="round"></path>
+        <path d="M168 294L196 236H300L338 294Z" fill={P.green} stroke={P.ink} stroke-width="3" stroke-linejoin="round"></path>
+        <rect x="224" y="236" width="48" height="58" fill={P.wood} stroke={P.ink} stroke-width="3"></rect>
+        <path d="M240 236V294M256 236V294" stroke={P.ink} stroke-width="2.4" fill="none"></path>
+        <rect x="330" y="258" width="384" height="36" fill={P.green}></rect>
+        <g class="en-army" data-en-army>
+          {
+            soldiers.map((o) => (
+              <g class="en-soldier" set:html={person(o.x, o.y, 1.3, { coat: '#4a4f66', hat: 'brim' }) + `<path d="M${o.x + 12} ${o.y - 42}L${o.x + 12} ${o.y - 72}" stroke="${P.woodD}" stroke-width="3" stroke-linecap="round"/>`}></g>
+            ))
+          }
+        </g>
+        <g class="en-flood" data-en-flood>
+          <rect x="306" y="262" width="410" height="32" fill={P.water} opacity="0.9"></rect>
+          <path d="M306 266q14 -8 28 0t28 0t28 0t28 0t28 0t28 0t28 0t28 0t28 0t28 0t28 0t28 0t28 0t28 0" fill="none" stroke="#e8f4fb" stroke-width="3" stroke-linecap="round"></path>
+        </g>
+        <g set:html={slab(720, 330)}></g>
+      </svg>
+    </figure>
+    <div class="widget needs-js">
+      <div class="controls">
+        <button type="button" class="btn fill" aria-pressed="false" data-en-sluice>Open the sluice</button>
+        <button type="button" class="btn" data-en-again>Roll the film again</button>
+      </div>
+      <p class="status" role="status" data-en-status>An army is coming across the dry land. Open the sluice gate in the dike.</p>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .en-soldier {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+  }
+
+  .en-flood {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    transform: scaleY(0);
+    opacity: 0;
+  }
+
+  .en-scene.open .en-flood {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .en-flood {
+      transition: transform 2.6s ease-out, opacity 0.6s;
+    }
+
+    .en-army {
+      animation: en-march 7s linear infinite;
+    }
+
+    .en-soldier {
+      animation: en-bob 0.5s ease-in-out infinite alternate;
+    }
+
+    .en-soldier:nth-child(2n) {
+      animation-delay: -0.25s;
+    }
+
+    .en-scene.open .en-army,
+    .en-scene.open .en-soldier {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes en-march {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-60px);
+    }
+  }
+
+  @keyframes en-bob {
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(-3px);
+    }
+  }
+</style>

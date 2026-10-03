@@ -21,7 +21,7 @@ export interface Topic {
   status: TopicStatus;
 }
 
-// The topics, in the order they were added. Their pages are still "Coming soon".
+// The topics, in the order they were added.
 export const topics: Topic[] = [
   {
     slug: 'gambits-in-chess',

@@ -1,0 +1,36 @@
+---
+// Stop 1: the starting quay. Three houses, a canal, a big ship and the sun.
+import Card from './Card.astro';
+import type { Station } from '../../data/dutch';
+import { house, slab, P } from '../../lib/dutch/art';
+
+const waves = [0, 1, 2]
+  .map(
+    (i) =>
+      `<path d="M${380 + (i % 2) * 20} ${346 + i * 10}q12 -8 24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0" fill="none" stroke="#e8f4fb" stroke-width="3.5" stroke-linecap="round"/>`,
+  )
+  .join('');
+
+interface Props {
+  s: Station;
+}
+const { s } = Astro.props;
+---
+
+<div class="stop">
+  <div class="panel story" data-panel><Card s={s} /></div>
+  <div class="panel sub" data-panel>
+    <figure class="scene">
+      <svg viewBox="0 0 720 400" role="img" aria-label="Three tall canal houses on a quay, and a big sailing ship in the canal beside them.">
+        <circle cx="640" cy="72" r="26" fill="#e4501a" stroke={P.ink} stroke-width="5"></circle>
+        <g set:html={house(30, 364, 96, 250, { gable: 'step', wall: P.brick })}></g>
+        <g set:html={house(132, 364, 108, 292, { gable: 'bell', wall: P.blue })}></g>
+        <g set:html={house(246, 364, 92, 232, { gable: 'neck', wall: P.blueL })}></g>
+        <rect x="352" y="334" width="352" height="30" fill={P.water}></rect>
+        <g set:html={waves}></g>
+        <use href="#nl-ship" x="372" y="78" width="320" height="294"></use>
+        <g set:html={slab(720, 400)}></g>
+      </svg>
+    </figure>
+  </div>
+</div>

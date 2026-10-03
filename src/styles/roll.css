@@ -1,0 +1,800 @@
+/* The Dutch film: a coin rolls sideways through the Golden Age.
+   Two modes. By default the page is a plain stack: each stop is a block you scroll past.
+   When the browser can do it (script on, no reduced motion, enough height), the script adds
+   .film and the stack becomes one wide set that slides past a pinned camera. */
+
+.roll {
+  /* The film has its own colors: they do not change with the light and dark switch */
+  --r-ink: #14213d;
+  --r-paper: #fffaf0;
+  --r-cream: #fff3dc;
+  --r-blue: #2b4f9e;
+  --r-blue-d: #1c3670;
+  --r-pale: #cfe2f1;
+  --r-note: #8a2f0b;
+  --band: 3.2rem;
+  --coin: 4.4rem;
+  --top: 4.7rem;
+
+  position: relative;
+  color: var(--r-ink);
+}
+
+@media (max-height: 47.99rem) {
+  .roll {
+    --band: 2.7rem;
+    --coin: 3.7rem;
+    --top: 4.2rem;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .roll {
+    --band: 2.7rem;
+    --coin: 3.4rem;
+    --top: 3.8rem;
+  }
+}
+
+/* ---------- Plain mode ---------- */
+.roll .sky,
+.roll .far,
+.roll .mid,
+.roll .strip,
+.roll .coin,
+.roll .route,
+.roll .hud-now,
+.roll .edge-code,
+.roll .hint {
+  display: none;
+}
+
+.roll .hud {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem var(--gutter);
+}
+
+.roll .station {
+  display: grid;
+  gap: 1.8rem;
+  padding: clamp(2.2rem, 6vw, 4rem) var(--gutter);
+  background: var(--sky);
+}
+
+.roll .stop {
+  display: grid;
+  gap: 1.8rem;
+}
+
+.roll .col {
+  display: grid;
+  gap: 1.8rem;
+}
+
+.roll .panel {
+  display: grid;
+  gap: 1.4rem;
+  align-content: start;
+  width: min(100%, 52rem);
+  margin-inline: auto;
+}
+
+/* ---------- The text card: a tile with a thin blue frame inside ---------- */
+.roll .card {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.5rem 1.6rem 1.6rem;
+  background: var(--r-paper);
+  color: var(--r-ink);
+  border: 3px solid var(--r-ink);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 5px var(--r-paper),
+    inset 0 0 0 7px rgb(43 79 158 / 0.55),
+    0 16px 26px -18px rgb(0 0 0 / 0.55);
+}
+
+.roll .kicker {
+  color: var(--r-note);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.roll .card h2 {
+  font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.6rem);
+  line-height: 1;
+}
+
+.roll .para {
+  font-size: 1.02rem;
+  line-height: 1.5;
+}
+
+.roll .extra {
+  padding: 0.65rem 0.9rem 0.7rem;
+  background: var(--r-pale);
+  border-left: 4px solid var(--r-blue);
+  border-radius: 0 6px 6px 0;
+  font-size: 0.93rem;
+  line-height: 1.45;
+}
+
+.roll .extra-label {
+  color: var(--r-blue-d);
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* The "Meanwhile" signs between two stops */
+.roll .passage {
+  padding: 1.8rem var(--gutter) 1.6rem;
+  background: var(--r-ink);
+  color: var(--r-cream);
+}
+
+.roll .signs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.4rem;
+  width: min(100%, 52rem);
+  margin-inline: auto;
+}
+
+.roll .sign {
+  display: grid;
+  gap: 0.15rem;
+  flex: 1 1 13rem;
+  max-width: 17rem;
+  padding: 0.7rem 0.9rem 0.8rem;
+  background: var(--r-paper);
+  color: var(--r-ink);
+  border: 3px solid var(--r-cream);
+  border-radius: 4px;
+}
+
+.roll .sign-year {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.roll .sign-text {
+  font-size: 0.93rem;
+  line-height: 1.4;
+}
+
+.roll .post {
+  display: none;
+}
+
+/* ---------- Pictures and controls (shared by all the stops) ---------- */
+.roll .scene {
+  margin: 0;
+}
+
+.roll .scene > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 22rem;
+  max-height: min(22rem, 35vh);
+}
+
+.roll .widget {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1rem 1.2rem 1.1rem;
+  background: var(--r-paper);
+  color: var(--r-ink);
+  border: 3px solid var(--r-ink);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 4px var(--r-paper),
+    inset 0 0 0 5px rgb(43 79 158 / 0.5),
+    0 14px 24px -18px rgb(0 0 0 / 0.55);
+}
+
+.roll .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.9rem;
+}
+
+.roll .btn {
+  padding: 0.45rem 1rem;
+  border: 2px solid var(--r-ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--r-ink);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.roll .btn:hover:not(:disabled) {
+  background: var(--r-pale);
+}
+
+.roll .btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.roll .btn.fill,
+.roll .btn[aria-pressed='true'],
+.roll .btn[aria-checked='true'] {
+  background: var(--r-ink);
+  color: var(--r-cream);
+}
+
+.roll .btn.fill:hover:not(:disabled) {
+  background: var(--r-blue-d);
+}
+
+.roll .status {
+  min-height: 2.9rem;
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.roll .status strong {
+  font-weight: 700;
+}
+
+.roll .label {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* A slider with the brand knob as its handle */
+.roll .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.roll .range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent) var(--p), var(--r-pale) var(--p));
+  box-shadow: inset 0 0 0 1px var(--r-ink);
+}
+
+.roll .range::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--r-pale);
+  box-shadow: inset 0 0 0 1px var(--r-ink);
+}
+
+.roll .range::-moz-range-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.roll .range::-webkit-slider-thumb {
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-top: calc((6px - 1.6rem) / 2);
+  border: 3px solid var(--r-ink);
+  border-radius: 50%;
+  background: #e4501a;
+  background: var(--accent);
+  appearance: none;
+}
+
+.roll .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 3px solid var(--r-ink);
+  border-radius: 50%;
+  background: #e4501a;
+  background: var(--accent);
+}
+
+.roll :focus-visible {
+  outline: 3px solid var(--r-blue);
+  outline-offset: 3px;
+}
+
+.roll .card :focus-visible,
+.roll .widget :focus-visible {
+  outline-color: var(--r-blue);
+}
+
+/* Without script the toys cannot work, so only the pictures and the words stay */
+html:not(.js) .roll .needs-js {
+  display: none;
+}
+
+/* ---------- Sound switch ---------- */
+.roll .snd {
+  display: inline-grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  border: 2px solid var(--r-ink);
+  border-radius: 50%;
+  background: var(--r-paper);
+  color: var(--r-ink);
+  cursor: pointer;
+}
+
+.roll .snd[aria-pressed='true'] .slash,
+.roll .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+/* ---------- Film mode ---------- */
+.roll.film .rig {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  overflow: clip;
+  background: var(--sky, #bcd6ec);
+}
+
+.roll.film .sky {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  background: linear-gradient(to top, rgb(255 255 255 / 0.4), rgb(255 255 255 / 0) 55%);
+}
+
+.roll.film .far,
+.roll.film .mid {
+  position: absolute;
+  left: 0;
+  display: block;
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: auto 100%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.roll.film .far {
+  bottom: var(--band);
+  height: 62%;
+}
+
+.roll.film .mid {
+  bottom: var(--band);
+  height: 36%;
+}
+
+.roll.film .strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  height: var(--band);
+  overflow: hidden;
+  background: var(--r-ink);
+}
+
+.roll.film .holes {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background-repeat: repeat-x;
+  background-size: 44px 100%;
+  will-change: transform;
+}
+
+.roll.film .world {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  will-change: transform;
+}
+
+.roll.film .station {
+  position: relative;
+  display: flex;
+  flex: none;
+  gap: 0;
+  padding: 0;
+  background: none;
+}
+
+.roll.film .stop,
+.roll.film .col {
+  display: contents;
+}
+
+.roll.film .panel {
+  box-sizing: border-box;
+  flex: none;
+  align-content: center;
+  justify-items: center;
+  width: var(--vw, 100vw);
+  margin: 0;
+  padding: var(--top) var(--gutter) calc(var(--band) + var(--coin) + 0.6rem);
+}
+
+.roll.film .panel > * {
+  width: min(100%, 34rem);
+}
+
+.roll.film .para {
+  font-size: calc(0.98rem * var(--fit, 1));
+  line-height: 1.45;
+}
+
+.roll.film .extra {
+  font-size: calc(0.9rem * var(--fit, 1));
+}
+
+.roll.film .card {
+  max-height: calc(100vh - var(--top) - var(--band) - var(--coin) - 1.2rem);
+  max-height: calc(100svh - var(--top) - var(--band) - var(--coin) - 1.2rem);
+  overflow-y: auto;
+}
+
+.roll.film .edge-code {
+  position: absolute;
+  left: calc(var(--vw, 100vw) / 2);
+  bottom: calc(var(--band) / 2 - 0.55em);
+  display: block;
+  color: var(--r-cream);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.roll.film .passage {
+  display: flex;
+  flex: none;
+  align-items: flex-end;
+  padding: var(--top) 4vw var(--band);
+  background: none;
+}
+
+.roll.film .signs {
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  gap: 1.6rem;
+  width: auto;
+  margin: 0;
+}
+
+.roll.film .sign {
+  flex: none;
+  width: 14rem;
+  max-width: none;
+  padding: 0.7rem 0.9rem 0.8rem;
+  border-color: var(--r-ink);
+  box-shadow: 0 10px 18px -12px rgb(0 0 0 / 0.5);
+}
+
+.roll.film .sign .post {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 7px;
+  height: 3.5rem;
+  margin-left: -3.5px;
+  background: var(--r-ink);
+}
+
+.roll.film .sign {
+  position: relative;
+  margin-bottom: 3.5rem;
+}
+
+.roll.film .sign:nth-child(2n) {
+  margin-bottom: 5.5rem;
+}
+
+.roll.film .sign:nth-child(2n) .post {
+  height: 5.5rem;
+}
+
+.roll.film .sign:nth-child(3n) {
+  margin-bottom: 2.5rem;
+}
+
+.roll.film .sign:nth-child(3n) .post {
+  height: 2.5rem;
+}
+
+.roll.film .coin {
+  position: absolute;
+  left: clamp(0.5rem, 8vw, 7.5rem);
+  bottom: calc(var(--band) - 0.12rem);
+  display: block;
+  width: var(--coin);
+  height: var(--coin);
+  pointer-events: none;
+}
+
+.roll.film .hint {
+  position: absolute;
+  left: clamp(0.5rem, 8vw, 7.5rem);
+  bottom: calc(var(--band) + var(--coin) + 0.5rem);
+  display: block;
+  color: var(--r-ink);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.roll.film.moving .hint {
+  opacity: 0;
+}
+
+/* The bar at the top: the year, the stops, and the sound switch */
+.roll.film .hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem 0.8rem;
+  padding: 0.7rem var(--gutter);
+  pointer-events: none;
+}
+
+.roll.film .hud > * {
+  pointer-events: auto;
+}
+
+.roll.film .hud-now {
+  display: grid;
+  min-width: 9rem;
+  padding: 0.3rem 0.9rem 0.35rem;
+  background: var(--r-paper);
+  border: 2px solid var(--r-ink);
+  border-radius: 14px;
+  line-height: 1.1;
+}
+
+.roll .hud-year {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.roll .hud-title {
+  margin-top: 0.1rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.roll.film .route {
+  display: block;
+  padding: 0.2rem 0.5rem;
+  background: var(--r-paper);
+  border: 2px solid var(--r-ink);
+  border-radius: 999px;
+}
+
+.roll .route ol {
+  display: flex;
+  align-items: center;
+}
+
+.roll .route li {
+  display: flex;
+  align-items: center;
+}
+
+/* a short line joins the dots, like the strip between two frames */
+.roll .route li + li::before {
+  content: '';
+  width: 0.55rem;
+  height: 2px;
+  background: var(--r-ink);
+  opacity: 0.4;
+}
+
+.roll .route button {
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.9rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.roll .route .dot {
+  width: 0.72rem;
+  height: 0.72rem;
+  border: 2px solid var(--r-ink);
+  border-radius: 50%;
+  background: var(--r-paper);
+}
+
+.roll .route button[data-state='seen'] .dot {
+  background: var(--r-ink);
+}
+
+.roll .route button[aria-current='step'] .dot {
+  width: 1.05rem;
+  height: 1.05rem;
+  border-width: 3px;
+  background: #e4501a;
+  background: var(--accent);
+}
+
+@media (max-width: 47.99rem) {
+  .roll.film .hud {
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem var(--gutter);
+  }
+
+  .roll.film .hud-now {
+    min-width: 0;
+    padding: 0.25rem 0.75rem 0.3rem;
+  }
+
+  .roll .hud-year {
+    font-size: 1.35rem;
+  }
+
+  .roll .hud-title {
+    display: none;
+  }
+
+  .roll.film .route {
+    padding: 0.1rem 0.35rem;
+  }
+
+  .roll .route li + li::before {
+    display: none;
+  }
+
+  .roll .route button {
+    width: 1.3rem;
+    height: 1.7rem;
+  }
+
+  .roll .snd {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .roll.film .card {
+    gap: 0.55rem;
+    padding: 1rem 1.1rem 1.1rem;
+  }
+
+  .roll.film .card h2 {
+    font-size: 1.75rem;
+  }
+
+  .roll.film .kicker {
+    font-size: 1.45rem;
+  }
+
+  .roll.film .para {
+    font-size: calc(0.95rem * var(--fit, 1));
+    line-height: 1.4;
+  }
+
+  .roll.film .extra {
+    padding: 0.5rem 0.7rem 0.55rem;
+    font-size: calc(0.86rem * var(--fit, 1));
+    line-height: 1.38;
+  }
+}
+
+/* A tablet held upright has room for bigger pictures */
+@media (min-width: 48rem) and (max-width: 59.99rem) {
+  .roll.film .panel > * {
+    width: min(100%, 40rem);
+  }
+}
+
+/* A wide screen: the text and the picture of a stop sit next to each other */
+@media (min-width: 60rem) {
+  .roll.film .stop {
+    box-sizing: border-box;
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    position: relative;
+    min-width: var(--vw, 100vw);
+    padding: var(--top) 2rem calc(var(--band) + var(--coin) + 0.6rem);
+  }
+
+  .roll.film .panel {
+    align-content: start;
+    justify-items: stretch;
+    width: auto;
+    padding: 0;
+  }
+
+  .roll.film .panel > * {
+    width: 100%;
+  }
+
+  .roll.film .edge-code {
+    left: 50%;
+  }
+
+  .roll.film .story {
+    width: clamp(21rem, 40vw, 35rem);
+  }
+
+  .roll.film .sub,
+  .roll.film .col {
+    width: clamp(26rem, 46vw, 46rem);
+  }
+
+  .roll.film .col {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .roll.film .col > .panel {
+    width: 100%;
+  }
+}
+
+@media (max-height: 47.99rem) {
+  .roll.film .card {
+    gap: 0.6rem;
+    padding: 1rem 1.2rem 1.1rem;
+  }
+
+  .roll.film .widget {
+    gap: 0.6rem;
+    padding: 0.8rem 1rem 0.9rem;
+  }
+
+  .roll.film .status {
+    min-height: 0;
+    font-size: 0.93rem;
+    line-height: 1.4;
+  }
+}
+
+.roll.film .world {
+  width: max-content;
+}

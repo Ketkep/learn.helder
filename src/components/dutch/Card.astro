@@ -1,0 +1,24 @@
+---
+// The text card of one stop: the year in marker pen, the title, the paragraphs and one extra fact.
+import type { Station } from '../../data/dutch';
+
+interface Props {
+  s: Station;
+}
+const { s } = Astro.props;
+---
+
+<div class="card">
+  <p class="kicker">{s.year}</p>
+  <h2 id={`roll-${s.id}`}>{s.title}</h2>
+  {s.paras.map((p) => <p class="para">{p}</p>)}
+  {
+    s.extra && (
+      <aside class="extra">
+        <p class="extra-label">{s.extra.label}</p>
+        <p>{s.extra.text}</p>
+      </aside>
+    )
+  }
+  <p class="edge-code" aria-hidden="true">{s.year} · {s.short}</p>
+</div>
