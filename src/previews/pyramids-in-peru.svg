@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
   <style>
-    .pe-sunpale { fill: color-mix(in oklab, var(--cover) 62%, #fff3dc); }
+    .pe-sunpale { fill: #e8c282; }
     .pe-sunlit { fill: var(--accent); stroke: var(--on-cover); stroke-width: 3; }
-    .pe-ground { fill: color-mix(in oklab, var(--cover) 86%, var(--on-cover)); }
-    .pe-l { fill: color-mix(in oklab, var(--cover) 22%, var(--on-cover)); }
-    .pe-r { fill: color-mix(in oklab, var(--cover) 52%, var(--on-cover)); }
-    .pe-t { fill: color-mix(in oklab, var(--cover) 58%, #fff3dc); }
-    .pe-riser { fill: color-mix(in oklab, var(--cover) 30%, #fff3dc); }
+    .pe-ground { fill: #b98d3d; }
+    .pe-l { fill: #372f22; }
+    .pe-r { fill: #715931; }
+    .pe-t { fill: #e9c588; }
+    .pe-riser { fill: #f4dbb1; }
     .pe-tread { fill: #fff3dc; }
-    .pe-tl { fill: color-mix(in oklab, var(--cover) 30%, var(--on-cover)); }
-    .pe-tr { fill: color-mix(in oklab, var(--cover) 65%, #fff3dc); }
+    .pe-tl { fill: #463a26; }
+    .pe-tr { fill: #e7c07d; }
     .pe-tt { fill: #fff3dc; }
     .pe-door { fill: var(--on-cover); }
     .pe-door-lit { fill: var(--accent); opacity: 0; }

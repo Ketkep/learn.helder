@@ -2,8 +2,8 @@
    The board takes its colors from the topic color, so it matches the cover. */
 
 .cb {
-  --sq-l: color-mix(in oklab, var(--topic, #9b2f36) 22%, #fff3dc);
-  --sq-d: color-mix(in oklab, var(--topic, #9b2f36) 78%, #000);
+  --sq-l: #ecc8b5;
+  --sq-d: #6e1f24;
 
   display: block;
   width: 100%;

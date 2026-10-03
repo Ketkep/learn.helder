@@ -122,6 +122,8 @@ function init(root: HTMLElement, data: Payload) {
     ledgerBox.replaceChildren();
     const cfg = scene.ledger;
     ledgerBox.hidden = !cfg;
+    // Lets the board centre itself on a phone when there is no ledger beside it
+    ledgerBox.closest('.body')?.classList.toggle('no-ledger', !cfg);
     if (!cfg) return;
     const names: Record<Row, string> = { m: 'Material', c: 'Centre squares', k: cfg.kLabel ?? 'King in danger' };
     const head = document.createElement('div');

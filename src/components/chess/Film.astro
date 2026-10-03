@@ -159,12 +159,14 @@ function fallback(index: number) {
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
+    min-height: 62vh;
     min-height: 62svh;
     padding-block: 2.25rem;
     scroll-margin-top: 1rem;
   }
 
   .scene:last-child {
+    min-height: 80vh;
     min-height: 80svh;
   }
 
@@ -229,7 +231,6 @@ function fallback(index: number) {
     position: sticky;
     top: 0;
     z-index: 5;
-    container-type: inline-size;
     /* A phone shows the screen as a band at the top, edge to edge */
     margin-inline: calc(var(--gutter) * -1);
   }
@@ -310,6 +311,7 @@ function fallback(index: number) {
     position: relative;
     justify-self: center;
     /* On a phone the board gets about a third of the screen height */
+    width: min(100%, 36vh);
     width: min(100%, 36svh);
     border-radius: 4px;
     overflow: hidden;
@@ -318,7 +320,10 @@ function fallback(index: number) {
 
   .card {
     position: absolute;
-    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     display: grid;
     place-content: center;
     gap: 0.25rem;
@@ -333,13 +338,13 @@ function fallback(index: number) {
   .card-k {
     color: var(--knob);
     font-family: var(--font-hand);
-    font-size: clamp(1.6rem, 6cqi, 2.4rem);
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
     line-height: 1;
   }
 
   .card-t {
     font-family: var(--font-display);
-    font-size: clamp(1.8rem, 8cqi, 3rem);
+    font-size: clamp(1.7rem, 4vw, 2.9rem);
     line-height: 1;
     text-wrap: balance;
   }
@@ -672,6 +677,7 @@ function fallback(index: number) {
     }
 
     .scene {
+      min-height: 84vh;
       min-height: 84svh;
     }
 
@@ -708,108 +714,19 @@ function fallback(index: number) {
     }
   }
 
-  /* When the screen is wide enough, the board sits beside the subtitles and the ledger.
-     Board 30rem + gap 1.25rem + side 12rem + padding 2.2rem fits in 46rem. */
-  @container (min-width: 46rem) {
-    .body {
-      grid-template-columns: auto minmax(0, 1fr);
-      gap: 1.25rem;
-    }
+  /* ----- The size of the screen decides the layout -----
+     The screen is as wide as the page on a phone or tablet, and a column of it beside the
+     text on a wide page. Plain media queries are used (not container queries) so that older
+     phones get the same layout. */
 
-    .board-box {
-      width: min(30rem, max(20rem, 100svh - 11rem));
-      justify-self: start;
-    }
-
-    .subs-text {
-      font-size: 1.05rem;
-    }
-  }
-
-  /* A phone: the ledger fits beside the board, which saves a lot of height */
-  @container (max-width: 27.99rem) {
-    .body {
-      grid-template-columns: min(28svh, 55%) minmax(0, 1fr);
-      grid-template-areas:
-        'board ledger'
-        'subs subs'
-        'actions actions';
-      column-gap: 0.75rem;
-      align-items: start;
-    }
-
-    .side {
-      display: contents;
-    }
-
-    .board-box {
-      grid-area: board;
-      width: 100%;
-      justify-self: start;
-    }
-
-    .ledger {
-      grid-area: ledger;
-      align-self: center;
-    }
-
-    .subs {
-      grid-area: subs;
-    }
-
-    .actions {
-      grid-area: actions;
-    }
-
-    /* No ledger in this scene: the board goes in the middle */
-    .body:has(.ledger[hidden]) {
-      grid-template-columns: 1fr;
-      grid-template-areas:
-        'board'
-        'subs'
-        'actions';
-    }
-
-    .body:has(.ledger[hidden]) .board-box {
-      justify-self: center;
-    }
-  }
-
-  /* A medium screen stacks everything. The board is as big as the height allows. */
-  @container (min-width: 28rem) and (max-width: 45.99rem) {
-    .board-box {
-      width: min(100%, max(16rem, 100svh - 26rem));
-    }
-  }
-
+  /* A phone or tablet: the screen is a band across the top, and the text scrolls under it */
   @media (max-width: 59.99rem) {
-    /* The scenes sit under the pinned screen. Leave room so each can reach the reading line. */
     .scene {
+      min-height: 52vh;
       min-height: 52svh;
       padding-block: 1.75rem;
     }
-  }
 
-  @media (max-width: 30rem) {
-    .count {
-      display: none;
-    }
-  }
-
-  /* A phone held sideways has no height to spare, so let the screen scroll away */
-  @media (max-width: 59.99rem) and (max-height: 34rem) {
-    .stage {
-      position: static;
-    }
-
-    .board-box {
-      width: min(100%, 60svh);
-    }
-  }
-
-  /* On a phone the screen is pinned over the text, so it has to stay small:
-     a smaller board, subtitles that flow as one paragraph, and one-line ledger rows. */
-  @media (max-width: 59.99rem) {
     .screen {
       gap: 0.35rem;
       padding-block: 0.4rem 0.45rem;
@@ -820,6 +737,7 @@ function fallback(index: number) {
     }
 
     .board-box {
+      width: min(100%, 28vh);
       width: min(100%, 28svh);
     }
 
@@ -862,6 +780,96 @@ function fallback(index: number) {
 
     .scrub {
       height: 1.4rem;
+    }
+  }
+
+  /* A medium screen stacks everything. The board is as big as the height allows. */
+  @media (min-width: 28rem) and (max-width: 45.99rem), (min-width: 60rem) and (max-width: 77.99rem) {
+    .board-box {
+      width: min(100%, max(16rem, 100vh - 26rem));
+      width: min(100%, max(16rem, 100svh - 26rem));
+    }
+  }
+
+  /* A phone: the ledger fits beside the board, which saves a lot of height */
+  @media (max-width: 27.99rem) {
+    .body {
+      grid-template-columns: min(28vh, 55%) minmax(0, 1fr);
+      grid-template-columns: min(28svh, 55%) minmax(0, 1fr);
+      grid-template-areas:
+        'board ledger'
+        'subs subs'
+        'actions actions';
+      column-gap: 0.75rem;
+      align-items: start;
+    }
+
+    .side {
+      display: contents;
+    }
+
+    .board-box {
+      grid-area: board;
+      width: 100%;
+      justify-self: start;
+    }
+
+    .ledger {
+      grid-area: ledger;
+      align-self: center;
+    }
+
+    .subs {
+      grid-area: subs;
+    }
+
+    .actions {
+      grid-area: actions;
+    }
+
+    /* No ledger in this scene: the board goes in the middle */
+    .body.no-ledger {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'board'
+        'subs'
+        'actions';
+    }
+
+    .body.no-ledger .board-box {
+      justify-self: center;
+      width: min(100%, 28vh);
+      width: min(100%, 28svh);
+    }
+
+    .count {
+      display: none;
+    }
+  }
+
+  /* When the screen is wide enough, the board sits beside the subtitles and the ledger.
+     Board 30rem + gap 1.25rem + side 12rem + padding 2.2rem fits in 46rem. */
+  @media (min-width: 46rem) and (max-width: 59.99rem), (min-width: 78rem) {
+    .body {
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+
+    .board-box {
+      width: min(30rem, max(20rem, 100vh - 11rem));
+      width: min(30rem, max(20rem, 100svh - 11rem));
+      justify-self: start;
+    }
+
+    .subs-text {
+      font-size: 1.05rem;
+    }
+  }
+
+  /* A phone held sideways has no height to spare, so let the screen scroll away */
+  @media (max-width: 59.99rem) and (max-height: 34rem) {
+    .stage {
+      position: static;
     }
   }
 </style>

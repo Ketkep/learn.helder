@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
   <style>
-    .ch-sl { fill: color-mix(in oklab, var(--cover) 30%, #fff3dc); }
-    .ch-sd { fill: color-mix(in oklab, var(--cover) 72%, black); }
+    .ch-sl { fill: #e5b8a7; }
+    .ch-sd { fill: #621a1f; }
     .ch-frame { fill: none; stroke: var(--on-cover); stroke-width: 3; }
     .ch-w { fill: #fff3dc; stroke: #121315; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
     .ch-b { fill: #121315; stroke: #fff3dc; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }

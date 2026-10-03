@@ -3,7 +3,7 @@
 // The whole card is one link (cover and caption). Its name is the title and its
 // description is the hook, so screen readers do not read every piece of text.
 import type { Topic } from '../data/topics';
-import { readableInk } from '../lib/color';
+import { coverVars as makeCoverVars } from '../lib/color';
 import CoverArt from './CoverArt.astro';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 
 const { topic, number } = Astro.props;
 const isDraft = topic.status === 'draft';
-const coverVars = `--cover: ${topic.accent}; --on-cover: ${readableInk(topic.accent)};`;
+const coverVars = makeCoverVars(topic.accent);
 const titleId = `title-${topic.slug}`;
 const hookId = `hook-${topic.slug}`;
 ---

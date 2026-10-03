@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
   <style>
-    .nl-h1 { fill: color-mix(in oklab, var(--cover) 56%, var(--on-cover)); }
-    .nl-h2 { fill: color-mix(in oklab, var(--cover) 70%, var(--on-cover)); }
-    .nl-water { fill: color-mix(in oklab, var(--cover) 78%, black); }
+    .nl-h1 { fill: #8397bd; }
+    .nl-h2 { fill: #6681b4; }
+    .nl-water { fill: #1c3670; }
     .nl-wave { fill: none; stroke: var(--on-cover); stroke-width: 3; stroke-linecap: round; opacity: 0.45; }
     .nl-lat { fill: none; stroke: var(--cover); stroke-width: 1.6; }
     .nl-sail { fill: #fff3dc; stroke: var(--cover); stroke-width: 2; stroke-linejoin: round; }

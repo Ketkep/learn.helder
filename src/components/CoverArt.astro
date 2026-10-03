@@ -35,11 +35,11 @@ const drawing = getDrawing(Astro.props.name);
   }
 
   .art :global(.b) {
-    fill: color-mix(in oklab, var(--cover) 45%, var(--on-cover));
+    fill: var(--cover-b);
   }
 
   .art :global(.c) {
-    fill: color-mix(in oklab, var(--cover) 84%, var(--on-cover));
+    fill: var(--cover-c);
   }
 
   .art :global(.cv) {

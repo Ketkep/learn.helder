@@ -25,4 +25,10 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'always',
   integrations: [pruneDrafts()],
+  vite: {
+    build: {
+      // Write the scripts and styles so that phones a few years old can still read them
+      target: ['safari13', 'chrome79', 'firefox72'],
+    },
+  },
 });

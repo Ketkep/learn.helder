@@ -43,7 +43,7 @@ Three steps.
 },
 ```
 
-**2. Draw the cover.** Put a simple SVG at `src/previews/my-new-topic.svg`. Use viewBox `0 0 400 300` and no colors of its own: the cover supplies them, so the drawing works on any cover color and in both light and dark mode. Copy one of the existing files in that folder and change the shapes. These classes are available inside the SVG:
+**2. Draw the cover.** Put a simple SVG at `src/previews/my-new-topic.svg`. Use viewBox `0 0 400 300`. Take the colors from the cover where you can, so the drawing works in both light and dark mode (covers keep their color in both). Copy one of the existing files in that folder and change the shapes. These classes are available inside the SVG:
 
 - `class="a"` a solid shape in the text color. `class="b"` a softer shape. `class="c"` a very faint one. `class="cv"` a shape in the cover color (to cut a hole).
 - `class="l"` a line, and `class="l dash"` a dotted line.
@@ -56,7 +56,7 @@ For bigger animations, a drawing can contain its own `<style>` block. The three 
 - Start your class names and `@keyframes` names with a short prefix for the topic (`ch-`, `pe-`, `nl-`), so two drawings never clash.
 - Put the selector `:is(a, .head-art):is(:hover, :focus-visible, .is-playing)` in front of a rule to run an animation only while the cover is hovered, focused or playing. The same drawing is shown on the topic page, where `.head-art` is the target. `.is-playing` is set by `src/scripts/cover-play.ts`: on touch screens, which have no hover, a cover plays while it is mostly on screen.
 - Wrap animations in `@media (prefers-reduced-motion: no-preference)`, so people who ask for less motion get a still drawing.
-- Colors: use `var(--cover)` (the cover color), `var(--on-cover)` (the text color on it) and `var(--accent)` (the orange knob), mixed with `color-mix(in oklab, ...)` if you need a lighter or darker shade.
+- Colors: use `var(--cover)` (the cover color), `var(--on-cover)` (the text color on it) and `var(--accent)` (the orange knob). `var(--cover-b)` and `var(--cover-c)` are two softer shades of the cover. For any other shade, write a plain hex color. Do not use `color-mix()`: phones with an iOS older than 16.2 do not know it, and a drawing that depends on it turns black there. `mix()` in `src/lib/color.ts` works out the hex value for you (it mixes the same way as `color-mix(in oklab, ...)`).
 
 **3. Create the page.** Make the folder `src/pages/my-new-topic/` with a file `index.astro` inside:
 
@@ -151,6 +151,7 @@ public/                  favicon and the link preview image
 - Colors, fonts and spacing are CSS variables at the top of `src/styles/global.css`. Covers keep their color in both modes, like objects on a shelf.
 - Fonts are Young Serif (headings and titles), Hanken Grotesk (text) and Covered By Your Grace (only the hand-written notes), installed through `@fontsource` so they are served from this site and not from Google. Young Serif has one weight, so do not make it bold or italic.
 - Picking a cover color: take a mid-dark or mid-light color with some personality. Cream text is used on dark covers and near-black text on light ones. Check the result is readable before you publish.
+- Older phones: the site avoids `color-mix()` and other very new CSS where it can, gives size rules a `vh` fallback next to `svh`, and builds its scripts for Safari 13 and newer (`vite.build.target` in `astro.config.mjs`). To test an old browser without owning one, rename `color-mix(` to something unknown while the page loads and compare screenshots.
 - Touch screens (tablets and phones) have no hover, so a cover plays its animation while it is mostly on screen, and stops when you scroll away. With a mouse, covers play on hover or keyboard focus.
 - Movement is switched off for people who ask for reduced motion: no lamp swing, no drawing animation, no cover lift. The lamp still works when used.
 - The whole cover is one link (cover and caption), so clicking anywhere on it opens the topic.

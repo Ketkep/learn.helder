@@ -6,7 +6,7 @@
 import BaseLayout from './BaseLayout.astro';
 import CoverArt from '../components/CoverArt.astro';
 import { getTopic, getNextTopic, getTopicNumber } from '../data/topics';
-import { readableInk } from '../lib/color';
+import { readableInk, coverVars } from '../lib/color';
 
 interface Props {
   /** Must match the entry in src/data/topics.ts. Title, hook and color come from there. */
@@ -38,7 +38,7 @@ const ink = readableInk(topic.accent);
   noindex={topic.status === 'draft'}
 >
   <div style={`--topic: ${topic.accent};`}>
-    <section class="head" style={`--cover: ${topic.accent}; --on-cover: ${ink};`}>
+    <section class="head" style={coverVars(topic.accent, ink)}>
       <div class="wrap head-inner">
         <div class="head-text">
           <a class="back" href="/">
@@ -110,7 +110,7 @@ const ink = readableInk(topic.accent);
             <a
               class="next"
               href={`/${next.slug}/`}
-              style={`--cover: ${next.accent}; --on-cover: ${readableInk(next.accent)};`}
+              style={coverVars(next.accent)}
             >
               <span class="next-label">Next topic</span>
               <span class="next-title">{next.title}</span>

@@ -18,6 +18,7 @@
   --ink-soft: #3d5368; /* secondary text */
   --line: #a9c6de; /* soft lines */
   --line-strong: #85a8c6; /* lines that need to be seen */
+  --hover-tint: rgb(18 31 44 / 0.1); /* a light wash when something is hovered */
   --accent: #e4501a; /* the knob and the marker pen */
   --accent-text: #b4340a; /* the same orange, darker, for small text */
   --shelf: #1c2c3c; /* the planks the covers stand on */
@@ -49,6 +50,7 @@
     --ink-soft: #a7b9cc;
     --line: #223244;
     --line-strong: #3d536b;
+    --hover-tint: rgb(230 239 248 / 0.1);
     --accent: #ff7a45;
     --accent-text: #ff9a70;
     --shelf: #34495f;
@@ -67,6 +69,7 @@
   --ink-soft: #a7b9cc;
   --line: #223244;
   --line-strong: #3d536b;
+  --hover-tint: rgb(230 239 248 / 0.1);
   --accent: #ff7a45;
   --accent-text: #ff9a70;
   --shelf: #34495f;
