@@ -1,0 +1,30 @@
+---
+// Scene 5: a piece of DNA. Radiation breaks the helix in places. The cell repairs the breaks,
+// a healthy cell faster than a tumour cell. Too many breaks at once and the cell dies.
+import Scene from './Scene.astro';
+import type { Scene as SceneData } from '../../data/radiation';
+
+interface Props {
+  scene: SceneData;
+  next?: SceneData;
+}
+const { scene, next } = Astro.props;
+---
+
+<Scene scene={scene} next={next} bg="#0f1d2e" jsArt label="A piece of DNA: two twisting strands joined by coloured rungs, drawn on a dark blue background. Rays hit it and break the strands in places, and the breaks slowly mend.">
+  <canvas slot="art" data-dna width="800" height="800"></canvas>
+
+  <div class="controls" role="group" aria-label="Kind of cell">
+    <button type="button" class="btn" aria-pressed="true" data-cell-type="healthy">Healthy cell</button>
+    <button type="button" class="btn" aria-pressed="false" data-cell-type="tumour">Tumour cell</button>
+  </div>
+  <div class="controls">
+    <button type="button" class="btn fill" data-radiate>Radiate</button>
+    <button type="button" class="btn" data-dna-reset>Reset</button>
+  </div>
+  <div class="meter">
+    <div class="meter-top"><span>Breaks right now</span><span data-breaks-text>0 of 8</span></div>
+    <div class="meter-bar"><div class="meter-fill" data-breaks-bar></div></div>
+  </div>
+  <p class="status" role="status" data-dna-status></p>
+</Scene>

@@ -1,0 +1,124 @@
+---
+// Scene 2: a slice through a body, drawn like a CT scan. Beams of X-rays or protons come in from
+// different angles, and a colour map shows where the dose lands. The model is in
+// src/scripts/radiation/dose.ts.
+import Scene from './Scene.astro';
+import type { Scene as SceneData } from '../../data/radiation';
+
+interface Props {
+  scene: SceneData;
+  next?: SceneData;
+}
+const { scene, next } = Astro.props;
+
+// Organs as soft blobs: bowel loops in front, muscle at the back
+const loops = [
+  [262, 336, 46],
+  [338, 292, 40],
+  [470, 306, 48],
+  [548, 364, 44],
+  [250, 462, 42],
+  [318, 506, 36],
+  [478, 494, 40],
+  [548, 440, 34],
+];
+---
+
+<Scene scene={scene} next={next} bg="#1b2d2d" jsArt label="A slice through a body, like a CT scan. The tumour is a small round shape in the middle. Colours on top show where radiation from beams at different angles lands: blue is a little, red is the full dose.">
+  <svg slot="art" viewBox="0 0 800 800" aria-hidden="true">
+    <rect width="800" height="800" fill="#050b0b"></rect>
+    <ellipse cx="375" cy="408" rx="283" ry="183" fill="#1d2626" stroke="#8da0a0" stroke-width="6"></ellipse>
+    <ellipse cx="375" cy="408" rx="262" ry="164" fill="#2b3636"></ellipse>
+    {loops.map(([x, y, r]) => <circle cx={x} cy={y} r={r} fill="#4a5858" stroke="#6b7c7c" stroke-width="3"></circle>)}
+    <ellipse cx="292" cy="540" rx="46" ry="26" fill="#3f4c4c"></ellipse>
+    <ellipse cx="458" cy="540" rx="46" ry="26" fill="#3f4c4c"></ellipse>
+    <path d="M130 440C150 520 200 560 250 566M620 440C600 520 550 560 500 566" fill="none" stroke="#cfd8d8" stroke-width="16" stroke-linecap="round"></path>
+    <circle cx="375" cy="522" r="32" fill="#d5dddc"></circle>
+    <circle cx="375" cy="566" r="13" fill="#0b1111"></circle>
+    <ellipse cx="322" cy="548" rx="22" ry="10" fill="#d5dddc"></ellipse>
+    <ellipse cx="428" cy="548" rx="22" ry="10" fill="#d5dddc"></ellipse>
+    <circle cx="400" cy="400" r="37" fill="#7a6a62" opacity="0.85"></circle>
+  </svg>
+  <canvas slot="art" data-dose width="160" height="160"></canvas>
+  <svg slot="art" viewBox="0 0 800 800" aria-hidden="true" data-body-fg>
+    <circle cx="400" cy="400" r="350" fill="none" stroke="#6a8f8c" stroke-width="3" stroke-dasharray="4 10"></circle>
+    <g data-beams></g>
+    <circle cx="400" cy="400" r="37" fill="none" stroke="#ffb27a" stroke-width="3.5" stroke-dasharray="7 6"></circle>
+    <g font-family="Covered By Your Grace, cursive" font-size="34" fill="#fff3dc" opacity="0.8">
+      <text x="400" y="62" text-anchor="middle">front</text>
+      <text x="400" y="664" text-anchor="middle">back</text>
+      <text x="400" y="708" text-anchor="middle" font-size="26" opacity="0.7">a simple model</text>
+    </g>
+  </svg>
+
+  <div class="controls" role="group" aria-label="Kind of radiation">
+    <button type="button" class="btn" aria-pressed="true" data-kind="photon">X-rays</button>
+    <button type="button" class="btn" aria-pressed="false" data-kind="proton">Protons</button>
+    <button type="button" class="btn fill" data-add>Add a beam</button>
+    <button type="button" class="btn" data-reset>Reset</button>
+  </div>
+  <div class="controls">
+    <label class="label" for="bd-angle">Last beam, from</label>
+    <input class="range" id="bd-angle" type="range" min="0" max="359" step="1" value="0" data-angle />
+    <output class="label bd-out" for="bd-angle" data-angle-out>0 degrees</output>
+  </div>
+  <div class="controls" data-energy-row hidden>
+    <label class="label" for="bd-energy">Proton energy</label>
+    <input class="range" id="bd-energy" type="range" min="-4" max="4" step="0.5" value="0" data-energy />
+    <output class="label bd-out" for="bd-energy" data-energy-out>matched</output>
+  </div>
+  <div class="bd-stats">
+    <div class="meter">
+      <div class="meter-top"><span>Tumour dose</span><span data-v="tumour">100%</span></div>
+      <div class="meter-bar"><div class="meter-fill" data-bar="tumour"></div></div>
+    </div>
+    <div class="meter">
+      <div class="meter-top"><span>Hottest healthy spot</span><span data-v="hot">0%</span></div>
+      <div class="meter-bar"><div class="meter-fill" data-bar="hot"></div></div>
+    </div>
+    <div class="meter">
+      <div class="meter-top"><span>Healthy tissue reached</span><span data-v="exposed">0%</span></div>
+      <div class="meter-bar"><div class="meter-fill" data-bar="exposed"></div></div>
+    </div>
+  </div>
+  <p class="status" role="status" data-bd-status></p>
+</Scene>
+
+<style is:global>
+  .bd-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .bd-stats .meter-top {
+    flex-direction: column;
+    gap: 0;
+    font-size: 0.72rem;
+    line-height: 1.15;
+  }
+
+  .bd-stats .meter-top span:last-child {
+    font-size: 1.15rem;
+    line-height: 1.1;
+  }
+
+  .bd-stats .meter-bar {
+    height: 0.5rem;
+  }
+
+  .bd-out {
+    min-width: 5.2rem;
+    text-align: right;
+  }
+
+  .zoom .controls[hidden] {
+    display: none;
+  }
+
+  @media (max-width: 59.99rem) {
+    .bd-out {
+      min-width: 0;
+    }
+  }
+</style>

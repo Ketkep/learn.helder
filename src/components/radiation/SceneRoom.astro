@@ -1,0 +1,188 @@
+---
+// Scene 1: a treatment room. Three ways to bring radiation to a tumour: a linac, an MR-linac,
+// or a source inside the body. The tool switches the picture and the words.
+import Scene from './Scene.astro';
+import type { Scene as SceneData } from '../../data/radiation';
+import { ways } from '../../data/radiation';
+
+interface Props {
+  scene: SceneData;
+  next?: SceneData;
+}
+const { scene, next } = Astro.props;
+const INK = '#0e1b1d';
+---
+
+<Scene scene={scene} next={next} bg="#cfe4e1" keepWords label="A treatment room. A person lies on a couch. In one version a big machine, a linac, sends a beam down at their belly. In another the machine is joined to an MRI scanner. In the third a thin tube runs from the person through a thick wall to a machine with a radioactive source.">
+  <svg slot="art" class="rm" data-room-art data-way="linac" viewBox="0 0 800 800">
+    <rect width="800" height="800" fill="#e4eeec"></rect>
+    <rect y="560" width="800" height="240" fill="#bfd2ce"></rect>
+    <path d="M0 560H800" stroke={INK} stroke-width="4"></path>
+
+    <!-- The linac: a stand, a drum, an arm and a head that points down at the patient -->
+    <g class="rm-v rm-linac">
+      <rect x="610" y="300" width="160" height="262" rx="14" fill="#d3dfdc" stroke={INK} stroke-width="4"></rect>
+      <circle cx="640" cy="290" r="100" fill="#eef5f3" stroke={INK} stroke-width="4"></circle>
+      <circle cx="640" cy="290" r="58" fill="none" stroke="#9fb6b1" stroke-width="5"></circle>
+      <rect x="352" y="206" width="300" height="70" rx="28" fill="#e2ecea" stroke={INK} stroke-width="4"></rect>
+      <rect x="338" y="206" width="124" height="116" rx="20" fill="#cfdcd9" stroke={INK} stroke-width="4"></rect>
+      <rect x="372" y="322" width="56" height="26" rx="6" fill="#9fb3b0" stroke={INK} stroke-width="4"></rect>
+      <polygon class="rm-beam" points="378,348 422,348 458,382 342,382" fill="#ff8a3d" opacity="0.45"></polygon>
+      <path d="M390 350L366 382M410 350L434 382" stroke="#ff8a3d" stroke-width="3" opacity="0.8"></path>
+    </g>
+
+    <!-- The MR-linac: the same idea inside a big MRI ring, with the MRI picture on a screen -->
+    <g class="rm-v rm-mr">
+      <rect x="560" y="400" width="190" height="162" rx="12" fill="#d3dfdc" stroke={INK} stroke-width="4"></rect>
+      <rect x="292" y="230" width="216" height="336" rx="30" fill="#dfece9" fill-opacity="0.82" stroke={INK} stroke-width="4"></rect>
+      <path d="M292 270H508M292 520H508" stroke="#9fb6b1" stroke-width="4"></path>
+      <rect x="366" y="242" width="68" height="60" rx="12" fill="#cfdcd9" stroke={INK} stroke-width="4"></rect>
+      <polygon class="rm-beam" points="382,302 418,302 446,382 354,382" fill="#ff8a3d" opacity="0.45"></polygon>
+      <rect x="52" y="236" width="172" height="124" rx="12" fill="#0f1d1f" stroke={INK} stroke-width="4"></rect>
+      <ellipse cx="138" cy="300" rx="52" ry="38" fill="#8aa09d"></ellipse>
+      <ellipse cx="120" cy="294" rx="14" ry="11" fill="#5d7a77"></ellipse>
+      <circle cx="146" cy="302" r="11" fill="#ffb27a"></circle>
+    </g>
+
+    <!-- From inside: a thick wall, a warning sign, and a tube to a machine behind the wall -->
+    <g class="rm-v rm-in">
+      <rect x="548" y="0" width="96" height="562" fill="#aeb9b7" stroke={INK} stroke-width="4"></rect>
+      <path d="M548 90H644M548 180H644M548 270H644M548 360H644M548 450H644" stroke="#8d9b99" stroke-width="3"></path>
+      <path d="M596 0V90M572 90V180M620 90V180M596 180V270M572 270V360M620 270V360M596 360V450M572 450V500" stroke="#8d9b99" stroke-width="3"></path>
+      <rect x="676" y="352" width="110" height="210" rx="12" fill="#d3dfdc" stroke={INK} stroke-width="4"></rect>
+      <rect x="692" y="372" width="78" height="46" rx="6" fill="#0f1d1f"></rect>
+      <circle cx="715" cy="395" r="9" fill="#ff7a45"></circle>
+      <path d="M570 238l34 -60l34 60z" fill="#f2c230" stroke={INK} stroke-width="4" stroke-linejoin="round"></path>
+      <path d="M604 200v22M604 232v2" stroke={INK} stroke-width="5" stroke-linecap="round"></path>
+      <path d="M470 428C510 432 520 478 548 486H676" fill="none" stroke="#5b7774" stroke-width="8" stroke-linecap="round"></path>
+      <path d="M470 428C510 432 520 478 548 486H676" fill="none" stroke="#9fb6b1" stroke-width="2.5" stroke-dasharray="2 12" stroke-linecap="round"></path>
+      <path class="rm-wave" d="M372 410a30 30 0 0 1 0 0M360 392a44 44 0 0 0 0 36M440 392a44 44 0 0 1 0 36M346 380a62 62 0 0 0 0 60M454 380a62 62 0 0 1 0 60" fill="none" stroke="#ff8a3d" stroke-width="4" stroke-linecap="round" opacity="0.8"></path>
+    </g>
+
+    <!-- The couch and the person on it (seen from the side) -->
+    <rect x="374" y="470" width="52" height="92" fill="#9fb3b0" stroke={INK} stroke-width="4"></rect>
+    <rect x="104" y="440" width="612" height="32" rx="14" fill="#6fa8a2" stroke={INK} stroke-width="4"></rect>
+    <rect x="124" y="418" width="96" height="26" rx="12" fill="#fff" stroke={INK} stroke-width="4"></rect>
+    <rect x="466" y="394" width="214" height="48" rx="22" fill="#9ec3d9" stroke={INK} stroke-width="4"></rect>
+    <rect x="212" y="378" width="276" height="64" rx="28" fill="#a9cfe4" stroke={INK} stroke-width="4"></rect>
+    <circle cx="186" cy="404" r="36" fill="#e8b98a" stroke={INK} stroke-width="4"></circle>
+    <path d="M152 398Q160 366 196 370Q216 374 218 392Q196 386 176 394Z" fill="#6b4a32" stroke={INK} stroke-width="3" stroke-linejoin="round"></path>
+    <circle class="rm-tumour" cx="400" cy="410" r="9" fill="#e4501a" stroke={INK} stroke-width="3"></circle>
+  </svg>
+
+  <div class="controls" role="group" aria-label="How the radiation reaches the tumour">
+    {ways.map((w, i) => <button type="button" class="btn needs-js" aria-pressed={i === 0 ? 'true' : 'false'} data-way-btn={w.id}>{w.label}</button>)}
+  </div>
+  <div class="rm-ways">
+    {
+      ways.map((w) => (
+        <section class="rm-way" data-way-info={w.id}>
+          <h3>{w.title}</h3>
+          <ul>
+            {w.points.map((p) => <li>{p}</li>)}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</Scene>
+
+<style is:global>
+  .rm .rm-v {
+    display: none;
+  }
+
+  .rm[data-way='linac'] .rm-linac,
+  .rm[data-way='mr'] .rm-mr,
+  .rm[data-way='inside'] .rm-in {
+    display: inline;
+  }
+
+  .rm-way {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .rm-way h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  .rm-way ul {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .rm-way li {
+    padding-left: 0.9rem;
+    border-left: 4px solid #17706b;
+    font-size: 0.92rem;
+    line-height: 1.38;
+  }
+
+  /* With script on, the three texts sit on top of each other, so the tool is as tall as the longest */
+  .js .rm-ways {
+    display: grid;
+  }
+
+  .js .rm-way {
+    grid-area: 1 / 1;
+  }
+
+  .rm-way[data-off] {
+    visibility: hidden;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .rm .rm-beam {
+      animation: rm-beam 1.4s ease-in-out infinite alternate;
+    }
+
+    .rm .rm-tumour {
+      transform-box: fill-box;
+      transform-origin: 50% 50%;
+      animation: rm-tumour 1.6s ease-in-out infinite alternate;
+    }
+  }
+
+  @keyframes rm-beam {
+    from {
+      opacity: 0.25;
+    }
+
+    to {
+      opacity: 0.55;
+    }
+  }
+
+  @keyframes rm-tumour {
+    from {
+      transform: scale(0.85);
+    }
+
+    to {
+      transform: scale(1.2);
+    }
+  }
+
+  @media (max-width: 59.99rem) {
+    .zoom.film .rm-way {
+      gap: 0.25rem;
+    }
+
+    .zoom.film .rm-way h3 {
+      font-size: 1.02rem;
+    }
+
+    .zoom.film .rm-way ul {
+      gap: 0.25rem;
+    }
+
+    .zoom.film .rm-way li {
+      font-size: 0.82rem;
+      line-height: 1.32;
+    }
+  }
+</style>

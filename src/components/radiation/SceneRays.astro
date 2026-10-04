@@ -1,0 +1,103 @@
+---
+// Scene 6: an atom that sends out a ray. Pick alpha, beta or gamma, pick a wall, and see which
+// rays get through. The sizes are not to scale: it is a picture of the idea.
+import Scene from './Scene.astro';
+import type { Scene as SceneData } from '../../data/radiation';
+import { rayKinds, walls } from '../../data/radiation';
+
+interface Props {
+  scene: SceneData;
+  next?: SceneData;
+}
+const { scene, next } = Astro.props;
+
+// The nucleus: a clump of protons (orange) and neutrons (grey)
+const nucleus = [
+  [-12, -8, 'p'], [12, -10, 'n'], [0, 6, 'p'], [-16, 12, 'n'], [16, 10, 'p'], [0, -22, 'n'], [2, 24, 'n'],
+] as const;
+---
+
+<Scene scene={scene} next={next} bg="#0c1a22" keepWords label="An atom drawn with a clump of protons and neutrons in the middle and electrons circling it. A ray leaves the atom towards a wall on the right. Depending on the kind of ray and the wall, the ray is stopped or passes through.">
+  <svg slot="art" class="ry" data-rays-art data-wall="paper" viewBox="0 0 800 800">
+    <rect width="800" height="800" fill="#0c1a22"></rect>
+    <g class="ry-orbits" fill="none" stroke="#3a6ea5" stroke-width="3">
+      <g class="ry-o1"><ellipse cx="400" cy="400" rx="132" ry="48"></ellipse><circle cx="532" cy="400" r="9" fill="#7fd0ff" stroke="none"></circle></g>
+      <g class="ry-o2"><ellipse cx="400" cy="400" rx="132" ry="48" transform="rotate(60 400 400)"></ellipse><circle cx="334" cy="285.7" r="9" fill="#7fd0ff" stroke="none"></circle></g>
+      <g class="ry-o3"><ellipse cx="400" cy="400" rx="132" ry="48" transform="rotate(120 400 400)"></ellipse><circle cx="334" cy="514.3" r="9" fill="#7fd0ff" stroke="none"></circle></g>
+    </g>
+    {nucleus.map(([x, y, k]) => <circle cx={400 + x} cy={400 + y} r="15" fill={k === 'p' ? '#e4501a' : '#a9bdcc'} stroke="#0c1a22" stroke-width="3"></circle>)}
+
+    <!-- the walls: only the chosen one shows -->
+    <g class="ry-wall ry-paper"><rect x="590" y="190" width="10" height="420" rx="3" fill="#f4f1e6" stroke="#0c1a22" stroke-width="2"></rect></g>
+    <g class="ry-wall ry-metal"><rect x="590" y="190" width="30" height="420" rx="4" fill="#9fb0bb" stroke="#0c1a22" stroke-width="2"></rect><path d="M595 200V600M605 200V600M615 200V600" stroke="#c6d3dc" stroke-width="2"></path></g>
+    <g class="ry-wall ry-concrete"><rect x="590" y="190" width="100" height="420" rx="4" fill="#6b7780" stroke="#0c1a22" stroke-width="2"></rect><path d="M590 260H690M590 330H690M590 400H690M590 470H690M590 540H690M640 190V260M615 260V330M665 260V330M640 330V400M615 400V470M665 400V470M640 470V540M615 540V610M665 540V610" stroke="#56626b" stroke-width="3"></path></g>
+
+    <g data-ray></g>
+    <text x="400" y="744" text-anchor="middle" font-family="Covered By Your Grace, cursive" font-size="30" fill="#fff3dc" opacity="0.7">not to scale</text>
+  </svg>
+
+  <div class="controls" role="group" aria-label="Kind of ray">
+    {rayKinds.map((r, i) => <button type="button" class="btn needs-js" aria-pressed={i === 0 ? 'true' : 'false'} data-ray-btn={i}>{r.label}</button>)}
+  </div>
+  <div class="controls" role="group" aria-label="Wall">
+    {walls.map((w, i) => <button type="button" class="btn needs-js" aria-pressed={i === 0 ? 'true' : 'false'} data-wall-btn={i}>{w.label}</button>)}
+    <button type="button" class="btn fill needs-js" data-send>Send a ray</button>
+  </div>
+  <p class="status needs-js" role="status" data-ry-status></p>
+  <ul class="ry-uses">
+    {rayKinds.map((r) => <li><strong>{r.label}.</strong> {r.use}</li>)}
+  </ul>
+</Scene>
+
+<style is:global>
+  .ry .ry-wall {
+    display: none;
+  }
+
+  .ry[data-wall='paper'] .ry-paper,
+  .ry[data-wall='metal'] .ry-metal,
+  .ry[data-wall='concrete'] .ry-concrete {
+    display: inline;
+  }
+
+  .ry-uses {
+    display: none;
+    gap: 0.4rem;
+    font-size: 0.92rem;
+  }
+
+  html:not(.js) .ry-uses {
+    display: grid;
+  }
+
+  .ry-uses li {
+    padding-left: 0.8rem;
+    border-left: 4px solid #17706b;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ry .ry-o1 {
+      transform-box: view-box;
+      transform-origin: 400px 400px;
+      animation: ry-spin 9s linear infinite;
+    }
+
+    .ry .ry-o2 {
+      transform-box: view-box;
+      transform-origin: 400px 400px;
+      animation: ry-spin 13s linear infinite reverse;
+    }
+
+    .ry .ry-o3 {
+      transform-box: view-box;
+      transform-origin: 400px 400px;
+      animation: ry-spin 17s linear infinite;
+    }
+  }
+
+  @keyframes ry-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>

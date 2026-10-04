@@ -17,7 +17,9 @@ export type Sound =
   | 'thud'
   | 'coin'
   | 'clink'
-  | 'whoosh';
+  | 'whoosh'
+  | 'beam'
+  | 'snap';
 
 let ctx: AudioContext | null = null;
 let master: GainNode | null = null;
@@ -160,6 +162,13 @@ export function play(kind: Sound, power = 1) {
       break;
     case 'whoosh':
       tap(t, 0.22 * power, 900, 0.5);
+      break;
+    case 'beam':
+      // A soft rising hum, for a beam switching on
+      tone(t, 180, 0.3, 0.08 * power, 'sine', 300);
+      break;
+    case 'snap':
+      tap(t, 0.3 * power, 2400, 0.03);
       break;
   }
 }

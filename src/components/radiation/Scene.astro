@@ -1,0 +1,70 @@
+---
+// One scene of the zoom: the round picture (the "art" slot) and the card with the text and the
+// tool (the default slot). In film mode the pictures sit on top of each other in the lens and the
+// cards sit next to it. In plain mode each scene is a section: picture, then card.
+import type { Scene } from '../../data/radiation';
+
+interface Props {
+  scene: Scene;
+  next?: Scene;
+  /** The background of the section in plain mode. */
+  bg: string;
+  /** What the picture shows, for people who cannot see it. */
+  label: string;
+  /** The picture is drawn by script, so it is left out when scripts are off. */
+  jsArt?: boolean;
+  /** The words in the tool stay when scripts are off (the buttons inside it hide themselves). */
+  keepWords?: boolean;
+}
+const { scene, next, bg, label, jsArt = false, keepWords = false } = Astro.props;
+// "the body", "the DNA": names in capitals (like DNA) keep them
+const name = (n: string) => (/^[A-Z]{2,}$/.test(n) ? n : n.toLowerCase());
+const nextText = next
+  ? `${scene.zoom?.dir === 'out' ? 'Zoom out to' : 'Zoom in to'} the ${name(next.short)}`
+  : 'Read the takeaways';
+---
+
+<section
+  class="zsec"
+  data-scene={scene.id}
+  data-size={scene.size}
+  data-ratio={scene.zoom?.ratio}
+  data-dir={scene.zoom?.dir}
+  style={`--zbg: ${bg}`}
+  aria-labelledby={`z-${scene.id}`}
+>
+  <div class:list={['zscene', { 'needs-js': jsArt }]}>
+    <div class="zart" role="img" aria-label={label}>
+      <slot name="art" />
+    </div>
+  </div>
+  <div class="zpanel">
+    <div class="zcard" tabindex="-1">
+      <header class="zhead">
+        <p class="kicker">{scene.kicker}</p>
+        <h2 id={`z-${scene.id}`}>{scene.title}</h2>
+      </header>
+      <div class="ztext">
+        {scene.paras.map((p) => <p class="para">{p}</p>)}
+        {
+          scene.extra && (
+            <aside class="extra">
+              <p class="extra-label">{scene.extra.label}</p>
+              <p>{scene.extra.text}</p>
+            </aside>
+          )
+        }
+        <button type="button" class="zmore needs-js" data-more aria-expanded="false">Read more</button>
+      </div>
+      <div class:list={['zwidget', { 'needs-js': !keepWords }]}>
+        <slot />
+      </div>
+      <button type="button" class="znext needs-js" data-next>
+        {nextText}
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M12 4v15M6 13l6 6 6-6"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>

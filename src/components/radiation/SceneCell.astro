@@ -1,0 +1,142 @@
+---
+// Scene 4: one cell and the cell cycle. A marker goes round the ring: G1, S, G2 and M (dividing).
+// Fire at different moments and see how much damage each phase takes.
+import Scene from './Scene.astro';
+import type { Scene as SceneData } from '../../data/radiation';
+import { phases } from '../../data/radiation';
+
+interface Props {
+  scene: SceneData;
+  next?: SceneData;
+}
+const { scene, next } = Astro.props;
+
+const R = 330;
+const C = 2 * Math.PI * R;
+const COLORS: Record<string, string> = { g1: '#2b7a76', s: '#3a9a8f', g2: '#c79a2e', m: '#e4501a' };
+const at = (f: number, r = R) => {
+  const a = f * Math.PI * 2;
+  return { x: 400 + r * Math.sin(a), y: 400 - r * Math.cos(a) };
+};
+const chromosome = (x: number, y: number, a: number) =>
+  `<g transform="translate(${x} ${y}) rotate(${a})"><path d="M-22 -34L22 34M22 -34L-22 34" stroke="#b9c8ff" stroke-width="13" stroke-linecap="round"/></g>`;
+---
+
+<Scene scene={scene} next={next} bg="#12303a" label="A single cell seen through a microscope, with a ring around it that shows the stages of the cell cycle. A marker moves round the ring. In the dividing stage the nucleus gives way to chromosomes lined up in the middle.">
+  <svg slot="art" class="cl" data-cell-art data-phase="g1" viewBox="0 0 800 800" data-phases={JSON.stringify(phases)}>
+    <rect width="800" height="800" fill="#0b2a2e"></rect>
+
+    <!-- the ring: G1, S, G2 and M, each with its own colour -->
+    <g transform="rotate(-90 400 400)">
+      {
+        phases.map((p) => (
+          <circle cx="400" cy="400" r={R} fill="none" stroke={COLORS[p.id]} stroke-width="30" stroke-dasharray={`${(p.to - p.from) * C - 6} ${C}`} stroke-dashoffset={-(p.from * C + 3)}></circle>
+        ))
+      }
+    </g>
+    <g font-size="26" font-weight="700" fill="#fff3dc" text-anchor="middle" font-family="sans-serif">
+      {
+        phases.map((p) => {
+          const m = at((p.from + p.to) / 2, R);
+          return <text x={m.x} y={m.y + 9}>{p.label}</text>;
+        })
+      }
+    </g>
+
+    <!-- the cell: it gets longer when it divides -->
+    <g class="cl-body">
+      <circle cx="400" cy="400" r="236" fill="#14534f" stroke="#7fe3d6" stroke-width="7"></circle>
+      <g fill="#2a8079" opacity="0.8">
+        <circle cx="260" cy="300" r="18"></circle>
+        <circle cx="560" cy="330" r="22"></circle>
+        <ellipse cx="540" cy="520" rx="30" ry="16"></ellipse>
+        <ellipse cx="270" cy="500" rx="26" ry="14"></ellipse>
+        <circle cx="420" cy="590" r="14"></circle>
+      </g>
+
+      <g class="cl-p cl-g1">
+        <circle cx="400" cy="400" r="104" fill="#233a86" stroke="#8aa4ff" stroke-width="6"></circle>
+        <path d="M340 380C370 340 420 440 460 400M350 430C390 470 430 380 462 440" fill="none" stroke="#a9bcff" stroke-width="7" stroke-linecap="round"></path>
+      </g>
+      <g class="cl-p cl-s">
+        <circle cx="400" cy="400" r="112" fill="#233a86" stroke="#8aa4ff" stroke-width="6"></circle>
+        <path d="M334 372C366 330 420 440 466 394M344 424C390 470 434 376 470 438M356 340C392 360 440 330 452 362" fill="none" stroke="#a9bcff" stroke-width="7" stroke-linecap="round"></path>
+        <path d="M334 380C366 338 420 448 466 402M344 432C390 478 434 384 470 446" fill="none" stroke="#7a94f0" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 12"></path>
+      </g>
+      <g class="cl-p cl-g2">
+        <circle cx="400" cy="400" r="130" fill="#233a86" stroke="#8aa4ff" stroke-width="6"></circle>
+        <path d="M322 372C358 322 424 446 478 392M334 430C384 484 438 372 480 446M350 330C390 356 446 322 462 360M340 470C380 440 430 500 460 470" fill="none" stroke="#a9bcff" stroke-width="8" stroke-linecap="round"></path>
+        <path d="M322 380C358 330 424 454 478 400M334 438C384 492 438 380 480 454" fill="none" stroke="#7a94f0" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 12"></path>
+      </g>
+      <g class="cl-p cl-m">
+        <path d="M400 190V610" stroke="#2d9d92" stroke-width="3" stroke-dasharray="3 10"></path>
+        <g set:html={chromosome(330, 330, 20) + chromosome(470, 350, -15) + chromosome(340, 405, -10) + chromosome(460, 430, 25) + chromosome(400, 470, 10) + chromosome(400, 345, 0)}></g>
+      </g>
+      <g class="cl-sparks" data-sparks></g>
+    </g>
+
+    <!-- the marker that goes round the ring -->
+    <circle data-hand cx="400" cy="70" r="20" fill="#fff3dc" stroke="#0b2a2e" stroke-width="6"></circle>
+
+    <!-- the shot -->
+    <g class="cl-shot" data-shot opacity="0">
+      <path d="M40 120L380 392" stroke="#ffd9bf" stroke-width="10" stroke-linecap="round" stroke-dasharray="26 14"></path>
+      <circle cx="400" cy="400" r="70" fill="#ff8a3d" opacity="0.5"></circle>
+    </g>
+  </svg>
+
+  <div class="controls">
+    <label class="label" for="cl-phase">Cell cycle</label>
+    <input class="range" id="cl-phase" type="range" min="0" max="99" step="1" value="10" data-phase-input />
+    <button type="button" class="btn" aria-pressed="true" data-play>Pause</button>
+  </div>
+  <div class="controls">
+    <button type="button" class="btn fill" data-fire>Fire</button>
+    <ol class="cl-log" data-log aria-label="Your last shots"></ol>
+  </div>
+  <p class="status" role="status" data-cl-status></p>
+  <p class="note">The damage levels are an idea, not exact numbers.</p>
+</Scene>
+
+<style is:global>
+  .cl .cl-p {
+    display: none;
+  }
+
+  .cl[data-phase='g1'] .cl-g1,
+  .cl[data-phase='s'] .cl-s,
+  .cl[data-phase='g2'] .cl-g2,
+  .cl[data-phase='m'] .cl-m {
+    display: inline;
+  }
+
+  .cl .cl-body {
+    transform-box: view-box;
+    transform-origin: 50% 50%;
+    transition: transform 0.5s;
+  }
+
+  .cl[data-phase='m'] .cl-body {
+    transform: scale(1.14, 0.94);
+  }
+
+  .cl-log {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    min-height: 1.6rem;
+  }
+
+  .cl-log li {
+    padding: 0.1rem 0.55rem;
+    background: #d7ecea;
+    border: 2px solid #0e1b1d;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .cl-log li.big {
+    background: #ffcfb2;
+  }
+</style>

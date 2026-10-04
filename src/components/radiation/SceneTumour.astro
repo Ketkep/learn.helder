@@ -1,0 +1,40 @@
+---
+// Scene 3: a crowd of cells. Healthy cells are pale, faulty cells are dark. The immune system
+// slider decides how many faulty cells get cleared away each day.
+import Scene from './Scene.astro';
+import type { Scene as SceneData } from '../../data/radiation';
+
+interface Props {
+  scene: SceneData;
+  next?: SceneData;
+}
+const { scene, next } = Astro.props;
+---
+
+<Scene scene={scene} next={next} bg="#e9cfd8" jsArt label="A patch of tissue seen through a microscope. Pale pink cells with a small purple nucleus are healthy. A cluster of darker cells with bigger nuclei in the middle are faulty cells that have piled up into a tumour.">
+  <canvas slot="art" data-tumour width="800" height="800"></canvas>
+
+  <div class="controls">
+    <label class="label" for="tm-immune">Immune system</label>
+    <input class="range" id="tm-immune" type="range" min="0" max="100" step="1" value="20" data-immune />
+    <output class="label tm-out" for="tm-immune" data-immune-out>weak</output>
+  </div>
+  <div class="controls">
+    <button type="button" class="btn fill" data-run>Let time pass</button>
+    <button type="button" class="btn" data-restart>Start again</button>
+  </div>
+  <p class="status" role="status" data-tm-status></p>
+</Scene>
+
+<style is:global>
+  .tm-out {
+    min-width: 4.2rem;
+    text-align: right;
+  }
+
+  @media (max-width: 59.99rem) {
+    .tm-out {
+      min-width: 0;
+    }
+  }
+</style>

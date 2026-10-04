@@ -1,0 +1,800 @@
+/* The radiation page: a zoom. Two modes. By default the page is a plain stack: each scene is a
+   round picture with its text and tool under it. When the browser can do it, the script adds
+   .film and the stack becomes one pinned screen: a round lens that zooms from scene to scene
+   as you scroll, with the text and the tool in a card next to it. */
+
+.zoom {
+  /* The page has its own colors: they do not change with the light and dark switch */
+  --z-ink: #0e1b1d;
+  --z-paper: #fffaf0;
+  --z-cream: #fff3dc;
+  --z-teal: #17706b;
+  --z-pale: #d7ecea;
+  --z-note: #8a2f0b;
+  --z-stage: #0f1d1f;
+  --hud: 4.4rem;
+
+  position: relative;
+  color: var(--z-ink);
+}
+
+@media (max-width: 47.99rem) {
+  .zoom {
+    --hud: 3.6rem;
+  }
+}
+
+/* ---------- Plain mode ---------- */
+.zoom .zring,
+.zoom .zruler,
+.zoom .zhint,
+.zoom .zroute,
+.zoom .zscale,
+.zoom .zplain {
+  display: none;
+}
+
+.zoom .zhud {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  padding: 0.5rem var(--gutter);
+}
+
+.zoom .zsec {
+  display: grid;
+  justify-items: center;
+  gap: 1.6rem;
+  padding: clamp(2.2rem, 6vw, 4rem) var(--gutter);
+  background: var(--zbg, #cfe4e1);
+}
+
+.zoom .zscene {
+  position: relative;
+  width: min(100%, 26rem);
+  overflow: hidden;
+  border: 4px solid var(--z-ink);
+  border-radius: 50%;
+}
+
+.zoom .zscene::before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.zoom .zart {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.zoom .zart > svg,
+.zoom .zart > canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.zoom .zpanel {
+  width: min(100%, 42rem);
+}
+
+/* ---------- The card: text first, then the tool ---------- */
+.zoom .zcard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.4rem 1.5rem 1.5rem;
+  background: var(--z-paper);
+  color: var(--z-ink);
+  border: 3px solid var(--z-ink);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 5px var(--z-paper),
+    inset 0 0 0 7px rgb(23 112 107 / 0.55),
+    0 16px 26px -18px rgb(0 0 0 / 0.6);
+}
+
+.zoom .kicker {
+  color: var(--z-note);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.zoom .zcard h2 {
+  font-size: clamp(1.8rem, 1.3rem + 1.6vw, 2.5rem);
+  line-height: 1;
+}
+
+.zoom .ztext {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.zoom .para {
+  font-size: calc(1rem * var(--fit, 1));
+  line-height: 1.5;
+}
+
+.zoom .extra {
+  padding: 0.6rem 0.85rem 0.65rem;
+  background: var(--z-pale);
+  border-left: 4px solid var(--z-teal);
+  border-radius: 0 6px 6px 0;
+  font-size: calc(0.92rem * var(--fit, 1));
+  line-height: 1.42;
+}
+
+.zoom .extra-label {
+  color: #0f4f4b;
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* ---------- Tools ---------- */
+.zoom .zwidget {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem 1rem;
+  background: #fff;
+  border: 2px solid var(--z-ink);
+  border-radius: 6px;
+}
+
+.zoom .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.8rem;
+}
+
+.zoom .btn {
+  padding: 0.42rem 0.95rem;
+  border: 2px solid var(--z-ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--z-ink);
+  font-size: 0.93rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.zoom .btn:hover:not(:disabled) {
+  background: var(--z-pale);
+}
+
+.zoom .btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.zoom .btn.fill,
+.zoom .btn[aria-pressed='true'] {
+  background: var(--z-ink);
+  color: var(--z-cream);
+}
+
+.zoom .btn.fill:hover:not(:disabled) {
+  background: var(--z-teal);
+}
+
+.zoom .label {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.zoom .status {
+  min-height: 2.8rem;
+  font-size: 0.95rem;
+  line-height: 1.42;
+}
+
+.zoom .status strong {
+  font-weight: 700;
+}
+
+.zoom .note {
+  font-size: 0.82rem;
+  line-height: 1.35;
+  opacity: 0.85;
+}
+
+.zoom .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 7rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.zoom .range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent) var(--p), var(--z-pale) var(--p));
+  box-shadow: inset 0 0 0 1px var(--z-ink);
+}
+
+.zoom .range::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--z-pale);
+  box-shadow: inset 0 0 0 1px var(--z-ink);
+}
+
+.zoom .range::-moz-range-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.zoom .range::-webkit-slider-thumb {
+  width: 1.55rem;
+  height: 1.55rem;
+  margin-top: calc((6px - 1.55rem) / 2);
+  border: 3px solid var(--z-ink);
+  border-radius: 50%;
+  background: #e4501a;
+  background: var(--accent);
+  appearance: none;
+}
+
+.zoom .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.55rem;
+  height: 1.55rem;
+  border: 3px solid var(--z-ink);
+  border-radius: 50%;
+  background: #e4501a;
+  background: var(--accent);
+}
+
+.zoom :focus-visible {
+  outline: 3px solid #1f9d95;
+  outline-offset: 3px;
+}
+
+/* A bar that fills, for the numbers on the tools */
+.zoom .meter {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.zoom .meter-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.zoom .meter-bar {
+  position: relative;
+  height: 0.65rem;
+  overflow: hidden;
+  background: var(--z-pale);
+  border: 2px solid var(--z-ink);
+  border-radius: 999px;
+}
+
+.zoom .meter-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  background: var(--z-teal);
+  transition: width 0.3s;
+}
+
+.zoom .meter-fill.hot {
+  background: #e4501a;
+}
+
+/* The next button at the bottom of a card */
+.zoom .znext {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.38rem 0.9rem 0.38rem 0.75rem;
+  border: 2px solid var(--z-teal);
+  border-radius: 999px;
+  background: transparent;
+  color: #0f4f4b;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.zoom .znext:hover {
+  background: var(--z-pale);
+}
+
+/* ---------- Sound and view switches ---------- */
+.zoom .snd,
+.zoom .zplain {
+  place-items: center;
+  height: 2.4rem;
+  padding: 0;
+  border: 2px solid var(--z-ink);
+  border-radius: 999px;
+  background: var(--z-paper);
+  color: var(--z-ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.zoom .snd {
+  display: inline-grid;
+  width: 2.4rem;
+}
+
+.zoom .zplain {
+  padding: 0 0.85rem;
+}
+
+.zoom.can-film .zplain {
+  display: inline-grid;
+}
+
+.zoom .snd[aria-pressed='true'] .slash,
+.zoom .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+.zoom .zmore {
+  display: none;
+  background: none;
+  border: 0;
+  color: #0f4f4b;
+}
+
+/* Without script the tools cannot work, so only the pictures and the words stay */
+html:not(.js) .zoom .needs-js {
+  display: none;
+}
+
+/* ---------- Film mode ---------- */
+.zoom.film .zrig {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  overflow: clip;
+  background: var(--z-stage);
+}
+
+.zoom.film .zhud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 8;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.6rem 0.8rem;
+  padding: 0.7rem var(--gutter);
+  pointer-events: none;
+}
+
+.zoom.film .zhud > * {
+  pointer-events: auto;
+}
+
+.zoom.film .zscale {
+  display: grid;
+  min-width: 8.5rem;
+  padding: 0.3rem 0.9rem 0.35rem;
+  background: var(--z-paper);
+  border: 2px solid var(--z-ink);
+  border-radius: 14px;
+  line-height: 1.1;
+}
+
+.zoom .zscale-num {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.zoom .zscale-lab {
+  margin-top: 0.1rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.zoom.film .zroute {
+  display: block;
+  padding: 0.2rem 0.5rem;
+  background: var(--z-paper);
+  border: 2px solid var(--z-ink);
+  border-radius: 999px;
+}
+
+.zoom .zroute ol {
+  display: flex;
+  align-items: center;
+}
+
+.zoom .zroute li {
+  display: flex;
+  align-items: center;
+}
+
+.zoom .zroute li + li::before {
+  content: '';
+  width: 0.5rem;
+  height: 2px;
+  background: var(--z-ink);
+  opacity: 0.4;
+}
+
+.zoom .zroute button {
+  display: grid;
+  place-items: center;
+  width: 1.65rem;
+  height: 1.9rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.zoom .zroute .dot {
+  width: 0.72rem;
+  height: 0.72rem;
+  border: 2px solid var(--z-ink);
+  border-radius: 50%;
+  background: var(--z-paper);
+}
+
+.zoom .zroute button[data-state='seen'] .dot {
+  background: var(--z-ink);
+}
+
+.zoom .zroute button[aria-current='step'] .dot {
+  width: 1.05rem;
+  height: 1.05rem;
+  border-width: 3px;
+  background: #e4501a;
+  background: var(--accent);
+}
+
+.zoom.film .zbtns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.zoom.film .zsec {
+  display: contents;
+}
+
+.zoom.film .zscene {
+  position: absolute;
+  top: var(--ly);
+  left: var(--lx);
+  z-index: 1;
+  width: var(--ld);
+  height: var(--ld);
+  border: 0;
+  border-radius: 50%;
+  -webkit-clip-path: circle(50%);
+  clip-path: circle(50%);
+}
+
+.zoom.film .zscene::before {
+  display: none;
+}
+
+.zoom.film .zart {
+  transform-origin: 50% 50%;
+  -webkit-clip-path: circle(50%);
+  clip-path: circle(50%);
+}
+
+.zoom.film .zring {
+  position: absolute;
+  top: calc(var(--ly) - 20px);
+  left: calc(var(--lx) - 20px);
+  z-index: 3;
+  display: block;
+  width: calc(var(--ld) + 40px);
+  height: calc(var(--ld) + 40px);
+  pointer-events: none;
+}
+
+.zoom .zring svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.zoom.film .zruler {
+  position: absolute;
+  top: calc(var(--ly) + var(--ld) - 3.1rem);
+  left: calc(var(--lx) + var(--ld) / 2);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0.8rem;
+  background: rgb(15 29 31 / 0.82);
+  border-radius: 999px;
+  color: var(--z-cream);
+  font-size: 0.8rem;
+  font-weight: 700;
+  transform: translateX(-50%);
+}
+
+.zoom .zbar {
+  display: block;
+  height: 8px;
+  border: 2px solid var(--z-cream);
+  border-top: 0;
+}
+
+.zoom.film .zhint {
+  position: absolute;
+  top: calc(var(--ly) + var(--ld) + 0.4rem);
+  left: calc(var(--lx) + var(--ld) / 2);
+  z-index: 4;
+  display: block;
+  color: var(--z-cream);
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translateX(-50%);
+  transition: opacity 0.4s;
+}
+
+.zoom.film.moving .zhint {
+  opacity: 0;
+}
+
+.zoom.film .zpanel {
+  position: absolute;
+  top: var(--py);
+  left: var(--px);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: var(--pw);
+  height: var(--ph);
+  pointer-events: none;
+}
+
+.zoom.film .zcard {
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  pointer-events: auto;
+}
+
+.zoom.film .zpanel[data-hidden] {
+  visibility: hidden;
+}
+
+/* The phone: the tool comes before the extra text, because it is the part you use */
+@media (max-width: 59.99rem) {
+  .zoom.film .zhead {
+    order: 1;
+  }
+
+  .zoom.film .zwidget {
+    order: 2;
+  }
+
+  .zoom.film .ztext {
+    order: 3;
+  }
+
+  .zoom.film .znext {
+    order: 4;
+  }
+
+  .zoom.film .zcard {
+    position: relative;
+    gap: 0.6rem;
+    padding: 0.9rem 1rem 1rem;
+  }
+
+  .zoom.film .zhead {
+    padding-right: 2.6rem;
+  }
+
+  .zoom.film .znext {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.7rem;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    padding: 0;
+    font-size: 0;
+  }
+
+  .zoom.film .ztext .para:nth-of-type(n + 2),
+  .zoom.film .ztext .extra {
+    display: none;
+  }
+
+  .zoom.film .zcard[data-more] .ztext .para:nth-of-type(n + 2),
+  .zoom.film .zcard[data-more] .ztext .extra {
+    display: block;
+  }
+
+  .zoom.film .zmore {
+    display: inline-flex;
+    justify-self: start;
+    padding: 0.15rem 0;
+    border: 0;
+    background: none;
+    color: #0f4f4b;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+
+  .zoom.film .zcard h2 {
+    font-size: 1.6rem;
+  }
+
+  .zoom.film .kicker {
+    font-size: 1.35rem;
+  }
+
+  .zoom.film .zwidget {
+    gap: 0.55rem;
+    padding: 0.65rem 0.75rem 0.75rem;
+  }
+
+  .zoom.film .para {
+    font-size: calc(0.93rem * var(--fit, 1));
+    line-height: 1.4;
+  }
+
+  .zoom.film .zscale {
+    flex: none;
+    min-width: 0;
+    padding: 0.25rem 0.55rem 0.3rem;
+    white-space: nowrap;
+  }
+
+  .zoom .zplain {
+    flex: none;
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+    white-space: nowrap;
+  }
+
+  .zoom .zp-more {
+    display: none;
+  }
+
+  .zoom.film .btn {
+    padding: 0.26rem 0.65rem;
+    font-size: 0.8rem;
+  }
+
+  .zoom.film .controls {
+    gap: 0.35rem 0.5rem;
+  }
+
+  .zoom.film .range {
+    min-width: 4rem;
+  }
+
+  .zoom.film .label {
+    font-size: 0.8rem;
+  }
+
+  .zoom.film .label[for] + .range + .label,
+  .zoom.film output.label {
+    min-width: 0;
+  }
+
+  .zoom.film .status {
+    min-height: 0;
+    font-size: 0.86rem;
+    line-height: 1.35;
+  }
+
+  .zoom .zscale-num {
+    font-size: 1.3rem;
+  }
+
+  .zoom .zscale-lab {
+    display: none;
+  }
+
+  .zoom .zroute li + li::before {
+    display: none;
+  }
+
+  .zoom .zroute button {
+    width: 1.12rem;
+    height: 1.7rem;
+  }
+
+  .zoom.film .zhud {
+    gap: 0.35rem;
+  }
+
+  .zoom.film .zroute {
+    padding: 0.1rem 0.3rem;
+  }
+
+  .zoom .snd {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .zoom .zplain {
+    height: 2.2rem;
+  }
+}
+
+/* A laptop screen that is not very tall: a little less air inside the card */
+@media (min-width: 60rem) and (max-height: 47.99rem) {
+  .zoom.film .zcard {
+    gap: 0.5rem;
+    padding: 0.8rem 1.05rem 0.9rem;
+  }
+
+  .zoom.film .zcard h2 {
+    font-size: 1.85rem;
+  }
+
+  .zoom.film .kicker {
+    font-size: 1.45rem;
+  }
+
+  .zoom.film .zwidget {
+    gap: 0.5rem;
+    padding: 0.65rem 0.8rem 0.75rem;
+  }
+
+  .zoom.film .btn {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.86rem;
+  }
+
+  .zoom.film .extra {
+    padding: 0.4rem 0.7rem 0.45rem;
+  }
+}
+
+@media (min-width: 60rem) {
+  .zoom.film .zcard {
+    gap: 0.7rem;
+    padding: 1.1rem 1.3rem 1.2rem;
+  }
+
+  .zoom.film .zwidget {
+    gap: 0.6rem;
+  }
+}

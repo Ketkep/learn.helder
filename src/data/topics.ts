@@ -53,6 +53,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-02',
     status: 'live',
   },
+  {
+    slug: 'radiation-therapy',
+    title: 'Radiation therapy',
+    hook: 'How invisible beams treat cancer, from the treatment room down to one strand of DNA.',
+    category: 'Medicine',
+    accent: '#17706B',
+    preview: 'radiation-therapy',
+    dateAdded: '2026-10-04',
+    status: 'live',
+  },
 ];
 
 /** Topics that should appear right now: everything in dev, only "live" in production. */

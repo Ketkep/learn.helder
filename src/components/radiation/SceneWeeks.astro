@@ -1,0 +1,133 @@
+---
+// Scene 7: why the dose is split. A dish of tumour cells (dark, in the middle) and healthy cells
+// (pale, around them) is treated day by day. Cells that are about to divide get a yellow ring: they
+// are the ones that take the most damage.
+import Scene from './Scene.astro';
+import type { Scene as SceneData } from '../../data/radiation';
+
+interface Props {
+  scene: SceneData;
+  next?: SceneData;
+}
+const { scene, next } = Astro.props;
+---
+
+<Scene scene={scene} next={next} bg="#e9cfd8" jsArt label="A dish of cells. Dark purple tumour cells sit in the middle and pale healthy cells around them. Cells that are about to divide have a yellow ring. As the days of treatment pass, tumour cells disappear.">
+  <canvas slot="art" data-weeks width="800" height="800"></canvas>
+
+  <div class="controls">
+    <label class="label" for="wk-sessions">Sessions</label>
+    <input class="range" id="wk-sessions" type="range" min="0" max="4" step="1" value="4" data-sessions />
+    <output class="label wk-out" for="wk-sessions" data-sessions-out>30 sessions of 2 Gy</output>
+  </div>
+  <div class="wk-row">
+    <div class="wk-cal" data-cal aria-hidden="true"></div>
+    <div class="wk-side">
+      <div class="wk-stats">
+        <div class="meter">
+          <div class="meter-top"><span>Tumour cells left</span><span data-tumour-text>100%</span></div>
+          <div class="meter-bar"><div class="meter-fill hot" data-tumour-bar style="width: 100%"></div></div>
+        </div>
+        <div class="meter">
+          <div class="meter-top"><span>Healthy cells left</span><span data-healthy-text>100%</span></div>
+          <div class="meter-bar"><div class="meter-fill" data-healthy-bar style="width: 100%"></div></div>
+        </div>
+      </div>
+      <div class="controls">
+        <button type="button" class="btn fill" data-start>Start treatment</button>
+        <button type="button" class="btn" data-wk-reset>Reset</button>
+      </div>
+    </div>
+  </div>
+  <p class="status" role="status" data-wk-status></p>
+</Scene>
+
+<style is:global>
+  .wk-out {
+    min-width: 7.8rem;
+    text-align: right;
+  }
+
+  .wk-row {
+    display: grid;
+    grid-template-columns: 9.6rem minmax(0, 1fr);
+    align-items: start;
+    gap: 0.5rem 1rem;
+  }
+
+  .wk-side {
+    display: grid;
+    gap: 0.6rem;
+    min-width: 0;
+  }
+
+  .wk-cal {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+  }
+
+  .wk-day {
+    display: grid;
+    place-items: center;
+    height: 0.9rem;
+    background: #eef3f2;
+    border: 1.5px solid #9fb3b0;
+    border-radius: 3px;
+  }
+
+  .wk-day.rest {
+    background: #d9e3e1;
+    border-style: dashed;
+  }
+
+  .wk-day.tx::after {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
+    background: #e4501a;
+    border-radius: 50%;
+  }
+
+  .wk-day.past {
+    opacity: 0.55;
+  }
+
+  .wk-day.now {
+    border-color: #0e1b1d;
+    box-shadow: 0 0 0 2px #17706b;
+    opacity: 1;
+  }
+
+  .wk-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .wk-stats .meter-top {
+    flex-direction: column;
+    gap: 0;
+    font-size: 0.74rem;
+    line-height: 1.15;
+  }
+
+  .wk-stats .meter-top span:last-child {
+    font-size: 1.15rem;
+    line-height: 1.1;
+  }
+
+  @media (max-width: 59.99rem) {
+    .wk-row {
+      grid-template-columns: 8.4rem minmax(0, 1fr);
+    }
+
+    .zoom.film .wk-day {
+      height: 0.75rem;
+    }
+
+    .wk-out {
+      min-width: 0;
+    }
+  }
+</style>

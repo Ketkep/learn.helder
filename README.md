@@ -89,7 +89,7 @@ You do not need to run anything on your own computer for this.
 4. After about a minute you get a link ending in `.vercel.app`. Every time new code is pushed to the repository, Vercel rebuilds the site by itself.
 5. For learn.helderlabs.com: open the project, go to **Settings**, then **Domains**, and add the domain. Vercel shows the exact DNS record to create where helderlabs.com is managed.
 
-All three topics are built and set to `live`. Before you attach learn.helderlabs.com, skim the Sources list at the bottom of each page: the facts were gathered through search results, and some of the source sites could not be opened directly while writing.
+All four topics are built and set to `live`. Before you attach learn.helderlabs.com, skim the Sources list at the bottom of each page: the facts were gathered through search results, and some of the source sites could not be opened directly while writing.
 
 ## The gambits page: how the film works
 
@@ -138,6 +138,19 @@ The page is a sideways tracking shot. A coin (the orange knob) rolls along a fil
 - On a wide screen the stops are whole screens. On a phone every `.story` and `.sub` is its own screen, so long stops take more scrolling.
 - The sound switch and all the sounds are shared with the other pages: `src/scripts/sound.ts` makes the sounds, `src/scripts/soundButton.ts` runs the switch.
 
+## The radiation page: how the zoom works
+
+The page is a zoom. One round lens sits next to a card with the text and a tool. Scrolling zooms the lens from a treatment room into the body, the tumour, one cell, its DNA and an atom, and then back out through a dish of cells to the person. A scale bar and the number at the top show how wide the picture is in real life. The ring around the lens turns while you zoom, like the focus ring of a camera.
+
+- `src/data/radiation.ts` holds all the words, the texts of the tools, the sizes used for the scale bar, how far each jump zooms, and the sources.
+- `src/components/radiation/Zoom.astro` is the frame. `Scene.astro` is one scene: the round picture and the card. `Scene*.astro` are the eight pictures and their tools.
+- `src/scripts/radiation/zoom.ts` is the camera. It turns the scenes into a timeline of waiting and zooming, scales and fades the pictures (the next scene appears small on top of the old one and grows), shows the card of the scene you are on, updates the size at the top, and turns the ring. A card whose text is too tall gets smaller text first, and then scrolls inside itself. On a phone only the first paragraph shows, and "Read more" opens the rest.
+- One script per tool: `room.ts`, `body.ts` (with `dose.ts`, the model of where radiation lands), `tumour.ts`, `cell.ts`, `dna.ts`, `rays.ts`, `weeks.ts`, `person.ts`. `active.ts` tells a tool when its scene is in front of the reader, so animations rest otherwise.
+- To change how far a jump zooms, edit `zoom` in the scene list (`ratio` is how much the picture grows or shrinks, `dir` says in or out). The size at the top comes from `size` (in metres).
+- When the screen is too short, or the reader asked for less motion, or pressed the "Plain view" button, the camera does not run. The page is then a stack of sections (a round picture, then its card) and every tool still works. The choice of the plain view is saved in `localStorage` under `zoomView`.
+- The tools are simple models and the page says so. The beam model, the weeks model and the numbers in the cell tool are made up to show an idea, not to plan a treatment. Keep it that way, and keep the sentence "It is not medical advice" in the note above the sources.
+- The page is based on a school research project. No names are on the page. To credit the authors, add their names to `sourcesNote` in `src/pages/radiation-therapy/index.astro`, with their permission.
+
 ## Draft and live
 
 - `status: 'draft'` topics show in `npm run dev` with a small "Draft" label.
@@ -151,6 +164,7 @@ src/data/topics.ts       the list of all topics
 src/data/gambits.ts      everything the chess page says: games, scenes, field guide, sources
 src/data/peru.ts         everything the Peru page says: shots, brick stamps, year line, sources
 src/data/dutch.ts        everything the Dutch page says: stops, pretend numbers, route, sources
+src/data/radiation.ts    everything the radiation page says: scenes, tool texts, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -158,10 +172,12 @@ src/components/          header, footer, topic card, "coming soon" block
 src/components/chess/    the chess page: the film, the field guide, the piece sprite
 src/components/peru/     the Peru page: the dig and its seven tools
 src/components/dutch/    the Dutch page: the film frame, one file per stop, the coin
+src/components/radiation/ the radiation page: the zoom frame, one file per scene
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
 src/styles/roll.css      the Dutch film: plain mode, film mode, bar, strip, controls
+src/styles/zoom.css      the radiation zoom: plain mode, film mode, lens, bar, controls
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/chess/           chess pieces, still diagrams, and the build-time analysis of games
@@ -171,6 +187,7 @@ src/scripts/             lamp.ts (pull the cord to switch light and dark) and co
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
 src/scripts/dutch/       the camera (roll.ts) and one script per Dutch stop
+src/scripts/radiation/   the camera (zoom.ts), the dose model, and one script per scene
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image
 ```

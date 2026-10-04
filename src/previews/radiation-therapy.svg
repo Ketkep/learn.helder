@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ra-lens { fill: var(--cover-c); stroke: var(--on-cover); stroke-width: 5; }
+    .ra-ticks { fill: none; stroke: var(--on-cover); stroke-width: 3; stroke-linecap: round; opacity: 0.55; }
+    .ra-body { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 2.5; opacity: 0.9; }
+    .ra-organ { fill: var(--on-cover); opacity: 0.22; }
+    .ra-beam { fill: none; stroke: var(--on-cover); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 3 11; }
+    .ra-glow { fill: var(--accent); opacity: 0.35; }
+    .ra-tumour { fill: var(--accent); stroke: var(--on-cover); stroke-width: 4; }
+    .ra-spin, .ra-pulse, .ra-halo { transform-box: view-box; }
+    .ra-spin { transform-origin: 200px 150px; }
+    .ra-pulse { transform-box: fill-box; transform-origin: 50% 50%; }
+    .ra-halo { transform-box: fill-box; transform-origin: 50% 50%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ra-spin { animation: ra-spin 6s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ra-beam { animation: ra-flow 1s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ra-pulse { animation: ra-pulse 3s ease-in-out infinite alternate; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ra-halo { animation: ra-halo 1.5s ease-in-out infinite alternate; }
+    }
+    /* The three beams turn around the body, and the tumour shrinks a little while they do */
+    @keyframes ra-spin { to { transform: rotate(360deg); } }
+    @keyframes ra-flow { to { stroke-dashoffset: -14; } }
+    @keyframes ra-pulse { from { transform: scale(1); } to { transform: scale(0.72); } }
+    @keyframes ra-halo { from { transform: scale(0.9); opacity: 0.2; } to { transform: scale(1.25); opacity: 0.45; } }
+  </style>
+  <defs><clipPath id="ra-clip"><circle cx="200" cy="150" r="104"/></clipPath></defs>
+
+  <!-- The lens, with ticks around it like a focus ring -->
+  <path class="ra-ticks" d="M200 26V38M200 262V274M76 150H88M312 150H324M112 62L120 70M280 70L288 62M112 238L120 230M280 230L288 238M156 34L158 46M244 34L242 46M156 266L158 254M244 266L242 254M68 106L80 110M332 106L320 110M68 194L80 190M332 194L320 190"/>
+  <circle class="ra-lens" cx="200" cy="150" r="104"/>
+
+  <g clip-path="url(#ra-clip)">
+    <!-- A slice of a body with a few organs -->
+    <ellipse class="ra-body" cx="192" cy="154" rx="82" ry="58"/>
+    <ellipse class="ra-organ" cx="160" cy="132" rx="22" ry="16"/>
+    <ellipse class="ra-organ" cx="226" cy="130" rx="20" ry="15"/>
+    <ellipse class="ra-organ" cx="152" cy="174" rx="18" ry="14"/>
+    <ellipse class="ra-organ" cx="232" cy="176" rx="16" ry="13"/>
+    <circle class="ra-organ" cx="192" cy="196" r="9"/>
+
+    <!-- Three beams that meet in the middle -->
+    <g class="ra-spin">
+      <path class="ra-beam" d="M200 40L200 138"/>
+      <path class="ra-beam" d="M294.5 205L208.6 155"/>
+      <path class="ra-beam" d="M105.5 205L191.4 155"/>
+    </g>
+  </g>
+
+  <!-- The tumour: the orange knob, with a glow where the beams add up -->
+  <circle class="ra-glow ra-halo" cx="200" cy="150" r="30"/>
+  <circle class="ra-tumour ra-pulse" cx="200" cy="150" r="15"/>
+</svg>

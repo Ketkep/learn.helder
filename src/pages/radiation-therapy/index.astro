@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Zoom from '../../components/radiation/Zoom.astro';
+import { takeaways, sources } from '../../data/radiation';
+---
+
+<TopicLayout
+  slug="radiation-therapy"
+  intro="Radiation can treat cancer. Zoom from a treatment room down to one strand of DNA, and back to the person, to see how."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote="This page is based on a school research project about radiation therapy. The facts were checked against the pages below, and a few statements from the project were corrected. The pictures are drawings, and the beam, cell and weeks tools are simple models, not medical tools. The page explains the idea. It is not medical advice."
+  wide
+>
+  <Zoom />
+</TopicLayout>
