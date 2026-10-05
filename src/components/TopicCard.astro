@@ -2,7 +2,7 @@
 // One topic as a book cover in the series, standing on a shelf.
 // The whole card is one link (cover and caption). Its name is the title and its
 // description is the hook, so screen readers do not read every piece of text.
-import type { Topic } from '../data/topics';
+import { getTopicView, type Topic } from '../data/topics';
 import { coverVars as makeCoverVars } from '../lib/color';
 import CoverArt from './CoverArt.astro';
 
@@ -14,24 +14,28 @@ interface Props {
 
 const { topic, number } = Astro.props;
 const isDraft = topic.status === 'draft';
+// A topic can lead to a translated page. The card then shows that page's words and a small language mark.
+const view = getTopicView(topic);
+const other = view.lang !== 'en';
 const coverVars = makeCoverVars(topic.accent);
 const titleId = `title-${topic.slug}`;
 const hookId = `hook-${topic.slug}`;
 ---
 
 <article class="card" data-card data-category={topic.category} style={coverVars}>
-  <a class="link" data-play href={`/${topic.slug}/`} aria-labelledby={titleId} aria-describedby={hookId}>
+  <a class="link" data-play href={view.href} hreflang={other ? view.lang : undefined} aria-labelledby={titleId} aria-describedby={hookId}>
     <div class="shelf">
       <div class="cover">
         <div class="meta">
           <span class="num">{number}</span>
           <span class="tags">
             {isDraft && <span class="draft">Draft</span>}
+            {other && <span class="lang" aria-hidden="true">{view.lang.toUpperCase()}</span>}
             <span>{topic.category}</span>
           </span>
         </div>
 
-        <h3 class="title" id={titleId}>{topic.title}</h3>
+        <h3 class="title" id={titleId} lang={other ? view.lang : undefined}>{view.title}</h3>
 
         <div class="art-slot">
           <CoverArt name={topic.preview} />
@@ -40,7 +44,7 @@ const hookId = `hook-${topic.slug}`;
     </div>
 
     <div class="caption">
-      <p class="hook" id={hookId}>{topic.hook}</p>
+      <p class="hook" id={hookId} lang={other ? view.lang : undefined}>{view.hook}</p>
       <svg class="arrow" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M4 12h15M13 6l6 6-6 6" />
       </svg>
@@ -115,8 +119,10 @@ const hookId = `hook-${topic.slug}`;
     gap: 0.6rem;
   }
 
-  /* Only shown in `npm run dev`, drafts are never built for production */
-  .draft {
+  /* "Draft" only shows in `npm run dev`, drafts are never built for production.
+     The language mark shows when the card leads to a translated page. */
+  .draft,
+  .lang {
     padding: 0 0.5rem;
     border: 1.5px solid currentColor;
     border-radius: 999px;

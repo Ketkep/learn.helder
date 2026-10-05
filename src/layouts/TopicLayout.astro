@@ -5,7 +5,7 @@
 // and is available to the slot as the CSS variable --topic.
 import BaseLayout from './BaseLayout.astro';
 import CoverArt from '../components/CoverArt.astro';
-import { getTopic, getNextTopic, getTopicNumber } from '../data/topics';
+import { getTopic, getNextTopic, getTopicNumber, getTopicView } from '../data/topics';
 import { readableInk, coverVars } from '../lib/color';
 import { siteText } from '../lib/siteText';
 import type { Lang } from '../lib/text';
@@ -48,6 +48,9 @@ const alternates = [...addresses.map(([l, href]) => ({ hreflang: l, href })), { 
 
 // The other topics only exist in English, so a translated page has no "next topic" card
 const next = lang === 'en' ? getNextTopic(slug) : undefined;
+// The next topic may lead to a translated page. Then the card shows that page's words.
+const nextView = next ? getTopicView(next) : undefined;
+const nextLang = nextView && nextView.lang !== 'en' ? nextView.lang : undefined;
 const number = getTopicNumber(slug);
 const ink = readableInk(topic.accent);
 ---
@@ -138,16 +141,17 @@ const ink = readableInk(topic.accent);
 
     <section class="more wrap">
       {
-        next ? (
+        next && nextView ? (
           <nav aria-label={words.nextTopic}>
             <a
               class="next"
-              href={`/${next.slug}/`}
+              href={nextView.href}
+              hreflang={nextLang}
               style={coverVars(next.accent)}
             >
               <span class="next-label">{words.nextTopic}</span>
-              <span class="next-title">{next.title}</span>
-              <span class="next-hook">{next.hook}</span>
+              <span class="next-title" lang={nextLang}>{nextView.title}</span>
+              <span class="next-hook" lang={nextLang}>{nextView.hook}</span>
               <span class="next-knob" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M4 12h15M13 6l6 6-6 6" />

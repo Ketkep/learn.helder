@@ -2,6 +2,8 @@
 // the "next topic" links and the numbering. To add a topic, add an entry here
 // and create src/pages/<slug>/index.astro (see README.md).
 
+import type { Lang } from '../lib/text';
+
 export type TopicStatus = 'live' | 'draft';
 
 /** A topic page written in another language. It shows up at /<language>/<slug>/. */
@@ -27,8 +29,10 @@ export interface Topic {
   dateAdded: string;
   /** "draft" topics show up in `npm run dev` only. */
   status: TopicStatus;
-  /** Other languages this topic is available in. The homepage and the numbering stay English. */
+  /** Other languages this topic is available in. The numbering and the category filter stay English. */
   translations?: { nl?: TopicTranslation };
+  /** Which language the homepage card and the "next topic" cards lead to. English when left out. */
+  hubLanguage?: Lang;
 }
 
 // The topics, in the order they were added.
@@ -80,8 +84,23 @@ export const topics: Topic[] = [
         category: 'Geneeskunde',
       },
     },
+    // For now the homepage shows the Dutch version of this topic. Remove this line to show English again.
+    hubLanguage: 'nl',
   },
 ];
+
+/** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */
+export function getTopicView(topic: Topic) {
+  const lang: Lang = topic.hubLanguage ?? 'en';
+  const translation = lang === 'en' ? undefined : topic.translations?.[lang];
+  if (lang !== 'en' && !translation) throw new Error(`Topic "${topic.slug}" has hubLanguage "${lang}" but no translation for it`);
+  return {
+    lang,
+    href: translation ? `/${lang}/${translation.slug}/` : `/${topic.slug}/`,
+    title: translation?.title ?? topic.title,
+    hook: translation?.hook ?? topic.hook,
+  };
+}
 
 /** Topics that should appear right now: everything in dev, only "live" in production. */
 export function getVisibleTopics(): Topic[] {
