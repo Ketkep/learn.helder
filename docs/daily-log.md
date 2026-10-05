@@ -2,7 +2,9 @@
 
 One block per night, added by the daily routine (see `CLAUDE.md`). It records what was published, what was skipped and why, and ideas for later, so the next night does not repeat itself.
 
-Format of a block:
+The error check (04:48) adds its own block each night with a "repair list". The builder (02:38) fixes that list first.
+
+Format of a builder block:
 
 ```
 ## YYYY-MM-DD
