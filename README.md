@@ -204,6 +204,9 @@ src/scripts/dutch/       the camera (roll.ts) and one script per Dutch stop
 src/scripts/radiation/   the camera (zoom.ts), the dose model, and one script per scene
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image
+CLAUDE.md                the rules for working on the site, and the daily routine for new topics
+docs/daily-log.md        what the daily routine published, skipped and wants to do next
+tools/check-topic.mjs    checks a page at 8 widths, with no script, with reduced motion, by keyboard, and makes screenshots
 ```
 
 ## Design notes
