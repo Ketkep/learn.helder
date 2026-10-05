@@ -8,6 +8,8 @@ import bodyFont from '@fontsource-variable/hanken-grotesk/files/hanken-grotesk-l
 import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { siteText } from '../lib/siteText';
+import type { Lang } from '../lib/text';
 
 interface Props {
   /** Full text for the <title> tag. */
@@ -22,6 +24,10 @@ interface Props {
   image?: string;
   /** Keep search engines away from this page. */
   noindex?: boolean;
+  /** The language of the page. Sets <html lang> and the words in the header and footer. */
+  lang?: Lang;
+  /** The same page in other languages, for search engines. Includes the page itself. */
+  alternates?: { hreflang: string; href: string }[];
 }
 
 const {
@@ -31,7 +37,11 @@ const {
   bandInk,
   image = '/og-image.png',
   noindex = false,
+  lang = 'en',
+  alternates = [],
 } = Astro.props;
+
+const words = siteText[lang];
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const imageUrl = new URL(image, Astro.site);
@@ -40,7 +50,7 @@ const bodyStyle = `--band: ${band ?? 'var(--paper)'}; --on-band: ${bandInk ?? 'v
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -48,6 +58,7 @@ const bodyStyle = `--band: ${band ?? 'var(--paper)'}; --on-band: ${bandInk ?? 'v
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={new URL(a.href, Astro.site)} />)}
 
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#cfe2f1" media="(prefers-color-scheme: light)" />
@@ -57,11 +68,12 @@ const bodyStyle = `--band: ${band ?? 'var(--paper)'}; --on-band: ${bandInk ?? 'v
 
     <meta property="og:site_name" content="Helder Labs Learn" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content={words.ogLocale} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={imageUrl} />
-    <meta property="og:image:alt" content="Helder Labs Learn, interactive explainers" />
+    <meta property="og:image:alt" content={words.ogAlt} />
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Load the main font files early so the big headings do not jump -->
@@ -85,12 +97,12 @@ const bodyStyle = `--band: ${band ?? 'var(--paper)'}; --on-band: ${bandInk ?? 'v
     </script>
   </head>
   <body style={bodyStyle}>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <SiteHeader />
+    <a class="skip-link" href="#main">{words.skip}</a>
+    <SiteHeader lang={lang} />
     <main id="main">
       <slot />
     </main>
-    <SiteFooter />
+    <SiteFooter lang={lang} />
     <script>
       import '../scripts/cover-play';
     </script>

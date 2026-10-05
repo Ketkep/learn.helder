@@ -5,6 +5,7 @@
 import * as sound from '../sound';
 import { fillRange, q } from '../util';
 import { seeded } from '../../lib/rand';
+import { fill, readUi } from './ui';
 
 const SIZE = 800;
 const SPACING = 38;
@@ -20,6 +21,7 @@ interface Cell {
 }
 
 export function initTumour(root: HTMLElement) {
+  const ui = readUi(root).tumour;
   const sec = root.querySelector<HTMLElement>('[data-scene="tumour"]');
   if (!sec) return;
   const canvas = q<HTMLCanvasElement>(sec, '[data-tumour]');
@@ -125,13 +127,14 @@ export function initTumour(root: HTMLElement) {
     // On average a faulty cell adds DIVIDE * (1 - k) new ones and is cleared with chance k
     const net = DIVIDE * (1 - k) - k;
     const trend = n === 0 ? 'cleared' : net > 0.05 ? 'growing' : net < -0.02 ? 'shrinking' : 'holding';
-    let line = `<strong>Day ${days}.</strong> Faulty cells: <strong>${n}</strong>.`;
-    if (travelled > 0) line += ` Spread to other places: <strong>${travelled}</strong>.`;
-    if (n === 0) line += ' The immune system cleared them all.';
-    else if (n > 330) line += ' The tumour has taken over this patch.';
-    else if (!running) line += trend === 'growing' ? ' With this immune system the tumour grows.' : trend === 'shrinking' ? ' With this immune system the tumour shrinks.' : '';
+    let line = fill(ui.day, { n: days, cells: n });
+    if (travelled > 0) line += ' ' + fill(ui.spread, { n: travelled });
+    if (n === 0) line += ' ' + ui.cleared;
+    else if (n > 330) line += ' ' + ui.overrun;
+    else if (!running && trend === 'growing') line += ' ' + ui.grows;
+    else if (!running && trend === 'shrinking') line += ' ' + ui.shrinks;
     status.innerHTML = line;
-    sliderOut.textContent = Number(slider.value) < 34 ? 'weak' : Number(slider.value) < 67 ? 'medium' : 'strong';
+    sliderOut.textContent = Number(slider.value) < 34 ? ui.weak : Number(slider.value) < 67 ? ui.medium : ui.strong;
     fillRange(slider);
   }
 
@@ -172,7 +175,7 @@ export function initTumour(root: HTMLElement) {
   function stop() {
     running = false;
     window.clearInterval(timer);
-    runButton.textContent = 'Let time pass';
+    runButton.textContent = ui.run;
     say();
   }
 
@@ -186,7 +189,7 @@ export function initTumour(root: HTMLElement) {
       draw();
     }
     running = true;
-    runButton.textContent = 'Pause';
+    runButton.textContent = ui.pause;
     sound.play('tick');
     timer = window.setInterval(tick, 380);
   });

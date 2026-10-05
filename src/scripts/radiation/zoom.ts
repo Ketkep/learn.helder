@@ -15,6 +15,7 @@ import { initDna } from './dna';
 import { initRays } from './rays';
 import { initWeeks } from './weeks';
 import { initPerson } from './person';
+import { fill, readUi } from './ui';
 
 const smooth = (a: number, b: number, x: number) => {
   const t = clamp((x - a) / (b - a), 0, 1);
@@ -32,12 +33,12 @@ const UNITS: [number, string][] = [
   [1e-12, 'pm'],
 ];
 
-/** "40 cm", "30 µm", "20 nm": a length for people. */
-function formatSize(m: number) {
+/** "40 cm", "30 µm", "20 nm": a length for people. The mark is the decimal point or comma of the language. */
+function formatSize(m: number, mark: string) {
   for (const [f, name] of UNITS) {
     if (m >= f * 0.95) {
       const v = m / f;
-      return `${v >= 10 ? Math.round(v) : Math.round(v * 10) / 10} ${name}`;
+      return `${String(v >= 10 ? Math.round(v) : Math.round(v * 10) / 10).replace('.', mark)} ${name}`;
     }
   }
   return `${Math.round(m * 1e12)} pm`;
@@ -58,6 +59,7 @@ interface Segment {
 }
 
 function initZoom(root: HTMLElement) {
+  const ui = readUi(root).hud;
   const rig = q<HTMLElement>(root, '[data-rig]');
   const secs = [...root.querySelectorAll<HTMLElement>('.zsec')];
   const arts = secs.map((s) => q<HTMLElement>(s, '.zart'));
@@ -258,7 +260,7 @@ function initZoom(root: HTMLElement) {
       if (active >= 0) {
         current = active;
         settled = active;
-        announce.textContent = `Scene ${active + 1} of ${count}: ${titles[active]}`;
+        announce.textContent = fill(ui.sceneOf, { i: active + 1, n: count, title: titles[active] });
         if (moveFocus) {
           moveFocus = false;
           panels[active].querySelector<HTMLElement>('.zcard')?.focus({ preventScroll: true });
@@ -277,7 +279,7 @@ function initZoom(root: HTMLElement) {
     const k1 = Math.min(k0 + 1, count - 1);
     const f = c - k0;
     const fov = Math.exp(Math.log(sizes[k0]) + (Math.log(sizes[k1]) - Math.log(sizes[k0])) * f);
-    const fovText = formatSize(fov);
+    const fovText = formatSize(fov, ui.decimal);
     if (fovText !== lastFov) {
       lastFov = fovText;
       fovEl.textContent = fovText;
@@ -286,7 +288,7 @@ function initZoom(root: HTMLElement) {
     const len = nice(fov * 0.26);
     const px = Math.max(8, (len / fov) * ld);
     bar.style.width = `${px.toFixed(0)}px`;
-    const label = formatSize(len);
+    const label = formatSize(len, ui.decimal);
     if (label !== lastBar) {
       lastBar = label;
       barLabel.textContent = label;
@@ -334,7 +336,7 @@ function initZoom(root: HTMLElement) {
     const card = sec.querySelector<HTMLElement>('.zcard');
     more?.addEventListener('click', () => {
       const open = card?.toggleAttribute('data-more');
-      more.textContent = open ? 'Show less' : 'Read more';
+      more.textContent = open ? ui.showLess : ui.readMore;
       more.setAttribute('aria-expanded', String(!!open));
     });
   });
@@ -355,7 +357,8 @@ function initZoom(root: HTMLElement) {
   });
 
   function setPlainLabel() {
-    plainButton.innerHTML = `${film ? 'Plain' : 'Zoom'}<span class="zp-more"> view</span>`;
+    const [short, long] = film ? ui.plain : ui.zoomView;
+    plainButton.innerHTML = `${short}<span class="zp-more">${long}</span>`;
     plainButton.setAttribute('aria-pressed', String(!film && chosenPlain));
   }
 

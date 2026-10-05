@@ -2,18 +2,18 @@
 // Scene 1: a treatment room. Three ways to bring radiation to a tumour: a linac, an MR-linac,
 // or a source inside the body. The tool switches the picture and the words.
 import Scene from './Scene.astro';
-import type { Scene as SceneData } from '../../data/radiation';
-import { ways } from '../../data/radiation';
+import type { Radiation, Scene as SceneData } from '../../data/radiation';
 
 interface Props {
   scene: SceneData;
-  next?: SceneData;
+  copy: Radiation;
 }
-const { scene, next } = Astro.props;
+const { scene, copy } = Astro.props;
+const { ways, room } = copy;
 const INK = '#0e1b1d';
 ---
 
-<Scene scene={scene} next={next} bg="#cfe4e1" keepWords label="A treatment room. A person lies on a couch. In one version a big machine, a linac, sends a beam down at their belly. In another the machine is joined to an MRI scanner. In the third a thin tube runs from the person through a thick wall to a machine with a radioactive source.">
+<Scene scene={scene} copy={copy} bg="#cfe4e1" keepWords label={room.art}>
   <svg slot="art" class="rm" data-room-art data-way="linac" viewBox="0 0 800 800">
     <rect width="800" height="800" fill="#e4eeec"></rect>
     <rect y="560" width="800" height="240" fill="#bfd2ce"></rect>
@@ -70,7 +70,7 @@ const INK = '#0e1b1d';
     <circle class="rm-tumour" cx="400" cy="410" r="9" fill="#e4501a" stroke={INK} stroke-width="3"></circle>
   </svg>
 
-  <div class="controls" role="group" aria-label="How the radiation reaches the tumour">
+  <div class="controls" role="group" aria-label={room.group}>
     {ways.map((w, i) => <button type="button" class="btn needs-js" aria-pressed={i === 0 ? 'true' : 'false'} data-way-btn={w.id}>{w.label}</button>)}
   </div>
   <div class="rm-ways">

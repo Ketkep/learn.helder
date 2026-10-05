@@ -5,12 +5,14 @@
 import * as sound from '../sound';
 import { clamp, fillRange, q } from '../util';
 import { colour, computeDose, GRID, SPAN, type Kind } from './dose';
+import { fill, pick, readUi } from './ui';
 
 const MAX_BEAMS = 6;
 /** Picture units for one centimetre: the picture is 800 wide and shows 48 cm. */
 const UNIT = 800 / SPAN;
 
 export function initBody(root: HTMLElement) {
+  const ui = readUi(root).body;
   const sec = root.querySelector<HTMLElement>('[data-scene="body"]');
   if (!sec) return;
   const canvas = q<HTMLCanvasElement>(sec, '[data-dose]');
@@ -66,13 +68,11 @@ export function initBody(root: HTMLElement) {
   function message(r: ReturnType<typeof computeDose>) {
     const n = angles.length;
     if (kind === 'proton') {
-      if (Math.abs(shift) >= 1) return `The peak has missed the tumour. It gets only <strong>${Math.round(r.tumour)}%</strong> of the dose, and the peak lands in healthy tissue.`;
-      return n === 1
-        ? 'One proton beam is enough here. The dose peaks in the tumour, and hardly anything lands behind it.'
-        : 'Every proton beam stops in the tumour. The low dose on the way in is spread over more angles.';
+      if (Math.abs(shift) >= 1) return fill(ui.missed, { n: Math.round(r.tumour) });
+      return n === 1 ? ui.protonOne : ui.protonMany;
     }
-    if (n === 1) return `One X-ray beam: the skin on the way in gets <strong>${Math.round(r.hot)}%</strong>, more than the tumour, and the beam goes on through the body.`;
-    return 'Several X-ray beams: the hottest healthy spot is lower, because the beams only add up at the tumour. But a bigger part of the body gets a little.';
+    if (n === 1) return fill(ui.photonOne, { n: Math.round(r.hot) });
+    return ui.photonMany;
   }
 
   function render() {
@@ -105,9 +105,9 @@ export function initBody(root: HTMLElement) {
     const last = angles[angles.length - 1];
     angleInput.value = String(last);
     fillRange(angleInput);
-    angleOut.textContent = `${last} degrees`;
+    angleOut.textContent = fill(pick(last, ui.degrees), { n: last });
     fillRange(energyInput);
-    energyOut.textContent = shift === 0 ? 'matched' : `${shift > 0 ? '+' : ''}${shift} cm`;
+    energyOut.textContent = shift === 0 ? ui.matched : `${shift > 0 ? '+' : ''}${shift} cm`;
     energyRow.hidden = kind !== 'proton';
     addButton.disabled = angles.length >= MAX_BEAMS;
     status.innerHTML = message(r);

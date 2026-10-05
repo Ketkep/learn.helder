@@ -142,14 +142,25 @@ The page is a sideways tracking shot. A coin (the orange knob) rolls along a fil
 
 The page is a zoom. One round lens sits next to a card with the text and a tool. Scrolling zooms the lens from a treatment room into the body, the tumour, one cell, its DNA and an atom, and then back out through a dish of cells to the person. A scale bar and the number at the top show how wide the picture is in real life. The ring around the lens turns while you zoom, like the focus ring of a camera.
 
-- `src/data/radiation.ts` holds all the words, the texts of the tools, the sizes used for the scale bar, how far each jump zooms, and the sources.
+- `src/data/radiation/` holds the page. `en.ts` and `nl.ts` hold all the words (scene texts, tool texts, takeaways, sources). `index.ts` holds what is the same in every language: the sizes used for the scale bar, how far each jump zooms, and the cell cycle numbers. `types.ts` is the shape both languages must follow.
 - `src/components/radiation/Zoom.astro` is the frame. `Scene.astro` is one scene: the round picture and the card. `Scene*.astro` are the eight pictures and their tools.
 - `src/scripts/radiation/zoom.ts` is the camera. It turns the scenes into a timeline of waiting and zooming, scales and fades the pictures (the next scene appears small on top of the old one and grows), shows the card of the scene you are on, updates the size at the top, and turns the ring. A card whose text is too tall gets smaller text first, and then scrolls inside itself. On a phone only the first paragraph shows, and "Read more" opens the rest.
 - One script per tool: `room.ts`, `body.ts` (with `dose.ts`, the model of where radiation lands), `tumour.ts`, `cell.ts`, `dna.ts`, `rays.ts`, `weeks.ts`, `person.ts`. `active.ts` tells a tool when its scene is in front of the reader, so animations rest otherwise.
 - To change how far a jump zooms, edit `zoom` in the scene list (`ratio` is how much the picture grows or shrinks, `dir` says in or out). The size at the top comes from `size` (in metres).
 - When the screen is too short, or the reader asked for less motion, or pressed the "Plain view" button, the camera does not run. The page is then a stack of sections (a round picture, then its card) and every tool still works. The choice of the plain view is saved in `localStorage` under `zoomView`.
 - The tools are simple models and the page says so. The beam model, the weeks model and the numbers in the cell tool are made up to show an idea, not to plan a treatment. Keep it that way, and keep the sentence "It is not medical advice" in the note above the sources.
-- The page is based on a school research project. No names are on the page. To credit the authors, add their names to `sourcesNote` in `src/pages/radiation-therapy/index.astro`, with their permission.
+- The page is based on a school research project. No names are on the page. To credit the authors, add their names to `sourcesNote` in both `src/data/radiation/en.ts` and `nl.ts`, with their permission.
+
+## The Dutch version and other languages
+
+The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
+
+- All the words of the page sit in two files with the same shape: `src/data/radiation/en.ts` and `nl.ts`. TypeScript (`npm run check`) fails if a line is missing in one of them. Lines with `{name}` in them are templates, and a pair like `[one, many]` is picked by the count (`src/lib/text.ts`).
+- The scripts hold no sentences. `Zoom.astro` puts the words they need on the root element as JSON (`data-ui`), in the language of the page, and `src/scripts/radiation/ui.ts` reads them. So the English page never downloads the Dutch words.
+- The frame around a topic (header, footer, "Key takeaways", "Sources", the skip link) is in `src/lib/siteText.ts`. `TopicLayout` and `BaseLayout` take a `lang` prop that sets `<html lang>`, the words around the page, and the `hreflang` links for search engines.
+- The home page and the other topics are English only. So the Dutch page has no "next topic" card, and its "all topics" links say "(Engels)".
+- Dutch uses a decimal comma in the size at the top (2,5 m). The Dutch text follows the school project where it can (afweersysteem, uitzaaiing, bronhouders, zaadjes). Facts that the project got wrong were corrected in both languages.
+- To translate another topic: add `translations: { nl: { slug, title, hook, category } }` to its entry in `src/data/topics.ts`, put the page in `src/pages/nl/<slug>/index.astro` with `lang="nl"` on `TopicLayout`, and keep the same ids, numbers and links in both languages. Draft topics take their translations down with them in `npm run build`.
 
 ## Draft and live
 
@@ -164,9 +175,9 @@ src/data/topics.ts       the list of all topics
 src/data/gambits.ts      everything the chess page says: games, scenes, field guide, sources
 src/data/peru.ts         everything the Peru page says: shots, brick stamps, year line, sources
 src/data/dutch.ts        everything the Dutch page says: stops, pretend numbers, route, sources
-src/data/radiation.ts    everything the radiation page says: scenes, tool texts, sources
+src/data/radiation/      the radiation page: en.ts and nl.ts (the words), index.ts (the numbers), types.ts
 src/pages/index.astro    the homepage (hero, filter, grid)
-src/pages/<slug>/        one folder per topic
+src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
 src/components/          header, footer, topic card, "coming soon" block
 src/components/chess/    the chess page: the film, the field guide, the piece sprite
@@ -180,6 +191,8 @@ src/styles/roll.css      the Dutch film: plain mode, film mode, bar, strip, cont
 src/styles/zoom.css      the radiation zoom: plain mode, film mode, lens, bar, controls
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
+src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
+src/lib/text.ts          fill {slots} in a line, and pick singular or plural
 src/lib/chess/           chess pieces, still diagrams, and the build-time analysis of games
 src/lib/dutch/           drawing helpers, background strips, map and painting for the Dutch page
 src/lib/rand.ts          repeatable random numbers.  src/lib/svgpath.ts: smooth curves for drawings

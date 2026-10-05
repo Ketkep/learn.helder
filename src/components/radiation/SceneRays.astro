@@ -2,14 +2,15 @@
 // Scene 6: an atom that sends out a ray. Pick alpha, beta or gamma, pick a wall, and see which
 // rays get through. The sizes are not to scale: it is a picture of the idea.
 import Scene from './Scene.astro';
-import type { Scene as SceneData } from '../../data/radiation';
-import { rayKinds, walls } from '../../data/radiation';
+import type { Radiation, Scene as SceneData } from '../../data/radiation';
 
 interface Props {
   scene: SceneData;
-  next?: SceneData;
+  copy: Radiation;
 }
-const { scene, next } = Astro.props;
+const { scene, copy } = Astro.props;
+const { rayKinds, walls } = copy;
+const t = copy.rays;
 
 // The nucleus: a clump of protons (orange) and neutrons (grey)
 const nucleus = [
@@ -17,7 +18,7 @@ const nucleus = [
 ] as const;
 ---
 
-<Scene scene={scene} next={next} bg="#0c1a22" keepWords label="An atom drawn with a clump of protons and neutrons in the middle and electrons circling it. A ray leaves the atom towards a wall on the right. Depending on the kind of ray and the wall, the ray is stopped or passes through.">
+<Scene scene={scene} copy={copy} bg="#0c1a22" keepWords label={t.art}>
   <svg slot="art" class="ry" data-rays-art data-wall="paper" viewBox="0 0 800 800">
     <rect width="800" height="800" fill="#0c1a22"></rect>
     <g class="ry-orbits" fill="none" stroke="#3a6ea5" stroke-width="3">
@@ -33,15 +34,15 @@ const nucleus = [
     <g class="ry-wall ry-concrete"><rect x="590" y="190" width="100" height="420" rx="4" fill="#6b7780" stroke="#0c1a22" stroke-width="2"></rect><path d="M590 260H690M590 330H690M590 400H690M590 470H690M590 540H690M640 190V260M615 260V330M665 260V330M640 330V400M615 400V470M665 400V470M640 470V540M615 540V610M665 540V610" stroke="#56626b" stroke-width="3"></path></g>
 
     <g data-ray></g>
-    <text x="400" y="744" text-anchor="middle" font-family="Covered By Your Grace, cursive" font-size="30" fill="#fff3dc" opacity="0.7">not to scale</text>
+    <text x="400" y="744" text-anchor="middle" font-family="Covered By Your Grace, cursive" font-size="30" fill="#fff3dc" opacity="0.7">{t.scale}</text>
   </svg>
 
-  <div class="controls" role="group" aria-label="Kind of ray">
+  <div class="controls" role="group" aria-label={t.kindGroup}>
     {rayKinds.map((r, i) => <button type="button" class="btn needs-js" aria-pressed={i === 0 ? 'true' : 'false'} data-ray-btn={i}>{r.label}</button>)}
   </div>
-  <div class="controls" role="group" aria-label="Wall">
+  <div class="controls" role="group" aria-label={t.wallGroup}>
     {walls.map((w, i) => <button type="button" class="btn needs-js" aria-pressed={i === 0 ? 'true' : 'false'} data-wall-btn={i}>{w.label}</button>)}
-    <button type="button" class="btn fill needs-js" data-send>Send a ray</button>
+    <button type="button" class="btn fill needs-js" data-send>{t.send}</button>
   </div>
   <p class="status needs-js" role="status" data-ry-status></p>
   <ul class="ry-uses">

@@ -4,7 +4,8 @@
 
 import * as sound from '../sound';
 import { q, reducedMotion } from '../util';
-import { rayKinds, rayResults, walls } from '../../data/radiation';
+import { rayResults } from '../../data/radiation/results';
+import { fill, readUi } from './ui';
 
 const NS = 'http://www.w3.org/2000/svg';
 const START = 470;
@@ -14,6 +15,7 @@ const FRONT = 590;
 const SPEED: Record<string, number> = { alpha: 240, beta: 520, gamma: 1100 };
 
 export function initRays(root: HTMLElement) {
+  const { rays: ui, rayKinds, walls } = readUi(root);
   const sec = root.querySelector<HTMLElement>('[data-scene="rays"]');
   if (!sec) return;
   const art = q<SVGElement>(sec, '[data-rays-art]');
@@ -74,13 +76,8 @@ export function initRays(root: HTMLElement) {
 
   function say(result: string) {
     const kind = rayKinds[ray];
-    const wallName = walls[wall].label.toLowerCase();
-    const line =
-      result === 'stopped'
-        ? `<strong>Stopped</strong> by ${wallName}.`
-        : result === 'weaker'
-          ? `Goes through ${wallName}, but <strong>weaker</strong>.`
-          : `Goes <strong>straight through</strong> ${wallName}.`;
+    const values = { wall: walls[wall].name };
+    const line = fill(result === 'stopped' ? ui.stopped : result === 'weaker' ? ui.weaker : ui.through, values);
     status.innerHTML = `${line} ${kind.use}`;
   }
 
@@ -132,5 +129,5 @@ export function initRays(root: HTMLElement) {
   send.addEventListener('click', fire);
 
   pick();
-  status.textContent = 'Pick a ray and a wall, then send the ray.';
+  status.textContent = ui.start;
 }

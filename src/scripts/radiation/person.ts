@@ -3,9 +3,10 @@
 
 import * as sound from '../sound';
 import { q } from '../util';
-import { lastSession } from '../../data/radiation';
+import { readUi } from './ui';
 
 export function initPerson(root: HTMLElement) {
+  const { lastSession } = readUi(root);
   const sec = root.querySelector<HTMLElement>('[data-scene="person"]');
   if (!sec) return;
   const art = q<SVGElement>(sec, '[data-person-art]');

@@ -1,4 +1,12 @@
 ---
+import { siteText } from '../lib/siteText';
+import type { Lang } from '../lib/text';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const words = siteText[lang];
 const year = new Date().getFullYear();
 ---
 
@@ -6,7 +14,7 @@ const year = new Date().getFullYear();
   <div class="wrap inner">
     <div class="about">
       <p class="name">Helder Labs Learn</p>
-      <p>Set in Young Serif and Hanken Grotesk. No cookies, no tracking.</p>
+      <p>{words.footer}</p>
     </div>
     <ul class="links">
       <li><a href="https://helderlabs.com">helderlabs.com</a></li>

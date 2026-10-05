@@ -3,13 +3,15 @@
 // different angles, and a colour map shows where the dose lands. The model is in
 // src/scripts/radiation/dose.ts.
 import Scene from './Scene.astro';
-import type { Scene as SceneData } from '../../data/radiation';
+import type { Radiation, Scene as SceneData } from '../../data/radiation';
+import { fill, pick } from '../../lib/text';
 
 interface Props {
   scene: SceneData;
-  next?: SceneData;
+  copy: Radiation;
 }
-const { scene, next } = Astro.props;
+const { scene, copy } = Astro.props;
+const t = copy.body;
 
 // Organs as soft blobs: bowel loops in front, muscle at the back
 const loops = [
@@ -24,7 +26,7 @@ const loops = [
 ];
 ---
 
-<Scene scene={scene} next={next} bg="#1b2d2d" jsArt label="A slice through a body, like a CT scan. The tumour is a small round shape in the middle. Colours on top show where radiation from beams at different angles lands: blue is a little, red is the full dose.">
+<Scene scene={scene} copy={copy} bg="#1b2d2d" jsArt label={t.art}>
   <svg slot="art" viewBox="0 0 800 800" aria-hidden="true">
     <rect width="800" height="800" fill="#050b0b"></rect>
     <ellipse cx="375" cy="408" rx="283" ry="183" fill="#1d2626" stroke="#8da0a0" stroke-width="6"></ellipse>
@@ -45,39 +47,39 @@ const loops = [
     <g data-beams></g>
     <circle cx="400" cy="400" r="37" fill="none" stroke="#ffb27a" stroke-width="3.5" stroke-dasharray="7 6"></circle>
     <g font-family="Covered By Your Grace, cursive" font-size="34" fill="#fff3dc" opacity="0.8">
-      <text x="400" y="62" text-anchor="middle">front</text>
-      <text x="400" y="664" text-anchor="middle">back</text>
-      <text x="400" y="708" text-anchor="middle" font-size="26" opacity="0.7">a simple model</text>
+      <text x="400" y="62" text-anchor="middle">{t.front}</text>
+      <text x="400" y="664" text-anchor="middle">{t.back}</text>
+      <text x="400" y="708" text-anchor="middle" font-size="26" opacity="0.7">{t.model}</text>
     </g>
   </svg>
 
-  <div class="controls" role="group" aria-label="Kind of radiation">
-    <button type="button" class="btn" aria-pressed="true" data-kind="photon">X-rays</button>
-    <button type="button" class="btn" aria-pressed="false" data-kind="proton">Protons</button>
-    <button type="button" class="btn fill" data-add>Add a beam</button>
-    <button type="button" class="btn" data-reset>Reset</button>
+  <div class="controls" role="group" aria-label={t.kindGroup}>
+    <button type="button" class="btn" aria-pressed="true" data-kind="photon">{t.photon}</button>
+    <button type="button" class="btn" aria-pressed="false" data-kind="proton">{t.proton}</button>
+    <button type="button" class="btn fill" data-add>{t.add}</button>
+    <button type="button" class="btn" data-reset>{t.reset}</button>
   </div>
   <div class="controls">
-    <label class="label" for="bd-angle">Last beam, from</label>
+    <label class="label" for="bd-angle">{t.angle}</label>
     <input class="range" id="bd-angle" type="range" min="0" max="359" step="1" value="0" data-angle />
-    <output class="label bd-out" for="bd-angle" data-angle-out>0 degrees</output>
+    <output class="label bd-out" for="bd-angle" data-angle-out>{fill(pick(0, t.degrees), { n: 0 })}</output>
   </div>
   <div class="controls" data-energy-row hidden>
-    <label class="label" for="bd-energy">Proton energy</label>
+    <label class="label" for="bd-energy">{t.energy}</label>
     <input class="range" id="bd-energy" type="range" min="-4" max="4" step="0.5" value="0" data-energy />
-    <output class="label bd-out" for="bd-energy" data-energy-out>matched</output>
+    <output class="label bd-out" for="bd-energy" data-energy-out>{t.matched}</output>
   </div>
   <div class="bd-stats">
     <div class="meter">
-      <div class="meter-top"><span>Tumour dose</span><span data-v="tumour">100%</span></div>
+      <div class="meter-top"><span>{t.tumourDose}</span><span data-v="tumour">100%</span></div>
       <div class="meter-bar"><div class="meter-fill" data-bar="tumour"></div></div>
     </div>
     <div class="meter">
-      <div class="meter-top"><span>Hottest healthy spot</span><span data-v="hot">0%</span></div>
+      <div class="meter-top"><span>{t.hottest}</span><span data-v="hot">0%</span></div>
       <div class="meter-bar"><div class="meter-fill" data-bar="hot"></div></div>
     </div>
     <div class="meter">
-      <div class="meter-top"><span>Healthy tissue reached</span><span data-v="exposed">0%</span></div>
+      <div class="meter-top"><span>{t.reached}</span><span data-v="exposed">0%</span></div>
       <div class="meter-bar"><div class="meter-fill" data-bar="exposed"></div></div>
     </div>
   </div>

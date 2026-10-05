@@ -5,6 +5,7 @@
 import * as sound from '../sound';
 import { clamp, fillRange, q, reducedMotion } from '../util';
 import { whenActive } from './active';
+import { fill, readUi } from './ui';
 
 interface Phase {
   id: string;
@@ -20,6 +21,7 @@ const NS = 'http://www.w3.org/2000/svg';
 const PERIOD = 10000;
 
 export function initCell(root: HTMLElement) {
+  const ui = readUi(root).cell;
   const sec = root.querySelector<HTMLElement>('[data-scene="cell"]');
   if (!sec) return;
   const art = q<SVGElement>(sec, '[data-cell-art]');
@@ -50,7 +52,7 @@ export function initCell(root: HTMLElement) {
     hand.setAttribute('cy', (400 - 330 * Math.cos(a)).toFixed(1));
     slider.value = String(Math.round(phi * 100));
     fillRange(slider);
-    playButton.textContent = playing ? 'Pause' : 'Play';
+    playButton.textContent = playing ? ui.pause : ui.play;
     playButton.setAttribute('aria-pressed', String(playing));
   }
 
@@ -100,8 +102,9 @@ export function initCell(root: HTMLElement) {
     }, 1800);
 
     shots = [{ phase: p }, ...shots].slice(0, 4);
-    log.innerHTML = shots.map((s) => `<li class="${s.phase.damage >= 0.75 ? 'big' : ''}">${s.phase.label}: ${s.phase.damage >= 0.99 ? 'most' : s.phase.damage >= 0.7 ? 'a lot' : s.phase.damage >= 0.4 ? 'some' : 'little'}</li>`).join('');
-    status.innerHTML = `Fired in the <strong>${p.label}</strong> phase, while the cell is ${p.name}: <strong>${p.words}</strong>.`;
+    const level = (d: number) => (d >= 0.99 ? ui.levels.most : d >= 0.7 ? ui.levels.lot : d >= 0.4 ? ui.levels.some : ui.levels.little);
+    log.innerHTML = shots.map((s) => `<li class="${s.phase.damage >= 0.75 ? 'big' : ''}">${s.phase.label}: ${level(s.phase.damage)}</li>`).join('');
+    status.innerHTML = fill(ui.fired, { label: p.label, name: p.name, words: p.words });
   }
 
   playButton.addEventListener('click', () => {
@@ -122,5 +125,5 @@ export function initCell(root: HTMLElement) {
   });
 
   show();
-  status.textContent = 'Press Fire when you want to take a shot.';
+  status.textContent = ui.start;
 }

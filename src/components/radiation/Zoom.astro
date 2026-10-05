@@ -3,7 +3,8 @@
 // The pictures and tools are in the Scene components. The behaviour is in src/scripts/radiation.
 // Without scripts this is a normal page you can scroll and read.
 import '../../styles/zoom.css';
-import { scenes } from '../../data/radiation';
+import { fill } from '../../lib/text';
+import { getRadiation, type Lang } from '../../data/radiation';
 import SceneRoom from './SceneRoom.astro';
 import SceneBody from './SceneBody.astro';
 import SceneTumour from './SceneTumour.astro';
@@ -12,6 +13,13 @@ import SceneDna from './SceneDna.astro';
 import SceneRays from './SceneRays.astro';
 import SceneWeeks from './SceneWeeks.astro';
 import ScenePerson from './ScenePerson.astro';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const copy = getRadiation(lang);
+const { scenes, hud } = copy;
 
 const parts = [SceneRoom, SceneBody, SceneTumour, SceneCell, SceneDna, SceneRays, SceneWeeks, ScenePerson];
 
@@ -26,19 +34,19 @@ const ticks = Array.from({ length: 72 }, (_, i) => {
 }).join('');
 ---
 
-<div class="zoom" data-zoom>
+<div class="zoom" data-zoom data-ui={JSON.stringify(copy.ui)}>
   <div class="zrig" data-rig>
     <div class="zhud">
       <div class="zscale" aria-hidden="true">
         <span class="zscale-num" data-fov>4 m</span>
-        <span class="zscale-lab">across the picture</span>
+        <span class="zscale-lab">{hud.across}</span>
       </div>
-      <nav class="zroute" aria-label="Scenes">
+      <nav class="zroute" aria-label={hud.routeLabel}>
         <ol>
           {
             scenes.map((s, i) => (
               <li>
-                <button type="button" data-jump={i} aria-label={`Go to scene ${i + 1}: ${s.title}`}>
+                <button type="button" data-jump={i} aria-label={fill(hud.goTo, { i: i + 1, title: s.title })}>
                   <span class="dot"></span>
                 </button>
               </li>
@@ -47,14 +55,14 @@ const ticks = Array.from({ length: 72 }, (_, i) => {
         </ol>
       </nav>
       <div class="zbtns">
-        <button class="zplain needs-js" type="button" data-plain aria-pressed="false">Plain<span class="zp-more"> view</span></button>
-        <button class="snd needs-js" type="button" data-sound aria-pressed="true">
+        <button class="zplain needs-js" type="button" data-plain aria-pressed="false">{hud.plain[0]}<span class="zp-more">{hud.plain[1]}</span></button>
+        <button class="snd needs-js" type="button" data-sound data-label-on={hud.soundOn} data-label-off={hud.soundOff} aria-pressed="true">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
             <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"></path>
             <path class="wave" d="M15 9a4 4 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
             <path class="slash" d="M16 8.5l5 7M21 8.5l-5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
           </svg>
-          <span class="visually-hidden" data-sound-label>Sound on</span>
+          <span class="visually-hidden" data-sound-label>{hud.soundOn}</span>
         </button>
       </div>
     </div>
@@ -68,9 +76,9 @@ const ticks = Array.from({ length: 72 }, (_, i) => {
       </svg>
     </div>
     <div class="zruler" aria-hidden="true"><span class="zbar" data-bar></span><span data-bar-label>1 m</span></div>
-    <p class="zhint" aria-hidden="true">Scroll to zoom in</p>
+    <p class="zhint" aria-hidden="true">{hud.hint}</p>
 
-    {parts.map((Part, i) => <Part scene={scenes[i]} next={scenes[i + 1]} />)}
+    {parts.map((Part, i) => <Part scene={scenes[i]} copy={copy} />)}
   </div>
 </div>
 

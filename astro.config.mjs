@@ -12,8 +12,11 @@ function pruneDrafts() {
     hooks: {
       'astro:build:done': ({ dir }) => {
         for (const topic of topics.filter((t) => t.status === 'draft')) {
-          const folder = fileURLToPath(new URL(`./${topic.slug}/`, dir));
-          rmSync(folder, { recursive: true, force: true });
+          // The topic itself, and its translations (they live at /<language>/<slug>/)
+          const folders = [topic.slug, ...Object.entries(topic.translations ?? {}).map(([lang, t]) => `${lang}/${t.slug}`)];
+          for (const name of folders) {
+            rmSync(fileURLToPath(new URL(`./${name}/`, dir)), { recursive: true, force: true });
+          }
         }
       },
     },

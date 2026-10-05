@@ -3,39 +3,41 @@
 // (pale, around them) is treated day by day. Cells that are about to divide get a yellow ring: they
 // are the ones that take the most damage.
 import Scene from './Scene.astro';
-import type { Scene as SceneData } from '../../data/radiation';
+import type { Radiation, Scene as SceneData } from '../../data/radiation';
+import { fill, pick } from '../../lib/text';
 
 interface Props {
   scene: SceneData;
-  next?: SceneData;
+  copy: Radiation;
 }
-const { scene, next } = Astro.props;
+const { scene, copy } = Astro.props;
+const t = copy.weeks;
 ---
 
-<Scene scene={scene} next={next} bg="#e9cfd8" jsArt label="A dish of cells. Dark purple tumour cells sit in the middle and pale healthy cells around them. Cells that are about to divide have a yellow ring. As the days of treatment pass, tumour cells disappear.">
+<Scene scene={scene} copy={copy} bg="#e9cfd8" jsArt label={t.art}>
   <canvas slot="art" data-weeks width="800" height="800"></canvas>
 
   <div class="controls">
-    <label class="label" for="wk-sessions">Sessions</label>
+    <label class="label" for="wk-sessions">{t.sessions}</label>
     <input class="range" id="wk-sessions" type="range" min="0" max="4" step="1" value="4" data-sessions />
-    <output class="label wk-out" for="wk-sessions" data-sessions-out>30 sessions of 2 Gy</output>
+    <output class="label wk-out" for="wk-sessions" data-sessions-out>{fill(pick(30, t.plan), { n: 30, dose: 2 })}</output>
   </div>
   <div class="wk-row">
     <div class="wk-cal" data-cal aria-hidden="true"></div>
     <div class="wk-side">
       <div class="wk-stats">
         <div class="meter">
-          <div class="meter-top"><span>Tumour cells left</span><span data-tumour-text>100%</span></div>
+          <div class="meter-top"><span>{t.tumourLeft}</span><span data-tumour-text>100%</span></div>
           <div class="meter-bar"><div class="meter-fill hot" data-tumour-bar style="width: 100%"></div></div>
         </div>
         <div class="meter">
-          <div class="meter-top"><span>Healthy cells left</span><span data-healthy-text>100%</span></div>
+          <div class="meter-top"><span>{t.healthyLeft}</span><span data-healthy-text>100%</span></div>
           <div class="meter-bar"><div class="meter-fill" data-healthy-bar style="width: 100%"></div></div>
         </div>
       </div>
       <div class="controls">
-        <button type="button" class="btn fill" data-start>Start treatment</button>
-        <button type="button" class="btn" data-wk-reset>Reset</button>
+        <button type="button" class="btn fill" data-start>{t.start}</button>
+        <button type="button" class="btn" data-wk-reset>{t.reset}</button>
       </div>
     </div>
   </div>

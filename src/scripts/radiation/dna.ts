@@ -5,6 +5,7 @@
 import * as sound from '../sound';
 import { q, reducedMotion } from '../util';
 import { whenActive } from './active';
+import { fill, pick, readUi } from './ui';
 
 const SITES = 14;
 /** The cell dies when this many breaks are open at once. */
@@ -22,6 +23,7 @@ interface Site {
 }
 
 export function initDna(root: HTMLElement) {
+  const ui = readUi(root).dna;
   const sec = root.querySelector<HTMLElement>('[data-scene="dna"]');
   if (!sec) return;
   const canvas = q<HTMLCanvasElement>(sec, '[data-dna]');
@@ -59,14 +61,14 @@ export function initDna(root: HTMLElement) {
     wasDamaged = false;
     repaired = 0;
     radiate.disabled = false;
-    say(`A <strong>${type === 'healthy' ? 'healthy' : 'tumour'}</strong> cell. Press Radiate to send rays at its DNA.`);
+    say(type === 'healthy' ? ui.startHealthy : ui.startTumour);
     meters();
     if (!raf) frame(performance.now());
   }
 
   function meters() {
     const n = open();
-    breaksText.textContent = `${n} of ${LIMIT}`;
+    breaksText.textContent = fill(ui.breaksOf, { n, limit: LIMIT });
     breaksBar.style.width = `${Math.min(100, (n / LIMIT) * 100)}%`;
     breaksBar.classList.toggle('hot', n >= LIMIT - 2);
   }
@@ -104,9 +106,9 @@ export function initDna(root: HTMLElement) {
       rays = [];
       radiate.disabled = true;
       sound.play('thud');
-      say('<strong>Too much damage at once.</strong> The cell can no longer repair itself, and it dies.');
+      say(ui.dead);
     } else {
-      say(`<strong>${open()}</strong> ${open() === 1 ? 'break' : 'breaks'} in the DNA. The cell starts to repair them.`);
+      say(fill(pick(open(), ui.broken), { n: open() }));
     }
   }
 
@@ -258,11 +260,11 @@ export function initDna(root: HTMLElement) {
           sound.play('tick');
           meters();
           if (open() === 0 && wasDamaged && rays.length === 0) {
-            say(`<strong>All mended.</strong> The cell repaired every break (${repaired} in all).`);
+            say(fill(ui.mended, { n: repaired }));
             wasDamaged = false;
             sound.play('good');
           } else if (open() > 0) {
-            say(`<strong>${open()}</strong> ${open() === 1 ? 'break' : 'breaks'} left. <strong>${repaired}</strong> mended so far.`);
+            say(fill(pick(open(), ui.left), { n: open(), m: repaired }));
           }
         }
       });

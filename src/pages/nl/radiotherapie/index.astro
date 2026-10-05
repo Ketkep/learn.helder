@@ -1,0 +1,12 @@
+---
+// De Nederlandse versie van src/pages/radiation-therapy. Dezelfde pagina, andere taal.
+import TopicLayout from '../../../layouts/TopicLayout.astro';
+import Zoom from '../../../components/radiation/Zoom.astro';
+import { getRadiation } from '../../../data/radiation';
+
+const { page, takeaways, sources } = getRadiation('nl');
+---
+
+<TopicLayout slug="radiation-therapy" lang="nl" intro={page.intro} takeaways={takeaways} sources={sources} sourcesNote={page.sourcesNote} wide>
+  <Zoom lang="nl" />
+</TopicLayout>

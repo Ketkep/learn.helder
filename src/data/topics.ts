@@ -4,6 +4,14 @@
 
 export type TopicStatus = 'live' | 'draft';
 
+/** A topic page written in another language. It shows up at /<language>/<slug>/. */
+export interface TopicTranslation {
+  slug: string;
+  title: string;
+  hook: string;
+  category: string;
+}
+
 export interface Topic {
   /** URL part and folder name: src/pages/<slug>/index.astro */
   slug: string;
@@ -19,6 +27,8 @@ export interface Topic {
   dateAdded: string;
   /** "draft" topics show up in `npm run dev` only. */
   status: TopicStatus;
+  /** Other languages this topic is available in. The homepage and the numbering stay English. */
+  translations?: { nl?: TopicTranslation };
 }
 
 // The topics, in the order they were added.
@@ -62,6 +72,14 @@ export const topics: Topic[] = [
     preview: 'radiation-therapy',
     dateAdded: '2026-10-04',
     status: 'live',
+    translations: {
+      nl: {
+        slug: 'radiotherapie',
+        title: 'Radiotherapie',
+        hook: 'Hoe onzichtbare stralen kanker behandelen, van de behandelkamer tot één streng DNA.',
+        category: 'Geneeskunde',
+      },
+    },
   },
 ];
 

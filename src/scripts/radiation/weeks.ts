@@ -6,6 +6,7 @@
 import * as sound from '../sound';
 import { fillRange, q, reducedMotion } from '../util';
 import { seeded } from '../../lib/rand';
+import { fill, pick, readUi } from './ui';
 
 const SIZE = 800;
 const SPACING = 42;
@@ -32,6 +33,7 @@ interface Cell {
 }
 
 export function initWeeks(root: HTMLElement) {
+  const ui = readUi(root).weeks;
   const sec = root.querySelector<HTMLElement>('[data-scene="weeks"]');
   if (!sec) return;
   const canvas = q<HTMLCanvasElement>(sec, '[data-weeks]');
@@ -208,10 +210,10 @@ export function initWeeks(root: HTMLElement) {
     if (final) {
       const low = Math.round(lowest * 100);
       let verdict: string;
-      if (t === 0 && hp >= 80) verdict = 'The tumour is gone and most healthy tissue is fine.';
-      else if (t === 0) verdict = 'The tumour is gone, but so is a lot of healthy tissue. Splitting the dose into more sessions spares it.';
-      else verdict = `${t} tumour ${t === 1 ? 'cell' : 'cells'} survived.`;
-      status.innerHTML = `<strong>After ${day} days.</strong> Healthy tissue fell to <strong>${low}%</strong> at its lowest and ended at <strong>${hp}%</strong>. ${verdict}`;
+      if (t === 0 && hp >= 80) verdict = ui.verdictGone;
+      else if (t === 0) verdict = ui.verdictCost;
+      else verdict = fill(pick(t, ui.verdictLeft), { n: t });
+      status.innerHTML = fill(ui.result, { d: day, low, hp, verdict });
     }
   }
 
@@ -258,7 +260,7 @@ export function initWeeks(root: HTMLElement) {
       return true;
     }
     const { t, h } = counts();
-    status.innerHTML = `<strong>Day ${day}.</strong> Tumour cells: <strong>${t}</strong>. Healthy cells: <strong>${h}</strong>.`;
+    status.innerHTML = fill(ui.day, { d: day, t, h });
     return false;
   }
 
@@ -269,13 +271,13 @@ export function initWeeks(root: HTMLElement) {
     meters(true);
     draw(now);
     sound.play('good');
-    startButton.textContent = 'Treat again';
+    startButton.textContent = ui.again;
   }
 
   function stopTimer() {
     running = false;
     window.clearInterval(timer);
-    startButton.textContent = 'Start treatment';
+    startButton.textContent = ui.start;
   }
 
   function reset() {
@@ -290,9 +292,9 @@ export function initWeeks(root: HTMLElement) {
     meters();
     draw(performance.now());
     const n = sessions();
-    sliderOut.textContent = `${n} ${n === 1 ? 'session' : 'sessions'} of ${TOTAL / n} Gy`;
+    sliderOut.textContent = fill(pick(n, ui.plan), { n, dose: TOTAL / n });
     fillRange(slider);
-    status.innerHTML = `The same <strong>${TOTAL} Gy</strong> in ${n} ${n === 1 ? 'session' : 'sessions'}. Yellow rings are cells about to divide. Press Start.`;
+    status.innerHTML = fill(pick(n, ui.ready), { total: TOTAL, n });
   }
 
   startButton.addEventListener('click', () => {
@@ -310,7 +312,7 @@ export function initWeeks(root: HTMLElement) {
       return;
     }
     running = true;
-    startButton.textContent = 'Pause';
+    startButton.textContent = ui.pause;
     const dayMs = Math.min(700, Math.max(220, 9000 / (endDay + 1)));
     timer = window.setInterval(() => {
       step(performance.now());

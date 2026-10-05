@@ -7,10 +7,13 @@ export function initSoundButton(root: ParentNode) {
   const button = root.querySelector<HTMLButtonElement>('[data-sound]');
   const label = root.querySelector<HTMLElement>('[data-sound-label]');
 
+  // A page in another language puts its own words on the button. English is the default.
+  const words = { on: button?.dataset.labelOn ?? 'Sound on', off: button?.dataset.labelOff ?? 'Sound off' };
+
   const refresh = () => {
     const on = sound.isSoundOn();
     button?.setAttribute('aria-pressed', String(on));
-    if (label) label.textContent = on ? 'Sound on' : 'Sound off';
+    if (label) label.textContent = on ? words.on : words.off;
   };
   refresh();
 

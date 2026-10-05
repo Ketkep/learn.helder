@@ -2,26 +2,27 @@
 // Scene 3: a crowd of cells. Healthy cells are pale, faulty cells are dark. The immune system
 // slider decides how many faulty cells get cleared away each day.
 import Scene from './Scene.astro';
-import type { Scene as SceneData } from '../../data/radiation';
+import type { Radiation, Scene as SceneData } from '../../data/radiation';
 
 interface Props {
   scene: SceneData;
-  next?: SceneData;
+  copy: Radiation;
 }
-const { scene, next } = Astro.props;
+const { scene, copy } = Astro.props;
+const t = copy.tumour;
 ---
 
-<Scene scene={scene} next={next} bg="#e9cfd8" jsArt label="A patch of tissue seen through a microscope. Pale pink cells with a small purple nucleus are healthy. A cluster of darker cells with bigger nuclei in the middle are faulty cells that have piled up into a tumour.">
+<Scene scene={scene} copy={copy} bg="#e9cfd8" jsArt label={t.art}>
   <canvas slot="art" data-tumour width="800" height="800"></canvas>
 
   <div class="controls">
-    <label class="label" for="tm-immune">Immune system</label>
+    <label class="label" for="tm-immune">{t.immune}</label>
     <input class="range" id="tm-immune" type="range" min="0" max="100" step="1" value="20" data-immune />
-    <output class="label tm-out" for="tm-immune" data-immune-out>weak</output>
+    <output class="label tm-out" for="tm-immune" data-immune-out>{t.weak}</output>
   </div>
   <div class="controls">
-    <button type="button" class="btn fill" data-run>Let time pass</button>
-    <button type="button" class="btn" data-restart>Start again</button>
+    <button type="button" class="btn fill" data-run>{t.run}</button>
+    <button type="button" class="btn" data-restart>{t.restart}</button>
   </div>
   <p class="status" role="status" data-tm-status></p>
 </Scene>

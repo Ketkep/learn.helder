@@ -7,10 +7,14 @@ import BaseLayout from './BaseLayout.astro';
 import CoverArt from '../components/CoverArt.astro';
 import { getTopic, getNextTopic, getTopicNumber } from '../data/topics';
 import { readableInk, coverVars } from '../lib/color';
+import { siteText } from '../lib/siteText';
+import type { Lang } from '../lib/text';
 
 interface Props {
   /** Must match the entry in src/data/topics.ts. Title, hook and color come from there. */
   slug: string;
+  /** The language of the page. Other than English needs a translation in src/data/topics.ts. */
+  lang?: Lang;
   /** A short paragraph under the title. */
   intro: string;
   /** Plain sentences for the "Key takeaways" block. */
@@ -25,32 +29,59 @@ interface Props {
   wide?: boolean;
 }
 
-const { slug, intro, takeaways = [], sources = [], sourcesNote, bare = false, wide = false } = Astro.props;
+const { slug, lang = 'en', intro, takeaways = [], sources = [], sourcesNote, bare = false, wide = false } = Astro.props;
 const topic = getTopic(slug);
-const next = getNextTopic(slug);
+const words = siteText[lang];
+
+// Title, hook and category come from the translation when the page is not English
+const translation = lang === 'en' ? undefined : topic.translations?.[lang];
+if (lang !== 'en' && !translation) throw new Error(`Topic "${slug}" has no "${lang}" translation in src/data/topics.ts`);
+const title = translation?.title ?? topic.title;
+const hook = translation?.hook ?? topic.hook;
+const category = translation?.category ?? topic.category;
+
+// Where this topic lives in each language, for the switch link and for search engines
+const addresses: [Lang, string][] = [['en', `/${topic.slug}/`]];
+if (topic.translations?.nl) addresses.push(['nl', `/nl/${topic.translations.nl.slug}/`]);
+const other = addresses.find(([l]) => l !== lang);
+const alternates = [...addresses.map(([l, href]) => ({ hreflang: l, href })), { hreflang: 'x-default', href: addresses[0][1] }];
+
+// The other topics only exist in English, so a translated page has no "next topic" card
+const next = lang === 'en' ? getNextTopic(slug) : undefined;
 const number = getTopicNumber(slug);
 const ink = readableInk(topic.accent);
 ---
 
 <BaseLayout
-  title={`${topic.title} | Helder Labs Learn`}
-  description={topic.hook}
+  title={`${title} | Helder Labs Learn`}
+  description={hook}
   band={topic.accent}
   bandInk={ink}
   noindex={topic.status === 'draft'}
+  lang={lang}
+  alternates={alternates}
 >
   <div style={`--topic: ${topic.accent};`}>
     <section class="head" style={coverVars(topic.accent, ink)}>
       <div class="wrap head-inner">
         <div class="head-text">
-          <a class="back" href="/">
-            <span aria-hidden="true">&larr;</span> All topics
-          </a>
+          <div class="top-links">
+            <a class="back" href="/" hreflang={lang === 'en' ? undefined : 'en'}>
+              <span aria-hidden="true">&larr;</span> {words.allTopics}
+            </a>
+            {
+              other && (
+                <a class="back" href={other[1]} hreflang={other[0]} lang={other[0]}>
+                  {siteText[other[0]].switchHere}
+                </a>
+              )
+            }
+          </div>
           <p class="meta">
             <span>{number}</span>
-            <span>{topic.category}</span>
+            <span>{category}</span>
           </p>
-          <h1>{topic.title}</h1>
+          <h1>{title}</h1>
           <p class="intro">{intro}</p>
         </div>
         <div class="head-art" data-play>
@@ -59,7 +90,7 @@ const ink = readableInk(topic.accent);
       </div>
     </section>
 
-    <section class:list={['stage', { wrap: !wide, bare: bare || wide, full: wide }]} aria-label="Interactive explainer">
+    <section class:list={['stage', { wrap: !wide, bare: bare || wide, full: wide }]} aria-label={words.stage}>
       {
         bare || wide ? (
           <slot />
@@ -72,7 +103,7 @@ const ink = readableInk(topic.accent);
     </section>
 
     <section class="takeaways wrap" aria-labelledby="takeaways-heading">
-      <h2 id="takeaways-heading">Key takeaways</h2>
+      <h2 id="takeaways-heading">{words.takeaways}</h2>
       {
         takeaways.length > 0 ? (
           <ol class="list">
@@ -81,7 +112,7 @@ const ink = readableInk(topic.accent);
             ))}
           </ol>
         ) : (
-          <p class="pending">The takeaways will appear here when the explainer is ready.</p>
+          <p class="pending">{words.takeawaysPending}</p>
         )
       }
     </section>
@@ -89,7 +120,7 @@ const ink = readableInk(topic.accent);
     {
       sources.length > 0 && (
         <section class="sources wrap" aria-labelledby="sources-heading">
-          <h2 id="sources-heading">Sources</h2>
+          <h2 id="sources-heading">{words.sources}</h2>
           <div class="sources-body">
             {sourcesNote && <p class="sources-note">{sourcesNote}</p>}
             <ul class="sources-list">
@@ -108,13 +139,13 @@ const ink = readableInk(topic.accent);
     <section class="more wrap">
       {
         next ? (
-          <nav aria-label="Next topic">
+          <nav aria-label={words.nextTopic}>
             <a
               class="next"
               href={`/${next.slug}/`}
               style={coverVars(next.accent)}
             >
-              <span class="next-label">Next topic</span>
+              <span class="next-label">{words.nextTopic}</span>
               <span class="next-title">{next.title}</span>
               <span class="next-hook">{next.hook}</span>
               <span class="next-knob" aria-hidden="true">
@@ -125,8 +156,8 @@ const ink = readableInk(topic.accent);
             </a>
           </nav>
         ) : (
-          <a class="back-bottom" href="/">
-            <span aria-hidden="true">&larr;</span> Back to all topics
+          <a class="back-bottom" href="/" hreflang={lang === 'en' ? undefined : 'en'}>
+            <span aria-hidden="true">&larr;</span> {words.backToAll}
           </a>
         )
       }
@@ -154,9 +185,14 @@ const ink = readableInk(topic.accent);
     gap: 1rem;
   }
 
-  .back {
-    justify-self: start;
+  .top-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.75rem;
     margin-bottom: clamp(0.5rem, 2vw, 1.5rem);
+  }
+
+  .back {
     font-weight: 500;
     text-underline-offset: 0.3em;
     text-decoration-thickness: 2px;

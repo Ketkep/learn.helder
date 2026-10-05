@@ -2,11 +2,12 @@
 // One scene of the zoom: the round picture (the "art" slot) and the card with the text and the
 // tool (the default slot). In film mode the pictures sit on top of each other in the lens and the
 // cards sit next to it. In plain mode each scene is a section: picture, then card.
-import type { Scene } from '../../data/radiation';
+import type { Radiation, Scene } from '../../data/radiation';
 
 interface Props {
   scene: Scene;
-  next?: Scene;
+  /** All the words of the page, in the language of the page. */
+  copy: Radiation;
   /** The background of the section in plain mode. */
   bg: string;
   /** What the picture shows, for people who cannot see it. */
@@ -16,12 +17,7 @@ interface Props {
   /** The words in the tool stay when scripts are off (the buttons inside it hide themselves). */
   keepWords?: boolean;
 }
-const { scene, next, bg, label, jsArt = false, keepWords = false } = Astro.props;
-// "the body", "the DNA": names in capitals (like DNA) keep them
-const name = (n: string) => (/^[A-Z]{2,}$/.test(n) ? n : n.toLowerCase());
-const nextText = next
-  ? `${scene.zoom?.dir === 'out' ? 'Zoom out to' : 'Zoom in to'} the ${name(next.short)}`
-  : 'Read the takeaways';
+const { scene, copy, bg, label, jsArt = false, keepWords = false } = Astro.props;
 ---
 
 <section
@@ -54,13 +50,13 @@ const nextText = next
             </aside>
           )
         }
-        <button type="button" class="zmore needs-js" data-more aria-expanded="false">Read more</button>
+        <button type="button" class="zmore needs-js" data-more aria-expanded="false">{copy.hud.readMore}</button>
       </div>
       <div class:list={['zwidget', { 'needs-js': !keepWords }]}>
         <slot />
       </div>
       <button type="button" class="znext needs-js" data-next>
-        {nextText}
+        {scene.go}
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
           <path d="M12 4v15M6 13l6 6 6-6"></path>
         </svg>
