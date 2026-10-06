@@ -1,0 +1,142 @@
+---
+// Bench 4: a toy tank. Its length and depth set how fast the water sloshes. When that matches
+// the Moon's 12.4 hour beat, the tide inside grows. The plot shows the whole curve.
+import { MAX_AMPLIFY, TIDE_H, amplify } from '../../scripts/tides/model';
+
+interface Props {
+  chyron: string;
+}
+const { chyron } = Astro.props;
+
+// The plot: natural period (hours, on a log scale from 1 to 48) against how much bigger the tide gets
+const PX0 = 70;
+const PX1 = 760;
+const PTOP = 250;
+const PBOT = 384;
+const px = (h: number) => PX0 + ((PX1 - PX0) * Math.log(h / 1)) / Math.log(48);
+const py = (a: number) => PBOT - ((PBOT - PTOP) * (a - 0)) / (MAX_AMPLIFY * 1.05);
+const curve = Array.from({ length: 160 }, (_, i) => {
+  const h = Math.exp((i / 159) * Math.log(48));
+  return `${i ? 'L' : 'M'}${px(h).toFixed(1)} ${py(amplify(h)).toFixed(1)}`;
+}).join('');
+const ticks = [1, 2, 4, 8, 12, 24, 48];
+---
+
+<figure class="frame tool-basin" data-basin-tool data-px0={PX0} data-px1={PX1} data-ptop={PTOP} data-pbot={PBOT} data-max={MAX_AMPLIFY}>
+  <svg viewBox="0 0 800 450" role="img" aria-label="A long tank seen from the side. The open sea is on the left and the closed end of the tank is on the right. The water surface at the closed end rises and falls more than at the open end. Below, a curve shows that the tide grows most when the natural period of the tank is close to 12.4 hours.">
+    <!-- the tank, seen from the side. The sea on the left is the same height in every tank -->
+    <path class="t-bed" data-basin-bed d="" />
+    <path class="t-water" data-basin-water d="" />
+    <path class="t-band" data-basin-band d="" />
+        <text class="t-note" x="20" y="56">Open sea</text>
+    <text class="t-note" x="780" y="56" text-anchor="end">Closed end</text>
+
+    <line class="t-base" x1={PX0} x2={PX1} y1={PBOT} y2={PBOT} />
+    <line class="t-base" x1={PX0} x2={PX0} y1={PTOP - 6} y2={PBOT} />
+    <text class="t-note" x={PX0 - 8} y={PTOP + 6} text-anchor="end">big</text>
+    <text class="t-note" x={PX0 - 8} y={PBOT} text-anchor="end">1x</text>
+    <line class="t-moon" x1={px(TIDE_H)} x2={px(TIDE_H)} y1={PTOP - 6} y2={PBOT} />
+    <text class="t-note" x={px(TIDE_H) + 14} y={PTOP + 8}>the Moon&rsquo;s beat, 12.4 h</text>
+    <path class="t-curve" d={curve} />
+    {
+      ticks.map((h) => (
+        <>
+          <line class="t-tick" x1={px(h)} x2={px(h)} y1={PBOT} y2={PBOT + 7} />
+          <text class="t-note" x={px(h)} y={PBOT + 28} text-anchor="middle">{h}</text>
+        </>
+      ))
+    }
+    <text class="t-note" x={PX1} y="438" text-anchor="end">natural period of the tank, in hours</text>
+    <line class="t-cursor" data-basin-cursor x1="0" x2="0" y1={PTOP - 6} y2={PBOT} />
+    <circle class="t-dot" data-basin-dot r="9" cx="0" cy="0" />
+  </svg>
+  <figcaption class="chyron">{chyron}</figcaption>
+</figure>
+
+<div class="controls">
+  <label class="field">
+    <span>Length <output data-basin-length-out>290 km</output></span>
+    <input class="range" type="range" min="50" max="1500" step="10" value="290" data-basin-length aria-label="Length of the tank in kilometres" />
+  </label>
+</div>
+<div class="controls">
+  <label class="field">
+    <span>Depth <output data-basin-depth-out>70 m</output></span>
+    <input class="range" type="range" min="10" max="400" step="5" value="70" data-basin-depth aria-label="Depth of the tank in metres" />
+  </label>
+</div>
+<div class="controls" role="group" aria-label="Example tanks">
+  <button type="button" class="btn" data-basin-preset="200,300">Short and deep</button>
+  <button type="button" class="btn" data-basin-preset="290,70">Tuned to the Moon</button>
+  <button type="button" class="btn" data-basin-preset="800,40">Long and shallow</button>
+</div>
+<p class="status" aria-live="polite" data-basin-status>
+  Natural period 12.3 hours. The Moon pushes every 12.4 hours. The tide inside is about 4 times the tide in the open sea.
+</p>
+
+<style>
+  .tool-basin {
+    background: #fff3dc;
+    color: #121315;
+  }
+
+  .tool-basin svg {
+    background: #fff3dc;
+  }
+
+  .t-bed {
+    fill: #c9a66b;
+    stroke: #121315;
+    stroke-width: 3;
+    stroke-linejoin: round;
+  }
+
+  .t-water {
+    fill: #cfe6ef;
+  }
+
+  .t-band {
+    fill: #4f9cbd;
+    stroke: #121315;
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+  }
+
+  .t-note {
+    fill: #121315;
+    font-size: 21px;
+    font-weight: 700;
+  }
+
+  .t-base,
+  .t-tick {
+    stroke: #121315;
+    stroke-width: 2.5;
+  }
+
+  .t-moon {
+    stroke: #8a2f0b;
+    stroke-width: 3;
+    stroke-dasharray: 5 5;
+  }
+
+  .t-curve {
+    fill: none;
+    stroke: #121315;
+    stroke-width: 3.5;
+    stroke-linejoin: round;
+  }
+
+  .t-cursor {
+    stroke: #121315;
+    stroke-width: 2;
+    stroke-dasharray: 4 4;
+  }
+
+  .t-dot {
+    fill: #ff7a45;
+    stroke: #121315;
+    stroke-width: 3;
+  }
+
+</style>

@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Quay from '../../components/tides/Quay.astro';
+import { takeaways, sources, sourcesNote } from '../../data/tides';
+---
+
+<TopicLayout
+  slug="tides-and-the-moon"
+  intro="The sea rises and falls about twice a day. The Moon sets the rhythm, the Sun adds to it, and the shape of the coast decides how big it gets. Four benches on a harbour wall let you try each part."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Quay />
+</TopicLayout>

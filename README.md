@@ -151,6 +151,17 @@ The page is a zoom. One round lens sits next to a card with the text and a tool.
 - The tools are simple models and the page says so. The beam model, the weeks model and the numbers in the cell tool are made up to show an idea, not to plan a treatment. Keep it that way, and keep the sentence "It is not medical advice" in the note above the sources.
 - The page is based on a school research project. No names are on the page. To credit the authors, add their names to `sourcesNote` in both `src/data/radiation/en.ts` and `nl.ts`, with their permission.
 
+## The tides page: how the quay works
+
+The page is a walk along a harbour wall. A tide staff (a painted ruler) stands at the left edge, and along the top on a phone. Four benches follow one after another, each with one tool: two bulges of water around the Earth, a tide clock, spring and neap tides, and a toy tank that shows resonance. Whatever you move, the water on the staff moves with it. The staff uses a made-up scale.
+
+- `src/data/tides.ts` holds all the words, the takeaways and the sources.
+- `src/components/tides/Quay.astro` is the frame (the staff, the opening card, the benches). `Tool*.astro` is one tool each, with its picture, controls and a status line that is read out to screen readers.
+- `src/scripts/tides/quay.ts` runs the staff and starts the tools. A tool calls `staff.set(bench, { level, range, text })` to say where its water stands. The staff shows the report of the bench in the middle of the screen. `model.ts` holds the maths (a 12.42 hour tide, 29.53 day month, the Sun at 0.46 of the Moon, a basin that is open at one end). `bulges.ts`, `clock.ts`, `spring.ts` and `basin.ts` are the tools.
+- The tide clock starts with a high tide at 06:00 on day 1. That time is made up. Each day the highs move by 24 h 50 min minus 24 h, about 50 minutes.
+- The tank toy uses the exact result for a basin that is open at one end and closed at the other: the closed end rises 1 / cos(k L) times as far as the mouth. Friction is made up (`FRICTION` in `model.ts`) so the peak is finite. The page calls it a toy tank.
+- Without scripts the benches are plain text and still pictures. The staff and the play button need a script (`.needs-js`). With reduced motion the play button is hidden, and the staff does not animate.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -177,6 +188,7 @@ src/data/gambits.ts      everything the chess page says: games, scenes, field gu
 src/data/peru.ts         everything the Peru page says: shots, brick stamps, year line, sources
 src/data/dutch.ts        everything the Dutch page says: stops, pretend numbers, route, sources
 src/data/radiation/      the radiation page: en.ts and nl.ts (the words), index.ts (the numbers), types.ts
+src/data/tides.ts        everything the tides page says: benches, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -185,11 +197,13 @@ src/components/chess/    the chess page: the film, the field guide, the piece sp
 src/components/peru/     the Peru page: the dig and its seven tools
 src/components/dutch/    the Dutch page: the film frame, one file per stop, the coin
 src/components/radiation/ the radiation page: the zoom frame, one file per scene
+src/components/tides/    the tides page: the quay with its staff, one file per tool
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
 src/styles/roll.css      the Dutch film: plain mode, film mode, bar, strip, controls
 src/styles/zoom.css      the radiation zoom: plain mode, film mode, lens, bar, controls
+src/styles/tides.css     the tides quay: staff, benches, controls
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -202,6 +216,7 @@ src/scripts/film/        the browser side of the chess film: board and controlle
 src/scripts/peru/        one script per Peru tool, plus the gauge
 src/scripts/dutch/       the camera (roll.ts) and one script per Dutch stop
 src/scripts/radiation/   the camera (zoom.ts), the dose model, and one script per scene
+src/scripts/tides/       the staff (quay.ts), the tide maths (model.ts) and one script per tool
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics

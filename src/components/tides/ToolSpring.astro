@@ -1,0 +1,165 @@
+---
+// Bench 3: the Sun, the Earth and the Moon seen from above. Move the Moon around its month and the
+// Sun's tide and the Moon's tide add up or cancel. A strip at the bottom shows the whole month.
+import { MONTH_D, rangeShare } from '../../scripts/tides/model';
+
+interface Props {
+  chyron: string;
+}
+const { chyron } = Astro.props;
+
+const SX0 = 96;
+const SX1 = 750;
+const STOP = 376;
+const SBOT = 428;
+const sx = (age: number) => SX0 + ((SX1 - SX0) * age) / MONTH_D;
+const sy = (share: number) => SBOT - (SBOT - STOP) * ((share - 0.3) / 0.7);
+const month =
+  Array.from({ length: 119 }, (_, i) => {
+    const age = (i / 118) * MONTH_D;
+    return `${i ? 'L' : 'M'}${sx(age).toFixed(1)} ${sy(rangeShare(age)).toFixed(1)}`;
+  }).join('');
+const labels = [
+  { age: 0, text: 'New', anchor: 'start' },
+  { age: MONTH_D / 4, text: 'First quarter', anchor: 'middle' },
+  { age: MONTH_D / 2, text: 'Full', anchor: 'middle' },
+  { age: (MONTH_D * 3) / 4, text: 'Last quarter', anchor: 'middle' },
+  { age: MONTH_D, text: 'New', anchor: 'end' },
+];
+---
+
+<figure class="frame tool-spring" data-spring-tool>
+  <svg viewBox="0 0 800 480" role="img" aria-label="The Earth in the middle, with the Sun's light coming from the left and the Moon on a circle around the Earth. The water around the Earth bulges towards both the Moon and the Sun. Below, a curve shows the size of the tide over a whole moon month.">
+    <g class="s-rays" aria-hidden="true">
+      {[-70, -35, 0, 35, 70].map((y) => <path d={`M20 ${175 + y}L70 ${175 + y}`} />)}
+    </g>
+    <text class="s-label" x="20" y="268">Sunlight</text>
+    <circle class="s-orbit" cx="400" cy="175" r="150" />
+    <path class="s-water" data-spring-water d="" />
+    <circle class="s-earth" cx="400" cy="175" r="64" />
+    <line class="s-sunline" x1="338" y1="175" x2="462" y2="175" />
+    <g class="s-moon" data-spring-moon transform="translate(250 175)">
+      <circle r="18" />
+      <path d="M0 -18A18 18 0 0 0 0 18Z" />
+    </g>
+    <text class="s-label" x="400" y="180" text-anchor="middle" dominant-baseline="middle">Earth</text>
+
+    <text class="s-axis" x={SX0 - 16} y={sy(1) + 6} text-anchor="end">big</text>
+    <text class="s-axis" x={SX0 - 16} y={sy(0.37) + 6} text-anchor="end">small</text>
+    <line class="s-base" x1={SX0} x2={SX1} y1={SBOT} y2={SBOT} />
+    <path class="s-month" d={month} />
+    {
+      labels.map((l) => (
+        <>
+          <line class="s-tick" x1={sx(l.age)} x2={sx(l.age)} y1={SBOT} y2={SBOT + 7} />
+          <text class="s-axis" x={sx(l.age)} y={SBOT + 30} text-anchor={l.anchor}>{l.text}</text>
+        </>
+      ))
+    }
+    <line class="s-cursor" data-spring-cursor x1="0" x2="0" y1={STOP - 6} y2={SBOT} />
+    <circle class="s-dot" data-spring-dot r="9" cx="0" cy="0" />
+  </svg>
+  <figcaption class="chyron">{chyron}</figcaption>
+</figure>
+
+<div class="controls">
+  <label class="field">
+    <span>Day of the moon month <output data-spring-out>0</output></span>
+    <input class="range" type="range" min="0" max={MONTH_D} step="0.1" value="0" data-spring-range aria-label="Day of the moon month" />
+  </label>
+</div>
+<div class="controls" role="group" aria-label="Jump to a moon phase">
+  <button type="button" class="btn" data-spring-jump="0">New moon</button>
+  <button type="button" class="btn" data-spring-jump="7.4">First quarter</button>
+  <button type="button" class="btn" data-spring-jump="14.8">Full moon</button>
+  <button type="button" class="btn" data-spring-jump="22.1">Last quarter</button>
+</div>
+<p class="status" aria-live="polite" data-spring-status>
+  Day 0, new moon. The Moon is between the Earth and the Sun. Their tides add up. This is a spring tide.
+</p>
+
+<style>
+  .tool-spring {
+    background: #fff3dc;
+    color: #121315;
+  }
+
+  .tool-spring svg {
+    background: #fff3dc;
+  }
+
+  .s-rays path {
+    stroke: #8a2f0b;
+    stroke-width: 4;
+    stroke-linecap: round;
+  }
+
+  .s-label,
+  .s-axis {
+    fill: #121315;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .s-orbit {
+    fill: none;
+    stroke: #121315;
+    stroke-width: 2;
+    stroke-dasharray: 3 7;
+  }
+
+  .s-water {
+    fill: #7fc0d9;
+    stroke: #121315;
+    stroke-width: 3;
+    stroke-linejoin: round;
+  }
+
+  .s-earth {
+    fill: #e4c98e;
+    stroke: #121315;
+    stroke-width: 3;
+  }
+
+  .s-sunline {
+    stroke: #121315;
+    stroke-width: 1.5;
+    stroke-dasharray: 2 5;
+    opacity: 0.45;
+  }
+
+  .s-moon circle {
+    fill: #121315;
+    stroke: #121315;
+    stroke-width: 3;
+  }
+
+  .s-moon path {
+    fill: #fff;
+  }
+
+  .s-base,
+  .s-tick {
+    stroke: #121315;
+    stroke-width: 2.5;
+  }
+
+  .s-month {
+    fill: none;
+    stroke: #121315;
+    stroke-width: 3.5;
+    stroke-linejoin: round;
+  }
+
+  .s-cursor {
+    stroke: #121315;
+    stroke-width: 2;
+    stroke-dasharray: 4 4;
+  }
+
+  .s-dot {
+    fill: #ff7a45;
+    stroke: #121315;
+    stroke-width: 3;
+  }
+</style>

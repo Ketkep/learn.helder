@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .tm-wall { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 3; }
+    .tm-brick { fill: none; stroke: var(--on-cover); stroke-width: 2; opacity: 0.4; }
+    .tm-staff { fill: var(--on-cover); }
+    .tm-tick { stroke: var(--cover); stroke-width: 3; }
+    .tm-sea { fill: var(--cover-c); stroke: var(--on-cover); stroke-width: 3; stroke-linejoin: round; transform: translateY(-6px); }
+    .tm-knob { transform: translateY(-6px); }
+    .tm-moon { fill: var(--on-cover); }
+    .tm-bite { fill: var(--cover); }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .tm-sea,
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .tm-knob { animation: tm-tide 5s ease-in-out infinite alternate; }
+    }
+    /* The sea rises and falls, and the knob rides the water on the staff */
+    @keyframes tm-tide { from { transform: translateY(40px); } to { transform: translateY(-50px); } }
+  </style>
+
+  <!-- The Moon, as a thin crescent -->
+  <circle class="tm-moon" cx="108" cy="64" r="34"/>
+  <circle class="tm-bite" cx="124" cy="54" r="30"/>
+
+  <!-- The harbour wall -->
+  <rect class="tm-wall" x="248" y="96" width="170" height="220"/>
+  <path class="tm-brick" d="M248 140H418M248 184H418M248 228H418M248 272H418M300 96V140M360 96V140M276 140V184M336 140V184M396 140V184M300 184V228M360 184V228M276 228V272M336 228V272M396 228V272"/>
+
+  <!-- The tide staff, bolted to the wall -->
+  <rect class="tm-staff" x="214" y="88" width="34" height="220" rx="3"/>
+  <path class="tm-tick" d="M214 112H232M214 140H226M214 168H232M214 196H226M214 224H232M214 252H226M214 280H232"/>
+
+  <!-- The sea in front of the wall -->
+  <path class="tm-sea" d="M-20 206q22 -10 44 0t44 0t44 0t44 0t44 0t44 0V340H-20Z"/>
+  <circle class="knob tm-knob" cx="231" cy="206" r="12"/>
+</svg>

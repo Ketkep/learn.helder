@@ -87,6 +87,16 @@ export const topics: Topic[] = [
     // For now the homepage shows the Dutch version of this topic. Remove this line to show English again.
     hubLanguage: 'nl',
   },
+  {
+    slug: 'tides-and-the-moon',
+    title: 'Tides and the Moon',
+    hook: 'Why the sea rises and falls twice a day, and why some tides are far bigger than others.',
+    category: 'Nature',
+    accent: '#5A3E8E',
+    preview: 'tides-and-the-moon',
+    dateAdded: '2026-10-06',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

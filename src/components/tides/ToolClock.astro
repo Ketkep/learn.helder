@@ -1,0 +1,147 @@
+---
+// Bench 2: one day of tide on a clock. Move the day and the high tides slide about 50 minutes later each time.
+interface Props {
+  chyron: string;
+}
+const { chyron } = Astro.props;
+
+// The chart is drawn by the script. These are the frame sizes it uses (see src/scripts/tides/clock.ts).
+const ticks = [0, 3, 6, 9, 12, 15, 18, 21, 24];
+const X0 = 56;
+const X1 = 776;
+const x = (h: number) => X0 + ((X1 - X0) * h) / 24;
+---
+
+<figure class="frame tool-clock" data-clock-tool>
+  <svg viewBox="0 0 800 390" role="img" aria-label="A chart of one day. The water rises and falls twice. Orange marks show the high tides.">
+    <rect class="c-night" x={x(0)} y="20" width={x(6) - x(0)} height="290" />
+    <rect class="c-night" x={x(18)} y="20" width={x(24) - x(18)} height="290" />
+    <text class="c-tag" x={x(3)} y="40" text-anchor="middle">night</text>
+    <text class="c-tag" x={x(21)} y="40" text-anchor="middle">night</text>
+    <line class="c-mid" x1={X0} x2={X1} y1="165" y2="165" />
+    <text class="c-tag" x={X0 + 6} y="158">high</text>
+    <text class="c-tag" x={X0 + 6} y="192">low</text>
+    <g data-clock-yesterday></g>
+    <path class="c-curve" data-clock-curve d="" />
+    <g data-clock-highs></g>
+    <line class="c-cursor" data-clock-cursor x1="0" x2="0" y1="20" y2="310" />
+    <circle class="c-knob" data-clock-knob r="11" cx="0" cy="0" />
+    <line class="c-axis" x1={X0} x2={X1} y1="310" y2="310" />
+    {
+      ticks.map((h) => (
+        <>
+          <line class="c-tick" x1={x(h)} x2={x(h)} y1="310" y2="318" />
+          <text class="c-hour" x={x(h)} y="344" text-anchor={h === 0 ? 'start' : h === 24 ? 'end' : 'middle'}>{String(h % 24).padStart(2, '0')}:00</text>
+        </>
+      ))
+    }
+  </svg>
+  <figcaption class="chyron">{chyron}</figcaption>
+</figure>
+
+<div class="controls">
+  <label class="field">
+    <span>Day <output data-clock-day-out>1</output></span>
+    <input class="range" type="range" min="1" max="30" step="1" value="1" data-clock-day aria-label="Day of the month" />
+  </label>
+</div>
+<div class="controls">
+  <label class="field">
+    <span>Time of day <output data-clock-hour-out>09:00</output></span>
+    <input class="range" type="range" min="0" max="24" step="0.25" value="9" data-clock-hour aria-label="Hour of the day" />
+  </label>
+</div>
+<div class="controls" role="group" aria-label="Jump to a day">
+  <button type="button" class="btn" data-clock-jump="1">Day 1</button>
+  <button type="button" class="btn" data-clock-jump="8">Day 8</button>
+  <button type="button" class="btn" data-clock-jump="15">Day 15</button>
+  <button type="button" class="btn" data-clock-jump="22">Day 22</button>
+</div>
+<p class="status" aria-live="polite" data-clock-status>
+  Day 1. High tides at 06:00 and 18:25. Press on and see them slide.
+</p>
+
+<style>
+  .tool-clock {
+    background: #fff3dc;
+    color: #121315;
+  }
+
+  .tool-clock svg {
+    background: #fff3dc;
+  }
+
+  .c-night {
+    fill: #121315;
+    opacity: 0.1;
+  }
+
+  .c-mid {
+    stroke: #121315;
+    stroke-width: 1.5;
+    stroke-dasharray: 3 6;
+  }
+
+  .c-tag {
+    fill: #3d3a32;
+    font-size: 21px;
+    font-weight: 700;
+  }
+
+  .c-curve {
+    fill: none;
+    stroke: #121315;
+    stroke-width: 4;
+    stroke-linejoin: round;
+  }
+
+  .c-axis,
+  .c-tick {
+    stroke: #121315;
+    stroke-width: 2.5;
+  }
+
+  .c-hour {
+    fill: #121315;
+    font-size: 19px;
+    font-weight: 700;
+  }
+
+  .c-cursor {
+    stroke: #121315;
+    stroke-width: 2;
+  }
+
+  .c-knob {
+    fill: #7fc0d9;
+    stroke: #121315;
+    stroke-width: 3;
+  }
+
+  /* The orange marks: today's high tides */
+  .tool-clock :global(.c-high) {
+    fill: #ff7a45;
+    stroke: #121315;
+    stroke-width: 3;
+  }
+
+  .tool-clock :global(.c-high-text) {
+    fill: #121315;
+    font-size: 23px;
+    font-weight: 800;
+  }
+
+  /* Yesterday's high tides: a faint ring where the orange mark was */
+  .tool-clock :global(.c-ghost) {
+    fill: none;
+    stroke: #121315;
+    stroke-width: 2.5;
+    stroke-dasharray: 4 4;
+  }
+
+  .tool-clock :global(.c-ghost-text) {
+    fill: #3d3a32;
+    font-size: 18px;
+    font-weight: 700;
+  }
+</style>

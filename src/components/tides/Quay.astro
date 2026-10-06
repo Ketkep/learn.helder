@@ -1,0 +1,102 @@
+---
+// The whole page: a tide staff on a harbour wall, an opening card, and four benches, each with one tool.
+// The tools are in the Tool components. The behaviour is in src/scripts/tides. Without scripts this is a
+// normal page you can scroll and read.
+import '../../styles/tides.css';
+import { intro, benches } from '../../data/tides';
+import { mix } from '../../lib/color';
+import ToolBulges from './ToolBulges.astro';
+import ToolClock from './ToolClock.astro';
+import ToolSpring from './ToolSpring.astro';
+import ToolBasin from './ToolBasin.astro';
+
+const tools: Record<string, typeof ToolBulges> = {
+  bulges: ToolBulges,
+  clock: ToolClock,
+  spring: ToolSpring,
+  basin: ToolBasin,
+};
+
+// The colours of the benches: from a pale morning by the water to a dark night sea
+const SEA = '#2b6f8f';
+const CREAM = '#fff3dc';
+const INK = '#121315';
+const NIGHT = '#16222f';
+const scenes = {
+  opening: { bg: '#dcebf0', fg: INK },
+  bulges: { bg: mix(SEA, CREAM, 20), fg: INK },
+  clock: { bg: mix(SEA, CREAM, 32), fg: INK },
+  spring: { bg: NIGHT, fg: CREAM },
+  basin: { bg: mix(SEA, INK, 42), fg: CREAM },
+} as const;
+type Key = keyof typeof scenes;
+const style = (k: Key) => `--bg: ${scenes[k].bg}; --fg: ${scenes[k].fg}; --fg-soft: ${mix(scenes[k].fg, scenes[k].bg, 82)};`;
+const dark = (k: Key) => scenes[k].fg === CREAM;
+---
+
+<div class="quay" data-quay>
+  <div class="staff-rail needs-js">
+    <div class="staff" aria-hidden="true" data-staff>
+      <div class="staff-read">
+        <span class="staff-title">Tide staff</span>
+        <span class="staff-text" data-staff-text>Mid tide</span>
+      </div>
+      <div class="staff-post">
+        <span class="staff-ticks"></span>
+        <span class="staff-band" data-staff-band></span>
+        <span class="staff-water" data-staff-water></span>
+        <span class="staff-knob"></span>
+      </div>
+    </div>
+    <button class="snd" type="button" data-sound aria-pressed="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+        <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+        <path class="wave" d="M15 9a4 4 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        <path class="slash" d="M16 8.5l5 7M21 8.5l-5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      <span class="visually-hidden" data-sound-label>Sound on</span>
+    </button>
+  </div>
+
+  <section class="opening" data-bench-id="opening" style={style('opening')} aria-labelledby="quay-intro">
+    <div class="opening-inner">
+      <p class="kicker">On the quay</p>
+      <h2 id="quay-intro">{intro.title}</h2>
+      {intro.paras.map((p) => <p class="para">{p}</p>)}
+      <p class="scroll-hint" aria-hidden="true">Scroll to walk along the wall</p>
+    </div>
+  </section>
+
+  {
+    benches.map((b) => {
+      const Tool = tools[b.id];
+      const key = b.id as Key;
+      return (
+        <section class="bench" id={`quay-${b.id}`} data-bench-id={b.id} data-dark={dark(key) ? '' : undefined} style={style(key)} aria-labelledby={`quay-${b.id}-h`}>
+          <div class="bench-inner">
+            <div class="copy">
+              <p class="kicker">{b.kicker}</p>
+              <h2 id={`quay-${b.id}-h`}>{b.title}</h2>
+              {b.paras.map((p) => <p class="para">{p}</p>)}
+              {
+                b.tags?.map((t) => (
+                  <aside class="tag">
+                    <p class="tag-label">{t.label}</p>
+                    <p class="tag-text">{t.text}</p>
+                  </aside>
+                ))
+              }
+            </div>
+            <div class="tool">
+              <Tool chyron={b.chyron} />
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/tides/quay';
+</script>

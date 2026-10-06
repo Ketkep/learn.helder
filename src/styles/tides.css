@@ -1,0 +1,552 @@
+/* The tides page: a walk along a harbour wall. A tide staff stands at the left edge (along the top on a
+   phone). Each bench has one tool. The pictures are styled inside each tool component. */
+
+.quay {
+  position: relative;
+  color: var(--ink);
+}
+
+/* The staff hangs 100vh below its sticky box, so the end of the page must cut it off */
+@media (min-width: 60rem) {
+  .quay {
+    clip-path: inset(0);
+  }
+}
+
+/* ---------- The staff: a painted ruler that shows how high the water stands ---------- */
+.quay .staff-rail {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+}
+
+.quay .staff {
+  --lvl: 0.5;
+  --lo: 0.5;
+  --hi: 0.5;
+
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.35rem var(--gutter);
+  background: var(--surface);
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink);
+}
+
+.quay .staff-read {
+  display: grid;
+  min-width: 7.6rem;
+  max-width: 11rem;
+  line-height: 1.1;
+}
+
+.quay .staff-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+}
+
+.quay .staff-text {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* On a phone the staff lies on its side: water fills from the left */
+.quay .staff-post {
+  position: relative;
+  flex: 1;
+  height: 1.9rem;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.quay .staff-ticks {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  background:
+    repeating-linear-gradient(to right, var(--ink) 0, var(--ink) 2px, transparent 2px, transparent 10%) left bottom / 100% 40% no-repeat,
+    repeating-linear-gradient(to right, var(--ink) 0, var(--ink) 2px, transparent 2px, transparent 50%) left bottom / 100% 70% no-repeat;
+}
+
+.quay .staff-water {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: calc(var(--lvl) * 100%);
+  background: #7fc0d9;
+  border-right: 3px solid var(--ink);
+  transition: width 0.25s ease-out;
+}
+
+.quay .staff-band {
+  position: absolute;
+  left: calc(var(--lo) * 100%);
+  width: calc((var(--hi) - var(--lo)) * 100%);
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  background: rgb(18 31 44 / 0.22);
+  opacity: 0;
+  transition: left 0.25s ease-out, width 0.25s ease-out, opacity 0.2s;
+}
+
+.quay .staff.has-band .staff-band {
+  opacity: 1;
+}
+
+.quay .staff-knob {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--lvl) * 100%);
+  z-index: 3;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin: -0.6rem 0 0 -0.6rem;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--accent);
+  transition: left 0.25s ease-out;
+}
+
+@media (min-width: 60rem) {
+  /* On a wide screen the staff stands at the left edge, like a gauge on a harbour post */
+  .quay .staff-rail {
+    height: 100vh;
+    height: 100svh;
+    margin-bottom: -100vh;
+    margin-bottom: -100svh;
+    pointer-events: none;
+  }
+
+  .quay .staff {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    bottom: 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    width: 6.2rem;
+    padding: 0.8rem 0.5rem;
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+  }
+
+  .quay .staff-read {
+    min-width: 0;
+    max-width: none;
+    text-align: center;
+  }
+
+  .quay .staff-post {
+    flex: 1;
+    width: 3rem;
+    height: auto;
+    margin-inline: auto;
+  }
+
+  .quay .staff-ticks {
+    background:
+      repeating-linear-gradient(to top, var(--ink) 0, var(--ink) 2px, transparent 2px, transparent 10%) left bottom / 40% 100% no-repeat,
+      repeating-linear-gradient(to top, var(--ink) 0, var(--ink) 2px, transparent 2px, transparent 50%) left bottom / 70% 100% no-repeat;
+  }
+
+  .quay .staff-water {
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    width: auto;
+    height: calc(var(--lvl) * 100%);
+    border-right: 0;
+    border-top: 3px solid var(--ink);
+    transition: height 0.25s ease-out;
+  }
+
+  .quay .staff-band {
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: calc(var(--lo) * 100%);
+    width: auto;
+    height: calc((var(--hi) - var(--lo)) * 100%);
+    transition: bottom 0.25s ease-out, height 0.25s ease-out, opacity 0.2s;
+  }
+
+  .quay .staff-knob {
+    top: auto;
+    bottom: calc(var(--lvl) * 100%);
+    left: 50%;
+    margin: 0 0 -0.6rem -0.6rem;
+    transition: bottom 0.25s ease-out;
+  }
+
+  .quay .snd {
+    position: absolute;
+    left: 1.7rem;
+    bottom: 1.8rem;
+    pointer-events: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quay .staff-water,
+  .quay .staff-band,
+  .quay .staff-knob {
+    transition: none;
+  }
+}
+
+html:not(.js) .quay .needs-js {
+  display: none;
+}
+
+/* ---------- Sound switch ---------- */
+.quay .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  flex: none;
+  justify-content: center;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.quay .snd[aria-pressed='true'] .slash,
+.quay .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (max-width: 59.99rem) {
+  .quay .staff-rail {
+    display: flex;
+    align-items: center;
+    background: var(--surface);
+    border-bottom: 2px solid var(--ink);
+    padding-right: var(--gutter);
+  }
+
+  .quay .staff {
+    flex: 1;
+    border-bottom: 0;
+  }
+}
+
+/* ---------- A bench: one idea, one tool ---------- */
+.quay .opening,
+.quay .bench {
+  --wash: rgb(0 0 0 / 0.08);
+
+  position: relative;
+  display: grid;
+  align-content: center;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.quay .bench[data-dark] {
+  --wash: rgb(255 255 255 / 0.14);
+}
+
+.quay .opening {
+  min-height: 60vh;
+  min-height: 60svh;
+  padding: 3.4rem var(--gutter);
+}
+
+.quay .bench {
+  min-height: 90vh;
+  min-height: 90svh;
+  padding: 3.6rem var(--gutter) 3.6rem;
+}
+
+@media (min-width: 60rem) {
+  .quay .opening,
+  .quay .bench {
+    padding-left: calc(var(--gutter) + 7.4rem);
+  }
+}
+
+.quay .opening-inner,
+.quay .bench-inner {
+  display: grid;
+  gap: 1.6rem 3rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.quay .opening-inner {
+  gap: 1rem;
+}
+
+.quay .opening h2 {
+  font-size: clamp(2.4rem, 1.5rem + 3.6vw, 4.4rem);
+  line-height: 1;
+}
+
+.quay .scroll-hint {
+  color: var(--fg-soft);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+}
+
+/* On a phone the explanation comes first, then the tool, then the extra facts */
+@media (max-width: 59.99rem) {
+  .quay .bench-inner {
+    gap: 1rem;
+  }
+
+  .quay .copy {
+    display: contents;
+  }
+
+  .quay .tool {
+    order: 4;
+    margin-top: 0.4rem;
+  }
+
+  .quay .tag {
+    order: 5;
+    margin-top: 0.6rem;
+  }
+}
+
+@media (min-width: 60rem) {
+  .quay .bench-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: center;
+  }
+}
+
+.quay .opening :focus-visible,
+.quay .bench :focus-visible {
+  outline-color: var(--fg);
+}
+
+.quay .copy {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.quay .kicker {
+  color: var(--fg-soft);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.quay .bench h2 {
+  font-size: clamp(2.2rem, 1.5rem + 2.8vw, 3.6rem);
+  line-height: 1;
+}
+
+.quay .para {
+  max-width: 34rem;
+  font-size: 1.08rem;
+  line-height: 1.55;
+}
+
+/* A paper tag tied to the bench, with one extra fact */
+.quay .tag {
+  position: relative;
+  max-width: 31rem;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: #fff3dc;
+  color: #121315;
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.28);
+  transform: rotate(-0.5deg);
+}
+
+.quay .tag:nth-of-type(even) {
+  transform: rotate(0.5deg);
+}
+
+.quay .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.4);
+}
+
+.quay .tag-label {
+  color: #8a2f0b;
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.quay .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+/* ---------- The frame around each picture, with a caption under it ---------- */
+.quay .tool {
+  min-width: 0;
+}
+
+.quay .frame {
+  margin: 0;
+  overflow: hidden;
+  border: 3px solid #121315;
+  border-radius: 8px;
+  background: #121315;
+  box-shadow: 0 18px 30px -18px rgb(0 0 0 / 0.6);
+}
+
+.quay .frame > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.quay .chyron {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.85rem;
+  background: #121315;
+  color: #fff3dc;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.quay .chyron::before {
+  content: '';
+  flex: none;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #ff7a45;
+}
+
+/* ---------- Controls ---------- */
+.quay .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+  margin-top: 0.95rem;
+}
+
+.quay .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.quay .btn:hover {
+  background: var(--wash);
+}
+
+.quay .btn[aria-pressed='true'] {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+.quay .status {
+  min-height: 4.4rem;
+  margin-top: 0.7rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+/* A slider with the brand knob as its handle */
+.quay .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 9rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.quay .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.quay .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.quay .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.quay .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.quay .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.quay .field {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 14rem;
+  font-weight: 600;
+}
+
+.quay .field span {
+  min-width: 8.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quay * {
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,195 @@
+---
+// Bench 1: the Earth seen from above, with two bulges of water that stay lined up with the Moon.
+// The Earth turns under them. Slide the time and watch the water at your coast.
+import { seeded } from '../../lib/rand';
+import { smooth } from '../../lib/svgpath';
+
+interface Props {
+  chyron: string;
+}
+const { chyron } = Astro.props;
+
+const CX = 380;
+const CY = 235;
+const R = 112;
+const BULGE = 34;
+
+// The outline of the water: radius R plus a cos(2 x angle) bump, so there is one bulge on each side
+const water =
+  Array.from({ length: 72 }, (_, i) => {
+    const a = (i / 72) * Math.PI * 2;
+    const r = R + BULGE * Math.cos(2 * a) + 2;
+    return `${i ? 'L' : 'M'}${(CX + r * Math.cos(a)).toFixed(1)} ${(CY - r * Math.sin(a)).toFixed(1)}`;
+  }).join('') + 'Z';
+
+// A few patches of land on the Earth, always in the same places, so you can see it turn
+const rnd = seeded(41);
+const lands = [
+  [-52, -38, 34],
+  [28, -56, 26],
+  [46, 30, 40],
+  [-30, 48, 28],
+  [-70, 10, 18],
+].map(([x, y, s]) => {
+  const pts: [number, number][] = Array.from({ length: 9 }, (_, i) => {
+    const a = (i / 9) * Math.PI * 2;
+    const k = 0.7 + rnd() * 0.5;
+    return [x + Math.cos(a) * s * k, y + Math.sin(a) * s * k * 0.8];
+  });
+  return smooth(pts, true);
+});
+
+// The arrows of the pull. Lengths are made up, but they get shorter with distance.
+function arrow(x: number, y: number, dx: number, dy: number, cls: string) {
+  const ex = x + dx;
+  const ey = y + dy;
+  const len = Math.hypot(dx, dy) || 1;
+  const ux = dx / len;
+  const uy = dy / len;
+  const h = 10;
+  return {
+    cls,
+    line: `M${x} ${y}L${ex} ${ey}`,
+    head: `M${ex + ux * 2} ${ey + uy * 2}L${ex - ux * h - uy * 7} ${ey - uy * h + ux * 7}L${ex - ux * h + uy * 7} ${ey - uy * h - ux * 7}Z`,
+  };
+}
+const pull = [arrow(CX + R + 6, CY, 118, 0, 'near'), arrow(CX, CY, 96, 0, 'mid'), arrow(CX - R - 6, CY, 76, 0, 'far')];
+const left = [
+  arrow(CX + R + 6, CY, 36, 0, 'near'),
+  arrow(CX - R - 6, CY, -36, 0, 'far'),
+  arrow(CX, CY - R - 6, 0, 16, 'side'),
+  arrow(CX, CY + R + 6, 0, -16, 'side'),
+];
+---
+
+<figure class="frame tool-bulges" data-bulges-tool>
+  <svg viewBox="0 0 800 480" role="img" aria-label="The Earth seen from above with the Moon on the right. Two bulges of water stand on the Moon side and on the far side. A small orange dot marks your coast as the Earth turns.">
+    <path class="b-water" d={water} />
+    <circle class="b-ring" cx={CX} cy={CY} r={R} />
+    <g data-earth transform={`translate(${CX} ${CY})`}>
+      <circle class="b-earth" r={R - 4} />
+      {lands.map((d) => <path class="b-land" d={d} />)}
+      <g transform={`translate(${R - 4} 0)`}>
+        <circle class="b-you" r="11" />
+      </g>
+    </g>
+    <g class="b-moon" transform="translate(722 235)">
+      <circle r="30" />
+      <path class="shade" d="M0 -30A30 30 0 0 1 0 30Z" />
+    </g>
+    <text class="b-label" x="722" y="290" text-anchor="middle">Moon</text>
+    <text class="b-label" x={CX} y="466" text-anchor="middle">Earth, seen from above the North Pole</text>
+
+    <!-- Step one: the Moon's pull on three places. Step two: what is left when the Earth's own fall is taken away. -->
+    <g class="b-arrows is-off" data-arrows-pull>
+      {pull.map((a) => <g class={a.cls}><path d={a.line} /><path class="head" d={a.head} /></g>)}
+      <text class="b-note" x={CX + R + 26} y={CY - 18}>strong</text>
+      <text class="b-note" x={CX - 12} y={CY - 18}>medium</text>
+      <text class="b-note" x={CX - R - 40} y={CY - 18}>weak</text>
+    </g>
+    <g class="b-arrows is-off" data-arrows-left>
+      {left.map((a) => <g class={a.cls}><path d={a.line} /><path class="head" d={a.head} /></g>)}
+      <text class="b-note" x={CX + R + 6} y={CY - 18}>to the Moon</text>
+      <text class="b-note" x={CX - R - 6} y={CY - 18} text-anchor="end">away</text>
+    </g>
+  </svg>
+  <figcaption class="chyron">{chyron}</figcaption>
+</figure>
+
+<div class="controls" role="group" aria-label="What the arrows show">
+  <button type="button" class="btn" data-arrow-mode="off" aria-pressed="true">No arrows</button>
+  <button type="button" class="btn" data-arrow-mode="pull" aria-pressed="false">The Moon&rsquo;s pull</button>
+  <button type="button" class="btn" data-arrow-mode="left" aria-pressed="false">What is left</button>
+</div>
+<div class="controls">
+  <label class="field">
+    <span>Time <output data-bulges-out>0.0 h</output></span>
+    <input class="range" type="range" min="0" max="24.8" step="0.1" value="0" data-bulges-range aria-label="Hours since the Moon was overhead" />
+  </label>
+  <button type="button" class="btn needs-js" data-bulges-play>Play one day</button>
+</div>
+<p class="status" aria-live="polite" data-bulges-status>
+  The Moon is overhead and you stand under the bulge. It is high tide.
+</p>
+
+<style>
+  .tool-bulges {
+    background: #fff3dc;
+    color: #121315;
+  }
+
+  .tool-bulges svg {
+    background: #fff3dc;
+  }
+
+  .b-water {
+    fill: #7fc0d9;
+    stroke: #121315;
+    stroke-width: 3;
+    stroke-linejoin: round;
+  }
+
+  .b-ring {
+    fill: none;
+    stroke: #121315;
+    stroke-width: 2;
+    stroke-dasharray: 3 6;
+  }
+
+  .b-earth {
+    fill: #e4c98e;
+    stroke: #121315;
+    stroke-width: 3;
+  }
+
+  .b-land {
+    fill: #9fb26b;
+    stroke: #121315;
+    stroke-width: 2;
+  }
+
+  .b-you {
+    fill: #ff7a45;
+    stroke: #121315;
+    stroke-width: 3;
+  }
+
+  .b-moon circle {
+    fill: #fff;
+    stroke: #121315;
+    stroke-width: 3;
+  }
+
+  .b-moon .shade {
+    fill: #121315;
+    opacity: 0.18;
+  }
+
+  .b-label,
+  .b-note {
+    fill: #121315;
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .b-note {
+    font-size: 22px;
+  }
+
+  .b-arrows.is-off {
+    display: none;
+  }
+
+  .b-arrows path {
+    fill: none;
+    stroke: #8a2f0b;
+    stroke-width: 5;
+    stroke-linecap: round;
+  }
+
+  .b-arrows .head {
+    fill: #8a2f0b;
+    stroke: none;
+  }
+
+</style>
