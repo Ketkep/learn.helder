@@ -1,0 +1,61 @@
+---
+// String 5: build a sound from harmonics. Each row is one way the string can shake, with its own level.
+// Without a script this is the plain mix of harmonics 1 to 6 as drawn.
+const rows = [1, 2, 3, 4, 5, 6];
+const X0 = 10;
+const X1 = 290;
+// The shape of harmonic n: n bumps, with a dot on each node (the places to touch lightly)
+const shape = (n: number) => {
+  let d = '';
+  for (let i = 0; i <= 80; i++) {
+    const t = i / 80;
+    d += `${i ? 'L' : 'M'}${(X0 + (X1 - X0) * t).toFixed(1)} ${(30 - 16 * Math.sin(n * Math.PI * t)).toFixed(1)}`;
+  }
+  return d;
+};
+const nodes = (n: number) => Array.from({ length: n - 1 }, (_, i) => X0 + ((X1 - X0) * (i + 1)) / n);
+// The pure tone, two vibrations long, for the page without a script
+const pure = Array.from({ length: 401 }, (_, i) => `${i ? 'L' : 'M'}${(40 + 920 * (i / 400)).toFixed(1)} ${(100 - 70 * Math.sin(2 * Math.PI * 2 * (i / 400))).toFixed(1)}`).join('');
+const names = ['the note itself', 'twice the frequency', '3 times', '4 times', '5 times', '6 times'];
+---
+
+<div class="lesson-tool" data-sound-tool>
+  <div class="board mix">
+    <div class="harmonics">
+      {
+        rows.map((n, i) => (
+          <div class="harm">
+            <svg viewBox="0 0 300 60" aria-hidden="true">
+              <path class="ghost" d={`M${X0} 30L${X1} 30`} />
+              <path class="string" d={shape(n)} />
+              {nodes(n).map((x) => <circle class="node" cx={x} cy="30" r="5" />)}
+              <circle class="end" cx={X0} cy="30" r="4" />
+              <circle class="end" cx={X1} cy="30" r="4" />
+            </svg>
+            <label class="harm-label">
+              <span class="harm-name">Harmonic {n}</span>
+              <span class="harm-sub">{names[i]}</span>
+              <input class="range" type="range" min="0" max="10" step="1" value={n === 1 ? 10 : 0} data-harm={n} aria-label={`Level of harmonic ${n}, ${names[i]}`} />
+            </label>
+          </div>
+        ))
+      }
+    </div>
+    <p class="cap">The shape of your sound, over two vibrations</p>
+    <svg class="sum-svg" viewBox="0 0 1000 200" role="img" aria-label="The shape of the sound you mixed, over two vibrations of the note.">
+      <path class="ghost" d="M40 100L960 100" />
+      <path class="sum" data-sound-wave d={pure} />
+    </svg>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-sound-play>Play your sound</button>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Start from a mix">
+    <button type="button" class="btn" data-sound-preset="10,0,0,0,0,0">Pure</button>
+    <button type="button" class="btn" data-sound-preset="10,5,3,2,2,1">Plucked string</button>
+    <button type="button" class="btn" data-sound-preset="10,0,3,0,2,0">Hollow (odd harmonics)</button>
+  </div>
+  <p class="status" aria-live="polite" data-sound-status>
+    Only harmonic 1: a pure tone, the plainest sound there is. Raise another slider to add a harmonic.
+  </p>
+</div>

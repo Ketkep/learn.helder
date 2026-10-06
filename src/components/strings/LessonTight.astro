@@ -1,0 +1,43 @@
+---
+// String 3: one string with a tuning peg. Tension and thickness set the note.
+// Without a script this is a drawing of the string with the starting tension and thickness.
+---
+
+<div class="lesson-tool" data-tight-tool>
+  <p class="readout" aria-live="polite"><span class="readout-hz" data-tight-hz>110 Hz</span> <span class="readout-note" data-tight-note>closest note A2</span></p>
+  <div class="board">
+    <svg viewBox="0 0 1000 190" role="img" aria-label="One string between a tuning peg on the left and a fixed end on the right. The string gets tighter when the peg is turned, and thicker when the thickness slider is raised.">
+      <rect class="wood" x="0" y="0" width="1000" height="190" rx="14" />
+      <rect class="saddle" x="880" y="40" width="10" height="110" rx="3" />
+      <rect class="saddle" x="140" y="40" width="10" height="110" rx="3" />
+      <g transform="translate(70 95)">
+        <circle class="peg" r="42" />
+        <line class="peg-mark" data-tight-peg x1="0" y1="0" x2="0" y2="-34" />
+        <circle class="peg-hub" r="7" />
+      </g>
+      <path class="string" data-tight-string d="M148 95L885 95" style="stroke-width: 4" />
+    </svg>
+    <p class="cap" data-tight-label>Tension 1&times;, thickness 1&times;</p>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Tension <output data-tight-t-out>1&times;</output></span>
+      <input class="range" type="range" min="25" max="400" step="5" value="100" data-tight-t aria-label="Tension, as a multiple of the starting tension" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Thickness <output data-tight-d-out>1&times;</output></span>
+      <input class="range" type="range" min="50" max="200" step="5" value="100" data-tight-d aria-label="Thickness, as a multiple of the starting thickness" />
+    </label>
+    <button type="button" class="btn fill" data-tight-pluck>Pluck</button>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Try a change">
+    <button type="button" class="btn" data-tight-preset="100,100">Start again</button>
+    <button type="button" class="btn" data-tight-preset="400,100">Four times the tension</button>
+    <button type="button" class="btn" data-tight-preset="100,200">Twice as thick</button>
+  </div>
+  <p class="status" aria-live="polite" data-tight-status>
+    Same tension and thickness as the start: 110 vibrations a second.
+  </p>
+</div>

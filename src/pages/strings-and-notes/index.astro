@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Strings from '../../components/strings/Strings.astro';
+import { takeaways, sources, sourcesNote } from '../../data/strings';
+---
+
+<TopicLayout
+  slug="strings-and-notes"
+  intro="Every note from a guitar or a harp starts as a string that shakes. Five strings stretched across this page show why a short string sounds high, how tension and thickness change the note, why some notes sound good together, and what makes one instrument sound different from another."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Strings />
+</TopicLayout>

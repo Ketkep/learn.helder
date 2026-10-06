@@ -107,6 +107,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-06',
     status: 'live',
   },
+  {
+    slug: 'strings-and-notes',
+    title: 'Strings and notes',
+    hook: 'Pluck a string, shorten it, tighten it, and hear why some notes sound good together.',
+    category: 'Music',
+    accent: '#7A4B2A',
+    preview: 'strings-and-notes',
+    dateAdded: '2026-10-06',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

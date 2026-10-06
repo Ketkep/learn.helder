@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .sn-body { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; stroke-linejoin: round; }
+    .sn-hole { fill: var(--cover); stroke: var(--on-cover); stroke-width: 3; }
+    .sn-string { fill: none; stroke: var(--on-cover); stroke-width: 3; stroke-linecap: round; }
+    .sn-ghost { fill: none; stroke: var(--on-cover); stroke-width: 3; stroke-linecap: round; opacity: 0.5; }
+    .sn-peg { fill: var(--on-cover); }
+    .sn-wave { transform-box: fill-box; transform-origin: 50% 50%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .sn-a { animation: sn-shake 0.16s ease-in-out infinite alternate; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .sn-b { animation: sn-shake 0.11s ease-in-out infinite alternate; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .sn-c { animation: sn-shake 0.08s ease-in-out infinite alternate; }
+    }
+    /* Three strings shake at different speeds: the shorter, the faster */
+    @keyframes sn-shake { from { transform: scaleY(1); } to { transform: scaleY(-1); } }
+  </style>
+
+  <rect class="sn-body" x="40" y="70" width="320" height="160" rx="14"/>
+  <circle class="sn-hole" cx="270" cy="150" r="38"/>
+  <rect class="sn-peg" x="52" y="96" width="8" height="108" rx="3"/>
+
+  <!-- Straight strings, faint, and the same strings in a shaking arc on top -->
+  <path class="sn-ghost" d="M60 110H350M60 150H350M60 190H350"/>
+  <path class="sn-string sn-wave sn-a" d="M60 110Q205 80 350 110"/>
+  <path class="sn-string sn-wave sn-b" d="M60 150Q205 128 350 150"/>
+  <path class="sn-string sn-wave sn-c" d="M60 190Q205 172 350 190"/>
+
+  <!-- The bridge: the knob -->
+  <rect class="sn-peg" x="196" y="94" width="8" height="112" rx="3"/>
+  <circle class="knob" cx="200" cy="150" r="14"/>
+</svg>

@@ -1,0 +1,82 @@
+---
+// The whole page: an opening card and five lessons. Each lesson is one string stretched across the page,
+// with words above it and one idea to try. The tools are the Lesson components and src/scripts/strings.
+// Without a script every string is a drawing and the words still read in order.
+import '../../styles/strings.css';
+import { intro, lessons } from '../../data/strings';
+import { mix } from '../../lib/color';
+import LessonLength from './LessonLength.astro';
+import LessonWave from './LessonWave.astro';
+import LessonTight from './LessonTight.astro';
+import LessonRatio from './LessonRatio.astro';
+import LessonSound from './LessonSound.astro';
+
+const tools: Record<string, typeof LessonLength> = {
+  length: LessonLength,
+  wave: LessonWave,
+  tight: LessonTight,
+  ratio: LessonRatio,
+  sound: LessonSound,
+};
+
+// The wall colours: parchment tones that get a little darker down the page
+const WALNUT = '#7A4B2A';
+const CREAM = '#fff3dc';
+const bg = [mix(WALNUT, CREAM, 8), mix(WALNUT, CREAM, 14), mix(WALNUT, CREAM, 8), mix(WALNUT, CREAM, 14), mix(WALNUT, CREAM, 8)];
+---
+
+<div class="strings" data-strings>
+  <section class="opening" aria-labelledby="strings-intro" style={`--bg: ${mix(WALNUT, CREAM, 18)}`}>
+    <div class="inner">
+      <div class="opening-text">
+        <p class="kicker">In the workshop</p>
+        <h2 id="strings-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+      </div>
+      <button class="snd needs-js" type="button" data-sound aria-pressed="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+          <path class="wave" d="M15 9a4 4 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <path class="slash" d="M16 8.5l5 7M21 8.5l-5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span data-sound-label>Sound on</span>
+      </button>
+    </div>
+  </section>
+
+  {
+    lessons.map((l, i) => {
+      const Tool = tools[l.id];
+      return (
+        <section class="lesson" id={`string-${l.id}`} style={`--bg: ${bg[i]}`} aria-labelledby={`string-${l.id}-h`}>
+          <div class="inner">
+            <header class="lesson-head">
+              <p class="kicker">{l.kicker}</p>
+              <h2 id={`string-${l.id}-h`}>{l.title}</h2>
+              <div class="paras">{l.paras.map((p) => <p class="para">{p}</p>)}</div>
+            </header>
+            <div class="tool">
+              <Tool />
+            </div>
+            {
+              l.tags && (
+                <div class="tags">
+                  {l.tags.map((t) => (
+                    <aside class="tag">
+                      <p class="tag-label">{t.label}</p>
+                      <p class="tag-text">{t.text}</p>
+                    </aside>
+                  ))}
+                </div>
+              )
+            }
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/strings/strings';
+</script>

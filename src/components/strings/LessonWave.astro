@@ -1,0 +1,39 @@
+---
+// String 2: two strings in slow motion, the long one and one half as long. Drag the time to count the swings.
+// Without a script this is a drawing of both strings at one moment.
+const X0 = 70;
+const XL = 930;
+const XS = 500;
+---
+
+<div class="lesson-tool" data-wave-tool data-x0={X0} data-xl={XL} data-xs={XS}>
+  <div class="board">
+    <p class="cap">Whole string: 110 vibrations a second</p>
+    <svg viewBox="0 0 1000 150" role="img" aria-label="The whole string in slow motion. It swings once while the string below it swings twice.">
+      <rect class="saddle" x={X0 - 8} y="30" width="10" height="90" rx="3" />
+      <rect class="saddle" x={XL - 2} y="30" width="10" height="90" rx="3" />
+      <path class="ghost" d={`M${X0} 75L${XL} 75`} />
+      <path class="string" data-wave-long d={`M${X0} 75L${XL} 75`} />
+      <circle class="bridge-knob dot" data-wave-dot-long r="11" cx={(X0 + XL) / 2} cy="75" />
+    </svg>
+    <p class="cap">Half the length: 220 vibrations a second</p>
+    <svg viewBox="0 0 1000 150" role="img" aria-label="The string half as long, in slow motion.">
+      <rect class="saddle" x={X0 - 8} y="30" width="10" height="90" rx="3" />
+      <rect class="saddle" x={XS - 2} y="30" width="10" height="90" rx="3" />
+      <path class="ghost" d={`M${X0} 75L${XS} 75`} />
+      <path class="string" data-wave-short d={`M${X0} 75L${XS} 75`} />
+      <circle class="bridge-knob dot" data-wave-dot-short r="11" cx={(X0 + XS) / 2} cy="75" />
+    </svg>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Time <output data-wave-out>0.00</output></span>
+      <input class="range" type="range" min="0" max="2" step="0.01" value="0" data-wave-range aria-label="Time, in swings of the long string" />
+    </label>
+    <button type="button" class="btn fill" data-wave-play>Play slowly</button>
+    <button type="button" class="btn" data-wave-hear>Hear them at real speed</button>
+  </div>
+  <p class="status" aria-live="polite" data-wave-status>
+    The long string has swung 0 times and the short one 0 times. Drag the time slider.
+  </p>
+</div>

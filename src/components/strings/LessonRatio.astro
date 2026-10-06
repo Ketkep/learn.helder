@@ -1,0 +1,50 @@
+---
+// String 4: two strings at once. Pick an interval. The sum of the two vibrations is drawn, and the tool
+// shows how soon it repeats. Without a script this is a drawing of the fifth (3 to 2).
+const X0 = 70;
+const XL = 930;
+const intervals = [
+  { id: 'octave', name: 'Octave', a: 2, b: 1 },
+  { id: 'fifth', name: 'Fifth', a: 3, b: 2 },
+  { id: 'fourth', name: 'Fourth', a: 4, b: 3 },
+  { id: 'major-third', name: 'Major third', a: 5, b: 4 },
+  { id: 'minor-third', name: 'Minor third', a: 6, b: 5 },
+  { id: 'tritone', name: 'Tritone', a: 45, b: 32 },
+  { id: 'semitone', name: 'Semitone', a: 16, b: 15 },
+];
+---
+
+<div class="lesson-tool" data-ratio-tool data-x0={X0} data-xl={XL}>
+  <div class="controls needs-js" role="group" aria-label="Pick an interval">
+    {intervals.map((i) => <button type="button" class="btn" aria-pressed={i.id === 'fifth' ? 'true' : 'false'} data-ratio-pick={`${i.a},${i.b},${i.name}`}>{i.name} {i.a}:{i.b}</button>)}
+  </div>
+  <div class="board">
+    <p class="cap">Lower note: 220 vibrations a second</p>
+    <svg viewBox="0 0 1000 80" role="img" aria-label="The lower string, whole length.">
+      <rect class="saddle" x={X0 - 8} y="12" width="10" height="56" rx="3" />
+      <rect class="saddle" x={XL - 2} y="12" width="10" height="56" rx="3" />
+      <path class="string" d={`M${X0} 40L${XL} 40`} />
+    </svg>
+    <p class="cap" data-ratio-upper-label>Higher note: 330 vibrations a second</p>
+    <svg viewBox="0 0 1000 80" role="img" aria-label="The higher string. The orange bridge shortens it.">
+      <rect class="saddle" x={X0 - 8} y="12" width="10" height="56" rx="3" />
+      <rect class="saddle" x={XL - 2} y="12" width="10" height="56" rx="3" />
+      <path class="string" data-ratio-upper d={`M${X0} 40L${X0 + (XL - X0) * (2 / 3)} 40`} />
+      <path class="string dead" data-ratio-dead d={`M${X0 + (XL - X0) * (2 / 3)} 40L${XL} 40`} />
+      <circle class="bridge-knob" data-ratio-knob cx={X0 + (XL - X0) * (2 / 3)} cy="40" r="14" />
+    </svg>
+    <p class="cap">The two vibrations added together, over 60 thousandths of a second</p>
+    <svg viewBox="0 0 1000 200" role="img" aria-label="The two vibrations added together over a short stretch of time. Dashed lines mark where the pattern starts again.">
+      <line class="axis" x1={X0} x2={XL} y1="100" y2="100" />
+      <path class="sum" data-ratio-sum d="" />
+      <g data-ratio-marks></g>
+    </svg>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-ratio-together>Play together</button>
+    <button type="button" class="btn" data-ratio-after>Play one after the other</button>
+  </div>
+  <p class="status" aria-live="polite" data-ratio-status>
+    Fifth, 3 to 2: 330 against 220 vibrations a second. The sum repeats every 9.1 thousandths of a second.
+  </p>
+</div>

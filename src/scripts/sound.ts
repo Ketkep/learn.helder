@@ -94,6 +94,26 @@ function tone(at: number, freq: number, length: number, loudness: number, type: 
   osc.stop(at + length + 0.05);
 }
 
+/**
+ * A plucked string: a note at `freq` Hz made of sine partials. `partials[0]` is the loudness of the note itself,
+ * `partials[1]` of the note an octave up, and so on. The sound dies away by itself.
+ * Returns how long the note lasts in seconds, or 0 when nothing played (sound off or still locked).
+ */
+export function pluck(freq: number, partials: number[] = [1], seconds = 1.6) {
+  if (!enabled || !ctx || !master) return 0;
+  if (ctx.state === 'suspended') void ctx.resume();
+  const total = partials.reduce((a, b) => a + b, 0);
+  if (total <= 0) return 0;
+  const t = ctx.currentTime + 0.005;
+  partials.forEach((level, i) => {
+    const f = freq * (i + 1);
+    if (level <= 0 || f > 9000) return;
+    // Higher partials fade faster, like a real string
+    tone(t, f, seconds / (1 + i * 0.35), (0.26 * level) / Math.max(total, 1.5), 'sine');
+  });
+  return seconds;
+}
+
 /** `power` is 0 to 1 and scales the loudness (and, for a rumble, how long it lasts). */
 export function play(kind: Sound, power = 1) {
   if (!enabled || !ctx || !master) return;

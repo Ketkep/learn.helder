@@ -174,6 +174,18 @@ The page is a cabinet of five drawers: the sieve (strike out), dots in rectangle
 - The last drawer makes two random primes and splits their product by trial division. Numbers stay below 10^14 so JavaScript numbers are exact. The row for 617 digits is a calculation, not a test.
 - Without scripts every drawer is open and the page is plain text with a finished sieve and the 12 and 13 examples. Buttons that need a script carry `.needs-js`.
 
+## The strings page: how the strings work
+
+The page is a row of five strings, each stretched across the full width of the page on a dark wooden board. Above a string are the words, below it are the controls and a status line, and paper tags hold extra facts. The strings: a bridge you drag (shorter is higher), two strings in slow motion, tension and thickness, two strings at once (ratios and the sum of two vibrations), and six harmonics you mix into a sound.
+
+- `src/data/strings.ts` holds all the words, the takeaways and the sources.
+- `src/components/strings/Strings.astro` is the frame. `Lesson*.astro` is one string each, with its drawing, controls and status line. Labels that would be too small inside a drawing on a phone are plain HTML (`.cap`, `.tick-row`).
+- `src/scripts/strings/` has one script per string (`length.ts`, `wave.ts`, `tight.ts`, `ratio.ts`, `build.ts`), `music.ts` (note names) and `strings.ts` (starts everything).
+- Sound is made in the browser by `pluck()` in `src/scripts/sound.ts`: sine partials with a fade, no audio files. It plays after the first click or key press and follows the sound switch.
+- The made-up numbers are the starting note (110 Hz for the whole string, `BASE_HZ` in `music.ts`) and the scale of the tension and thickness sliders. The frequency rule (1 / length, square root of tension, 1 / thickness) is the real one.
+- The pictures use a slowed-down swing. With reduced motion the plucks and the play buttons do not animate: the strings flash instead, and the time slider stays.
+- Without scripts every string is a still drawing and the words read in order. Buttons and sliders carry `.needs-js`.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -202,6 +214,7 @@ src/data/dutch.ts        everything the Dutch page says: stops, pretend numbers,
 src/data/radiation/      the radiation page: en.ts and nl.ts (the words), index.ts (the numbers), types.ts
 src/data/tides.ts        everything the tides page says: benches, takeaways, sources
 src/data/primes.ts       everything the primes page says: drawers, takeaways, sources
+src/data/strings.ts      everything the strings page says: lessons, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -212,6 +225,7 @@ src/components/dutch/    the Dutch page: the film frame, one file per stop, the 
 src/components/radiation/ the radiation page: the zoom frame, one file per scene
 src/components/tides/    the tides page: the quay with its staff, one file per tool
 src/components/primes/   the primes page: the cabinet of drawers, one file per tool
+src/components/strings/  the strings page: the row of strings, one file per lesson
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -219,6 +233,7 @@ src/styles/roll.css      the Dutch film: plain mode, film mode, bar, strip, cont
 src/styles/zoom.css      the radiation zoom: plain mode, film mode, lens, bar, controls
 src/styles/tides.css     the tides quay: staff, benches, controls
 src/styles/primes.css    the primes cabinet: drawer fronts, trays, controls
+src/styles/strings.css   the strings page: boards, strings, controls
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -233,6 +248,7 @@ src/scripts/dutch/       the camera (roll.ts) and one script per Dutch stop
 src/scripts/radiation/   the camera (zoom.ts), the dose model, and one script per scene
 src/scripts/tides/       the staff (quay.ts), the tide maths (model.ts) and one script per tool
 src/scripts/primes/      the cabinet (cabinet.ts), the number work (math.ts) and one script per tool
+src/scripts/strings/     one script per string, plus note names (music.ts)
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
