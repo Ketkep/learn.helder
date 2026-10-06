@@ -1,0 +1,122 @@
+---
+// Drawer 5: easy one way. Multiply two primes instantly, then count the tries it takes to split them again.
+const sizes = [6, 8, 10, 12, 14];
+---
+
+<div class="tool-lock" data-lock-tool>
+  <div class="controls needs-js" role="group" aria-label="How many digits the number has">
+    {sizes.map((d) => <button type="button" class="btn" data-lock-digits={d} aria-pressed={d === 6 ? 'true' : 'false'}>{d} digits</button>)}
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-lock-make>Make a number</button>
+    <button type="button" class="btn" data-lock-split disabled>Split it again</button>
+  </div>
+  <div class="sheet">
+    <p class="line" data-lock-line>Press &ldquo;Make a number&rdquo;. Two primes will be multiplied.</p>
+    <p class="line" data-lock-result>&nbsp;</p>
+  </div>
+  <table class="bars">
+    <caption>Tries needed, from your own splits. The bars use a log scale: each step along is 10 times more tries.</caption>
+    <thead class="visually-hidden"><tr><th>Digits</th><th>Tries</th></tr></thead>
+    <tbody>
+      {
+        sizes.map((d) => (
+          <tr data-lock-row={d}>
+            <th scope="row">{d} digits</th>
+            <td>
+              <span class="bar"><span class="fill" data-bar></span></span>
+              <span class="count" data-count>not tried yet</span>
+            </td>
+          </tr>
+        ))
+      }
+      <tr class="big">
+        <th scope="row">617 digits</th>
+        <td><span class="count">about 10 to the power 308 tries</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="status" aria-live="polite" data-lock-status>
+    This drawer needs a script. The idea: multiplying two primes takes one step, but splitting the answer takes about 10 times more tries for every 2 extra digits.
+  </p>
+</div>
+
+<style>
+  .sheet {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    background: #fff;
+    border: 3px solid #121315;
+    border-radius: 8px;
+  }
+
+  .line {
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+  }
+
+  .bars {
+    width: 100%;
+    margin-top: 1rem;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+
+  .bars caption {
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .bars th {
+    width: 5.6rem;
+    padding: 0.25rem 0.4rem 0.25rem 0;
+    font-weight: 700;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .bars td {
+    padding: 0.25rem 0;
+  }
+
+  .bar {
+    display: block;
+    height: 0.7rem;
+    border-radius: 999px;
+    background: rgb(18 19 21 / 0.12);
+    overflow: hidden;
+  }
+
+  .bar .fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: 999px;
+    background: #e4501a;
+    transition: width 0.4s ease-out;
+  }
+
+  .count {
+    display: block;
+    color: #3d3a32;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .big .count {
+    padding-top: 0.2rem;
+    color: #121315;
+    font-weight: 800;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bar .fill {
+      transition: none;
+    }
+  }
+</style>

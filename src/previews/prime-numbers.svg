@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .pn-body { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; stroke-linejoin: round; }
+    .pn-front { fill: var(--on-cover); stroke: var(--on-cover); stroke-width: 3; }
+    .pn-slot { fill: none; stroke: var(--cover); stroke-width: 3; }
+    .pn-inside { fill: var(--cover); opacity: 0.9; }
+    .pn-pull, .pn-pull-in { transform-box: view-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pn-pull { animation: pn-pull 4.5s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pn-pull-in { animation: pn-in 4.5s ease-in-out infinite; }
+    }
+    /* The middle drawer slides out, shows what is inside, and goes back in */
+    @keyframes pn-pull { 0%, 10% { transform: translateY(0); } 30%, 70% { transform: translateY(22px); } 90%, 100% { transform: translateY(0); } }
+    @keyframes pn-in { 0%, 10% { opacity: 0; } 30%, 70% { opacity: 1; } 90%, 100% { opacity: 0; } }
+  </style>
+
+  <rect class="pn-body" x="64" y="24" width="272" height="262" rx="10"/>
+
+  <!-- Top drawer -->
+  <rect class="pn-front" x="82" y="40" width="236" height="68" rx="6"/>
+  <rect class="pn-slot" x="140" y="52" width="120" height="30" rx="4"/>
+  <text class="pn-num" style="fill: var(--cover); font: 700 22px var(--font-body)" x="200" y="74" text-anchor="middle">2  3  5</text>
+  <circle class="knob" cx="200" cy="94" r="8"/>
+
+  <!-- Middle drawer: it slides out -->
+  <rect class="pn-inside pn-pull-in" x="94" y="116" width="212" height="24" rx="3"/>
+  <g class="pn-pull">
+    <rect class="pn-front" x="82" y="116" width="236" height="68" rx="6"/>
+    <rect class="pn-slot" x="140" y="128" width="120" height="30" rx="4"/>
+    <text class="pn-num" style="fill: var(--cover); font: 700 22px var(--font-body)" x="200" y="150" text-anchor="middle">7  11  13</text>
+    <circle class="knob" cx="200" cy="170" r="8"/>
+  </g>
+
+  <!-- Bottom drawer -->
+  <rect class="pn-front" x="82" y="204" width="236" height="68" rx="6"/>
+  <rect class="pn-slot" x="140" y="216" width="120" height="30" rx="4"/>
+  <text class="pn-num" style="fill: var(--cover); font: 700 22px var(--font-body)" x="200" y="238" text-anchor="middle">17  19  23</text>
+  <circle class="knob" cx="200" cy="258" r="8"/>
+</svg>

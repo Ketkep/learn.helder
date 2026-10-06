@@ -1,0 +1,98 @@
+---
+// Drawer 3: Euclid's trick. Pick a list of primes, multiply them, add 1, and split the result.
+// Without a script the page shows the example from the text: the first six primes.
+import { factor, firstPrimes, grp } from '../../scripts/primes/math';
+
+const chips = firstPrimes(9);
+const start = chips.slice(0, 6);
+const product = start.reduce((a, b) => a * b, 1);
+---
+
+<div class="tool-euclid" data-euclid-tool>
+  <p class="label" id="euclid-label">Your list of primes</p>
+  <div class="chips needs-js" role="group" aria-labelledby="euclid-label">
+    {chips.map((p) => <button type="button" class="chip" aria-pressed={start.includes(p) ? 'true' : 'false'} data-p={p}>{p}</button>)}
+  </div>
+  <ol class="steps">
+    <li>
+      <span class="step-label">Multiply them all</span>
+      <span class="step-value" data-euclid-product>{start.join(' × ')} = {grp(product)}</span>
+    </li>
+    <li>
+      <span class="step-label">Add 1</span>
+      <span class="step-value" data-euclid-new>{grp(product + 1)}</span>
+    </li>
+    <li>
+      <span class="step-label">Split it into primes</span>
+      <span class="step-value" data-euclid-split>{factor(product + 1).join(' × ')}</span>
+    </li>
+    <li>
+      <span class="step-label">Leftover when you divide</span>
+      <span class="step-value" data-euclid-rest>{start.map((p) => `${grp(product + 1)} ÷ ${p} leaves 1`).join(', ')}</span>
+    </li>
+  </ol>
+  <p class="status" aria-live="polite" data-euclid-status>
+    Neither 59 nor 509 is on your list. Your list was missing primes.
+  </p>
+</div>
+
+<style>
+  .label {
+    font-weight: 700;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.5rem;
+  }
+
+  .chip {
+    min-width: 3rem;
+    padding: 0.4rem 0.7rem;
+    border: 3px solid #121315;
+    border-radius: 999px;
+    background: #fff;
+    color: #121315;
+    font-size: 1.05rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .chip[aria-pressed='true'] {
+    background: #e4501a;
+  }
+
+  .steps {
+    display: grid;
+    gap: 0.5rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .steps li {
+    display: grid;
+    gap: 0.1rem;
+    padding: 0.6rem 0.8rem;
+    background: #fff;
+    border: 3px solid #121315;
+    border-radius: 8px;
+  }
+
+  .step-label {
+    color: #5d5648;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .step-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+  }
+</style>

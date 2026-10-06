@@ -1,0 +1,436 @@
+/* The primes page: a cabinet of drawers. The fronts are headings that become buttons with a script.
+   An open drawer shows a cream tray with the words on the left and one tool on the right.
+   The tools are styled inside each tool component. */
+
+.cab {
+  --wood: #26101c;
+  --front: #a8336a;
+  --cream: #fff3dc;
+  --ink-fixed: #121315;
+
+  padding-bottom: clamp(2.5rem, 6vw, 4.5rem);
+  background: var(--wood);
+  color: var(--cream);
+}
+
+.cab :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+html:not(.js) .cab .needs-js {
+  display: none;
+}
+
+/* ---------- The top card: contents and a few switches ---------- */
+.cab-top {
+  padding: clamp(2rem, 5vw, 3.5rem) var(--gutter) clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.cab-top-inner {
+  display: grid;
+  gap: 1.2rem 3rem;
+  width: min(100%, 60rem);
+  margin-inline: auto;
+}
+
+.cab-intro {
+  display: grid;
+  gap: 0.8rem;
+  max-width: 40rem;
+}
+
+.cab-intro h2 {
+  font-size: clamp(2.2rem, 1.5rem + 2.8vw, 3.4rem);
+}
+
+.cab-intro p {
+  font-size: 1.1rem;
+}
+
+.cab-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* ---------- Drawers ---------- */
+.cab-body {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100% - 2 * var(--gutter), 60rem);
+  margin-inline: auto;
+}
+
+.drawer {
+  position: relative;
+}
+
+.drawer .front {
+  margin: 0;
+  background: var(--front);
+  color: var(--cream);
+  border: 3px solid var(--cream);
+  border-radius: 12px;
+  box-shadow: 0 6px 0 rgb(0 0 0 / 0.35);
+  font-size: 1rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.drawer.open .front {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: none;
+}
+
+.front-button {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.front-button:hover .front-knob {
+  transform: scale(1.1);
+}
+
+.front-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.1rem;
+}
+
+.front-no {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 3px solid var(--cream);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+}
+
+.front-text {
+  display: grid;
+  flex: 1;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.front-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.2rem);
+  line-height: 1;
+}
+
+.front-teaser {
+  font-size: 0.98rem;
+  font-weight: 500;
+}
+
+/* The brass knob is the orange knob of the brand: it turns when the drawer is open */
+.front-knob {
+  flex: none;
+  position: relative;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 3px solid var(--cream);
+  border-radius: 50%;
+  background: var(--accent);
+  transition: transform 0.25s;
+}
+
+.front-knob::before,
+.front-knob::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.9rem;
+  height: 3px;
+  margin: -1.5px 0 0 -0.45rem;
+  border-radius: 2px;
+  background: var(--ink-fixed);
+}
+
+.front-knob::after {
+  transform: rotate(90deg);
+  transition: transform 0.25s;
+}
+
+/* A plus sign when the drawer is closed, a minus sign when it is open */
+.drawer.open .front-knob::after {
+  transform: rotate(0deg);
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.tray {
+  display: grid;
+  gap: 1.4rem 2.2rem;
+  padding: clamp(1rem, 3vw, 1.8rem);
+  background: var(--cream);
+  color: var(--ink-fixed);
+  border: 3px solid var(--cream);
+  border-top: 0;
+  border-radius: 0 0 12px 12px;
+  --wash: rgb(0 0 0 / 0.08);
+  --fg: var(--ink-fixed);
+}
+
+.tray :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+@media (min-width: 60rem) {
+  .tray {
+    grid-template-columns: minmax(0, 19rem) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .drawer.pulled .tray {
+    animation: cab-pull 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  @keyframes cab-pull {
+    from {
+      transform: translateY(-1.4rem);
+      opacity: 0;
+    }
+  }
+}
+
+.copy {
+  display: grid;
+  gap: 0.9rem;
+  align-content: start;
+}
+
+.kicker {
+  color: #6c2146;
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+/* A paper tag with one extra fact */
+.tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: #f1e0bc;
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.22);
+  transform: rotate(-0.5deg);
+}
+
+.tag:nth-of-type(even) {
+  transform: rotate(0.5deg);
+}
+
+.tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--cream);
+  box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.4);
+}
+
+.tag-label {
+  color: #7d1d4a;
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.tool {
+  min-width: 0;
+}
+
+/* ---------- Controls ---------- */
+.cab .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+  margin-top: 0.95rem;
+}
+
+.cab .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.cab .btn:hover:not(:disabled) {
+  background: var(--wash, rgb(255 255 255 / 0.14));
+}
+
+.cab .btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.cab .btn.fill {
+  background: var(--ink-fixed);
+  border-color: var(--ink-fixed);
+  color: var(--cream);
+}
+
+.cab .btn.fill:hover:not(:disabled) {
+  background: #e4501a;
+  border-color: var(--ink-fixed);
+  color: var(--ink-fixed);
+}
+
+.cab .btn[aria-pressed='true'] {
+  background: var(--ink-fixed);
+  border-color: var(--ink-fixed);
+  color: var(--cream);
+}
+
+.cab .cab-tools .btn:hover {
+  background: rgb(255 255 255 / 0.14);
+}
+
+.next-btn {
+  margin-top: 1.2rem;
+}
+
+.cab .status {
+  min-height: 4.4rem;
+  margin-top: 0.7rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+/* A slider with the brand knob as its handle */
+.cab .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 9rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.cab .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.cab .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.cab .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.cab .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.cab .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.cab .field {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 14rem;
+  font-weight: 600;
+}
+
+.cab .field span {
+  min-width: 7.5rem;
+}
+
+/* ---------- Sound switch ---------- */
+.cab .snd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  cursor: pointer;
+}
+
+.cab .snd[aria-pressed='true'] .slash,
+.cab .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cab * {
+    scroll-behavior: auto !important;
+  }
+
+  .front-knob,
+  .front-knob::after {
+    transition: none;
+  }
+}

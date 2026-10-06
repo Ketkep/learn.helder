@@ -162,6 +162,18 @@ The page is a walk along a harbour wall. A tide staff (a painted ruler) stands a
 - The tank toy uses the exact result for a basin that is open at one end and closed at the other: the closed end rises 1 / cos(k L) times as far as the mouth. Friction is made up (`FRICTION` in `model.ts`) so the peak is finite. The page calls it a toy tank.
 - Without scripts the benches are plain text and still pictures. The staff and the play button need a script (`.needs-js`). With reduced motion the play button is hidden, and the staff does not animate.
 
+## The primes page: how the cabinet works
+
+The page is a cabinet of five drawers: the sieve (strike out), dots in rectangles, Euclid's trick (no last prime), a window of 100 numbers that slides up the number line (thinning out), and multiplying two primes against splitting the product (easy one way). Each drawer front is a heading. With a script it becomes a button that opens the drawer (the first one starts open). Inside is a cream tray with the words on the left and one tool on the right.
+
+- `src/data/primes.ts` holds all the words, the takeaways and the sources.
+- `src/components/primes/Cabinet.astro` is the frame. `Tool*.astro` is one tool each, with its controls and a status line that is read out to screen readers. Elements that a script builds later (the rectangles) are styled with `is:global` and a `.tool-rects` prefix, because Astro scoping only reaches elements that exist at build time.
+- `src/scripts/primes/cabinet.ts` wraps each heading's content in a button (`aria-expanded`, `aria-controls`), opens and closes the trays, and starts the tools. `math.ts` holds the number work (prime test, factoring, sieve). `sieve.ts`, `rects.ts`, `euclid.ts`, `density.ts` and `lock.ts` are the tools.
+- The sieve only accepts the smallest number that is not struck out, and stops after 7 because 11 times 11 is more than 100.
+- The density drawer builds a sieve up to 1,000,000 in the browser (a few milliseconds) and counts primes from it. The log scale of the slider runs from 100 to 1,000,000.
+- The last drawer makes two random primes and splits their product by trial division. Numbers stay below 10^14 so JavaScript numbers are exact. The row for 617 digits is a calculation, not a test.
+- Without scripts every drawer is open and the page is plain text with a finished sieve and the 12 and 13 examples. Buttons that need a script carry `.needs-js`.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -189,6 +201,7 @@ src/data/peru.ts         everything the Peru page says: shots, brick stamps, yea
 src/data/dutch.ts        everything the Dutch page says: stops, pretend numbers, route, sources
 src/data/radiation/      the radiation page: en.ts and nl.ts (the words), index.ts (the numbers), types.ts
 src/data/tides.ts        everything the tides page says: benches, takeaways, sources
+src/data/primes.ts       everything the primes page says: drawers, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -198,12 +211,14 @@ src/components/peru/     the Peru page: the dig and its seven tools
 src/components/dutch/    the Dutch page: the film frame, one file per stop, the coin
 src/components/radiation/ the radiation page: the zoom frame, one file per scene
 src/components/tides/    the tides page: the quay with its staff, one file per tool
+src/components/primes/   the primes page: the cabinet of drawers, one file per tool
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
 src/styles/roll.css      the Dutch film: plain mode, film mode, bar, strip, controls
 src/styles/zoom.css      the radiation zoom: plain mode, film mode, lens, bar, controls
 src/styles/tides.css     the tides quay: staff, benches, controls
+src/styles/primes.css    the primes cabinet: drawer fronts, trays, controls
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -217,6 +232,7 @@ src/scripts/peru/        one script per Peru tool, plus the gauge
 src/scripts/dutch/       the camera (roll.ts) and one script per Dutch stop
 src/scripts/radiation/   the camera (zoom.ts), the dose model, and one script per scene
 src/scripts/tides/       the staff (quay.ts), the tide maths (model.ts) and one script per tool
+src/scripts/primes/      the cabinet (cabinet.ts), the number work (math.ts) and one script per tool
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics

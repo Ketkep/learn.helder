@@ -1,0 +1,89 @@
+---
+// Drawer 1: the sieve. A hundred numbers. Click the smallest one that is not struck out, and its multiples go.
+// Without a script the grid shows the finished sieve: primes ringed, the rest struck out.
+import { sieve } from '../../scripts/primes/math';
+
+const flags = sieve(100);
+const cells = Array.from({ length: 100 }, (_, i) => ({ n: i + 1, prime: flags[i + 1] === 1 }));
+---
+
+<div class="tool-sieve" data-sieve-tool>
+  <ol class="grid" aria-label="The numbers from 1 to 100">
+    {
+      cells.map((c) => (
+        <li>
+          <button type="button" class:list={['cell', c.prime ? 'ring' : c.n === 1 ? 'struck' : 'struck']} data-n={c.n} disabled>
+            {c.n}
+          </button>
+        </li>
+      ))
+    }
+  </ol>
+  <div class="controls">
+    <button type="button" class="btn fill needs-js" data-sieve-next>Do the next prime for me</button>
+    <button type="button" class="btn needs-js" data-sieve-reset>Start again</button>
+  </div>
+  <p class="status" aria-live="polite" data-sieve-status>
+    Done: every number that is left is a prime. There are 25 of them below 100.
+  </p>
+</div>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cell {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    min-width: 0;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background: #fff;
+    color: #121315;
+    font-size: clamp(0.72rem, 0.5rem + 1.2vw, 1.05rem);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+  }
+
+  .cell:disabled {
+    cursor: default;
+    opacity: 1;
+  }
+
+  /* A struck number fades and gets a line through it */
+  .cell.struck {
+    background: #e6ddc9;
+    color: #554d3d;
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+  }
+
+  /* A prime that has been chosen: ringed in orange */
+  .cell.ring {
+    background: #fff3dc;
+    border-color: #e4501a;
+    border-width: 3px;
+    color: #121315;
+  }
+
+  /* The number you can click next gets a dotted ring */
+  .cell.next {
+    border-color: #121315;
+    border-style: dashed;
+  }
+
+  .cell:focus-visible {
+    outline: 3px solid #121315;
+    outline-offset: 2px;
+  }
+</style>

@@ -1,0 +1,102 @@
+---
+// Drawer 2: dots in rectangles. Pick a number and see every rectangle it can make.
+// Without a script the page shows 12 and 13, the two examples from the text.
+import { rectangles } from '../../scripts/primes/math';
+
+const examples = [12, 13].map((n) => ({ n, rects: rectangles(n) }));
+---
+
+<div class="tool-rects" data-rects-tool>
+  <div class="stage" data-rects-stage>
+    {
+      examples.map((e) => (
+        <div class="static">
+          <p class="static-head">{e.n} dots</p>
+          <div class="shapes">
+            {e.rects.map(([a, b]) => (
+              <figure class="shape" style={`width: ${Math.max(b * 1.7, 5)}rem`}>
+                <svg viewBox={`0 0 ${b * 20} ${a * 20}`} role="img" aria-label={`${a} by ${b}`}>
+                  {Array.from({ length: a * b }, (_, i) => <circle cx={(i % b) * 20 + 10} cy={Math.floor(i / b) * 20 + 10} r="7" />)}
+                </svg>
+                <figcaption>{a} &times; {b}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Dots <output data-rects-out>12</output></span>
+      <input class="range" type="range" min="1" max="60" step="1" value="12" data-rects-range aria-label="Number of dots" />
+    </label>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Try a number">
+    <button type="button" class="btn" data-rects-jump="12">12</button>
+    <button type="button" class="btn" data-rects-jump="13">13</button>
+    <button type="button" class="btn" data-rects-jump="36">36</button>
+    <button type="button" class="btn" data-rects-jump="49">49</button>
+    <button type="button" class="btn" data-rects-jump="59">59</button>
+    <button type="button" class="btn" data-rects-jump="1">1</button>
+  </div>
+  <p class="status" aria-live="polite" data-rects-status>
+    12 dots make 3 rectangles, so 12 is composite: 12 = 2 &times; 2 &times; 3. 13 dots make only 1, so 13 is prime.
+  </p>
+</div>
+
+<style is:global>
+  .tool-rects .stage {
+    display: grid;
+    gap: 1rem;
+    min-height: 13rem;
+    padding: 0.8rem;
+    background: #fff;
+    border: 3px solid #121315;
+    border-radius: 8px;
+  }
+
+  .tool-rects .static {
+    min-width: 0;
+  }
+
+  .tool-rects .static-head {
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+
+  .tool-rects .shapes {
+    min-width: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.7rem 1.1rem;
+  }
+
+  .tool-rects .shape {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .tool-rects .shape svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .tool-rects .shape circle {
+    fill: #e4501a;
+    stroke: #121315;
+    stroke-width: 2;
+  }
+
+  .tool-rects .shape.single circle {
+    fill: #7fc0d9;
+  }
+
+  .tool-rects .shape figcaption {
+    margin-top: 0.15rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: center;
+  }
+</style>

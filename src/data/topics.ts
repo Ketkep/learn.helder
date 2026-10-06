@@ -97,6 +97,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-06',
     status: 'live',
   },
+  {
+    slug: 'prime-numbers',
+    title: 'Prime numbers',
+    hook: 'Numbers that cannot be split. Strike out the rest, build rectangles and see why there is no last one.',
+    category: 'Maths',
+    accent: '#A8336A',
+    preview: 'prime-numbers',
+    dateAdded: '2026-10-06',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

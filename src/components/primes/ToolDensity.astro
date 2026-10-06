@@ -1,0 +1,55 @@
+---
+// Drawer 4: a window of 100 numbers that slides up the number line. Primes are lit.
+// Without a script the window shows the numbers 901 to 1,000.
+import { grp, sieve } from '../../scripts/primes/math';
+
+const flags = sieve(1000);
+const window = Array.from({ length: 100 }, (_, i) => 901 + i);
+const found = window.filter((n) => flags[n]);
+---
+
+<div class="tool-density" data-density-tool>
+  <div class="window" data-density-window role="img" aria-label="A window of 100 numbers. The primes are lit.">
+    {window.map((n) => <span class:list={['dot', { lit: flags[n] === 1 }]}></span>)}
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Up to <output data-density-out>1,000</output></span>
+      <input class="range" type="range" min="0" max="100" step="1" value="50" data-density-range aria-label="How far up the number line" />
+    </label>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Jump to a number">
+    <button type="button" class="btn" data-density-jump="100">100</button>
+    <button type="button" class="btn" data-density-jump="1000">1,000</button>
+    <button type="button" class="btn" data-density-jump="10000">10,000</button>
+    <button type="button" class="btn" data-density-jump="100000">100,000</button>
+    <button type="button" class="btn" data-density-jump="1000000">1,000,000</button>
+  </div>
+  <p class="status" aria-live="polite" data-density-status>
+    The window shows {grp(901)} to {grp(1000)}. {found.length} of the 100 numbers are prime: {found.map(grp).join(', ')}.
+  </p>
+</div>
+
+<style>
+  .window {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 0.3rem;
+    padding: 0.8rem;
+    background: #fff;
+    border: 3px solid #121315;
+    border-radius: 8px;
+  }
+
+  .dot {
+    display: block;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #e6ddc9;
+  }
+
+  .dot.lit {
+    background: #e4501a;
+    box-shadow: 0 0 0 2px #121315;
+  }
+</style>

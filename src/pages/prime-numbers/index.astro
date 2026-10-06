@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Cabinet from '../../components/primes/Cabinet.astro';
+import { takeaways, sources, sourcesNote } from '../../data/primes';
+---
+
+<TopicLayout
+  slug="prime-numbers"
+  intro="Prime numbers are the numbers that cannot be split into smaller whole numbers. Open the five drawers of this cabinet to strike them out, build them from dots, see why there is no last one, and why they protect secrets."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Cabinet />
+</TopicLayout>
