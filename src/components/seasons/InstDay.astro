@@ -1,0 +1,62 @@
+---
+// Instrument 3: a 24 hour clock with daylight and night. Pick a place and a date.
+// Without a script this is the clock for Amsterdam on 21 June.
+import { places } from '../../data/seasons';
+
+const CX = 400;
+const CY = 235;
+const R = 185;
+const hours = [0, 3, 6, 9, 12, 15, 18, 21];
+// Midnight at the bottom, noon at the top, hours go clockwise
+const pt = (h: number, r: number) => {
+  const a = (h / 24) * 2 * Math.PI;
+  return { x: CX - r * Math.sin(a), y: CY + r * Math.cos(a) };
+};
+---
+
+<div class="inst" data-day-tool data-cx={CX} data-cy={CY} data-r={R}>
+  <div class="face">
+    <svg viewBox="0 0 800 480" role="img" aria-label="A 24 hour clock with midnight at the bottom and noon at the top. The yellow part is daylight and the dark part is night.">
+      <circle class="night" cx={CX} cy={CY} r={R} />
+      <path class="daylight" data-day-arc d="" />
+      <circle class="rim" cx={CX} cy={CY} r={R} />
+      {
+        hours.map((h) => {
+          const a = pt(h, R);
+          const b = pt(h, R - 14);
+          const t = pt(h, R + 30);
+          return (
+            <>
+              <line class="tick" x1={a.x} y1={a.y} x2={b.x} y2={b.y} />
+              <text class="lab small" x={t.x} y={t.y + 7} text-anchor="middle">{String(h).padStart(2, '0')}</text>
+            </>
+          );
+        })
+      }
+      <line class="hand" data-day-rise x1={CX} y1={CY} x2={CX} y2={CY} />
+      <line class="hand" data-day-set x1={CX} y1={CY} x2={CX} y2={CY} />
+      <circle class="knob" data-day-sun r="14" cx={CX} cy={CY - R + 26} />
+      <circle class="hub" cx={CX} cy={CY} r="66" />
+      <text class="lab center" data-day-center x={CX} y={CY + 6} text-anchor="middle" style="font-size: 26px">16 h 48 min</text>
+    </svg>
+  </div>
+  <p class="readout" aria-live="polite"><span class="big" data-day-place>52.4&deg; N</span> <span class="mid" data-day-date>21 June</span></p>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Date <output data-day-out>21 June</output></span>
+      <input class="range" type="range" min="1" max="365" step="1" value="172" data-day-range aria-label="Day of the year" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Latitude <output data-day-lat-out>52.4&deg; N</output></span>
+      <input class="range" type="range" min="-90" max="90" step="0.1" value="52.4" data-day-lat aria-label="Latitude, in degrees north or south of the equator" />
+    </label>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Pick a place">
+    {places.map((p) => <button type="button" class="btn" data-day-place-btn={p.lat}>{p.short}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-day-status>
+    At 52.4&deg; N on 21 June the Sun rises at 03:36 and sets at 20:24 sun time. That is 16 h 48 min of daylight.
+  </p>
+</div>

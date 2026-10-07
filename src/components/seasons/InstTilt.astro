@@ -1,0 +1,59 @@
+---
+// Instrument 2: how long the days are through the year at one place, for any tilt of the Earth.
+// Without a script this is the chart for Amsterdam with the real tilt.
+import { places } from '../../data/seasons';
+import { dayLength, declination } from '../../scripts/seasons/sun';
+
+const X0 = 60;
+const X1 = 780;
+const Y0 = 30; // 24 hours
+const Y1 = 330; // 0 hours
+const px = (day: number) => X0 + ((X1 - X0) * (day - 1)) / 364;
+const py = (h: number) => Y1 - ((Y1 - Y0) * h) / 24;
+const curve = Array.from({ length: 183 }, (_, i) => {
+  const day = 1 + i * 2;
+  return `${i ? 'L' : 'M'}${px(day).toFixed(1)} ${py(dayLength(52.4, declination(day))).toFixed(1)}`;
+}).join('');
+const months = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+const starts = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+---
+
+<div class="inst" data-tilt-tool data-x0={X0} data-x1={X1} data-y0={Y0} data-y1={Y1}>
+  <div class="face">
+    <svg viewBox="0 0 800 400" role="img" aria-label="A chart of how many hours of daylight there are on each day of the year at one place. The line rises to a peak in June and falls to a low in December. A flatter line means a smaller tilt.">
+      {[0, 6, 12, 18, 24].map((h) => <line class="grid" x1={X0} x2={X1} y1={py(h)} y2={py(h)} />)}
+      {[6, 12, 18, 24].map((h) => <text class="lab small" x={X0 - 10} y={py(h) + 7} text-anchor="end">{h}</text>)}
+      <text class="lab small" x={X0 - 10} y={py(0) + 7} text-anchor="end">0</text>
+      <text class="lab small" x={X0} y="18">hours of daylight</text>
+      {months.map((m, i) => <text class="lab small" x={px(starts[i] + 15)} y="364" text-anchor="middle">{m}</text>)}
+      <path class="ghost" data-tilt-real d={curve} />
+      <path class="line" data-tilt-line d={curve} />
+      <circle class="knob" data-tilt-dot-hi r="9" cx={px(172)} cy={py(16.8)} />
+      <circle class="knob" data-tilt-dot-lo r="9" cx={px(355)} cy={py(7.7)} />
+    </svg>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Tilt <output data-tilt-out>23.4&deg;</output></span>
+      <input class="range" type="range" min="0" max="60" step="0.1" value="23.4" data-tilt-range aria-label="Tilt of the Earth's axis, in degrees" />
+    </label>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Try a tilt">
+    <button type="button" class="btn" data-tilt-jump="0">No tilt</button>
+    <button type="button" class="btn" data-tilt-jump="23.4">The real tilt</button>
+    <button type="button" class="btn" data-tilt-jump="45">45&deg;</button>
+    <button type="button" class="btn" data-tilt-jump="60">60&deg;</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Latitude <output data-tilt-lat-out>52.4&deg; N</output></span>
+      <input class="range" type="range" min="-90" max="90" step="0.1" value="52.4" data-tilt-lat aria-label="Latitude, in degrees north or south of the equator" />
+    </label>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Pick a place">
+    {places.map((p) => <button type="button" class="btn" data-tilt-place={p.lat}>{p.short}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-tilt-status>
+    With the real tilt, at 52.4&deg; N (Amsterdam) the longest day is about 16 h 48 min and the shortest about 7 h 40 min.
+  </p>
+</div>

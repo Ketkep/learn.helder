@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .se-orbit { fill: none; stroke: var(--on-cover); stroke-width: 3; stroke-dasharray: 2 9; stroke-linecap: round; opacity: 0.6; }
+    .se-sun { fill: var(--on-cover); }
+    .se-earth { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 3; }
+    .se-lit { fill: var(--on-cover); }
+    .se-axis { stroke: var(--on-cover); stroke-width: 4; stroke-linecap: round; }
+    .se-go { transform-box: view-box; transform-origin: 200px 150px; }
+    .se-tilt { transform-box: fill-box; transform-origin: 50% 50%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .se-go { animation: se-year 9s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .se-keep { animation: se-back 9s linear infinite; }
+    }
+    /* The Earth goes round the Sun. Its axis keeps pointing the same way, so it is turned back while it goes. */
+    @keyframes se-year { to { transform: rotate(360deg); } }
+    @keyframes se-back { to { transform: rotate(-360deg); } }
+    .se-keep { transform-box: fill-box; transform-origin: 50% 50%; }
+  </style>
+
+  <circle class="se-orbit" cx="200" cy="150" r="104"/>
+  <circle class="se-sun" cx="200" cy="150" r="30"/>
+  <g class="se-go">
+    <g transform="translate(96 150)">
+      <g class="se-keep">
+        <g transform="rotate(23.44)">
+          <line class="se-axis" x1="0" y1="-44" x2="0" y2="44"/>
+          <circle class="se-earth" r="26"/>
+          <path class="se-lit" d="M0 -26A26 26 0 0 1 0 26Z"/>
+          <circle class="knob" cx="0" cy="-44" r="8"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,56 @@
+---
+// Instrument 1: the Earth on its orbit, seen from above. The axis always points the same way.
+// Without a script this is a drawing of the Earth at the June solstice.
+const CX = 400;
+const CY = 250;
+const R = 150;
+// Angles run anticlockwise from the right. The December solstice is at the right, the March equinox at the top.
+const stops = [
+  { text: '21 Dec', a: 0 },
+  { text: '20 Mar', a: 90 },
+  { text: '21 Jun', a: 180 },
+  { text: '22 Sep', a: 270 },
+];
+const at = (a: number, r: number) => `${(CX + r * Math.cos((a * Math.PI) / 180)).toFixed(1)} ${(CY - r * Math.sin((a * Math.PI) / 180)).toFixed(1)}`;
+---
+
+<div class="inst" data-orbit-tool data-cx={CX} data-cy={CY} data-r={R}>
+  <div class="face">
+    <svg viewBox="0 0 800 500" role="img" aria-label="The Sun in the middle and the Earth on a circle around it, seen from above. The Earth's axis always leans the same way, to the right.">
+      <circle class="orbit" cx={CX} cy={CY} r={R} />
+      <circle class="sun" cx={CX} cy={CY} r="34" />
+      {stops.map((s) => <circle class="stop" cx={at(s.a, R).split(' ')[0]} cy={at(s.a, R).split(' ')[1]} r="5" />)}
+      <text class="lab" x={CX + R + 56} y={CY + 8}>21 Dec</text>
+      <text class="lab" x={CX} y={CY - R - 68} text-anchor="middle">20 Mar</text>
+      <text class="lab" x={CX - R - 56} y={CY + 8} text-anchor="end">21 Jun</text>
+      <text class="lab" x={CX} y={CY + R + 84} text-anchor="middle">22 Sep</text>
+      <g data-orbit-earth transform={`translate(${CX - R} ${CY})`}>
+        <circle class="earth-dark" r="34" />
+        <path class="earth-lit" data-orbit-lit d="M0 -34A34 34 0 0 1 0 34Z" transform="rotate(0)" />
+        <g transform="rotate(23.44)">
+          <line class="axis" x1="0" y1="-58" x2="0" y2="58" />
+          <ellipse class="equator" rx="34" ry="9" />
+          <circle class="pole" cx="0" cy="-58" r="6" />
+        </g>
+      </g>
+      <text class="lab small" x={CX + 4} y={CY + 52} text-anchor="middle">Sun</text>
+    </svg>
+  </div>
+  <p class="readout" aria-live="polite"><span class="big" data-orbit-date>21 June</span> <span class="mid" data-orbit-dist>152.1 million km from the Sun</span></p>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Date <output data-orbit-out>21 June</output></span>
+      <input class="range" type="range" min="1" max="365" step="1" value="172" data-orbit-range aria-label="Day of the year" />
+    </label>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Jump to a date">
+    <button type="button" class="btn" data-orbit-jump="79">20 March</button>
+    <button type="button" class="btn" data-orbit-jump="172">21 June</button>
+    <button type="button" class="btn" data-orbit-jump="265">22 September</button>
+    <button type="button" class="btn" data-orbit-jump="355">21 December</button>
+    <button type="button" class="btn" data-orbit-jump="3">3 January: closest</button>
+  </div>
+  <p class="status" aria-live="polite" data-orbit-status>
+    21 June. The Earth is 152.1 million km from the Sun, near its farthest. The north leans towards the Sun: summer in the north, winter in the south.
+  </p>
+</div>

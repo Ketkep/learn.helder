@@ -186,6 +186,16 @@ The page is a row of five strings, each stretched across the full width of the p
 - The pictures use a slowed-down swing. With reduced motion the plucks and the play buttons do not animate: the strings flash instead, and the time slider stays.
 - Without scripts every string is a still drawing and the words read in order. Buttons and sliders carry `.needs-js`.
 
+## The seasons page: how the wall works
+
+The page is a wall of four instruments under a night sky: the Earth on its orbit (not the distance), the length of the days through the year for any tilt, a 24 hour clock with daylight and night, and the noon shadow of a stick. Each instrument is a cream card with words on top and a dark dial below. On a wide screen the cards sit two by two.
+
+- `src/data/seasons.ts` holds all the words, the places for the latitude buttons, the takeaways and the sources.
+- `src/components/seasons/Observatory.astro` is the frame (the stars are a tiny SVG made with `rand.ts`). `Inst*.astro` is one instrument each, with its dial, controls and a status line that is read out to screen readers.
+- `src/scripts/seasons/sun.ts` holds the maths: the Sun's declination as 23.44 degrees times sin(360/365 x (day minus 81)), the day length from latitude (sunrise when the middle of the Sun is 0.833 degrees under the horizon), the noon height 90 minus the distance between latitude and declination, and the Earth to Sun distance. It was checked against the Amsterdam day lengths (16 h 48 min and 7 h 40 min) and the Tromso midnight sun (a few days out). `orbit.ts`, `tilt.ts`, `day.ts` and `shadow.ts` are the instruments.
+- The clock uses sun time, with noon at the top. Summer time and time zones are left out on purpose and the page says so.
+- Without scripts every dial is a still drawing (Amsterdam on 21 June, the Earth at the June solstice). The sliders and buttons carry `.needs-js`.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -215,6 +225,7 @@ src/data/radiation/      the radiation page: en.ts and nl.ts (the words), index.
 src/data/tides.ts        everything the tides page says: benches, takeaways, sources
 src/data/primes.ts       everything the primes page says: drawers, takeaways, sources
 src/data/strings.ts      everything the strings page says: lessons, takeaways, sources
+src/data/seasons.ts      everything the seasons page says: instruments, places, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -226,6 +237,7 @@ src/components/radiation/ the radiation page: the zoom frame, one file per scene
 src/components/tides/    the tides page: the quay with its staff, one file per tool
 src/components/primes/   the primes page: the cabinet of drawers, one file per tool
 src/components/strings/  the strings page: the row of strings, one file per lesson
+src/components/seasons/  the seasons page: the wall with its four instruments
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -234,6 +246,7 @@ src/styles/zoom.css      the radiation zoom: plain mode, film mode, lens, bar, c
 src/styles/tides.css     the tides quay: staff, benches, controls
 src/styles/primes.css    the primes cabinet: drawer fronts, trays, controls
 src/styles/strings.css   the strings page: boards, strings, controls
+src/styles/seasons.css   the seasons page: night wall, cards, dials, controls
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -249,6 +262,7 @@ src/scripts/radiation/   the camera (zoom.ts), the dose model, and one script pe
 src/scripts/tides/       the staff (quay.ts), the tide maths (model.ts) and one script per tool
 src/scripts/primes/      the cabinet (cabinet.ts), the number work (math.ts) and one script per tool
 src/scripts/strings/     one script per string, plus note names (music.ts)
+src/scripts/seasons/     the sun maths (sun.ts) and one script per instrument
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics

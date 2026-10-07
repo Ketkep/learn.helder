@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Observatory from '../../components/seasons/Observatory.astro';
+import { takeaways, sources, sourcesNote } from '../../data/seasons';
+---
+
+<TopicLayout
+  slug="why-we-have-seasons"
+  intro="Summer is not when the Earth is closest to the Sun. Four instruments on a wall show what really changes through the year: the lean of the Earth, the height of the Sun, the length of the day and the shadow of a stick."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Observatory />
+</TopicLayout>

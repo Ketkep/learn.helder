@@ -1,0 +1,481 @@
+/* The seasons page: a wall of four instruments under a night sky. Each card has its words on top and a
+   round or square dial below it. The dials are drawn in the Inst components. */
+
+.sky {
+  --night: #0f1b2b;
+  --face: #1a2b42;
+  --cream: #fff3dc;
+  --ink-fixed: #121315;
+  --gold: #ffd36b;
+  --wash: rgb(0 0 0 / 0.09);
+  --fg: var(--ink-fixed);
+
+  background: var(--night) var(--stars);
+  color: var(--cream);
+}
+
+html:not(.js) .sky .needs-js {
+  display: none;
+}
+
+.sky :focus-visible {
+  outline: 3px solid var(--ink-fixed);
+  outline-offset: 3px;
+}
+
+.sky .opening {
+  padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter) clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.sky .inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.2rem 2rem;
+  width: min(100%, 72rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 50rem) {
+  .sky .inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+  }
+}
+
+.sky .opening-text {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.sky .opening :focus-visible {
+  outline-color: var(--cream);
+}
+
+.sky h2 {
+  font-size: clamp(2rem, 1.5rem + 2.2vw, 3.2rem);
+  line-height: 1;
+}
+
+.sky .kicker {
+  color: var(--gold);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.sky .para {
+  max-width: 40rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+/* ---------- The wall of cards ---------- */
+.sky .wall {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.6rem;
+  width: min(100% - 2 * var(--gutter), 72rem);
+  margin-inline: auto;
+  padding-bottom: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+@media (min-width: 64rem) {
+  .sky .wall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+.sky .card {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  min-width: 0;
+  padding: clamp(1rem, 3vw, 1.6rem);
+  background: var(--cream);
+  color: var(--ink-fixed);
+  border: 3px solid var(--cream);
+  border-radius: 14px;
+  box-shadow: 0 10px 0 rgb(0 0 0 / 0.35);
+}
+
+.sky .card h2 {
+  font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.5rem);
+}
+
+.sky .card-head {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.sky .card-kicker {
+  color: #3d5220;
+  font-family: var(--font-hand);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.sky .card .para {
+  font-size: 1rem;
+}
+
+/* ---------- The dial: a dark face with cream lines ---------- */
+.sky .inst {
+  min-width: 0;
+}
+
+.sky .face {
+  overflow: hidden;
+  background: var(--face);
+  border: 3px solid var(--ink-fixed);
+  border-radius: 14px;
+}
+
+.sky .face svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.sky .orbit {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 2.5;
+  stroke-dasharray: 3 9;
+  opacity: 0.7;
+}
+
+.sky .sun {
+  fill: #ffb93b;
+  stroke: var(--cream);
+  stroke-width: 4;
+}
+
+.sky .stop {
+  fill: var(--cream);
+}
+
+.sky .earth-dark {
+  fill: #2a5b8a;
+  stroke: var(--cream);
+  stroke-width: 3;
+}
+
+.sky .earth-lit {
+  fill: #7fc0d9;
+}
+
+.sky .axis {
+  stroke: var(--cream);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.sky .equator {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 2;
+  opacity: 0.8;
+}
+
+.sky .pole {
+  fill: #ff7a45;
+  stroke: var(--cream);
+  stroke-width: 2.5;
+}
+
+.sky .lab {
+  fill: var(--cream);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.sky .lab.small {
+  font-size: 22px;
+}
+
+.sky .lab.center {
+  font-size: 34px;
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+.sky .grid {
+  stroke: var(--cream);
+  stroke-width: 1.5;
+  opacity: 0.25;
+}
+
+.sky .line {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 5;
+  stroke-linejoin: round;
+}
+
+.sky .ghost {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 3;
+  stroke-dasharray: 6 8;
+  opacity: 0.6;
+}
+
+.sky .knob {
+  fill: #ff7a45;
+  stroke: var(--cream);
+  stroke-width: 3.5;
+}
+
+.sky .night {
+  fill: #0b1522;
+}
+
+.sky .daylight {
+  fill: var(--gold);
+}
+
+.sky .hub {
+  fill: var(--face);
+  stroke: var(--cream);
+  stroke-width: 3;
+}
+
+.sky .rim {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 4;
+}
+
+.sky .tick {
+  stroke: var(--cream);
+  stroke-width: 3;
+}
+
+.sky .hand {
+  stroke: var(--ink-fixed);
+  stroke-width: 3;
+  opacity: 0.7;
+}
+
+.sky .ground {
+  fill: #4b3a28;
+}
+
+.sky .ground-line {
+  stroke: var(--cream);
+  stroke-width: 3;
+}
+
+.sky .stick {
+  stroke: #e8dcc0;
+  stroke-width: 9;
+  stroke-linecap: round;
+}
+
+.sky .beam {
+  stroke: var(--gold);
+  stroke-width: 3;
+  stroke-dasharray: 4 8;
+}
+
+.sky .sun-dot {
+  fill: #ffb93b;
+  stroke: var(--cream);
+  stroke-width: 3;
+}
+
+.sky .shade {
+  stroke: #05090f;
+  stroke-width: 9;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+
+.sky .mark {
+  stroke: var(--cream);
+  stroke-width: 3;
+}
+
+/* ---------- Readout, controls, status ---------- */
+.sky .readout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 1rem;
+  margin: 0.8rem 0 0;
+}
+
+.sky .big {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 1.3rem + 1.6vw, 2.4rem);
+  line-height: 1;
+}
+
+.sky .mid {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.sky .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+  margin-top: 0.8rem;
+}
+
+.sky .btn {
+  padding: 0.45rem 0.95rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.sky .btn:hover {
+  background: var(--wash);
+}
+
+.sky .status {
+  min-height: 4.4rem;
+  margin-top: 0.7rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.sky .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.sky .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.sky .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.sky .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.sky .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.sky .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.sky .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.sky .field span {
+  min-width: 8.5rem;
+}
+
+/* ---------- Sound switch ---------- */
+.sky .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sky .snd[aria-pressed='true'] .slash,
+.sky .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+/* ---------- Paper tags ---------- */
+.sky .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.sky .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: #f1e0bc;
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.22);
+  transform: rotate(-0.4deg);
+}
+
+.sky .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--cream);
+  box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.4);
+}
+
+.sky .tag-label {
+  color: #3d5220;
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.sky .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sky * {
+    scroll-behavior: auto !important;
+  }
+}

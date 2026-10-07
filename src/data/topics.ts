@@ -117,6 +117,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-06',
     status: 'live',
   },
+  {
+    slug: 'why-we-have-seasons',
+    title: 'Why we have seasons',
+    hook: 'It is not the distance to the Sun. Turn four dials and find out what it is.',
+    category: 'Space',
+    accent: '#4E6B2E',
+    preview: 'why-we-have-seasons',
+    dateAdded: '2026-10-07',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

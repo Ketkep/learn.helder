@@ -1,0 +1,44 @@
+---
+// Instrument 4: a stick 1 metre tall, and its shadow at noon. Pick a place and a date.
+// Without a script this is the stick in Amsterdam on 21 June.
+import { places } from '../../data/seasons';
+
+const GY = 290; // the ground
+const SX = 600; // the foot of the stick
+---
+
+<div class="inst" data-shadow-tool data-gy={GY} data-sx={SX}>
+  <div class="face">
+    <svg viewBox="0 0 800 360" role="img" aria-label="A stick standing in the ground with the Sun above it and its shadow on the ground. The higher the Sun, the shorter the shadow.">
+      <rect class="ground" x="0" y={GY} width="800" height="70" />
+      <line class="ground-line" x1="0" x2="800" y1={GY} y2={GY} />
+      <line class="beam" data-shadow-beam x1={SX} y1={GY - 150} x2={SX + 56} y2={GY - 245} />
+      <circle class="sun-dot" data-shadow-sun r="22" cx={SX + 56} cy={GY - 245} />
+      <line class="shade" data-shadow-line x1={SX} x2={SX - 83} y1={GY} y2={GY} />
+      <g data-shadow-marks></g>
+      <line class="stick" x1={SX} x2={SX} y1={GY} y2={GY - 150} />
+      <circle class="knob" r="9" cx={SX} cy={GY - 150} />
+      <text class="lab small" data-shadow-end x="20" y="336">north</text>
+      <text class="lab small" x={SX + 14} y={GY - 70}>1 m</text>
+    </svg>
+  </div>
+  <p class="readout" aria-live="polite"><span class="big" data-shadow-len>0.55 m shadow</span> <span class="mid" data-shadow-elev>Sun 61&deg; high</span></p>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Date <output data-shadow-out>21 June</output></span>
+      <input class="range" type="range" min="1" max="365" step="1" value="172" data-shadow-range aria-label="Day of the year" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Latitude <output data-shadow-lat-out>52.4&deg; N</output></span>
+      <input class="range" type="range" min="-90" max="90" step="0.1" value="52.4" data-shadow-lat aria-label="Latitude, in degrees north or south of the equator" />
+    </label>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Pick a place">
+    {places.map((p) => <button type="button" class="btn" data-shadow-place={p.lat}>{p.short}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-shadow-status>
+    At 52.4&deg; N on 21 June the noon Sun is 61&deg; high. A 1 m stick makes a shadow 0.55 m long, pointing north.
+  </p>
+</div>
