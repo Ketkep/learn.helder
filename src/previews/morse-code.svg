@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .mc-tape { fill: var(--on-cover); }
+    .mc-hole { fill: var(--cover); }
+    .mc-sign { fill: var(--cover); }
+    .mc-roll { transform-box: view-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .mc-roll { animation: mc-feed 3.2s linear infinite; }
+    }
+    /* The tape feeds through the machine, one row of signs at a time */
+    @keyframes mc-feed { from { transform: translateY(0); } to { transform: translateY(-60px); } }
+  </style>
+
+  <defs><clipPath id="mc-clip"><rect x="110" y="40" width="180" height="210"/></clipPath></defs>
+  <rect class="mc-tape" x="110" y="40" width="180" height="210" rx="4"/>
+  <g clip-path="url(#mc-clip)">
+    <g class="mc-roll">
+      <g id="mc-row">
+        <circle class="mc-hole" cx="126" cy="60" r="6"/><circle class="mc-hole" cx="274" cy="60" r="6"/>
+        <circle class="mc-sign" cx="156" cy="62" r="7"/><circle class="mc-sign" cx="182" cy="62" r="7"/><circle class="mc-sign" cx="208" cy="62" r="7"/>
+        <rect class="mc-sign" x="226" y="56" width="28" height="12" rx="6"/>
+      </g>
+      <use href="#mc-row" y="60"/>
+      <use href="#mc-row" y="120"/>
+      <use href="#mc-row" y="180"/>
+      <use href="#mc-row" y="240"/>
+    </g>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="16"/>
+</svg>

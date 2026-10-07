@@ -1,0 +1,35 @@
+---
+// Message 3: letter frequency against the length of the code. Sort the bars, then shuffle the codes.
+// Without a script this is the table of letters sorted by how common they are.
+import { CODES, FREQUENCY } from '../../scripts/morse/code';
+
+const letters = Object.keys(FREQUENCY).sort((a, b) => FREQUENCY[b] - FREQUENCY[a]);
+const top = FREQUENCY[letters[0]];
+---
+
+<div class="tool" data-common-tool>
+  <div class="controls needs-js" role="group" aria-label="Sort the letters">
+    <button type="button" class="btn" aria-pressed="true" data-common-sort="freq">Most common first</button>
+    <button type="button" class="btn" aria-pressed="false" data-common-sort="abc">A to Z</button>
+    <button type="button" class="btn" aria-pressed="false" data-common-sort="len">Shortest code first</button>
+  </div>
+  <ol class="bars" data-common-bars>
+    {
+      letters.map((l) => (
+        <li data-letter={l}>
+          <span class="b-letter">{l}</span>
+          <span class="b-bar"><span class="b-fill" style={`width: ${(FREQUENCY[l] / top) * 100}%`}></span></span>
+          <span class="b-code mono" data-code>{[...CODES[l]].map((c) => (c === '-' ? '−' : '·')).join('')}</span>
+          <span class="b-num">{FREQUENCY[l].toFixed(1)}%</span>
+        </li>
+      ))
+    }
+  </ol>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-common-shuffle>Shuffle the codes</button>
+    <button type="button" class="btn" data-common-real>Real codes</button>
+  </div>
+  <p class="status" aria-live="polite" data-common-status>
+    With the real codes, the average letter in English takes about 6.1 units of time to send.
+  </p>
+</div>

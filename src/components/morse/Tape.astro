@@ -1,0 +1,79 @@
+---
+// The whole page: a strip of paper tape coming out of a telegraph. Each message on the tape is one idea
+// with one tool. The tools are the Tool components and src/scripts/morse. Without a script every tool is a
+// drawing and the words still read in order.
+import '../../styles/morse.css';
+import { intro, messages } from '../../data/morse';
+import ToolKey from './ToolKey.astro';
+import ToolTree from './ToolTree.astro';
+import ToolCommon from './ToolCommon.astro';
+import ToolPlay from './ToolPlay.astro';
+
+const tools: Record<string, typeof ToolKey> = {
+  key: ToolKey,
+  tree: ToolTree,
+  common: ToolCommon,
+  play: ToolPlay,
+};
+---
+
+<div class="desk" data-morse>
+  <div class="machine" aria-hidden="true">
+    <svg viewBox="0 0 400 120" focusable="false">
+      <rect class="base" x="30" y="84" width="340" height="26" rx="6" />
+      <rect class="post" x="90" y="60" width="16" height="28" rx="3" />
+      <path class="arm" d="M60 66H260" />
+      <circle class="knob" cx="260" cy="66" r="14" />
+      <rect class="slot" x="270" y="86" width="100" height="10" rx="3" />
+      <path class="wire" d="M370 98H400" />
+    </svg>
+  </div>
+  <div class="bar">
+    <button class="snd needs-js" type="button" data-sound aria-pressed="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+        <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+        <path class="wave" d="M15 9a4 4 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        <path class="slash" d="M16 8.5l5 7M21 8.5l-5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      <span data-sound-label>Sound on</span>
+    </button>
+  </div>
+
+  <div class="tape">
+    <section class="msg opening" aria-labelledby="tape-intro">
+      <p class="kicker">From the telegraph</p>
+      <h2 id="tape-intro">{intro.title}</h2>
+      {intro.paras.map((p) => <p class="para">{p}</p>)}
+    </section>
+
+    {
+      messages.map((m) => {
+        const Tool = tools[m.id];
+        return (
+          <section class="msg" id={`msg-${m.id}`} aria-labelledby={`msg-${m.id}-h`}>
+            <p class="kicker">{m.kicker}</p>
+            <h2 id={`msg-${m.id}-h`}>{m.title}</h2>
+            {m.paras.map((p) => <p class="para">{p}</p>)}
+            <Tool />
+            {
+              m.tags && (
+                <div class="tags">
+                  {m.tags.map((t) => (
+                    <aside class="tag">
+                      <p class="tag-label">{t.label}</p>
+                      <p class="tag-text">{t.text}</p>
+                    </aside>
+                  ))}
+                </div>
+              )
+            }
+          </section>
+        );
+      })
+    }
+  </div>
+</div>
+
+<script>
+  import '../../scripts/morse/morse';
+</script>

@@ -127,6 +127,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-07',
     status: 'live',
   },
+  {
+    slug: 'morse-code',
+    title: 'Morse code',
+    hook: 'Tap out a message in dots and dashes, and find out why E is just one dot.',
+    category: 'Language',
+    accent: '#26364F',
+    preview: 'morse-code',
+    dateAdded: '2026-10-07',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

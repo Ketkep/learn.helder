@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Tape from '../../components/morse/Tape.astro';
+import { takeaways, sources, sourcesNote } from '../../data/morse';
+---
+
+<TopicLayout
+  slug="morse-code"
+  intro="Morse code turns letters into short and long signals. A strip of paper tape from a telegraph holds four messages: tap the key, walk the tree of letters, see why E is one dot, and play a message back at the right speed."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Tape />
+</TopicLayout>

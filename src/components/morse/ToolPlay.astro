@@ -1,0 +1,45 @@
+---
+// Message 4: play a message with the right timing, and copy a word by ear or by lamp.
+// Without a script this is the timing of the word SOS.
+import { segments } from '../../scripts/morse/code';
+
+const sos = segments('SOS');
+const total = sos.reduce((sum, s) => sum + s[1], 0);
+---
+
+<div class="tool" data-play-tool>
+  <div class="lamp-row">
+    <span class="lamp" data-play-lamp aria-hidden="true"></span>
+    <div class="timeline" data-play-timeline role="img" aria-label="The signal as blocks: tall blocks are tones and the gaps between them are silence.">
+      {sos.map((s) => <span class:list={['seg', { on: s[0] }]} style={`flex: ${s[1]} 0 0`}></span>)}
+    </div>
+  </div>
+  <div class="controls needs-js">
+    <label class="field wide">
+      <span>Your message</span>
+      <input class="text" type="text" maxlength="40" value="SOS" autocomplete="off" spellcheck="false" data-play-text aria-label="A message to send in Morse code" />
+    </label>
+    <button type="button" class="btn fill" data-play-go>Play</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Speed <output data-play-wpm-out>12 words a minute</output></span>
+      <input class="range" type="range" min="5" max="25" step="1" value="12" data-play-wpm aria-label="Speed in words per minute" />
+    </label>
+  </div>
+  <div class="game needs-js">
+    <p class="game-title">Copy a word</p>
+    <div class="controls">
+      <button type="button" class="btn fill" data-play-word>Give me a word</button>
+      <label class="field wide">
+        <span>What did you hear?</span>
+        <input class="text" type="text" maxlength="12" autocomplete="off" spellcheck="false" data-play-guess aria-label="Your answer" />
+      </label>
+      <button type="button" class="btn" data-play-check>Check</button>
+      <button type="button" class="btn" data-play-show>Show the answer</button>
+    </div>
+  </div>
+  <p class="status" aria-live="polite" data-play-status>
+    SOS is {total} units long: 27 beats of dots, dashes and gaps. At 12 words a minute that takes 2.7 seconds.
+  </p>
+</div>

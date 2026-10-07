@@ -1,0 +1,38 @@
+---
+// Message 2: the Morse tree. A dot goes left, a dash goes right. Rows are the length of the code.
+// Without a script this is the whole tree, and the buttons are hidden.
+import { decode } from '../../scripts/morse/code';
+
+// Row d (1 to 4) has 2^d cells. A cell's path is its position written in dots (0) and dashes (1).
+const rows = [1, 2, 3, 4].map((d) =>
+  Array.from({ length: 2 ** d }, (_, i) => {
+    const path = i.toString(2).padStart(d, '0').replace(/0/g, '.').replace(/1/g, '-');
+    return { path, letter: decode(path), span: 16 / 2 ** d };
+  }),
+);
+---
+
+<div class="tool" data-tree-tool>
+  <div class="tree" aria-label="The Morse tree: each row is one more dot or dash">
+    <div class="tree-row root"><span class="cell start" data-path="" style="grid-column: span 16">start</span></div>
+    {
+      rows.map((row) => (
+        <div class="tree-row">
+          {row.map((c) => <span class:list={['cell', { empty: !c.letter }]} data-path={c.path} style={`grid-column: span ${c.span}`}>{c.letter || ' '}</span>)}
+        </div>
+      ))
+    }
+  </div>
+  <div class="paper small">
+    <p class="mono big" data-tree-path aria-live="polite">&nbsp;</p>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-tree-step=".">Dot (go left)</button>
+    <button type="button" class="btn fill" data-tree-step="-">Dash (go right)</button>
+    <button type="button" class="btn" data-tree-back>Back</button>
+    <button type="button" class="btn" data-tree-reset>Start again</button>
+  </div>
+  <p class="status" aria-live="polite" data-tree-status>
+    You are at the top. Take a dot to go left or a dash to go right.
+  </p>
+</div>

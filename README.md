@@ -196,6 +196,19 @@ The page is a wall of four instruments under a night sky: the Earth on its orbit
 - The clock uses sun time, with noon at the top. Summer time and time zones are left out on purpose and the page says so.
 - Without scripts every dial is a still drawing (Amsterdam on 21 June, the Earth at the June solstice). The sliders and buttons carry `.needs-js`.
 
+## The Morse page: how the tape works
+
+The page is a strip of paper tape coming out of a telegraph, on a dark desk. The tape has holes down both edges and a tear line between messages. Four messages, each with one tool: a key you hold (a short press is a dot, a long one a dash), a tree you walk (dot left, dash right), the most common letters having the shortest codes (sort the bars, shuffle the codes), and a player that sends a message with the right timing and a game that plays a word to copy by ear or by lamp.
+
+- `src/data/morse.ts` holds all the words, the takeaways and the sources.
+- `src/components/morse/Tape.astro` is the frame. `Tool*.astro` is one tool each.
+- `src/scripts/morse/code.ts` holds the alphabet, the timing (dot 1 unit, dash 3, gap in a letter 1, between letters 3, between words 7) and the English letter frequencies. `key.ts`, `tree.ts`, `common.ts` and `play.ts` are the tools. The tree rows are built at build time from the alphabet.
+- Sound comes from two new functions in `src/scripts/sound.ts`: `hold()` (a tone while the key is down) and `beeps()` (a whole message scheduled ahead, cut off by the function it returns).
+- Speed: one word is PARIS plus the gap after it, 50 units, so one unit lasts 1.2 divided by the words per minute, in seconds.
+- With reduced motion the lamp does not flash and the timeline does not move. The tools still work with the buttons, and the typed message still plays as sound.
+- Without scripts the tape shows the finished examples (SOS, the whole tree, the bars sorted by how common each letter is) and no controls. Controls carry `.needs-js`.
+- The English letter table is a standard one. The five largest values were checked in two places, and the page says so.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -226,6 +239,7 @@ src/data/tides.ts        everything the tides page says: benches, takeaways, sou
 src/data/primes.ts       everything the primes page says: drawers, takeaways, sources
 src/data/strings.ts      everything the strings page says: lessons, takeaways, sources
 src/data/seasons.ts      everything the seasons page says: instruments, places, takeaways, sources
+src/data/morse.ts        everything the Morse page says: messages, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -238,6 +252,7 @@ src/components/tides/    the tides page: the quay with its staff, one file per t
 src/components/primes/   the primes page: the cabinet of drawers, one file per tool
 src/components/strings/  the strings page: the row of strings, one file per lesson
 src/components/seasons/  the seasons page: the wall with its four instruments
+src/components/morse/    the Morse page: the tape and its four tools
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -247,6 +262,7 @@ src/styles/tides.css     the tides quay: staff, benches, controls
 src/styles/primes.css    the primes cabinet: drawer fronts, trays, controls
 src/styles/strings.css   the strings page: boards, strings, controls
 src/styles/seasons.css   the seasons page: night wall, cards, dials, controls
+src/styles/morse.css     the Morse page: desk, tape, key, tree, bars, player
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -263,6 +279,7 @@ src/scripts/tides/       the staff (quay.ts), the tide maths (model.ts) and one 
 src/scripts/primes/      the cabinet (cabinet.ts), the number work (math.ts) and one script per tool
 src/scripts/strings/     one script per string, plus note names (music.ts)
 src/scripts/seasons/     the sun maths (sun.ts) and one script per instrument
+src/scripts/morse/       the alphabet and timing (code.ts) and one script per tool
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics

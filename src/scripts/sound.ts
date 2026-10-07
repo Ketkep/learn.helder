@@ -114,6 +114,60 @@ export function pluck(freq: number, partials: number[] = [1], seconds = 1.6) {
   return seconds;
 }
 
+/**
+ * A held tone, like a telegraph key being pressed. It starts at once and goes on until the returned function is called.
+ * Returns nothing to call when sound is off or still locked.
+ */
+export function hold(freq: number) {
+  if (!enabled || !ctx || !master) return () => {};
+  if (ctx.state === 'suspended') void ctx.resume();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'sine';
+  osc.frequency.value = freq;
+  const t = ctx.currentTime;
+  gain.gain.setValueAtTime(0.0001, t);
+  gain.gain.exponentialRampToValueAtTime(0.2, t + 0.006);
+  osc.connect(gain).connect(master);
+  osc.start(t);
+  return () => {
+    if (!ctx) return;
+    const end = ctx.currentTime;
+    gain.gain.cancelScheduledValues(end);
+    gain.gain.setValueAtTime(Math.max(gain.gain.value, 0.0001), end);
+    gain.gain.exponentialRampToValueAtTime(0.0001, end + 0.01);
+    osc.stop(end + 0.03);
+  };
+}
+
+/**
+ * A row of beeps scheduled ahead of time, for a message. Each beep is `[start, length]` in seconds from now.
+ * Call the returned function to cut the rest off.
+ */
+export function beeps(freq: number, list: [number, number][]) {
+  if (!enabled || !ctx || !master) return () => {};
+  if (ctx.state === 'suspended') void ctx.resume();
+  const group = ctx.createGain();
+  group.connect(master);
+  const t0 = ctx.currentTime + 0.05;
+  for (const [start, length] of list) {
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    g.gain.setValueAtTime(0.0001, t0 + start);
+    g.gain.exponentialRampToValueAtTime(0.2, t0 + start + 0.006);
+    g.gain.setValueAtTime(0.2, t0 + start + Math.max(length - 0.01, 0.007));
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + start + length);
+    osc.connect(g).connect(group);
+    osc.start(t0 + start);
+    osc.stop(t0 + start + length + 0.02);
+  }
+  return () => {
+    if (ctx) group.disconnect();
+  };
+}
+
 /** `power` is 0 to 1 and scales the loudness (and, for a rumble, how long it lasts). */
 export function play(kind: Sound, power = 1) {
   if (!enabled || !ctx || !master) return;
