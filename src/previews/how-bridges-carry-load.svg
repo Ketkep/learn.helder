@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .br-water { fill: var(--cover-c); }
+    .br-pier { fill: var(--on-cover); }
+    .br-deck { fill: none; stroke: var(--on-cover); stroke-width: 6; stroke-linecap: round; }
+    .br-cable { fill: none; stroke: var(--on-cover); stroke-width: 3; stroke-linecap: round; }
+    .br-hang { stroke: var(--on-cover); stroke-width: 2; }
+    .br-bend { transform-box: fill-box; transform-origin: 50% 0%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .br-load { animation: br-cross 5s ease-in-out infinite alternate; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .br-sag { animation: br-sag 5s ease-in-out infinite alternate; }
+    }
+    /* The weight crosses the bridge, and the deck dips a little under it */
+    @keyframes br-cross { from { transform: translateX(-120px); } to { transform: translateX(120px); } }
+    @keyframes br-sag { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+  </style>
+
+  <rect class="br-water" x="0" y="232" width="400" height="68"/>
+  <rect class="br-pier" x="48" y="90" width="22" height="170"/>
+  <rect class="br-pier" x="330" y="90" width="22" height="170"/>
+  <path class="br-cable" d="M59 94Q200 230 341 94"/>
+  <path class="br-hang" d="M110 138V172M150 160V172M200 168V172M250 160V172M290 138V172"/>
+  <g class="br-sag"><path class="br-deck" d="M10 176H390"/></g>
+  <g class="br-load"><rect class="knob" x="190" y="148" width="20" height="24" rx="4"/></g>
+</svg>

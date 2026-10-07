@@ -1,0 +1,88 @@
+---
+// The whole page: a river crossing with four spans, one after another. Each span is one idea with one blueprint
+// to load. The tools are the Tool components and src/scripts/bridges. Without a script every blueprint is a
+// drawing and the words still read in order.
+import '../../styles/bridges.css';
+import { intro, spans } from '../../data/bridges';
+import ToolBeam from './ToolBeam.astro';
+import ToolArch from './ToolArch.astro';
+import ToolFrame from './ToolFrame.astro';
+import ToolTruss from './ToolTruss.astro';
+
+const tools: Record<string, typeof ToolBeam> = {
+  beam: ToolBeam,
+  arch: ToolArch,
+  frame: ToolFrame,
+  truss: ToolTruss,
+};
+---
+
+<div class="crossing" data-bridges>
+  <section class="opening" aria-labelledby="cross-intro">
+    <div class="inner">
+      <div class="opening-text">
+        <p class="kicker">At the river bank</p>
+        <h2 id="cross-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+        <p class="legend big"><span class="key squeeze-key"></span> pushing (compression) <span class="key stretch-key"></span> pulling (tension)</p>
+      </div>
+      <button class="snd needs-js" type="button" data-sound aria-pressed="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+          <path class="wave" d="M15 9a4 4 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <path class="slash" d="M16 8.5l5 7M21 8.5l-5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span data-sound-label>Sound on</span>
+      </button>
+    </div>
+  </section>
+
+  {
+    spans.map((s, i) => {
+      const Tool = tools[s.id];
+      return (
+        <>
+          <div class="pier" aria-hidden="true">
+            <svg viewBox="0 0 1000 60" preserveAspectRatio="none" focusable="false">
+              <rect class="deck" x="0" y="0" width="1000" height="14" />
+              <rect class="column" x="470" y="14" width="60" height="46" />
+            </svg>
+          </div>
+          <section class="span" id={`span-${s.id}`} aria-labelledby={`span-${s.id}-h`}>
+            <div class="inner">
+              <header class="span-head">
+                <p class="kicker">{s.kicker}</p>
+                <h2 id={`span-${s.id}-h`}>{s.title}</h2>
+                <div class="paras">{s.paras.map((p) => <p class="para">{p}</p>)}</div>
+                {
+                  s.tags && (
+                    <div class="tags">
+                      {s.tags.map((t) => (
+                        <aside class="tag">
+                          <p class="tag-label">{t.label}</p>
+                          <p class="tag-text">{t.text}</p>
+                        </aside>
+                      ))}
+                    </div>
+                  )
+                }
+              </header>
+              <div class="tool-wrap">
+                <Tool />
+              </div>
+            </div>
+          </section>
+        </>
+      );
+    })
+  }
+  <div class="river" aria-hidden="true">
+    <svg viewBox="0 0 1000 80" preserveAspectRatio="none" focusable="false">
+      <path class="wave" d="M0 30q31 -20 62 0t62 0t62 0t62 0t62 0t62 0t62 0t62 0t62 0t62 0t62 0t62 0t62 0t62 0t62 0t62 0t62 0V80H0Z" />
+    </svg>
+  </div>
+</div>
+
+<script>
+  import '../../scripts/bridges/bridges';
+</script>

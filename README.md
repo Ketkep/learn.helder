@@ -209,6 +209,17 @@ The page is a strip of paper tape coming out of a telegraph, on a dark desk. The
 - Without scripts the tape shows the finished examples (SOS, the whole tree, the bars sorted by how common each letter is) and no controls. Controls carry `.needs-js`.
 - The English letter table is a standard one. The five largest values were checked in two places, and the page says so.
 
+## The bridges page: how the crossing works
+
+The page is a river crossing with four spans, one after another, with a column between each pair. Each span has its words on the left and a blueprint on the right (on top of each other on a phone). On the blueprints orange means pushing (compression) and light blue means pulling (tension). The spans: a plank that bends (top squeezed, bottom stretched), an arch and a cable (the same curve upside down), a square frame that folds unless it has a diagonal, and a two-rafter truss with a tie.
+
+- `src/data/bridges.ts` holds all the words, the takeaways and the sources.
+- `src/components/bridges/Crossing.astro` is the frame. `Tool*.astro` is one blueprint each, with controls and a status line that is read out to screen readers.
+- `src/scripts/bridges/model.ts` holds the maths in relative units: the sag of a beam with a weight at any point (scaled so a weight of 1 in the middle of a plank of depth 1 gives 1, and stiffness goes with depth cubed), the sideways force of an arch or a cable (load x span / (8 x rise)), the racking of a frame, and the truss forces (rafter = weight / (2 sin angle), tie = weight / (2 tan angle)). `beam.ts`, `arch.ts`, `frame.ts` and `truss.ts` are the tools.
+- No bridge is named as the longest. Only two main spans are quoted (Golden Gate 1,280 m, Akashi Kaikyo 1,991 m), because a newer bridge may have passed them.
+- The numbers are relative and the page says they are not a design. Keep that note.
+- Without scripts every blueprint is a still drawing and the controls are hidden (`.needs-js`).
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -240,6 +251,7 @@ src/data/primes.ts       everything the primes page says: drawers, takeaways, so
 src/data/strings.ts      everything the strings page says: lessons, takeaways, sources
 src/data/seasons.ts      everything the seasons page says: instruments, places, takeaways, sources
 src/data/morse.ts        everything the Morse page says: messages, takeaways, sources
+src/data/bridges.ts      everything the bridges page says: spans, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -253,6 +265,7 @@ src/components/primes/   the primes page: the cabinet of drawers, one file per t
 src/components/strings/  the strings page: the row of strings, one file per lesson
 src/components/seasons/  the seasons page: the wall with its four instruments
 src/components/morse/    the Morse page: the tape and its four tools
+src/components/bridges/  the bridges page: the crossing and its four blueprints
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -263,6 +276,7 @@ src/styles/primes.css    the primes cabinet: drawer fronts, trays, controls
 src/styles/strings.css   the strings page: boards, strings, controls
 src/styles/seasons.css   the seasons page: night wall, cards, dials, controls
 src/styles/morse.css     the Morse page: desk, tape, key, tree, bars, player
+src/styles/bridges.css   the bridges page: spans, piers, blueprints, controls
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -280,6 +294,7 @@ src/scripts/primes/      the cabinet (cabinet.ts), the number work (math.ts) and
 src/scripts/strings/     one script per string, plus note names (music.ts)
 src/scripts/seasons/     the sun maths (sun.ts) and one script per instrument
 src/scripts/morse/       the alphabet and timing (code.ts) and one script per tool
+src/scripts/bridges/     the statics (model.ts) and one script per blueprint
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics

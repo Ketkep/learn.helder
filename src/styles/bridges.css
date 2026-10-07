@@ -1,0 +1,497 @@
+/* The bridges page: a river crossing with four spans. Each span has its words on top and a blueprint to load.
+   On the blueprints, orange is pushing (compression) and light blue is pulling (tension). */
+
+.crossing {
+  --sky: #dcebf3;
+  --paper: #f4f8fa;
+  --blue: #17375e;
+  --ink-fixed: #121315;
+  --cream: #fff3dc;
+  --squeeze: #ff8a55;
+  --stretch: #7fd1ff;
+  --wash: rgb(0 0 0 / 0.09);
+  --fg: var(--ink-fixed);
+
+  background: var(--sky);
+  color: var(--ink-fixed);
+}
+
+html:not(.js) .crossing .needs-js {
+  display: none;
+}
+
+.crossing :focus-visible {
+  outline: 3px solid var(--ink-fixed);
+  outline-offset: 3px;
+}
+
+.crossing .opening,
+.crossing .span {
+  padding: clamp(2.2rem, 5vw, 3.6rem) var(--gutter);
+}
+
+.crossing .span {
+  background: var(--paper);
+}
+
+.crossing .span:nth-of-type(odd) {
+  background: var(--sky);
+}
+
+.crossing .inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 72rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .crossing .opening .inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+  }
+
+  .crossing .span .inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.crossing .opening-text,
+.crossing .span-head {
+  display: grid;
+  gap: 0.9rem;
+  align-content: start;
+  max-width: 42rem;
+}
+
+.crossing h2 {
+  font-size: clamp(2.1rem, 1.5rem + 2.6vw, 3.4rem);
+  line-height: 1;
+}
+
+.crossing .kicker {
+  color: #2f5370;
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.crossing .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.crossing .para {
+  font-size: 1.06rem;
+  line-height: 1.55;
+}
+
+/* The pier between two spans: a deck line with a column under it */
+.crossing .pier {
+  height: 3.2rem;
+  background: var(--sky);
+  line-height: 0;
+}
+
+.crossing .pier svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.crossing .pier .deck {
+  fill: #5a6b78;
+}
+
+.crossing .pier .column {
+  fill: #8a9aa6;
+  stroke: #5a6b78;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.crossing .river {
+  background: var(--sky);
+  line-height: 0;
+}
+
+.crossing .river svg {
+  display: block;
+  width: 100%;
+  height: 4rem;
+}
+
+.crossing .river .wave {
+  fill: #7fb1cb;
+}
+
+/* ---------- The blueprint ---------- */
+.crossing .tool-wrap,
+.crossing .tool {
+  min-width: 0;
+}
+
+.crossing .bp {
+  overflow: hidden;
+  background: var(--blue);
+  border: 3px solid var(--ink-fixed);
+  border-radius: 10px;
+  box-shadow: 0 16px 28px -18px rgb(0 0 0 / 0.6);
+}
+
+.crossing .bp svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.crossing .ground {
+  stroke: var(--cream);
+  stroke-width: 3;
+}
+
+.crossing .pier-rect {
+  fill: #8a9aa6;
+  stroke: var(--cream);
+  stroke-width: 3;
+}
+
+.crossing .tri {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.crossing .plank {
+  fill: #d5c8a8;
+  stroke: var(--cream);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.crossing .squeeze {
+  fill: var(--squeeze);
+  opacity: 0.95;
+}
+
+.crossing .stretch {
+  fill: var(--stretch);
+  opacity: 0.95;
+}
+
+.crossing .weight {
+  fill: #e8dcc0;
+  stroke: var(--ink-fixed);
+  stroke-width: 3;
+}
+
+.crossing .arrow {
+  stroke: var(--cream);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.crossing .lab {
+  fill: var(--cream);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.crossing .lab.small {
+  fill: var(--ink-fixed);
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.crossing .lab.fail {
+  fill: var(--squeeze);
+}
+
+.crossing .member {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 12;
+}
+
+.crossing .member.compress,
+.crossing .bar.compress {
+  stroke: var(--squeeze);
+}
+
+.crossing .member.tension,
+.crossing .bar.tension {
+  stroke: var(--stretch);
+}
+
+.crossing .bar {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 12;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.crossing .bar.tension {
+  stroke-width: 8;
+}
+
+.crossing .pin {
+  fill: var(--blue);
+  stroke: var(--cream);
+  stroke-width: 4;
+}
+
+.crossing .tower {
+  fill: #8a9aa6;
+  stroke: var(--cream);
+  stroke-width: 3;
+}
+
+.crossing .load {
+  stroke: var(--cream);
+  fill: var(--cream);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.crossing .load.head {
+  stroke-width: 1;
+}
+
+.crossing .push {
+  stroke: var(--squeeze);
+  fill: var(--squeeze);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.crossing .push.head {
+  stroke-width: 1;
+}
+
+.crossing .pull {
+  stroke: var(--stretch);
+  fill: var(--stretch);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.crossing .pull.head {
+  stroke-width: 1;
+}
+
+.crossing .deck {
+  stroke: none;
+}
+
+/* ---------- Legend ---------- */
+.crossing .legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.6rem;
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.crossing .legend.big {
+  font-size: 1.05rem;
+}
+
+.crossing .key {
+  display: inline-block;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-left: 0.5rem;
+  border: 2px solid var(--ink-fixed);
+  border-radius: 3px;
+}
+
+.crossing .key:first-child {
+  margin-left: 0;
+}
+
+.crossing .squeeze-key {
+  background: var(--squeeze);
+}
+
+.crossing .stretch-key {
+  background: var(--stretch);
+}
+
+/* ---------- Controls ---------- */
+.crossing .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+  margin-top: 0.8rem;
+}
+
+.crossing .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.crossing .btn:hover {
+  background: var(--wash);
+}
+
+.crossing .btn[aria-pressed='true'] {
+  background: var(--ink-fixed);
+  border-color: var(--ink-fixed);
+  color: var(--cream);
+}
+
+.crossing .status {
+  min-height: 5.6rem;
+  margin-top: 0.7rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.crossing .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.crossing .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.crossing .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.crossing .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.crossing .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.crossing .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.crossing .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.crossing .field span {
+  min-width: 9.5rem;
+}
+
+/* ---------- Sound switch ---------- */
+.crossing .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--ink-fixed);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-fixed);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.crossing .snd[aria-pressed='true'] .slash,
+.crossing .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+/* ---------- Paper tags ---------- */
+.crossing .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.crossing .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--cream);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.22);
+  transform: rotate(-0.4deg);
+}
+
+.crossing .tag:nth-child(even) {
+  transform: rotate(0.4deg);
+}
+
+.crossing .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--sky);
+  box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.4);
+}
+
+.crossing .tag-label {
+  color: #2f5370;
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.crossing .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crossing * {
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,32 @@
+---
+// Span 3: a square frame of four bars with loose corners, pushed sideways. Add a diagonal and push again.
+// Without a script this is the square frame with a diagonal.
+---
+
+<div class="tool" data-frame-tool>
+  <div class="bp">
+    <svg viewBox="0 0 800 380" role="img" aria-label="A frame of four bars with loose corners standing on the ground, with a push arrow at the top. Without a diagonal it folds sideways. With a diagonal it stays square.">
+      <line class="ground" x1="150" x2="650" y1="330" y2="330" />
+      <path class="tri" d="M296 330l-18 24h36zM504 330l-18 24h36z" />
+      <path class="bar" data-frame-shape d="M300 330V120H500V330Z" />
+      <line class="bar tension" data-frame-diagonal x1="300" y1="330" x2="500" y2="120" />
+      <circle class="pin" cx="300" cy="330" r="9" />
+      <circle class="pin" cx="500" cy="330" r="9" />
+      <circle class="pin" data-frame-pin-a cx="300" cy="120" r="9" />
+      <circle class="pin" data-frame-pin-b cx="500" cy="120" r="9" />
+      <g data-frame-push></g>
+    </svg>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn" aria-pressed="true" data-frame-diag>Diagonal bar: on</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Sideways push <output data-frame-out>0</output></span>
+      <input class="range" type="range" min="0" max="5" step="0.1" value="0" data-frame-range aria-label="Strength of the sideways push" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-frame-status>
+    The frame has a diagonal bar. Push it sideways and see what the bar does.
+  </p>
+</div>

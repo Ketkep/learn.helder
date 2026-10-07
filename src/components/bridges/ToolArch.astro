@@ -1,0 +1,36 @@
+---
+// Span 2: an arch (pushes) or a cable (pulls) under an evenly spread load. The same numbers, the same curve, upside down.
+// Without a script this is the arch with a rise of a quarter of the span.
+---
+
+<div class="tool" data-arch-tool>
+  <div class="bp">
+    <svg viewBox="0 0 800 380" role="img" aria-label="Either an arch standing on two feet or a cable hanging between two towers, with a load spread along the deck. Arrows at the feet or the tower tops show the force.">
+      <line class="ground" x1="30" x2="770" y1="320" y2="320" />
+      <g data-arch-loads></g>
+      <path class="deck" d="M110 320H690" />
+      <path class="member" data-arch-curve d="M110 320Q400 20 690 320" />
+      <g data-arch-towers></g>
+      <g data-arch-arrows></g>
+      <text class="lab" data-arch-label x="400" y="360" text-anchor="middle">arch: every part is squeezed</text>
+    </svg>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Arch or cable">
+    <button type="button" class="btn" aria-pressed="true" data-arch-mode="arch">Arch (pushes)</button>
+    <button type="button" class="btn" aria-pressed="false" data-arch-mode="cable">Cable (pulls)</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Height <output data-arch-out>one quarter of the span</output></span>
+      <input class="range" type="range" min="10" max="50" step="1" value="25" data-arch-range aria-label="Height of the arch, or sag of the cable, as a percentage of the span" />
+    </label>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Jump to a height">
+    <button type="button" class="btn" data-arch-jump="10">Very flat</button>
+    <button type="button" class="btn" data-arch-jump="25">A quarter</button>
+    <button type="button" class="btn" data-arch-jump="50">Half</button>
+  </div>
+  <p class="status" aria-live="polite" data-arch-status>
+    With a rise of a quarter of the span, each foot is pushed down with half of the load and pushed sideways with half of the load.
+  </p>
+</div>

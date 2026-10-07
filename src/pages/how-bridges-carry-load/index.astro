@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Crossing from '../../components/bridges/Crossing.astro';
+import { takeaways, sources, sourcesNote } from '../../data/bridges';
+---
+
+<TopicLayout
+  slug="how-bridges-carry-load"
+  intro="A bridge turns a weight into pushing and pulling inside its parts. Cross four spans on a blueprint to load a plank, an arch, a cable and a triangle, and see which bits are squeezed and which are stretched."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Crossing />
+</TopicLayout>

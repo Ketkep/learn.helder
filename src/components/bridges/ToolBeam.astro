@@ -1,0 +1,44 @@
+---
+// Span 1: a plank on two supports with a weight on it. The top is squeezed, the bottom is stretched.
+// Without a script this is the plank with the weight in the middle.
+---
+
+<div class="tool" data-beam-tool>
+  <div class="bp">
+    <svg viewBox="0 0 800 400" role="img" aria-label="A plank resting on two supports with a weight on it. The plank bends down. The top of the plank is shaded orange where it is squeezed and the bottom is shaded light blue where it is stretched.">
+      <rect class="pier-rect" x="84" y="130" width="32" height="200" />
+      <rect class="pier-rect" x="684" y="130" width="32" height="200" />
+      <line class="ground" x1="30" x2="770" y1="330" y2="330" />
+      <path class="plank" data-beam-plank d="M100 130H700V162H100Z" />
+      <path class="squeeze" data-beam-top d="" />
+      <path class="stretch" data-beam-bottom d="" />
+      <g data-beam-weight transform="translate(400 66)">
+        <rect class="weight" x="-30" y="-26" width="60" height="52" rx="6" />
+        <text class="lab small" y="8" text-anchor="middle" data-beam-weight-text>1</text>
+      </g>
+      <line class="arrow" data-beam-arrow x1="400" y1="94" x2="400" y2="126" />
+    </svg>
+  </div>
+  <p class="legend"><span class="key squeeze-key"></span> squeezed <span class="key stretch-key"></span> stretched</p>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Weight position <output data-beam-pos-out>middle</output></span>
+      <input class="range" type="range" min="10" max="90" step="1" value="50" data-beam-pos aria-label="Where the weight sits on the plank, as a percentage of the way across" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Weight <output data-beam-weight-out>1</output></span>
+      <input class="range" type="range" min="1" max="5" step="0.5" value="1" data-beam-load aria-label="Size of the weight" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Plank depth <output data-beam-depth-out>1&times;</output></span>
+      <input class="range" type="range" min="1" max="3" step="0.1" value="1" data-beam-depth aria-label="Depth of the plank, as a multiple of the starting depth" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-beam-status>
+    The weight is in the middle. The plank sags by 1.0 in the relative units of this page.
+  </p>
+</div>

@@ -137,6 +137,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-07',
     status: 'live',
   },
+  {
+    slug: 'how-bridges-carry-load',
+    title: 'How bridges carry a load',
+    hook: 'Load a plank, an arch, a cable and a triangle, and see which parts push and which pull.',
+    category: 'Technology',
+    accent: '#A9C4D4',
+    preview: 'how-bridges-carry-load',
+    dateAdded: '2026-10-07',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */
