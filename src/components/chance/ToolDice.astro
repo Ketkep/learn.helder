@@ -1,0 +1,40 @@
+---
+// Experiment 1: two dice. A bar for each sum from 2 to 12, with a mark where the exact odds say it should be.
+// Without a script this is the exact odds, drawn as bars.
+import { ways } from '../../scripts/chance/stats';
+
+const sums = Array.from({ length: 11 }, (_, i) => i + 2);
+---
+
+<div class="tool" data-dice-tool>
+  <div class="dice-row">
+    <span class="die" data-die="a" aria-hidden="true">?</span>
+    <span class="die" data-die="b" aria-hidden="true">?</span>
+    <p class="last mono" data-dice-last>Press Roll to throw two dice.</p>
+  </div>
+  <div class="hist" role="img" aria-label="Bars for each total from 2 to 12. The taller the bar, the more often the total came up. A mark shows where the exact odds say the bar should be.">
+    {
+      sums.map((s) => (
+        <div class="col" data-sum={s}>
+          <span class="count" data-count></span>
+          <div class="plot">
+            <span class="bar" data-bar style={`height: ${(ways(s) / 6) * 100}%`}></span>
+            <span class="exp" data-exp style={`bottom: ${(ways(s) / 6) * 100}%`}></span>
+          </div>
+          <span class="sum">{s}</span>
+        </div>
+      ))
+    }
+  </div>
+  <p class="legend"><span class="swatch bar-swatch"></span> rolled <span class="swatch exp-swatch"></span> exact odds</p>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-dice-roll="1">Roll</button>
+    <button type="button" class="btn" data-dice-roll="10">Roll 10</button>
+    <button type="button" class="btn" data-dice-roll="100">Roll 100</button>
+    <button type="button" class="btn" data-dice-roll="1000">Roll 1,000</button>
+    <button type="button" class="btn" data-dice-clear>Clear</button>
+  </div>
+  <p class="status" aria-live="polite" data-dice-status>
+    The marks show the exact odds. Without any rolls the bars are the odds: 1 way for a 2, 6 ways for a 7, 1 way for a 12, out of 36.
+  </p>
+</div>

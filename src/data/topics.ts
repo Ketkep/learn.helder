@@ -157,6 +157,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-08',
     status: 'live',
   },
+  {
+    slug: 'how-chance-works',
+    title: 'How chance works',
+    hook: 'Roll dice, flip coins, share a birthday and pick a door, and see what chance really does.',
+    category: 'Maths',
+    accent: '#C5D18A',
+    preview: 'how-chance-works',
+    dateAdded: '2026-10-08',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

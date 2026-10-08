@@ -1,0 +1,74 @@
+---
+// The whole page: a lab notebook with four experiments. Each experiment is a page of squared paper with
+// a margin line, with the words on the left and the experiment on the right. The tools are the Tool components
+// and src/scripts/chance. Without a script every chart is a drawing and the words read in order.
+import '../../styles/notebook.css';
+import { intro, experiments } from '../../data/chance';
+import ToolDice from './ToolDice.astro';
+import ToolCoins from './ToolCoins.astro';
+import ToolBirthday from './ToolBirthday.astro';
+import ToolDoors from './ToolDoors.astro';
+
+const tools: Record<string, typeof ToolDice> = {
+  dice: ToolDice,
+  coins: ToolCoins,
+  birthday: ToolBirthday,
+  doors: ToolDoors,
+};
+---
+
+<div class="book" data-chance>
+  <section class="page opening" aria-labelledby="book-intro">
+    <div class="sheet">
+      <div class="notes">
+        <p class="kicker">Page one</p>
+        <h2 id="book-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+        <button class="snd needs-js" type="button" data-sound aria-pressed="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+            <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+            <path class="wave" d="M15 9a4 4 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path class="slash" d="M16 8.5l5 7M21 8.5l-5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <span data-sound-label>Sound on</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  {
+    experiments.map((e) => {
+      const Tool = tools[e.id];
+      return (
+        <section class="page" id={`exp-${e.id}`} aria-labelledby={`exp-${e.id}-h`}>
+          <div class="sheet">
+            <div class="notes">
+              <p class="kicker">{e.kicker}</p>
+              <h2 id={`exp-${e.id}-h`}>{e.title}</h2>
+              <div class="paras">{e.paras.map((p) => <p class="para">{p}</p>)}</div>
+              {
+                e.tags && (
+                  <div class="stickies">
+                    {e.tags.map((t) => (
+                      <aside class="sticky">
+                        <p class="sticky-label">{t.label}</p>
+                        <p class="sticky-text">{t.text}</p>
+                      </aside>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+            <div class="bench">
+              <Tool />
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/chance/chance';
+</script>

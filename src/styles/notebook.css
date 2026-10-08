@@ -1,0 +1,546 @@
+/* The chance page: a lab notebook. Each experiment is a page of squared paper with a red margin line and
+   two binder holes. The words are on the left, the experiment is on the right. */
+
+.book {
+  --desk: #5b4a3a;
+  --paper: #fbf7e6;
+  --grid: #c9d9e6;
+  --margin: #e0867b;
+  --pen: #1d3a7a;
+  --ink-fixed: #121315;
+  --cream: #fff3dc;
+  --wash: rgb(0 0 0 / 0.09);
+  --fg: var(--ink-fixed);
+
+  display: grid;
+  gap: 2rem;
+  padding: clamp(1.6rem, 4vw, 3rem) var(--gutter) clamp(2.4rem, 6vw, 4rem);
+  background: var(--desk);
+  color: var(--ink-fixed);
+}
+
+html:not(.js) .book .needs-js {
+  display: none;
+}
+
+.book :focus-visible {
+  outline: 3px solid var(--ink-fixed);
+  outline-offset: 3px;
+}
+
+/* ---------- A notebook page ---------- */
+.book .page {
+  position: relative;
+  width: min(100%, 68rem);
+  margin-inline: auto;
+  background-color: var(--paper);
+  /* Squared paper: two sets of thin blue lines */
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 1.6rem 1.6rem;
+  border-radius: 6px 14px 14px 6px;
+  box-shadow: 0 10px 0 rgb(0 0 0 / 0.3);
+}
+
+/* The red margin line and the two binder holes */
+.book .page::before {
+  content: '';
+  position: absolute;
+  left: 3.2rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--margin);
+}
+
+.book .page::after {
+  content: '';
+  position: absolute;
+  left: 0.9rem;
+  top: 18%;
+  bottom: 18%;
+  width: 1.1rem;
+  background:
+    radial-gradient(circle at 50% 50%, var(--desk) 0.5rem, transparent 0.55rem) top / 100% 2.2rem no-repeat,
+    radial-gradient(circle at 50% 50%, var(--desk) 0.5rem, transparent 0.55rem) bottom / 100% 2.2rem no-repeat;
+}
+
+.book .sheet {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  padding: clamp(1.4rem, 4vw, 2.4rem) clamp(1rem, 4vw, 2rem) clamp(1.4rem, 4vw, 2.4rem) clamp(3.6rem, 8vw, 5rem);
+}
+
+@media (min-width: 60rem) {
+  .book .sheet {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.book .notes,
+.book .bench {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.book h2 {
+  color: var(--ink-fixed);
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.book .kicker {
+  color: var(--pen);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.book .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.book .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.book .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Sticky notes ---------- */
+.book .stickies {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.book .sticky {
+  padding: 0.7rem 1rem 0.9rem;
+  background: #fff1a8;
+  border-radius: 2px;
+  box-shadow: 0 4px 0 rgb(0 0 0 / 0.18);
+  transform: rotate(-0.8deg);
+}
+
+.book .sticky:nth-child(even) {
+  transform: rotate(0.7deg);
+  background: #ffd9e0;
+}
+
+.book .sticky-label {
+  color: var(--pen);
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.book .sticky-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+/* ---------- Tools ---------- */
+.book .tool {
+  min-width: 0;
+}
+
+.book .paper-chart {
+  overflow: hidden;
+  background: #fffdf4;
+  border: 3px solid var(--ink-fixed);
+  border-radius: 8px;
+}
+
+.book .paper-chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.book .grid {
+  stroke: var(--grid);
+  stroke-width: 2;
+}
+
+.book .half {
+  stroke: var(--margin);
+  stroke-width: 3;
+  stroke-dasharray: 6 8;
+}
+
+.book .axis {
+  stroke: var(--ink-fixed);
+  stroke-width: 3;
+}
+
+.book .lab {
+  fill: var(--ink-fixed);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.book .lab.small {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.book .trace {
+  fill: none;
+  stroke: var(--pen);
+  stroke-width: 3.5;
+  stroke-linejoin: round;
+}
+
+.book .cursor {
+  stroke: var(--ink-fixed);
+  stroke-width: 2;
+  stroke-dasharray: 4 5;
+}
+
+.book .knob {
+  fill: #ff7a45;
+  stroke: var(--ink-fixed);
+  stroke-width: 3.5;
+}
+
+/* Dice */
+.book .dice-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.book .die {
+  display: grid;
+  place-items: center;
+  width: 4.2rem;
+  height: 4.2rem;
+  background: #fffdf4;
+  border: 3px solid var(--ink-fixed);
+  border-radius: 12px;
+  font-size: 3.2rem;
+  line-height: 1;
+}
+
+.book .last {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.book .hist {
+  display: grid;
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+  gap: 0.25rem;
+  padding: 0.6rem 0.5rem 0.4rem;
+  background: #fffdf4;
+  border: 3px solid var(--ink-fixed);
+  border-radius: 8px;
+}
+
+.book .col {
+  display: grid;
+  grid-template-rows: 1.2rem 9rem auto;
+  gap: 0.15rem;
+  text-align: center;
+}
+
+.book .count {
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.book .plot {
+  position: relative;
+}
+
+.book .bar {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 0;
+  background: var(--pen);
+  border-radius: 3px 3px 0 0;
+}
+
+.book .exp {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 3px solid var(--margin);
+}
+
+.book .sum {
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.book .legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.6rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.book .swatch {
+  display: inline-block;
+  width: 1.1rem;
+  height: 0.7rem;
+}
+
+.book .bar-swatch {
+  background: var(--pen);
+}
+
+.book .exp-swatch {
+  border-top: 3px solid var(--margin);
+  height: 0;
+  margin-left: 0.6rem;
+}
+
+/* Coins facts */
+.book .facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: 0.5rem;
+  margin: 0.8rem 0 0;
+}
+
+.book .facts div {
+  padding: 0.4rem 0.7rem;
+  background: #fffdf4;
+  border: 2px solid var(--ink-fixed);
+  border-radius: 8px;
+}
+
+.book .facts dt {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #3d3a32;
+}
+
+.book .facts dd {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Doors */
+.book .doors {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.book .door {
+  position: relative;
+  display: grid;
+  align-content: space-between;
+  justify-items: center;
+  min-height: 11rem;
+  padding: 0.6rem 0.4rem;
+  background: #9b6b3f;
+  color: var(--cream);
+  border: 4px solid var(--ink-fixed);
+  border-radius: 50% 50% 6px 6px / 22% 22% 6px 6px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.book .door:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.book .door:not(:disabled):hover {
+  background: #b07c4c;
+}
+
+.book .door-no {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.book .door-face {
+  min-height: 1.6rem;
+  font-weight: 800;
+}
+
+.book .door.open {
+  background: #2a2118;
+}
+
+.book .door.prize {
+  background: #2f7d4f;
+}
+
+.book .door.chosen {
+  box-shadow: 0 0 0 4px #ff7a45;
+}
+
+.book .tally {
+  width: 100%;
+  margin-top: 0.8rem;
+  border-collapse: collapse;
+  font-size: 0.98rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.book .tally th,
+.book .tally td {
+  padding: 0.3rem 0.5rem;
+  border-bottom: 2px solid var(--grid);
+  text-align: left;
+}
+
+/* ---------- Controls ---------- */
+.book .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+  margin-top: 0.8rem;
+}
+
+.book .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.book .btn:hover {
+  background: var(--wash);
+}
+
+.book .btn.fill {
+  background: var(--ink-fixed);
+  border-color: var(--ink-fixed);
+  color: var(--cream);
+}
+
+.book .btn.fill:hover {
+  background: #e4501a;
+  color: var(--ink-fixed);
+}
+
+.book .status {
+  min-height: 5.6rem;
+  margin-top: 0.7rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.book .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.book .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.book .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.book .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.book .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.book .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.book .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.book .field span {
+  min-width: 7rem;
+}
+
+/* ---------- Sound switch ---------- */
+.book .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  margin-top: 0.4rem;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--ink-fixed);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-fixed);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.book .snd[aria-pressed='true'] .slash,
+.book .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book * {
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,31 @@
+---
+// Experiment 4: three doors. Pick one, the host opens an empty one, then stay or switch.
+// Without a script this explains the game in words and shows the three doors closed.
+---
+
+<div class="tool" data-doors-tool>
+  <div class="doors" role="group" aria-label="Three doors">
+    {[1, 2, 3].map((n) => <button type="button" class="door" data-door={n} aria-label={`Door ${n}`} disabled><span class="door-no">{n}</span><span class="door-face" data-face></span></button>)}
+  </div>
+  <div class="controls needs-js" data-doors-choice hidden>
+    <button type="button" class="btn fill" data-doors-stay>Stay</button>
+    <button type="button" class="btn fill" data-doors-switch>Switch</button>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn" data-doors-again>New game</button>
+    <button type="button" class="btn" data-doors-auto="stay">Play 1,000: always stay</button>
+    <button type="button" class="btn" data-doors-auto="switch">Play 1,000: always switch</button>
+    <button type="button" class="btn" data-doors-clear>Clear scores</button>
+  </div>
+  <table class="tally">
+    <caption class="visually-hidden">Scores</caption>
+    <thead><tr><th scope="col">Plan</th><th scope="col">Games</th><th scope="col">Won</th><th scope="col">Share</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Stay</th><td data-tally="stay-n">0</td><td data-tally="stay-w">0</td><td data-tally="stay-p">-</td></tr>
+      <tr><th scope="row">Switch</th><td data-tally="switch-n">0</td><td data-tally="switch-w">0</td><td data-tally="switch-p">-</td></tr>
+    </tbody>
+  </table>
+  <p class="status" aria-live="polite" data-doors-status>
+    This game needs a script. A prize is behind one of three doors. You pick one. The host, who knows where it is, opens an empty door. Switching to the last closed door wins 2 times in 3.
+  </p>
+</div>

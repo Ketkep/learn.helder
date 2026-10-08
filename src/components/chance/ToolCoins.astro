@@ -1,0 +1,38 @@
+---
+// Experiment 2: flipping coins. The share of heads settles near a half, but a run does not change the next flip.
+// Without a script this is an empty chart with the half line.
+---
+
+<div class="tool" data-coins-tool data-x0="70" data-x1="770" data-y0="20" data-y1="280">
+  <div class="paper-chart">
+    <svg viewBox="0 0 800 340" role="img" aria-label="A chart of the share of heads in a row of coin flips. The line wanders at first and settles close to one half as the number of flips grows.">
+      <line class="grid" x1="70" x2="770" y1="20" y2="20" />
+      <line class="grid" x1="70" x2="770" y1="150" y2="150" />
+      <line class="half" x1="70" x2="770" y1="150" y2="150" />
+      <line class="grid" x1="70" x2="770" y1="280" y2="280" />
+      <line class="axis" x1="70" x2="770" y1="280" y2="280" />
+      <text class="lab" x="62" y="28" text-anchor="end">100%</text>
+      <text class="lab" x="62" y="158" text-anchor="end">50%</text>
+      <text class="lab" x="62" y="288" text-anchor="end">0%</text>
+      {[1, 10, 100, 1000, 10000].map((n, i) => <text class="lab" x={70 + (700 * i) / 4} y="316" text-anchor="middle">{n.toLocaleString('en-US')}</text>)}
+      <text class="lab small" x="770" y="338" text-anchor="end">number of flips</text>
+      <path class="trace" data-coins-line d="" />
+    </svg>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-coins-flip="10">Flip 10</button>
+    <button type="button" class="btn" data-coins-flip="100">Flip 100</button>
+    <button type="button" class="btn" data-coins-flip="1000">Flip 1,000</button>
+    <button type="button" class="btn" data-coins-flip="9000">Flip 9,000</button>
+    <button type="button" class="btn" data-coins-reset>Start again</button>
+  </div>
+  <dl class="facts" aria-live="polite">
+    <div><dt>Flips</dt><dd data-coins-n>0</dd></div>
+    <div><dt>Heads</dt><dd data-coins-share>-</dd></div>
+    <div><dt>Heads minus tails</dt><dd data-coins-gap>-</dd></div>
+    <div><dt>Longest run</dt><dd data-coins-run>-</dd></div>
+  </dl>
+  <p class="status" aria-live="polite" data-coins-status>
+    Flip the coin. Watch the share of heads wander at first and settle later.
+  </p>
+</div>

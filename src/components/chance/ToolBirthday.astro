@@ -1,0 +1,44 @@
+---
+// Experiment 3: the shared birthday. A curve of the chance against the number of people, and a room you can fill.
+// Without a script this is the curve with 23 people marked.
+import { sharedBirthday } from '../../scripts/chance/stats';
+
+const X0 = 70;
+const X1 = 770;
+const Y0 = 20;
+const Y1 = 280;
+const px = (n: number) => X0 + ((X1 - X0) * (n - 1)) / 79;
+const py = (p: number) => Y1 - (Y1 - Y0) * p;
+const curve = Array.from({ length: 80 }, (_, i) => `${i ? 'L' : 'M'}${px(i + 1).toFixed(1)} ${py(sharedBirthday(i + 1)).toFixed(1)}`).join('');
+---
+
+<div class="tool" data-bday-tool data-x0={X0} data-x1={X1} data-y0={Y0} data-y1={Y1}>
+  <div class="paper-chart">
+    <svg viewBox="0 0 800 340" role="img" aria-label="A chart of the chance that two people in a room share a birthday, against the number of people. The line climbs steeply and passes 50 per cent at 23 people.">
+      <line class="grid" x1={X0} x2={X1} y1={py(1)} y2={py(1)} />
+      <line class="half" x1={X0} x2={X1} y1={py(0.5)} y2={py(0.5)} />
+      <line class="axis" x1={X0} x2={X1} y1={Y1} y2={Y1} />
+      <text class="lab" x="62" y={py(1) + 8} text-anchor="end">100%</text>
+      <text class="lab" x="62" y={py(0.5) + 8} text-anchor="end">50%</text>
+      <text class="lab" x="62" y={Y1 + 8} text-anchor="end">0%</text>
+      {[1, 20, 40, 60, 80].map((n) => <text class="lab" x={px(n)} y="316" text-anchor="middle">{n}</text>)}
+      <text class="lab small" x="770" y="338" text-anchor="end">people in the room</text>
+      <path class="trace" d={curve} />
+      <line class="cursor" data-bday-cursor x1={px(23)} x2={px(23)} y1={Y0} y2={Y1} />
+      <circle class="knob" data-bday-dot cx={px(23)} cy={py(sharedBirthday(23))} r="10" />
+    </svg>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>People <output data-bday-out>23</output></span>
+      <input class="range" type="range" min="2" max="80" step="1" value="23" data-bday-range aria-label="Number of people in the room" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-bday-fill>Fill a room</button>
+    <button type="button" class="btn" data-bday-many>Fill 1,000 rooms</button>
+  </div>
+  <p class="status" aria-live="polite" data-bday-status>
+    With 23 people there are 253 pairs, and the chance that at least one pair shares a birthday is about 50.7%.
+  </p>
+</div>

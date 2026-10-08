@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Notebook from '../../components/chance/Notebook.astro';
+import { takeaways, sources, sourcesNote } from '../../data/chance';
+---
+
+<TopicLayout
+  slug="how-chance-works"
+  intro="Chance is easy to test and hard to feel. Four experiments in a lab notebook let you roll two dice, flip thousands of coins, fill a room with birthdays and play the three doors puzzle, and see what the maths says and why."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Notebook />
+</TopicLayout>
