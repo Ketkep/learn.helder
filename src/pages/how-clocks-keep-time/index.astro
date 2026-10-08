@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Movement from '../../components/clocks/Movement.astro';
+import { takeaways, sources, sourcesNote } from '../../data/clocks';
+---
+
+<TopicLayout
+  slug="how-clocks-keep-time"
+  intro="A clock needs something that repeats at a steady rate and something that counts the repeats. Open the case and look at four brass plates: the swing of a pendulum, the escapement that counts it, the gears that turn the count into hands, and the crystal in a quartz watch."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Movement />
+</TopicLayout>

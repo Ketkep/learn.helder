@@ -1,0 +1,43 @@
+---
+// Plate 2: the escapement. An escape wheel with 30 teeth and a rocking anchor. Each half swing lets one tooth go by.
+// Without a script this is the wheel and the anchor at rest.
+const CX = 400;
+const CY = 235;
+const R = 130;
+const r = 108;
+const TEETH = 30;
+const pt = (rad: number, deg: number) => `${(CX + rad * Math.sin((deg * Math.PI) / 180)).toFixed(1)} ${(CY - rad * Math.cos((deg * Math.PI) / 180)).toFixed(1)}`;
+// A ratchet tooth: a steep side and a slope
+const wheel =
+  Array.from({ length: TEETH }, (_, i) => {
+    const a = (360 / TEETH) * i;
+    return `${i ? 'L' : 'M'}${pt(r, a)}L${pt(R, a + 2)}L${pt(r, a + 360 / TEETH - 1)}`;
+  }).join('') + 'Z';
+---
+
+<div class="tool" data-esc-tool>
+  <div class="face">
+    <svg viewBox="0 0 800 460" role="img" aria-label="A toothed wheel with a rocking anchor above it. Each swing of the anchor lets one tooth of the wheel go by.">
+      <g data-esc-wheel transform={`rotate(0 ${CX} ${CY})`}>
+        <path class="gear" d={wheel} />
+        <circle class="hub" cx={CX} cy={CY} r="14" />
+        <circle class="hole" cx={CX} cy={CY - 70} r="9" />
+        <circle class="hole" cx={CX + 61} cy={CY + 35} r="9" />
+        <circle class="hole" cx={CX - 61} cy={CY + 35} r="9" />
+      </g>
+      <g data-esc-anchor transform={`rotate(0 ${CX} ${CY - 170})`}>
+        <path class="anchor" d={`M${CX - 68} ${CY - 100}L${CX - 52} ${CY - 118}L${CX - 30} ${CY - 150}Q${CX} ${CY - 182} ${CX + 30} ${CY - 150}L${CX + 52} ${CY - 118}L${CX + 68} ${CY - 100}L${CX + 50} ${CY - 104}L${CX + 36} ${CY - 128}Q${CX} ${CY - 150} ${CX - 36} ${CY - 128}L${CX - 50} ${CY - 104}Z`} />
+        <circle class="hub" cx={CX} cy={CY - 170} r="9" />
+      </g>
+    </svg>
+  </div>
+  <p class="readout" aria-live="polite"><span class="big" data-esc-count>0</span> <span class="mid" data-esc-note>teeth have gone by</span></p>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-esc-step>Swing</button>
+    <button type="button" class="btn" data-esc-run>Run at one tick a second</button>
+    <button type="button" class="btn" data-esc-reset>Start again</button>
+  </div>
+  <p class="status" aria-live="polite" data-esc-status>
+    The wheel has 30 teeth. Press Swing and each half swing lets one tooth go by.
+  </p>
+</div>

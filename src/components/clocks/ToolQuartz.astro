@@ -1,0 +1,36 @@
+---
+// Plate 4: the crystal and its chain of halvings. 32,768 vibrations a second, halved 15 times, is 1 a second.
+// Without a script this is the whole ladder.
+const stages = Array.from({ length: 16 }, (_, i) => ({ i, hz: 32768 / 2 ** i }));
+---
+
+<div class="tool" data-quartz-tool>
+  <ol class="ladder" data-quartz-ladder aria-label="The chain of halvings, from the crystal at the top to one pulse a second at the bottom">
+    {
+      stages.map((s) => (
+        <li data-stage={s.i}>
+          <span class="l-no">{s.i === 0 ? 'crystal' : `half ${s.i}`}</span>
+          <span class="l-bar"><span class="l-fill" style={`width: ${Math.max((s.hz / 32768) * 100, 1.2)}%`}></span></span>
+          <span class="l-hz">{s.hz.toLocaleString('en-US')} a second</span>
+        </li>
+      ))
+    }
+  </ol>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Halvings <output data-quartz-out>0</output></span>
+      <input class="range" type="range" min="0" max="15" step="1" value="0" data-quartz-range aria-label="How many times the rate has been halved" />
+    </label>
+    <button type="button" class="btn" data-quartz-blink>Blink at this rate</button>
+  </div>
+  <div class="lamp-row needs-js"><span class="lamp" data-quartz-lamp aria-hidden="true"></span><span data-quartz-lamp-text>The lamp blinks at the rate you picked, up to 2 times a second.</span></div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Crystal is off by <output data-quartz-ppm-out>20 parts in a million</output></span>
+      <input class="range" type="range" min="0" max="50" step="1" value="20" data-quartz-ppm aria-label="How far the crystal rate is off, in parts per million" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-quartz-status>
+    The crystal shakes 32,768 times a second. Halve that 15 times and 1 a second is left. A crystal that is off by 20 parts in a million gains or loses about 1.7 seconds a day.
+  </p>
+</div>

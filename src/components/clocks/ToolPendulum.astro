@@ -1,0 +1,43 @@
+---
+// Plate 1: a pendulum. Length, weight and the size of the swing. The period only cares about the length.
+// Without a script this is the pendulum of about a metre, hanging still.
+---
+
+<div class="tool" data-pend-tool>
+  <div class="face">
+    <svg viewBox="0 0 800 420" role="img" aria-label="A pendulum hanging from a pivot at the top. A dotted mark shows the length of a pendulum that takes two seconds for a full swing.">
+      <rect class="bracket" x="360" y="14" width="80" height="14" rx="4" />
+      <line class="mark" data-pend-mark x1="320" x2="480" y1="130" y2="130" />
+      <text class="lab small" data-pend-mark-text x="490" y="136">2 second length</text>
+      <line class="rod" data-pend-rod x1="400" y1="30" x2="400" y2="130" />
+      <circle class="bob" data-pend-bob cx="400" cy="130" r="22" />
+      <circle class="pivot" cx="400" cy="30" r="7" />
+    </svg>
+  </div>
+  <p class="readout" aria-live="polite"><span class="big" data-pend-period>2.00 s</span> <span class="mid" data-pend-note>for a full swing</span></p>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Length <output data-pend-length-out>0.99 m</output></span>
+      <input class="range" type="range" min="10" max="300" step="1" value="99" data-pend-length aria-label="Length of the pendulum in centimetres" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Weight <output data-pend-weight-out>2</output></span>
+      <input class="range" type="range" min="1" max="5" step="1" value="2" data-pend-weight aria-label="Weight of the pendulum bob" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Swing <output data-pend-angle-out>10&deg;</output></span>
+      <input class="range" type="range" min="2" max="40" step="1" value="10" data-pend-angle aria-label="Size of the swing in degrees each way" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-pend-swing>Swing</button>
+    <button type="button" class="btn" data-pend-seconds>The 2 second pendulum</button>
+  </div>
+  <p class="status" aria-live="polite" data-pend-status>
+    A pendulum 0.99 m long takes 2.00 seconds for a full swing.
+  </p>
+</div>

@@ -1,0 +1,572 @@
+/* The clocks page: a clock movement taken apart into four brass plates on a dark wooden case.
+   Each plate shows its picture first and its words after it. */
+
+.case {
+  --wood: #2a1c14;
+  --brass: #d9bd7c;
+  --brass-dark: #b99a55;
+  --ink-fixed: #121315;
+  --cream: #fff3dc;
+  --face: #1b232e;
+  --wash: rgb(0 0 0 / 0.09);
+  --fg: var(--ink-fixed);
+
+  background: var(--wood);
+  color: var(--cream);
+  padding-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+html:not(.js) .case .needs-js {
+  display: none;
+}
+
+.case :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.case .plate :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+.case .opening {
+  padding: clamp(2.2rem, 5vw, 3.6rem) var(--gutter) clamp(1.2rem, 3vw, 2rem);
+}
+
+.case .inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.2rem 2rem;
+  width: min(100%, 64rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 50rem) {
+  .case .inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+  }
+}
+
+.case .opening-text {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.case h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.case .kicker {
+  color: var(--brass-dark);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.case .plate .kicker {
+  color: #5a4520;
+}
+
+.case .para {
+  max-width: 40rem;
+  font-size: 1.06rem;
+  line-height: 1.55;
+}
+
+.case .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+/* ---------- A plate: brass with four screws, the picture on top and the words below ---------- */
+.case .plates {
+  display: grid;
+  gap: 1.8rem;
+  width: min(100% - 2 * var(--gutter), 64rem);
+  margin-inline: auto;
+}
+
+.case .plate {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  padding: clamp(1.6rem, 4vw, 2.6rem) clamp(1.2rem, 4vw, 2.4rem);
+  background: var(--brass);
+  color: var(--ink-fixed);
+  border: 3px solid var(--brass-dark);
+  border-radius: 16px;
+  box-shadow: 0 10px 0 rgb(0 0 0 / 0.4);
+}
+
+@media (min-width: 60rem) {
+  .case .plate {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .case .plate:nth-child(even) .plate-tool {
+    order: 2;
+  }
+}
+
+.case .screw {
+  position: absolute;
+  width: 0.9rem;
+  height: 0.9rem;
+  background: var(--brass-dark);
+  border: 2px solid #7a6334;
+  border-radius: 50%;
+}
+
+.case .screw::after {
+  content: '';
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  background: #5c4a22;
+  transform: rotate(35deg);
+}
+
+.case .screw.tl {
+  left: 0.6rem;
+  top: 0.6rem;
+}
+
+.case .screw.tr {
+  right: 0.6rem;
+  top: 0.6rem;
+}
+
+.case .screw.bl {
+  left: 0.6rem;
+  bottom: 0.6rem;
+}
+
+.case .screw.br {
+  right: 0.6rem;
+  bottom: 0.6rem;
+}
+
+.case .plate-tool,
+.case .tool {
+  min-width: 0;
+}
+
+.case .plate-words {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+}
+
+.case .plate h2 {
+  font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.7rem);
+}
+
+.case .next-hint {
+  color: #5a4520;
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+}
+
+/* ---------- The face of a tool: a dark dial inside the brass ---------- */
+.case .face {
+  overflow: hidden;
+  background: var(--face);
+  border: 3px solid var(--ink-fixed);
+  border-radius: 14px;
+}
+
+.case .face svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.case .lab {
+  fill: var(--cream);
+  font-family: var(--font-display);
+  font-size: 34px;
+}
+
+.case .lab.small {
+  font-family: var(--font-body);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.case .bracket {
+  fill: var(--brass);
+}
+
+.case .rod {
+  stroke: #e8dcc0;
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.case .bob {
+  fill: var(--brass);
+  stroke: var(--cream);
+  stroke-width: 4;
+}
+
+.case .pivot {
+  fill: var(--ink-fixed);
+  stroke: var(--cream);
+  stroke-width: 3;
+}
+
+.case .mark {
+  stroke: var(--cream);
+  stroke-width: 2.5;
+  stroke-dasharray: 4 8;
+  opacity: 0.8;
+}
+
+.case .gear {
+  fill: var(--brass);
+  stroke: var(--cream);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.case .anchor {
+  fill: #e8dcc0;
+  stroke: var(--cream);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.case .hub {
+  fill: var(--face);
+  stroke: var(--cream);
+  stroke-width: 4;
+}
+
+.case .hole {
+  fill: var(--face);
+  stroke: var(--cream);
+  stroke-width: 3;
+}
+
+.case .dial {
+  fill: #fff3dc;
+  stroke: var(--ink-fixed);
+  stroke-width: 6;
+}
+
+.case .tick {
+  stroke: var(--ink-fixed);
+  stroke-width: 3;
+}
+
+.case .tick.big {
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.case .dial ~ .lab {
+  fill: var(--ink-fixed);
+}
+
+.case .hand {
+  stroke: var(--ink-fixed);
+  stroke-linecap: round;
+}
+
+.case .hand.hour {
+  stroke-width: 14;
+}
+
+.case .hand.minute {
+  stroke-width: 9;
+}
+
+.case .hand.second {
+  stroke: #e4501a;
+  stroke-width: 4;
+}
+
+.case .dial ~ .hub {
+  fill: var(--ink-fixed);
+}
+
+/* ---------- Readout, controls, status ---------- */
+.case .readout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 1rem;
+  margin: 0.8rem 0 0;
+}
+
+.case .big {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 1.3rem + 1.8vw, 2.6rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.case .mid {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.case .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+  margin-top: 0.8rem;
+}
+
+.case .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.case .btn:hover {
+  background: var(--wash);
+}
+
+.case .btn.fill {
+  background: var(--ink-fixed);
+  border-color: var(--ink-fixed);
+  color: var(--cream);
+}
+
+.case .btn.fill:hover {
+  background: #e4501a;
+  color: var(--ink-fixed);
+}
+
+.case .status {
+  min-height: 5.6rem;
+  margin-top: 0.7rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.case .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.case .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.case .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.case .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.case .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.case .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.case .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.case .field span {
+  min-width: 9rem;
+}
+
+/* ---------- The quartz ladder ---------- */
+.case .ladder {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0.6rem 0.7rem;
+  list-style: none;
+  background: var(--face);
+  color: var(--cream);
+  border: 3px solid var(--ink-fixed);
+  border-radius: 14px;
+}
+
+.case .ladder li {
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 1fr) 7.4rem;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.case .ladder li.on {
+  background: rgb(255 243 220 / 0.18);
+  opacity: 1;
+  font-weight: 800;
+}
+
+.case .ladder li.past {
+  opacity: 0.45;
+}
+
+.case .l-bar {
+  display: block;
+  height: 0.55rem;
+  background: rgb(255 243 220 / 0.15);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.case .l-fill {
+  display: block;
+  height: 100%;
+  background: var(--brass);
+  border-radius: 999px;
+}
+
+.case .l-hz {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.case .lamp-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+}
+
+.case .lamp {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  background: var(--face);
+  border: 3px solid var(--ink-fixed);
+  border-radius: 50%;
+}
+
+.case .lamp.lit {
+  background: #ffd36b;
+}
+
+/* ---------- Sound switch ---------- */
+.case .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.case .snd[aria-pressed='true'] .slash,
+.case .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+/* ---------- Paper tags ---------- */
+.case .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.case .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--cream);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.25);
+  transform: rotate(-0.4deg);
+}
+
+.case .tag:nth-child(even) {
+  transform: rotate(0.4deg);
+}
+
+.case .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--brass);
+  box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.4);
+}
+
+.case .tag-label {
+  color: #5a4520;
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.case .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case * {
+    scroll-behavior: auto !important;
+  }
+}

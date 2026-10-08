@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ck-dial { fill: var(--on-cover); }
+    .ck-tick { stroke: var(--cover); stroke-width: 5; stroke-linecap: round; }
+    .ck-hand { stroke: var(--cover); stroke-linecap: round; }
+    .ck-rod { stroke: var(--on-cover); stroke-width: 5; stroke-linecap: round; }
+    .ck-bob { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .ck-sec, .ck-swing { transform-box: view-box; }
+    .ck-sec { transform-origin: 200px 110px; }
+    .ck-swing { transform-origin: 200px 214px; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ck-sec { animation: ck-turn 12s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ck-swing { animation: ck-swing 2s ease-in-out infinite alternate; }
+    }
+    /* The second hand goes round and the pendulum swings, one swing each second */
+    @keyframes ck-turn { to { transform: rotate(360deg); } }
+    @keyframes ck-swing { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
+  </style>
+
+  <circle class="ck-dial" cx="200" cy="110" r="84"/>
+  <path class="ck-tick" d="M200 36V50M274 110H260M200 184V170M126 110H140"/>
+  <line class="ck-hand" x1="200" y1="110" x2="200" y2="64" style="stroke-width: 9"/>
+  <line class="ck-hand" x1="200" y1="110" x2="238" y2="132" style="stroke-width: 12"/>
+  <g class="ck-sec"><line class="ck-hand" x1="200" y1="110" x2="200" y2="40" style="stroke: var(--accent); stroke-width: 4"/></g>
+  <circle cx="200" cy="110" r="8" fill="var(--cover)"/>
+  <g class="ck-swing">
+    <line class="ck-rod" x1="200" y1="214" x2="200" y2="262"/>
+    <circle class="knob" cx="200" cy="270" r="20"/>
+  </g>
+  <circle cx="200" cy="214" r="6" fill="var(--on-cover)"/>
+</svg>

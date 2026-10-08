@@ -1,0 +1,79 @@
+---
+// The whole page: a clock movement taken apart into four brass plates, each with one tool. The picture
+// comes first and the words after it. The tools are the Tool components and src/scripts/clocks.
+// Without a script every picture is still and the words read in order.
+import '../../styles/clocks.css';
+import { intro, plates } from '../../data/clocks';
+import ToolPendulum from './ToolPendulum.astro';
+import ToolEscapement from './ToolEscapement.astro';
+import ToolGears from './ToolGears.astro';
+import ToolQuartz from './ToolQuartz.astro';
+
+const tools: Record<string, typeof ToolPendulum> = {
+  pendulum: ToolPendulum,
+  escapement: ToolEscapement,
+  gears: ToolGears,
+  quartz: ToolQuartz,
+};
+---
+
+<div class="case" data-clocks>
+  <section class="opening" aria-labelledby="case-intro">
+    <div class="inner">
+      <div class="opening-text">
+        <p class="kicker">Open the case</p>
+        <h2 id="case-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+      </div>
+      <button class="snd needs-js" type="button" data-sound aria-pressed="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+          <path class="wave" d="M15 9a4 4 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <path class="slash" d="M16 8.5l5 7M21 8.5l-5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span data-sound-label>Sound on</span>
+      </button>
+    </div>
+  </section>
+
+  <div class="plates">
+    {
+      plates.map((p, i) => {
+        const Tool = tools[p.id];
+        return (
+          <section class="plate" id={`plate-${p.id}`} aria-labelledby={`plate-${p.id}-h`}>
+            <span class="screw tl" aria-hidden="true"></span>
+            <span class="screw tr" aria-hidden="true"></span>
+            <span class="screw bl" aria-hidden="true"></span>
+            <span class="screw br" aria-hidden="true"></span>
+            <div class="plate-tool">
+              <Tool />
+            </div>
+            <div class="plate-words">
+              <p class="kicker">{p.kicker}</p>
+              <h2 id={`plate-${p.id}-h`}>{p.title}</h2>
+              <div class="paras">{p.paras.map((t) => <p class="para">{t}</p>)}</div>
+              {
+                p.tags && (
+                  <div class="tags">
+                    {p.tags.map((t) => (
+                      <aside class="tag">
+                        <p class="tag-label">{t.label}</p>
+                        <p class="tag-text">{t.text}</p>
+                      </aside>
+                    ))}
+                  </div>
+                )
+              }
+              {i < plates.length - 1 && <p class="next-hint" aria-hidden="true">The count goes on to the next plate</p>}
+            </div>
+          </section>
+        );
+      })
+    }
+  </div>
+</div>
+
+<script>
+  import '../../scripts/clocks/clocks';
+</script>

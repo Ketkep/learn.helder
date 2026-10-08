@@ -220,6 +220,17 @@ The page is a river crossing with four spans, one after another, with a column b
 - The numbers are relative and the page says they are not a design. Keep that note.
 - Without scripts every blueprint is a still drawing and the controls are hidden (`.needs-js`).
 
+## The clocks page: how the movement works
+
+The page is a clock movement taken apart into four brass plates on a dark wooden case. On each plate the picture comes first and the words after it (on a wide screen the pictures swap sides). The plates: a pendulum (length, weight and the size of the swing), an escapement (30 teeth, one tooth per half swing), a clock face with three hands (the gear ratios 60 to 1 and 12 to 1), and a quartz crystal (32,768 Hz halved 15 times, with a drift slider).
+
+- `src/data/clocks.ts` holds all the words, the takeaways and the sources.
+- `src/components/clocks/Movement.astro` is the frame. `Tool*.astro` is one plate each, with controls and a status line that is read out to screen readers.
+- `src/scripts/clocks/physics.ts` holds the maths: the period 2 x pi x the square root of (length / g) with the first correction for a wide swing, the length of the seconds pendulum (g / pi squared, about 0.994 m), the drift of a clock built for a 2 second swing, and the drift for a number of parts per million. `pendulum.ts`, `escapement.ts`, `gears.ts` and `quartz.ts` are the tools.
+- No dates for the escapement are given, because the sources disagreed. Keep it that way unless a clock history reference can be read.
+- With reduced motion the pendulum, the running escapement and the blinking lamp do not animate. They are replaced by a still picture and text, and the buttons that start them are hidden or change what they do.
+- Without scripts every picture is still and the controls are hidden (`.needs-js`).
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -252,6 +263,7 @@ src/data/strings.ts      everything the strings page says: lessons, takeaways, s
 src/data/seasons.ts      everything the seasons page says: instruments, places, takeaways, sources
 src/data/morse.ts        everything the Morse page says: messages, takeaways, sources
 src/data/bridges.ts      everything the bridges page says: spans, takeaways, sources
+src/data/clocks.ts       everything the clocks page says: plates, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -266,6 +278,7 @@ src/components/strings/  the strings page: the row of strings, one file per less
 src/components/seasons/  the seasons page: the wall with its four instruments
 src/components/morse/    the Morse page: the tape and its four tools
 src/components/bridges/  the bridges page: the crossing and its four blueprints
+src/components/clocks/   the clocks page: the movement and its four plates
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -277,6 +290,7 @@ src/styles/strings.css   the strings page: boards, strings, controls
 src/styles/seasons.css   the seasons page: night wall, cards, dials, controls
 src/styles/morse.css     the Morse page: desk, tape, key, tree, bars, player
 src/styles/bridges.css   the bridges page: spans, piers, blueprints, controls
+src/styles/clocks.css    the clocks page: case, brass plates, dials, ladder
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -295,6 +309,7 @@ src/scripts/strings/     one script per string, plus note names (music.ts)
 src/scripts/seasons/     the sun maths (sun.ts) and one script per instrument
 src/scripts/morse/       the alphabet and timing (code.ts) and one script per tool
 src/scripts/bridges/     the statics (model.ts) and one script per blueprint
+src/scripts/clocks/      the clock maths (physics.ts) and one script per plate
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics

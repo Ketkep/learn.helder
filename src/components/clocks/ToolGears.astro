@@ -1,0 +1,46 @@
+---
+// Plate 3: a clock face with three hands. Turn the time and see how many times each hand goes round.
+// Without a script this is the face at ten past ten.
+const CX = 400;
+const CY = 215;
+const R = 170;
+const marks = Array.from({ length: 60 }, (_, i) => i);
+const pt = (rad: number, deg: number) => ({ x: CX + rad * Math.sin((deg * Math.PI) / 180), y: CY - rad * Math.cos((deg * Math.PI) / 180) });
+---
+
+<div class="tool" data-gears-tool data-cx={CX} data-cy={CY}>
+  <div class="face">
+    <svg viewBox="0 0 800 430" role="img" aria-label="A clock face with an hour hand, a minute hand and a thin second hand.">
+      <circle class="dial" cx={CX} cy={CY} r={R + 10} />
+      {
+        marks.map((m) => {
+          const a = pt(R, m * 6);
+          const b = pt(R - (m % 5 === 0 ? 20 : 9), m * 6);
+          return <line class={m % 5 === 0 ? 'tick big' : 'tick'} x1={a.x.toFixed(1)} y1={a.y.toFixed(1)} x2={b.x.toFixed(1)} y2={b.y.toFixed(1)} />;
+        })
+      }
+      {[12, 3, 6, 9].map((h) => <text class="lab" x={pt(R - 46, h * 30).x} y={pt(R - 46, h * 30).y + 9} text-anchor="middle">{h}</text>)}
+      <line class="hand hour" data-gears-hour x1={CX} y1={CY} x2={CX} y2={CY - 80} />
+      <line class="hand minute" data-gears-minute x1={CX} y1={CY} x2={CX} y2={CY - 125} />
+      <line class="hand second" data-gears-second x1={CX} y1={CY + 24} x2={CX} y2={CY - 140} />
+      <circle class="hub" cx={CX} cy={CY} r="10" />
+    </svg>
+  </div>
+  <p class="readout" aria-live="polite"><span class="big" data-gears-time>10:10</span> <span class="mid" data-gears-note>after 10 hours 10 minutes</span></p>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Time passed <output data-gears-out>10 h 10 min</output></span>
+      <input class="range" type="range" min="0" max="43200" step="30" value="36600" data-gears-range aria-label="Time passed since twelve o'clock, in seconds" />
+    </label>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Jump to a time">
+    <button type="button" class="btn" data-gears-jump="60">1 minute</button>
+    <button type="button" class="btn" data-gears-jump="900">15 minutes</button>
+    <button type="button" class="btn" data-gears-jump="3600">1 hour</button>
+    <button type="button" class="btn" data-gears-jump="21600">6 hours</button>
+    <button type="button" class="btn" data-gears-jump="43200">12 hours</button>
+  </div>
+  <p class="status" aria-live="polite" data-gears-status>
+    10 hours 10 minutes after twelve. The second hand has made 610 turns, the minute hand 10 turns and the hour hand 0.8 turns.
+  </p>
+</div>

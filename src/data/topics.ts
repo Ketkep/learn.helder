@@ -147,6 +147,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-07',
     status: 'live',
   },
+  {
+    slug: 'how-clocks-keep-time',
+    title: 'How clocks keep time',
+    hook: 'A swinging pendulum, a ticking wheel and a shaking crystal: open a clock and see what counts the seconds.',
+    category: 'Technology',
+    accent: '#E58B73',
+    preview: 'how-clocks-keep-time',
+    dateAdded: '2026-10-08',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */
