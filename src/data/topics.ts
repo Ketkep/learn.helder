@@ -167,6 +167,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-08',
     status: 'live',
   },
+  {
+    slug: 'the-water-cycle',
+    title: 'The water cycle',
+    hook: 'Follow a drop of water from the sea to the sky, over a mountain and back to the sea.',
+    category: 'Nature',
+    accent: '#3E8EDE',
+    preview: 'the-water-cycle',
+    dateAdded: '2026-10-08',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

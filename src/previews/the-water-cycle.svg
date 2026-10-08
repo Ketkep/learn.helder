@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .wc-sea { fill: var(--cover-c); }
+    .wc-hill { fill: var(--on-cover); opacity: 0.85; }
+    .wc-cloud { fill: var(--on-cover); }
+    .wc-drop { fill: none; stroke: var(--on-cover); stroke-width: 4; stroke-linecap: round; }
+    .wc-vap { fill: none; stroke: var(--on-cover); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 9; opacity: 0.8; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .wc-fall { animation: wc-rain 1.4s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .wc-vap { animation: wc-rise 1.6s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .wc-ride { animation: wc-ride 6s ease-in-out infinite alternate; }
+    }
+    /* Rain falls, vapour rises, and the drop rides the circle */
+    @keyframes wc-rain { from { transform: translateY(-14px); opacity: 0; } 30% { opacity: 1; } to { transform: translateY(22px); opacity: 0; } }
+    @keyframes wc-rise { to { stroke-dashoffset: -22; } }
+    @keyframes wc-ride { from { transform: translateX(-30px); } to { transform: translateX(30px); } }
+  </style>
+
+  <rect class="wc-sea" x="0" y="234" width="400" height="66"/>
+  <path class="wc-hill" d="M170 234L262 112L340 234Z"/>
+  <g class="wc-ride"><ellipse class="wc-cloud" cx="150" cy="90" rx="58" ry="26"/><ellipse class="wc-cloud" cx="188" cy="76" rx="40" ry="24"/><ellipse class="wc-cloud" cx="116" cy="82" rx="34" ry="20"/></g>
+  <g>
+    <path class="wc-drop wc-fall" d="M120 122v14M150 130v14M180 122v14"/>
+  </g>
+  <path class="wc-vap" d="M52 226V160M84 226V150M116 226V170"/>
+  <circle class="knob" cx="262" cy="150" r="12"/>
+</svg>

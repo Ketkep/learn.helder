@@ -1,0 +1,24 @@
+---
+// Stop 4: a drop's trail. The chances are made up, the times are rough averages.
+// Without a script this lists the places and their rough times.
+import { places } from '../../scripts/water/journey';
+---
+
+<div class="tool" data-drop-tool>
+  <table class="places">
+    <caption>Places a drop can be, and about how long it stays</caption>
+    <thead><tr><th scope="col">Place</th><th scope="col">About how long a drop stays</th></tr></thead>
+    <tbody>
+      {places.map((p) => <tr><th scope="row">{p.name}</th><td>{p.note}</td></tr>)}
+    </tbody>
+  </table>
+  <ol class="trail needs-js" data-drop-trail aria-live="polite"></ol>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-drop-step>Send the drop on</button>
+    <button type="button" class="btn" data-drop-run>Ten steps</button>
+    <button type="button" class="btn" data-drop-reset>New drop</button>
+  </div>
+  <p class="status" aria-live="polite" data-drop-status>
+    This tool needs a script. A drop starts in the sea, and each move takes it somewhere new: the air, a river, the ground or the ice.
+  </p>
+</div>

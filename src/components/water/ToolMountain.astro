@@ -1,0 +1,44 @@
+---
+// Stop 3: wind pushes moist air over a mountain. Cloud forms on the way up and rain falls. The far side is dry.
+// Without a script this is a mountain 2 km high with its cloud and rain.
+const GROUND = 330;
+const X0 = 70;
+const XT = 400;
+const X1 = 730;
+---
+
+<div class="tool" data-mountain-tool data-ground={GROUND} data-x0={X0} data-xt={XT} data-x1={X1}>
+  <div class="scene">
+    <svg viewBox="0 0 800 390" role="img" aria-label="Wind blowing from the left over a mountain. Cloud and rain on the left side of the mountain. The right side is dry and sunny.">
+      <rect class="sky-rect" x="0" y="0" width="800" height="390" />
+      <path class="hill" data-mountain-hill d={`M0 ${GROUND}L${X0} ${GROUND}L${XT} ${GROUND - 140}L${X1} ${GROUND}L800 ${GROUND}V390H0Z`} />
+      <g data-mountain-cloud></g>
+      <g data-mountain-rain></g>
+      <path class="wind" d="M20 130H110M40 170H150M20 210H110" />
+      <circle class="sun" cx="700" cy="70" r="26" />
+      <text class="lab" x="40" y="372">Windward side</text>
+      <text class="lab" x="760" y="372" text-anchor="end">Far side</text>
+    </svg>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Mountain <output data-mountain-h-out>2.0 km</output></span>
+      <input class="range" type="range" min="0" max="40" step="1" value="20" data-mountain-h aria-label="Height of the mountain in tenths of a kilometre" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Air at the foot <output data-mountain-t-out>20&deg;</output></span>
+      <input class="range" type="range" min="5" max="30" step="1" value="20" data-mountain-t aria-label="Temperature of the air at the foot of the mountain" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Humidity <output data-mountain-rh-out>70%</output></span>
+      <input class="range" type="range" min="30" max="95" step="1" value="70" data-mountain-rh aria-label="Relative humidity of the air at the foot of the mountain" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-mountain-status>
+    The air starts at 20 degrees with 70 per cent humidity. Cloud forms at 0.7 km. At the top it is 4.5 degrees, and about 5.5 grams of water in every cubic metre have fallen as rain. On the far side it is 24.1 degrees and only 30 per cent humid.
+  </p>
+</div>

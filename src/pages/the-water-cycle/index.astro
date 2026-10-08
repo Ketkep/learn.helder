@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import River from '../../components/water/River.astro';
+import { takeaways, sources, sourcesNote } from '../../data/water';
+---
+
+<TopicLayout
+  slug="the-water-cycle"
+  intro="The water in a river was rain, and the rain was sea a few days earlier. Follow a river down the page and stop four times: to see where the water is, why air lets go of it, what a mountain does to rain, and how long a drop takes to get round."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <River />
+</TopicLayout>

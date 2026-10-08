@@ -1,0 +1,37 @@
+---
+// Stop 2: a cubic metre of air as a box of 52 slots, one slot for each gram of water it could hold.
+// Without a script this is the air at 20 degrees with 70 per cent humidity.
+import { capacity } from '../../scripts/water/air';
+
+const slots = 52;
+const vapour = capacity(20) * 0.7;
+const room = capacity(20);
+---
+
+<div class="tool" data-air-tool>
+  <div class="box" role="img" aria-label="A box of air. Each small circle stands for one gram of water. Filled circles are water vapour the air holds, empty circles are room for more, and blue circles are water that has turned into cloud droplets.">
+    {Array.from({ length: slots }, (_, i) => <span class:list={['slot', i < vapour ? 'vapour' : i < room ? 'room' : 'none']} data-slot></span>)}
+  </div>
+  <p class="legend"><span class="swatch vapour"></span> water vapour <span class="swatch room"></span> room for more <span class="swatch drop"></span> cloud droplets</p>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Air <output data-air-t-out>20&deg;</output></span>
+      <input class="range" type="range" min="-10" max="40" step="1" value="20" data-air-t aria-label="Temperature of the air in degrees Celsius" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Humidity <output data-air-rh-out>70%</output></span>
+      <input class="range" type="range" min="10" max="100" step="1" value="70" data-air-rh aria-label="Relative humidity in per cent" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Cool by <output data-air-cool-out>0&deg;</output></span>
+      <input class="range" type="range" min="0" max="30" step="1" value="0" data-air-cool aria-label="How many degrees to cool the air" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-air-status>
+    At 20 degrees a cubic metre of air can hold at most 17.3 grams of water. It holds 12.1 grams, which is 70 per cent. It must cool to 14.1 degrees before cloud forms.
+  </p>
+</div>

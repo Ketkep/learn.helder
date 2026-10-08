@@ -1,0 +1,29 @@
+---
+// Stop 1: where the water is. Three bars, each a closer look at a small slice of the one before.
+// Without a script this is the first bar, with the numbers written under it.
+import { earthWater as w } from '../../data/water';
+---
+
+<div class="tool" data-where-tool>
+  <div class="bars">
+    <p class="bar-title" data-where-title>All the water on Earth</p>
+    <div class="stack" data-where-stack role="img" aria-label="A bar split into the sea (96.5 per cent), fresh water (about 2.5 per cent) and other salty water.">
+      <span class="seg sea" style={`flex: ${w.ocean} 0 0`}></span>
+      <span class="seg fresh" style={`flex: ${w.freshShare} 0 0`}></span>
+      <span class="seg other" style={`flex: ${100 - w.ocean - w.freshShare} 0 0`}></span>
+    </div>
+    <ul class="key-list" data-where-keys>
+      <li><span class="dot sea"></span> The sea: {w.ocean}%</li>
+      <li><span class="dot fresh"></span> Fresh water: about {w.freshShare}%</li>
+      <li><span class="dot other"></span> Salty lakes and salty groundwater: about 1%</li>
+    </ul>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Look closer">
+    <button type="button" class="btn" aria-pressed="true" data-where-step="1">1. All the water</button>
+    <button type="button" class="btn" aria-pressed="false" data-where-step="2">2. Only the fresh water</button>
+    <button type="button" class="btn" aria-pressed="false" data-where-step="3">3. What we can see</button>
+  </div>
+  <p class="status" aria-live="polite" data-where-status>
+    About 96.5 per cent of all the water on Earth is in the sea. Only about 2.5 per cent is fresh water.
+  </p>
+</div>

@@ -1,0 +1,553 @@
+/* The water page: a river runs down the left side of the page, with a stop for each idea. The river is a
+   wavy blue ribbon drawn as a repeating background. Each stop has a knob on the ribbon. */
+
+.flow {
+  --bank: #e8f1f7;
+  --bank-2: #d8e8f1;
+  --river: #4e9be0;
+  --ink-fixed: #121315;
+  --cream: #fff3dc;
+  --deep: #14486f;
+  --wash: rgb(0 0 0 / 0.09);
+  --fg: var(--ink-fixed);
+
+  position: relative;
+  background: var(--bank);
+  color: var(--ink-fixed);
+}
+
+html:not(.js) .flow .needs-js {
+  display: none;
+}
+
+.flow :focus-visible {
+  outline: 3px solid var(--ink-fixed);
+  outline-offset: 3px;
+}
+
+/* The river: a ribbon down the left edge, with a faint wave drawn in it */
+.flow::before {
+  content: '';
+  position: absolute;
+  left: clamp(0.5rem, 3vw, 2.2rem);
+  top: 0;
+  bottom: 0;
+  width: 2.2rem;
+  background-color: var(--river);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='60'%3E%3Cpath d='M6 0q10 15 0 30t0 30M30 0q-10 15 0 30t0 30' fill='none' stroke='%23ffffff' stroke-opacity='.5' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: repeat-y;
+  background-position: center top;
+  background-size: 100% 3.75rem;
+  border-radius: 1.1rem;
+}
+
+.flow .stop {
+  position: relative;
+  padding: clamp(2.2rem, 5vw, 3.6rem) var(--gutter) clamp(2.2rem, 5vw, 3.6rem) calc(clamp(0.5rem, 3vw, 2.2rem) + 4.2rem);
+}
+
+.flow .stop:nth-of-type(even) {
+  background: var(--bank-2);
+}
+
+/* The knob: where the river stops */
+.flow .mark {
+  position: absolute;
+  left: calc(clamp(0.5rem, 3vw, 2.2rem) + 1.1rem - 1.1rem);
+  top: clamp(2.4rem, 5vw, 3.8rem);
+  z-index: 1;
+  width: 2.2rem;
+  height: 2.2rem;
+  background: var(--accent);
+  border: 4px solid var(--cream);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--ink-fixed);
+}
+
+.flow .stop-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+}
+
+@media (min-width: 60rem) {
+  .flow .stop-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .flow .opening .stop-inner {
+    grid-template-columns: minmax(0, 40rem);
+  }
+}
+
+.flow .words,
+.flow .bench {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.flow h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.flow .kicker {
+  color: #1d5b8a;
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.flow .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.flow .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.flow .tool {
+  min-width: 0;
+}
+
+/* ---------- Tags ---------- */
+.flow .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.flow .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--cream);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.22);
+  transform: rotate(-0.4deg);
+}
+
+.flow .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--bank);
+  box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.4);
+}
+
+.flow .tag-label {
+  color: #1d5b8a;
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.flow .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+/* ---------- Stop 1: the bars ---------- */
+.flow .bars {
+  padding: 0.8rem 1rem 1rem;
+  background: #fff;
+  border: 3px solid var(--ink-fixed);
+  border-radius: 10px;
+}
+
+.flow .bar-title {
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+}
+
+.flow .stack {
+  display: flex;
+  gap: 2px;
+  height: 3.2rem;
+}
+
+.flow .stack .seg {
+  display: block;
+  min-width: 3px;
+  border-radius: 4px;
+}
+
+.flow .stack.scaled {
+  flex-direction: column;
+  height: auto;
+  gap: 0.35rem;
+}
+
+.flow .stack.scaled .seg {
+  height: 1.3rem;
+  min-width: 0;
+  flex: none;
+}
+
+.flow .sea,
+.flow .dot.sea {
+  background: #2f6fb5;
+}
+
+.flow .fresh,
+.flow .dot.fresh,
+.flow .lake,
+.flow .dot.lake {
+  background: #7fc7ee;
+}
+
+.flow .other,
+.flow .dot.other {
+  background: #b9b09a;
+}
+
+.flow .ice,
+.flow .dot.ice {
+  background: #cfe9f6;
+  outline: 2px solid #6aa7c7;
+  outline-offset: -2px;
+}
+
+.flow .ground,
+.flow .dot.ground {
+  background: #9b7a52;
+}
+
+.flow .air,
+.flow .dot.air {
+  background: #e2e9ee;
+  outline: 2px solid #8fa3b3;
+  outline-offset: -2px;
+}
+
+.flow .soil,
+.flow .dot.soil {
+  background: #6b5538;
+}
+
+.flow .river,
+.flow .dot.river {
+  background: #1f8f5f;
+}
+
+.flow .key-list {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0.8rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.flow .dot {
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-right: 0.3rem;
+  vertical-align: -0.1rem;
+  border: 2px solid var(--ink-fixed);
+  border-radius: 3px;
+}
+
+/* ---------- Stop 2: the box of air ---------- */
+.flow .box {
+  display: grid;
+  grid-template-columns: repeat(13, minmax(0, 1fr));
+  gap: 0.3rem;
+  padding: 0.8rem;
+  background: #fff;
+  border: 3px solid var(--ink-fixed);
+  border-radius: 10px;
+}
+
+.flow .slot {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+.flow .slot.vapour {
+  background: #bcd9ea;
+  border-color: #6aa7c7;
+}
+
+.flow .slot.room {
+  border-color: #b8c6d0;
+  border-style: dashed;
+}
+
+.flow .slot.drop {
+  background: #1d5fb5;
+  border-color: var(--ink-fixed);
+}
+
+.flow .legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.6rem;
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.flow .swatch {
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 2px solid var(--ink-fixed);
+  border-radius: 50%;
+}
+
+.flow .swatch.vapour {
+  background: #bcd9ea;
+}
+
+.flow .swatch.room {
+  border-style: dashed;
+}
+
+.flow .swatch.drop {
+  background: #1d5fb5;
+}
+
+/* ---------- Stop 3: the mountain ---------- */
+.flow .scene {
+  overflow: hidden;
+  border: 3px solid var(--ink-fixed);
+  border-radius: 10px;
+}
+
+.flow .scene svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.flow .sky-rect {
+  fill: #cfe6f5;
+}
+
+.flow .hill {
+  fill: #7a6a52;
+  stroke: var(--ink-fixed);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.flow .cloud {
+  fill: #fff;
+  stroke: #9fb4c4;
+  stroke-width: 3;
+}
+
+.flow .drop {
+  stroke: #1d5fb5;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.flow .wind {
+  fill: none;
+  stroke: #4a6c85;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 18 10;
+}
+
+.flow .sun {
+  fill: #ffd36b;
+  stroke: var(--ink-fixed);
+  stroke-width: 3;
+}
+
+.flow .scene .lab {
+  fill: var(--ink-fixed);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* ---------- Stop 4: the drop ---------- */
+.flow .places {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.flow .places caption {
+  margin-bottom: 0.4rem;
+  font-weight: 800;
+  text-align: left;
+}
+
+.flow .places th,
+.flow .places td {
+  padding: 0.3rem 0.5rem;
+  border-bottom: 2px solid #b8cfdd;
+  text-align: left;
+}
+
+.flow .trail {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0.8rem 0 0;
+  padding: 0 0 0 1.6rem;
+  list-style: decimal;
+  font-weight: 600;
+}
+
+.flow .trail:empty {
+  display: none;
+}
+
+/* ---------- Controls ---------- */
+.flow .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+  margin-top: 0.8rem;
+}
+
+.flow .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.flow .btn:hover {
+  background: var(--wash);
+}
+
+.flow .btn.fill {
+  background: var(--ink-fixed);
+  border-color: var(--ink-fixed);
+  color: var(--cream);
+}
+
+.flow .btn.fill:hover {
+  background: #e4501a;
+  color: var(--ink-fixed);
+}
+
+.flow .btn[aria-pressed='true'] {
+  background: var(--ink-fixed);
+  border-color: var(--ink-fixed);
+  color: var(--cream);
+}
+
+.flow .status {
+  min-height: 5.6rem;
+  margin-top: 0.7rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.flow .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.flow .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.flow .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.flow .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.flow .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.flow .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.flow .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.flow .field span {
+  min-width: 9.5rem;
+}
+
+/* ---------- Sound switch ---------- */
+.flow .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  margin-top: 0.4rem;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--ink-fixed);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-fixed);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.flow .snd[aria-pressed='true'] .slash,
+.flow .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow * {
+    scroll-behavior: auto !important;
+  }
+}

@@ -241,6 +241,16 @@ The page is a lab notebook on squared paper with a red margin line and binder ho
 - The page is about the maths of chance. It says it gives no advice about gambling. Keep that note.
 - Without scripts the dice chart shows the exact odds, the coins and birthday charts are empty or fixed, and the doors are closed. Controls carry `.needs-js`.
 
+## The water page: how the river works
+
+The page is a river that runs down the left side of the page as a wavy blue ribbon, with an orange knob at each of four stops: where the water is (three bars, each a closer look at a small slice of the one before), air that cannot hold it (a box of air as 52 slots, one for each gram of water, that you cool), the mountain (air pushed over a mountain: cloud, rain and a dry far side), and a drop's trail (a drop moving between the sea, the air, rivers, soil, groundwater and ice).
+
+- `src/data/water.ts` holds all the words, the shares of the world's water from the USGS, the takeaways and the sources.
+- `src/components/water/River.astro` is the frame. `Tool*.astro` is one stop each.
+- `src/scripts/water/air.ts` holds the air maths: the most vapour a cubic metre of air can hold (the Magnus formula, checked against the HyperPhysics table at 0, 10, 20 and 30 degrees), the dew point, and the air over a mountain (dry air cools 9.8 degrees a kilometre, cloudy air 6.5, and the air that comes down is dry). It is a simple model and says so. `journey.ts` holds the places of the drop game: the average stays are rough (sources disagree) and the chances of each move are made up. `where.ts`, `airtool.ts`, `mountain.ts` and `drop.ts` are the tools.
+- The word that the hard rules forbid is not used on the page. The file `journey.ts` keeps its name only because renaming adds nothing.
+- Without scripts the bars show the first step, the air is the 20 degree example, the mountain is 2 km high, and the table of places shows the rough times. Controls carry `.needs-js`.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -275,6 +285,7 @@ src/data/morse.ts        everything the Morse page says: messages, takeaways, so
 src/data/bridges.ts      everything the bridges page says: spans, takeaways, sources
 src/data/clocks.ts       everything the clocks page says: plates, takeaways, sources
 src/data/chance.ts       everything the chance page says: experiments, takeaways, sources
+src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -291,6 +302,7 @@ src/components/morse/    the Morse page: the tape and its four tools
 src/components/bridges/  the bridges page: the crossing and its four blueprints
 src/components/clocks/   the clocks page: the movement and its four plates
 src/components/chance/   the chance page: the notebook and its four experiments
+src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -304,6 +316,7 @@ src/styles/morse.css     the Morse page: desk, tape, key, tree, bars, player
 src/styles/bridges.css   the bridges page: spans, piers, blueprints, controls
 src/styles/clocks.css    the clocks page: case, brass plates, dials, ladder
 src/styles/notebook.css  the chance page: squared paper, sticky notes, charts, doors
+src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -324,6 +337,7 @@ src/scripts/morse/       the alphabet and timing (code.ts) and one script per to
 src/scripts/bridges/     the statics (model.ts) and one script per blueprint
 src/scripts/clocks/      the clock maths (physics.ts) and one script per plate
 src/scripts/chance/      the chance maths (stats.ts) and one script per experiment
+src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics

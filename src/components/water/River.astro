@@ -1,0 +1,76 @@
+---
+// The whole page: a river that runs down the left side of the page with four stops. Each stop is one idea with
+// one tool. The tools are the Tool components and src/scripts/water. Without a script every picture is still
+// and the words read in order.
+import '../../styles/water.css';
+import { intro, stops } from '../../data/water';
+import ToolWhere from './ToolWhere.astro';
+import ToolAir from './ToolAir.astro';
+import ToolMountain from './ToolMountain.astro';
+import ToolDrop from './ToolDrop.astro';
+
+const tools: Record<string, typeof ToolWhere> = {
+  where: ToolWhere,
+  air: ToolAir,
+  mountain: ToolMountain,
+  drop: ToolDrop,
+};
+---
+
+<div class="flow" data-water>
+  <section class="stop opening" aria-labelledby="flow-intro">
+    <span class="mark" aria-hidden="true"></span>
+    <div class="stop-inner">
+      <div class="words">
+        <p class="kicker">At the spring</p>
+        <h2 id="flow-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+        <button class="snd needs-js" type="button" data-sound aria-pressed="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+            <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+            <path class="wave" d="M15 9a4 4 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path class="slash" d="M16 8.5l5 7M21 8.5l-5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <span data-sound-label>Sound on</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  {
+    stops.map((s) => {
+      const Tool = tools[s.id];
+      return (
+        <section class="stop" id={`stop-${s.id}`} aria-labelledby={`stop-${s.id}-h`}>
+          <span class="mark" aria-hidden="true"></span>
+          <div class="stop-inner">
+            <div class="words">
+              <p class="kicker">{s.kicker}</p>
+              <h2 id={`stop-${s.id}-h`}>{s.title}</h2>
+              <div class="paras">{s.paras.map((p) => <p class="para">{p}</p>)}</div>
+              {
+                s.tags && (
+                  <div class="tags">
+                    {s.tags.map((t) => (
+                      <aside class="tag">
+                        <p class="tag-label">{t.label}</p>
+                        <p class="tag-text">{t.text}</p>
+                      </aside>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+            <div class="bench">
+              <Tool />
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/water/water';
+</script>
