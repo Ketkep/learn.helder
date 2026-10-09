@@ -1,0 +1,16 @@
+---
+// Reading 3: the counter. Add 1, take 1, double and halve, and watch the carries.
+---
+
+<div class="tool" data-count-tool>
+  <div class="odometer mono" aria-hidden="true" data-count-odo>01000001</div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-count-do="inc">Add 1</button>
+    <button type="button" class="btn" data-count-do="dec">Take away 1</button>
+    <button type="button" class="btn" data-count-do="double">Double</button>
+    <button type="button" class="btn" data-count-do="half">Halve</button>
+  </div>
+  <p class="status" aria-live="polite" data-count-status>
+    Press Add 1. When a switch is already on, it turns off and carries 1 to the next switch on the left.
+  </p>
+</div>

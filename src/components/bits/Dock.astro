@@ -1,0 +1,21 @@
+---
+// The eight switches, fixed at the bottom of the page. Without a script they are a picture of the byte 65.
+const value = 65;
+const places = [128, 64, 32, 16, 8, 4, 2, 1];
+---
+
+<div class="dock needs-js" data-dock>
+  <p class="dock-title">Your byte</p>
+  <div class="switches" role="group" aria-label="Eight switches. Press one to flip it.">
+    {
+      places.map((p, i) => (
+        <button type="button" class="sw" aria-pressed={(value & p) !== 0 ? 'true' : 'false'} data-bit={7 - i} aria-label={`Switch worth ${p}`}>
+          <span class="sw-knob"></span>
+          <span class="sw-digit" data-digit>{(value & p) !== 0 ? 1 : 0}</span>
+          <span class="sw-val">{p}</span>
+        </button>
+      ))
+    }
+  </div>
+  <p class="dock-read"><span data-dock-number>65</span> <span class="dock-sub" data-dock-bits>01000001</span></p>
+</div>

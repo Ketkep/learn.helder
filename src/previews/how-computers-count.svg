@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .hb-sw { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .hb-on { fill: var(--on-cover); }
+    .hb-num { fill: var(--on-cover); font: 800 28px var(--font-body); }
+    .hb-flip { transform-box: fill-box; transform-origin: 50% 50%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .hb-f1 { animation: hb-f 3.2s steps(1, end) infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .hb-f2 { animation: hb-f 1.6s steps(1, end) infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .hb-f3 { animation: hb-f 0.8s steps(1, end) infinite; }
+    }
+    /* The switches count in binary: the right one flips fastest */
+    @keyframes hb-f { 0% { opacity: 1; } 50% { opacity: 0; } }
+  </style>
+
+  <g>
+    <rect class="hb-sw" x="60" y="100" width="64" height="100" rx="12"/>
+    <rect class="hb-sw" x="168" y="100" width="64" height="100" rx="12"/>
+    <rect class="hb-sw" x="276" y="100" width="64" height="100" rx="12"/>
+    <rect class="hb-on hb-flip hb-f1" x="72" y="112" width="40" height="40" rx="8"/>
+    <rect class="hb-on hb-flip hb-f2" x="180" y="112" width="40" height="40" rx="8"/>
+    <rect class="hb-on hb-flip hb-f3" x="288" y="112" width="40" height="40" rx="8"/>
+    <text class="hb-num" x="92" y="188" text-anchor="middle">1</text>
+    <text class="hb-num" x="200" y="188" text-anchor="middle">0</text>
+    <text class="hb-num" x="308" y="188" text-anchor="middle">1</text>
+  </g>
+  <circle class="knob" cx="200" cy="244" r="14"/>
+</svg>

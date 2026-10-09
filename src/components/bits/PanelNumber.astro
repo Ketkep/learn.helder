@@ -1,0 +1,28 @@
+---
+// Reading 1: the number. Place values 128 to 1 and the sum.
+const places = [128, 64, 32, 16, 8, 4, 2, 1];
+const value = 65;
+---
+
+<div class="tool" data-number-tool>
+  <div class="places" role="img" aria-label="Eight place values from 128 down to 1. The ones that are on are lit.">
+    {places.map((p) => <span class:list={['place', { on: (value & p) !== 0 }]} data-place={p}><span class="pv">{p}</span></span>)}
+  </div>
+  <p class="sum mono" aria-live="polite" data-number-sum>64 + 1 = 65</p>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Type a number</span>
+      <input class="text" type="number" min="0" max="255" value="65" data-number-input aria-label="A number from 0 to 255" />
+    </label>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Try a number">
+    <button type="button" class="btn" data-number-jump="5">5</button>
+    <button type="button" class="btn" data-number-jump="42">42</button>
+    <button type="button" class="btn" data-number-jump="100">100</button>
+    <button type="button" class="btn" data-number-jump="255">255</button>
+    <button type="button" class="btn" data-number-jump="0">0</button>
+  </div>
+  <p class="status" aria-live="polite" data-number-status>
+    The switches 64 and 1 are on. 64 + 1 = 65.
+  </p>
+</div>

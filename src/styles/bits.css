@@ -1,0 +1,439 @@
+/* The bits page: a dark circuit board with four panels and eight switches fixed at the bottom of the screen.
+   The switches are one byte that every panel reads in its own way. */
+
+.bits {
+  --board: #17191d;
+  --panel: #21252b;
+  --line: #3a4049;
+  --pink: #e7b1bc;
+  --cream: #fff3dc;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .bits .needs-js {
+  display: none;
+}
+
+.bits :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.bits .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.bits .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .bits .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .bits .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.bits .words,
+.bits .bench,
+.bits .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.bits h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.bits .kicker {
+  color: var(--pink);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.bits .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.bits .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.bits .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.bits .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.bits .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--pink);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.bits .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.bits .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.bits .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.bits .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- The panels' pictures ---------- */
+.bits .places {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.3rem;
+}
+
+.bits .place {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 3 / 4;
+  background: var(--panel);
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  color: #aab0b8;
+  font-weight: 800;
+}
+
+.bits .place.on {
+  background: var(--pink);
+  border-color: var(--cream);
+  color: var(--ink-fixed);
+}
+
+.bits .pv {
+  font-size: clamp(0.8rem, 0.5rem + 1.4vw, 1.3rem);
+  font-variant-numeric: tabular-nums;
+}
+
+.bits .sum {
+  padding: 0.6rem 0.9rem;
+  background: var(--panel);
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  font-size: clamp(1.1rem, 0.9rem + 1vw, 1.5rem);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.bits .glyph-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.bits .glyph {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 6rem;
+  height: 6rem;
+  background: var(--pink);
+  color: var(--ink-fixed);
+  border: 3px solid var(--cream);
+  border-radius: 14px;
+  font-family: var(--font-display);
+  font-size: 3.6rem;
+  line-height: 1;
+}
+
+.bits .glyph-name {
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.bits .glyph-code {
+  color: #cfd3d8;
+  font-size: 1rem;
+}
+
+.bits .odometer {
+  padding: 1rem;
+  background: var(--panel);
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  color: var(--pink);
+  font-size: clamp(1.4rem, 1rem + 2vw, 2.4rem);
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 0.1em;
+  word-spacing: 0.3em;
+}
+
+.bits .swatch {
+  height: 8rem;
+  border: 3px solid var(--cream);
+  border-radius: 12px;
+}
+
+/* ---------- The switches at the bottom ---------- */
+.bits .dock {
+  position: sticky;
+  bottom: 0;
+  z-index: 8;
+  padding: 0.6rem var(--gutter) 0.7rem;
+  background: var(--panel);
+  border-top: 3px solid var(--pink);
+}
+
+.bits .dock-title {
+  display: none;
+}
+
+.bits .switches {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.35rem;
+  width: min(100%, 40rem);
+  margin-inline: auto;
+}
+
+.bits .sw {
+  display: grid;
+  justify-items: center;
+  gap: 0.1rem;
+  padding: 0.35rem 0 0.25rem;
+  background: var(--board);
+  border: 3px solid var(--line);
+  border-radius: 10px;
+  color: var(--cream);
+  cursor: pointer;
+}
+
+.bits .sw[aria-pressed='true'] {
+  background: var(--pink);
+  border-color: var(--cream);
+  color: var(--ink-fixed);
+}
+
+.bits .sw-knob {
+  width: 0.9rem;
+  height: 1.4rem;
+  background: currentColor;
+  border-radius: 6px;
+  opacity: 0.35;
+  transform: translateY(0.45rem);
+}
+
+.bits .sw[aria-pressed='true'] .sw-knob {
+  opacity: 1;
+  transform: translateY(-0.1rem);
+}
+
+.bits .sw-digit {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.bits .sw-val {
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.bits .dock-read {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 0.3rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.bits .dock-sub {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  color: #cfd3d8;
+}
+
+/* ---------- Controls ---------- */
+.bits .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.bits .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.bits .btn:hover {
+  background: var(--wash);
+}
+
+.bits .btn.fill {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: var(--ink-fixed);
+}
+
+.bits .btn.fill:hover {
+  background: var(--cream);
+}
+
+.bits .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.bits .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.bits .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.bits .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--pink) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.bits .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.bits .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--pink);
+}
+
+.bits .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.bits .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.bits .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.bits .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.bits .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.bits .snd[aria-pressed='true'] .slash,
+.bits .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bits * {
+    scroll-behavior: auto !important;
+  }
+}

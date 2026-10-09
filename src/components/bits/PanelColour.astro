@@ -1,0 +1,23 @@
+---
+// Reading 4: the colour. The byte is the red. Two sliders set green and blue.
+---
+
+<div class="tool" data-colour-tool>
+  <div class="swatch" data-colour-swatch role="img" aria-label="The colour made by the three bytes" style="background: rgb(65, 128, 200)"></div>
+  <p class="sum mono" aria-live="polite" data-colour-code>#4180C8</p>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Green <output data-colour-g-out>128</output></span>
+      <input class="range" type="range" min="0" max="255" step="1" value="128" data-colour-g aria-label="Green, from 0 to 255" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Blue <output data-colour-b-out>200</output></span>
+      <input class="range" type="range" min="0" max="255" step="1" value="200" data-colour-b aria-label="Blue, from 0 to 255" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-colour-status>
+    Red 65, green 128, blue 200. Three bytes make 24 switches, and 16,777,216 colours.
+  </p>
+</div>

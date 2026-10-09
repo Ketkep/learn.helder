@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Machine from '../../components/bits/Machine.astro';
+import { takeaways, sources, sourcesNote } from '../../data/bits';
+---
+
+<TopicLayout
+  slug="how-computers-count"
+  intro="A computer has only switches that are on or off. Eight of them, fixed at the bottom of the screen, make one byte. Flip them and read the same pattern as a number, a letter, a counter that wraps round, and a colour."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Machine />
+</TopicLayout>

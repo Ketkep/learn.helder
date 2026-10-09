@@ -1,0 +1,76 @@
+---
+// The whole page: four panels that read the same eight switches, and the switches fixed at the bottom.
+// The panels are the Panel components and src/scripts/bits. Without a script every panel shows the byte 65.
+import '../../styles/bits.css';
+import { intro, panels } from '../../data/bits';
+import Dock from './Dock.astro';
+import PanelNumber from './PanelNumber.astro';
+import PanelLetter from './PanelLetter.astro';
+import PanelCount from './PanelCount.astro';
+import PanelColour from './PanelColour.astro';
+
+const tools: Record<string, typeof PanelNumber> = {
+  number: PanelNumber,
+  letter: PanelLetter,
+  count: PanelCount,
+  colour: PanelColour,
+};
+---
+
+<div class="bits" data-bits>
+  <section class="panel opening" aria-labelledby="bits-intro">
+    <div class="panel-inner">
+      <div class="words">
+        <p class="kicker">Power on</p>
+        <h2 id="bits-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+        <button class="snd needs-js" type="button" data-sound aria-pressed="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+            <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+            <path class="wave" d="M15 9a4 4 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path class="slash" d="M16 8.5l5 7M21 8.5l-5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <span data-sound-label>Sound on</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  {
+    panels.map((p) => {
+      const Tool = tools[p.id];
+      return (
+        <section class="panel" id={`panel-${p.id}`} aria-labelledby={`panel-${p.id}-h`}>
+          <div class="panel-inner">
+            <div class="words">
+              <p class="kicker">{p.kicker}</p>
+              <h2 id={`panel-${p.id}-h`}>{p.title}</h2>
+              <div class="paras">{p.paras.map((t) => <p class="para">{t}</p>)}</div>
+              {
+                p.tags && (
+                  <div class="tags">
+                    {p.tags.map((t) => (
+                      <aside class="tag">
+                        <p class="tag-label">{t.label}</p>
+                        <p class="tag-text">{t.text}</p>
+                      </aside>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+            <div class="bench">
+              <Tool />
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+
+  <Dock />
+</div>
+
+<script>
+  import '../../scripts/bits/bits';
+</script>

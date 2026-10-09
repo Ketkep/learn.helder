@@ -177,6 +177,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-08',
     status: 'live',
   },
+  {
+    slug: 'how-computers-count',
+    title: 'How computers count',
+    hook: 'Flip eight switches and see the same pattern as a number, a letter, a counter and a colour.',
+    category: 'Technology',
+    accent: '#E7B1BC',
+    preview: 'how-computers-count',
+    dateAdded: '2026-10-09',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

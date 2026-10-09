@@ -1,0 +1,27 @@
+---
+// Reading 2: the letter. The byte is a number in the ASCII table.
+---
+
+<div class="tool" data-letter-tool>
+  <div class="glyph-row">
+    <span class="glyph" data-letter-glyph aria-hidden="true">A</span>
+    <div>
+      <p class="glyph-name" data-letter-name>Capital A</p>
+      <p class="glyph-code mono" data-letter-code>65 = 01000001</p>
+    </div>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Type a letter</span>
+      <input class="text" type="text" maxlength="1" value="A" autocomplete="off" spellcheck="false" data-letter-input aria-label="One letter, digit or sign" />
+    </label>
+    <button type="button" class="btn fill" data-letter-case>Flip the 32 switch</button>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Move along the table">
+    <button type="button" class="btn" data-letter-step="-1">Previous</button>
+    <button type="button" class="btn" data-letter-step="1">Next</button>
+  </div>
+  <p class="status" aria-live="polite" data-letter-status>
+    The byte 65 is a capital A in the ASCII table.
+  </p>
+</div>

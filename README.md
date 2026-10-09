@@ -251,6 +251,14 @@ The page is a river that runs down the left side of the page as a wavy blue ribb
 - The word that the hard rules forbid is not used on the page. The file `journey.ts` keeps its name only because renaming adds nothing.
 - Without scripts the bars show the first step, the air is the 20 degree example, the mountain is 2 km high, and the table of places shows the rough times. Controls carry `.needs-js`.
 
+## The bits page: how the dock works
+
+The page is a dark board with eight switches fixed at the bottom of the screen (the dock). The switches set one shared byte, from 0 to 255. Four panels above read the same byte in four ways: as a number (place values 128 to 1), as a letter (ASCII), as a counter (add 1, take away 1, double, halve, with carry and wrap at 255) and as a colour (the byte is red, two sliders set green and blue). Without a script the dock is a picture of the byte 65 and each panel shows one example.
+
+- `src/data/bits.ts` holds all the words, the takeaways and the sources.
+- `src/components/bits/Machine.astro` is the frame. `Dock.astro` is the switches and `Panel*.astro` is one reading each.
+- `src/scripts/bits/byte.ts` holds the shared byte. A panel calls `setByte(v)` to change it and `watch(fn)` to hear about changes. `dock.ts`, `number.ts`, `letter.ts`, `count.ts` and `colour.ts` are the panels. The letter panel uses plain ASCII (128 places), so bytes over 127 say "outside the table".
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -285,6 +293,7 @@ src/data/morse.ts        everything the Morse page says: messages, takeaways, so
 src/data/bridges.ts      everything the bridges page says: spans, takeaways, sources
 src/data/clocks.ts       everything the clocks page says: plates, takeaways, sources
 src/data/chance.ts       everything the chance page says: experiments, takeaways, sources
+src/data/bits.ts         everything the bits page says: panels, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -302,6 +311,7 @@ src/components/morse/    the Morse page: the tape and its four tools
 src/components/bridges/  the bridges page: the crossing and its four blueprints
 src/components/clocks/   the clocks page: the movement and its four plates
 src/components/chance/   the chance page: the notebook and its four experiments
+src/components/bits/     the bits page: the dock, the four panels and the frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -316,6 +326,7 @@ src/styles/morse.css     the Morse page: desk, tape, key, tree, bars, player
 src/styles/bridges.css   the bridges page: spans, piers, blueprints, controls
 src/styles/clocks.css    the clocks page: case, brass plates, dials, ladder
 src/styles/notebook.css  the chance page: squared paper, sticky notes, charts, doors
+src/styles/bits.css      the bits page: dark board, sticky dock, panels
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -337,6 +348,7 @@ src/scripts/morse/       the alphabet and timing (code.ts) and one script per to
 src/scripts/bridges/     the statics (model.ts) and one script per blueprint
 src/scripts/clocks/      the clock maths (physics.ts) and one script per plate
 src/scripts/chance/      the chance maths (stats.ts) and one script per experiment
+src/scripts/bits/        the shared byte (byte.ts) and one script per panel
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image
