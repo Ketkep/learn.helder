@@ -1,0 +1,17 @@
+---
+// The beam, fixed at the top of the screen. Panels send it somewhere. Without a script it is hidden and each panel has a table.
+---
+
+<div class="beam needs-js" data-beam>
+  <div class="beam-track" aria-hidden="true">
+    <span class="dot earth"></span>
+    <span class="rail"></span>
+    <span class="lane"><span class="pulse" data-beam-pulse></span></span>
+    <span class="dot far" data-beam-far></span>
+  </div>
+  <p class="beam-read">
+    <span class="beam-name" data-beam-name>Pick a place</span>
+    <span class="beam-km" data-beam-km>0 km</span>
+    <span class="beam-clock mono" data-beam-clock>0.00 seconds</span>
+  </p>
+</div>

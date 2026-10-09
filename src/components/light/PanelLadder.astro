@@ -1,0 +1,30 @@
+---
+// Call 2: the light travel time to nine places. A table without a script, buttons that send the beam with one.
+import { fmtKm, fmtTime, seconds, targets } from '../../lib/light';
+---
+
+<div class="tool" data-ladder-tool>
+  <table class="times">
+    <caption class="sr-only">Light travel time to nine places</caption>
+    <thead>
+      <tr><th scope="col">Place</th><th scope="col">Distance</th><th scope="col">Light takes</th></tr>
+    </thead>
+    <tbody>
+      {
+        targets.map((t) => (
+          <tr data-ladder-row={t.id}>
+            <th scope="row">
+              <button type="button" class="pick needs-js" data-ladder-pick={t.id}>{t.name}</button>
+              <span class="no-js-name">{t.name}</span>
+            </th>
+            <td>{fmtKm(t.km)}</td>
+            <td>{fmtTime(seconds(t.km))}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  <p class="status" aria-live="polite" data-ladder-status>
+    Press a place to send the beam. Distances are typical values, because the planets move.
+  </p>
+</div>

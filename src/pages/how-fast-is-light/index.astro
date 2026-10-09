@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Signal from '../../components/light/Signal.astro';
+import { takeaways, sources, sourcesNote } from '../../data/light';
+---
+
+<TopicLayout
+  slug="how-fast-is-light"
+  intro="Light is the fastest thing there is, and in space it is still slow. A beam fixed at the top of the screen goes to the Moon, the Sun, Mars and the nearest star, and the clock shows how long the trip really takes."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Signal />
+</TopicLayout>

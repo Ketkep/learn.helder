@@ -1,0 +1,23 @@
+---
+// Call 1: the Moon and back. A distance slider and a pulse to the mirror.
+import { fmtTime, seconds } from '../../lib/light';
+const km = 384400;
+---
+
+<div class="tool" data-moon-tool>
+  <p class="sum" data-moon-sum>{km.toLocaleString('en-US')} km: {fmtTime(seconds(km))} out, {fmtTime(seconds(km) * 2)} out and back.</p>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Distance <output data-moon-out>{km.toLocaleString('en-US')} km</output></span>
+      <input class="range" type="range" min="356500" max="406700" step="100" value={km} data-moon-range aria-label="Distance to the Moon in kilometres" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-moon-send>Send a pulse</button>
+    <button type="button" class="btn" data-moon-set="356500">Closest</button>
+    <button type="button" class="btn" data-moon-set="406700">Farthest</button>
+  </div>
+  <p class="status" aria-live="polite" data-moon-status>
+    The Moon goes from 356,500 km to 406,700 km away. Light needs 2.38 to 2.71 seconds to go there and back.
+  </p>
+</div>

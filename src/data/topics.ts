@@ -187,6 +187,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-09',
     status: 'live',
   },
+  {
+    slug: 'how-fast-is-light',
+    title: 'How fast is light',
+    hook: 'Send a beam to the Moon, Mars and the nearest star, and see how old the light is when it arrives.',
+    category: 'Space',
+    accent: '#7BD88F',
+    preview: 'how-fast-is-light',
+    dateAdded: '2026-10-09',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

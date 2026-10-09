@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .hl-line { stroke: var(--on-cover); stroke-width: 4; stroke-dasharray: 2 14; stroke-linecap: round; }
+    .hl-earth { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .hl-sun { fill: var(--on-cover); }
+    .hl-ray { stroke: var(--on-cover); stroke-width: 4; stroke-linecap: round; }
+    .hl-pulse { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .hl-pulse { animation: hl-go 2.4s linear infinite; }
+    }
+    /* The pulse crosses from the small Earth to the Sun and starts again */
+    @keyframes hl-go { 0% { transform: translateX(0); } 100% { transform: translateX(210px); } }
+  </style>
+
+  <g>
+    <line class="hl-line" x1="82" y1="150" x2="296" y2="150"/>
+    <circle class="hl-earth" cx="62" cy="150" r="18"/>
+    <circle class="hl-sun" cx="332" cy="150" r="34"/>
+    <g class="hl-ray">
+      <line x1="332" y1="96" x2="332" y2="84"/><line x1="332" y1="204" x2="332" y2="216"/>
+      <line x1="278" y1="150" x2="266" y2="150" opacity="0"/>
+      <line x1="370" y1="112" x2="379" y2="103"/><line x1="370" y1="188" x2="379" y2="197"/>
+    </g>
+    <circle class="hl-pulse" cx="96" cy="150" r="9"/>
+  </g>
+  <circle class="knob" cx="200" cy="244" r="14"/>
+</svg>

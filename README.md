@@ -259,6 +259,15 @@ The page is a dark board with eight switches fixed at the bottom of the screen (
 - `src/components/bits/Machine.astro` is the frame. `Dock.astro` is the switches and `Panel*.astro` is one reading each.
 - `src/scripts/bits/byte.ts` holds the shared byte. A panel calls `setByte(v)` to change it and `watch(fn)` to hear about changes. `dock.ts`, `number.ts`, `letter.ts`, `count.ts` and `colour.ts` are the panels. The letter panel uses plain ASCII (128 places), so bytes over 127 say "outside the table".
 
+## The light page: how the beam works
+
+The page is a dark control room with one beam of light fixed at the top of the screen: Earth on the left, a far dot on the right, a pulse between them and a clock. Four panels send the beam somewhere and the clock shows the true travel time: a pulse to the mirrors on the Moon and back, nine places from the Moon to Proxima Centauri (a table without a script), a talk with a rover on Mars where every message takes minutes, and a trip to Proxima Centauri at walking speed, jet speed, Voyager speed and light speed. The animation is sped up and squeezed, but the numbers are true.
+
+- `src/data/light.ts` holds all the words, the takeaways and the sources.
+- `src/lib/light.ts` holds the maths shared by the build and the browser: the speed of light, the light-year, the nine places and the time and distance formatting. Distances are typical values, because the planets move.
+- `src/components/light/Signal.astro` is the frame and `Beam.astro` is the beam. `Panel*.astro` is one call each.
+- `src/scripts/light/beam.ts` runs the beam. A panel calls `send({ name, km, kmS, legs, done })`. With reduced motion it jumps to the end. `moon.ts`, `ladder.ts`, `talk.ts` and `year.ts` are the panels.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -294,6 +303,7 @@ src/data/bridges.ts      everything the bridges page says: spans, takeaways, sou
 src/data/clocks.ts       everything the clocks page says: plates, takeaways, sources
 src/data/chance.ts       everything the chance page says: experiments, takeaways, sources
 src/data/bits.ts         everything the bits page says: panels, takeaways, sources
+src/data/light.ts        everything the light page says: panels, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -312,6 +322,7 @@ src/components/bridges/  the bridges page: the crossing and its four blueprints
 src/components/clocks/   the clocks page: the movement and its four plates
 src/components/chance/   the chance page: the notebook and its four experiments
 src/components/bits/     the bits page: the dock, the four panels and the frame
+src/components/light/    the light page: the beam, the four panels and the frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -327,6 +338,7 @@ src/styles/bridges.css   the bridges page: spans, piers, blueprints, controls
 src/styles/clocks.css    the clocks page: case, brass plates, dials, ladder
 src/styles/notebook.css  the chance page: squared paper, sticky notes, charts, doors
 src/styles/bits.css      the bits page: dark board, sticky dock, panels
+src/styles/light.css     the light page: dark control room, sticky beam, panels, tables
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -349,6 +361,7 @@ src/scripts/bridges/     the statics (model.ts) and one script per blueprint
 src/scripts/clocks/      the clock maths (physics.ts) and one script per plate
 src/scripts/chance/      the chance maths (stats.ts) and one script per experiment
 src/scripts/bits/        the shared byte (byte.ts) and one script per panel
+src/scripts/light/       the beam (beam.ts) and one script per panel
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

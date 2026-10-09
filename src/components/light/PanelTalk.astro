@@ -1,0 +1,25 @@
+---
+// Call 3: talking to Mars with a delay. A slider for the distance and three ways to ask.
+import { fmtTime, seconds } from '../../lib/light';
+const km = 225000000;
+const t = seconds(km);
+---
+
+<div class="tool" data-talk-tool>
+  <p class="sum" data-talk-sum>At {Math.round(km / 1e6)} million km, a message takes {fmtTime(t)} one way.</p>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Mars is <output data-talk-out>{Math.round(km / 1e6)} million km</output></span>
+      <input class="range" type="range" min="55" max="401" step="1" value={Math.round(km / 1e6)} data-talk-range aria-label="Distance to Mars in millions of kilometres" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-talk-ask="1">One question</button>
+    <button type="button" class="btn" data-talk-ask="5">Five, one at a time</button>
+    <button type="button" class="btn" data-talk-ask="batch">Five, in one message</button>
+  </div>
+  <ol class="log" data-talk-log aria-label="What was sent and when"></ol>
+  <p class="status" aria-live="polite" data-talk-status>
+    A question out and an answer back takes twice the one-way time: {fmtTime(t * 2)} here.
+  </p>
+</div>

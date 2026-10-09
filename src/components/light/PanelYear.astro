@@ -1,0 +1,37 @@
+---
+// Call 4: how long a trip to Proxima Centauri takes at four speeds.
+import { LY_KM, fmtTime } from '../../lib/light';
+const km = 4.24 * LY_KM;
+const speeds = [
+  { id: 'walk', name: 'Walking', kmS: 5 / 3600, note: '5 km an hour' },
+  { id: 'jet', name: 'A jet airliner', kmS: 900 / 3600, note: '900 km an hour' },
+  { id: 'voyager', name: 'Voyager 1', kmS: 17, note: 'about 17 km a second' },
+  { id: 'light', name: 'Light', kmS: 299792.458, note: '299,792 km a second' },
+];
+---
+
+<div class="tool" data-year-tool>
+  <table class="times">
+    <caption class="sr-only">Trip to Proxima Centauri at four speeds</caption>
+    <thead>
+      <tr><th scope="col">Travelling at</th><th scope="col">Speed</th><th scope="col">Time to Proxima Centauri</th></tr>
+    </thead>
+    <tbody>
+      {
+        speeds.map((s) => (
+          <tr data-year-row={s.id}>
+            <th scope="row">
+              <button type="button" class="pick needs-js" data-year-pick={s.id} data-kms={s.kmS}>{s.name}</button>
+              <span class="no-js-name">{s.name}</span>
+            </th>
+            <td>{s.note}</td>
+            <td>{fmtTime(km / s.kmS)}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  <p class="status" aria-live="polite" data-year-status>
+    The trip is about 40.1 trillion km. Press a speed to see how many light-years of your own it covers in one year.
+  </p>
+</div>
