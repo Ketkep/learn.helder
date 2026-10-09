@@ -60,3 +60,8 @@ Ideas that fit the same style, not yet built: how a lock works (pins to lift), t
 - facts re-checked (from my own knowledge, as the source sites are blocked from here): a pendulum of about 0.994 m beats 2 seconds, 32,768 = 2 to the power 15, the second as 9,192,631,770 caesium-133 periods, 23 people give 50.7 per cent for a shared birthday (253 pairs), switching wins 2 in 3 in the three doors puzzle (Marilyn vos Savant, 1990), 96.5 per cent of Earth's water in the sea and about 2.5 per cent fresh, about 30 g of vapour per cubic metre of air at 30 degrees. All agree with the pages.
 - found: nothing wrong. Nothing changed in the pages.
 - repair list: empty.
+
+## Error check 2026-10-09
+- checked: no new topics today. The newest topic commit is still the water cycle of 2026-10-08, so the builder did not publish anything last night. `npm run check` (0 errors), `npm run build` (16 pages), preview on 4322. `check-topic.mjs --no-shots`: home page, the-dutch-golden-age, tides-and-the-moon and prime-numbers all 0 FAIL. Dash scan prints nothing.
+- found: nothing wrong. Nothing changed. Note for the builder: no log block for 2026-10-09 exists.
+- repair list: empty.
