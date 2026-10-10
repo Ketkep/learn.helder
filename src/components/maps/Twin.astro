@@ -1,0 +1,32 @@
+---
+// A globe and its flat copy, side by side. The paths come from src/lib/maplayers.ts and the scripts redraw them.
+import type { Layers } from '../../lib/maplayers';
+interface Props {
+  layers: Layers;
+  label: string;
+}
+const { layers, label } = Astro.props;
+---
+
+<div class="twin" role="group" aria-label={label}>
+  <figure class="globe">
+    <svg viewBox="0 0 220 220" role="img" aria-label="The globe, seen from space" data-globe>
+      <circle class="sphere" cx="110" cy="110" r="100"></circle>
+      <path class="g-grid" d={layers.globe.grid} data-g="grid"></path>
+      <path class="g-a" d={layers.globe.a} data-g="a"></path>
+      <path class="g-b" d={layers.globe.b} data-g="b"></path>
+      <path class="g-c" d={layers.globe.c} data-g="c"></path>
+    </svg>
+    <figcaption>The globe: the truth</figcaption>
+  </figure>
+  <figure class="flat">
+    <svg viewBox={`0 0 ${layers.w} ${layers.h}`} role="img" aria-label="The flat map, a copy of the globe" data-flat>
+      <path class="f-outline" d={layers.flat.outline} data-f="outline"></path>
+      <path class="f-grid" d={layers.flat.grid} data-f="grid"></path>
+      <path class="f-a" d={layers.flat.a} data-f="a"></path>
+      <path class="f-b" d={layers.flat.b} data-f="b"></path>
+      <path class="f-c" d={layers.flat.c} data-f="c"></path>
+    </svg>
+    <figcaption data-flat-caption>The map: a copy (Mercator)</figcaption>
+  </figure>
+</div>

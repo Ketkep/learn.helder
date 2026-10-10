@@ -1,0 +1,33 @@
+---
+// Look 1: the same small circle at 30 places. A table of sizes without a script.
+import Twin from './Twin.astro';
+import ProjectionSelect from './ProjectionSelect.astro';
+import { circlesLayers } from '../../lib/maplayers';
+import { projections, sizeFactor } from '../../lib/projections';
+const layers = circlesLayers('mercator');
+---
+
+<div class="tool" data-circles-tool>
+  <Twin layers={layers} label="The same circle at 30 places, on the globe and on the map" />
+  <div class="controls needs-js"><ProjectionSelect /></div>
+  <p class="status" aria-live="polite" data-circles-status>
+    Mercator keeps every circle round, but a circle at 60 degrees looks 4.0 times as big as the same circle on the equator.
+  </p>
+  <table class="times">
+    <caption class="sr-only">How much bigger a circle looks at 30 and 60 degrees latitude than on the equator</caption>
+    <thead>
+      <tr><th scope="col">Projection</th><th scope="col">At 30 degrees</th><th scope="col">At 60 degrees</th></tr>
+    </thead>
+    <tbody>
+      {
+        projections.map((p) => (
+          <tr>
+            <th scope="row">{p.name}</th>
+            <td>{sizeFactor(p, 30).toFixed(1)} times</td>
+            <td>{sizeFactor(p, 60).toFixed(1)} times</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

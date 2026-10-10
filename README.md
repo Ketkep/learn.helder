@@ -268,6 +268,15 @@ The page is a dark control room with one beam of light fixed at the top of the s
 - `src/components/light/Signal.astro` is the frame and `Beam.astro` is the beam. `Panel*.astro` is one call each.
 - `src/scripts/light/beam.ts` runs the beam. A panel calls `send({ name, km, kmS, legs, done })`. With reduced motion it jumps to the end. `moon.ts`, `ladder.ts`, `talk.ts` and `year.ts` are the panels.
 
+## The maps page: how the globe and its copy work
+
+The page has three panels. Each one shows a globe on the left (the truth) and a flat copy on the right, and a drop-down picks the projection of the copy. The drop-downs of all panels stay the same. Panel 1 stamps the same small circle at 30 places (Tissot's circles) and says how much bigger a circle looks at 30 and 60 degrees than on the equator. Panel 2 slides a patch with the area of Greenland north next to a patch with the area of Africa. Panel 3 draws the shortest route and the constant compass bearing route between two of ten cities. There are no coastlines: the pictures only show a grid and shapes made for the page, and the Earth is a ball of radius 6,371 km.
+
+- `src/data/maps.ts` holds all the words, the takeaways and the sources.
+- `src/lib/projections.ts` holds the maths: six projections (Mercator, plate carrée, cylindrical equal-area, sinusoidal, Mollweide and Equal Earth), circles on a ball, great circles and constant bearing routes, and the globe seen from space. `src/lib/maplayers.ts` turns that into the path data each panel draws. The page uses it at build time for the first picture and the scripts use it again in the browser.
+- `src/components/maps/Atlas.astro` is the frame. `Twin.astro` is a globe and map pair, and `Panel*.astro` is one panel each.
+- `src/scripts/maps/state.ts` holds the chosen projection. `draw.ts` puts new paths into a pair. `circles.ts`, `size.ts` and `route.ts` are the panels.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -304,6 +313,7 @@ src/data/clocks.ts       everything the clocks page says: plates, takeaways, sou
 src/data/chance.ts       everything the chance page says: experiments, takeaways, sources
 src/data/bits.ts         everything the bits page says: panels, takeaways, sources
 src/data/light.ts        everything the light page says: panels, takeaways, sources
+src/data/maps.ts         everything the maps page says: panels, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -323,6 +333,7 @@ src/components/clocks/   the clocks page: the movement and its four plates
 src/components/chance/   the chance page: the notebook and its four experiments
 src/components/bits/     the bits page: the dock, the four panels and the frame
 src/components/light/    the light page: the beam, the four panels and the frame
+src/components/maps/     the maps page: the globe and map pairs, three panels and the frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -339,6 +350,7 @@ src/styles/clocks.css    the clocks page: case, brass plates, dials, ladder
 src/styles/notebook.css  the chance page: squared paper, sticky notes, charts, doors
 src/styles/bits.css      the bits page: dark board, sticky dock, panels
 src/styles/light.css     the light page: dark control room, sticky beam, panels, tables
+src/styles/maps.css      the maps page: atlas paper, panels, globe and map pairs
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -347,6 +359,8 @@ src/lib/text.ts          fill {slots} in a line, and pick singular or plural
 src/lib/chess/           chess pieces, still diagrams, and the build-time analysis of games
 src/lib/dutch/           drawing helpers, background strips, map and painting for the Dutch page
 src/lib/rand.ts          repeatable random numbers.  src/lib/svgpath.ts: smooth curves for drawings
+src/lib/projections.ts   map maths for the maps page: projections, circles, routes, the globe.  src/lib/maplayers.ts: what each panel draws
+src/lib/light.ts         light travel maths for the light page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -362,6 +376,7 @@ src/scripts/clocks/      the clock maths (physics.ts) and one script per plate
 src/scripts/chance/      the chance maths (stats.ts) and one script per experiment
 src/scripts/bits/        the shared byte (byte.ts) and one script per panel
 src/scripts/light/       the beam (beam.ts) and one script per panel
+src/scripts/maps/        the chosen projection (state.ts), drawing (draw.ts) and one script per panel
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

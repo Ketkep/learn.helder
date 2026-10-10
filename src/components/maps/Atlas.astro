@@ -1,0 +1,63 @@
+---
+// The whole page: three panels, each with a globe and its flat copy. The panels are the Panel components and
+// src/scripts/maps. Without a script every panel shows the Mercator map.
+import '../../styles/maps.css';
+import { intro, panels } from '../../data/maps';
+import PanelCircles from './PanelCircles.astro';
+import PanelSize from './PanelSize.astro';
+import PanelRoute from './PanelRoute.astro';
+
+const tools: Record<string, typeof PanelCircles> = {
+  circles: PanelCircles,
+  size: PanelSize,
+  route: PanelRoute,
+};
+---
+
+<div class="maps" data-maps>
+  <section class="panel opening" aria-labelledby="maps-intro">
+    <div class="panel-inner">
+      <div class="words">
+        <p class="kicker">Unrolling</p>
+        <h2 id="maps-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  {
+    panels.map((p) => {
+      const Tool = tools[p.id];
+      return (
+        <section class="panel" id={`panel-${p.id}`} aria-labelledby={`panel-${p.id}-h`}>
+          <div class="panel-inner">
+            <div class="words">
+              <p class="kicker">{p.kicker}</p>
+              <h2 id={`panel-${p.id}-h`}>{p.title}</h2>
+              <div class="paras">{p.paras.map((t) => <p class="para">{t}</p>)}</div>
+              {
+                p.tags && (
+                  <div class="tags">
+                    {p.tags.map((t) => (
+                      <aside class="tag">
+                        <p class="tag-label">{t.label}</p>
+                        <p class="tag-text">{t.text}</p>
+                      </aside>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+            <div class="bench">
+              <Tool />
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/maps/maps';
+</script>

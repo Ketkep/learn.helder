@@ -197,6 +197,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-09',
     status: 'live',
   },
+  {
+    slug: 'how-maps-flatten-the-earth',
+    title: 'How maps flatten the Earth',
+    hook: 'Put a globe next to its flat copy and see what each kind of map gets wrong.',
+    category: 'Places',
+    accent: '#B9A3E3',
+    preview: 'how-maps-flatten-the-earth',
+    dateAdded: '2026-10-10',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

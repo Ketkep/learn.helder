@@ -1,0 +1,11 @@
+---
+// One drop-down for the projection. Every panel has one and they all stay the same.
+import { projections } from '../../lib/projections';
+---
+
+<label class="field">
+  <span>Projection</span>
+  <select class="select" data-proj-select aria-label="Map projection">
+    {projections.map((p) => <option value={p.id} selected={p.id === 'mercator'}>{p.name}</option>)}
+  </select>
+</label>

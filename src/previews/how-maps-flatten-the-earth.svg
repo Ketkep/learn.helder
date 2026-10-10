@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .hm-line { fill: none; stroke: var(--on-cover); stroke-width: 3; stroke-linecap: round; }
+    .hm-fill { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .hm-dot { fill: var(--on-cover); transform-box: fill-box; transform-origin: 50% 50%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .hm-big { animation: hm-grow 2.4s ease-in-out infinite alternate; }
+    }
+    /* On a Mercator map a circle near the pole grows */
+    @keyframes hm-grow { 0% { transform: scale(1); } 100% { transform: scale(2.4); } }
+  </style>
+
+  <g>
+    <circle class="hm-fill" cx="100" cy="150" r="64"/>
+    <ellipse class="hm-line" cx="100" cy="150" rx="26" ry="64"/>
+    <line class="hm-line" x1="100" y1="86" x2="100" y2="214"/>
+    <path class="hm-line" d="M38 128 Q100 146 162 128"/>
+    <path class="hm-line" d="M38 172 Q100 190 162 172"/>
+    <rect class="hm-fill" x="226" y="86" width="136" height="128" rx="6"/>
+    <line class="hm-line" x1="226" y1="150" x2="362" y2="150"/>
+    <line class="hm-line" x1="272" y1="86" x2="272" y2="214"/>
+    <line class="hm-line" x1="316" y1="86" x2="316" y2="214"/>
+    <circle class="hm-dot" cx="249" cy="190" r="7"/>
+    <circle class="hm-dot" cx="294" cy="190" r="7"/>
+    <circle class="hm-dot" cx="339" cy="190" r="7"/>
+    <circle class="hm-dot hm-big" cx="294" cy="116" r="7"/>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Atlas from '../../components/maps/Atlas.astro';
+import { takeaways, sources, sourcesNote } from '../../data/maps';
+---
+
+<TopicLayout
+  slug="how-maps-flatten-the-earth"
+  intro="The Earth is a ball and a map is flat, so every flat map gets something wrong. In each panel a globe stands next to its flat copy, and you pick the rule that makes the copy."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Atlas />
+</TopicLayout>

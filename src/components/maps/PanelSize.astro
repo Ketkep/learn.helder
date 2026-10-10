@@ -1,0 +1,23 @@
+---
+// Look 2: a patch as big as Greenland that you slide north, next to a patch as big as Africa.
+import Twin from './Twin.astro';
+import ProjectionSelect from './ProjectionSelect.astro';
+import { apparentShare, sizeLayers } from '../../lib/maplayers';
+const lat = 72;
+const layers = sizeLayers('mercator', lat);
+const share = Math.round(apparentShare('mercator', lat) * 100);
+---
+
+<div class="tool" data-size-tool>
+  <Twin layers={layers} label="A patch as big as Greenland next to a patch as big as Africa" />
+  <div class="controls needs-js"><ProjectionSelect /></div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Greenland patch at <output data-size-out>{lat} degrees north</output></span>
+      <input class="range" type="range" min="0" max="78" step="1" value={lat} data-size-range aria-label="Latitude of the Greenland sized patch in degrees north" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-size-status>
+    On the globe the Greenland patch is 7 per cent of the Africa patch. On this Mercator map, at {lat} degrees north, it is {share} per cent.
+  </p>
+</div>
