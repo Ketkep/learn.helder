@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Kitchen from '../../components/bread/Kitchen.astro';
+import { takeaways, sources, sourcesNote } from '../../data/bread';
+---
+
+<TopicLayout
+  slug="how-bread-rises"
+  intro="Yeast makes gas, gluten holds it and the oven sets it. Four stops follow one loaf through a day, from the first knead to the brown crust, and each stop has something to move."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Kitchen />
+</TopicLayout>

@@ -1,0 +1,26 @@
+---
+// Stop 4: a slice of the loaf. The crust browns as its surface gets hotter, and the crumb stays pale.
+import { crustColour, sliceSvg } from '../../lib/bread';
+const surface = 170;
+const rows = [100, 130, 160, 190, 225];
+---
+
+<div class="tool" data-crust-tool>
+  <svg class="slicepic" viewBox="0 0 300 190" role="img" aria-label="A slice of bread with a crust and a pale crumb" data-crust-svg>
+    <g data-crust-slice set:html={sliceSvg(surface)}></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Surface at <output data-crust-out>{surface} degrees</output></span>
+      <input class="range" type="range" min="60" max="230" step="1" value={surface} data-crust-range aria-label="Temperature of the surface of the loaf in degrees Celsius" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-crust-status>
+    At {surface} degrees the crust is brown. The crumb stays near 100 degrees, so it does not brown.
+  </p>
+  <table class="times">
+    <caption class="sr-only">Crust colour at different surface temperatures</caption>
+    <thead><tr><th scope="col">Surface</th><th scope="col">Crust colour</th></tr></thead>
+    <tbody>{rows.map((t) => <tr><th scope="row">{t} degrees</th><td><span class="chip" style={`background: ${crustColour(t)}`}></span></td></tr>)}</tbody>
+  </table>
+</div>

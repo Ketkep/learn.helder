@@ -1,0 +1,26 @@
+---
+// Stop 3: a loaf warming from the middle. The gas takes more room until the loaf sets.
+import { SET_AT, YEAST_DIES, gasRatio, loafSvg } from '../../lib/bread';
+const core = 60;
+const rows = [30, 45, YEAST_DIES, SET_AT, 100];
+---
+
+<div class="tool" data-spring-tool>
+  <svg class="loafpic" viewBox="0 0 300 170" role="img" aria-label="A loaf on a tray that grows as it warms" data-spring-svg>
+    <g data-spring-loaf set:html={loafSvg(core)}></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Middle of the loaf at <output data-spring-out>{core} degrees</output></span>
+      <input class="range" type="range" min="30" max="100" step="1" value={core} data-spring-range aria-label="Temperature in the middle of the loaf in degrees Celsius" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-spring-status>
+    At {core} degrees the gas takes up {Math.round((gasRatio(core) - 1) * 100)} per cent more room than at 30 degrees. The yeast is dead but the loaf has not set yet.
+  </p>
+  <table class="times">
+    <caption class="sr-only">Room taken by the gas at different temperatures in the middle of the loaf</caption>
+    <thead><tr><th scope="col">Middle of the loaf</th><th scope="col">Extra room for the gas</th></tr></thead>
+    <tbody>{rows.map((t) => <tr><th scope="row">{t} degrees</th><td>{Math.round((gasRatio(t) - 1) * 100)} per cent</td></tr>)}</tbody>
+  </table>
+</div>

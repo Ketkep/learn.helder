@@ -286,6 +286,15 @@ The page is a dark workshop with four benches, from a wooden peg lock to a pin l
 - `src/components/lock/Workshop.astro` is the frame. `PinLock.astro` is the pin lock picture used by benches 2 and 3, and `Panel*.astro` is one bench each.
 - `src/scripts/lock/pins.ts` redraws the pin lock. `wood.ts`, `insert.ts`, `cut.ts` and `count.ts` are the benches.
 
+## The bread page: how the day with one loaf works
+
+The page follows one loaf through a day in four stops, each headed by a time of day: 07:30 kneading (a slice of dough whose gluten net gets stronger and holds more gas), 09:00 the rise (dough in a jar, with a temperature and hours to move), 12:00 the oven (a loaf that grows as the gas warms, until the loaf sets at about 76 degrees) and 12:40 the crust (a slice whose crust browns as the surface gets hotter, while the crumb stays near 100 degrees). Without a script each stop shows a picture and a table. Every curve is a toy model with typical numbers, and the page says so.
+
+- `src/data/bread.ts` holds all the words, the takeaways and the sources.
+- `src/lib/bread.ts` holds the models (yeast speed against temperature, gluten strength against kneading time, the gas law, crust colour against temperature) and draws the pictures as SVG text, so the build and the browser draw the same thing.
+- `src/components/bread/Kitchen.astro` is the frame and `Panel*.astro` is one stop each.
+- `src/scripts/bread/` has one script per stop: `knead.ts`, `rise.ts`, `spring.ts` and `crust.ts`.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -324,6 +333,7 @@ src/data/bits.ts         everything the bits page says: panels, takeaways, sourc
 src/data/light.ts        everything the light page says: panels, takeaways, sources
 src/data/maps.ts         everything the maps page says: panels, takeaways, sources
 src/data/lock.ts         everything the lock page says: benches, takeaways, sources
+src/data/bread.ts        everything the bread page says: stops, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -345,6 +355,7 @@ src/components/bits/     the bits page: the dock, the four panels and the frame
 src/components/light/    the light page: the beam, the four panels and the frame
 src/components/maps/     the maps page: the globe and map pairs, three panels and the frame
 src/components/lock/     the lock page: the pin lock picture, four benches and the frame
+src/components/bread/    the bread page: four stops and the frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -363,6 +374,7 @@ src/styles/bits.css      the bits page: dark board, sticky dock, panels
 src/styles/light.css     the light page: dark control room, sticky beam, panels, tables
 src/styles/maps.css      the maps page: atlas paper, panels, globe and map pairs
 src/styles/lock.css      the lock page: dark workshop, benches, lock pictures
+src/styles/bread.css     the bread page: flour white, stops with a time of day, pictures
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -371,6 +383,7 @@ src/lib/text.ts          fill {slots} in a line, and pick singular or plural
 src/lib/chess/           chess pieces, still diagrams, and the build-time analysis of games
 src/lib/dutch/           drawing helpers, background strips, map and painting for the Dutch page
 src/lib/rand.ts          repeatable random numbers.  src/lib/svgpath.ts: smooth curves for drawings
+src/lib/bread.ts         bread models and pictures for the bread page
 src/lib/lock.ts          lock maths for the lock page: pins, keys, the wooden lock, key counts
 src/lib/projections.ts   map maths for the maps page: projections, circles, routes, the globe.  src/lib/maplayers.ts: what each panel draws
 src/lib/light.ts         light travel maths for the light page
@@ -391,6 +404,7 @@ src/scripts/bits/        the shared byte (byte.ts) and one script per panel
 src/scripts/light/       the beam (beam.ts) and one script per panel
 src/scripts/maps/        the chosen projection (state.ts), drawing (draw.ts) and one script per panel
 src/scripts/lock/        redrawing the pin lock (pins.ts) and one script per bench
+src/scripts/bread/       one script per stop: knead, rise, spring and crust
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

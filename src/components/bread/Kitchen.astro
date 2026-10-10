@@ -1,0 +1,60 @@
+---
+// The whole page: four stops through a day with one loaf, each headed by a time of day. The stops are the Panel
+// components and src/scripts/bread. Without a script each stop shows a picture and a table.
+import '../../styles/bread.css';
+import { intro, stops } from '../../data/bread';
+import PanelRise from './PanelRise.astro';
+import PanelKnead from './PanelKnead.astro';
+import PanelSpring from './PanelSpring.astro';
+import PanelCrust from './PanelCrust.astro';
+
+const tools: Record<string, typeof PanelRise> = { knead: PanelKnead, rise: PanelRise, spring: PanelSpring, crust: PanelCrust };
+---
+
+<div class="bread" data-bread>
+  <section class="stop opening" aria-labelledby="bread-intro">
+    <div class="stop-inner">
+      <div class="words">
+        <p class="clock">Flour on the bench</p>
+        <h2 id="bread-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  {
+    stops.map((p) => {
+      const Tool = tools[p.id];
+      return (
+        <section class="stop" id={`stop-${p.id}`} aria-labelledby={`stop-${p.id}-h`}>
+          <div class="stop-inner">
+            <div class="words">
+              <p class="clock"><span class="mono">{p.time}</span> {p.title}</p>
+              <h2 id={`stop-${p.id}-h`}>{p.heading}</h2>
+              <div class="paras">{p.paras.map((t) => <p class="para">{t}</p>)}</div>
+              {
+                p.tags && (
+                  <div class="tags">
+                    {p.tags.map((t) => (
+                      <aside class="tag">
+                        <p class="tag-label">{t.label}</p>
+                        <p class="tag-text">{t.text}</p>
+                      </aside>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+            <div class="bench">
+              <Tool />
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/bread/bread';
+</script>

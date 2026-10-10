@@ -1,0 +1,33 @@
+---
+// Stop 1: dough in a jar. Move the temperature and the hours.
+import { doubleMinutes, fmtDuration, growth, jarSvg } from '../../lib/bread';
+const [temp, hours] = [28, 2];
+const times = [5, 15, 25, 32, 40, 50, 56];
+---
+
+<div class="tool" data-rise-tool>
+  <svg class="jar" viewBox="0 0 160 200" role="img" aria-label="A glass jar with dough in it and a band marking where the dough started" data-rise-svg>
+    <rect class="glass" x="14" y="8" width="132" height="184" rx="10"></rect>
+    <g data-rise-dough set:html={jarSvg(growth(temp, hours))}></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Dough at <output data-rise-temp-out>{temp} degrees</output></span>
+      <input class="range" type="range" min="4" max="58" step="1" value={temp} data-rise-temp aria-label="Dough temperature in degrees Celsius" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>After <output data-rise-hours-out>{hours} hours</output></span>
+      <input class="range" type="range" min="0" max="16" step="0.5" value={hours} data-rise-hours aria-label="Hours the dough has been left to rise" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-rise-status>
+    At {temp} degrees the dough doubles in about {fmtDuration(doubleMinutes(temp))}. After {hours} hours it is {growth(temp, hours).toFixed(1)} times its first size.
+  </p>
+  <table class="times">
+    <caption class="sr-only">Time for dough to double at different temperatures</caption>
+    <thead><tr><th scope="col">Dough temperature</th><th scope="col">Time to double</th></tr></thead>
+    <tbody>{times.map((t) => <tr><th scope="row">{t} degrees</th><td>{fmtDuration(doubleMinutes(t))}</td></tr>)}</tbody>
+  </table>
+</div>

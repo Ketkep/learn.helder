@@ -217,6 +217,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-10',
     status: 'live',
   },
+  {
+    slug: 'how-bread-rises',
+    title: 'How bread rises',
+    hook: 'Follow one loaf through a day: the yeast, the gluten net, oven spring and the crust.',
+    category: 'Nature',
+    accent: '#F0DDB8',
+    preview: 'how-bread-rises',
+    dateAdded: '2026-10-10',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

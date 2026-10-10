@@ -1,0 +1,28 @@
+---
+// Stop 2: a slice of dough with its bubbles. Knead for longer and the net holds more gas.
+import { gasKept, glutenStrength, netSvg } from '../../lib/bread';
+const minutes = 6;
+const s = glutenStrength(minutes);
+const rows = [0, 2, 5, 10, 15];
+---
+
+<div class="tool" data-knead-tool>
+  <svg class="slice" viewBox="0 0 300 180" role="img" aria-label="A slice of dough with gas bubbles in it" data-knead-svg>
+    <rect class="dough-slice" x="4" y="4" width="292" height="172" rx="12"></rect>
+    <g data-knead-net set:html={netSvg(s)}></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Knead for <output data-knead-out>{minutes} minutes</output></span>
+      <input class="range" type="range" min="0" max="15" step="1" value={minutes} data-knead-range aria-label="Minutes of kneading" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-knead-status>
+    After {minutes} minutes the gluten net is {Math.round(s * 100)} per cent as strong as it will get, and the dough keeps about {Math.round(gasKept(s) * 100)} per cent of the gas.
+  </p>
+  <table class="times">
+    <caption class="sr-only">Gluten strength and gas kept after different kneading times</caption>
+    <thead><tr><th scope="col">Kneading</th><th scope="col">Net strength</th><th scope="col">Gas kept</th></tr></thead>
+    <tbody>{rows.map((m) => <tr><th scope="row">{m} minutes</th><td>{Math.round(glutenStrength(m) * 100)} per cent</td><td>{Math.round(gasKept(glutenStrength(m)) * 100)} per cent</td></tr>)}</tbody>
+  </table>
+</div>

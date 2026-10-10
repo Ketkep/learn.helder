@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .hb-loaf { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; transform-box: fill-box; transform-origin: 50% 100%; }
+    .hb-cut { fill: none; stroke: var(--on-cover); stroke-width: 4; stroke-linecap: round; }
+    .hb-tray { stroke: var(--on-cover); stroke-width: 5; stroke-linecap: round; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .hb-loaf { animation: hb-rise 2.4s ease-in-out infinite alternate; }
+    }
+    /* The loaf swells as it rises */
+    @keyframes hb-rise { 0% { transform: scale(0.82); } 100% { transform: scale(1.12); } }
+  </style>
+
+  <g>
+    <line class="hb-tray" x1="70" y1="196" x2="330" y2="196"/>
+    <g class="hb-loaf">
+      <path d="M92 196C92 100 308 100 308 196Z"/>
+    </g>
+    <path class="hb-cut" d="M150 150L166 170M190 140L206 166M230 150L246 170"/>
+  </g>
+  <circle class="knob" cx="200" cy="248" r="14"/>
+</svg>
