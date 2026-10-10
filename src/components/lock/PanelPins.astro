@@ -1,0 +1,26 @@
+---
+// Bench 2: push a key into a pin lock and watch every pin ride its cuts.
+import PinLock from './PinLock.astro';
+import { keys, opens, pinViews } from '../../lib/lock';
+const cuts = keys.right.cuts;
+---
+
+<div class="tool" data-pins-tool>
+  <PinLock cuts={cuts} t={1} label="A pin lock with the right key all the way in: every pair of pins splits at the shear line" />
+  <div class="controls needs-js" role="group" aria-label="Pick a key">
+    <button type="button" class="btn fill" data-pins-key="right" aria-pressed="true">Key A</button>
+    <button type="button" class="btn" data-pins-key="two" aria-pressed="false">Key B</button>
+    <button type="button" class="btn" data-pins-key="near" aria-pressed="false">Key C</button>
+    <button type="button" class="btn" data-pins-key="blank" aria-pressed="false">Key D (uncut)</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Push the key in <output data-pins-out>all the way</output></span>
+      <input class="range" type="range" min="0" max="100" step="1" value="100" data-pins-range aria-label="How far the key is pushed in" />
+    </label>
+    <button type="button" class="btn" data-pins-turn>Turn the plug</button>
+  </div>
+  <p class="status" aria-live="polite" data-pins-status>
+    Key A is the right key. Every pair of pins splits exactly at the shear line, so the plug is free to turn.
+  </p>
+</div>

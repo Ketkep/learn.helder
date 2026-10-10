@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Workshop from '../../components/lock/Workshop.astro';
+import { takeaways, sources, sourcesNote } from '../../data/lock';
+---
+
+<TopicLayout
+  slug="how-a-lock-works"
+  intro="A lock holds a bolt in place with parts that only the right key moves out of the way. Four benches take you from a wooden peg lock to the brass pins in most door locks today."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Workshop />
+</TopicLayout>

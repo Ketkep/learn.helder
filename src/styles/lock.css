@@ -1,0 +1,487 @@
+/* The lock page: a dark workshop with four benches. Each bench has a lock drawn from the side, in steel grey,
+   with brass keys. */
+
+.lock {
+  --board: #14181d;
+  --panel: #1e242b;
+  --line: #38424d;
+  --steel: #9fb3c8;
+  --cream: #fff3dc;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .lock .needs-js {
+  display: none;
+}
+
+.lock :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.lock .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.lock .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .lock .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .lock .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.lock .words,
+.lock .bench,
+.lock .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.lock h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.lock .kicker {
+  color: var(--steel);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.lock .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.lock .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.lock .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.lock .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.lock .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--steel);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.lock .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.lock .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.lock .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.lock .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.lock .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.lock .times th,
+.lock .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.lock .times thead th {
+  color: #d5dde6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.lock .times tbody th {
+  font-weight: 700;
+}
+
+.lock .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.lock .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.lock .pick:hover {
+  background: var(--wash);
+}
+
+.lock .pick[aria-pressed='true'] {
+  border-color: var(--steel);
+  background: var(--steel);
+  color: var(--ink-fixed);
+}
+
+html.js .lock .no-js-name {
+  display: none;
+}
+
+.lock .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.lock .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.lock .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.lock .btn:hover {
+  background: var(--wash);
+}
+
+.lock .btn.fill {
+  background: var(--steel);
+  border-color: var(--steel);
+  color: var(--ink-fixed);
+}
+
+.lock .btn.fill:hover {
+  background: var(--cream);
+}
+
+.lock .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.lock .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.lock .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.lock .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--steel) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.lock .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.lock .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--steel);
+}
+
+.lock .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.lock .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.lock .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.lock .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.lock .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.lock .snd[aria-pressed='true'] .slash,
+.lock .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lock * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.lock .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The locks ---------- */
+.lock .pinlock,
+.lock .woodlock {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 34rem;
+  background: #11151a;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.lock .housing {
+  fill: #5b6672;
+}
+
+.lock .plug {
+  fill: #7d8996;
+}
+
+.lock .keyway,
+.lock .bore,
+.lock .slot {
+  fill: #11151a;
+}
+
+.lock .spring {
+  fill: none;
+  stroke: #b9c4cf;
+  stroke-width: 2;
+}
+
+.lock .driver {
+  fill: #d5dde6;
+  stroke: #11151a;
+  stroke-width: 1.5;
+}
+
+.lock .keypin {
+  fill: #d9a441;
+  stroke: #11151a;
+  stroke-width: 1.5;
+}
+
+.lock .keypin.high,
+.lock .keypin.low {
+  fill: #e0693f;
+  stroke: #fff3dc;
+  stroke-width: 2.5;
+}
+
+.lock .blade,
+.lock .bow {
+  fill: #c9983a;
+  stroke: #11151a;
+  stroke-width: 2;
+}
+
+.lock .hole {
+  fill: #11151a;
+}
+
+.lock .shear {
+  stroke: #fff3dc;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+}
+
+.lock .shear-label {
+  fill: #fff3dc;
+  font-weight: 700;
+}
+
+.lock .bolt rect,
+.lock .bolt-body {
+  fill: #b9c4cf;
+  stroke: #11151a;
+  stroke-width: 2;
+}
+
+.lock .bolt-body {
+  fill: #a8794a;
+}
+
+.lock .peg {
+  fill: #d8c3a0;
+  stroke: #11151a;
+  stroke-width: 1.5;
+}
+
+.lock .prong,
+.lock .bar {
+  fill: #c9983a;
+  stroke: #11151a;
+  stroke-width: 1.5;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lock [data-bolt],
+  .lock [data-key],
+  .lock [data-wood-key] {
+    transition: transform 0.25s;
+  }
+}
+
+.lock .cuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+}
+
+.lock .cut {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.lock .cut-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.lock .cut-value {
+  min-width: 1.4rem;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.lock .btn.small {
+  padding: 0.15rem 0.7rem;
+  font-size: 1.1rem;
+}
+
+.lock .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

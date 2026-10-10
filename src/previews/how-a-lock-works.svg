@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .hk-body { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .hk-pin { fill: var(--on-cover); }
+    .hk-line { stroke: var(--on-cover); stroke-width: 3; stroke-dasharray: 6 6; }
+    .hk-key { fill: var(--cover); stroke: var(--on-cover); stroke-width: 4; stroke-linejoin: round; }
+    .hk-up { transform-box: fill-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .hk-key-move { animation: hk-in 2.4s ease-in-out infinite alternate; }
+    }
+    /* The key slides in under the pins */
+    @keyframes hk-in { 0% { transform: translateX(-90px); } 100% { transform: translateX(0); } }
+  </style>
+
+  <g>
+    <rect class="hk-body" x="80" y="60" width="240" height="150" rx="10"/>
+    <line class="hk-line" x1="80" y1="124" x2="320" y2="124"/>
+    <rect class="hk-pin" x="114" y="78" width="18" height="46"/>
+    <rect class="hk-pin" x="162" y="86" width="18" height="38"/>
+    <rect class="hk-pin" x="210" y="70" width="18" height="54"/>
+    <rect class="hk-pin" x="258" y="92" width="18" height="32"/>
+    <g class="hk-key-move">
+      <path class="hk-key" d="M60 168H112L124 156H154L166 168H208L220 150H250L262 168H300V198H60Z"/>
+    </g>
+  </g>
+  <circle class="knob" cx="200" cy="254" r="14"/>
+</svg>

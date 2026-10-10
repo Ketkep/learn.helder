@@ -1,0 +1,31 @@
+---
+// Bench 4: how many different keys a lock can have. A table without a script.
+import { keyspace } from '../../lib/lock';
+const rows = [3, 4, 5, 6, 7];
+const depths = [4, 6, 10];
+const group = (n: number) => n.toLocaleString('en-US');
+---
+
+<div class="tool" data-count-tool>
+  <table class="times">
+    <caption class="sr-only">Number of possible keys for different numbers of pins and depths</caption>
+    <thead>
+      <tr><th scope="col">Pins</th>{depths.map((d) => <th scope="col">{d} depths</th>)}</tr>
+    </thead>
+    <tbody>
+      {rows.map((p) => <tr><th scope="row">{p} pins</th>{depths.map((d) => <td>{group(keyspace(p, d, d).raw)}</td>)}</tr>)}
+    </tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Pins <output data-count-pins-out>5</output></span><input class="range" type="range" min="3" max="8" step="1" value="5" data-count-pins aria-label="Number of pins" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Depths <output data-count-depths-out>10</output></span><input class="range" type="range" min="2" max="10" step="1" value="10" data-count-depths aria-label="Number of depths a cut can have" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Neighbouring cuts differ by at most <output data-count-macs-out>9</output></span><input class="range" type="range" min="1" max="9" step="1" value="9" data-count-macs aria-label="Largest allowed difference between neighbouring cuts" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-count-status>
+    Five pins with ten depths make 100,000 keys. Allowing any neighbouring cuts leaves all of them.
+  </p>
+</div>

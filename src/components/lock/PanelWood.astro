@@ -1,0 +1,42 @@
+---
+// Bench 1: the wooden peg lock. A key with prongs lifts loose pegs out of the holes of a bolt.
+import { WOOD_HOLES, WOOD_X, holeX, pegsLifted, woodKeys } from '../../lib/lock';
+const key = woodKeys.right;
+const lifted = pegsLifted(key, 1);
+---
+
+<div class="tool" data-wood-tool>
+  <svg class="woodlock" viewBox="0 0 330 170" role="img" aria-label="A wooden bolt with three holes, three pegs and a key with three prongs" data-wood-svg>
+    <rect class="housing" x="40" y="0" width="260" height="70"></rect>
+    {Array.from({ length: WOOD_HOLES }, (_, i) => <rect class="bore" x={holeX(i) - 8} y="8" width="16" height="62"></rect>)}
+    <rect class="slot" x="40" y="100" width="260" height="46"></rect>
+    <g data-bolt>
+      <path class="bolt-body" d={`M60 70H300V100H60Z${Array.from({ length: WOOD_HOLES }, (_, i) => `M${holeX(i) - 7} 70V100H${holeX(i) + 7}V70Z`).join('')}`} fill-rule="evenodd"></path>
+    </g>
+    {
+      Array.from({ length: WOOD_HOLES }, (_, i) => (
+        <rect class="peg" data-peg={i} x={holeX(i) - 7} y={lifted[i] ? 26 : 52} width="14" height="40"></rect>
+      ))
+    }
+    <g data-wood-key style={`transform: translateX(${WOOD_X}px)`}>
+      <rect class="bar" x="-230" y="118" width="230" height="18" rx="4"></rect>
+      <rect class="bar" x="-4" y="118" width={(key.prongs - 1) * key.gap + 18} height="18" rx="4"></rect>
+      {Array.from({ length: key.prongs }, (_, j) => <rect class="prong" data-prong={j} x={j * key.gap - 5} y={lifted[j] ? 66 : 102} width="10" height={lifted[j] ? 52 : 16}></rect>)}
+    </g>
+  </svg>
+  <div class="controls needs-js" role="group" aria-label="Pick a key">
+    <button type="button" class="btn fill" data-wood-key-pick="right" aria-pressed="true">Key A</button>
+    <button type="button" class="btn" data-wood-key-pick="wide" aria-pressed="false">Key B</button>
+    <button type="button" class="btn" data-wood-key-pick="short" aria-pressed="false">Key C</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Push the key in <output data-wood-out>all the way</output></span>
+      <input class="range" type="range" min="0" max="100" step="1" value="100" data-wood-range aria-label="How far the key is pushed in" />
+    </label>
+    <button type="button" class="btn" data-wood-bolt>Slide the bolt</button>
+  </div>
+  <p class="status" aria-live="polite" data-wood-status>
+    Key A has three prongs, spaced like the three holes. All three pegs are lifted, so the bolt can slide.
+  </p>
+</div>

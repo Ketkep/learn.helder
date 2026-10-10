@@ -1,0 +1,29 @@
+---
+// Bench 3: set the five cuts of your own key and see which pins stop the plug.
+import PinLock from './PinLock.astro';
+import { keys, PINS } from '../../lib/lock';
+const cuts = keys.near.cuts;
+---
+
+<div class="tool" data-cut-tool>
+  <PinLock cuts={cuts} t={1} label="A pin lock with a key whose last cut is one step too deep: the last pair of pins does not split at the shear line" />
+  <div class="cuts needs-js">
+    {
+      Array.from({ length: PINS }, (_, i) => (
+        <div class="cut" role="group" aria-label={`Cut ${i + 1}`}>
+          <span class="cut-label">Cut {i + 1}</span>
+          <button type="button" class="btn small" data-cut-step={`${i},-1`} aria-label={`Make cut ${i + 1} shallower`}>-</button>
+          <output class="cut-value mono" data-cut-value={i}>{cuts[i]}</output>
+          <button type="button" class="btn small" data-cut-step={`${i},1`} aria-label={`Make cut ${i + 1} deeper`}>+</button>
+        </div>
+      ))
+    }
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn" data-cut-turn>Turn the plug</button>
+    <button type="button" class="btn" data-cut-reset>Start again with Key C</button>
+  </div>
+  <p class="status" aria-live="polite" data-cut-status>
+    This key has cuts 3, 6, 2, 7 and 5. Four pairs of pins split at the shear line. The last driver pin reaches into the plug, so the plug cannot turn.
+  </p>
+</div>

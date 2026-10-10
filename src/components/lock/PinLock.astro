@@ -1,0 +1,38 @@
+---
+// A side view of a pin lock: housing on top, plug below, five pairs of pins, and a key in the keyway.
+import { DRIVER, FIRST_X, PINS, REST, SHEAR, SPACING, keyPath, keyShift, pinViews, pinX, springPath } from '../../lib/lock';
+interface Props {
+  cuts: number[];
+  t: number;
+  label: string;
+}
+const { cuts, t, label } = Astro.props;
+const views = pinViews(cuts, t);
+const bolt = 0;
+---
+
+<svg class="pinlock" viewBox="0 0 300 232" role="img" aria-label={label} data-pinlock>
+  <rect class="housing" x="30" y="0" width="240" height={SHEAR}></rect>
+  <rect class="plug" x="30" y={SHEAR} width="240" height={REST + 50 - SHEAR}></rect>
+  <rect class="keyway" x="30" y={SHEAR + 14} width="240" height={REST + 44 - SHEAR - 14}></rect>
+  {Array.from({ length: PINS }, (_, i) => <rect class="bore" x={pinX(i) - 9} y="0" width="18" height={REST}></rect>)}
+  <g class="bolt" data-bolt style={`transform: translateX(${bolt}px)`}>
+    <rect x="262" y={SHEAR + 10} width="34" height="14"></rect>
+  </g>
+  {
+    views.map((v, i) => (
+      <g class="pin" data-pin={i}>
+        <path class="spring" data-spring d={springPath(v.x, 4, v.driverTop)}></path>
+        <rect class="driver" data-driver x={v.x - 8} y={v.driverTop} width="16" height={DRIVER}></rect>
+        <rect class={`keypin ${v.state}`} data-keypin x={v.x - 8} y={v.keyTop} width="16" height={v.keyBottom - v.keyTop}></rect>
+      </g>
+    ))
+  }
+  <g class="key" data-key style={`transform: translateX(${keyShift(t)}px)`}>
+    <path class="blade" data-blade d={keyPath(cuts)}></path>
+    <rect class="bow" x="-170" y="128" width="100" height="64" rx="28"></rect>
+    <circle class="hole" cx="-138" cy="160" r="10"></circle>
+  </g>
+  <line class="shear" x1="30" y1={SHEAR} x2="270" y2={SHEAR}></line>
+  <text class="shear-label" x="272" y={SHEAR - 4} text-anchor="end" font-size="11">shear line</text>
+</svg>

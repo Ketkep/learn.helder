@@ -207,6 +207,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-10',
     status: 'live',
   },
+  {
+    slug: 'how-a-lock-works',
+    title: 'How a lock works',
+    hook: 'Push keys into a lock from 4,000 years ago and a modern one, and see which pins stop the door.',
+    category: 'Technology',
+    accent: '#5E6B78',
+    preview: 'how-a-lock-works',
+    dateAdded: '2026-10-10',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */
