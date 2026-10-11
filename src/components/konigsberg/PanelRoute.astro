@@ -1,0 +1,15 @@
+---
+// Try 4: choose where to start and see a walk over every bridge.
+import Map from './Map.astro';
+import { lands } from '../../lib/konigsberg';
+---
+
+<div class="tool" data-route-tool>
+  <Map extra label="Map of your town with the walk marked" />
+  <div class="controls needs-js" role="group" aria-label="Where to start">
+    {lands.map((l) => <button type="button" class="btn" data-route-start={l} aria-pressed="false">Start at {l}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-route-status>
+    Choose a piece of land to start from. The town is the one you built in the last panel.
+  </p>
+</div>

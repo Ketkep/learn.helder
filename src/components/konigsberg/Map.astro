@@ -1,0 +1,40 @@
+---
+// The town: four pieces of land and the places for bridges. Each page panel draws its own copy.
+import { bridges, degrees, oldIds } from '../../lib/konigsberg';
+interface Props {
+  /** Show the four extra places for a bridge, drawn faint. */
+  extra?: boolean;
+  label: string;
+  /** Show the number of bridges on each land. */
+  counts?: boolean;
+}
+const { extra = false, label, counts = false } = Astro.props;
+const shown = bridges.filter((b) => b.old || extra);
+const deg = degrees(oldIds);
+const mid = (a: number[]) => [(a[0] + a[2]) / 2, (a[1] + a[3]) / 2];
+---
+
+<svg class="town" viewBox="0 0 380 300" role="group" aria-label={label} data-town>
+  <rect class="water" x="0" y="0" width="380" height="300"></rect>
+  <rect class="land" x="0" y="0" width="380" height="72" data-land="A"></rect>
+  <rect class="land" x="0" y="228" width="380" height="72" data-land="B"></rect>
+  <ellipse class="land" cx="140" cy="150" rx="62" ry="44" data-land="C"></ellipse>
+  <rect class="land" x="252" y="120" width="110" height="60" rx="26" data-land="D"></rect>
+  {
+    shown.map((b) => (
+      <g class={`bridge${b.old ? '' : ' extra'}`} data-bridge={b.id} data-a={b.a} data-b={b.b}>
+        <line class="plank" x1={b.at[0]} y1={b.at[1]} x2={b.at[2]} y2={b.at[3]}></line>
+        <text class="num" x={mid(b.at)[0] + (b.at[0] === b.at[2] ? 12 : 0)} y={mid(b.at)[1] + (b.at[1] === b.at[3] ? -8 : 4)} text-anchor="middle">{b.id}</text>
+      </g>
+    ))
+  }
+  {
+    [['A', 190, 36], ['B', 190, 266], ['C', 140, 156], ['D', 307, 156]].map(([l, x, y]) => (
+      <g class="tag-land" data-land-tag={l}>
+        <circle cx={x} cy={y} r="15"></circle>
+        <text x={x} y={Number(y) + 5} text-anchor="middle">{l}</text>
+        {counts && <text class="count" data-count={l} x={Number(x) + 24} y={Number(y) + 5}>{deg[l as 'A']}</text>}
+      </g>
+    ))
+  }
+</svg>

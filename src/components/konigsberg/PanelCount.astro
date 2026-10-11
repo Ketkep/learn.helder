@@ -1,0 +1,28 @@
+---
+// Try 2: how many bridges touch each land.
+import Map from './Map.astro';
+import { degrees, landNames, lands, oldIds } from '../../lib/konigsberg';
+const d = degrees(oldIds);
+---
+
+<div class="tool" data-count-tool>
+  <Map counts label="Map of the town with the number of bridges at each piece of land" />
+  <table class="times">
+    <caption class="sr-only">Bridges at each piece of land</caption>
+    <thead><tr><th scope="col">Land</th><th scope="col">Bridges</th><th scope="col">Odd or even</th></tr></thead>
+    <tbody>
+      {
+        lands.map((l) => (
+          <tr data-count-row={l}>
+            <th scope="row"><button type="button" class="pick needs-js" data-count-pick={l}>{l}, {landNames[l]}</button><span class="no-js-name">{l}, {landNames[l]}</span></th>
+            <td>{d[l]}</td>
+            <td>{d[l] % 2 ? 'odd' : 'even'}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  <p class="status" aria-live="polite" data-count-status>
+    The counts are 3, 3, 5 and 3. Their sum is 14, which is twice the 7 bridges, because every bridge has two ends.
+  </p>
+</div>

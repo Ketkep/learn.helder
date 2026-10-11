@@ -227,6 +227,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-10',
     status: 'live',
   },
+  {
+    slug: 'the-seven-bridges-of-konigsberg',
+    title: 'The seven bridges of Königsberg',
+    hook: 'Try to cross every bridge exactly once, and find out why Euler said you cannot.',
+    category: 'Maths',
+    accent: '#5BC8D6',
+    preview: 'the-seven-bridges-of-konigsberg',
+    dateAdded: '2026-10-11',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Walk from '../../components/konigsberg/Walk.astro';
+import { takeaways, sources, sourcesNote } from '../../data/konigsberg';
+---
+
+<TopicLayout
+  slug="the-seven-bridges-of-konigsberg"
+  intro="A river town with seven bridges and one puzzle: can you walk over every bridge exactly once? Try it, count the bridges, change the town, and see how Euler solved it in 1736."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Walk />
+</TopicLayout>

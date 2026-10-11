@@ -1,0 +1,13 @@
+---
+// Try 1: walk the old town yourself.
+import Map from './Map.astro';
+---
+
+<div class="tool" data-try-tool>
+  <Map label="Map of the town with seven bridges, numbered 1 to 7" />
+  <div class="controls needs-js"><button type="button" class="btn" data-try-reset>Start again</button></div>
+  <p class="status" aria-live="polite" data-try-status>
+    Press a piece of land to start there. Then press a bridge next to you to cross it.
+  </p>
+  <p class="no-js-note">There are seven bridges. Land A has 3 bridges, B has 3, C has 5 and D has 3. No walk crosses every bridge exactly once.</p>
+</div>

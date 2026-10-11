@@ -295,6 +295,15 @@ The page follows one loaf through a day in four stops, each headed by a time of 
 - `src/components/bread/Kitchen.astro` is the frame and `Panel*.astro` is one stop each.
 - `src/scripts/bread/` has one script per stop: `knead.ts`, `rise.ts`, `spring.ts` and `crust.ts`.
 
+## The Königsberg page: how the town works
+
+The page is one drawn river town with four pieces of land (A, B, C, D) and places for eleven bridges, shown in four panels. Panel 1 lets you walk the old seven bridges by pressing a land and then the bridges next to you. Panel 2 counts the bridges at each land (3, 3, 5 and 3) and shows that the counts add up to twice the number of bridges. Panel 3 lets you build and remove bridges and says whether a walk over every bridge exists (the town is shared with panel 4). Panel 4 finds such a walk from a start you choose and numbers the bridges in the order of the walk. The shapes of the bridges are pressable SVG shapes with a keyboard focus. The map is a simple drawing, not to scale, and the page does not say which bridges Kaliningrad has today, because the sources disagree.
+
+- `src/data/konigsberg.ts` holds all the words, the takeaways and the sources.
+- `src/lib/konigsberg.ts` holds the graph maths: the bridges and where they are drawn, the counts at each land, whether the bridges are joined up, the rule (0 or 2 odd lands) and a walk over every bridge (Hierholzer's method).
+- `src/components/konigsberg/Walk.astro` is the frame, `Map.astro` is the town and `Panel*.astro` is one panel each.
+- `src/scripts/konigsberg/` has `map.ts` (helpers that make SVG shapes pressable), `build.ts` (the shared town) and one script per panel: `try.ts`, `count.ts`, `build.ts` and `route.ts`.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -334,6 +343,7 @@ src/data/light.ts        everything the light page says: panels, takeaways, sour
 src/data/maps.ts         everything the maps page says: panels, takeaways, sources
 src/data/lock.ts         everything the lock page says: benches, takeaways, sources
 src/data/bread.ts        everything the bread page says: stops, takeaways, sources
+src/data/konigsberg.ts   everything the Königsberg page says: panels, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -356,6 +366,7 @@ src/components/light/    the light page: the beam, the four panels and the frame
 src/components/maps/     the maps page: the globe and map pairs, three panels and the frame
 src/components/lock/     the lock page: the pin lock picture, four benches and the frame
 src/components/bread/    the bread page: four stops and the frame
+src/components/konigsberg/ the Königsberg page: the town map, four panels and the frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -375,6 +386,7 @@ src/styles/light.css     the light page: dark control room, sticky beam, panels,
 src/styles/maps.css      the maps page: atlas paper, panels, globe and map pairs
 src/styles/lock.css      the lock page: dark workshop, benches, lock pictures
 src/styles/bread.css     the bread page: flour white, stops with a time of day, pictures
+src/styles/konigsberg.css the Königsberg page: old map paper, the town, bridges and lands
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -383,6 +395,7 @@ src/lib/text.ts          fill {slots} in a line, and pick singular or plural
 src/lib/chess/           chess pieces, still diagrams, and the build-time analysis of games
 src/lib/dutch/           drawing helpers, background strips, map and painting for the Dutch page
 src/lib/rand.ts          repeatable random numbers.  src/lib/svgpath.ts: smooth curves for drawings
+src/lib/konigsberg.ts    graph maths for the Königsberg page: bridges, counts, the rule, a walk
 src/lib/bread.ts         bread models and pictures for the bread page
 src/lib/lock.ts          lock maths for the lock page: pins, keys, the wooden lock, key counts
 src/lib/projections.ts   map maths for the maps page: projections, circles, routes, the globe.  src/lib/maplayers.ts: what each panel draws
@@ -405,6 +418,7 @@ src/scripts/light/       the beam (beam.ts) and one script per panel
 src/scripts/maps/        the chosen projection (state.ts), drawing (draw.ts) and one script per panel
 src/scripts/lock/        redrawing the pin lock (pins.ts) and one script per bench
 src/scripts/bread/       one script per stop: knead, rise, spring and crust
+src/scripts/konigsberg/  pressable map shapes, the shared town (build.ts) and one script per panel
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

@@ -1,0 +1,15 @@
+---
+// Try 3: build and remove bridges and see whether a walk over all of them exists.
+import Map from './Map.astro';
+---
+
+<div class="tool" data-build-tool>
+  <Map extra counts label="Map of the town with places for eleven bridges, seven built" />
+  <div class="controls needs-js">
+    <button type="button" class="btn" data-build-set="old">The old seven</button>
+    <button type="button" class="btn" data-build-set="clear">Remove all</button>
+  </div>
+  <p class="status" aria-live="polite" data-build-status>
+    The old town has 4 lands with an odd number of bridges, so there is no walk over every bridge.
+  </p>
+</div>
