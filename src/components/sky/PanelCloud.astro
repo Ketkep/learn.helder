@@ -1,0 +1,27 @@
+---
+// Window 4: the colour of the light scattered by particles of different sizes.
+import { exponent, rgb, scatterColour } from '../../lib/sky';
+const radius = 0.001;
+---
+
+<div class="tool" data-cloud-tool>
+  <div class="arch">
+    <div class="swatch" data-cloud-swatch style={`background: ${rgb(scatterColour(radius))}`} role="img" aria-label="The colour of the light scattered by the particle"></div>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Particle radius <output data-cloud-out>0.001 micrometres</output></span>
+      <input class="range" type="range" min="0" max="100" step="1" value="0" data-cloud-range aria-label="Radius of the particle, from a gas molecule to a cloud drop" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-cloud-status>
+    A gas molecule scatters short waves far more than long ones (the colour drops with the wavelength to the power {exponent(radius).toFixed(1)}), so it scatters blue light.
+  </p>
+  <table class="times">
+    <caption class="sr-only">Light scattered by particles of different sizes</caption>
+    <thead><tr><th scope="col">Particle</th><th scope="col">Radius</th><th scope="col">Scattered light</th></tr></thead>
+    <tbody>
+      {[['Gas molecule', 0.001], ['Smoke or haze', 0.1], ['Mist', 1], ['Cloud drop', 10]].map(([n, r]) => <tr><th scope="row">{n}</th><td>{r} micrometres</td><td><span class="chip" style={`background: ${rgb(scatterColour(Number(r)))}`}></span></td></tr>)}
+    </tbody>
+  </table>
+</div>

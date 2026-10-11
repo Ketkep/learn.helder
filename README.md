@@ -304,6 +304,24 @@ The page is one drawn river town with four pieces of land (A, B, C, D) and place
 - `src/components/konigsberg/Walk.astro` is the frame, `Map.astro` is the town and `Panel*.astro` is one panel each.
 - `src/scripts/konigsberg/` has `map.ts` (helpers that make SVG shapes pressable), `build.ts` (the shared town) and one script per panel: `try.ts`, `count.ts`, `build.ts` and `route.ts`.
 
+## The sky page: how the windows work
+
+The page is a dusk blue room with four windows, each an arch of sky with one thing to move. Window 1 slides through the colours (400 to 700 nm) and says how many times more strongly air scatters each colour than red light (one over the wavelength to the fourth power, computed). Window 2 slides the sun from overhead to the horizon and shows the colour of the sun and of the sky overhead, with a toy model of three colours and one layer of air (air mass is one over the sine of the height, capped at 38). Window 3 switches three effects on one at a time (short waves scatter more, the sun gives less violet, the eye notices violet less) and shows how the light is shared between four colour bands. It only counts brightness and says so. Window 4 slides the size of a particle from a gas molecule to a cloud drop and shows the colour it scatters, with a toy curve between blue and white. Without a script each window shows a picture and a table.
+
+- `src/data/sky.ts` holds all the words, the takeaways and the sources.
+- `src/lib/sky.ts` holds the models: the colour of a wavelength, scattering against red, the optical depth of the air, the sunlight (a blackbody at 5772 K), the eye curve and the particle size curve.
+- `src/components/sky/Windows.astro` is the frame and `Panel*.astro` is one window each.
+- `src/scripts/sky/` has one script per window: `waves.ts`, `sun.ts`, `violet.ts` and `cloud.ts`.
+
+## The rhythm page: how the drum machine works
+
+The page is a dark drum machine with four boards, and nothing plays until you press play (the sound can be switched off). Board 1 is a steady beat with a tempo (40 to 200 BPM) and a time signature, and the first beat of each bar sounds different. Board 2 is a grid of 16 steps with presets. Board 3 spreads a number of hits as evenly as possible over a number of steps (Toussaint's Euclidean rhythms) on a ring and names the ones that have names. Board 4 plays two evenly spaced beats at once, such as 3 against 2, on two rings. Only one board plays at a time. The lit step is shown with an outline, not a flash. Without a script each board shows its patterns as rows of x and dots.
+
+- `src/data/rhythm.ts` holds all the words, the takeaways and the sources.
+- `src/lib/rhythm.ts` holds the maths: seconds per beat, the evenly spread pattern, the named rhythms, the points of a ring and the least common multiple.
+- `src/components/rhythm/Stage.astro` is the frame and `Panel*.astro` is one board each.
+- `src/scripts/rhythm/clock.ts` is the small looping clock that plays the hits (one loop at a time). `beat.ts`, `grid.ts`, `euclid.ts` and `poly.ts` are the boards.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -344,6 +362,8 @@ src/data/maps.ts         everything the maps page says: panels, takeaways, sourc
 src/data/lock.ts         everything the lock page says: benches, takeaways, sources
 src/data/bread.ts        everything the bread page says: stops, takeaways, sources
 src/data/konigsberg.ts   everything the Königsberg page says: panels, takeaways, sources
+src/data/sky.ts           everything the sky page says: windows, takeaways, sources
+src/data/rhythm.ts        everything the rhythm page says: boards, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -367,6 +387,8 @@ src/components/maps/     the maps page: the globe and map pairs, three panels an
 src/components/lock/     the lock page: the pin lock picture, four benches and the frame
 src/components/bread/    the bread page: four stops and the frame
 src/components/konigsberg/ the Königsberg page: the town map, four panels and the frame
+src/components/sky/       the sky page: four windows and the frame
+src/components/rhythm/    the rhythm page: four boards and the frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -387,6 +409,8 @@ src/styles/maps.css      the maps page: atlas paper, panels, globe and map pairs
 src/styles/lock.css      the lock page: dark workshop, benches, lock pictures
 src/styles/bread.css     the bread page: flour white, stops with a time of day, pictures
 src/styles/konigsberg.css the Königsberg page: old map paper, the town, bridges and lands
+src/styles/sky.css        the sky page: dusk blue room, arches, bars
+src/styles/rhythm.css     the rhythm page: dark drum machine, pads, rings
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -395,6 +419,8 @@ src/lib/text.ts          fill {slots} in a line, and pick singular or plural
 src/lib/chess/           chess pieces, still diagrams, and the build-time analysis of games
 src/lib/dutch/           drawing helpers, background strips, map and painting for the Dutch page
 src/lib/rand.ts          repeatable random numbers.  src/lib/svgpath.ts: smooth curves for drawings
+src/lib/sky.ts           sky colour models for the sky page
+src/lib/rhythm.ts        rhythm maths for the rhythm page
 src/lib/konigsberg.ts    graph maths for the Königsberg page: bridges, counts, the rule, a walk
 src/lib/bread.ts         bread models and pictures for the bread page
 src/lib/lock.ts          lock maths for the lock page: pins, keys, the wooden lock, key counts
@@ -419,6 +445,8 @@ src/scripts/maps/        the chosen projection (state.ts), drawing (draw.ts) and
 src/scripts/lock/        redrawing the pin lock (pins.ts) and one script per bench
 src/scripts/bread/       one script per stop: knead, rise, spring and crust
 src/scripts/konigsberg/  pressable map shapes, the shared town (build.ts) and one script per panel
+src/scripts/sky/         one script per window: waves, sun, violet and cloud
+src/scripts/rhythm/      the looping clock (clock.ts) and one script per board
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

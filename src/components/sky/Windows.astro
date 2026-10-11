@@ -1,0 +1,60 @@
+---
+// The whole page: four windows. The windows are the Panel components and src/scripts/sky.
+// Without a script each window shows one picture and a table.
+import '../../styles/sky.css';
+import { intro, windows } from '../../data/sky';
+import PanelWaves from './PanelWaves.astro';
+import PanelSun from './PanelSun.astro';
+import PanelViolet from './PanelViolet.astro';
+import PanelCloud from './PanelCloud.astro';
+
+const tools: Record<string, typeof PanelWaves> = { waves: PanelWaves, sun: PanelSun, violet: PanelViolet, cloud: PanelCloud };
+---
+
+<div class="sky" data-sky>
+  <section class="panel opening" aria-labelledby="sky-intro">
+    <div class="panel-inner">
+      <div class="words">
+        <p class="kicker">Look up</p>
+        <h2 id="sky-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  {
+    windows.map((p) => {
+      const Tool = tools[p.id];
+      return (
+        <section class="panel" id={`window-${p.id}`} aria-labelledby={`window-${p.id}-h`}>
+          <div class="panel-inner">
+            <div class="words">
+              <p class="kicker">{p.kicker}</p>
+              <h2 id={`window-${p.id}-h`}>{p.title}</h2>
+              <div class="paras">{p.paras.map((t) => <p class="para">{t}</p>)}</div>
+              {
+                p.tags && (
+                  <div class="tags">
+                    {p.tags.map((t) => (
+                      <aside class="tag">
+                        <p class="tag-label">{t.label}</p>
+                        <p class="tag-text">{t.text}</p>
+                      </aside>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+            <div class="bench">
+              <Tool />
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/sky/sky';
+</script>

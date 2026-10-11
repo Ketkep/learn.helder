@@ -1,0 +1,27 @@
+---
+// Window 1: slide through the colours and see how strongly air scatters each.
+import { colourName, rgb, scatterVsRed, wavelengthColour } from '../../lib/sky';
+const nm = 450;
+const rows = [400, 450, 500, 550, 600, 650, 700];
+---
+
+<div class="tool" data-waves-tool>
+  <div class="arch">
+    <div class="swatch" data-waves-swatch style={`background: ${rgb(wavelengthColour(nm))}`} role="img" aria-label="The colour of the chosen wavelength"></div>
+  </div>
+  <div class="spectrum" aria-hidden="true"></div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Wavelength <output data-waves-out>{nm} nm</output></span>
+      <input class="range" type="range" min="400" max="700" step="5" value={nm} data-waves-range aria-label="Wavelength of light in nanometres" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-waves-status>
+    {nm} nm is {colourName(nm)} light. Air scatters it {scatterVsRed(nm).toFixed(1)} times more strongly than red light at 700 nm.
+  </p>
+  <table class="times">
+    <caption class="sr-only">How strongly air scatters different wavelengths compared with red light at 700 nanometres</caption>
+    <thead><tr><th scope="col">Wavelength</th><th scope="col">Colour</th><th scope="col">Scattered compared with red</th></tr></thead>
+    <tbody>{rows.map((w) => <tr><th scope="row">{w} nm</th><td><span class="chip" style={`background: ${rgb(wavelengthColour(w))}`}></span> {colourName(w)}</td><td>{scatterVsRed(w).toFixed(1)} times</td></tr>)}</tbody>
+  </table>
+</div>

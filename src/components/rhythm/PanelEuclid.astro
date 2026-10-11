@@ -1,0 +1,30 @@
+---
+// Board 3: k hits spread as evenly as possible over n steps, shown on a ring.
+import { asText, euclid, named, ringPoint } from '../../lib/rhythm';
+const [k, n] = [3, 8];
+const pattern = euclid(k, n);
+---
+
+<div class="tool" data-euclid-tool>
+  <svg class="ring" viewBox="0 0 220 220" role="img" aria-label="A ring of steps with the hits marked" data-euclid-ring>
+    <circle class="ring-line" cx="110" cy="110" r="84"></circle>
+    <g data-euclid-dots set:html={pattern.map((h, i) => { const [x, y] = ringPoint(i, n, 84); return `<circle class="${h ? 'hit' : 'rest'}" cx="${x}" cy="${y}" r="${h ? 9 : 5}"/>`; }).join('')}></g>
+  </svg>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-euclid-play aria-pressed="false">Play</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Hits <output data-euclid-k-out>{k}</output></span><input class="range" type="range" min="1" max="16" step="1" value={k} data-euclid-k aria-label="Number of hits" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Steps <output data-euclid-n-out>{n}</output></span><input class="range" type="range" min="2" max="16" step="1" value={n} data-euclid-n aria-label="Number of steps" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-euclid-status>
+    {k} hits in {n} steps. This is the Cuban tresillo, often called the habanera rhythm in the USA. Pattern: {asText(pattern)}
+  </p>
+  <table class="times">
+    <caption class="sr-only">Named rhythms that spread hits evenly</caption>
+    <thead><tr><th scope="col">Hits in steps</th><th scope="col">Pattern</th><th scope="col">Where it is played</th></tr></thead>
+    <tbody>{named.map((r) => <tr><th scope="row">{r.k} in {r.n}</th><td class="mono">{asText(euclid(r.k, r.n))}</td><td>{r.where}</td></tr>)}</tbody>
+  </table>
+</div>

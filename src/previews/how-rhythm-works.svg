@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .hr-ring { fill: none; stroke: var(--on-cover); stroke-width: 4; }
+    .hr-dot { fill: var(--on-cover); transform-box: fill-box; transform-origin: 50% 50%; }
+    .hr-rest { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 3; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .hr-spin { animation: hr-spin 4.8s linear infinite; }
+    }
+    /* A pointer sweeps round the ring of steps */
+    @keyframes hr-spin { to { transform: rotate(360deg); } }
+    .hr-spin { transform-origin: 200px 140px; }
+  </style>
+
+  <g>
+    <circle class="hr-ring" cx="200" cy="140" r="84"/>
+    <circle class="hr-dot" cx="200" cy="56" r="14"/>
+    <circle class="hr-rest" cx="259" cy="81" r="9"/>
+    <circle class="hr-rest" cx="284" cy="140" r="9"/>
+    <circle class="hr-dot" cx="259" cy="199" r="14"/>
+    <circle class="hr-rest" cx="200" cy="224" r="9"/>
+    <circle class="hr-rest" cx="141" cy="199" r="9"/>
+    <circle class="hr-dot" cx="116" cy="140" r="14"/>
+    <circle class="hr-rest" cx="141" cy="81" r="9"/>
+    <g class="hr-spin"><line x1="200" y1="140" x2="200" y2="72" stroke="var(--on-cover)" stroke-width="5" stroke-linecap="round"/></g>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

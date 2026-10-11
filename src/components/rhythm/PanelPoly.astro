@@ -1,0 +1,27 @@
+---
+// Board 4: two evenly spaced beats at once on one ring.
+import { lcm, ringPoint } from '../../lib/rhythm';
+const [a, b] = [3, 2];
+const dots = (n: number, r: number, cls: string) => Array.from({ length: n }, (_, i) => { const [x, y] = ringPoint(i, n, r); return `<circle class="${cls}" cx="${x}" cy="${y}" r="9"/>`; }).join('');
+---
+
+<div class="tool" data-poly-tool>
+  <svg class="ring" viewBox="0 0 220 220" role="img" aria-label="Two rings of hits on one circle" data-poly-ring>
+    <circle class="ring-line" cx="110" cy="110" r="84"></circle>
+    <circle class="ring-line" cx="110" cy="110" r="52"></circle>
+    <g data-poly-a set:html={dots(a, 84, 'hit')}></g>
+    <g data-poly-b set:html={dots(b, 52, 'hit two')}></g>
+  </svg>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-poly-play aria-pressed="false">Play</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Low line <output data-poly-a-out>{a}</output> hits</span><input class="range" type="range" min="2" max="7" step="1" value={a} data-poly-a-range aria-label="Hits in the low line" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>High line <output data-poly-b-out>{b}</output> hits</span><input class="range" type="range" min="2" max="7" step="1" value={b} data-poly-b-range aria-label="Hits in the high line" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-poly-status>
+    {a} against {b}: both lines start together at the top. Their hits fall on the same step again only after the whole cycle, and the cycle fits {lcm(a, b)} equal steps of both.
+  </p>
+</div>

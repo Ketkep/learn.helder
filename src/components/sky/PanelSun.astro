@@ -1,0 +1,22 @@
+---
+// Window 2: the sun sliding down the sky. The sun and the sky overhead change colour.
+import { airMass, rgb, skyColours } from '../../lib/sky';
+const elevation = 45;
+const c = skyColours(elevation);
+---
+
+<div class="tool" data-sun-tool>
+  <div class="arch scene" data-sun-scene style={`background: linear-gradient(to top, ${rgb(c.sky.map((v, i) => v * 0.6 + c.sun[i] * 0.4))}, ${rgb(c.sky)})`} role="img" aria-label="A sky with the sun in it. The sky overhead and the sun change colour as the sun gets lower.">
+    <div class="sun" data-sun-disc style={`background: ${rgb(c.sun)}; bottom: ${22 + (elevation / 90) * 62}%`}></div>
+    <div class="ground"></div>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Sun <output data-sun-out>{elevation} degrees up</output></span>
+      <input class="range" type="range" min="0" max="90" step="1" value={elevation} data-sun-range aria-label="Height of the sun above the horizon in degrees" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-sun-status>
+    With the sun {elevation} degrees up, its light crosses {airMass(elevation).toFixed(1)} times as much air as straight overhead. The sun looks pale yellow and the sky is blue.
+  </p>
+</div>

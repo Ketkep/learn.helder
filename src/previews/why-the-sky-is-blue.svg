@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .hs-arch { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .hs-ground { fill: var(--on-cover); }
+    .hs-sun { fill: var(--cover); stroke: var(--on-cover); stroke-width: 4; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .hs-sun { animation: hs-set 2.8s ease-in-out infinite alternate; }
+    }
+    /* The sun slides down towards the horizon */
+    @keyframes hs-set { 0% { transform: translateY(-34px); } 100% { transform: translateY(26px); } }
+  </style>
+
+  <g>
+    <path class="hs-arch" d="M110 214V130A90 90 0 0 1 290 130V214Z"/>
+    <circle class="hs-sun" cx="200" cy="126" r="22"/>
+    <rect class="hs-ground" x="94" y="198" width="212" height="22" rx="4"/>
+  </g>
+  <circle class="knob" cx="200" cy="260" r="14"/>
+</svg>

@@ -1,0 +1,445 @@
+/* The rhythm page: a dark drum machine with four boards. Pads light up outline first, so nothing flashes. */
+
+.rhythm {
+  --board: #17171c;
+  --panel: #22222b;
+  --line: #3d3d4a;
+  --pad: #6fb5a8;
+  --cream: #fff3dc;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .rhythm .needs-js {
+  display: none;
+}
+
+.rhythm :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.rhythm .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.rhythm .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .rhythm .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .rhythm .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.rhythm .words,
+.rhythm .bench,
+.rhythm .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.rhythm h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.rhythm .kicker {
+  color: var(--pad);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.rhythm .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.rhythm .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.rhythm .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.rhythm .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.rhythm .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--pad);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.rhythm .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.rhythm .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.rhythm .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.rhythm .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.rhythm .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.rhythm .times th,
+.rhythm .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.rhythm .times thead th {
+  color: #dcdce6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.rhythm .times tbody th {
+  font-weight: 700;
+}
+
+.rhythm .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.rhythm .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.rhythm .pick:hover {
+  background: var(--wash);
+}
+
+.rhythm .pick[aria-pressed='true'] {
+  border-color: var(--pad);
+  background: var(--pad);
+  color: var(--ink-fixed);
+}
+
+html.js .rhythm .no-js-name {
+  display: none;
+}
+
+.rhythm .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.rhythm .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.rhythm .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.rhythm .btn:hover {
+  background: var(--wash);
+}
+
+.rhythm .btn.fill {
+  background: var(--pad);
+  border-color: var(--pad);
+  color: var(--ink-fixed);
+}
+
+.rhythm .btn.fill:hover {
+  background: var(--cream);
+}
+
+.rhythm .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.rhythm .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.rhythm .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.rhythm .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--pad) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.rhythm .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.rhythm .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--pad);
+}
+
+.rhythm .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.rhythm .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.rhythm .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.rhythm .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.rhythm .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.rhythm .snd[aria-pressed='true'] .slash,
+.rhythm .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rhythm * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.rhythm .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The boards ---------- */
+.rhythm .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+.rhythm .lights {
+  display: flex;
+  gap: 0.8rem;
+  min-height: 3.4rem;
+}
+
+.rhythm .light {
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 3px solid var(--line);
+  border-radius: 50%;
+  background: #17171c;
+}
+
+.rhythm .light.first {
+  border-color: var(--pad);
+}
+
+.rhythm .light.now {
+  background: var(--pad);
+  border-color: var(--cream);
+}
+
+.rhythm .grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.35rem;
+  max-width: 30rem;
+}
+
+.rhythm .cell {
+  aspect-ratio: 1;
+  padding: 0;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: #17171c;
+  color: #bcbccb;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.rhythm .cell.beat {
+  border-color: #8a8aa0;
+}
+
+.rhythm .cell.on {
+  background: var(--pad);
+  border-color: var(--pad);
+  color: var(--ink-fixed);
+}
+
+.rhythm .cell.now {
+  outline: 3px solid var(--cream);
+  outline-offset: 2px;
+}
+
+.rhythm .ring {
+  display: block;
+  width: 100%;
+  max-width: 17rem;
+  height: auto;
+}
+
+.rhythm .ring-line {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 3;
+}
+
+.rhythm .ring .rest {
+  fill: #5b5b6c;
+}
+
+.rhythm .ring .hit {
+  fill: var(--pad);
+  stroke: var(--cream);
+  stroke-width: 2;
+}
+
+.rhythm .ring .hit.two {
+  fill: #f3b85a;
+}
+
+.rhythm .ring .now {
+  stroke-width: 5;
+}
+
+.rhythm .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -237,6 +237,26 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-11',
     status: 'live',
   },
+  {
+    slug: 'why-the-sky-is-blue',
+    title: 'Why the sky is blue',
+    hook: 'Slide the sun down the sky and see why the blue goes and the red stays.',
+    category: 'Nature',
+    accent: '#7FC4F0',
+    preview: 'why-the-sky-is-blue',
+    dateAdded: '2026-10-11',
+    status: 'live',
+  },
+  {
+    slug: 'how-rhythm-works',
+    title: 'How rhythm works',
+    hook: 'Switch steps on and off, spread hits evenly and play two beats at once.',
+    category: 'Music',
+    accent: '#6FB5A8',
+    preview: 'how-rhythm-works',
+    dateAdded: '2026-10-11',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

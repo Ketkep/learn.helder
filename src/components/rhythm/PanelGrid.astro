@@ -1,0 +1,23 @@
+---
+// Board 2: sixteen steps you switch on and off, and presets. Plain rows without a script.
+import { presets } from '../../lib/rhythm';
+const start = presets[0].steps;
+---
+
+<div class="tool" data-grid-tool>
+  <div class="grid" role="group" aria-label="Sixteen steps. Press a step to switch it on or off.">
+    {Array.from({ length: 16 }, (_, i) => <button type="button" class={`cell needs-js${start[i] === 'x' ? ' on' : ''}${i % 4 === 0 ? ' beat' : ''}`} aria-pressed={start[i] === 'x' ? 'true' : 'false'} aria-label={`Step ${i + 1}`} data-cell={i}>{i + 1}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-grid-play aria-pressed="false">Play</button>
+    {presets.map((p) => <button type="button" class="btn" data-grid-preset={p.id}>{p.name}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-grid-status>
+    The grid has 16 steps at 100 BPM, four for each beat. It shows four hits on the beat. Pattern: x...x...x...x...
+  </p>
+  <table class="times">
+    <caption class="sr-only">Patterns of 16 steps, x for a hit and a dot for a rest</caption>
+    <thead><tr><th scope="col">Pattern</th><th scope="col">Steps</th></tr></thead>
+    <tbody>{presets.filter((p) => p.id !== 'empty').map((p) => <tr><th scope="row">{p.name}</th><td class="mono">{p.steps}</td></tr>)}</tbody>
+  </table>
+</div>

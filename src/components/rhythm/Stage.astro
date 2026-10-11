@@ -1,0 +1,68 @@
+---
+// The whole page: four boards of a drum machine. The boards are the Panel components and src/scripts/rhythm.
+// Without a script each board shows its patterns as plain rows.
+import '../../styles/rhythm.css';
+import { intro, boards } from '../../data/rhythm';
+import PanelBeat from './PanelBeat.astro';
+import PanelGrid from './PanelGrid.astro';
+import PanelEuclid from './PanelEuclid.astro';
+import PanelPoly from './PanelPoly.astro';
+
+const tools: Record<string, typeof PanelBeat> = { beat: PanelBeat, grid: PanelGrid, euclid: PanelEuclid, poly: PanelPoly };
+---
+
+<div class="rhythm" data-rhythm>
+  <section class="panel opening" aria-labelledby="rhythm-intro">
+    <div class="panel-inner">
+      <div class="words">
+        <p class="kicker">Tap the pad</p>
+        <h2 id="rhythm-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+        <button class="snd needs-js" type="button" data-sound aria-pressed="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+            <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+            <path class="wave" d="M15 9a4 4 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path class="slash" d="M16 8.5l5 7M21 8.5l-5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <span data-sound-label>Sound on</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  {
+    boards.map((p) => {
+      const Tool = tools[p.id];
+      return (
+        <section class="panel" id={`board-${p.id}`} aria-labelledby={`board-${p.id}-h`}>
+          <div class="panel-inner">
+            <div class="words">
+              <p class="kicker">{p.kicker}</p>
+              <h2 id={`board-${p.id}-h`}>{p.title}</h2>
+              <div class="paras">{p.paras.map((t) => <p class="para">{t}</p>)}</div>
+              {
+                p.tags && (
+                  <div class="tags">
+                    {p.tags.map((t) => (
+                      <aside class="tag">
+                        <p class="tag-label">{t.label}</p>
+                        <p class="tag-text">{t.text}</p>
+                      </aside>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+            <div class="bench">
+              <Tool />
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/rhythm/rhythm';
+</script>

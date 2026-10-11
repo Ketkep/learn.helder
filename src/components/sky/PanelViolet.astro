@@ -1,0 +1,20 @@
+---
+// Window 3: the scattered light is shared between four colour bands. Three effects change the shares.
+import { BANDS, bandShares } from '../../lib/sky';
+const shares = bandShares({ scatter: true, sun: true, eye: true });
+const colours = ['#7b4bd1', '#2f6fe0', '#46a85a', '#d4531f'];
+---
+
+<div class="tool" data-violet-tool>
+  <div class="bars" data-violet-bars role="img" aria-label="Bars showing the share of the light in each colour band">
+    {BANDS.map(([name], i) => <div class="bar-row"><span class="bar-name">{name}</span><span class="bar-track"><span class="bar-fill" data-violet-bar={i} style={`width: ${Math.round(shares[i] * 100)}%; background: ${colours[i]}`}></span></span><span class="bar-val mono" data-violet-val={i}>{Math.round(shares[i] * 100)}%</span></div>)}
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Effects to switch on">
+    <button type="button" class="btn fill" aria-pressed="true" data-violet-fx="scatter">Short waves scatter more</button>
+    <button type="button" class="btn fill" aria-pressed="true" data-violet-fx="sun">The sun gives less violet</button>
+    <button type="button" class="btn fill" aria-pressed="true" data-violet-fx="eye">The eye notices violet less</button>
+  </div>
+  <p class="status" aria-live="polite" data-violet-status>
+    With all three effects, violet is {Math.round(shares[0] * 100)}% of the brightness and blue is {Math.round(shares[1] * 100)}%, so blue stands out about {Math.round(shares[1] / shares[0])} times more than violet.
+  </p>
+</div>

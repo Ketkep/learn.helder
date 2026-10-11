@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Windows from '../../components/sky/Windows.astro';
+import { takeaways, sources, sourcesNote } from '../../data/sky';
+---
+
+<TopicLayout
+  slug="why-the-sky-is-blue"
+  intro="Sunlight is white, and the sky is blue. Four windows show why: short waves scatter more, a low sun crosses more air, violet barely counts, and big drops scatter every colour."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Windows />
+</TopicLayout>

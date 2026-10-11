@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Stage from '../../components/rhythm/Stage.astro';
+import { takeaways, sources, sourcesNote } from '../../data/rhythm';
+---
+
+<TopicLayout
+  slug="how-rhythm-works"
+  intro="Rhythm is sounds spaced out in time. Four boards of a drum machine let you set a beat, switch steps on and off, spread hits evenly and play two beats at once. Nothing plays until you press play."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Stage />
+</TopicLayout>

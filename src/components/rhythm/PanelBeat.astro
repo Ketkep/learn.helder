@@ -1,0 +1,30 @@
+---
+// Board 1: a steady beat at a tempo, in bars of a few beats.
+import { beatSeconds, signatures } from '../../lib/rhythm';
+const bpm = 100;
+const rows = [60, 90, 120, 160];
+---
+
+<div class="tool" data-beat-tool>
+  <div class="lights" data-beat-lights aria-hidden="true">
+    {[0, 1, 2, 3].map((i) => <span class={`light${i === 0 ? ' first' : ''}`}></span>)}
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-beat-play aria-pressed="false">Play</button>
+    {signatures.map((s) => <button type="button" class={`btn${s.id === '4' ? ' fill' : ''}`} data-beat-sig={s.id} aria-pressed={s.id === '4' ? 'true' : 'false'}>{s.name}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Tempo <output data-beat-out>{bpm} BPM</output></span>
+      <input class="range" type="range" min="40" max="200" step="1" value={bpm} data-beat-range aria-label="Tempo in beats per minute" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-beat-status>
+    At {bpm} BPM there is a beat every {beatSeconds(bpm).toFixed(2)} seconds. A bar of 4 beats lasts {(beatSeconds(bpm) * 4).toFixed(1)} seconds.
+  </p>
+  <table class="times">
+    <caption class="sr-only">Seconds between beats at different tempos</caption>
+    <thead><tr><th scope="col">Tempo</th><th scope="col">Between beats</th></tr></thead>
+    <tbody>{rows.map((b) => <tr><th scope="row">{b} BPM</th><td>{beatSeconds(b).toFixed(2)} seconds</td></tr>)}</tbody>
+  </table>
+</div>

@@ -1,0 +1,442 @@
+/* The sky page: a dusk blue room with four windows. Each window is an arch of sky with one thing to move. */
+
+.sky {
+  --board: #0e1b30;
+  --panel: #16263f;
+  --line: #2c4468;
+  --sky: #8cc9f2;
+  --cream: #fff3dc;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .sky .needs-js {
+  display: none;
+}
+
+.sky :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.sky .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.sky .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .sky .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .sky .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.sky .words,
+.sky .bench,
+.sky .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.sky h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.sky .kicker {
+  color: var(--sky);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.sky .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.sky .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.sky .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.sky .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.sky .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--sky);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.sky .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.sky .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.sky .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.sky .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.sky .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.sky .times th,
+.sky .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.sky .times thead th {
+  color: #d3e1f2;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.sky .times tbody th {
+  font-weight: 700;
+}
+
+.sky .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.sky .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sky .pick:hover {
+  background: var(--wash);
+}
+
+.sky .pick[aria-pressed='true'] {
+  border-color: var(--sky);
+  background: var(--sky);
+  color: var(--ink-fixed);
+}
+
+html.js .sky .no-js-name {
+  display: none;
+}
+
+.sky .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.sky .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.sky .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.sky .btn:hover {
+  background: var(--wash);
+}
+
+.sky .btn.fill {
+  background: var(--sky);
+  border-color: var(--sky);
+  color: var(--ink-fixed);
+}
+
+.sky .btn.fill:hover {
+  background: var(--cream);
+}
+
+.sky .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.sky .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.sky .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.sky .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--sky) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.sky .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.sky .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--sky);
+}
+
+.sky .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.sky .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.sky .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.sky .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.sky .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sky .snd[aria-pressed='true'] .slash,
+.sky .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sky * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.sky .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The windows ---------- */
+.sky .arch {
+  width: min(100%, 22rem);
+  height: 12rem;
+  overflow: hidden;
+  border: 4px solid var(--cream);
+  border-radius: 11rem 11rem 8px 8px;
+  background: #0e1b30;
+}
+
+.sky .arch.scene {
+  position: relative;
+  height: 15rem;
+}
+
+.sky .swatch {
+  width: 100%;
+  height: 100%;
+}
+
+.sky .spectrum {
+  width: min(100%, 22rem);
+  height: 0.8rem;
+  border-radius: 999px;
+  background: linear-gradient(to right, #7b2fff, #2f4bff, #00b8ff, #00e08a, #7ee000, #ffe600, #ff8c00, #ff2200);
+}
+
+.sky .sun {
+  position: absolute;
+  left: 50%;
+  width: 3.4rem;
+  height: 3.4rem;
+  margin-left: -1.7rem;
+  border-radius: 50%;
+}
+
+.sky .ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 22%;
+  background: #0b1019;
+}
+
+.sky .chip {
+  display: inline-block;
+  width: 2.6rem;
+  height: 1.1rem;
+  vertical-align: middle;
+  border: 2px solid var(--cream);
+  border-radius: 4px;
+}
+
+.sky .bars {
+  display: grid;
+  gap: 0.5rem;
+  width: min(100%, 30rem);
+}
+
+.sky .bar-row {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) 3rem;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.sky .bar-track {
+  display: block;
+  height: 1.3rem;
+  border: 2px solid var(--line);
+  border-radius: 4px;
+  background: #0e1b30;
+  overflow: hidden;
+}
+
+.sky .bar-fill {
+  display: block;
+  height: 100%;
+  transition: width 0.25s;
+}
+
+.sky .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sky .bar-fill {
+    transition: none;
+  }
+}
