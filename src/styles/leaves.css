@@ -1,0 +1,436 @@
+/* The leaves page: a dark autumn room with three panels. A leaf and a strip of paper show the colours. */
+
+.leaves {
+  --board: #1c1410;
+  --panel: #2a1e17;
+  --line: #4d3a2c;
+  --rust: #e9b44c;
+  --cream: #fff3dc;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .leaves .needs-js {
+  display: none;
+}
+
+.leaves :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.leaves .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.leaves .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .leaves .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .leaves .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.leaves .words,
+.leaves .bench,
+.leaves .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.leaves h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.leaves .kicker {
+  color: var(--rust);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.leaves .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.leaves .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.leaves .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.leaves .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.leaves .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--rust);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.leaves .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.leaves .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.leaves .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.leaves .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.leaves .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.leaves .times th,
+.leaves .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.leaves .times thead th {
+  color: #ead9c4;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.leaves .times tbody th {
+  font-weight: 700;
+}
+
+.leaves .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.leaves .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.leaves .pick:hover {
+  background: var(--wash);
+}
+
+.leaves .pick[aria-pressed='true'] {
+  border-color: var(--rust);
+  background: var(--rust);
+  color: var(--ink-fixed);
+}
+
+html.js .leaves .no-js-name {
+  display: none;
+}
+
+.leaves .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.leaves .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.leaves .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.leaves .btn:hover {
+  background: var(--wash);
+}
+
+.leaves .btn.fill {
+  background: var(--rust);
+  border-color: var(--rust);
+  color: var(--ink-fixed);
+}
+
+.leaves .btn.fill:hover {
+  background: var(--cream);
+}
+
+.leaves .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.leaves .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.leaves .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.leaves .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--rust) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.leaves .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.leaves .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--rust);
+}
+
+.leaves .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.leaves .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.leaves .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.leaves .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.leaves .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.leaves .snd[aria-pressed='true'] .slash,
+.leaves .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leaves * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.leaves .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The leaf and the paper strip ---------- */
+.leaves .leafpic,
+.leaves .strip {
+  display: block;
+  width: 100%;
+  max-width: 17rem;
+  height: auto;
+  background: #f1e6d0;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.leaves .leaf {
+  stroke: #2a1e17;
+  stroke-width: 3;
+}
+
+.leaves .vein {
+  fill: none;
+  stroke: #2a1e17;
+  stroke-width: 2;
+  stroke-opacity: 0.55;
+}
+
+.leaves .paper {
+  fill: #fffaf0;
+  stroke: #2a1e17;
+  stroke-width: 2;
+}
+
+.leaves .liquid {
+  fill: #cfe3ee;
+  fill-opacity: 0.6;
+}
+
+.leaves .start {
+  stroke: #2a1e17;
+  stroke-width: 2;
+  stroke-dasharray: 4 3;
+}
+
+.leaves .band {
+  stroke: #2a1e17;
+  stroke-width: 1;
+}
+
+.leaves .chip {
+  display: inline-block;
+  width: 2.6rem;
+  height: 1.1rem;
+  vertical-align: middle;
+  border: 2px solid var(--cream);
+  border-radius: 4px;
+}
+
+.leaves .bars {
+  display: grid;
+  gap: 0.4rem;
+  width: min(100%, 22rem);
+}
+
+.leaves .bar-row {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.leaves .bar-track {
+  display: block;
+  height: 1.1rem;
+  border: 2px solid var(--line);
+  border-radius: 4px;
+  background: #1c1410;
+  overflow: hidden;
+}
+
+.leaves .bar-fill {
+  display: block;
+  height: 100%;
+}
+
+.leaves .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

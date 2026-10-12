@@ -331,6 +331,24 @@ The page is about Newton's cannonball: a cannon on a very high mountain fires a 
 - `src/components/cannon/Range.astro` is the frame and `Panel*.astro` is one panel each.
 - `src/scripts/cannon/` has one script per panel: `fire.ts`, `second.ts` and `heights.ts`.
 
+## The cipher page: how the wheel works
+
+The page is a dark writing desk with a cipher wheel and four tries. Try 1 is a wheel of two rings of letters: type a message, turn the inner ring by a number of places and read the result (it also decodes, and has a button for a shift of 13). Try 2 breaks a shifted message by counting letters: a bar chart of the letter counts is drawn against the usual English pattern, you turn a guess until the two line up, or let the computer pick the shift that fits English best. Try 3 counts the keys of a shift cipher (25) and of a cipher where every letter has its own partner (26 factorial, about 4 times 10 to the power of 26) and shows how long trying them would take at a made up speed. Try 4 uses a keyword (Vigenère) and shows how the letter counts flatten. These are toy ciphers and the page says they are not safe to use. Without a script each panel shows a worked example.
+
+- `src/data/cipher.ts` holds all the words, the takeaways and the sources.
+- `src/lib/cipher.ts` holds the maths: the shift, the keyword cipher, letter counts, the English table, the best shift and the bar charts as HTML text, so the build and the browser draw the same thing.
+- `src/components/cipher/Wheel.astro` is the frame and `Panel*.astro` is one try each.
+- `src/scripts/cipher/` has one script per try: `wheel.ts`, `break.ts`, `keys.ts` and `keyword.ts`.
+
+## The leaves page: how the leaf works
+
+The page has three panels about the colours of a leaf. Panel 1 is a mixer: three sliders for green chlorophyll, yellow and orange carotenoids and red anthocyanins, and a leaf that takes the colour left over when each pigment soaks up its colours of light. Panel 2 is a strip of paper (paper chromatography) where a summer or an autumn leaf is pulled apart as the liquid climbs: carotene travels farthest, then xanthophyll, then chlorophyll a, then chlorophyll b. Panel 3 slides through the weeks of autumn, with sunny days and cool nights or dull weather, and a hard frost in week 4 that stops any more red being made. All of it is a toy model of rules of thumb and the page says so. Without a script each panel shows a table.
+
+- `src/data/leaves.ts` holds all the words, the takeaways and the sources.
+- `src/lib/leaves.ts` holds the models: the leaf colour from the three pigments, the season and the bands of the paper strip.
+- `src/components/leaves/Turn.astro` is the frame and `Panel*.astro` is one panel each.
+- `src/scripts/leaves/` has one script per panel: `mix.ts`, `paper.ts` and `season.ts`.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -374,6 +392,8 @@ src/data/konigsberg.ts   everything the Königsberg page says: panels, takeaways
 src/data/sky.ts           everything the sky page says: windows, takeaways, sources
 src/data/rhythm.ts        everything the rhythm page says: boards, takeaways, sources
 src/data/cannon.ts        everything the cannon page says: panels, takeaways, sources
+src/data/cipher.ts        everything the cipher page says: tries, takeaways, sources
+src/data/leaves.ts        everything the leaves page says: panels, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -400,6 +420,8 @@ src/components/konigsberg/ the Königsberg page: the town map, four panels and t
 src/components/sky/       the sky page: four windows and the frame
 src/components/rhythm/    the rhythm page: four boards and the frame
 src/components/cannon/    the cannon page: three panels and the frame
+src/components/cipher/    the cipher page: the wheel, four tries and the frame
+src/components/leaves/    the leaves page: three panels and the frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -423,6 +445,8 @@ src/styles/konigsberg.css the Königsberg page: old map paper, the town, bridges
 src/styles/sky.css        the sky page: dusk blue room, arches, bars
 src/styles/rhythm.css     the rhythm page: dark drum machine, pads, rings
 src/styles/cannon.css     the cannon page: deep space blue, planet and ball pictures
+src/styles/cipher.css     the cipher page: dark writing desk, wheel and bar charts
+src/styles/leaves.css     the leaves page: dark autumn room, leaf and paper strip
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -431,6 +455,8 @@ src/lib/text.ts          fill {slots} in a line, and pick singular or plural
 src/lib/chess/           chess pieces, still diagrams, and the build-time analysis of games
 src/lib/dutch/           drawing helpers, background strips, map and painting for the Dutch page
 src/lib/rand.ts          repeatable random numbers.  src/lib/svgpath.ts: smooth curves for drawings
+src/lib/cipher.ts        cipher maths for the cipher page
+src/lib/leaves.ts        leaf colour models for the leaves page
 src/lib/orbit.ts         orbit maths for the cannon page: shots, speeds, lap times
 src/lib/sky.ts           sky colour models for the sky page
 src/lib/rhythm.ts        rhythm maths for the rhythm page
@@ -461,6 +487,8 @@ src/scripts/konigsberg/  pressable map shapes, the shared town (build.ts) and on
 src/scripts/sky/         one script per window: waves, sun, violet and cloud
 src/scripts/rhythm/      the looping clock (clock.ts) and one script per board
 src/scripts/cannon/       one script per panel: fire, second and heights
+src/scripts/cipher/       one script per try: wheel, break, keys and keyword
+src/scripts/leaves/       one script per panel: mix, paper and season
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

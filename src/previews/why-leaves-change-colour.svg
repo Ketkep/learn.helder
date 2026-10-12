@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .hl-leaf { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; stroke-linejoin: round; }
+    .hl-vein { fill: none; stroke: var(--on-cover); stroke-width: 4; stroke-linecap: round; }
+    .hl-fill { fill: var(--on-cover); opacity: 0; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .hl-fill { animation: hl-turn 3s ease-in-out infinite alternate; }
+    }
+    /* The leaf slowly takes on its autumn colour */
+    @keyframes hl-turn { 0% { opacity: 0; } 100% { opacity: 0.55; } }
+  </style>
+
+  <g>
+    <path class="hl-leaf" d="M200 40C290 86 326 170 200 252C74 170 110 86 200 40Z"/>
+    <path class="hl-fill" d="M200 40C290 86 326 170 200 252C74 170 110 86 200 40Z"/>
+    <path class="hl-vein" d="M200 48V256M200 120L252 92M200 164L140 130M200 200L256 166"/>
+  </g>
+  <circle class="knob" cx="200" cy="278" r="12"/>
+</svg>

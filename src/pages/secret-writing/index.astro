@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Wheel from '../../components/cipher/Wheel.astro';
+import { takeaways, sources, sourcesNote } from '../../data/cipher';
+---
+
+<TopicLayout
+  slug="secret-writing"
+  intro="A cipher hides a message by changing its letters by a rule. Turn a cipher wheel to hide a message, then break it by counting letters, count the keys, and see how a keyword hides the counts."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Wheel />
+</TopicLayout>

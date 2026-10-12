@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Turn from '../../components/leaves/Turn.astro';
+import { takeaways, sources, sourcesNote } from '../../data/leaves';
+---
+
+<TopicLayout
+  slug="why-leaves-change-colour"
+  intro="A green leaf hides yellow and orange all summer. In autumn the green breaks down and they show. Mix the three colours of a leaf, pull them apart on paper, and follow them through the weeks of autumn."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Turn />
+</TopicLayout>

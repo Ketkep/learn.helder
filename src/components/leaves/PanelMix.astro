@@ -1,0 +1,36 @@
+---
+// Panel 1: mix the three colours of a leaf.
+import { colourWord, leafColour, rgb } from '../../lib/leaves';
+const p = { chlorophyll: 1, carotenoid: 0.3, anthocyanin: 0 };
+const rows = [
+  { name: 'Summer leaf', p: { chlorophyll: 1, carotenoid: 0.3, anthocyanin: 0 } },
+  { name: 'Little chlorophyll', p: { chlorophyll: 0.1, carotenoid: 0.5, anthocyanin: 0 } },
+  { name: 'No chlorophyll', p: { chlorophyll: 0, carotenoid: 0.6, anthocyanin: 0 } },
+  { name: 'No chlorophyll, some red', p: { chlorophyll: 0, carotenoid: 0.8, anthocyanin: 0.6 } },
+  { name: 'No chlorophyll, much red', p: { chlorophyll: 0, carotenoid: 0.2, anthocyanin: 1 } },
+];
+---
+
+<div class="tool" data-mix-tool>
+  <svg class="leafpic" viewBox="0 0 220 200" role="img" aria-label="A leaf in the colour made by the three pigments" data-mix-svg>
+    <path class="leaf" data-mix-leaf d="M110 20C170 50 195 110 110 180C25 110 50 50 110 20Z" style={`fill: ${rgb(leafColour(p))}`}></path>
+    <path class="vein" d="M110 24V182M110 80L150 60M110 110L65 88M110 135L152 112"></path>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Green chlorophyll <output data-mix-c-out>100</output></span><input class="range" type="range" min="0" max="100" step="1" value="100" data-mix-c aria-label="Amount of chlorophyll" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Yellow and orange carotenoids <output data-mix-k-out>30</output></span><input class="range" type="range" min="0" max="100" step="1" value="30" data-mix-k aria-label="Amount of carotenoids" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Red anthocyanins <output data-mix-a-out>0</output></span><input class="range" type="range" min="0" max="100" step="1" value="0" data-mix-a aria-label="Amount of anthocyanins" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-mix-status>
+    With lots of chlorophyll and a little carotenoid the leaf is {colourWord(leafColour(p))}.
+  </p>
+  <table class="times">
+    <caption class="sr-only">Leaf colours for some mixes of the three pigments</caption>
+    <thead><tr><th scope="col">Mix</th><th scope="col">Colour</th></tr></thead>
+    <tbody>{rows.map((r) => <tr><th scope="row">{r.name}</th><td><span class="chip" style={`background: ${rgb(leafColour(r.p))}`}></span> {colourWord(leafColour(r.p))}</td></tr>)}</tbody>
+  </table>
+</div>

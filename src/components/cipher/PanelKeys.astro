@@ -1,0 +1,24 @@
+---
+// Try 3: how long it would take to try every key, at a made up speed.
+import { keysShift, keysSubstitution } from '../../lib/cipher';
+const rows = [1e3, 1e6, 1e9, 1e12];
+const YEAR = 365.25 * 86400;
+const fmt = (s: number) => (s < 1 ? 'less than a second' : s < 3600 ? `${Math.round(s / 60)} minutes` : s < 86400 * 365 ? `${(s / 86400).toFixed(1)} days` : s / YEAR < 1e6 ? `${Math.round(s / YEAR).toLocaleString('en-US')} years` : `${(s / YEAR).toExponential(1).replace('e+', ' × 10 to the power of ')} years`);
+---
+
+<div class="tool" data-keys-tool>
+  <table class="times">
+    <caption class="sr-only">Time to try every key at different speeds</caption>
+    <thead><tr><th scope="col">Guesses a second</th><th scope="col">Shift cipher (25 keys)</th><th scope="col">Every letter its own partner</th></tr></thead>
+    <tbody>{rows.map((r) => <tr><th scope="row">{r.toExponential(0).replace('e+', ' × 10 to the power of ')}</th><td>{fmt(keysShift / r)}</td><td>{fmt(keysSubstitution / 2 / r)}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Guesses a second <output data-keys-out>1 billion</output></span>
+      <input class="range" type="range" min="3" max="12" step="1" value="9" data-keys-range aria-label="Guesses per second, as a power of ten" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-keys-status>
+    At 1 billion guesses a second, trying every shift takes less than a second. Trying half of the {keysSubstitution.toExponential(2).replace('e+', ' × 10 to the power of ')} letter arrangements, on average, takes about {(keysSubstitution / 2 / 1e9 / YEAR / 1e9).toFixed(1)} billion years.
+  </p>
+</div>

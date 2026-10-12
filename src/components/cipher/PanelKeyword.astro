@@ -1,0 +1,22 @@
+---
+// Try 4: a keyword flattens the letter counts.
+import { ENGLISH, LONG, chartHtml, counts, vigenere } from '../../lib/cipher';
+const key = 'LEMON';
+const plain = counts(vigenere(LONG, 'D'));
+const flat = counts(vigenere(LONG, key));
+const top = (c: number[]) => Math.round(Math.max(...c) * 1000) / 10;
+---
+
+<div class="tool" data-keyword-tool>
+  <label class="field wide">
+    <span>Keyword</span>
+    <input class="text" type="text" value={key} maxlength="12" autocomplete="off" spellcheck="false" data-keyword-input aria-label="Keyword of letters" />
+  </label>
+  <p class="label">A plain shift by 3</p>
+  <div class="chart small" role="img" aria-label="Letter counts after a plain shift" data-keyword-plain set:html={chartHtml(plain, ENGLISH)}></div>
+  <p class="label">Your keyword</p>
+  <div class="chart small" role="img" aria-label="Letter counts after the keyword cipher" data-keyword-flat set:html={chartHtml(flat, ENGLISH)}></div>
+  <p class="status" aria-live="polite" data-keyword-status>
+    After a plain shift the tallest bar is {top(plain)} per cent of the letters. With the keyword {key} it is {top(flat)} per cent, so there is no single tall bar to point to the key.
+  </p>
+</div>

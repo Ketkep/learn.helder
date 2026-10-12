@@ -1,0 +1,36 @@
+---
+// Panel 3: the weeks of autumn, with sunny or dull weather and a hard frost.
+import { colourWord, leafColour, rgb, season } from '../../lib/leaves';
+const w = { sunny: true, frost: false };
+const rows = [0, 2, 4, 6, 8];
+---
+
+<div class="tool" data-season-tool>
+  <svg class="leafpic" viewBox="0 0 220 200" role="img" aria-label="A leaf in the colour it has in the chosen week" data-season-svg>
+    <path class="leaf" data-season-leaf d="M110 20C170 50 195 110 110 180C25 110 50 50 110 20Z" style={`fill: ${rgb(leafColour(season(5, w)))}`}></path>
+    <path class="vein" d="M110 24V182M110 80L150 60M110 110L65 88M110 135L152 112"></path>
+  </svg>
+  <div class="bars" aria-hidden="true">
+    <div class="bar-row"><span class="bar-name">Chlorophyll</span><span class="bar-track"><span class="bar-fill" data-season-bar="chlorophyll" style="background: #3f9d3a"></span></span></div>
+    <div class="bar-row"><span class="bar-name">Carotenoids</span><span class="bar-track"><span class="bar-fill" data-season-bar="carotenoid" style="background: #e8a317"></span></span></div>
+    <div class="bar-row"><span class="bar-name">Anthocyanins</span><span class="bar-track"><span class="bar-fill" data-season-bar="anthocyanin" style="background: #c0284d"></span></span></div>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Week of autumn <output data-season-out>5</output></span>
+      <input class="range" type="range" min="0" max="8" step="1" value="5" data-season-range aria-label="Week of autumn, from 0 to 8" />
+    </label>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Weather">
+    <button type="button" class="btn fill" data-season-sunny aria-pressed="true">Sunny days, cool nights</button>
+    <button type="button" class="btn" data-season-frost aria-pressed="false">A hard frost in week 4</button>
+  </div>
+  <p class="status" aria-live="polite" data-season-status>
+    In week 5 of a bright autumn most of the chlorophyll has gone and the red has grown, so the leaf is {colourWord(leafColour(season(5, w)))}.
+  </p>
+  <table class="times">
+    <caption class="sr-only">Leaf colour in some weeks of a bright autumn</caption>
+    <thead><tr><th scope="col">Week</th><th scope="col">Colour</th></tr></thead>
+    <tbody>{rows.map((wk) => <tr><th scope="row">{wk}</th><td><span class="chip" style={`background: ${rgb(leafColour(season(wk, w)))}`}></span> {colourWord(leafColour(season(wk, w)))}</td></tr>)}</tbody>
+  </table>
+</div>

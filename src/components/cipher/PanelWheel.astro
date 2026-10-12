@@ -1,0 +1,35 @@
+---
+// Try 1: the cipher wheel. Two rings of letters, with the inner one turned by the key.
+import { ALPHABET, shift } from '../../lib/cipher';
+const key = 3;
+const message = 'MEET ME AT THE OLD BRIDGE';
+const ring = (r: number, offset: number) => ALPHABET.split('').map((c, i) => `<text transform="rotate(${((i + offset) * 360) / 26} 110 110) translate(0 ${-r})" x="110" y="110" text-anchor="middle" font-size="12">${c}</text>`).join('');
+---
+
+<div class="tool" data-wheel-tool>
+  <svg class="wheelpic" viewBox="0 0 220 220" role="img" aria-label="Two rings of the alphabet. The inner ring is turned so that A sits under D." data-wheel-svg>
+    <circle class="disc" cx="110" cy="110" r="104"></circle>
+    <circle class="disc inner" cx="110" cy="110" r="72"></circle>
+    <g class="outer" set:html={ring(88, 0)}></g>
+    <g class="turn" data-wheel-turn style={`transform-origin: 110px 110px; transform: rotate(${(-key * 360) / 26}deg)`} set:html={ring(56, 0)}></g>
+  </svg>
+  <label class="field wide">
+    <span>Message</span>
+    <textarea class="text" rows="2" data-wheel-text aria-label="Message to hide or read">{message}</textarea>
+  </label>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Turn the wheel by <output data-wheel-out>{key}</output></span>
+      <input class="range" type="range" min="0" max="25" step="1" value={key} data-wheel-key aria-label="Number of places to turn the wheel" />
+    </label>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Direction">
+    <button type="button" class="btn fill" data-wheel-mode="hide" aria-pressed="true">Hide the message</button>
+    <button type="button" class="btn" data-wheel-mode="read" aria-pressed="false">Read a message</button>
+    <button type="button" class="btn" data-wheel-rot>Turn by 13</button>
+  </div>
+  <p class="result mono" aria-live="polite" data-wheel-result>{shift(message, key)}</p>
+  <p class="status" aria-live="polite" data-wheel-status>
+    With the wheel turned by {key}, A becomes D, so MEET becomes {shift('MEET', key)}.
+  </p>
+</div>

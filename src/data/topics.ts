@@ -267,6 +267,26 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-12',
     status: 'live',
   },
+  {
+    slug: 'secret-writing',
+    title: 'Secret writing',
+    hook: 'Turn a cipher wheel, then break the message by counting letters.',
+    category: 'Language',
+    accent: '#E36FA3',
+    preview: 'secret-writing',
+    dateAdded: '2026-10-12',
+    status: 'live',
+  },
+  {
+    slug: 'why-leaves-change-colour',
+    title: 'Why leaves change colour',
+    hook: 'Take away the green and see the yellow that was hiding all summer.',
+    category: 'Nature',
+    accent: '#9A3B1F',
+    preview: 'why-leaves-change-colour',
+    dateAdded: '2026-10-12',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

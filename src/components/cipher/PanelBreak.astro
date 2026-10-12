@@ -1,0 +1,26 @@
+---
+// Try 2: break a shift cipher by counting letters.
+import { ALPHABET, ENGLISH, SAMPLE, chartHtml, counts, shift } from '../../lib/cipher';
+const secret = shift(SAMPLE, 3);
+const c = counts(secret);
+const top = c.indexOf(Math.max(...c));
+---
+
+<div class="tool" data-break-tool>
+  <p class="result mono" data-break-secret>{secret}</p>
+  <div class="chart" role="img" aria-label="Letter counts of the secret message as bars, with the usual English pattern as small ticks" data-break-chart set:html={chartHtml(c, ENGLISH)}></div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>My guess: turn back by <output data-break-out>0</output></span>
+      <input class="range" type="range" min="0" max="25" step="1" value="0" data-break-guess aria-label="How many places to turn the message back" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-break-auto>Let the computer guess</button>
+    <button type="button" class="btn" data-break-new>Another message</button>
+  </div>
+  <p class="result mono" aria-live="polite" data-break-plain>{secret}</p>
+  <p class="status" aria-live="polite" data-break-status>
+    The tallest bar in the secret message is {ALPHABET[top]}. The tallest in English is E. {ALPHABET[top]} is {(top - 4 + 26) % 26} places after E, so turning back by {(top - 4 + 26) % 26} gives the message: {shift(secret, -((top - 4 + 26) % 26))}
+  </p>
+</div>
