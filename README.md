@@ -322,6 +322,15 @@ The page is a dark drum machine with four boards, and nothing plays until you pr
 - `src/components/rhythm/Stage.astro` is the frame and `Panel*.astro` is one board each.
 - `src/scripts/rhythm/clock.ts` is the small looping clock that plays the hits (one loop at a time). `beat.ts`, `grid.ts`, `euclid.ts` and `poly.ts` are the boards.
 
+## The cannon page: how the mountain works
+
+The page is about Newton's cannonball: a cannon on a very high mountain fires a ball sideways over a round planet with no air. Panel 1 draws the path for a planet (Earth, the Moon, Mars or Jupiter), a mountain height and a speed, and says whether the ball falls back (and where), goes round in a circle or an oval (with the closest and farthest height and the time for one lap) or escapes. A button moves the ball along the path. Panel 2 shows that in one second the ball falls about 4.9 metres while the ground curves away by the same amount at about 7.9 km a second. Panel 3 gives the speed and lap time of a circular orbit at four heights on Earth. The shots are worked out by stepping the motion in small time steps (velocity Verlet) and the class of the shot (falls, orbit, escape) comes from the energy and the closest point. Without a script each panel shows one picture and a table.
+
+- `src/data/cannon.ts` holds all the words, the takeaways and the sources.
+- `src/lib/orbit.ts` holds the maths: the four planets, circular and escape speed, the stepped shot, the curve of the ground and the picture of a shot as SVG text, so the build and the browser draw the same thing.
+- `src/components/cannon/Range.astro` is the frame and `Panel*.astro` is one panel each.
+- `src/scripts/cannon/` has one script per panel: `fire.ts`, `second.ts` and `heights.ts`.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -364,6 +373,7 @@ src/data/bread.ts        everything the bread page says: stops, takeaways, sourc
 src/data/konigsberg.ts   everything the Königsberg page says: panels, takeaways, sources
 src/data/sky.ts           everything the sky page says: windows, takeaways, sources
 src/data/rhythm.ts        everything the rhythm page says: boards, takeaways, sources
+src/data/cannon.ts        everything the cannon page says: panels, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -389,6 +399,7 @@ src/components/bread/    the bread page: four stops and the frame
 src/components/konigsberg/ the Königsberg page: the town map, four panels and the frame
 src/components/sky/       the sky page: four windows and the frame
 src/components/rhythm/    the rhythm page: four boards and the frame
+src/components/cannon/    the cannon page: three panels and the frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -411,6 +422,7 @@ src/styles/bread.css     the bread page: flour white, stops with a time of day, 
 src/styles/konigsberg.css the Königsberg page: old map paper, the town, bridges and lands
 src/styles/sky.css        the sky page: dusk blue room, arches, bars
 src/styles/rhythm.css     the rhythm page: dark drum machine, pads, rings
+src/styles/cannon.css     the cannon page: deep space blue, planet and ball pictures
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -419,6 +431,7 @@ src/lib/text.ts          fill {slots} in a line, and pick singular or plural
 src/lib/chess/           chess pieces, still diagrams, and the build-time analysis of games
 src/lib/dutch/           drawing helpers, background strips, map and painting for the Dutch page
 src/lib/rand.ts          repeatable random numbers.  src/lib/svgpath.ts: smooth curves for drawings
+src/lib/orbit.ts         orbit maths for the cannon page: shots, speeds, lap times
 src/lib/sky.ts           sky colour models for the sky page
 src/lib/rhythm.ts        rhythm maths for the rhythm page
 src/lib/konigsberg.ts    graph maths for the Königsberg page: bridges, counts, the rule, a walk
@@ -447,6 +460,7 @@ src/scripts/bread/       one script per stop: knead, rise, spring and crust
 src/scripts/konigsberg/  pressable map shapes, the shared town (build.ts) and one script per panel
 src/scripts/sky/         one script per window: waves, sun, violet and cloud
 src/scripts/rhythm/      the looping clock (clock.ts) and one script per board
+src/scripts/cannon/       one script per panel: fire, second and heights
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

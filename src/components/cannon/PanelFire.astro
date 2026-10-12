@@ -1,0 +1,43 @@
+---
+// Fire 1: pick a planet, the height of the mountain and the speed of the shot.
+import { circularSpeed, escapeSpeed, fire, fmtTime, getPlanet, planets, shotSvg } from '../../lib/orbit';
+const [planet, height, speed] = [getPlanet('earth'), 10, 8.5];
+const shot = fire(planet, height, speed);
+const r0 = planet.r + height;
+---
+
+<div class="tool" data-fire-tool>
+  <svg class="orbitpic" viewBox="0 0 400 300" role="img" aria-label="A planet with a cannon on a mountain and the path of a ball fired sideways" data-fire-svg>
+    <g data-fire-pic set:html={shotSvg(planet, height, shot)}></g>
+    <circle class="ball" r="5" cx="-20" cy="-20" data-fire-ball></circle>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Planet</span>
+      <select class="select" data-fire-planet aria-label="Planet">
+        {planets.map((p) => <option value={p.id} selected={p.id === 'earth'}>{p.name}</option>)}
+      </select>
+    </label>
+    <button type="button" class="btn" data-fire-fly>Show the ball</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Mountain <output data-fire-h-out>{height} km high</output></span>
+      <input class="range" type="range" min="1" max="500" step="1" value={height} data-fire-h aria-label="Height of the mountain in kilometres" />
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field">
+      <span>Speed <output data-fire-v-out>{speed.toFixed(2)} km/s</output></span>
+      <input class="range" type="range" min="0" max="13" step="0.05" value={speed} data-fire-v aria-label="Speed of the ball in kilometres per second" />
+    </label>
+  </div>
+  <p class="status" aria-live="polite" data-fire-status>
+    At {speed.toFixed(2)} km/s the ball never lands. It goes round Earth in an orbit that comes as close as {Math.round((shot.perigee ?? 0) - planet.r).toLocaleString('en-US')} km and goes as far as {Math.round((shot.apogee ?? 0) - planet.r).toLocaleString('en-US')} km above the ground, and one lap takes {fmtTime(shot.lap ?? 0)}. From a {height} km mountain on Earth a circular orbit needs {circularSpeed(planet, r0).toFixed(2)} km/s and escape needs {escapeSpeed(planet, r0).toFixed(2)} km/s.
+  </p>
+  <table class="times">
+    <caption class="sr-only">Speeds for a circular orbit and for escape from the ground of each planet</caption>
+    <thead><tr><th scope="col">Planet</th><th scope="col">Orbit just above the ground</th><th scope="col">Escape</th></tr></thead>
+    <tbody>{planets.map((p) => <tr><th scope="row">{p.name}</th><td>{circularSpeed(p, p.r).toFixed(1)} km/s</td><td>{escapeSpeed(p, p.r).toFixed(1)} km/s</td></tr>)}</tbody>
+  </table>
+</div>

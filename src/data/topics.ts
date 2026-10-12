@@ -257,6 +257,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-11',
     status: 'live',
   },
+  {
+    slug: 'newtons-cannonball',
+    title: 'Newton’s cannonball',
+    hook: 'Fire a ball from a mountain and find the speed at which it never lands.',
+    category: 'Space',
+    accent: '#9AA7FF',
+    preview: 'newtons-cannonball',
+    dateAdded: '2026-10-12',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

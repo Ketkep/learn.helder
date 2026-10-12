@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .hn-planet { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .hn-path { fill: none; stroke: var(--on-cover); stroke-width: 4; stroke-dasharray: 2 10; stroke-linecap: round; }
+    .hn-ball { fill: var(--on-cover); transform-box: fill-box; transform-origin: 50% 50%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .hn-spin { animation: hn-orbit 3.6s linear infinite; }
+    }
+    /* The ball goes round the planet */
+    @keyframes hn-orbit { to { transform: rotate(360deg); } }
+    .hn-spin { transform-origin: 200px 160px; }
+  </style>
+
+  <g>
+    <circle class="hn-planet" cx="200" cy="160" r="56"/>
+    <circle class="hn-path" cx="200" cy="160" r="90"/>
+    <g class="hn-spin"><circle class="hn-ball" cx="200" cy="70" r="11"/></g>
+  </g>
+  <circle class="knob" cx="200" cy="274" r="14"/>
+</svg>

@@ -1,0 +1,456 @@
+/* The cannon page: deep space blue with three panels. Each shows a planet and a ball in the same line drawing. */
+
+.cannon {
+  --board: #0c0f1f;
+  --panel: #161b33;
+  --line: #2b3260;
+  --glow: #9aa7ff;
+  --cream: #fff3dc;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .cannon .needs-js {
+  display: none;
+}
+
+.cannon :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.cannon .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.cannon .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .cannon .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .cannon .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.cannon .words,
+.cannon .bench,
+.cannon .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.cannon h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.cannon .kicker {
+  color: var(--glow);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.cannon .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.cannon .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.cannon .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.cannon .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.cannon .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--glow);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.cannon .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.cannon .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.cannon .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.cannon .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.cannon .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.cannon .times th,
+.cannon .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.cannon .times thead th {
+  color: #d7dcf5;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.cannon .times tbody th {
+  font-weight: 700;
+}
+
+.cannon .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.cannon .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cannon .pick:hover {
+  background: var(--wash);
+}
+
+.cannon .pick[aria-pressed='true'] {
+  border-color: var(--glow);
+  background: var(--glow);
+  color: var(--ink-fixed);
+}
+
+html.js .cannon .no-js-name {
+  display: none;
+}
+
+.cannon .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.cannon .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.cannon .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.cannon .btn:hover {
+  background: var(--wash);
+}
+
+.cannon .btn.fill {
+  background: var(--glow);
+  border-color: var(--glow);
+  color: var(--ink-fixed);
+}
+
+.cannon .btn.fill:hover {
+  background: var(--cream);
+}
+
+.cannon .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.cannon .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.cannon .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.cannon .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--glow) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.cannon .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.cannon .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--glow);
+}
+
+.cannon .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.cannon .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.cannon .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.cannon .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.cannon .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cannon .snd[aria-pressed='true'] .slash,
+.cannon .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cannon * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.cannon .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The pictures ---------- */
+.cannon .orbitpic {
+  display: block;
+  width: 100%;
+  max-width: 32rem;
+  height: auto;
+  background: #070a16;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.cannon .planet {
+  fill: #2c4a8a;
+  stroke: #d7dcf5;
+  stroke-width: 2;
+}
+
+.cannon .trail {
+  fill: none;
+  stroke: #fff3dc;
+  stroke-width: 2.5;
+}
+
+.cannon .trail.orbit {
+  stroke: #9aa7ff;
+}
+
+.cannon .trail.escape {
+  stroke: #f3b85a;
+}
+
+.cannon .cannon {
+  fill: #e0693f;
+  stroke: #fff3dc;
+  stroke-width: 2;
+}
+
+.cannon .hit {
+  fill: #fff3dc;
+}
+
+.cannon .mark {
+  fill: #d7dcf5;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.cannon .ball {
+  fill: #fff3dc;
+  stroke: #e0693f;
+  stroke-width: 3;
+}
+
+.cannon .ball.ghost {
+  fill: #9aa7ff;
+  stroke: #fff3dc;
+}
+
+.cannon .ground {
+  fill: #2c4a8a;
+  stroke: #d7dcf5;
+  stroke-width: 2;
+}
+
+.cannon .level {
+  stroke: #d7dcf5;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 5;
+}
+
+.cannon .ring {
+  fill: none;
+  stroke: #9aa7ff;
+  stroke-width: 2.5;
+}
+
+.cannon .select {
+  min-width: 11rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--cream);
+  font: inherit;
+  font-weight: 700;
+}
+
+html.js .cannon .no-js-name {
+  display: none;
+}
+
+.cannon .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.cannon .times {
+  table-layout: fixed;
+}
+
+.cannon .times th,
+.cannon .times td {
+  overflow-wrap: anywhere;
+}
+
+.cannon .pick {
+  max-width: 100%;
+}

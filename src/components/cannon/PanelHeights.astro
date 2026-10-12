@@ -1,0 +1,32 @@
+---
+// Fire 3: speed and lap time of a circular orbit at four heights.
+import { circularSpeed, fmtTime, getPlanet, period, places } from '../../lib/orbit';
+const earth = getPlanet('earth');
+---
+
+<div class="tool" data-heights-tool>
+  <table class="times">
+    <caption class="sr-only">Speed and lap time of a circular orbit at four heights above the Earth</caption>
+    <thead><tr><th scope="col">Where</th><th scope="col">Height</th><th scope="col">Speed</th><th scope="col">One lap</th></tr></thead>
+    <tbody>
+      {
+        places.map((p) => (
+          <tr>
+            <th scope="row"><button type="button" class="pick needs-js" data-heights-pick={p.id}>{p.name}</button><span class="no-js-name">{p.name}</span></th>
+            <td>{Math.round(p.height).toLocaleString('en-US')} km</td>
+            <td>{circularSpeed(earth, earth.r + p.height).toFixed(2)} km/s</td>
+            <td>{fmtTime(period(earth, earth.r + p.height))}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  <svg class="orbitpic" viewBox="0 0 400 300" role="img" aria-label="The Earth with a ring at the chosen height" data-heights-svg>
+    <circle class="planet" cx="200" cy="150" r="40"></circle>
+    <circle class="ring" cx="200" cy="150" r="60" data-heights-ring></circle>
+    <circle class="ball" cx="200" cy="90" r="6" data-heights-dot></circle>
+  </svg>
+  <p class="status" aria-live="polite" data-heights-status>
+    Press a place to see its orbit. The picture is not to scale for the Moon.
+  </p>
+</div>

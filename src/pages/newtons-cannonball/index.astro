@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Range from '../../components/cannon/Range.astro';
+import { takeaways, sources, sourcesNote } from '../../data/cannon';
+---
+
+<TopicLayout
+  slug="newtons-cannonball"
+  intro="Why does the Moon not fall down? Newton pictured a cannon on a mountain. Fire the ball faster and it lands farther away, until it goes so fast that the ground curves away as fast as it falls."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Range />
+</TopicLayout>
