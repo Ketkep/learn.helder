@@ -349,6 +349,15 @@ The page has three panels about the colours of a leaf. Panel 1 is a mixer: three
 - `src/components/leaves/Turn.astro` is the frame and `Panel*.astro` is one panel each.
 - `src/scripts/leaves/` has one script per panel: `mix.ts`, `paper.ts` and `season.ts`.
 
+## The bee page: how the hive works
+
+The page is a dark honey room with four looks into a hive, each with the comb (a bee dancing on an upright comb, where straight up means the direction of the sun) next to a map of the garden from above (the hive in the middle, the sun at the edge, the flowers). Look 1 reads a dance: the angle of the waggle run and its length give the direction and distance of the flowers. Look 2 goes the other way: press the map or move the sliders and the comb shows the dance. Look 3 slides the sun through the day with the flowers fixed, and the angle of the dance changes. Look 4 shows noise: each run is off by up to about 15 degrees and 15 per cent, and the average of more runs lands closer, with the typical error over many tries worked out by a seeded simulation. The distance scale is a rule of thumb of one kilometre a second and the page says so. The sun is a toy (15 degrees an hour, south at noon).
+
+- `src/data/bees.ts` holds all the words, the takeaways and the sources.
+- `src/lib/bees.ts` holds the maths: the map points, the angle of the dance, the sun, the noisy runs, the typical error, and the comb and garden as SVG text.
+- `src/components/bees/Hive.astro` is the frame, `Pair.astro` is the comb and the map, and `Panel*.astro` is one look each.
+- `src/scripts/bees/` has `draw.ts` (redraws a pair) and one script per look: `read.ts`, `send.ts`, `sun.ts` and `noise.ts`.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -394,6 +403,7 @@ src/data/rhythm.ts        everything the rhythm page says: boards, takeaways, so
 src/data/cannon.ts        everything the cannon page says: panels, takeaways, sources
 src/data/cipher.ts        everything the cipher page says: tries, takeaways, sources
 src/data/leaves.ts        everything the leaves page says: panels, takeaways, sources
+src/data/bees.ts          everything the bee page says: looks, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -422,6 +432,7 @@ src/components/rhythm/    the rhythm page: four boards and the frame
 src/components/cannon/    the cannon page: three panels and the frame
 src/components/cipher/    the cipher page: the wheel, four tries and the frame
 src/components/leaves/    the leaves page: three panels and the frame
+src/components/bees/      the bee page: the comb and map pair, four looks and the frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -447,6 +458,7 @@ src/styles/rhythm.css     the rhythm page: dark drum machine, pads, rings
 src/styles/cannon.css     the cannon page: deep space blue, planet and ball pictures
 src/styles/cipher.css     the cipher page: dark writing desk, wheel and bar charts
 src/styles/leaves.css     the leaves page: dark autumn room, leaf and paper strip
+src/styles/bees.css       the bee page: dark honey room, comb and garden map
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -455,6 +467,7 @@ src/lib/text.ts          fill {slots} in a line, and pick singular or plural
 src/lib/chess/           chess pieces, still diagrams, and the build-time analysis of games
 src/lib/dutch/           drawing helpers, background strips, map and painting for the Dutch page
 src/lib/rand.ts          repeatable random numbers.  src/lib/svgpath.ts: smooth curves for drawings
+src/lib/bees.ts          dance maths for the bee page
 src/lib/cipher.ts        cipher maths for the cipher page
 src/lib/leaves.ts        leaf colour models for the leaves page
 src/lib/orbit.ts         orbit maths for the cannon page: shots, speeds, lap times
@@ -489,6 +502,7 @@ src/scripts/rhythm/      the looping clock (clock.ts) and one script per board
 src/scripts/cannon/       one script per panel: fire, second and heights
 src/scripts/cipher/       one script per try: wheel, break, keys and keyword
 src/scripts/leaves/       one script per panel: mix, paper and season
+src/scripts/bees/        redrawing a pair (draw.ts) and one script per look
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

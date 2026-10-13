@@ -1,0 +1,19 @@
+---
+// Look 4: many runs. Each dot is what one run suggests and the ring is their average.
+import Pair from './Pair.astro';
+import { average, danceAngle, mapPoint, noisyRuns, runSeconds, typicalError } from '../../lib/bees';
+const [bearing, km, sun, n] = [120, 2, 180, 8];
+const truth = mapPoint(bearing, km);
+const avg = average(noisyRuns(bearing, km, 30).slice(0, n), truth);
+const dots = avg.pts.map((p) => `<circle class="dot" cx="${p[0]}" cy="${p[1]}" r="3.5"/>`).join('') + `<circle class="avg" cx="${avg.point[0]}" cy="${avg.point[1]}" r="9"/>`;
+---
+
+<div class="tool" data-noise-tool>
+  <Pair angle={danceAngle(bearing, sun)} seconds={runSeconds(km)} sun={sun} bearing={bearing} km={km} extra={dots} />
+  <div class="controls needs-js">
+    <label class="field"><span>Runs watched <output data-noise-out>{n}</output></span><input class="range" type="range" min="1" max="30" step="1" value={n} data-noise-range aria-label="Number of runs a follower watches" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-noise-status>
+    After {n} runs the average is {avg.error.toFixed(2)} km from the flowers in this sample. Over many tries the typical error with {n} runs is about {typicalError(bearing, km, n).toFixed(2)} km, and with 1 run it is about {typicalError(bearing, km, 1).toFixed(2)} km.
+  </p>
+</div>

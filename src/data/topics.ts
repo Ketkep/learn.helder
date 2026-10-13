@@ -287,6 +287,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-12',
     status: 'live',
   },
+  {
+    slug: 'the-bee-dance',
+    title: 'The bee dance',
+    hook: 'Read a dance on the comb and find the flowers it points to.',
+    category: 'Nature',
+    accent: '#F2C14E',
+    preview: 'the-bee-dance',
+    dateAdded: '2026-10-13',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

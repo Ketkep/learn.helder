@@ -1,0 +1,31 @@
+---
+// The comb and the garden map side by side. The scripts redraw both.
+import { combSvg, gardenSvg, mapPoint } from '../../lib/bees';
+interface Props {
+  angle: number;
+  seconds: number;
+  sun: number;
+  bearing: number;
+  km: number;
+  extra?: string;
+  clickable?: boolean;
+}
+const { angle, seconds, sun, bearing, km, extra = '', clickable = false } = Astro.props;
+---
+
+<div class="pair">
+  <figure>
+    <svg class="comb" viewBox="0 0 220 260" role="img" aria-label="The comb in the hive with a dancing bee" data-comb>
+      <rect class="comb-bg" x="4" y="4" width="212" height="252" rx="12"></rect>
+      <g data-comb-g set:html={combSvg(angle, seconds)}></g>
+    </svg>
+    <figcaption>On the comb: the dance</figcaption>
+  </figure>
+  <figure>
+    <svg class={`garden${clickable ? ' click' : ''}`} viewBox="0 0 300 300" role="img" aria-label="A map from above with the hive in the middle, the sun and the flowers" data-garden>
+      <rect class="grass" x="2" y="2" width="296" height="296" rx="12"></rect>
+      <g data-garden-g set:html={gardenSvg(sun, mapPoint(bearing, km), extra)}></g>
+    </svg>
+    <figcaption>From above: where the bees fly</figcaption>
+  </figure>
+</div>

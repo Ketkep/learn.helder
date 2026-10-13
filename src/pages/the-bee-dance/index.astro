@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Hive from '../../components/bees/Hive.astro';
+import { takeaways, sources, sourcesNote } from '../../data/bees';
+---
+
+<TopicLayout
+  slug="the-bee-dance"
+  intro="A honey bee that finds flowers dances on the comb in the dark, and the others fly straight to them. Read a dance, send a bee, watch the sun move and see why the followers watch many runs."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Hive />
+</TopicLayout>

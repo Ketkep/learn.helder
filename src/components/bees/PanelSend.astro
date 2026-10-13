@@ -1,0 +1,29 @@
+---
+// Look 2: put flowers on the map and see the dance that sends the others there.
+import Pair from './Pair.astro';
+import { compass, danceAngle, fmtAngle, runSeconds } from '../../lib/bees';
+const [bearing, km, sun] = [120, 1.5, 180];
+const angle = danceAngle(bearing, sun);
+---
+
+<div class="tool" data-send-tool>
+  <Pair angle={angle} seconds={runSeconds(km)} sun={sun} bearing={bearing} km={km} clickable />
+  <div class="controls needs-js">
+    <label class="field"><span>The sun is in the</span>
+      <select class="select" data-send-sun aria-label="Where the sun is">
+        <option value="90">east (morning)</option>
+        <option value="180" selected>south (midday)</option>
+        <option value="270">west (evening)</option>
+      </select>
+    </label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Direction of the flowers <output data-send-b-out>120 degrees</output></span><input class="range" type="range" min="0" max="359" step="1" value={bearing} data-send-b aria-label="Compass direction of the flowers in degrees from north" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Distance <output data-send-d-out>1.5 km</output></span><input class="range" type="range" min="0.2" max="3.5" step="0.1" value={km} data-send-d aria-label="Distance to the flowers in kilometres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-send-status>
+    Flowers {km.toFixed(1)} km to the {compass(bearing)}, with the sun in the south: the bee waggles {fmtAngle(angle)} for about {runSeconds(km).toFixed(1)} seconds.
+  </p>
+</div>

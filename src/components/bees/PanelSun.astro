@@ -1,0 +1,22 @@
+---
+// Look 3: the sun moves through the day and the dance changes with it.
+import Pair from './Pair.astro';
+import { danceAngle, fmtAngle, sunBearing } from '../../lib/bees';
+const [bearing, km, hour] = [100, 1.5, 12];
+const sun = sunBearing(hour);
+---
+
+<div class="tool" data-sun-tool>
+  <Pair angle={danceAngle(bearing, sun)} seconds={km} sun={sun} bearing={bearing} km={km} />
+  <div class="controls needs-js">
+    <label class="field"><span>Time of day <output data-sun-h-out>12:00</output></span><input class="range" type="range" min="8" max="18" step="0.5" value={hour} data-sun-h aria-label="Time of day in hours" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-sun-status>
+    At 12:00 the sun is in the south. The flowers lie at 100 degrees from north, so the bee waggles {fmtAngle(danceAngle(bearing, sun))}.
+  </p>
+  <table class="times">
+    <caption class="sr-only">The angle of the dance through the day for flowers at 100 degrees from north</caption>
+    <thead><tr><th scope="col">Time</th><th scope="col">Sun</th><th scope="col">Dance</th></tr></thead>
+    <tbody>{[8, 10, 12, 14, 16, 18].map((h) => <tr><th scope="row">{h}:00</th><td>{Math.round(sunBearing(h))} degrees</td><td>{fmtAngle(danceAngle(bearing, sunBearing(h)))}</td></tr>)}</tbody>
+  </table>
+</div>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .hd-comb { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; stroke-linejoin: round; }
+    .hd-path { fill: none; stroke: var(--on-cover); stroke-width: 4; stroke-dasharray: 3 9; stroke-linecap: round; }
+    .hd-bee { fill: var(--on-cover); transform-box: fill-box; transform-origin: 50% 50%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .hd-bee { animation: hd-waggle 0.5s ease-in-out infinite alternate; }
+    }
+    /* The bee waggles from side to side along its run */
+    @keyframes hd-waggle { 0% { transform: rotate(-14deg); } 100% { transform: rotate(14deg); } }
+  </style>
+
+  <g>
+    <path class="hd-comb" d="M140 70l30 17v34l-30 17l-30 -17v-34zM200 105l30 17v34l-30 17l-30 -17v-34zM140 140l30 17v34l-30 17l-30 -17v-34zM260 70l30 17v34l-30 17l-30 -17v-34z" opacity="0.8"/>
+    <path class="hd-path" d="M200 230L252 110"/>
+    <g class="hd-bee"><ellipse cx="200" cy="224" rx="16" ry="25"/></g>
+  </g>
+  <circle class="knob" cx="200" cy="272" r="13"/>
+</svg>
