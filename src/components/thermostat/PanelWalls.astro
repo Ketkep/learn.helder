@@ -1,0 +1,20 @@
+---
+// Strip 3: The walls.
+import { chartSvg, simulate, type Setup } from '../../lib/thermostat';
+const s: Setup = { outside: 5, set: 20, band: 2, leak: 0.1, lag: 0 };
+const r = simulate(s);
+const pct = Math.round(r.onShare * 100);
+---
+
+<div class="tool" data-walls-tool>
+  <svg class="strip" viewBox="0 0 300 180" role="img" aria-label="A chart of the room temperature over 24 hours with the times the heater is on" data-walls-svg>
+    <rect class="paper" x="2" y="2" width="296" height="176" rx="8"></rect>
+    <g data-walls-g set:html={chartSvg(s, r)}></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Heat leaks <output data-walls-leak-out>0.10</output></span><input class="range" type="range" min="0.04" max="0.3" step="0.01" value="0.1" data-walls-leak aria-label="How fast the room loses heat for each degree of difference, per hour" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-walls-status>
+    With a leak of 0.10 the room stayed between {r.min.toFixed(1)} and {r.max.toFixed(1)} degrees and the heater was on {pct} per cent of the day. Better insulation means a smaller number.
+  </p>
+</div>

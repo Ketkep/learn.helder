@@ -297,6 +297,26 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-13',
     status: 'live',
   },
+  {
+    slug: 'how-a-thermostat-works',
+    title: 'How a thermostat works',
+    hook: 'Watch a room warm and cool over a day and see how a switch keeps it steady.',
+    category: 'Technology',
+    accent: '#3C6E91',
+    preview: 'how-a-thermostat-works',
+    dateAdded: '2026-10-13',
+    status: 'live',
+  },
+  {
+    slug: 'how-growth-compounds',
+    title: 'How growth compounds',
+    hook: 'See why growth on top of growth pulls away from a straight line, with made up coins.',
+    category: 'Maths',
+    accent: '#4C9A7A',
+    preview: 'how-growth-compounds',
+    dateAdded: '2026-10-13',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

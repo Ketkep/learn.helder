@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ht-box { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .ht-temp { fill: none; stroke: var(--on-cover); stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
+    .ht-set { stroke: var(--on-cover); stroke-width: 3; stroke-dasharray: 4 8; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ht-temp { stroke-dasharray: 420; animation: ht-draw 3.2s linear infinite; }
+    }
+    /* The pen draws the wavy line of the room temperature */
+    @keyframes ht-draw { from { stroke-dashoffset: 420; } to { stroke-dashoffset: 0; } }
+  </style>
+
+  <g>
+    <rect class="ht-box" x="70" y="60" width="260" height="160" rx="10"/>
+    <line class="ht-set" x1="86" y1="140" x2="314" y2="140"/>
+    <path class="ht-temp" d="M86 166L120 166L150 118L180 118L210 166L240 166L270 118L300 118"/>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

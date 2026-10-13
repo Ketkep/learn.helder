@@ -1,0 +1,20 @@
+---
+// Strip 2: The gap.
+import { chartSvg, simulate, type Setup } from '../../lib/thermostat';
+const s: Setup = { outside: 5, set: 20, band: 2, leak: 0.1, lag: 0 };
+const r = simulate(s);
+const pct = Math.round(r.onShare * 100);
+---
+
+<div class="tool" data-gap-tool>
+  <svg class="strip" viewBox="0 0 300 180" role="img" aria-label="A chart of the room temperature over 24 hours with the times the heater is on" data-gap-svg>
+    <rect class="paper" x="2" y="2" width="296" height="176" rx="8"></rect>
+    <g data-gap-g set:html={chartSvg(s, r)}></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Gap between on and off <output data-gap-band-out>2.0 degrees</output></span><input class="range" type="range" min="0.2" max="6" step="0.2" value="2" data-gap-band aria-label="Gap between switching on and switching off in degrees" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-gap-status>
+    The room stayed between {r.min.toFixed(1)} and {r.max.toFixed(1)} degrees. The heater switched {r.switches} times and was on {pct} per cent of the day.{r.needed > 1 ? ' It was too small to hold the set point.' : ''}
+  </p>
+</div>

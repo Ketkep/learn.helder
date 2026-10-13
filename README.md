@@ -358,6 +358,24 @@ The page is a dark honey room with four looks into a hive, each with the comb (a
 - `src/components/bees/Hive.astro` is the frame, `Pair.astro` is the comb and the map, and `Panel*.astro` is one look each.
 - `src/scripts/bees/` has `draw.ts` (redraws a pair) and one script per look: `read.ts`, `send.ts`, `sun.ts` and `noise.ts`.
 
+## The thermostat page: how the strip charts work
+
+The page shows four strip charts, like the paper strips of a chart recorder: a room over one day (24 hours, one step a minute) with a thermostat that switches a heater on and off. The grey blue band is the gap between switching on and switching off, the dashed line is the set temperature, the green dotted line is the outside temperature, the orange marks show when the heater is on and the red line is the room temperature. Strip 1 changes the temperature you want and the outside temperature (the loop). Strip 2 changes the gap (hysteresis). Strip 3 changes how fast the room loses heat (the walls). Strip 4 gives the heater a lag so the room overshoots. The room, the heater power (3 degrees an hour) and the leak numbers are a toy model and the page says so. Without a script each panel shows one chart.
+
+- `src/data/thermostat.ts` holds all the words, the takeaways and the sources.
+- `src/lib/thermostat.ts` holds the model (`simulate`) and the chart as SVG text, so the build and the browser draw the same thing.
+- `src/components/thermostat/Room.astro` is the frame and `Panel*.astro` is one strip each.
+- `src/scripts/thermostat/strip.ts` redraws a strip when a slider moves, and `thermostat.ts` sets up the four strips and the sentences they say.
+
+## The growth page: how the ledger works
+
+The page is about compound growth, with made up coins and a clear note that nothing on it is money advice. Page 1 draws simple growth (a straight line) against compound growth (a curve) for a rate and a number of years. Page 2 compares the rule of 72 with the exact doubling time. Page 3 shows what coins can buy once prices rise (the exact form of the Fisher equation). Page 4 shows what happens when growth is added once a year, monthly, daily or all the time. The charts are drawn as SVG text from `src/lib/growth.ts`, so the build and the browser draw the same thing. Without a script each panel shows one chart or table.
+
+- `src/data/growth.ts` holds all the words, the takeaways and the sources.
+- `src/lib/growth.ts` holds the sums and the line chart.
+- `src/components/growth/Ledger.astro` is the frame and `Panel*.astro` is one page each.
+- `src/scripts/growth/growth.ts` starts all four panels.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -404,6 +422,8 @@ src/data/cannon.ts        everything the cannon page says: panels, takeaways, so
 src/data/cipher.ts        everything the cipher page says: tries, takeaways, sources
 src/data/leaves.ts        everything the leaves page says: panels, takeaways, sources
 src/data/bees.ts          everything the bee page says: looks, takeaways, sources
+src/data/thermostat.ts    everything the thermostat page says: strips, takeaways, sources
+src/data/growth.ts        everything the growth page says: pages, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -433,6 +453,8 @@ src/components/cannon/    the cannon page: three panels and the frame
 src/components/cipher/    the cipher page: the wheel, four tries and the frame
 src/components/leaves/    the leaves page: three panels and the frame
 src/components/bees/      the bee page: the comb and map pair, four looks and the frame
+src/components/thermostat/ the thermostat page: four strip charts and the frame
+src/components/growth/    the growth page: four panels and the frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -459,6 +481,8 @@ src/styles/cannon.css     the cannon page: deep space blue, planet and ball pict
 src/styles/cipher.css     the cipher page: dark writing desk, wheel and bar charts
 src/styles/leaves.css     the leaves page: dark autumn room, leaf and paper strip
 src/styles/bees.css       the bee page: dark honey room, comb and garden map
+src/styles/thermostat.css the thermostat page: dark blue room, strip charts
+src/styles/growth.css     the growth page: dark green ledger room, ruled charts
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -467,6 +491,8 @@ src/lib/text.ts          fill {slots} in a line, and pick singular or plural
 src/lib/chess/           chess pieces, still diagrams, and the build-time analysis of games
 src/lib/dutch/           drawing helpers, background strips, map and painting for the Dutch page
 src/lib/rand.ts          repeatable random numbers.  src/lib/svgpath.ts: smooth curves for drawings
+src/lib/thermostat.ts    room and thermostat model for the thermostat page
+src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
 src/lib/cipher.ts        cipher maths for the cipher page
 src/lib/leaves.ts        leaf colour models for the leaves page
@@ -503,6 +529,8 @@ src/scripts/cannon/       one script per panel: fire, second and heights
 src/scripts/cipher/       one script per try: wheel, break, keys and keyword
 src/scripts/leaves/       one script per panel: mix, paper and season
 src/scripts/bees/        redrawing a pair (draw.ts) and one script per look
+src/scripts/thermostat/   redrawing a strip (strip.ts) and the four strips (thermostat.ts)
+src/scripts/growth/       all four growth panels (growth.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

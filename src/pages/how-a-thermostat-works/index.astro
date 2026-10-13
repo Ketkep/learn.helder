@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Room from '../../components/thermostat/Room.astro';
+import { takeaways, sources, sourcesNote } from '../../data/thermostat';
+---
+
+<TopicLayout
+  slug="how-a-thermostat-works"
+  intro="A thermostat is a switch that watches the room: too cold turns the heater on, warm enough turns it off. Four strip charts show a room over a day, and what the loop, the gap, the walls and a slow heater do to it."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Room />
+</TopicLayout>

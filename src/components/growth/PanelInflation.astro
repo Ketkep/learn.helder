@@ -1,0 +1,23 @@
+---
+// Page 3: what the coins can buy, once prices rise.
+import { chartSvg, compound, fmt, realFactor, years } from '../../lib/growth';
+const [rate, infl, n] = [0.05, 0.03, 30];
+const ys = years(n);
+---
+
+<div class="tool" data-inflation-tool>
+  <svg class="chart" viewBox="0 0 300 180" role="img" aria-label="A chart of coins growing, and of what they can buy once prices rise" data-inflation-svg>
+    <rect class="paper" x="2" y="2" width="296" height="176" rx="8"></rect>
+    <g data-inflation-g set:html={chartSvg([{ name: 'Coins', cls: 'line b', values: ys.map((t) => compound(100, rate, t)) }, { name: 'What they buy', cls: 'line a', values: ys.map((t) => 100 * realFactor(rate, infl, t)) }], n)}></g>
+  </svg>
+  <p class="key" aria-hidden="true"><span class="sw b"></span> number of coins <span class="sw a"></span> what they can buy, in today's coins</p>
+  <div class="controls needs-js">
+    <label class="field"><span>Growth a year <output data-inflation-r-out>5 per cent</output></span><input class="range" type="range" min="1" max="15" step="1" value="5" data-inflation-r aria-label="Yearly growth rate in per cent" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Prices rise a year <output data-inflation-p-out>3 per cent</output></span><input class="range" type="range" min="0" max="12" step="1" value="3" data-inflation-p aria-label="Yearly price rise in per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-inflation-status>
+    After {n} years 100 coins have grown to {fmt(compound(100, rate, n))} coins. With prices rising {infl * 100} per cent a year, those coins buy what {fmt(100 * realFactor(rate, infl, n))} coins buy today.
+  </p>
+</div>

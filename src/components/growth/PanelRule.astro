@@ -1,0 +1,19 @@
+---
+// Page 2: the rule of 72 against the exact doubling time.
+import { doubleExact, rule72 } from '../../lib/growth';
+const rates = [2, 4, 6, 8, 10, 12, 20];
+---
+
+<div class="tool" data-rule-tool>
+  <div class="controls needs-js">
+    <label class="field"><span>Rate a year <output data-rule-out>9 per cent</output></span><input class="range" type="range" min="1" max="30" step="1" value="9" data-rule aria-label="Yearly growth rate in per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-rule-status>
+    At 9 per cent a year the rule of 72 says {rule72(9).toFixed(1)} years, and the exact time is {doubleExact(0.09).toFixed(2)} years.
+  </p>
+  <table class="times">
+    <caption class="sr-only">Doubling time by the rule of 72 and exactly</caption>
+    <thead><tr><th scope="col">Rate</th><th scope="col">Rule of 72</th><th scope="col">Exact</th></tr></thead>
+    <tbody>{rates.map((r) => <tr><th scope="row">{r} per cent</th><td>{rule72(r).toFixed(1)} years</td><td>{doubleExact(r / 100).toFixed(1)} years</td></tr>)}</tbody>
+  </table>
+</div>

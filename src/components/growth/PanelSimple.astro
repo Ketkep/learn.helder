@@ -1,0 +1,23 @@
+---
+// Page 1: simple growth against compound growth.
+import { chartSvg, compound, fmt, simple, years } from '../../lib/growth';
+const [rate, n] = [0.08, 30];
+const ys = years(n);
+---
+
+<div class="tool" data-simple-tool>
+  <svg class="chart" viewBox="0 0 300 180" role="img" aria-label="A chart of 100 coins growing with simple growth, a straight line, and with compound growth, a curve that rises faster" data-simple-svg>
+    <rect class="paper" x="2" y="2" width="296" height="176" rx="8"></rect>
+    <g data-simple-g set:html={chartSvg([{ name: 'Simple', cls: 'line a', values: ys.map((t) => simple(100, rate, t)) }, { name: 'Compound', cls: 'line b', values: ys.map((t) => compound(100, rate, t)) }], n)}></g>
+  </svg>
+  <p class="key" aria-hidden="true"><span class="sw a"></span> simple <span class="sw b"></span> compound</p>
+  <div class="controls needs-js">
+    <label class="field"><span>Rate a year <output data-simple-r-out>8 per cent</output></span><input class="range" type="range" min="1" max="15" step="1" value="8" data-simple-r aria-label="Yearly growth rate in per cent" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Years <output data-simple-t-out>30</output></span><input class="range" type="range" min="5" max="40" step="1" value={n} data-simple-t aria-label="Number of years" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-simple-status>
+    100 coins at {rate * 100} per cent for {n} years: simple growth gives {fmt(simple(100, rate, n))} coins and compound growth gives {fmt(compound(100, rate, n))} coins, which is {fmt(compound(100, rate, n) - simple(100, rate, n))} more.
+  </p>
+</div>

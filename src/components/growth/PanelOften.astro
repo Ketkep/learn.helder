@@ -1,0 +1,23 @@
+---
+// Page 4: adding the growth once a year, monthly, daily or all the time.
+import { compoundN } from '../../lib/growth';
+const rows = [{ name: 'Once a year', n: 1 }, { name: 'Four times a year', n: 4 }, { name: 'Every month', n: 12 }, { name: 'Every day', n: 365 }, { name: 'All the time', n: 0 }];
+const [rate, n] = [0.1, 10];
+---
+
+<div class="tool" data-often-tool>
+  <div class="controls needs-js">
+    <label class="field"><span>Rate a year <output data-often-r-out>10 per cent</output></span><input class="range" type="range" min="1" max="30" step="1" value="10" data-often-r aria-label="Yearly growth rate in per cent" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Years <output data-often-t-out>10</output></span><input class="range" type="range" min="1" max="40" step="1" value={n} data-often-t aria-label="Number of years" /></label>
+  </div>
+  <table class="times">
+    <caption class="sr-only">What 100 coins grow to when growth is added at different times</caption>
+    <thead><tr><th scope="col">Growth is added</th><th scope="col">100 coins become</th></tr></thead>
+    <tbody data-often-rows>{rows.map((r) => <tr><th scope="row">{r.name}</th><td>{compoundN(100, rate, n, r.n).toFixed(2)} coins</td></tr>)}</tbody>
+  </table>
+  <p class="status" aria-live="polite" data-often-status>
+    At {rate * 100} per cent for {n} years, adding growth every month instead of once a year gives {(compoundN(100, rate, n, 12) - compoundN(100, rate, n, 1)).toFixed(2)} coins more, and adding it all the time gives only {(compoundN(100, rate, n, 0) - compoundN(100, rate, n, 12)).toFixed(2)} more on top of that.
+  </p>
+</div>

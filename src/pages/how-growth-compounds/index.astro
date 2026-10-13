@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Ledger from '../../components/growth/Ledger.astro';
+import { takeaways, sources, sourcesNote } from '../../data/growth';
+---
+
+<TopicLayout
+  slug="how-growth-compounds"
+  intro="Growth that is added to the pile and then grows too is called compound growth. With made up coins, see how it pulls away from a straight line, how the rule of 72 works, what rising prices do and what adding growth more often changes. Nothing here is money advice."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Ledger />
+</TopicLayout>
