@@ -1,0 +1,22 @@
+---
+// Page 3: the Gregorian rule for leap years, and the years it treats differently from the Julian rule.
+import { checkYear, averageYear, leapGregorian } from '../../lib/calendar';
+const year = 1900;
+const c = checkYear(year);
+const rows = [1700, 1800, 1900, 2000, 2024, 2100];
+---
+
+<div class="tool" data-century-tool>
+  <label class="field wide"><span>Year</span>
+    <input class="text" type="number" min="1" max="9999" value={year} data-century-year aria-label="A year" />
+  </label>
+  <p class="status" aria-live="polite" data-century-status>
+    {year}: the Julian rule says {c.julian.leap ? 'leap year' : 'not a leap year'} ({c.julian.why}). The Gregorian rule says {c.gregorian.leap ? 'leap year' : 'not a leap year'} ({c.gregorian.why}).
+  </p>
+  <table class="times">
+    <caption class="sr-only">Some years under the Julian and the Gregorian rules</caption>
+    <thead><tr><th scope="col">Year</th><th scope="col">Julian rule</th><th scope="col">Gregorian rule</th></tr></thead>
+    <tbody>{rows.map((y) => <tr><th scope="row">{y}</th><td>{checkYear(y).julian.leap ? 'leap year' : 'common year'}</td><td>{checkYear(y).gregorian.leap ? 'leap year' : 'common year'}</td></tr>)}</tbody>
+  </table>
+  <p class="status">Counted over 400 years, the Gregorian rule gives an average year of {averageYear(leapGregorian)} days.</p>
+</div>

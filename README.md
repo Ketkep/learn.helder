@@ -376,6 +376,15 @@ The page is about compound growth, with made up coins and a clear note that noth
 - `src/components/growth/Ledger.astro` is the frame and `Panel*.astro` is one page each.
 - `src/scripts/growth/growth.ts` starts all four panels.
 
+## The leap year page: how the almanac works
+
+The page has four almanac pages about why the calendar needs leap years. Page 1 runs a calendar with no leap days and shows the spring equinox slipping later (a quarter of a day a year). Page 2 runs the Julian rule (a leap day every four years, an average year of 365.25 days) and shows the equinox slipping earlier, about 10 days after about 1,300 years. Page 3 checks any year against the Julian rule and the Gregorian rule and counts the 400 year cycle (365.2425 days). Page 4 draws the month pages of October 1582 and September 1752 with the skipped days left out, so the weekdays stay true (Thursday 4 October is followed by Friday 15 October, and Wednesday 2 September by Thursday 14 September). The sums are year length differences times years, and the model uses the average year. The page gives no date for the Netherlands because the sources did not agree. Without a script each page shows one chart or table.
+
+- `src/data/leap.ts` holds all the words, the takeaways and the sources.
+- `src/lib/calendar.ts` holds the maths: the three year lengths, the leap rules, the shift of the equinox, the drift chart and the month pages as HTML text.
+- `src/components/leap/Almanac.astro` is the frame and `Panel*.astro` is one page each.
+- `src/scripts/leap/leap.ts` starts all four pages.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -424,6 +433,7 @@ src/data/leaves.ts        everything the leaves page says: panels, takeaways, so
 src/data/bees.ts          everything the bee page says: looks, takeaways, sources
 src/data/thermostat.ts    everything the thermostat page says: strips, takeaways, sources
 src/data/growth.ts        everything the growth page says: pages, takeaways, sources
+src/data/leap.ts          everything the leap year page says: pages, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -455,6 +465,7 @@ src/components/leaves/    the leaves page: three panels and the frame
 src/components/bees/      the bee page: the comb and map pair, four looks and the frame
 src/components/thermostat/ the thermostat page: four strip charts and the frame
 src/components/growth/    the growth page: four panels and the frame
+src/components/leap/       the leap year page: four almanac pages and the frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -483,6 +494,7 @@ src/styles/leaves.css     the leaves page: dark autumn room, leaf and paper stri
 src/styles/bees.css       the bee page: dark honey room, comb and garden map
 src/styles/thermostat.css the thermostat page: dark blue room, strip charts
 src/styles/growth.css     the growth page: dark green ledger room, ruled charts
+src/styles/leap.css        the leap year page: dark violet room, drift charts, month pages
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -491,6 +503,7 @@ src/lib/text.ts          fill {slots} in a line, and pick singular or plural
 src/lib/chess/           chess pieces, still diagrams, and the build-time analysis of games
 src/lib/dutch/           drawing helpers, background strips, map and painting for the Dutch page
 src/lib/rand.ts          repeatable random numbers.  src/lib/svgpath.ts: smooth curves for drawings
+src/lib/calendar.ts        calendar maths for the leap year page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -531,6 +544,7 @@ src/scripts/leaves/       one script per panel: mix, paper and season
 src/scripts/bees/        redrawing a pair (draw.ts) and one script per look
 src/scripts/thermostat/   redrawing a strip (strip.ts) and the four strips (thermostat.ts)
 src/scripts/growth/       all four growth panels (growth.ts)
+src/scripts/leap/         all four leap year pages (leap.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

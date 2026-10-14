@@ -1,0 +1,458 @@
+/* The leap year page: a dark violet room with four almanac pages. Charts on paper, and a month page with crossed out days. */
+
+.leap {
+  --board: #14121f;
+  --panel: #1d1a2e;
+  --line: #3a3560;
+  --violet: #a79df0;
+  --cream: #fff3dc;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .leap .needs-js {
+  display: none;
+}
+
+.leap :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.leap .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.leap .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .leap .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .leap .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.leap .words,
+.leap .bench,
+.leap .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.leap h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.leap .kicker {
+  color: var(--violet);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.leap .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.leap .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.leap .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.leap .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.leap .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--violet);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.leap .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.leap .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.leap .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.leap .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.leap .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.leap .times th,
+.leap .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.leap .times thead th {
+  color: #e1def5;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.leap .times tbody th {
+  font-weight: 700;
+}
+
+.leap .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.leap .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.leap .pick:hover {
+  background: var(--wash);
+}
+
+.leap .pick[aria-pressed='true'] {
+  border-color: var(--violet);
+  background: var(--violet);
+  color: var(--ink-fixed);
+}
+
+html.js .leap .no-js-name {
+  display: none;
+}
+
+.leap .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.leap .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.leap .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.leap .btn:hover {
+  background: var(--wash);
+}
+
+.leap .btn.fill {
+  background: var(--violet);
+  border-color: var(--violet);
+  color: var(--ink-fixed);
+}
+
+.leap .btn.fill:hover {
+  background: var(--cream);
+}
+
+.leap .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.leap .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.leap .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.leap .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--violet) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.leap .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.leap .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--violet);
+}
+
+.leap .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.leap .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.leap .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.leap .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.leap .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.leap .snd[aria-pressed='true'] .slash,
+.leap .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leap * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.leap .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The chart ---------- */
+.leap .chart {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.leap .paper {
+  fill: #f1ead3;
+  stroke: #3a3560;
+  stroke-width: 2;
+}
+
+.leap .grid {
+  stroke: #9cc3ae;
+  stroke-width: 1;
+}
+
+.leap .lab {
+  fill: #3a3560;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.leap .line {
+  fill: none;
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.leap .line.none {
+  stroke: #b3262e;
+}
+
+.leap .line.julian {
+  stroke: #5a3e8e;
+}
+
+.leap .field.wide {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.leap .text {
+  width: 8rem;
+  padding: 0.5rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: #14121f;
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.leap .month {
+  width: min(100%, 22rem);
+  padding: 0.8rem;
+  background: #f4efe0;
+  color: #1c1a2b;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.leap .month-name {
+  margin: 0 0 0.5rem;
+  padding: 0.3rem 0.6rem;
+  background: #b3262e;
+  color: #fff3dc;
+  border-radius: 6px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.leap .grid7 {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.2rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.leap .dow {
+  font-size: 0.78rem;
+  color: #5a5470;
+}
+
+.leap .day {
+  padding: 0.3rem 0;
+  border-radius: 4px;
+}
+
+.leap .gap {
+  grid-column: 1 / -1;
+  margin: 0.3rem 0;
+  padding: 0.35rem 0.5rem;
+  background: #f1d9d9;
+  border: 2px dashed #b3262e;
+  border-radius: 6px;
+  color: #5a1a1f;
+  font-size: 0.85rem;
+}
+
+.leap .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

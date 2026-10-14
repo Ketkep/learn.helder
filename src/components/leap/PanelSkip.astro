@@ -1,0 +1,21 @@
+---
+// Page 4: the days that were skipped, drawn on a month page.
+import { monthHtml, skips } from '../../lib/calendar';
+const page = skips[0];
+---
+
+<div class="tool" data-skip-tool>
+  <div class="controls needs-js" role="group" aria-label="Which change">
+    {skips.map((p, i) => <button type="button" class={`btn${i === 0 ? ' fill' : ''}`} data-skip-pick={p.id} aria-pressed={i === 0 ? 'true' : 'false'}>{p.name}</button>)}
+  </div>
+  <div class="month">
+    <p class="month-name" data-skip-title>{page.month} {page.year}</p>
+    <div class="grid7" data-skip-grid set:html={monthHtml(page)}></div>
+  </div>
+  <p class="status" aria-live="polite" data-skip-status>{page.name}. {page.note}</p>
+  <table class="times">
+    <caption class="sr-only">Calendar changes and the days that were dropped</caption>
+    <thead><tr><th scope="col">Where</th><th scope="col">Dropped</th><th scope="col">What happened</th></tr></thead>
+    <tbody>{skips.map((p) => <tr><th scope="row">{p.name}</th><td>{p.skipped[1] - p.skipped[0] + 1} days</td><td>{p.note}</td></tr>)}</tbody>
+  </table>
+</div>

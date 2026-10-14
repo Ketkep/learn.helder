@@ -317,6 +317,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-13',
     status: 'live',
   },
+  {
+    slug: 'why-we-have-leap-years',
+    title: 'Why we have leap years',
+    hook: 'Run the calendar for hundreds of years and watch the seasons slip, then fix it.',
+    category: 'Maths',
+    accent: '#7C6FD6',
+    preview: 'why-we-have-leap-years',
+    dateAdded: '2026-10-14',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

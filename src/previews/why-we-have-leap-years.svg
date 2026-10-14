@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .hy-page { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .hy-bar { fill: var(--on-cover); }
+    .hy-day { fill: var(--on-cover); opacity: 0.55; }
+    .hy-leap { fill: var(--cover); stroke: var(--on-cover); stroke-width: 4; transform-box: fill-box; transform-origin: 50% 50%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .hy-leap { animation: hy-blink 1.6s steps(1, end) infinite; }
+    }
+    /* The extra day appears and disappears */
+    @keyframes hy-blink { 0% { opacity: 1; } 50% { opacity: 0.15; } }
+  </style>
+
+  <g>
+    <rect class="hy-page" x="96" y="50" width="208" height="190" rx="10"/>
+    <rect class="hy-bar" x="96" y="50" width="208" height="38" rx="10"/>
+    <g class="hy-day">
+      <rect x="116" y="106" width="22" height="22" rx="4"/><rect x="148" y="106" width="22" height="22" rx="4"/><rect x="180" y="106" width="22" height="22" rx="4"/><rect x="212" y="106" width="22" height="22" rx="4"/><rect x="244" y="106" width="22" height="22" rx="4"/>
+      <rect x="116" y="140" width="22" height="22" rx="4"/><rect x="148" y="140" width="22" height="22" rx="4"/><rect x="180" y="140" width="22" height="22" rx="4"/><rect x="212" y="140" width="22" height="22" rx="4"/><rect x="244" y="140" width="22" height="22" rx="4"/>
+      <rect x="116" y="174" width="22" height="22" rx="4"/><rect x="148" y="174" width="22" height="22" rx="4"/><rect x="180" y="174" width="22" height="22" rx="4"/>
+    </g>
+    <rect class="hy-leap" x="212" y="174" width="22" height="22" rx="4"/>
+  </g>
+  <circle class="knob" cx="200" cy="270" r="14"/>
+</svg>

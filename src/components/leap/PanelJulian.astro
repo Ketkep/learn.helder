@@ -1,0 +1,20 @@
+---
+// Page 2: a leap day every four years runs a little ahead of the seasons.
+import { JULIAN_YEAR, describeShift, driftSvg, equinoxShift, shiftSeries } from '../../lib/calendar';
+const years = 1600;
+const s = shiftSeries(years);
+const show = 1300;
+---
+
+<div class="tool" data-julian-tool>
+  <svg class="chart" viewBox="0 0 300 180" role="img" aria-label="A chart of how many days the Julian calendar runs ahead of the seasons, rising slowly over 1,600 years" data-julian-svg>
+    <rect class="paper" x="2" y="2" width="296" height="176" rx="8"></rect>
+    <g data-julian-g set:html={driftSvg(s.julian, years, 'line julian')}></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>After <output data-julian-out>{show.toLocaleString('en-US')} years</output></span><input class="range" type="range" min="0" max="1600" step="10" value={show} data-julian-range aria-label="Number of years" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-julian-status>
+    After {show.toLocaleString('en-US')} years of an average year of {JULIAN_YEAR} days. {describeShift(equinoxShift(show, JULIAN_YEAR))}
+  </p>
+</div>

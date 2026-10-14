@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Almanac from '../../components/leap/Almanac.astro';
+import { takeaways, sources, sourcesNote } from '../../data/leap';
+---
+
+<TopicLayout
+  slug="why-we-have-leap-years"
+  intro="A year is not a whole number of days. Run a calendar with no leap days, with a leap day every four years and with the rule of 1582, and see where the seasons end up. Then see the days that were skipped to fix it."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Almanac />
+</TopicLayout>

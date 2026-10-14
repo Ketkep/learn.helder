@@ -1,0 +1,60 @@
+---
+// The whole page: four pages of an almanac. The pages are the Panel components and src/scripts/leap.
+// Without a script each page shows one chart or table.
+import '../../styles/leap.css';
+import { intro, panels } from '../../data/leap';
+import PanelSlip from './PanelSlip.astro';
+import PanelJulian from './PanelJulian.astro';
+import PanelCentury from './PanelCentury.astro';
+import PanelSkip from './PanelSkip.astro';
+
+const tools: Record<string, typeof PanelSlip> = { slip: PanelSlip, julian: PanelJulian, century: PanelCentury, skip: PanelSkip };
+---
+
+<div class="leap" data-leap>
+  <section class="panel opening" aria-labelledby="leap-intro">
+    <div class="panel-inner">
+      <div class="words">
+        <p class="kicker">Open the almanac</p>
+        <h2 id="leap-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  {
+    panels.map((p) => {
+      const Tool = tools[p.id];
+      return (
+        <section class="panel" id={`panel-${p.id}`} aria-labelledby={`panel-${p.id}-h`}>
+          <div class="panel-inner">
+            <div class="words">
+              <p class="kicker">{p.kicker}</p>
+              <h2 id={`panel-${p.id}-h`}>{p.title}</h2>
+              <div class="paras">{p.paras.map((t) => <p class="para">{t}</p>)}</div>
+              {
+                p.tags && (
+                  <div class="tags">
+                    {p.tags.map((t) => (
+                      <aside class="tag">
+                        <p class="tag-label">{t.label}</p>
+                        <p class="tag-text">{t.text}</p>
+                      </aside>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+            <div class="bench">
+              <Tool />
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/leap/leap';
+</script>

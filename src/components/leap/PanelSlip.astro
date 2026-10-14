@@ -1,0 +1,19 @@
+---
+// Page 1: a calendar with no leap days slips behind the seasons.
+import { describeShift, driftSvg, equinoxShift, shiftSeries } from '../../lib/calendar';
+const years = 100;
+const s = shiftSeries(years);
+---
+
+<div class="tool" data-slip-tool>
+  <svg class="chart" viewBox="0 0 300 180" role="img" aria-label="A chart of how many days the calendar is behind the seasons, rising each year when there are no leap days" data-slip-svg>
+    <rect class="paper" x="2" y="2" width="296" height="176" rx="8"></rect>
+    <g data-slip-g set:html={driftSvg(s.none, years, 'line none')}></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>After <output data-slip-out>{years} years</output></span><input class="range" type="range" min="0" max="100" step="1" value={years} data-slip-range aria-label="Number of years" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-slip-status>
+    After {years} years with no leap days. {describeShift(equinoxShift(years, 365))}
+  </p>
+</div>
