@@ -385,6 +385,15 @@ The page has four almanac pages about why the calendar needs leap years. Page 1 
 - `src/components/leap/Almanac.astro` is the frame and `Panel*.astro` is one page each.
 - `src/scripts/leap/leap.ts` starts all four pages.
 
+## The tree ring page: how the four cuts work
+
+The page is a stump cut four ways. Cut 1 grows a stump year by year from a seeded made-up climate and shows that a wide ring is a good year and a narrow ring a poor one. Cut 2 asks the reader to count the rings of a stump and checks the count. Cut 3 slides the ring pattern of a beam along a long record and shows the correlation r at every start year, with a button that finds the best match (cross dating). Cut 4 chains overlapping samples (a living tree, a fallen tree, beams) so the record reaches further back. The climate, the beams and the matches are a toy model: the weather is a seeded random series, not real data, and the page says so. The real facts (earlywood and latewood, cross dating, bristlecone pines of about 4,765 years, records of about 8,500 years) come from the sources. Without a script each cut shows one drawing or table.
+
+- `src/data/rings.ts` holds all the words, the takeaways and the sources.
+- `src/lib/rings.ts` holds the seeded climate, the ring widths, the stump and chart drawings as SVG text, the correlation and the best-fit search.
+- `src/components/rings/Stump.astro` is the frame and `Panel*.astro` is one cut each.
+- `src/scripts/rings/rings.ts` starts all four cuts.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -434,6 +443,7 @@ src/data/bees.ts          everything the bee page says: looks, takeaways, source
 src/data/thermostat.ts    everything the thermostat page says: strips, takeaways, sources
 src/data/growth.ts        everything the growth page says: pages, takeaways, sources
 src/data/leap.ts          everything the leap year page says: pages, takeaways, sources
+src/data/rings.ts         everything the tree ring page says: cuts, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -466,6 +476,7 @@ src/components/bees/      the bee page: the comb and map pair, four looks and th
 src/components/thermostat/ the thermostat page: four strip charts and the frame
 src/components/growth/    the growth page: four panels and the frame
 src/components/leap/       the leap year page: four almanac pages and the frame
+src/components/rings/      the tree ring page: four cuts and the stump frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -495,6 +506,7 @@ src/styles/bees.css       the bee page: dark honey room, comb and garden map
 src/styles/thermostat.css the thermostat page: dark blue room, strip charts
 src/styles/growth.css     the growth page: dark green ledger room, ruled charts
 src/styles/leap.css        the leap year page: dark violet room, drift charts, month pages
+src/styles/rings.css       the tree ring page: dark brown bench, stumps, charts
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -504,6 +516,7 @@ src/lib/chess/           chess pieces, still diagrams, and the build-time analys
 src/lib/dutch/           drawing helpers, background strips, map and painting for the Dutch page
 src/lib/rand.ts          repeatable random numbers.  src/lib/svgpath.ts: smooth curves for drawings
 src/lib/calendar.ts        calendar maths for the leap year page
+src/lib/rings.ts           seeded climate, ring widths and best-fit search for the tree ring page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -545,6 +558,7 @@ src/scripts/bees/        redrawing a pair (draw.ts) and one script per look
 src/scripts/thermostat/   redrawing a strip (strip.ts) and the four strips (thermostat.ts)
 src/scripts/growth/       all four growth panels (growth.ts)
 src/scripts/leap/         all four leap year pages (leap.ts)
+src/scripts/rings/        all four tree ring cuts (rings.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

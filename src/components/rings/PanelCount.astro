@@ -1,0 +1,20 @@
+---
+// Cut 2: count the rings of a stump.
+import { ringWidths, stumpSvg } from '../../lib/rings';
+const stump = { first: 1998, last: 2020 };
+const w = ringWidths(stump.first, stump.last);
+---
+
+<div class="tool" data-count-tool>
+  <svg class="stump" viewBox="0 0 220 220" role="img" aria-label="A tree stump seen from above, with rings to count" data-count-svg>
+    <g data-count-g set:html={stumpSvg(w)}></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>How many rings?</span><input class="text" type="number" min="1" max="99" value="" data-count-guess aria-label="Your count of the rings" /></label>
+    <button type="button" class="btn fill" data-count-check>Check</button>
+    <button type="button" class="btn" data-count-next>Another stump</button>
+  </div>
+  <p class="status" aria-live="polite" data-count-status>
+    This stump has {w.length} rings, so the tree grew for {w.length} years at this height. Count along a line from the middle to the bark to check.
+  </p>
+</div>

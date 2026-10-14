@@ -1,0 +1,23 @@
+---
+// Cut 1: grow a stump and look at one ring.
+import { climate, indexOf, ringWidths, stumpSvg } from '../../lib/rings';
+const [first, years, look] = [1900, 40, 23];
+const w = ringWidths(first, first + years - 1);
+const idx = climate[indexOf(first + look - 1)];
+const word = idx > 1.2 ? 'a good year, so the ring is wide' : idx < 0.75 ? 'a poor year, so the ring is narrow' : 'an ordinary year';
+---
+
+<div class="tool" data-grow-tool>
+  <svg class="stump" viewBox="0 0 220 220" role="img" aria-label="A tree stump seen from above, with rings" data-grow-svg>
+    <g data-grow-g set:html={stumpSvg(w, look)}></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Years grown <output data-grow-n-out>{years}</output></span><input class="range" type="range" min="2" max="60" step="1" value={years} data-grow-n aria-label="Number of years the tree has grown" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Look at ring <output data-grow-k-out>{look}</output></span><input class="range" type="range" min="1" max={years} step="1" value={look} data-grow-k aria-label="Which ring to look at, counting from the middle" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-grow-status>
+    Ring {look}, from the year {first + look - 1}, was {word}. The red ring is the one you are looking at.
+  </p>
+</div>

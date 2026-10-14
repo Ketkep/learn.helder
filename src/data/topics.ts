@@ -327,6 +327,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-14',
     status: 'live',
   },
+  {
+    slug: 'how-tree-rings-work',
+    title: 'How tree rings work',
+    hook: 'Count the rings of a stump, then date an old beam by matching its pattern.',
+    category: 'Nature',
+    accent: '#86663F',
+    preview: 'how-tree-rings-work',
+    dateAdded: '2026-10-14',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

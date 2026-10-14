@@ -1,0 +1,465 @@
+/* The tree ring page: a dark wood room with four cuts through a tree. A stump with rings, and strips of ring widths. */
+
+.rings {
+  --board: #17110b;
+  --panel: #241a10;
+  --line: #4d3a24;
+  --wood: #d9b27a;
+  --cream: #fff3dc;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .rings .needs-js {
+  display: none;
+}
+
+.rings :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.rings .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.rings .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .rings .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .rings .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.rings .words,
+.rings .bench,
+.rings .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.rings h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.rings .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.rings .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.rings .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.rings .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.rings .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.rings .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.rings .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.rings .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.rings .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.rings .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.rings .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.rings .times th,
+.rings .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.rings .times thead th {
+  color: #efe0c8;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.rings .times tbody th {
+  font-weight: 700;
+}
+
+.rings .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.rings .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.rings .pick:hover {
+  background: var(--wash);
+}
+
+.rings .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .rings .no-js-name {
+  display: none;
+}
+
+.rings .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.rings .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.rings .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.rings .btn:hover {
+  background: var(--wash);
+}
+
+.rings .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.rings .btn.fill:hover {
+  background: var(--cream);
+}
+
+.rings .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.rings .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.rings .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.rings .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.rings .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.rings .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.rings .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.rings .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.rings .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.rings .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.rings .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.rings .snd[aria-pressed='true'] .slash,
+.rings .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rings * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.rings .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The stump and the strips ---------- */
+.rings .stump {
+  display: block;
+  width: 100%;
+  max-width: 18rem;
+  height: auto;
+}
+
+.rings .bark {
+  fill: #5a3b1c;
+  stroke: #2a1a0c;
+  stroke-width: 3;
+}
+
+.rings .wood {
+  fill: #ecd6a6;
+}
+
+.rings .ringline {
+  fill: none;
+  stroke: #8a5a2b;
+  stroke-width: 1.3;
+}
+
+.rings .ringline.mark {
+  stroke: #c0392b;
+  stroke-width: 3.5;
+}
+
+.rings .pith {
+  fill: #5a3b1c;
+}
+
+.rings .strip {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.rings .paper {
+  fill: #f1e6cc;
+  stroke: #4d3a24;
+  stroke-width: 2;
+}
+
+.rings .record {
+  fill: none;
+  stroke: #8d8473;
+  stroke-width: 1.6;
+}
+
+.rings .sample {
+  fill: none;
+  stroke: #b3262e;
+  stroke-width: 2.4;
+}
+
+.rings .lab,
+.rings .barlab {
+  fill: #4d3a24;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.rings .tickline {
+  stroke: #4d3a24;
+}
+
+.rings .bar {
+  fill: #d9b27a;
+  stroke: #4d3a24;
+  stroke-width: 1.5;
+}
+
+.rings .reach {
+  fill: #b3262e;
+}
+
+.rings .key {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.rings .sw {
+  display: inline-block;
+  width: 1.6rem;
+  height: 0;
+  border-top: 4px solid #b3262e;
+}
+
+.rings .sw.rec {
+  border-top: 4px solid #8d8473;
+}
+
+.rings .text {
+  width: 7rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: #17110b;
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.rings .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

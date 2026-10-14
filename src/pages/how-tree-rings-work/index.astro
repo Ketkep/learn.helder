@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Stump from '../../components/rings/Stump.astro';
+import { takeaways, sources, sourcesNote } from '../../data/rings';
+---
+
+<TopicLayout
+  slug="how-tree-rings-work"
+  intro="A tree adds a ring a year, wide in good years and narrow in poor ones. Grow a stump, count the rings, match an old beam against a long record to find the year it grew, and see how a record reaches back thousands of years."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Stump />
+</TopicLayout>

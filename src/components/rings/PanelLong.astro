@@ -1,0 +1,18 @@
+---
+// Cut 4: samples that overlap link into a record that goes far back.
+import { chain } from '../../lib/rings';
+const n = 3;
+---
+
+<div class="tool" data-long-tool>
+  <svg class="strip" viewBox="0 0 300 170" role="img" aria-label="Bars for overlapping tree samples, each older than the one before" data-long-svg>
+    <rect class="paper" x="2" y="2" width="296" height="166" rx="8"></rect>
+    <g data-long-g set:html={chain(n)}></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Samples added <output data-long-out>{n}</output></span><input class="range" type="range" min="1" max="6" step="1" value={n} data-long-range aria-label="Number of samples in the chain" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-long-status>
+    With {n} samples the record reaches back to the year 1760, which is 260 years.
+  </p>
+</div>

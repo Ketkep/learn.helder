@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .hr-bark { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .hr-ring { fill: none; stroke: var(--on-cover); stroke-width: 4; }
+    .hr-grow { transform-origin: 200px 140px; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .hr-grow { animation: hr-ring 2.6s ease-out infinite; }
+    }
+    /* A new ring spreads out from the middle */
+    @keyframes hr-ring { 0% { transform: scale(0.1); opacity: 1; } 100% { transform: scale(1); opacity: 0.2; } }
+  </style>
+
+  <g>
+    <circle class="hr-bark" cx="200" cy="140" r="104"/>
+    <circle class="hr-ring" cx="200" cy="140" r="84"/>
+    <circle class="hr-ring" cx="200" cy="140" r="62"/>
+    <circle class="hr-ring" cx="200" cy="140" r="42"/>
+    <circle class="hr-ring" cx="200" cy="140" r="22"/>
+    <circle class="hr-ring hr-grow" cx="200" cy="140" r="94" style="stroke-width: 6"/>
+  </g>
+  <circle class="knob" cx="200" cy="272" r="14"/>
+</svg>

@@ -1,0 +1,25 @@
+---
+// Cut 3: slide a beam along a long record until the patterns match.
+import { bestStart, chartSvg, fit, sample, timbers } from '../../lib/rings';
+const t = timbers[0];
+const s = sample(t.first, t.last, t.seed);
+const best = bestStart(s);
+---
+
+<div class="tool" data-match-tool>
+  <svg class="strip" viewBox="0 0 300 150" role="img" aria-label="A long record of ring widths with the pattern of a beam drawn over it" data-match-svg>
+    <rect class="paper" x="2" y="2" width="296" height="146" rx="8"></rect>
+    <g data-match-g set:html={chartSvg(s, best.year)}></g>
+  </svg>
+  <p class="key" aria-hidden="true"><span class="sw rec"></span> the long record <span class="sw smp"></span> the beam</p>
+  <div class="controls needs-js">
+    <label class="field"><span>First ring of the beam grew in <output data-match-out>{best.year}</output></span><input class="range" type="range" min="1500" max="1961" step="1" value={best.year} data-match-range aria-label="Year the first ring of the beam grew" /></label>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-match-best>Find the best match</button>
+    <button type="button" class="btn" data-match-next>Another beam</button>
+  </div>
+  <p class="status" aria-live="polite" data-match-status>
+    {t.name} has {s.length} rings. If its first ring grew in {best.year}, the patterns agree with r = {fit(s, best.year).toFixed(2)}. That is the best fit of any year, so the beam grew from {best.year} to {best.year + s.length - 1}.
+  </p>
+</div>
