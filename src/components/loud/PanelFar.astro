@@ -1,0 +1,25 @@
+---
+// Meter 3: further away.
+import Meter from './Meter.astro';
+import { atDistance } from '../../lib/decibel';
+const [level, d] = [100, 8];
+const rows = [1, 2, 4, 8, 16, 32];
+---
+
+<div class="tool" data-far-tool>
+  <Meter id="far" db={atDistance(level, d)} label="A level meter showing the level at your distance" />
+  <div class="controls needs-js">
+    <label class="field"><span>Level at 1 metre <output data-far-l-out>{level} dB</output></span><input class="range" type="range" min="50" max="130" step="1" value={level} data-far-l aria-label="Level of the source at one metre in decibels" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Distance <output data-far-d-out>{d} metres</output></span><input class="range" type="range" min="1" max="100" step="1" value={d} data-far-d aria-label="Distance from the source in metres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-far-status>
+    A source of {level} dB at 1 metre is about {atDistance(level, d).toFixed(0)} dB at {d} metres. Each doubling of the distance takes off about 6 dB.
+  </p>
+  <table class="times">
+    <caption class="sr-only">Level at different distances from a source of 100 decibels at one metre</caption>
+    <thead><tr><th scope="col">Distance</th><th scope="col">Level</th></tr></thead>
+    <tbody>{rows.map((m) => <tr><th scope="row">{m} metres</th><td>{atDistance(100, m).toFixed(0)} dB</td></tr>)}</tbody>
+  </table>
+</div>

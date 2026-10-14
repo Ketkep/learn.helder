@@ -1,0 +1,411 @@
+/* The loudness page: a dark room with four level meters. The bar runs from quiet green to harmful red. */
+
+.loud {
+  --board: #1c1112;
+  --panel: #2a191a;
+  --line: #553438;
+  --red: #ef8b88;
+  --cream: #fff3dc;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .loud .needs-js {
+  display: none;
+}
+
+.loud :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.loud .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.loud .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .loud .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .loud .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.loud .words,
+.loud .bench,
+.loud .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.loud h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.loud .kicker {
+  color: var(--red);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.loud .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.loud .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.loud .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.loud .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.loud .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--red);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.loud .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.loud .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.loud .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.loud .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.loud .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.loud .times th,
+.loud .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.loud .times thead th {
+  color: #f3dede;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.loud .times tbody th {
+  font-weight: 700;
+}
+
+.loud .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.loud .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.loud .pick:hover {
+  background: var(--wash);
+}
+
+.loud .pick[aria-pressed='true'] {
+  border-color: var(--red);
+  background: var(--red);
+  color: var(--ink-fixed);
+}
+
+html.js .loud .no-js-name {
+  display: none;
+}
+
+.loud .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.loud .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.loud .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.loud .btn:hover {
+  background: var(--wash);
+}
+
+.loud .btn.fill {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--ink-fixed);
+}
+
+.loud .btn.fill:hover {
+  background: var(--cream);
+}
+
+.loud .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.loud .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.loud .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.loud .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--red) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.loud .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.loud .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--red);
+}
+
+.loud .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.loud .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.loud .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.loud .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.loud .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.loud .snd[aria-pressed='true'] .slash,
+.loud .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loud * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.loud .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The level meter ---------- */
+.loud .meter {
+  position: relative;
+  width: min(100%, 34rem);
+  padding-bottom: 1.6rem;
+}
+
+.loud .zones {
+  display: flex;
+  height: 1.6rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.loud .zones span {
+  display: block;
+  height: 100%;
+}
+
+.loud .z1 {
+  width: 50%;
+  background: #3f9d6b;
+}
+
+.loud .z2 {
+  width: 10.7%;
+  background: #d8b43a;
+}
+
+.loud .z3 {
+  width: 10.7%;
+  background: #e0873a;
+}
+
+.loud .z4 {
+  width: 28.6%;
+  background: #c23b3b;
+}
+
+.loud .needle {
+  position: absolute;
+  top: -0.35rem;
+  width: 0.35rem;
+  height: 2.3rem;
+  margin-left: -0.175rem;
+  background: #fff3dc;
+  border: 2px solid #1c1112;
+  border-radius: 3px;
+}
+
+.loud .scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.loud .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

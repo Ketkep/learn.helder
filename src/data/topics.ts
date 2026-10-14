@@ -337,6 +337,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-14',
     status: 'live',
   },
+  {
+    slug: 'how-loud-is-loud',
+    title: 'How loud is loud',
+    hook: 'See why 60 decibels is a million times more than zero, and what two sounds add up to.',
+    category: 'Body',
+    accent: '#E85F5C',
+    preview: 'how-loud-is-loud',
+    dateAdded: '2026-10-14',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

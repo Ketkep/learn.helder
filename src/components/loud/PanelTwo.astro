@@ -1,0 +1,19 @@
+---
+// Meter 2: two sounds together.
+import Meter from './Meter.astro';
+import { combine } from '../../lib/decibel';
+const [a, b] = [60, 60];
+---
+
+<div class="tool" data-two-tool>
+  <Meter id="two" db={combine(a, b)} label="A level meter showing the two sounds together" />
+  <div class="controls needs-js">
+    <label class="field"><span>First sound <output data-two-a-out>{a} dB</output></span><input class="range" type="range" min="20" max="120" step="1" value={a} data-two-a aria-label="Level of the first sound in decibels" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Second sound <output data-two-b-out>{b} dB</output></span><input class="range" type="range" min="20" max="120" step="1" value={b} data-two-b aria-label="Level of the second sound in decibels" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-two-status>
+    {a} dB and {b} dB together make {combine(a, b).toFixed(1)} dB, which is {(combine(a, b) - Math.max(a, b)).toFixed(1)} dB more than the louder one.
+  </p>
+</div>

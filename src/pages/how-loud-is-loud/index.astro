@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Meters from '../../components/loud/Meters.astro';
+import { takeaways, sources, sourcesNote } from '../../data/loud';
+---
+
+<TopicLayout
+  slug="how-loud-is-loud"
+  intro="Decibels are a scale of multiplying, not a ruler. Try the maths of sound levels: how much more intense a level is, what two sounds add up to, how a sound fades with distance and how long a level is thought safe to hear. This is not medical advice."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Meters />
+</TopicLayout>

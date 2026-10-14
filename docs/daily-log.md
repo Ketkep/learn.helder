@@ -128,3 +128,11 @@ Ideas that fit the same style, not yet built: how a lock works (pins to lift), t
 - facts re-checked (from my own knowledge, as the source sites are blocked from here): 100 coins at 8 per cent over 30 years give about 1,006 compound and 340 simple, the rule of 72 at 9 per cent gives 8 years against an exact 8.04, 100 coins at 10 per cent over 10 years give 259.37 once a year and 271.83 with continuous growth, Karl von Frisch decoded the waggle dance, one second of waggle is about one kilometre as a rule of thumb. All agree with the pages.
 - found: nothing wrong. Nothing changed in the pages.
 - repair list: empty.
+
+## 2026-10-14
+- why-we-have-leap-years (Maths, violet): four almanac pages (a calendar with no leap days, the Julian rule, the Gregorian rule with a year checker, the skipped days of 1582 and 1752 as month pages). The seasons drift is average year length times years, a plain sum. 8 sources.
+- how-tree-rings-work (Nature, brown): a stump cut four ways (grow a stump, count the rings, match a beam against a long record, chain samples back in time). The climate and the beams are a toy model with seeded random weather, and the page says so. 8 sources.
+- how-loud-is-loud (Body, red): four meters (the decibel ruler, two sounds added, distance, how long a level can be heard under the NIOSH and OSHA rules). Not medical advice, stated on the page. 10 sources.
+- skipped: nothing. All three passed `check`, `build` and `check-topic.mjs` (0 FAIL), the older pages and the home page still pass, and the dash scan prints nothing.
+- notes: the source sites were blocked again, so only search summaries could be read, and each `sourcesNote` says so. The leap page gives no date for the Netherlands because the sources disagreed. The skip calendar draws the missing days as one gap row so the weekdays stay true. Sources give ranges for the pain threshold (120 to 140 dB) and for a rock concert, so the loudness page shows ranges. The oldest tree age differs between sources, so the tree page says about 4,765 years for one tree and about 8,500 years for a record.
+- ideas for later: the Silk Road, photosynthesis, a volcano, why the Moon has phases, how vaccines train the body (careful), how a search engine finds a page, how a battery works.

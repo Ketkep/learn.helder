@@ -1,0 +1,22 @@
+---
+// Meter 4: how long a level is recommended and allowed.
+import Meter from './Meter.astro';
+import { fmtHours, niosh, osha } from '../../lib/decibel';
+const db = 100;
+const rows = [85, 88, 91, 94, 100, 106, 112];
+---
+
+<div class="tool" data-time-tool>
+  <Meter id="time" db={db} label="A level meter showing the chosen level" />
+  <div class="controls needs-js">
+    <label class="field"><span>Level <output data-time-out>{db} dBA</output></span><input class="range" type="range" min="70" max="120" step="1" value={db} data-time aria-label="Sound level in dBA" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-time-status>
+    At {db} dBA, NIOSH recommends no more than {fmtHours(niosh(db))} a day, and OSHA allows {fmtHours(osha(db))} a day.
+  </p>
+  <table class="times">
+    <caption class="sr-only">Exposure times a day recommended by NIOSH and allowed by OSHA</caption>
+    <thead><tr><th scope="col">Level</th><th scope="col">NIOSH recommends</th><th scope="col">OSHA allows</th></tr></thead>
+    <tbody>{rows.map((l) => <tr><th scope="row">{l} dBA</th><td>{fmtHours(niosh(l))}</td><td>{fmtHours(osha(l))}</td></tr>)}</tbody>
+  </table>
+</div>

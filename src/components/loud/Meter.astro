@@ -1,0 +1,16 @@
+---
+// A level meter: a bar that fills as the level rises, coloured by how harmful the level is. Drawn here and redrawn by the scripts.
+interface Props {
+  id: string;
+  db: number;
+  label: string;
+}
+const { id, db, label } = Astro.props;
+const pct = Math.max(0, Math.min(100, (db / 140) * 100));
+---
+
+<div class="meter" role="img" aria-label={label} data-meter={id}>
+  <div class="zones" aria-hidden="true"><span class="z1"></span><span class="z2"></span><span class="z3"></span><span class="z4"></span></div>
+  <div class="needle" style={`left: ${pct}%`} data-needle></div>
+  <div class="scale" aria-hidden="true"><span>0</span><span>35</span><span>70</span><span>105</span><span>140 dB</span></div>
+</div>

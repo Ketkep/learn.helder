@@ -394,6 +394,15 @@ The page is a stump cut four ways. Cut 1 grows a stump year by year from a seede
 - `src/components/rings/Stump.astro` is the frame and `Panel*.astro` is one cut each.
 - `src/scripts/rings/rings.ts` starts all four cuts.
 
+## The loudness page: how the four meters work
+
+The page is a bench with a sound level meter. Meter 1 is a ruler from 0 to 140 decibels with real examples, and shows that every 10 dB is ten times the sound intensity (60 dB is a million times 0 dB). Meter 2 adds two sounds (two equal sounds add 3 dB, not double). Meter 3 moves away from a sound source and shows the level drop by 6 dB each time the distance doubles (free field, a toy model). Meter 4 shows how long a level can be listened to with the NIOSH rule (3 dB halves the time, 85 dB for 8 hours) and the OSHA rule (5 dB halves the time, 90 dB for 8 hours). The page is not medical advice and says so. Without a script each meter shows one table or picture.
+
+- `src/data/loud.ts` holds all the words, the takeaways and the sources.
+- `src/lib/decibel.ts` holds the decibel maths, the exposure rules and the example sounds.
+- `src/components/loud/` is the meter frame, one meter and `Panel*.astro` for each of the four.
+- `src/scripts/loud/loud.ts` starts all four meters.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -444,6 +453,7 @@ src/data/thermostat.ts    everything the thermostat page says: strips, takeaways
 src/data/growth.ts        everything the growth page says: pages, takeaways, sources
 src/data/leap.ts          everything the leap year page says: pages, takeaways, sources
 src/data/rings.ts         everything the tree ring page says: cuts, takeaways, sources
+src/data/loud.ts          everything the loudness page says: meters, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -477,6 +487,7 @@ src/components/thermostat/ the thermostat page: four strip charts and the frame
 src/components/growth/    the growth page: four panels and the frame
 src/components/leap/       the leap year page: four almanac pages and the frame
 src/components/rings/      the tree ring page: four cuts and the stump frame
+src/components/loud/       the loudness page: four meters and the meter frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -507,6 +518,7 @@ src/styles/thermostat.css the thermostat page: dark blue room, strip charts
 src/styles/growth.css     the growth page: dark green ledger room, ruled charts
 src/styles/leap.css        the leap year page: dark violet room, drift charts, month pages
 src/styles/rings.css       the tree ring page: dark brown bench, stumps, charts
+src/styles/loud.css        the loudness page: dark red bench, meter zones
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -517,6 +529,7 @@ src/lib/dutch/           drawing helpers, background strips, map and painting fo
 src/lib/rand.ts          repeatable random numbers.  src/lib/svgpath.ts: smooth curves for drawings
 src/lib/calendar.ts        calendar maths for the leap year page
 src/lib/rings.ts           seeded climate, ring widths and best-fit search for the tree ring page
+src/lib/decibel.ts         decibel maths and exposure rules for the loudness page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -559,6 +572,7 @@ src/scripts/thermostat/   redrawing a strip (strip.ts) and the four strips (ther
 src/scripts/growth/       all four growth panels (growth.ts)
 src/scripts/leap/         all four leap year pages (leap.ts)
 src/scripts/rings/        all four tree ring cuts (rings.ts)
+src/scripts/loud/         all four loudness meters (loud.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

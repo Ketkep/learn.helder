@@ -1,0 +1,21 @@
+---
+// Meter 1: the decibel ruler.
+import Meter from './Meter.astro';
+import { examples, fmtRatio, intensityRatio, nearest } from '../../lib/decibel';
+const db = 60;
+---
+
+<div class="tool" data-ruler-tool>
+  <Meter id="ruler" db={db} label="A level meter from 0 to 140 decibels" />
+  <div class="controls needs-js">
+    <label class="field"><span>Level <output data-ruler-out>{db} dB</output></span><input class="range" type="range" min="0" max="140" step="1" value={db} data-ruler aria-label="Sound level in decibels" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-ruler-status>
+    {db} dB is {fmtRatio(intensityRatio(db))} more intense than 0 dB. Close to {nearest(db).db} dB: {nearest(db).name}.
+  </p>
+  <table class="times">
+    <caption class="sr-only">Everyday sounds and their levels</caption>
+    <thead><tr><th scope="col">Level</th><th scope="col">Sound</th><th scope="col">More intense than 0 dB</th></tr></thead>
+    <tbody>{examples.map((e) => <tr><th scope="row">{e.db} dB</th><td>{e.name}</td><td>{e.db === 0 ? 'the starting point' : fmtRatio(intensityRatio(e.db))}</td></tr>)}</tbody>
+  </table>
+</div>
