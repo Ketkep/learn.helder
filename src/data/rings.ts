@@ -57,7 +57,7 @@ export const panels: Panel[] = [
       'No living tree is thousands of years old, but the records are. Beams and dead wood from older trees overlap with the younger ones, and each match lets the record reach farther back. Link them in a chain and you can go back thousands of years, one year at a time.',
       'Add samples one at a time. Each one overlaps the one before it by enough rings to be sure of the match, and the record grows older.',
     ],
-    tags: [{ label: 'Bristlecone pines', text: 'The oldest known single tree is a bristlecone pine called Methuselah, said to be 4,765 years old. A record built from dead and living bristlecone pines in the southwest of the United States reaches back about 8,500 years. Narrow rings in such records show droughts that lasted 20 to 40 years.' }],
+    tags: [{ label: 'Bristlecone pines', text: 'The oldest known single tree is a bristlecone pine called Methuselah, said to be about 4,800 years old. A record built from dead and living bristlecone pines in the southwest of the United States reaches back about 8,500 years. Narrow rings in such records show droughts that lasted 20 to 40 years.' }],
   },
 ];
 
@@ -70,7 +70,7 @@ export const takeaways = [
 ];
 
 export const sourcesNote =
-  'Most of these sites could not be opened while this page was written, so the facts were checked through search results that quote them. One ring a year in places with seasons, wide rings for good years and narrow rings for dry ones, earlywood and latewood and the boundary between them, cross dating as the main method, false and missing rings, A. E. Douglass and the Laboratory of Tree-Ring Research, and a bristlecone pine chronology of about 8,500 years with the oldest tree about 4,765 years each appeared in at least two places. The sources give slightly different ages for the oldest tree, and the page uses 4,765 as one source says it. The stumps, the weather and the beams are toy models made for this page with a seeded random series, and the best match was found by computing the correlation at every start year.';
+  'Most of these sites could not be opened while this page was written, so the facts were checked through search results that quote them. One ring a year in places with seasons, wide rings for good years and narrow rings for dry ones, earlywood and latewood and the boundary between them, cross dating as the main method, false and missing rings, A. E. Douglass and the Laboratory of Tree-Ring Research, and a bristlecone pine chronology of about 8,500 years with the oldest tree at roughly 4,800 years (published ages run from about 4,765 to 4,850, depending on the year of the count) each appeared in at least two places. The sources give slightly different ages for the oldest tree, so the page says about 4,800. The stumps, the weather and the beams are toy models made for this page with a seeded random series, and the best match was found by computing the correlation at every start year.';
 
 export const sources = [
   { label: 'Wikipedia: tree ring', url: 'https://en.wikipedia.com/wiki/Tree_ring', for: 'Rings, earlywood and latewood.' },
