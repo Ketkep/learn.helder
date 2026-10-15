@@ -1,0 +1,441 @@
+/* The Nim page: a dark table with rows of matchsticks, a binary table and controls. */
+
+.nim {
+  --board: #0c1618;
+  --panel: #152428;
+  --line: #2f4f55;
+  --wood: #7fd0dc;
+  --cream: #f2f1e6;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .nim .needs-js {
+  display: none;
+}
+
+.nim :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.nim .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.nim .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .nim .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .nim .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.nim .words,
+.nim .bench,
+.nim .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.nim h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.nim .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.nim .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.nim .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.nim .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.nim .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.nim .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.nim .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.nim .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.nim .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.nim .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.nim .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.nim .times th,
+.nim .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.nim .times thead th {
+  color: #cfe6ea;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.nim .times tbody th {
+  font-weight: 700;
+}
+
+.nim .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.nim .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.nim .pick:hover {
+  background: var(--wash);
+}
+
+.nim .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .nim .no-js-name {
+  display: none;
+}
+
+.nim .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.nim .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.nim .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.nim .btn:hover {
+  background: var(--wash);
+}
+
+.nim .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.nim .btn.fill:hover {
+  background: var(--cream);
+}
+
+.nim .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.nim .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.nim .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.nim .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.nim .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.nim .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.nim .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.nim .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.nim .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.nim .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.nim .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.nim .snd[aria-pressed='true'] .slash,
+.nim .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nim * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.nim .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Matchsticks ---------- */
+.nim .heaps {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.nim .heap {
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 3.4rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 10px;
+  background: var(--panel);
+  border: 2px solid var(--line);
+}
+
+.nim .heap-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.nim .sticks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.28rem;
+}
+
+.nim .stick {
+  position: relative;
+  display: block;
+  width: 0.62rem;
+  height: 2.3rem;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: #e6c28c;
+  box-shadow: 0 0 0 1px #6b4a1f;
+}
+
+.nim .stick::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 0.6rem;
+  border-radius: 3px 3px 5px 5px;
+  background: #d9482f;
+}
+
+.nim button.stick {
+  cursor: pointer;
+}
+
+.nim button.stick:disabled {
+  cursor: default;
+}
+
+.nim .stick.hot {
+  background: #fff3c8;
+  box-shadow: 0 0 0 2px var(--cream);
+  transform: translateY(-3px);
+}
+
+.nim .empty {
+  color: #b4cdd2;
+  font-size: 0.9rem;
+}
+
+.nim .bin th,
+.nim .bin td {
+  text-align: center;
+}
+
+.nim .bin td.one {
+  font-weight: 700;
+  color: var(--wood);
+}
+
+.nim .bin td.zero {
+  color: #b4cdd2;
+}
+
+.nim .bin tfoot th,
+.nim .bin tfoot td {
+  border-top: 3px solid var(--wood);
+  border-bottom: 0;
+  font-weight: 700;
+}
+
+.nim .sliders {
+  display: grid;
+  gap: 0.2rem;
+}

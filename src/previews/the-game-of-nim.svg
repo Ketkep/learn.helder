@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .nm-stick { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .nm-head { fill: var(--on-cover); }
+    .nm-take { transform-box: fill-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .nm-take { animation: nm-lift 1.8s ease-in-out infinite alternate; }
+    }
+    /* A hand lifts the last sticks of a heap */
+    @keyframes nm-lift { 0% { transform: translateY(0); } 100% { transform: translateY(-26px); } }
+  </style>
+
+  <g>
+    <g class="nm-stick-g">
+      <rect class="nm-stick" x="96" y="140" width="14" height="80" rx="4"/><rect class="nm-head" x="96" y="140" width="14" height="22" rx="4"/>
+      <rect class="nm-stick" x="150" y="110" width="14" height="110" rx="4"/><rect class="nm-head" x="150" y="110" width="14" height="22" rx="4"/>
+      <rect class="nm-stick" x="174" y="110" width="14" height="110" rx="4"/><rect class="nm-head" x="174" y="110" width="14" height="22" rx="4"/>
+      <rect class="nm-stick" x="228" y="80" width="14" height="140" rx="4"/><rect class="nm-head" x="228" y="80" width="14" height="22" rx="4"/>
+    </g>
+    <g class="nm-take">
+      <rect class="nm-stick" x="252" y="80" width="14" height="140" rx="4"/><rect class="nm-head" x="252" y="80" width="14" height="22" rx="4"/>
+      <rect class="nm-stick" x="276" y="80" width="14" height="140" rx="4"/><rect class="nm-head" x="276" y="80" width="14" height="22" rx="4"/>
+    </g>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

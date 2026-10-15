@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Table from '../../components/nim/Table.astro';
+import { takeaways, sources, sourcesNote } from '../../data/nim';
+---
+
+<TopicLayout
+  slug="the-game-of-nim"
+  intro="Nim is a game of heaps of sticks where the player who takes the last stick wins. It looks like luck, but it is solved by adding the heaps in binary. Play a machine, add in binary, find the winning move and try the twist where the last stick loses."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Table />
+</TopicLayout>

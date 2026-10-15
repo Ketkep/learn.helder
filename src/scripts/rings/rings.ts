@@ -1,12 +1,15 @@
 // The Rings page: four cuts through a tree. This file starts each one.
 
 import * as sound from '../sound';
+import { initSoundButton } from '../soundButton';
 import { fillRange, q } from '../util';
 import { bestStart, chain, chartSvg, climate, fit, indexOf, reachBack, ringWidths, sample, samples, stumpSvg, timbers } from '../../lib/rings';
 
 const root = document.querySelector<HTMLElement>('[data-rings]');
 
 if (root) {
+  initSoundButton(root);
+
   // Cut 1: grow a stump
   const grow = root.querySelector<HTMLElement>('[data-grow-tool]');
   if (grow) {

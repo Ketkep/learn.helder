@@ -1,0 +1,23 @@
+---
+// Try 3: find the winning move.
+import { bits, nimSum, puzzles } from '../../lib/nim';
+import Sticks from './Sticks.astro';
+const p = puzzles()[0];
+---
+
+<div class="tool" data-hunt-tool>
+  <Sticks id="hunt" heaps={p} />
+  <div class="controls needs-js" role="group" aria-label="Take from which heap">
+    {p.map((_, i) => <button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'} data-hunt-heap={i}>Heap {i + 1}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Take <output data-hunt-out>1</output> sticks</span><input class="range" type="range" min="1" max="7" step="1" value="1" data-hunt-take aria-label="Number of sticks to take" /></label>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-hunt-check>Check my move</button>
+    <button type="button" class="btn" data-hunt-next>Another position</button>
+  </div>
+  <p class="status" aria-live="polite" data-hunt-status>
+    The heaps {p.join(', ')} have a nim-sum of {nimSum(p)}. In binary: {p.map((n) => bits(n)).join(', ')}. Find a move that makes the nim-sum zero.
+  </p>
+</div>

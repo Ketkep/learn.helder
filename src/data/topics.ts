@@ -367,6 +367,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-15',
     status: 'live',
   },
+  {
+    slug: 'the-game-of-nim',
+    title: 'The game of Nim',
+    hook: 'Play a game that looks like luck, then learn the binary rule that decides it.',
+    category: 'Games',
+    accent: '#2F8F9D',
+    preview: 'the-game-of-nim',
+    dateAdded: '2026-10-15',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

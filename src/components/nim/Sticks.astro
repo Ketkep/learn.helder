@@ -1,0 +1,20 @@
+---
+// Heaps of sticks. Without a script they are only a picture. The script turns every stick into a button.
+import { classic } from '../../lib/nim';
+interface Props {
+  id: string;
+  heaps?: number[];
+}
+const { id, heaps = classic } = Astro.props;
+---
+
+<div class="heaps" data-heaps={id}>
+  {
+    heaps.map((n, i) => (
+      <div class="heap" data-heap={i}>
+        <span class="heap-name">Heap {i + 1}</span>
+        <span class="sticks" aria-label={`Heap ${i + 1} has ${n} sticks`} role="img">{Array.from({ length: n }, () => <span class="stick"></span>)}</span>
+      </div>
+    ))
+  }
+</div>

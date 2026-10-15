@@ -143,3 +143,12 @@ Ideas that fit the same style, not yet built: how a lock works (pins to lift), t
 - found: one claim that could not be confirmed. The tree rings page gave the age of the bristlecone pine Methuselah as 4,765 years, but published ages run from about 4,765 to 4,850 depending on the year of the count.
 - fixed: `src/data/rings.ts` now says "about 4,800 years" in the text and explains the range in `sourcesNote`. `check`, `build` and `check-topic.mjs` on the page pass after the change.
 - repair list: empty.
+
+## 2026-10-15
+- why-the-moon-has-phases (Space, slate): a dark room with four stations (move the Moon round the Earth, when each phase rises in a toy sky, why a month of phases is 29.5 days against 27.3 for one lap, why the 5 degree tilt makes eclipses rare). The eclipse limits and the made up year of 13 moons are marked as a toy on the page. 8 sources.
+- how-a-search-engine-works (Technology, orange): four drawers on a made up web of eight garden club pages (a crawl, index cards, order by words with tf idf, order by links with PageRank). Everything is a toy model and the page says so. 8 sources.
+- the-game-of-nim (Games, teal): a table of matchsticks and four tries (play a machine, add heaps in binary, find the winning move, the version where the last stick loses). The strategy was checked by computer against every position of up to four heaps of at most five sticks, in both versions. 8 sources.
+- also: the tree rings page played sounds but had no sound switch, so one was added (the same button as the bits page).
+- skipped: nothing. All three passed `check`, `build` and `check-topic.mjs` (0 FAIL), the older pages and the home page still pass, and the dash scan prints nothing.
+- notes: the source sites were blocked again, so only search summaries could be read, and each `sourcesNote` says so. Sources give different years for the Nimatron, so the Nim page leaves the year out. Google's own documentation could not be read for the search engine page, so it uses mostly explainers and says so.
+- ideas for later: the Silk Road, photosynthesis, a volcano, how vaccines train the body (careful), how a battery works, how a map of the London Underground is drawn, why bridges need expansion joints, how a zip file shrinks text.

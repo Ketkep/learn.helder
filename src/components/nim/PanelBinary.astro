@@ -1,0 +1,25 @@
+---
+// Try 2: heaps in binary and their nim-sum.
+import { bits, classic, columns, nimSum } from '../../lib/nim';
+const h = classic;
+const cols = columns(h);
+---
+
+<div class="tool" data-binary-tool>
+  <table class="times bin">
+    <caption class="sr-only">Heap sizes in binary, with the nim-sum in the last row</caption>
+    <thead><tr><th scope="col">Heap</th><th scope="col">Size</th><th scope="col">4</th><th scope="col">2</th><th scope="col">1</th></tr></thead>
+    <tbody data-binary-body>
+      {h.map((n, i) => <tr><th scope="row">{i + 1}</th><td>{n}</td>{bits(n).split('').map((b) => <td class={b === '1' ? 'one' : 'zero'}>{b}</td>)}</tr>)}
+    </tbody>
+    <tfoot data-binary-foot>
+      <tr><th scope="row" colspan="2">Nim-sum</th>{cols.map((c) => <td class={c % 2 ? 'one' : 'zero'}>{c % 2}</td>)}</tr>
+    </tfoot>
+  </table>
+  <div class="needs-js sliders">
+    {h.map((n, i) => <div class="controls"><label class="field"><span>Heap {i + 1}: <output data-binary-out={i}>{n}</output></span><input class="range" type="range" min="0" max="7" step="1" value={n} data-binary-range={i} aria-label={`Size of heap ${i + 1}`} /></label></div>)}
+  </div>
+  <p class="status" aria-live="polite" data-binary-status>
+    The heaps {h.join(', ')} have a nim-sum of {nimSum(h)}. With a nim-sum of zero, the player to move loses against perfect play.
+  </p>
+</div>

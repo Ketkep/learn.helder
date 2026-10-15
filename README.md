@@ -421,6 +421,15 @@ The page is a card room with four drawers on a made up web of eight small garden
 - `src/components/search/Cards.astro` is the frame and `Panel*.astro` is one drawer each.
 - `src/scripts/search/search.ts` starts all four drawers.
 
+## The Nim page: how the table works
+
+The page is a table with rows of matchsticks and four things to try. Try 1 plays the classic game (heaps of 1, 3, 5 and 7, last stick wins) against a machine that plays at random or perfectly, with the choice of who starts. Try 2 shows the heaps in binary with the nim-sum (XOR). Try 3 asks for the winning move in seeded positions and checks it. Try 4 plays the version where the last stick loses. The strategy in `src/lib/nim.ts` was checked by computer against every position of up to four heaps of at most five sticks in both versions. Without a script the sticks are a picture and the binary table is shown.
+
+- `src/data/nim.ts` holds all the words, the takeaways and the sources.
+- `src/lib/nim.ts` holds the nim-sum, the winning moves for both versions and the practice positions.
+- `src/components/nim/Table.astro` is the frame, `Sticks.astro` draws the heaps and `Panel*.astro` is one try each.
+- `src/scripts/nim/nim.ts` starts all four tries.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -474,6 +483,7 @@ src/data/rings.ts         everything the tree ring page says: cuts, takeaways, s
 src/data/loud.ts          everything the loudness page says: meters, takeaways, sources
 src/data/moon.ts          everything the Moon page says: stations, takeaways, sources
 src/data/search.ts        everything the search engine page says: drawers, takeaways, sources
+src/data/nim.ts           everything the Nim page says: tries, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -510,6 +520,7 @@ src/components/rings/      the tree ring page: four cuts and the stump frame
 src/components/loud/       the loudness page: four meters and the meter frame
 src/components/moon/       the Moon page: four stations and the room frame
 src/components/search/     the search engine page: four drawers and the card frame
+src/components/nim/        the Nim page: four tries, the table frame and the sticks
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -543,6 +554,7 @@ src/styles/rings.css       the tree ring page: dark brown bench, stumps, charts
 src/styles/loud.css        the loudness page: dark red bench, meter zones
 src/styles/moon.css        the Moon page: dark room, top views, Moon face, strips
 src/styles/search.css      the search engine page: dark green desk, the web, bars
+src/styles/nim.css         the Nim page: dark table, matchsticks, binary table
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -556,6 +568,7 @@ src/lib/rings.ts           seeded climate, ring widths and best-fit search for t
 src/lib/decibel.ts         decibel maths and exposure rules for the loudness page
 src/lib/moon.ts            Moon phase, rise time and eclipse maths and drawings for the Moon page
 src/lib/search.ts          the web of eight pages, index, crawl, scores and PageRank
+src/lib/nim.ts             nim-sum and winning moves for the Nim page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -601,6 +614,7 @@ src/scripts/rings/        all four tree ring cuts (rings.ts)
 src/scripts/loud/         all four loudness meters (loud.ts)
 src/scripts/moon/         all four Moon stations (moon.ts)
 src/scripts/search/       all four search engine drawers (search.ts)
+src/scripts/nim/          all four Nim tries (nim.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image
