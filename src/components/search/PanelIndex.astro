@@ -1,0 +1,19 @@
+---
+// Drawer 2: look words up on the index cards.
+import { index, lookup, pages } from '../../lib/search';
+const shown = ['garden', 'tomatoes', 'compost', 'bees', 'shop', 'the'];
+const start = lookup('garden tomatoes');
+---
+
+<div class="tool" data-index-tool>
+  <table class="times">
+    <thead><tr><th scope="col">Word</th><th scope="col">Pages that have it</th></tr></thead>
+    <tbody>{shown.map((w) => <tr><th scope="row">{w}</th><td>{(index.get(w) || []).map((i) => pages[i].name).join(', ')}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Search for</span><input class="text wide" type="text" value="garden tomatoes" autocomplete="off" spellcheck="false" data-index-q aria-label="Words to search for" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-index-status>
+    Pages with {start.words.join(' and ')}: {start.hits.map((i) => pages[i].name).join(', ')}.
+  </p>
+</div>

@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Cards from '../../components/search/Cards.astro';
+import { takeaways, sources, sourcesNote } from '../../data/search';
+---
+
+<TopicLayout
+  slug="how-a-search-engine-works"
+  intro="A search engine does most of its work before you type. A crawler follows links, an index files every word on a card, and a score puts the pages in order. Follow a crawl, look up words, weigh rare words and let links vote on a made up web of eight pages."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Cards />
+</TopicLayout>

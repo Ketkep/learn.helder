@@ -1,0 +1,27 @@
+---
+// Drawer 4: PageRank by rounds, with one link that can be added.
+import { graphSvg, pageRank, pages } from '../../lib/search';
+const rounds = 12;
+const r = pageRank(rounds, false);
+const order = pages.map((p) => p.id).sort((a, b) => r[b] - r[a]);
+---
+
+<div class="tool" data-links-tool>
+  <svg class="view" viewBox="0 0 300 204" role="img" aria-label="The same web of eight pages. A bigger circle means a higher rank." data-links-svg>
+    <rect class="stage" x="2" y="2" width="296" height="200" rx="8"></rect>
+    <g set:html={graphSvg(undefined, r)} data-links-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Rounds <output data-links-out>{rounds}</output></span><input class="range" type="range" min="0" max="20" step="1" value={rounds} data-links-range aria-label="Number of rounds of PageRank" /></label>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="pick" aria-pressed="false" data-links-extra>Add a link from Blog to Compost</button>
+  </div>
+  <p class="status" aria-live="polite" data-links-status>
+    After {rounds} rounds the highest rank is {pages[order[0]].name} ({(r[order[0]] * 100).toFixed(1)} per cent) and the lowest is {pages[order[7]].name} ({(r[order[7]] * 100).toFixed(1)} per cent). The ranks add up to 100 per cent.
+  </p>
+  <table class="times">
+    <thead><tr><th scope="col">Page</th><th scope="col">Rank</th></tr></thead>
+    <tbody>{order.map((id) => <tr><th scope="row">{pages[id].name}</th><td>{(r[id] * 100).toFixed(1)} per cent</td></tr>)}</tbody>
+  </table>
+</div>

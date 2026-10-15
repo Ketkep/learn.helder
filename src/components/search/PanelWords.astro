@@ -1,0 +1,24 @@
+---
+// Drawer 3: order the matches by how often the words appear, with and without weighing rare words.
+import { pages, scores } from '../../lib/search';
+const q = 'the tomatoes';
+const rows = scores(q, true).slice(0, 5);
+const top = rows[0].score || 1;
+---
+
+<div class="tool" data-words-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a search">
+    <button type="button" class="pick" aria-pressed="true" data-words-pick="the tomatoes">the tomatoes</button>
+    <button type="button" class="pick" aria-pressed="false" data-words-pick="garden bees">garden bees</button>
+    <button type="button" class="pick" aria-pressed="false" data-words-pick="compost heap">compost heap</button>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="pick" aria-pressed="true" data-words-rare>Weigh rare words more</button>
+  </div>
+  <ol class="bars" data-words-list>
+    {rows.map((r) => <li><span class="nm">{pages[r.id].name}</span><span class="bar" style={`width:${Math.round((r.score / top) * 100)}%`}></span><span class="val">{r.score.toFixed(3)}</span></li>)}
+  </ol>
+  <p class="status" aria-live="polite" data-words-status>
+    For "{q}" with rare words weighed more the order is {rows.filter((r) => r.score).slice(0, 3).map((r) => pages[r.id].name).join(', ')}.
+  </p>
+</div>

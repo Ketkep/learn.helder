@@ -412,6 +412,15 @@ The page is a dark room with a lamp and four stations. Station 1 moves the Moon 
 - `src/components/moon/Room.astro` is the frame and `Panel*.astro` is one station each.
 - `src/scripts/moon/moon.ts` starts all four stations.
 
+## The search engine page: how the four drawers work
+
+The page is a card room with four drawers on a made up web of eight small garden club pages. Drawer 1 runs a crawl one page at a time (a queue, breadth first) and shows that a page no other page links to is never found. Drawer 2 is the index: for every word the pages that contain it, with a search box that keeps only the pages on every card. Drawer 3 orders the matches by the share of the page made of the query words, with a switch that weighs rare words more (tf idf, with the log of pages over pages with the word, so a word on every page counts for nothing). Drawer 4 runs PageRank by rounds with a damping factor of 0.85 and lets the reader add one link. The web, the texts and every score are made up, and the page says so. Without a script each drawer shows one picture or table.
+
+- `src/data/search.ts` holds all the words, the takeaways and the sources.
+- `src/lib/search.ts` holds the pages and links, the index, the crawl, the scores, PageRank and the drawing of the web as SVG text.
+- `src/components/search/Cards.astro` is the frame and `Panel*.astro` is one drawer each.
+- `src/scripts/search/search.ts` starts all four drawers.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -464,6 +473,7 @@ src/data/leap.ts          everything the leap year page says: pages, takeaways, 
 src/data/rings.ts         everything the tree ring page says: cuts, takeaways, sources
 src/data/loud.ts          everything the loudness page says: meters, takeaways, sources
 src/data/moon.ts          everything the Moon page says: stations, takeaways, sources
+src/data/search.ts        everything the search engine page says: drawers, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -499,6 +509,7 @@ src/components/leap/       the leap year page: four almanac pages and the frame
 src/components/rings/      the tree ring page: four cuts and the stump frame
 src/components/loud/       the loudness page: four meters and the meter frame
 src/components/moon/       the Moon page: four stations and the room frame
+src/components/search/     the search engine page: four drawers and the card frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -531,6 +542,7 @@ src/styles/leap.css        the leap year page: dark violet room, drift charts, m
 src/styles/rings.css       the tree ring page: dark brown bench, stumps, charts
 src/styles/loud.css        the loudness page: dark red bench, meter zones
 src/styles/moon.css        the Moon page: dark room, top views, Moon face, strips
+src/styles/search.css      the search engine page: dark green desk, the web, bars
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -543,6 +555,7 @@ src/lib/calendar.ts        calendar maths for the leap year page
 src/lib/rings.ts           seeded climate, ring widths and best-fit search for the tree ring page
 src/lib/decibel.ts         decibel maths and exposure rules for the loudness page
 src/lib/moon.ts            Moon phase, rise time and eclipse maths and drawings for the Moon page
+src/lib/search.ts          the web of eight pages, index, crawl, scores and PageRank
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -587,6 +600,7 @@ src/scripts/leap/         all four leap year pages (leap.ts)
 src/scripts/rings/        all four tree ring cuts (rings.ts)
 src/scripts/loud/         all four loudness meters (loud.ts)
 src/scripts/moon/         all four Moon stations (moon.ts)
+src/scripts/search/       all four search engine drawers (search.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

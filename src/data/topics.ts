@@ -357,6 +357,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-15',
     status: 'live',
   },
+  {
+    slug: 'how-a-search-engine-works',
+    title: 'How a search engine works',
+    hook: 'Follow a crawl, look up words on index cards, and let links vote on a tiny made up web.',
+    category: 'Technology',
+    accent: '#E07B39',
+    preview: 'how-a-search-engine-works',
+    dateAdded: '2026-10-15',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

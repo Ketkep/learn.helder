@@ -1,0 +1,17 @@
+---
+// Drawer 1: a crawl, one page at a time.
+import { crawlStatus, graphSvg, crawlState } from '../../lib/search';
+---
+
+<div class="tool" data-crawl-tool>
+  <svg class="view" viewBox="0 0 300 204" role="img" aria-label="A made up web of eight pages with arrows for the links. One page has no arrow pointing to it." data-crawl-svg>
+    <rect class="stage" x="2" y="2" width="296" height="200" rx="8"></rect>
+    <g set:html={graphSvg(crawlState(0))} data-crawl-g></g>
+  </svg>
+  <p class="key" aria-hidden="true"><span class="sw seen-sw"></span> visited <span class="sw queued-sw"></span> in the queue</p>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-crawl-step>Visit the next page</button>
+    <button type="button" class="btn" data-crawl-reset>Start again</button>
+  </div>
+  <p class="status" aria-live="polite" data-crawl-status>{crawlStatus(0)}</p>
+</div>
