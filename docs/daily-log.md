@@ -152,3 +152,9 @@ Ideas that fit the same style, not yet built: how a lock works (pins to lift), t
 - skipped: nothing. All three passed `check`, `build` and `check-topic.mjs` (0 FAIL), the older pages and the home page still pass, and the dash scan prints nothing.
 - notes: the source sites were blocked again, so only search summaries could be read, and each `sourcesNote` says so. Sources give different years for the Nimatron, so the Nim page leaves the year out. Google's own documentation could not be read for the search engine page, so it uses mostly explainers and says so.
 - ideas for later: the Silk Road, photosynthesis, a volcano, how vaccines train the body (careful), how a battery works, how a map of the London Underground is drawn, why bridges need expansion joints, how a zip file shrinks text.
+
+## Error check 2026-10-15
+- checked: three topics were published last night (why-the-moon-has-phases, how-a-search-engine-works, the-game-of-nim), plus a sound switch added to how-tree-rings-work. `npm run check` (0 errors), `npm run build` (36 pages), preview on 4322. `check-topic.mjs` with screenshots for all three new pages: 0 FAIL, only the known faded "Learn" in the logo as WARN. Looked at the 1366 contact sheets of all three: no cut-off text, no overlaps, no empty areas. Home page and the older topics how-tree-rings-work, the-dutch-golden-age, how-fast-is-light: 0 FAIL. Dash scan prints nothing.
+- facts re-checked (from my own knowledge, as the source sites are blocked from here): the lunar month of 29.53 days against 27.32 days for one lap round the Earth, the 5 degree tilt of the Moon's orbit, the Moon rising about 50 minutes later each day, the nim-sum of 1, 3, 5 and 7 being 0, Bouton's theory of 1901, the PageRank damping factor of 0.85, the Nimatron shown at the 1939 to 1940 World's Fair. All agree with the pages.
+- found: nothing wrong. Nothing changed in the pages.
+- repair list: empty.
