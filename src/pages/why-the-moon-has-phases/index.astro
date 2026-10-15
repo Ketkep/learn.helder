@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Room from '../../components/moon/Room.astro';
+import { takeaways, sources, sourcesNote } from '../../data/moon';
+---
+
+<TopicLayout
+  slug="why-the-moon-has-phases"
+  intro="The Moon makes no light of its own. It is a ball lit by the Sun, and the phases show how much of the lit half faces us. Move the Moon round the Earth, read when each phase rises, find why a month is longer than one lap, and see why eclipses are rare."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Room />
+</TopicLayout>

@@ -1,0 +1,28 @@
+---
+// Station 1: move the Moon round the Earth and see its shape.
+import { elongation, faceSvg, litFraction, orbitSvg, phaseName, phases } from '../../lib/moon';
+const days = 7.4;
+const e = elongation(days);
+---
+
+<div class="tool" data-look-tool>
+  <div class="pair">
+    <svg class="view" viewBox="0 0 260 220" role="img" aria-label="Looking down on the Earth and the Moon, with sunlight coming from the left" data-look-orbit>
+      <rect class="stage" x="0" y="0" width="260" height="220" rx="8"></rect>
+      <g set:html={orbitSvg(e)} data-look-orbit-g></g>
+    </svg>
+    <svg class="face" viewBox="0 0 200 200" role="img" aria-label="The Moon as seen from Earth" data-look-face>
+      <g set:html={faceSvg(e)} data-look-face-g></g>
+    </svg>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Days since new moon <output data-look-out>{days}</output></span><input class="range" type="range" min="0" max="29.5" step="0.1" value={days} data-look-range aria-label="Days since the last new moon" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-look-status>
+    {days} days after new moon the Moon is {Math.round(e)} degrees from the Sun in the sky. It is a {phaseName(e).toLowerCase()}, with about {Math.round(litFraction(e) * 100)} per cent of the face lit.
+  </p>
+  <table class="times">
+    <thead><tr><th scope="col">Phase</th><th scope="col">Degrees from the Sun</th><th scope="col">Face lit</th></tr></thead>
+    <tbody>{phases.map((p) => <tr><th scope="row">{p.name}</th><td>{p.e}</td><td>{Math.round(litFraction(p.e) * 100)} per cent</td></tr>)}</tbody>
+  </table>
+</div>

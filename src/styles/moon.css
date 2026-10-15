@@ -1,0 +1,525 @@
+/* The Moon page: a dark room with a lamp and four stations. Top views, a Moon face and strips of time. */
+
+.moon {
+  --board: #0e1118;
+  --panel: #171b26;
+  --line: #343c52;
+  --wood: #c9cfdf;
+  --cream: #f3f1e8;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .moon .needs-js {
+  display: none;
+}
+
+.moon :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.moon .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.moon .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .moon .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .moon .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.moon .words,
+.moon .bench,
+.moon .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.moon h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.moon .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.moon .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.moon .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.moon .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.moon .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.moon .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.moon .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.moon .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.moon .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.moon .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.moon .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.moon .times th,
+.moon .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.moon .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.moon .times tbody th {
+  font-weight: 700;
+}
+
+.moon .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.moon .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.moon .pick:hover {
+  background: var(--wash);
+}
+
+.moon .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .moon .no-js-name {
+  display: none;
+}
+
+.moon .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.moon .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.moon .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.moon .btn:hover {
+  background: var(--wash);
+}
+
+.moon .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.moon .btn.fill:hover {
+  background: var(--cream);
+}
+
+.moon .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.moon .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.moon .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.moon .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.moon .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.moon .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.moon .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.moon .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.moon .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.moon .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.moon .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.moon .snd[aria-pressed='true'] .slash,
+.moon .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moon * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.moon .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Pictures ---------- */
+.moon .view,
+.moon .strip {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.moon .strip.small {
+  max-width: 34rem;
+}
+
+.moon .pair {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  align-items: center;
+  gap: 0.8rem;
+  max-width: 34rem;
+}
+
+.moon .face {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.moon .stage {
+  fill: #090b11;
+}
+
+.moon .m-dark {
+  fill: #2a3042;
+}
+
+.moon .m-lit {
+  fill: #f1ecd6;
+}
+
+.moon .m-hit {
+  fill: #e8744f;
+}
+
+.moon .m-spots {
+  fill: #8a8672;
+  opacity: 0.28;
+}
+
+.moon .m-rim {
+  fill: none;
+  stroke: #5b6482;
+  stroke-width: 2;
+}
+
+.moon .sun {
+  fill: #f2b84b;
+}
+
+.moon .ray {
+  stroke: #f2b84b;
+  stroke-width: 2;
+}
+
+.moon .rayhead {
+  fill: #f2b84b;
+}
+
+.moon .orbit {
+  fill: none;
+  stroke: #4a5272;
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+
+.moon .earth {
+  fill: #3f7fbf;
+  stroke: #9fc4ea;
+  stroke-width: 2;
+}
+
+.moon .sight,
+.moon .drop {
+  stroke: #8d95b3;
+  stroke-width: 1.5;
+}
+
+.moon .sunline {
+  stroke: #f2b84b;
+  stroke-width: 2;
+}
+
+.moon .starline {
+  stroke: #d5d9e6;
+  stroke-width: 1.5;
+  stroke-dasharray: 2 4;
+}
+
+.moon .arc {
+  fill: none;
+  stroke: #f2b84b;
+  stroke-width: 2.5;
+}
+
+.moon .plane {
+  stroke: #5b6482;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+}
+
+.moon .shade {
+  fill: #2b3150;
+}
+
+.moon .lab {
+  fill: #d5d9e6;
+  font-family: var(--font-body, sans-serif);
+  font-size: 11px;
+}
+
+.moon .tickline {
+  stroke: #8d95b3;
+  stroke-width: 1;
+}
+
+.moon .night {
+  fill: #1a2036;
+}
+
+.moon .daylight {
+  fill: #3a4a7a;
+}
+
+.moon .moonup {
+  fill: #f1ecd6;
+}
+
+.moon .dot {
+  fill: transparent;
+  stroke: #8d95b3;
+  stroke-width: 2;
+}
+
+.moon .dot.yes {
+  fill: #e8744f;
+  stroke: #e8744f;
+}
+
+.moon .dot.on {
+  stroke: #f3f1e8;
+  stroke-width: 3;
+}
+
+.moon .key {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.7rem;
+  font-size: 0.92rem;
+}
+
+.moon .sw {
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+}
+
+.moon .moon-sw {
+  background: #f1ecd6;
+}
+
+.moon .sun-sw {
+  background: #f2b84b;
+}
+
+.moon .lab.dark {
+  fill: #14161c;
+  font-weight: 700;
+}

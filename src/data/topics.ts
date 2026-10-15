@@ -347,6 +347,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-14',
     status: 'live',
   },
+  {
+    slug: 'why-the-moon-has-phases',
+    title: 'Why the Moon has phases',
+    hook: 'Move the Moon round the Earth and see why it changes shape, and why that is not a shadow.',
+    category: 'Space',
+    accent: '#8E9AAF',
+    preview: 'why-the-moon-has-phases',
+    dateAdded: '2026-10-15',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

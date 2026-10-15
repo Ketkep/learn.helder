@@ -1,0 +1,24 @@
+---
+// Station 4: the tilt of the orbit, as a side view of a made up year.
+import { eclipseStatus, MOONS, sideSvg, yearStripSvg } from '../../lib/moon';
+const k = 5;
+---
+
+<div class="tool" data-eclipse-tool>
+  <svg class="strip" viewBox="0 0 300 160" role="img" aria-label="Side view of the Sun, the Earth and the Moon, with the Moon above or below the plane of the Earth's orbit" data-eclipse-svg>
+    <rect class="stage" x="2" y="2" width="296" height="156" rx="8"></rect>
+    <g set:html={sideSvg(k, false)} data-eclipse-g></g>
+  </svg>
+  <svg class="strip small" viewBox="0 0 300 64" role="img" aria-label="Thirteen moons in a row. The filled ones bring an eclipse." data-eclipse-year>
+    <rect class="stage" x="2" y="2" width="296" height="60" rx="8"></rect>
+    <g set:html={yearStripSvg(k, false)} data-eclipse-year-g></g>
+  </svg>
+  <div class="controls needs-js" role="group" aria-label="New moon or full moon">
+    <button type="button" class="pick" aria-pressed="true" data-eclipse-kind="new">New moon</button>
+    <button type="button" class="pick" aria-pressed="false" data-eclipse-kind="full">Full moon</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Moon number <output data-eclipse-out>{k + 1}</output></span><input class="range" type="range" min="1" max={MOONS} step="1" value={k + 1} data-eclipse-range aria-label="Which new or full moon of the year" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-eclipse-status>{eclipseStatus(k, false)}</p>
+</div>

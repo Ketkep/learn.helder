@@ -1,0 +1,21 @@
+---
+// Station 3: why the phases take longer than one lap against the stars.
+import { monthStatus, monthSvg, SIDEREAL, SYNODIC } from '../../lib/moon';
+const days = 27.3;
+---
+
+<div class="tool" data-month-tool>
+  <svg class="view" viewBox="0 0 300 200" role="img" aria-label="Looking down from above the north pole with the stars fixed. A line marks a star, a second line marks the Sun and a third marks the Moon" data-month-svg>
+    <rect class="stage" x="0" y="0" width="300" height="200" rx="8"></rect>
+    <g set:html={monthSvg(days)} data-month-g></g>
+  </svg>
+  <p class="key" aria-hidden="true"><span class="sw moon-sw"></span> the Moon <span class="sw sun-sw"></span> the Sun</p>
+  <div class="controls needs-js">
+    <label class="field"><span>Days <output data-month-out>{days}</output></span><input class="range" type="range" min="0" max="60" step="0.1" value={days} data-month-range aria-label="Days since a new moon" /></label>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn" data-month-set={SIDEREAL}>Back at the star: {SIDEREAL.toFixed(1)}</button>
+    <button type="button" class="btn" data-month-set={SYNODIC}>New moon again: {SYNODIC.toFixed(1)}</button>
+  </div>
+  <p class="status" aria-live="polite" data-month-status>{monthStatus(days)}</p>
+</div>

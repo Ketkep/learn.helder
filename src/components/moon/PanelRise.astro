@@ -1,0 +1,22 @@
+---
+// Station 2: when each phase comes up in a toy sky.
+import { dayStripSvg, fmtHour, phases, riseHour } from '../../lib/moon';
+const first = phases[2];
+---
+
+<div class="tool" data-rise-tool>
+  <svg class="strip" viewBox="0 0 300 130" role="img" aria-label="A day from midnight to midnight with the hours of the Sun and the Moon" data-rise-svg>
+    <rect class="stage" x="2" y="2" width="296" height="126" rx="8"></rect>
+    <g set:html={dayStripSvg(first.e)} data-rise-g></g>
+  </svg>
+  <div class="controls needs-js" role="group" aria-label="Pick a phase">
+    {phases.map((p, i) => <button type="button" class="pick" aria-pressed={i === 2 ? 'true' : 'false'} data-rise-pick={p.e}>{p.name}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-rise-status>
+    A {first.name.toLowerCase()} rises about {fmtHour(riseHour(first.e))} and sets about {fmtHour((riseHour(first.e) + 12) % 24)}.
+  </p>
+  <table class="times">
+    <thead><tr><th scope="col">Phase</th><th scope="col">Rises</th><th scope="col">Sets</th></tr></thead>
+    <tbody>{phases.map((p) => <tr><th scope="row">{p.name}</th><td>{fmtHour(riseHour(p.e))}</td><td>{fmtHour((riseHour(p.e) + 12) % 24)}</td></tr>)}</tbody>
+  </table>
+</div>
