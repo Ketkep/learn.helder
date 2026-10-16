@@ -1,0 +1,444 @@
+/* The eye page: a dark room with four tests. A cross and dot, an eye, a colour patch and a letter. */
+
+.eye {
+  --board: #111017;
+  --panel: #1b1a26;
+  --line: #433f5e;
+  --wood: #c7b1e6;
+  --cream: #f4f1ee;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .eye .needs-js {
+  display: none;
+}
+
+.eye :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.eye .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.eye .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .eye .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .eye .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.eye .words,
+.eye .bench,
+.eye .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.eye h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.eye .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.eye .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.eye .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.eye .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.eye .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.eye .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.eye .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.eye .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.eye .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.eye .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.eye .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.eye .times th,
+.eye .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.eye .times thead th {
+  color: #ddd6ee;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.eye .times tbody th {
+  font-weight: 700;
+}
+
+.eye .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.eye .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.eye .pick:hover {
+  background: var(--wash);
+}
+
+.eye .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .eye .no-js-name {
+  display: none;
+}
+
+.eye .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.eye .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.eye .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.eye .btn:hover {
+  background: var(--wash);
+}
+
+.eye .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.eye .btn.fill:hover {
+  background: var(--cream);
+}
+
+.eye .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.eye .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.eye .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.eye .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.eye .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.eye .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.eye .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.eye .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.eye .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.eye .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.eye .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.eye .snd[aria-pressed='true'] .slash,
+.eye .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eye * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.eye .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Pictures ---------- */
+.eye .strip,
+.eye .view {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.eye .view {
+  max-width: 22rem;
+}
+
+.eye .stage {
+  fill: #f4f1ea;
+}
+
+.eye .cross {
+  stroke: #17141f;
+  stroke-width: 3;
+}
+
+.eye .dot {
+  fill: #17141f;
+}
+
+.eye .sclera {
+  fill: #fbfaf6;
+  stroke: #4b4660;
+  stroke-width: 3;
+}
+
+.eye .iris {
+  fill: #5d8aa8;
+  stroke: #2f4f66;
+  stroke-width: 3;
+}
+
+.eye .pupil {
+  fill: #0d0b12;
+}
+
+.eye .glint {
+  fill: #fff;
+}
+
+.eye .patch {
+  position: relative;
+  width: 100%;
+  max-width: 34rem;
+  height: 14rem;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.eye .fix {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: #17141f;
+  box-shadow: 0 0 0 3px #f4f1ea;
+}
+
+.eye .field-of-view {
+  position: relative;
+  width: 100%;
+  max-width: 34rem;
+  height: 9rem;
+  overflow: hidden;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+  background: #f4f1ea;
+  color: #17141f;
+}
+
+.eye .mark {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  margin-top: -0.7em;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.eye .letter {
+  position: absolute;
+  top: 50%;
+  margin-left: 24px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  transform: translateY(-50%);
+}

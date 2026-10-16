@@ -1,0 +1,21 @@
+---
+// Test 4: the side of vision.
+import { letterPx, pxFromAngle, readableDegrees } from '../../lib/eye';
+const a = 10;
+---
+
+<div class="tool" data-side-tool>
+  <div class="field-of-view" data-side-view role="img" aria-label="A cross on the left and a letter to the right of it">
+    <span class="mark" aria-hidden="true">+</span>
+    <span class="letter" data-side-letter style={`left:${pxFromAngle(a)}px;font-size:${letterPx(a)}px`} aria-hidden="true">R</span>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Angle <output data-side-out>{a} degrees</output></span><input class="range" type="range" min="0" max="30" step="1" value={a} data-side-range aria-label="Angle of the letter from the cross in degrees" /></label>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="pick" aria-pressed="false" data-side-fixed>Use a letter of one size</button>
+  </div>
+  <p class="status" aria-live="polite" data-side-status>
+    At {a} degrees from where you look, the smallest letter you can read is about {readableDegrees(a).toFixed(1)} degrees tall. That is the size shown. Look only at the cross.
+  </p>
+</div>

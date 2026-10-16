@@ -1,0 +1,21 @@
+---
+// Test 3: an afterimage that your own eyes make.
+import { colours } from '../../lib/eye';
+const c = colours[0];
+---
+
+<div class="tool" data-after-tool>
+  <div class="patch" data-after-patch style={`background:${c.css}`} role="img" aria-label="A patch of colour with a small dot in the middle">
+    <span class="fix" aria-hidden="true"></span>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Pick a colour">
+    {colours.map((x, i) => <button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'} data-after-pick={x.id}>{x.name}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-after-show>Show colour</button>
+    <button type="button" class="btn" data-after-blank>Show blank</button>
+  </div>
+  <p class="status" aria-live="polite" data-after-status>
+    Look at the dot in the middle of the red patch for about 30 seconds. Then press show blank and keep looking at the same place. You should see a faint green ghost.
+  </p>
+</div>

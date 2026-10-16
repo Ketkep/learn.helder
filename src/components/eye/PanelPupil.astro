@@ -1,0 +1,19 @@
+---
+// Test 2: the pupil and the light that gets in.
+import { eyeSvg, lightRatio, pupilMm } from '../../lib/eye';
+const b = 50;
+const mm = pupilMm(b);
+---
+
+<div class="tool" data-pupil-tool>
+  <svg class="view" viewBox="0 0 200 140" role="img" aria-label="An eye seen from the front, with the pupil in the middle of the iris" data-pupil-svg>
+    <rect class="stage" x="2" y="2" width="196" height="136" rx="8"></rect>
+    <g set:html={eyeSvg(mm)} data-pupil-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Brightness <output data-pupil-out>{b}</output></span><input class="range" type="range" min="0" max="100" step="1" value={b} data-pupil-range aria-label="How bright the light is" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-pupil-status>
+    In this toy the pupil is {mm.toFixed(1)} mm across. It lets in {lightRatio(mm).toFixed(1)} times the light of a pupil of 2 mm, because the area goes with the diameter times itself.
+  </p>
+</div>

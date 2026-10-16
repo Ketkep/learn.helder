@@ -1,0 +1,60 @@
+---
+// The whole page: a dark room with four tests. The tests are the Panel components and src/scripts/eye.
+// Without a script each test shows one picture.
+import '../../styles/eye.css';
+import { intro, panels } from '../../data/eye';
+import PanelBlind from './PanelBlind.astro';
+import PanelPupil from './PanelPupil.astro';
+import PanelAfter from './PanelAfter.astro';
+import PanelSide from './PanelSide.astro';
+
+const tools: Record<string, typeof PanelBlind> = { blind: PanelBlind, pupil: PanelPupil, after: PanelAfter, side: PanelSide };
+---
+
+<div class="eye" data-eye>
+  <section class="panel opening" aria-labelledby="eye-intro">
+    <div class="panel-inner">
+      <div class="words">
+        <p class="kicker">Eyes open</p>
+        <h2 id="eye-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  {
+    panels.map((p) => {
+      const Tool = tools[p.id];
+      return (
+        <section class="panel" id={`panel-${p.id}`} aria-labelledby={`panel-${p.id}-h`}>
+          <div class="panel-inner">
+            <div class="words">
+              <p class="kicker">{p.kicker}</p>
+              <h2 id={`panel-${p.id}-h`}>{p.title}</h2>
+              <div class="paras">{p.paras.map((t) => <p class="para">{t}</p>)}</div>
+              {
+                p.tags && (
+                  <div class="tags">
+                    {p.tags.map((t) => (
+                      <aside class="tag">
+                        <p class="tag-label">{t.label}</p>
+                        <p class="tag-text">{t.text}</p>
+                      </aside>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+            <div class="bench">
+              <Tool />
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/eye/eye';
+</script>

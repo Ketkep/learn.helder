@@ -397,6 +397,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-16',
     status: 'live',
   },
+  {
+    slug: 'how-the-eye-sees',
+    title: 'How the eye sees',
+    hook: 'Find your blind spot, make a ghost colour, and see how little of your vision is sharp.',
+    category: 'Body',
+    accent: '#7F5CB0',
+    preview: 'how-the-eye-sees',
+    dateAdded: '2026-10-16',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ey-eye { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .ey-iris { fill: none; stroke: var(--on-cover); stroke-width: 5; }
+    .ey-pupil { fill: var(--on-cover); transform-box: fill-box; transform-origin: 50% 50%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ey-pupil { animation: ey-open 2.2s ease-in-out infinite alternate; }
+    }
+    /* The pupil opens and closes with the light */
+    @keyframes ey-open { 0% { transform: scale(0.5); } 100% { transform: scale(1.3); } }
+  </style>
+
+  <g>
+    <path class="ey-eye" d="M60 140C110 70 290 70 340 140C290 210 110 210 60 140Z"/>
+    <circle class="ey-iris" cx="200" cy="140" r="42"/>
+    <circle class="ey-pupil" cx="200" cy="140" r="20"/>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

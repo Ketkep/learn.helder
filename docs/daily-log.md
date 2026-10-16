@@ -158,3 +158,11 @@ Ideas that fit the same style, not yet built: how a lock works (pins to lift), t
 - facts re-checked (from my own knowledge, as the source sites are blocked from here): the lunar month of 29.53 days against 27.32 days for one lap round the Earth, the 5 degree tilt of the Moon's orbit, the Moon rising about 50 minutes later each day, the nim-sum of 1, 3, 5 and 7 being 0, Bouton's theory of 1901, the PageRank damping factor of 0.85, the Nimatron shown at the 1939 to 1940 World's Fair. All agree with the pages.
 - found: nothing wrong. Nothing changed in the pages.
 - repair list: empty.
+
+## 2026-10-16
+- how-earthquakes-are-found (Nature, terracotta): a wall of seismograph strips and a map table with four strips (the gap between the P and S wave, three circles that meet at the epicentre, the magnitude scale, the waves that cannot cross the liquid core). The wave speeds, maps and stations are a toy that gives exactly 8 km for every second of gap. 8 sources.
+- how-files-shrink (Technology, orchid): a packing table with four toy versions of what a zip file does (runs, repeats as pointers, Huffman short codes with the table counted, and what cannot shrink). All sizes are counted by the page's own functions. 8 sources.
+- how-the-eye-sees (Body, violet): four tests for the reader's own eyes (blind spot, pupil, afterimage, the side of vision). Not an eye test and not medical advice, stated on the page. The pupil toy and the letter size rule are marked as toys. 8 sources.
+- skipped: nothing. All three passed `check`, `build` and `check-topic.mjs` (0 FAIL), the older pages and the home page still pass, and the dash scan prints nothing.
+- notes: the source sites were blocked again, so only search summaries could be read, and each `sourcesNote` says so. The blind spot angle of about 15 degrees was not in the search results and comes from general knowledge, which the note says. The lens and ciliary muscle were left out because no source for them was found.
+- ideas for later: the Silk Road, photosynthesis, a volcano, how vaccines train the body (careful), how a battery works, how a map of the London Underground is drawn, how a rainbow forms, why bridges need expansion joints, how GPS finds a place.

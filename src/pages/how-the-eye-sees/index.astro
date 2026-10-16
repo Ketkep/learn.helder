@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Room from '../../components/eye/Room.astro';
+import { takeaways, sources, sourcesNote } from '../../data/eye';
+---
+
+<TopicLayout
+  slug="how-the-eye-sees"
+  intro="The eye works like a camera, but the brain edits the picture. Find your blind spot, watch the pupil open and close, make a ghost colour with your own eyes and see how little of the side of vision is sharp. This is not an eye test and not medical advice."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Room />
+</TopicLayout>

@@ -448,6 +448,15 @@ The page is a dark packing table with four things to try, each a small toy versi
 - `src/components/shrink/Bench.astro` is the frame and `Panel*.astro` is one pack each.
 - `src/scripts/shrink/shrink.ts` starts all four packs.
 
+## The eye page: how the four tests work
+
+The page is a dark room with four tests of your own eyes. Test 1 is the blind spot: a cross and a dot, with the dot placed at the angle of about 15 degrees for a chosen distance from the screen (distance times the tangent of 15 degrees, with a CSS pixel taken as 1/96 inch). Test 2 is the pupil: a toy that moves it from 8 mm to 2 mm in a straight line with brightness, and shows that the light that gets in goes with the area. Test 3 is an afterimage that the reader makes with their own eyes: stare at a colour patch and look at a blank one (the ghost colour is the opponent colour). Test 4 is the side of vision: a letter whose readable size grows with the angle from the cross (a toy, with 33 pixels for a degree at about 50 cm). The page is not an eye test and not medical advice, and says so. Without a script each test shows one picture.
+
+- `src/data/eye.ts` holds all the words, the takeaways and the sources.
+- `src/lib/eye.ts` holds the blind spot geometry, the pupil toy, the afterimage colours and the letter size rule.
+- `src/components/eye/Room.astro` is the frame and `Panel*.astro` is one test each.
+- `src/scripts/eye/eye.ts` starts all four tests.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -504,6 +513,7 @@ src/data/search.ts        everything the search engine page says: drawers, takea
 src/data/nim.ts           everything the Nim page says: tries, takeaways, sources
 src/data/quake.ts         everything the earthquake page says: strips, takeaways, sources
 src/data/shrink.ts        everything the file compression page says: packs, takeaways, sources
+src/data/eye.ts           everything the eye page says: tests, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -543,6 +553,7 @@ src/components/search/     the search engine page: four drawers and the card fra
 src/components/nim/        the Nim page: four tries, the table frame and the sticks
 src/components/quake/      the earthquake page: four strips and the wall frame
 src/components/shrink/     the file compression page: four packs and the table frame
+src/components/eye/        the eye page: four tests and the room frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -579,6 +590,7 @@ src/styles/search.css      the search engine page: dark green desk, the web, bar
 src/styles/nim.css         the Nim page: dark table, matchsticks, binary table
 src/styles/quake.css       the earthquake page: dark wall, seismograms, map, Earth cut
 src/styles/shrink.css      the file compression page: dark table, dots, chips, bars
+src/styles/eye.css         the eye page: dark room, cross and dot, eye, colour patch
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -595,6 +607,7 @@ src/lib/search.ts          the web of eight pages, index, crawl, scores and Page
 src/lib/nim.ts             nim-sum and winning moves for the Nim page
 src/lib/quake.ts           wave maths and drawings for the earthquake page
 src/lib/shrink.ts          runs, repeats, Huffman codes and bit counts for the compression page
+src/lib/eye.ts             blind spot, pupil, afterimage and letter size maths for the eye page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -643,6 +656,7 @@ src/scripts/search/       all four search engine drawers (search.ts)
 src/scripts/nim/          all four Nim tries (nim.ts)
 src/scripts/quake/        all four earthquake strips (quake.ts)
 src/scripts/shrink/       all four compression packs (shrink.ts)
+src/scripts/eye/          all four eye tests (eye.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

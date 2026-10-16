@@ -1,0 +1,19 @@
+---
+// Test 1: the blind spot.
+import { blindSvg, dotOffsetCm, PX_PER_CM } from '../../lib/eye';
+const d = 25;
+const cm = dotOffsetCm(d);
+---
+
+<div class="tool" data-blind-tool>
+  <svg class="strip" viewBox="0 0 300 80" role="img" aria-label="A cross on the left and a dot on the right, for the blind spot test" data-blind-svg>
+    <rect class="stage" x="2" y="2" width="296" height="76" rx="8"></rect>
+    <g set:html={blindSvg(cm * PX_PER_CM)} data-blind-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Eye to screen <output data-blind-out>{d} cm</output></span><input class="range" type="range" min="15" max="40" step="1" value={d} data-blind-range aria-label="Distance from your eye to the screen in centimetres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-blind-status>
+    Cover your left eye and look at the cross with your right eye. With the screen about {d} centimetres away, the dot should be about {cm.toFixed(1)} centimetres to the right of the cross, and it should vanish.
+  </p>
+</div>
