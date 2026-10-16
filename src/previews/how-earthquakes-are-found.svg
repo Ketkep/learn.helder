@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .eq-card { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .eq-line { fill: none; stroke: var(--on-cover); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .eq-ring { fill: none; stroke: var(--on-cover); stroke-width: 4; transform-box: fill-box; transform-origin: 50% 50%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .eq-ring { animation: eq-out 1.8s ease-out infinite; }
+    }
+    /* A ring spreads out from the epicentre */
+    @keyframes eq-out { 0% { transform: scale(0.4); opacity: 1; } 100% { transform: scale(1.3); opacity: 0; } }
+  </style>
+
+  <g>
+    <rect class="eq-card" x="60" y="70" width="280" height="130" rx="10"/>
+    <path class="eq-line" d="M80 135H140L150 100L162 170L174 112L184 150L192 135H320"/>
+    <circle class="eq-ring" cx="250" cy="135" r="40"/>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

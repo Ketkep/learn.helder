@@ -1,0 +1,22 @@
+---
+// Strip 3: the magnitude scale.
+import { amplitudeRatio, energyRatio, fmtTimes } from '../../lib/quake';
+const m = 7;
+---
+
+<div class="tool" data-size-tool>
+  <ul class="gauges" aria-hidden="true">
+    <li><span class="nm">Height on the strip, against magnitude 9</span><span class="track"><span class="fill" data-size-h style={`width:${amplitudeRatio(m - 9) * 100}%`}></span></span></li>
+    <li><span class="nm">Energy, against magnitude 9</span><span class="track"><span class="fill" data-size-e style={`width:${energyRatio(m - 9) * 100}%`}></span></span></li>
+  </ul>
+  <div class="controls needs-js">
+    <label class="field"><span>Magnitude <output data-size-out>{m}.0</output></span><input class="range" type="range" min="1" max="9" step="0.1" value={m} data-size-range aria-label="Magnitude of the quake" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-size-status>
+    A quake of magnitude {m}.0 draws a line {fmtTimes(amplitudeRatio(m - 5))} taller than one of magnitude 5, and releases about {fmtTimes(energyRatio(m - 5))} the energy.
+  </p>
+  <table class="times">
+    <thead><tr><th scope="col">Steps above magnitude 5</th><th scope="col">Height on the strip</th><th scope="col">Energy</th></tr></thead>
+    <tbody>{[1, 2, 3].map((n) => <tr><th scope="row">{n}</th><td>{fmtTimes(amplitudeRatio(n))}</td><td>{fmtTimes(energyRatio(n))}</td></tr>)}</tbody>
+  </table>
+</div>

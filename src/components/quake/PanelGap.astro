@@ -1,0 +1,18 @@
+---
+// Strip 1: the gap between the P and the S wave.
+import { fmtSeconds, gap, pArrival, sArrival, seismogramSvg } from '../../lib/quake';
+const km = 500;
+---
+
+<div class="tool" data-gap-tool>
+  <svg class="strip" viewBox="0 0 300 124" role="img" aria-label="A seismogram: a line of ground movement against time, with the P wave and the S wave marked" data-gap-svg>
+    <rect class="stage" x="2" y="2" width="296" height="120" rx="8"></rect>
+    <g set:html={seismogramSvg(km)} data-gap-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Distance <output data-gap-out>{km} km</output></span><input class="range" type="range" min="50" max="2000" step="10" value={km} data-gap-range aria-label="Distance of the station from the quake in kilometres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-gap-status>
+    At {km} km the P wave arrives after {fmtSeconds(pArrival(km))} and the S wave after {fmtSeconds(sArrival(km))}. The gap is {fmtSeconds(gap(km))}, which is {(km / gap(km)).toFixed(1)} km for each second.
+  </p>
+</div>

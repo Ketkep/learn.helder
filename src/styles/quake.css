@@ -1,0 +1,538 @@
+/* The earthquake page: a dark wall of seismograph strips and a map table. */
+
+.quake {
+  --board: #17110f;
+  --panel: #241a16;
+  --line: #5a4338;
+  --wood: #e8a37f;
+  --cream: #f6efe6;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .quake .needs-js {
+  display: none;
+}
+
+.quake :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.quake .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.quake .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .quake .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .quake .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.quake .words,
+.quake .bench,
+.quake .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.quake h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.quake .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.quake .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.quake .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.quake .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.quake .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.quake .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.quake .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.quake .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.quake .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.quake .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.quake .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.quake .times th,
+.quake .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.quake .times thead th {
+  color: #ecd5c6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.quake .times tbody th {
+  font-weight: 700;
+}
+
+.quake .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.quake .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.quake .pick:hover {
+  background: var(--wash);
+}
+
+.quake .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .quake .no-js-name {
+  display: none;
+}
+
+.quake .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.quake .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.quake .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.quake .btn:hover {
+  background: var(--wash);
+}
+
+.quake .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.quake .btn.fill:hover {
+  background: var(--cream);
+}
+
+.quake .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.quake .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.quake .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.quake .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.quake .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.quake .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.quake .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.quake .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.quake .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.quake .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.quake .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.quake .snd[aria-pressed='true'] .slash,
+.quake .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quake * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.quake .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Pictures ---------- */
+.quake .strip,
+.quake .view {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.quake .stage {
+  fill: #f1e8d8;
+}
+
+.quake .lab {
+  fill: #3b2a20;
+  font-family: var(--font-body, sans-serif);
+  font-size: 10px;
+}
+
+.quake .lab.strong {
+  font-weight: 700;
+}
+
+.quake .tickline {
+  stroke: #6b5444;
+  stroke-width: 1;
+}
+
+.quake .trace {
+  fill: none;
+  stroke: #2a1d16;
+  stroke-width: 1.1;
+}
+
+.quake .arrive {
+  stroke: #b3402a;
+  stroke-width: 1.6;
+  stroke-dasharray: 3 3;
+}
+
+.quake .grid {
+  stroke: #d8c8b0;
+  stroke-width: 1;
+}
+
+.quake .ring {
+  fill: none;
+  stroke-width: 2.4;
+}
+
+.quake .ring.r0 {
+  stroke: #b3402a;
+}
+
+.quake .ring.r1 {
+  stroke: #2f6f8a;
+}
+
+.quake .ring.r2 {
+  stroke: #5a7a2a;
+}
+
+.quake .station {
+  fill: #2a1d16;
+}
+
+.quake .station.off {
+  fill: #fff;
+  stroke: #2a1d16;
+  stroke-width: 2;
+}
+
+.quake .epi {
+  fill: #e0a526;
+  stroke: #2a1d16;
+  stroke-width: 2;
+}
+
+.quake .scale {
+  stroke: #3b2a20;
+  stroke-width: 2;
+}
+
+.quake .mantle {
+  fill: #c98a5a;
+  stroke: #3b2a20;
+  stroke-width: 2;
+}
+
+.quake .outer {
+  fill: #e0a526;
+  stroke: #3b2a20;
+  stroke-width: 1.5;
+}
+
+.quake .inner {
+  fill: #fff3c8;
+  stroke: #3b2a20;
+  stroke-width: 1.5;
+}
+
+.quake .quakept {
+  fill: #b3402a;
+  stroke: #3b2a20;
+  stroke-width: 1.5;
+}
+
+.quake .sight {
+  stroke: #3b2a20;
+  stroke-width: 1.2;
+  stroke-dasharray: 4 3;
+}
+
+.quake .zone {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: butt;
+}
+
+.quake .zone.both {
+  stroke: #4a7f3a;
+}
+
+.quake .zone.none {
+  stroke: #b3402a;
+}
+
+.quake .zone.ponly {
+  stroke: #2f6f8a;
+}
+
+.quake .key {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.7rem;
+  font-size: 0.92rem;
+}
+
+.quake .sw {
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+}
+
+.quake .both-sw {
+  background: #4a7f3a;
+}
+
+.quake .none-sw {
+  background: #b3402a;
+}
+
+.quake .ponly-sw {
+  background: #2f6f8a;
+}
+
+.quake .sliders {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.quake .gauges {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.quake .gauges li {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.97rem;
+}
+
+.quake .track {
+  display: block;
+  height: 1.3rem;
+  border-radius: 5px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 2px var(--line);
+  overflow: hidden;
+}
+
+.quake .fill {
+  display: block;
+  height: 100%;
+  min-width: 3px;
+  background: var(--wood);
+}

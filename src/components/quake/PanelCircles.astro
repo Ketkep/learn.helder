@@ -1,0 +1,25 @@
+---
+// Strip 2: three circles meet at the epicentre.
+import { distanceKm, foundIt, gaps, mapSvg, quakes, stations } from '../../lib/quake';
+const q = quakes[0];
+const g = gaps(q);
+const solved = stations.map((s) => Math.round(distanceKm(s, q) / 5) * 5);
+---
+
+<div class="tool" data-circles-tool>
+  <svg class="strip" viewBox="0 0 300 200" role="img" aria-label="A map with three stations and a circle round each one. The circles meet at the epicentre." data-circles-svg>
+    <rect class="stage" x="2" y="2" width="296" height="196" rx="8"></rect>
+    <g set:html={mapSvg(solved, q, foundIt(solved, q))} data-circles-g></g>
+  </svg>
+  <table class="times">
+    <thead><tr><th scope="col">Station</th><th scope="col">Gap between P and S</th><th scope="col">Distance (8 km a second)</th></tr></thead>
+    <tbody data-circles-body>{stations.map((s, i) => <tr><th scope="row">{s.name}</th><td>{g[i].toFixed(1)} s</td><td>{solved[i]} km</td></tr>)}</tbody>
+  </table>
+  <div class="needs-js sliders">
+    {stations.map((s, i) => <div class="controls"><label class="field"><span>Circle {s.name} <output data-circles-out={i}>0 km</output></span><input class="range" type="range" min="0" max="800" step="5" value="0" data-circles-range={i} aria-label={`Radius of the circle round station ${s.name} in kilometres`} /></label></div>)}
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn" data-circles-next>Another quake</button>
+  </div>
+  <p class="status" aria-live="polite" data-circles-status>The three circles meet at one point, and that point is the epicentre.</p>
+</div>

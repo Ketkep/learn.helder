@@ -377,6 +377,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-15',
     status: 'live',
   },
+  {
+    slug: 'how-earthquakes-are-found',
+    title: 'How earthquakes are found',
+    hook: 'Read the gap between two waves, draw three circles, and find where the ground broke.',
+    category: 'Nature',
+    accent: '#A5543A',
+    preview: 'how-earthquakes-are-found',
+    dateAdded: '2026-10-16',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

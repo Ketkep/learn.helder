@@ -1,0 +1,17 @@
+---
+// Strip 4: which waves cross the Earth.
+import { earthSvg, wavesAt } from '../../lib/quake';
+const deg = 120;
+---
+
+<div class="tool" data-inside-tool>
+  <svg class="view" viewBox="0 0 300 210" role="img" aria-label="A cut through the Earth with the quake at the top. The ring round the edge is coloured by which waves arrive." data-inside-svg>
+    <rect class="stage" x="2" y="2" width="296" height="206" rx="8"></rect>
+    <g set:html={earthSvg(deg)} data-inside-g></g>
+  </svg>
+  <p class="key" aria-hidden="true"><span class="sw both-sw"></span> P and S <span class="sw none-sw"></span> shadow zone <span class="sw ponly-sw"></span> only P</p>
+  <div class="controls needs-js">
+    <label class="field"><span>Station <output data-inside-out>{deg} degrees</output></span><input class="range" type="range" min="0" max="180" step="1" value={deg} data-inside-range aria-label="Position of the station in degrees from the quake" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-inside-status>A station {deg} degrees from the quake: {wavesAt(deg).note}</p>
+</div>

@@ -430,6 +430,15 @@ The page is a table with rows of matchsticks and four things to try. Try 1 plays
 - `src/components/nim/Table.astro` is the frame, `Sticks.astro` draws the heaps and `Panel*.astro` is one try each.
 - `src/scripts/nim/nim.ts` starts all four tries.
 
+## The earthquake page: how the four strips work
+
+The page is a dark wall of seismograph strips and a map table. Strip 1 draws a seismogram for a station at a chosen distance, with the P wave and the S wave arriving. The wave speeds are a toy (6.0 and 24/7 km/s) that gives the rule of thumb of 8 km for every second between the two. Strip 2 gives the gap at three stations on a map and lets the reader set three circles; when the radii are within 15 km of the true distances the epicentre shows up. Strip 3 is the magnitude scale (each whole number is 10 times the wave height and 10 to the power 1.5 times the energy). Strip 4 draws a cut through the Earth and the zones where P and S waves arrive (S waves stop beyond 103 degrees, the P wave shadow zone is 103 to 142 degrees). The map, the stations and the speeds are a toy model and the page says so. Without a script each strip shows one picture or table.
+
+- `src/data/quake.ts` holds all the words, the takeaways and the sources.
+- `src/lib/quake.ts` holds the wave maths, the stations and quakes, and the seismogram, map and Earth drawings as SVG text.
+- `src/components/quake/Wall.astro` is the frame and `Panel*.astro` is one strip each.
+- `src/scripts/quake/quake.ts` starts all four strips.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -484,6 +493,7 @@ src/data/loud.ts          everything the loudness page says: meters, takeaways, 
 src/data/moon.ts          everything the Moon page says: stations, takeaways, sources
 src/data/search.ts        everything the search engine page says: drawers, takeaways, sources
 src/data/nim.ts           everything the Nim page says: tries, takeaways, sources
+src/data/quake.ts         everything the earthquake page says: strips, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -521,6 +531,7 @@ src/components/loud/       the loudness page: four meters and the meter frame
 src/components/moon/       the Moon page: four stations and the room frame
 src/components/search/     the search engine page: four drawers and the card frame
 src/components/nim/        the Nim page: four tries, the table frame and the sticks
+src/components/quake/      the earthquake page: four strips and the wall frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -555,6 +566,7 @@ src/styles/loud.css        the loudness page: dark red bench, meter zones
 src/styles/moon.css        the Moon page: dark room, top views, Moon face, strips
 src/styles/search.css      the search engine page: dark green desk, the web, bars
 src/styles/nim.css         the Nim page: dark table, matchsticks, binary table
+src/styles/quake.css       the earthquake page: dark wall, seismograms, map, Earth cut
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -569,6 +581,7 @@ src/lib/decibel.ts         decibel maths and exposure rules for the loudness pag
 src/lib/moon.ts            Moon phase, rise time and eclipse maths and drawings for the Moon page
 src/lib/search.ts          the web of eight pages, index, crawl, scores and PageRank
 src/lib/nim.ts             nim-sum and winning moves for the Nim page
+src/lib/quake.ts           wave maths and drawings for the earthquake page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -615,6 +628,7 @@ src/scripts/loud/         all four loudness meters (loud.ts)
 src/scripts/moon/         all four Moon stations (moon.ts)
 src/scripts/search/       all four search engine drawers (search.ts)
 src/scripts/nim/          all four Nim tries (nim.ts)
+src/scripts/quake/        all four earthquake strips (quake.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

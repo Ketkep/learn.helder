@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Wall from '../../components/quake/Wall.astro';
+import { takeaways, sources, sourcesNote } from '../../data/quake';
+---
+
+<TopicLayout
+  slug="how-earthquakes-are-found"
+  intro="Two kinds of wave leave an earthquake, and the gap between their arrivals tells how far away it was. Read the gap, draw circles from three stations to find the epicentre, see why one step of magnitude is so much, and find out which waves can cross the Earth."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Wall />
+</TopicLayout>
