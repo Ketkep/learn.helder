@@ -387,6 +387,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-16',
     status: 'live',
   },
+  {
+    slug: 'how-files-shrink',
+    title: 'How files shrink',
+    hook: 'Pack dots into runs, point back at repeats, give letters short codes, and see what cannot shrink.',
+    category: 'Technology',
+    accent: '#9E4A96',
+    preview: 'how-files-shrink',
+    dateAdded: '2026-10-16',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

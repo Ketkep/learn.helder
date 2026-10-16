@@ -1,0 +1,20 @@
+---
+// Pack 3: short codes for common letters.
+import { huffman, samples, shown, textBits } from '../../lib/shrink';
+const text = samples[0].text;
+const h = huffman(text);
+---
+
+<div class="tool" data-codes-tool>
+  <div class="controls needs-js">
+    <label class="field"><span>Your text</span><input class="text wide" type="text" maxlength="80" value={text} autocomplete="off" spellcheck="false" data-codes-q aria-label="Text to give short codes" /></label>
+  </div>
+  <table class="times">
+    <thead><tr><th scope="col">Letter</th><th scope="col">Count</th><th scope="col">Code</th></tr></thead>
+    <tbody data-codes-body>{h.codes.map((c) => <tr><th scope="row">{shown(c.symbol)}</th><td>{c.count}</td><td class="mono">{c.code}</td></tr>)}</tbody>
+  </table>
+  <p class="status" aria-live="polite" data-codes-status>
+    Plain the text takes {textBits(text)} bits. With these codes the letters take {h.bits} bit{h.bits === 1 ? '' : 's'}, and the table takes {h.table} bits more, so {h.bits + h.table} bits in all.
+  </p>
+  <ol class="log" data-codes-steps>{h.steps.slice(0, 4).map((s) => <li>{s}</li>)}</ol>
+</div>

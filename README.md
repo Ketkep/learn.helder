@@ -439,6 +439,15 @@ The page is a dark wall of seismograph strips and a map table. Strip 1 draws a s
 - `src/components/quake/Wall.astro` is the frame and `Panel*.astro` is one strip each.
 - `src/scripts/quake/quake.ts` starts all four strips.
 
+## The file compression page: how the four packs work
+
+The page is a dark packing table with four things to try, each a small toy version of an idea in a zip file. Pack 1 turns a row of 32 dots into runs (1 bit a dot plain, 1 bit plus 6 bits a run) and shows that a checker row gets longer. Pack 2 replaces repeated text with pointers back (a letter costs 9 bits, a pointer 13), which is the LZ77 idea. Pack 3 builds Huffman codes for the letters of a text and counts the table that must be stored too (12 bits a letter). Pack 4 compares the ideas on four texts, including random letters that do not shrink, and counts the messages of 10 bits against the shorter ones (1,024 against 1,023). All sizes are counted by `src/lib/shrink.ts`, so the page shows exactly what the toy gives. Without a script each pack shows one table.
+
+- `src/data/shrink.ts` holds all the words, the takeaways and the sources.
+- `src/lib/shrink.ts` holds the runs, the repeats, the Huffman codes, the sample texts and the bit counts.
+- `src/components/shrink/Bench.astro` is the frame and `Panel*.astro` is one pack each.
+- `src/scripts/shrink/shrink.ts` starts all four packs.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -494,6 +503,7 @@ src/data/moon.ts          everything the Moon page says: stations, takeaways, so
 src/data/search.ts        everything the search engine page says: drawers, takeaways, sources
 src/data/nim.ts           everything the Nim page says: tries, takeaways, sources
 src/data/quake.ts         everything the earthquake page says: strips, takeaways, sources
+src/data/shrink.ts        everything the file compression page says: packs, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -532,6 +542,7 @@ src/components/moon/       the Moon page: four stations and the room frame
 src/components/search/     the search engine page: four drawers and the card frame
 src/components/nim/        the Nim page: four tries, the table frame and the sticks
 src/components/quake/      the earthquake page: four strips and the wall frame
+src/components/shrink/     the file compression page: four packs and the table frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -567,6 +578,7 @@ src/styles/moon.css        the Moon page: dark room, top views, Moon face, strip
 src/styles/search.css      the search engine page: dark green desk, the web, bars
 src/styles/nim.css         the Nim page: dark table, matchsticks, binary table
 src/styles/quake.css       the earthquake page: dark wall, seismograms, map, Earth cut
+src/styles/shrink.css      the file compression page: dark table, dots, chips, bars
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -582,6 +594,7 @@ src/lib/moon.ts            Moon phase, rise time and eclipse maths and drawings 
 src/lib/search.ts          the web of eight pages, index, crawl, scores and PageRank
 src/lib/nim.ts             nim-sum and winning moves for the Nim page
 src/lib/quake.ts           wave maths and drawings for the earthquake page
+src/lib/shrink.ts          runs, repeats, Huffman codes and bit counts for the compression page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -629,6 +642,7 @@ src/scripts/moon/         all four Moon stations (moon.ts)
 src/scripts/search/       all four search engine drawers (search.ts)
 src/scripts/nim/          all four Nim tries (nim.ts)
 src/scripts/quake/        all four earthquake strips (quake.ts)
+src/scripts/shrink/       all four compression packs (shrink.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

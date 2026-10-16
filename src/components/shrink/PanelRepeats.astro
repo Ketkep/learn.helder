@@ -1,0 +1,19 @@
+---
+// Pack 2: repeats become pointers.
+import { lz, lzBits, samples, textBits, token } from '../../lib/shrink';
+const text = samples[0].text;
+const t = lz(text);
+---
+
+<div class="tool" data-repeats-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a text">
+    {samples.slice(0, 3).map((s, i) => <button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'} data-repeats-pick={s.text}>{s.name}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Your text</span><input class="text wide" type="text" maxlength="80" value={text} autocomplete="off" spellcheck="false" data-repeats-q aria-label="Text to compress" /></label>
+  </div>
+  <p class="chips" data-repeats-chips>{t.map((x) => <span class={x.literal !== undefined ? 'chip' : 'chip ptr'}>{token(x)}</span>)}</p>
+  <p class="status" aria-live="polite" data-repeats-status>
+    The text has {text.length} letters, which is {textBits(text)} bits. Written with pointers it has {t.length} pieces and takes {lzBits(t)} bits. A pointer shows how far back to go and how many letters to copy, and an underscore is a space.
+  </p>
+</div>

@@ -1,0 +1,25 @@
+---
+// Pack 1: runs of the same colour.
+import { pixelBits, pixelRows, runBits, runs } from '../../lib/shrink';
+const row = pixelRows.stripes;
+const r = runs(row);
+---
+
+<div class="tool" data-runs-tool>
+  <div class="cells" role="group" aria-label="A row of 32 dots. Click a dot to turn it black or white." data-runs-cells>
+    {row.map((v, i) => <span class={v ? 'cell on' : 'cell'}></span>)}
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Pick a row">
+    <button type="button" class="pick" aria-pressed="true" data-runs-pick="stripes">Stripes</button>
+    <button type="button" class="pick" aria-pressed="false" data-runs-pick="block">One block</button>
+    <button type="button" class="pick" aria-pressed="false" data-runs-pick="checker">Checker</button>
+    <button type="button" class="pick" aria-pressed="false" data-runs-pick="noise">Noise</button>
+  </div>
+  <p class="status" aria-live="polite" data-runs-status>
+    The row has {r.length} runs: {r.map((x) => `${x.count} ${x.value ? 'black' : 'white'}`).join(', ')}. Plain it takes {pixelBits(row)} bits. As runs it takes {runBits(row)} bits.
+  </p>
+  <table class="times">
+    <thead><tr><th scope="col">Row</th><th scope="col">Plain</th><th scope="col">As runs</th></tr></thead>
+    <tbody>{Object.entries(pixelRows).map(([k, v]) => <tr><th scope="row">{k}</th><td>{pixelBits(v)} bits</td><td>{runBits(v)} bits</td></tr>)}</tbody>
+  </table>
+</div>

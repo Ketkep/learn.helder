@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Bench from '../../components/shrink/Bench.astro';
+import { takeaways, sources, sourcesNote } from '../../data/shrink';
+---
+
+<TopicLayout
+  slug="how-files-shrink"
+  intro="A zip file holds the same data in fewer bits. Pack a row of dots into runs, replace repeated text with pointers, give common letters short codes, and see why no method can shrink every file."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Bench />
+</TopicLayout>

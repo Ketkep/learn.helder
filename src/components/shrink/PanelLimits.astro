@@ -1,0 +1,24 @@
+---
+// Pack 4: compare the three ideas, and count the messages.
+import { compare, counts, samples } from '../../lib/shrink';
+const s = samples[0];
+const rows = compare(s.text);
+const c = counts(10);
+---
+
+<div class="tool" data-limits-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a text">
+    {samples.map((x, i) => <button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'} data-limits-pick={x.id}>{x.name}</button>)}
+  </div>
+  <ul class="gauges" aria-hidden="true" data-limits-bars>
+    {rows.map((r) => <li><span class="nm">{r.method}</span><span class="track"><span class="fill" style={`width:${Math.min(100, (r.bits / Math.max(...rows.map((x) => x.bits))) * 100)}%`}></span></span></li>)}
+  </ul>
+  <table class="times">
+    <caption class="sr-only">Size in bits of the chosen text with each method</caption>
+    <thead><tr><th scope="col">Method</th><th scope="col">Bits</th><th scope="col">Against plain</th></tr></thead>
+    <tbody data-limits-body>{rows.map((r) => <tr><th scope="row">{r.method}</th><td>{r.bits}</td><td>{Math.round((r.bits / rows[0].bits) * 100)} per cent</td></tr>)}</tbody>
+  </table>
+  <p class="status" aria-live="polite" data-limits-status>
+    {s.name}: the plain text takes {rows[0].bits} bits. Counting messages: there are {c.exact.toLocaleString('en-US')} messages of exactly 10 bits but only {c.shorter.toLocaleString('en-US')} shorter ones, so they cannot all shrink.
+  </p>
+</div>

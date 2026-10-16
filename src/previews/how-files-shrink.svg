@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .fs-box { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .fs-dot { fill: var(--on-cover); }
+    .fs-bar { fill: var(--on-cover); transform-box: fill-box; transform-origin: 0 50%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .fs-bar { animation: fs-pack 2.2s ease-in-out infinite alternate; }
+    }
+    /* The row of dots is packed into a short bar */
+    @keyframes fs-pack { 0% { transform: scaleX(1); } 100% { transform: scaleX(0.3); } }
+  </style>
+
+  <g>
+    <rect class="fs-box" x="60" y="80" width="280" height="40" rx="8"/>
+    <rect class="fs-dot" x="74" y="92" width="16" height="16" rx="3"/><rect class="fs-dot" x="98" y="92" width="16" height="16" rx="3"/><rect class="fs-dot" x="122" y="92" width="16" height="16" rx="3"/><rect class="fs-dot" x="170" y="92" width="16" height="16" rx="3"/><rect class="fs-dot" x="194" y="92" width="16" height="16" rx="3"/><rect class="fs-dot" x="242" y="92" width="16" height="16" rx="3"/><rect class="fs-dot" x="266" y="92" width="16" height="16" rx="3"/><rect class="fs-dot" x="314" y="92" width="16" height="16" rx="3"/>
+    <rect class="fs-box" x="60" y="160" width="280" height="40" rx="8"/>
+    <rect class="fs-bar" x="72" y="172" width="256" height="16" rx="4"/>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>
