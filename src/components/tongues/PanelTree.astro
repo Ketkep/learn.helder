@@ -1,0 +1,17 @@
+---
+// Card 2: a family tree built from the differences.
+import { joins, treeStatus, treeSvg } from '../../lib/tongues';
+const all = joins().length;
+---
+
+<div class="tool" data-tree-tool>
+  <svg class="strip" viewBox="0 0 300 180" role="img" aria-label="A family tree of English, Dutch, German, French and Spanish drawn sideways, built from the differences between their words" data-tree-svg>
+    <rect class="stage" x="2" y="2" width="296" height="176" rx="8"></rect>
+    <g set:html={treeSvg(all)} data-tree-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-tree-step>Join the two closest</button>
+    <button type="button" class="btn" data-tree-reset>Start again</button>
+  </div>
+  <p class="status" aria-live="polite" data-tree-status>{treeStatus(all)}</p>
+</div>

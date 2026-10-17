@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .lg-tree { fill: none; stroke: var(--on-cover); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+    .lg-tip { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .lg-grow { stroke-dasharray: 200; stroke-dashoffset: 0; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .lg-grow { animation: lg-draw 2.2s ease-in-out infinite alternate; }
+    }
+    /* The branches grow out from the root */
+    @keyframes lg-draw { 0% { stroke-dashoffset: 200; } 100% { stroke-dashoffset: 0; } }
+  </style>
+
+  <g>
+    <path class="lg-tree lg-grow" d="M70 150H130V90H200V70H300M200 110H300M130 150V210H200V190H300M200 230H300"/>
+    <circle class="lg-tip" cx="310" cy="70" r="12"/><circle class="lg-tip" cx="310" cy="110" r="12"/><circle class="lg-tip" cx="310" cy="190" r="12"/><circle class="lg-tip" cx="310" cy="230" r="12"/>
+  </g>
+  <circle class="knob" cx="200" cy="270" r="14"/>
+</svg>

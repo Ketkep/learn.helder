@@ -1,0 +1,21 @@
+---
+// Card 3: a sound that changed from Latin to the Germanic languages.
+import { shifts } from '../../lib/tongues';
+const s = shifts[2];
+---
+
+<div class="tool" data-shift-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a Latin word">
+    {shifts.map((x, i) => <button type="button" class="pick" aria-pressed={i === 2 ? 'true' : 'false'} data-shift-pick={i}>{x.latin}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-shift-apply>Apply the shift</button>
+  </div>
+  <p class="status" aria-live="polite" data-shift-status>
+    Latin {s.latin} starts with the sound of {s.first === 'c' ? 'k' : s.first}. The rule: {s.rule}. So the Germanic form should start with {s.expect}. The real words are English {s.english}, Dutch {s.dutch} and German {s.german}.
+  </p>
+  <table class="times">
+    <thead><tr><th scope="col">Latin</th><th scope="col">English</th><th scope="col">Dutch</th><th scope="col">German</th></tr></thead>
+    <tbody>{shifts.map((x) => <tr><th scope="row">{x.latin}</th><td>{x.english}</td><td>{x.dutch}</td><td>{x.german}</td></tr>)}</tbody>
+  </table>
+</div>

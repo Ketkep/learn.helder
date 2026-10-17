@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Desk from '../../components/tongues/Desk.astro';
+import { takeaways, sources, sourcesNote } from '../../data/tongues';
+---
+
+<TopicLayout
+  slug="how-languages-are-related"
+  intro="Water is water in English and Dutch. Compare the same words in five languages, build a family tree from the differences, apply the sound change that turns Latin p into English f, and guess which English words came from Dutch."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Desk />
+</TopicLayout>

@@ -457,6 +457,15 @@ The page is a dark room with four tests of your own eyes. Test 1 is the blind sp
 - `src/components/eye/Room.astro` is the frame and `Panel*.astro` is one test each.
 - `src/scripts/eye/eye.ts` starts all four tests.
 
+## The languages page: how the four cards work
+
+The page is a light paper desk of word cards with four things to try. Card 1 shows twelve basic words in English, Dutch, German, French and Spanish, with bars for how alike each word is to the English one (spelling, counted as edit distance divided by the longer word). Card 2 builds a family tree from those differences by joining the two closest groups again and again (average distance, UPGMA) and draws it sideways step by step. Card 3 applies Grimm's law to the first sound of a Latin word (p to f, t to th, c as k to h) and shows the real English, Dutch and German words. Card 4 is a small quiz of Dutch words that English borrowed (about 1 per cent of English words). Spelling is a toy for how alike languages are, and the page says so. Without a script each card shows one table, and the tree and the quiz answers are shown.
+
+- `src/data/tongues.ts` holds all the words, the takeaways and the sources.
+- `src/lib/tongues.ts` holds the word cards, the similarity, the tree joins and drawing, the sound shifts and the loanwords.
+- `src/components/tongues/Desk.astro` is the frame and `Panel*.astro` is one card each.
+- `src/scripts/tongues/tongues.ts` starts all four cards.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -514,6 +523,7 @@ src/data/nim.ts           everything the Nim page says: tries, takeaways, source
 src/data/quake.ts         everything the earthquake page says: strips, takeaways, sources
 src/data/shrink.ts        everything the file compression page says: packs, takeaways, sources
 src/data/eye.ts           everything the eye page says: tests, takeaways, sources
+src/data/tongues.ts       everything the languages page says: cards, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -554,6 +564,7 @@ src/components/nim/        the Nim page: four tries, the table frame and the sti
 src/components/quake/      the earthquake page: four strips and the wall frame
 src/components/shrink/     the file compression page: four packs and the table frame
 src/components/eye/        the eye page: four tests and the room frame
+src/components/tongues/    the languages page: four cards and the desk frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -591,6 +602,7 @@ src/styles/nim.css         the Nim page: dark table, matchsticks, binary table
 src/styles/quake.css       the earthquake page: dark wall, seismograms, map, Earth cut
 src/styles/shrink.css      the file compression page: dark table, dots, chips, bars
 src/styles/eye.css         the eye page: dark room, cross and dot, eye, colour patch
+src/styles/tongues.css     the languages page: light paper desk, bars, tree, quiz
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -608,6 +620,7 @@ src/lib/nim.ts             nim-sum and winning moves for the Nim page
 src/lib/quake.ts           wave maths and drawings for the earthquake page
 src/lib/shrink.ts          runs, repeats, Huffman codes and bit counts for the compression page
 src/lib/eye.ts             blind spot, pupil, afterimage and letter size maths for the eye page
+src/lib/tongues.ts         word cards, similarity, family tree and sound shifts for the languages page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -657,6 +670,7 @@ src/scripts/nim/          all four Nim tries (nim.ts)
 src/scripts/quake/        all four earthquake strips (quake.ts)
 src/scripts/shrink/       all four compression packs (shrink.ts)
 src/scripts/eye/          all four eye tests (eye.ts)
+src/scripts/tongues/      all four language cards (tongues.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

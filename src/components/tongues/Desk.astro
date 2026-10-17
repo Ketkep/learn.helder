@@ -1,0 +1,60 @@
+---
+// The whole page: a desk of word cards with four things to try. They are the Panel components and src/scripts/tongues.
+// Without a script each card shows one table.
+import '../../styles/tongues.css';
+import { intro, panels } from '../../data/tongues';
+import PanelMatch from './PanelMatch.astro';
+import PanelTree from './PanelTree.astro';
+import PanelShift from './PanelShift.astro';
+import PanelLoans from './PanelLoans.astro';
+
+const tools: Record<string, typeof PanelMatch> = { match: PanelMatch, tree: PanelTree, shift: PanelShift, loans: PanelLoans };
+---
+
+<div class="tongues" data-tongues>
+  <section class="panel opening" aria-labelledby="tongues-intro">
+    <div class="panel-inner">
+      <div class="words">
+        <p class="kicker">On the desk</p>
+        <h2 id="tongues-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  {
+    panels.map((p) => {
+      const Tool = tools[p.id];
+      return (
+        <section class="panel" id={`panel-${p.id}`} aria-labelledby={`panel-${p.id}-h`}>
+          <div class="panel-inner">
+            <div class="words">
+              <p class="kicker">{p.kicker}</p>
+              <h2 id={`panel-${p.id}-h`}>{p.title}</h2>
+              <div class="paras">{p.paras.map((t) => <p class="para">{t}</p>)}</div>
+              {
+                p.tags && (
+                  <div class="tags">
+                    {p.tags.map((t) => (
+                      <aside class="tag">
+                        <p class="tag-label">{t.label}</p>
+                        <p class="tag-text">{t.text}</p>
+                      </aside>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+            <div class="bench">
+              <Tool />
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/tongues/tongues';
+</script>

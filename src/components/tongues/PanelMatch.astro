@@ -1,0 +1,21 @@
+---
+// Card 1: the same word in five languages.
+import { averageSimilarity, entries, langs, pairSimilarity } from '../../lib/tongues';
+const e = entries[0];
+---
+
+<div class="tool" data-match-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a word">
+    {entries.map((x, i) => <button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'} data-match-pick={i}>{x.meaning}</button>)}
+  </div>
+  <ul class="bars" data-match-bars>
+    {langs.map((l) => <li><span class="nm">{l.name}</span><span class="word">{e.words[l.id]}</span><span class="track"><span class="fill" style={`width:${Math.round(pairSimilarity(e, 'en', l.id) * 100)}%`}></span></span></li>)}
+  </ul>
+  <p class="status" aria-live="polite" data-match-status>
+    "{e.meaning}": the bars show how alike each word is to the English one. Over all twelve words, Dutch is {Math.round(averageSimilarity('en', 'nl') * 100)} per cent like English, German {Math.round(averageSimilarity('en', 'de') * 100)}, French {Math.round(averageSimilarity('en', 'fr') * 100)} and Spanish {Math.round(averageSimilarity('en', 'es') * 100)}.
+  </p>
+  <table class="times">
+    <thead><tr><th scope="col">Word</th>{langs.map((l) => <th scope="col">{l.name}</th>)}</tr></thead>
+    <tbody>{entries.map((x) => <tr><th scope="row">{x.meaning}</th>{langs.map((l) => <td>{x.words[l.id]}</td>)}</tr>)}</tbody>
+  </table>
+</div>

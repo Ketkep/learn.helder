@@ -1,0 +1,444 @@
+/* The languages page: a light paper desk with word cards, a family tree and quiz buttons. */
+
+.tongues {
+  --board: #f1e9d8;
+  --panel: #fbf6ea;
+  --line: #bba98a;
+  --wood: #2f6f5f;
+  --cream: #2a2118;
+  --ink-fixed: #fbf6ea;
+  --wash: rgb(0 0 0 / 0.1);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .tongues .needs-js {
+  display: none;
+}
+
+.tongues :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.tongues .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.tongues .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .tongues .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .tongues .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.tongues .words,
+.tongues .bench,
+.tongues .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.tongues h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.tongues .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.tongues .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.tongues .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.tongues .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.tongues .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.tongues .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.tongues .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.tongues .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.tongues .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.tongues .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.tongues .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.tongues .times th,
+.tongues .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.tongues .times thead th {
+  color: #3b3126;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.tongues .times tbody th {
+  font-weight: 700;
+}
+
+.tongues .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.tongues .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tongues .pick:hover {
+  background: var(--wash);
+}
+
+.tongues .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .tongues .no-js-name {
+  display: none;
+}
+
+.tongues .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.tongues .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.tongues .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.tongues .btn:hover {
+  background: var(--wash);
+}
+
+.tongues .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.tongues .btn.fill:hover {
+  background: var(--cream);
+}
+
+.tongues .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.tongues .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.tongues .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.tongues .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.tongues .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.tongues .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.tongues .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.tongues .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.tongues .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.tongues .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.tongues .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tongues .snd[aria-pressed='true'] .slash,
+.tongues .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tongues * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.tongues .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Cards ---------- */
+.tongues .strip {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.tongues .stage {
+  fill: #fbf6ea;
+}
+
+.tongues .branch {
+  fill: none;
+  stroke: #3b7f6e;
+  stroke-width: 2.4;
+}
+
+.tongues .tip {
+  fill: #2a2118;
+}
+
+.tongues .lab {
+  fill: #2a2118;
+  font-family: var(--font-body, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.tongues .bars {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tongues .bars li {
+  display: grid;
+  grid-template-columns: 5rem 5.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.97rem;
+}
+
+.tongues .bars .word {
+  font-weight: 700;
+}
+
+.tongues .track {
+  display: block;
+  height: 1.1rem;
+  border-radius: 5px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 2px var(--line);
+  overflow: hidden;
+}
+
+.tongues .fill {
+  display: block;
+  height: 100%;
+  min-width: 3px;
+  background: var(--wood);
+}
+
+.tongues .bigword {
+  margin: 0;
+  font-family: var(--font-display, serif);
+  font-size: clamp(2.2rem, 1.6rem + 3vw, 3.4rem);
+  line-height: 1;
+}
+
+.tongues .meaning {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.tongues .times {
+  table-layout: fixed;
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+
+.tongues .times th,
+.tongues .times td {
+  padding: 0.4rem 0.3rem;
+}
+
+@media (max-width: 30rem) {
+  .tongues .times {
+    font-size: 0.76rem;
+  }
+
+  .tongues .times th,
+  .tongues .times td {
+    padding: 0.35rem 0.2rem;
+  }
+}

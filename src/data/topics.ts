@@ -407,6 +407,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-16',
     status: 'live',
   },
+  {
+    slug: 'how-languages-are-related',
+    title: 'How languages are related',
+    hook: 'See why water is water in English and Dutch, and build a family tree from the words.',
+    category: 'Language',
+    accent: '#2E6B5B',
+    preview: 'how-languages-are-related',
+    dateAdded: '2026-10-17',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

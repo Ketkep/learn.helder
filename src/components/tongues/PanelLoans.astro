@@ -1,0 +1,23 @@
+---
+// Card 4: which English word came from this Dutch word?
+import { choices, loans } from '../../lib/tongues';
+const l = loans[0];
+---
+
+<div class="tool" data-loans-tool>
+  <p class="bigword" data-loans-word>{l.dutch}</p>
+  <p class="meaning" data-loans-meaning>means: {l.meaning}</p>
+  <div class="controls needs-js" role="group" aria-label="Pick the English word" data-loans-choices>
+    {choices(0).map((c) => <button type="button" class="pick" aria-pressed="false" data-loans-choice={c}>{c}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn" data-loans-next>Next word</button>
+  </div>
+  <p class="status" aria-live="polite" data-loans-status>
+    Which English word came from the Dutch word {l.dutch}? The answer is {l.english}.
+  </p>
+  <table class="times">
+    <thead><tr><th scope="col">Dutch</th><th scope="col">English</th><th scope="col">Meaning</th></tr></thead>
+    <tbody>{loans.map((x) => <tr><th scope="row">{x.dutch}</th><td>{x.english}</td><td>{x.meaning}</td></tr>)}</tbody>
+  </table>
+</div>
