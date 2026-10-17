@@ -1,0 +1,22 @@
+---
+// Screen 3: the voice of an instrument.
+import { peak, scopeSvg, sumWave, voices } from '../../lib/wave';
+const v = voices.flute;
+---
+
+<div class="tool" data-voice-tool>
+  <svg class="screen" viewBox="0 0 300 120" role="img" aria-label="The wave of a note with the chosen voice" data-voice-svg>
+    <rect class="glass" x="2" y="2" width="296" height="116" rx="8"></rect>
+    <g set:html={scopeSvg(sumWave(v.amps), 3, 1 / peak(v.amps))} data-voice-g></g>
+  </svg>
+  <div class="controls needs-js" role="group" aria-label="Pick a voice">
+    {Object.entries(voices).map(([k, x]) => <button type="button" class="pick" aria-pressed={k === 'flute' ? 'true' : 'false'} data-voice-pick={k}>{x.name}</button>)}
+  </div>
+  <ul class="gauges" aria-hidden="true" data-voice-bars>
+    {v.amps.map((a, i) => <li><span class="nm">{i + 1}</span><span class="track"><span class="fill" style={`width:${Math.max(1, a * 100)}%`}></span></span></li>)}
+  </ul>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-voice-play>Play the note A</button>
+  </div>
+  <p class="status" aria-live="polite" data-voice-status>{v.name}: {v.note} Every voice plays the same pitch of 220 Hz, and the shape of the wave is different.</p>
+</div>

@@ -1,0 +1,418 @@
+/* The sound page: a dark bench with a scope screen, sliders and bars. */
+
+.scope {
+  --board: #0b1210;
+  --panel: #131e1a;
+  --line: #2f4a3f;
+  --wood: #8fe0b0;
+  --cream: #eef3ec;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .scope .needs-js {
+  display: none;
+}
+
+.scope :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.scope .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.scope .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .scope .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .scope .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.scope .words,
+.scope .bench,
+.scope .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.scope h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.scope .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.scope .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.scope .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.scope .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.scope .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.scope .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.scope .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.scope .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.scope .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.scope .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.scope .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.scope .times th,
+.scope .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.scope .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.scope .times tbody th {
+  font-weight: 700;
+}
+
+.scope .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.scope .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.scope .pick:hover {
+  background: var(--wash);
+}
+
+.scope .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .scope .no-js-name {
+  display: none;
+}
+
+.scope .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.scope .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.scope .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.scope .btn:hover {
+  background: var(--wash);
+}
+
+.scope .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.scope .btn.fill:hover {
+  background: var(--cream);
+}
+
+.scope .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.scope .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.scope .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.scope .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.scope .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.scope .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.scope .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.scope .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.scope .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.scope .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.scope .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.scope .snd[aria-pressed='true'] .slash,
+.scope .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scope * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.scope .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The scope ---------- */
+.scope .screen {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.scope .glass {
+  fill: #050a08;
+}
+
+.scope .grid {
+  stroke: #1f3a2f;
+  stroke-width: 1;
+}
+
+.scope .mid {
+  stroke: #2f5a48;
+  stroke-width: 1;
+}
+
+.scope .trace {
+  fill: none;
+  stroke: #8fe0b0;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.scope .envelope {
+  fill: none;
+  stroke: #e8a24f;
+  stroke-width: 1.6;
+  stroke-dasharray: 4 3;
+}
+
+.scope .sliders {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.scope .gauges {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.scope .gauges li {
+  display: grid;
+  grid-template-columns: 1.4rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.scope .track {
+  display: block;
+  height: 0.8rem;
+  border-radius: 4px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 2px var(--line);
+  overflow: hidden;
+}
+
+.scope .fill {
+  display: block;
+  height: 100%;
+  min-width: 2px;
+  background: var(--wood);
+}

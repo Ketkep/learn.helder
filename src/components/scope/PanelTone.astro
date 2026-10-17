@@ -1,0 +1,25 @@
+---
+// Screen 1: one pure tone.
+import { nearestNote, scopeSvg, sineWave } from '../../lib/wave';
+const f = 440;
+const n = nearestNote(f);
+---
+
+<div class="tool" data-tone-tool>
+  <svg class="screen" viewBox="0 0 300 120" role="img" aria-label="A sine wave on a scope screen, showing one hundredth of a second" data-tone-svg>
+    <rect class="glass" x="2" y="2" width="296" height="116" rx="8"></rect>
+    <g set:html={scopeSvg(sineWave(), f * 0.01)} data-tone-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Frequency <output data-tone-out>{f} Hz</output></span><input class="range" type="range" min="100" max="1000" step="1" value={f} data-tone-range aria-label="Frequency in hertz" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Loudness <output data-tone-amp-out>70</output></span><input class="range" type="range" min="10" max="100" step="1" value="70" data-tone-amp aria-label="Loudness of the tone" /></label>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-tone-play>Hold to play</button>
+  </div>
+  <p class="status" aria-live="polite" data-tone-status>
+    {f} Hz is {(f * 0.01).toFixed(1)} waves in a hundredth of a second, and each wave takes {(1000 / f).toFixed(2)} milliseconds. It is near the note {n.name}.
+  </p>
+</div>

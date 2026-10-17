@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .nt-screen { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .nt-wave { fill: none; stroke: var(--on-cover); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+    .nt-slide { stroke-dasharray: 320; stroke-dashoffset: 0; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .nt-slide { animation: nt-draw 2s linear infinite; }
+    }
+    /* The trace is drawn across the screen */
+    @keyframes nt-draw { 0% { stroke-dashoffset: 320; } 100% { stroke-dashoffset: 0; } }
+  </style>
+
+  <g>
+    <rect class="nt-screen" x="60" y="70" width="280" height="140" rx="12"/>
+    <path class="nt-wave nt-slide" d="M80 140C95 80 110 80 125 140S155 200 170 140S200 80 215 140S245 200 260 140S290 80 305 140S320 200 322 160"/>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

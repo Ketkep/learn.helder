@@ -1,0 +1,19 @@
+---
+// Screen 4: beats.
+import { beatsSvg, beatStatus } from '../../lib/wave';
+const f2 = 445;
+---
+
+<div class="tool" data-beats-tool>
+  <svg class="screen" viewBox="0 0 300 120" role="img" aria-label="Two notes added together. The outline rises and falls once for every beat." data-beats-svg>
+    <rect class="glass" x="2" y="2" width="296" height="116" rx="8"></rect>
+    <g set:html={beatsSvg(440, f2)} data-beats-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Second note <output data-beats-out>{f2} Hz</output></span><input class="range" type="range" min="430" max="450" step="0.5" value={f2} data-beats-range aria-label="Frequency of the second note in hertz" /></label>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-beats-play>Play both notes</button>
+  </div>
+  <p class="status" aria-live="polite" data-beats-status>{beatStatus(440, f2)} The picture shows one second, with the fast wiggle drawn slowly.</p>
+</div>

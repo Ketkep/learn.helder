@@ -427,6 +427,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-17',
     status: 'live',
   },
+  {
+    slug: 'how-a-note-is-built',
+    title: 'How a note is built',
+    hook: 'Add sine waves to build a square wave, a toy flute and a toy violin, and hear two notes beat.',
+    category: 'Music',
+    accent: '#4A5DBF',
+    preview: 'how-a-note-is-built',
+    dateAdded: '2026-10-17',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

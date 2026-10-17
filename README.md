@@ -475,6 +475,15 @@ The page is a long dark road from the Sun with four stops. Stop 1 shrinks the Su
 - `src/components/scale/Road.astro` is the frame and `Panel*.astro` is one stop each.
 - `src/scripts/scale/scale.ts` starts all four stops.
 
+## The sound page: how the four screens work
+
+The page is a dark bench with a scope screen and four things to try, with play buttons that use the shared sound helpers (`src/scripts/sound.ts`, with the sound switch). Screen 1 draws one sine wave for a chosen frequency over a hundredth of a second, names the nearest note and holds the tone while the button is down. Screen 2 adds eight harmonics with sliders (presets for sine, square, sawtooth and triangle) and draws the sum. Screen 3 compares toy recipes for a flute, a clarinet, a violin and an organ at the same pitch. Screen 4 draws two close notes added together (the fast wiggle is drawn slowly, the beat envelope is true to time) and plays both. The instrument recipes are toys, and the page says so. Without a script each screen shows one picture.
+
+- `src/data/scope.ts` holds all the words, the takeaways and the sources.
+- `src/lib/wave.ts` holds the wave sums, the note names, the recipes and the scope drawings as SVG text.
+- `src/components/scope/Screen.astro` is the frame and `Panel*.astro` is one screen each.
+- `src/scripts/scope/scope.ts` starts all four screens.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -534,6 +543,7 @@ src/data/shrink.ts        everything the file compression page says: packs, take
 src/data/eye.ts           everything the eye page says: tests, takeaways, sources
 src/data/tongues.ts       everything the languages page says: cards, takeaways, sources
 src/data/scale.ts          everything the solar system page says: stops, takeaways, sources
+src/data/scope.ts          everything the sound page says: screens, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -576,6 +586,7 @@ src/components/shrink/     the file compression page: four packs and the table f
 src/components/eye/        the eye page: four tests and the room frame
 src/components/tongues/    the languages page: four cards and the desk frame
 src/components/scale/      the solar system page: four stops and the road frame
+src/components/scope/      the sound page: four screens and the scope frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -615,6 +626,7 @@ src/styles/shrink.css      the file compression page: dark table, dots, chips, b
 src/styles/eye.css         the eye page: dark room, cross and dot, eye, colour patch
 src/styles/tongues.css     the languages page: light paper desk, bars, tree, quiz
 src/styles/scale.css       the solar system page: dark road, strip, tables
+src/styles/scope.css       the sound page: dark bench, scope screen, bars
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -634,6 +646,7 @@ src/lib/shrink.ts          runs, repeats, Huffman codes and bit counts for the c
 src/lib/eye.ts             blind spot, pupil, afterimage and letter size maths for the eye page
 src/lib/tongues.ts         word cards, similarity, family tree and sound shifts for the languages page
 src/lib/scale.ts           planets, scale model and trip time maths for the solar system page
+src/lib/wave.ts            wave sums, note names and scope drawings for the sound page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -685,6 +698,7 @@ src/scripts/shrink/       all four compression packs (shrink.ts)
 src/scripts/eye/          all four eye tests (eye.ts)
 src/scripts/tongues/      all four language cards (tongues.ts)
 src/scripts/scale/        all four solar system stops (scale.ts)
+src/scripts/scope/        all four sound screens (scope.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

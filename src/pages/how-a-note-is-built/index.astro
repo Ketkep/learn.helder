@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Screen from '../../components/scope/Screen.astro';
+import { takeaways, sources, sourcesNote } from '../../data/scope';
+---
+
+<TopicLayout
+  slug="how-a-note-is-built"
+  intro="Every steady sound is a sum of sine waves. Make a pure tone, add harmonics to build a square wave, mix a toy flute and a toy violin, and hear two nearly equal notes beat. Press the play buttons to hear each one."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Screen />
+</TopicLayout>
