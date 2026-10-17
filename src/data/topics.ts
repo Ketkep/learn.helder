@@ -417,6 +417,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-17',
     status: 'live',
   },
+  {
+    slug: 'the-solar-system-to-scale',
+    title: 'The solar system to scale',
+    hook: 'Shrink the Sun to an apple and walk out to Neptune.',
+    category: 'Space',
+    accent: '#A5521A',
+    preview: 'the-solar-system-to-scale',
+    dateAdded: '2026-10-17',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

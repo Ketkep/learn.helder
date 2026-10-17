@@ -1,0 +1,18 @@
+---
+// Stop 4: how long a trip from the Sun takes.
+import { fmtDuration, planets, tripSeconds, vehicles } from '../../lib/scale';
+const p = planets[2];
+---
+
+<div class="tool" data-trip-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a planet">
+    {planets.map((x, i) => <button type="button" class="pick" aria-pressed={i === 2 ? 'true' : 'false'} data-trip-pick={x.name}>{x.name}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-trip-status>
+    From the Sun to {p.name}, {p.au} AU: light takes {fmtDuration(tripSeconds(p.au, vehicles[4].kmS))} and Voyager 1 would need {fmtDuration(tripSeconds(p.au, vehicles[3].kmS))}.
+  </p>
+  <table class="times">
+    <thead><tr><th scope="col">Travelling by</th><th scope="col" data-trip-head>Sun to {p.name}</th></tr></thead>
+    <tbody data-trip-body>{vehicles.map((v) => <tr><th scope="row">{v.name}</th><td>{fmtDuration(tripSeconds(p.au, v.kmS))}</td></tr>)}</tbody>
+  </table>
+</div>

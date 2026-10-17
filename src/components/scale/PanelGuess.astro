@@ -1,0 +1,23 @@
+---
+// Stop 3: guess how far a planet is.
+import { planets } from '../../lib/scale';
+---
+
+<div class="tool" data-guess-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a planet">
+    {planets.slice(1).map((p, i) => <button type="button" class="pick" aria-pressed={i === 4 ? 'true' : 'false'} data-guess-pick={p.name}>{p.name}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Your guess <output data-guess-out>100 m</output></span><input class="range" type="range" min="1" max="300" step="1" value="100" data-guess-range aria-label="Your guess for the distance from the Sun in metres" /></label>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-guess-check>Check my guess</button>
+  </div>
+  <p class="status" aria-live="polite" data-guess-status>
+    The Sun is an apple, 8 cm across. How far from the Sun, in metres, is Saturn? Slide to your guess and press check.
+  </p>
+  <table class="times">
+    <thead><tr><th scope="col">Planet</th><th scope="col">Distance</th></tr></thead>
+    <tbody>{planets.map((p) => <tr><th scope="row">{p.name}</th><td>{p.au} AU</td></tr>)}</tbody>
+  </table>
+</div>

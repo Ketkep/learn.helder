@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Road from '../../components/scale/Road.astro';
+import { takeaways, sources, sourcesNote } from '../../data/scale';
+---
+
+<TopicLayout
+  slug="the-solar-system-to-scale"
+  intro="The planets are tiny dots in a huge gap. Shrink the Sun to an apple, walk the road out to Neptune, guess how far each planet is, and see how long a trip takes by foot, jet, spacecraft and light."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Road />
+</TopicLayout>

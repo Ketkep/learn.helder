@@ -1,0 +1,18 @@
+---
+// Stop 1: the planets in a scale model, for a Sun of a chosen size.
+import { fmtLength, modelDistanceM, modelSizeM, planets, sunPresets } from '../../lib/scale';
+const cm = sunPresets[1].cm;
+---
+
+<div class="tool" data-shrink-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a size for the Sun">
+    {sunPresets.map((s, i) => <button type="button" class="pick" aria-pressed={i === 1 ? 'true' : 'false'} data-shrink-pick={s.cm}>{s.name}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-shrink-status>
+    With the Sun the size of an apple ({cm} cm), the Earth is {fmtLength(modelSizeM(12742, cm))} wide and {fmtLength(modelDistanceM(1, cm))} from the Sun. Neptune is {fmtLength(modelDistanceM(30.05, cm))} away.
+  </p>
+  <table class="times">
+    <thead><tr><th scope="col">Planet</th><th scope="col">Distance from the Sun</th><th scope="col">Width</th></tr></thead>
+    <tbody data-shrink-body>{planets.map((p) => <tr><th scope="row">{p.name}</th><td>{fmtLength(modelDistanceM(p.au, cm))}</td><td>{fmtLength(modelSizeM(p.km, cm))}</td></tr>)}</tbody>
+  </table>
+</div>

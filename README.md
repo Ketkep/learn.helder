@@ -466,6 +466,15 @@ The page is a light paper desk of word cards with four things to try. Card 1 sho
 - `src/components/tongues/Desk.astro` is the frame and `Panel*.astro` is one card each.
 - `src/scripts/tongues/tongues.ts` starts all four cards.
 
+## The solar system page: how the four stops work
+
+The page is a long dark road from the Sun with four stops. Stop 1 shrinks the Sun to a pea, an apple or a beach ball and lists the distance and width of every planet in the model (everything is scaled by the same number, so it is exact). Stop 2 is a strip with the planets to scale for an apple Sun and a slider that walks along it (1.4 m a second). Stop 3 is a guessing game for the distance of a planet. Stop 4 gives the trip time from the Sun at the speed of walking, a car, a jet, Voyager 1 (17 km/s) and light. The distances are the mean values from NASA and JPL sources, and Voyager 1 is put at about 160 astronomical units (2025). Without a script each stop shows one table.
+
+- `src/data/scale.ts` holds all the words, the takeaways and the sources.
+- `src/lib/scale.ts` holds the planets, the scale model maths, the trip times and the formatting of lengths and times.
+- `src/components/scale/Road.astro` is the frame and `Panel*.astro` is one stop each.
+- `src/scripts/scale/scale.ts` starts all four stops.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -524,6 +533,7 @@ src/data/quake.ts         everything the earthquake page says: strips, takeaways
 src/data/shrink.ts        everything the file compression page says: packs, takeaways, sources
 src/data/eye.ts           everything the eye page says: tests, takeaways, sources
 src/data/tongues.ts       everything the languages page says: cards, takeaways, sources
+src/data/scale.ts          everything the solar system page says: stops, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -565,6 +575,7 @@ src/components/quake/      the earthquake page: four strips and the wall frame
 src/components/shrink/     the file compression page: four packs and the table frame
 src/components/eye/        the eye page: four tests and the room frame
 src/components/tongues/    the languages page: four cards and the desk frame
+src/components/scale/      the solar system page: four stops and the road frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -603,6 +614,7 @@ src/styles/quake.css       the earthquake page: dark wall, seismograms, map, Ear
 src/styles/shrink.css      the file compression page: dark table, dots, chips, bars
 src/styles/eye.css         the eye page: dark room, cross and dot, eye, colour patch
 src/styles/tongues.css     the languages page: light paper desk, bars, tree, quiz
+src/styles/scale.css       the solar system page: dark road, strip, tables
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -621,6 +633,7 @@ src/lib/quake.ts           wave maths and drawings for the earthquake page
 src/lib/shrink.ts          runs, repeats, Huffman codes and bit counts for the compression page
 src/lib/eye.ts             blind spot, pupil, afterimage and letter size maths for the eye page
 src/lib/tongues.ts         word cards, similarity, family tree and sound shifts for the languages page
+src/lib/scale.ts           planets, scale model and trip time maths for the solar system page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -671,6 +684,7 @@ src/scripts/quake/        all four earthquake strips (quake.ts)
 src/scripts/shrink/       all four compression packs (shrink.ts)
 src/scripts/eye/          all four eye tests (eye.ts)
 src/scripts/tongues/      all four language cards (tongues.ts)
+src/scripts/scale/        all four solar system stops (scale.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

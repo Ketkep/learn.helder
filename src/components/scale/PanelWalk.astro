@@ -1,0 +1,24 @@
+---
+// Stop 2: walk the road from the Sun.
+import { fmtLength, modelDistanceM, planets, whereAmI } from '../../lib/scale';
+const cm = 8;
+const m = 40;
+const w = whereAmI(m, cm);
+const total = Math.ceil(modelDistanceM(30.05, cm) / 10) * 10 + 20;
+---
+
+<div class="tool" data-walk-tool>
+  <svg class="strip" viewBox="0 0 300 90" role="img" aria-label="A road from the Sun with the planets marked to scale" data-walk-svg>
+    <rect class="stage" x="2" y="2" width="296" height="86" rx="8"></rect>
+    <line class="road" x1="14" y1="46" x2="286" y2="46"></line>
+    <circle class="sun" cx="14" cy="46" r="6"></circle>
+    {planets.map((p, i) => <g><circle class="pl" cx={14 + (272 * modelDistanceM(p.au, cm)) / total} cy="46" r="3.5"></circle><text class="lab" x={14 + (272 * modelDistanceM(p.au, cm)) / total} y={i % 2 ? 72 : 30} text-anchor="middle">{i === 2 || i > 3 ? p.name.slice(0, 3) : ''}</text></g>)}
+    <circle class="you" data-walk-you cx={14 + (272 * m) / total} cy="46" r="6"></circle>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Walked <output data-walk-out>{m} m</output></span><input class="range" type="range" min="0" max={total} step="1" value={m} data-walk-range aria-label="Distance walked from the Sun in metres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-walk-status>
+    After {m} m you have passed {w.passed.join(', ')}. Next is {w.next?.name}, {fmtLength(w.toNext || 0)} further on. The Sun here is an apple, 8 cm across.
+  </p>
+</div>
