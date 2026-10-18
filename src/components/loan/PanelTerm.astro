@@ -1,0 +1,23 @@
+---
+// Line 3: a longer term.
+import { EXAMPLE, eur, payment, schedule, totalInterest } from '../../lib/loan';
+const terms = [10, 15, 20, 25, 30];
+const rows = terms.map((y) => ({ y, p: payment(EXAMPLE.amount, EXAMPLE.rate, y), i: totalInterest(schedule(EXAMPLE.amount, EXAMPLE.rate, y)) }));
+const maxI = Math.max(...rows.map((r) => r.i));
+---
+
+<div class="tool" data-term-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a term in years">
+    {terms.map((y) => <button type="button" class="pick" aria-pressed={y === 25 ? 'true' : 'false'} data-term-pick={y}>{y} years</button>)}
+  </div>
+  <ul class="gauges" aria-hidden="true">
+    <li><span class="nm">Total interest</span><span class="track"><span class="fill" data-term-bar style={`width:${(rows[3].i / maxI) * 100}%`}></span></span></li>
+  </ul>
+  <p class="status" aria-live="polite" data-term-status>
+    Over 25 years a loan of {eur(EXAMPLE.amount)} at {EXAMPLE.rate} per cent has a payment of {eur(rows[3].p)} a month and costs {eur(rows[3].i)} in interest.
+  </p>
+  <table class="times">
+    <thead><tr><th scope="col">Term</th><th scope="col">Payment a month</th><th scope="col">Total interest</th></tr></thead>
+    <tbody>{rows.map((r) => <tr><th scope="row">{r.y} years</th><td>{eur(r.p)}</td><td>{eur(r.i)}</td></tr>)}</tbody>
+  </table>
+</div>

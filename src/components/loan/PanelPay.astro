@@ -1,0 +1,23 @@
+---
+// Line 1: the monthly payment.
+import { eur, payment, schedule, totalInterest, totalPaid } from '../../lib/loan';
+const [a, r, y] = [100000, 5, 25];
+const p = payment(a, r, y);
+const s = schedule(a, r, y);
+---
+
+<div class="tool" data-pay-tool>
+  <div class="controls needs-js">
+    <label class="field"><span>Borrowed <output data-pay-a-out>{eur(a)}</output></span><input class="range" type="range" min="1000" max="500000" step="1000" value={a} data-pay-a aria-label="Amount borrowed in euros" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Yearly rate <output data-pay-r-out>{r}%</output></span><input class="range" type="range" min="0" max="10" step="0.1" value={r} data-pay-r aria-label="Yearly interest rate in per cent" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Years <output data-pay-y-out>{y}</output></span><input class="range" type="range" min="1" max="40" step="1" value={y} data-pay-y aria-label="Length of the loan in years" /></label>
+  </div>
+  <p class="big" data-pay-big>{eur(p)} a month</p>
+  <p class="status" aria-live="polite" data-pay-status>
+    A loan of {eur(a)} at {r} per cent a year over {y} years has a payment of {eur(p)} a month. In all you pay back {eur(totalPaid(s))}, of which {eur(totalInterest(s))} is interest.
+  </p>
+</div>

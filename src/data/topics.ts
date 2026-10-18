@@ -457,6 +457,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-18',
     status: 'live',
   },
+  {
+    slug: 'how-a-loan-is-paid-off',
+    title: 'How a loan is paid off',
+    hook: 'See where each payment goes, and what a longer term or a little extra does to a made up loan.',
+    category: 'Maths',
+    accent: '#6B6A2A',
+    preview: 'how-a-loan-is-paid-off',
+    dateAdded: '2026-10-18',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

@@ -1,0 +1,61 @@
+---
+// The whole page: a ledger with five things to try. They are the Panel components and src/scripts/loan.
+// Without a script each part shows one picture or table.
+import '../../styles/loan.css';
+import { intro, panels } from '../../data/loan';
+import PanelPay from './PanelPay.astro';
+import PanelSplit from './PanelSplit.astro';
+import PanelTerm from './PanelTerm.astro';
+import PanelExtra from './PanelExtra.astro';
+import PanelTwo from './PanelTwo.astro';
+
+const tools: Record<string, typeof PanelPay> = { pay: PanelPay, split: PanelSplit, term: PanelTerm, extra: PanelExtra, two: PanelTwo };
+---
+
+<div class="loan" data-loan>
+  <section class="panel opening" aria-labelledby="loan-intro">
+    <div class="panel-inner">
+      <div class="words">
+        <p class="kicker">Open the ledger</p>
+        <h2 id="loan-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  {
+    panels.map((p) => {
+      const Tool = tools[p.id];
+      return (
+        <section class="panel" id={`panel-${p.id}`} aria-labelledby={`panel-${p.id}-h`}>
+          <div class="panel-inner">
+            <div class="words">
+              <p class="kicker">{p.kicker}</p>
+              <h2 id={`panel-${p.id}-h`}>{p.title}</h2>
+              <div class="paras">{p.paras.map((t) => <p class="para">{t}</p>)}</div>
+              {
+                p.tags && (
+                  <div class="tags">
+                    {p.tags.map((t) => (
+                      <aside class="tag">
+                        <p class="tag-label">{t.label}</p>
+                        <p class="tag-text">{t.text}</p>
+                      </aside>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+            <div class="bench">
+              <Tool />
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/loan/loan';
+</script>

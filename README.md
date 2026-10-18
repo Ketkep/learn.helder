@@ -502,6 +502,15 @@ The page is a dark navy room with a flat map of the world in four versions. Map 
 - `src/components/zones/Map.astro` is the frame and `Panel*.astro` is one map each.
 - `src/scripts/zones/zones.ts` starts all four maps.
 
+## The loan page: how the five lines work
+
+The page is a dark ledger with five things to try on a made up loan (a fixed yearly rate, one payment a month, no fees and no taxes, amounts in euros). Line 1 works out the level payment from the amount, the yearly rate and the years, and the total interest. Line 2 draws every payment of a loan of 100,000 at 5 per cent over 25 years as interest under repayment, with a month slider and the month where repayment passes interest. Line 3 compares terms of 10 to 30 years. Line 4 adds an extra amount each month (the page's own sum) and shows months and interest saved. Line 5 compares a level (annuity) payment with a falling (linear) one. The sums match the examples in the sources (a level payment of 2,387 and a linear payment from 3,056 to 1,394 for 500,000 at 4 per cent over 30 years, and the crossover in month 223). The page explains maths and is not financial advice. Without a script each line shows one picture or table.
+
+- `src/data/loan.ts` holds all the words, the takeaways and the sources.
+- `src/lib/loan.ts` holds the payment and schedule maths and the two charts as SVG text.
+- `src/components/loan/Ledger.astro` is the frame and `Panel*.astro` is one line each.
+- `src/scripts/loan/loan.ts` starts all five lines.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -564,6 +573,7 @@ src/data/scale.ts          everything the solar system page says: stops, takeawa
 src/data/scope.ts          everything the sound page says: screens, takeaways, sources
 src/data/aqueduct.ts       everything the aqueduct page says: hills, takeaways, sources
 src/data/zones.ts          everything the time zone page says: maps, takeaways, sources
+src/data/loan.ts           everything the loan page says: lines, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -609,6 +619,7 @@ src/components/scale/      the solar system page: four stops and the road frame
 src/components/scope/      the sound page: four screens and the scope frame
 src/components/aqueduct/   the aqueduct page: four hills and the channel frame
 src/components/zones/      the time zone page: four maps and the world frame
+src/components/loan/       the loan page: five lines and the ledger frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -651,6 +662,7 @@ src/styles/scale.css       the solar system page: dark road, strip, tables
 src/styles/scope.css       the sound page: dark bench, scope screen, bars
 src/styles/aqueduct.css    the aqueduct page: dark hillside, side views, quiz
 src/styles/zones.css       the time zone page: dark navy room, world map, bars
+src/styles/loan.css        the loan page: dark ledger, stacked charts, bars
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -673,6 +685,7 @@ src/lib/scale.ts           planets, scale model and trip time maths for the sola
 src/lib/wave.ts            wave sums, note names and scope drawings for the sound page
 src/lib/aqueduct.ts        fall, pressure and crossing maths and drawings for the aqueduct page
 src/lib/zones.ts           cities, clock sums and the world map for the time zone page
+src/lib/loan.ts            payment and schedule maths for the loan page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -727,6 +740,7 @@ src/scripts/scale/        all four solar system stops (scale.ts)
 src/scripts/scope/        all four sound screens (scope.ts)
 src/scripts/aqueduct/     all four aqueduct hills (aqueduct.ts)
 src/scripts/zones/        all four time zone maps (zones.ts)
+src/scripts/loan/         all five loan lines (loan.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

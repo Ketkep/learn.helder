@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Ledger from '../../components/loan/Ledger.astro';
+import { takeaways, sources, sourcesNote } from '../../data/loan';
+---
+
+<TopicLayout
+  slug="how-a-loan-is-paid-off"
+  intro="Each loan payment pays the month’s interest first, and the rest repays the loan. Work out a payment, see where it goes, stretch the term, add a little extra and compare a level payment with a falling one. A toy loan, and not financial advice."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Ledger />
+</TopicLayout>

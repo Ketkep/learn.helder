@@ -1,0 +1,14 @@
+---
+// Line 4: a little extra each month.
+import { EXAMPLE, eur, fmtMonths, schedule, totalInterest } from '../../lib/loan';
+const base = schedule(EXAMPLE.amount, EXAMPLE.rate, EXAMPLE.years);
+---
+
+<div class="tool" data-extra-tool>
+  <div class="controls needs-js">
+    <label class="field"><span>Extra a month <output data-extra-out>{eur(0)}</output></span><input class="range" type="range" min="0" max="500" step="10" value="0" data-extra-range aria-label="Extra amount paid every month in euros" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-extra-status>
+    With no extra, the loan of {eur(EXAMPLE.amount)} at {EXAMPLE.rate} per cent takes {fmtMonths(base.length)} and costs {eur(totalInterest(base))} in interest. Slide the extra amount to see what changes.
+  </p>
+</div>

@@ -1,0 +1,20 @@
+---
+// Line 2: where each payment goes.
+import { crossover, EXAMPLE, eur, schedule, splitSvg } from '../../lib/loan';
+const s = schedule(EXAMPLE.amount, EXAMPLE.rate, EXAMPLE.years);
+const m = 1;
+---
+
+<div class="tool" data-split-tool>
+  <svg class="strip" viewBox="0 0 300 130" role="img" aria-label="Every payment of the loan as a stack: interest at the bottom and repayment on top. The interest part shrinks over time." data-split-svg>
+    <rect class="stage" x="2" y="2" width="296" height="126" rx="8"></rect>
+    <g set:html={splitSvg(s, m)} data-split-g></g>
+  </svg>
+  <p class="key" aria-hidden="true"><span class="sw interest-sw"></span> interest <span class="sw principal-sw"></span> repayment</p>
+  <div class="controls needs-js">
+    <label class="field"><span>Month <output data-split-out>{m}</output></span><input class="range" type="range" min="1" max={s.length} step="1" value={m} data-split-range aria-label="Month of the loan" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-split-status>
+    Month {m}: of a payment of {eur(s[0].paid)}, {eur(s[0].interest)} is interest and {eur(s[0].principal)} repays the loan. {eur(s[0].balance)} is still owed. From month {crossover(s)} on, more of each payment repays the loan than pays interest.
+  </p>
+</div>

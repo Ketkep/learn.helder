@@ -1,0 +1,32 @@
+---
+// Line 5: a level payment against a falling payment.
+import { SOURCE_EXAMPLE as X, eur, linearSchedule, schedule, totalInterest, twoSvg } from '../../lib/loan';
+const a = schedule(X.amount, X.rate, X.years);
+const b = linearSchedule(X.amount, X.rate, X.years);
+---
+
+<div class="tool" data-two-tool>
+  <svg class="strip" viewBox="0 0 300 130" role="img" aria-label="The monthly payment over the life of the loan. One line is flat and one line falls." data-two-svg>
+    <rect class="stage" x="2" y="2" width="296" height="126" rx="8"></rect>
+    <g set:html={twoSvg(a, b)} data-two-g></g>
+  </svg>
+  <p class="key" aria-hidden="true"><span class="sw a-sw"></span> level payment <span class="sw b-sw"></span> falling payment</p>
+  <div class="controls needs-js">
+    <label class="field"><span>Borrowed <output data-two-a-out>{eur(X.amount)}</output></span><input class="range" type="range" min="10000" max="500000" step="10000" value={X.amount} data-two-a aria-label="Amount borrowed in euros" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Yearly rate <output data-two-r-out>{X.rate}%</output></span><input class="range" type="range" min="0" max="10" step="0.1" value={X.rate} data-two-r aria-label="Yearly interest rate in per cent" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Years <output data-two-y-out>{X.years}</output></span><input class="range" type="range" min="5" max="40" step="1" value={X.years} data-two-y aria-label="Length of the loan in years" /></label>
+  </div>
+  <table class="times">
+    <thead><tr><th scope="col" data-two-head>Loan of {eur(X.amount)}, {X.rate}%, {X.years} years</th><th scope="col">Level</th><th scope="col">Falling</th></tr></thead>
+    <tbody data-two-body>
+      <tr><th scope="row">First payment</th><td>{eur(a[0].paid)}</td><td>{eur(b[0].paid)}</td></tr>
+      <tr><th scope="row">Last payment</th><td>{eur(a[a.length - 1].paid)}</td><td>{eur(b[b.length - 1].paid)}</td></tr>
+      <tr><th scope="row">Total interest</th><td>{eur(totalInterest(a))}</td><td>{eur(totalInterest(b))}</td></tr>
+    </tbody>
+  </table>
+  <p class="status" aria-live="polite" data-two-status>The level payment is the same every month. The falling payment starts higher, ends lower and costs {eur(totalInterest(a) - totalInterest(b))} less interest in all.</p>
+</div>

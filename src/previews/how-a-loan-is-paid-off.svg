@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ln-card { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .ln-int { fill: var(--on-cover); opacity: 0.45; }
+    .ln-pri { fill: var(--on-cover); transform-box: fill-box; transform-origin: 0 100%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ln-pri { animation: ln-grow 2.4s ease-in-out infinite alternate; }
+    }
+    /* The repaid part grows as the interest part shrinks */
+    @keyframes ln-grow { 0% { transform: scaleY(0.4); } 100% { transform: scaleY(1); } }
+  </style>
+
+  <g>
+    <rect class="ln-card" x="60" y="70" width="280" height="140" rx="10"/>
+    <path class="ln-int" d="M80 190V110L320 190Z"/>
+    <path class="ln-pri" d="M80 110L320 190V110Z"/>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>
