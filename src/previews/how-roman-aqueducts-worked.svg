@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .aq-arch { fill: none; stroke: var(--on-cover); stroke-width: 6; stroke-linecap: round; }
+    .aq-top { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 6; }
+    .aq-drop { fill: var(--on-cover); transform-box: fill-box; transform-origin: 50% 50%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .aq-drop { animation: aq-flow 2.4s linear infinite; }
+    }
+    /* A drop of water runs along the top */
+    @keyframes aq-flow { 0% { transform: translateX(0); } 100% { transform: translateX(230px); } }
+  </style>
+
+  <g>
+    <rect class="aq-top" x="60" y="86" width="280" height="22" rx="4"/>
+    <path class="aq-arch" d="M80 108V200M80 108Q110 140 140 108M140 108V200M140 108Q170 140 200 108M200 108V200M200 108Q230 140 260 108M260 108V200M260 108Q290 140 320 108M320 108V200"/>
+    <circle class="aq-drop" cx="85" cy="97" r="6"/>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

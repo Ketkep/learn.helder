@@ -1,0 +1,21 @@
+---
+// Hill 1: the slope and the fall of a channel.
+import { dropM, NIMES, oneIn, slopeSvg } from '../../lib/aqueduct';
+const [g, km] = [NIMES.cmPerKm, NIMES.km];
+---
+
+<div class="tool" data-slope-tool>
+  <svg class="strip" viewBox="0 0 300 124" role="img" aria-label="A side view of a channel running down from a spring to a town, with the ground under it" data-slope-svg>
+    <rect class="stage" x="2" y="2" width="296" height="120" rx="8"></rect>
+    <g set:html={slopeSvg(g, km)} data-slope-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Slope <output data-slope-out>{g} cm/km</output></span><input class="range" type="range" min="5" max="200" step="1" value={g} data-slope-range aria-label="Slope in centimetres of fall for each kilometre" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Length <output data-slope-km-out>{km} km</output></span><input class="range" type="range" min="10" max="100" step="1" value={km} data-slope-km aria-label="Length of the channel in kilometres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-slope-status>
+    A slope of {g} cm in every kilometre, over {km} km, falls {dropM(g, km).toFixed(1)} metres. That is a slope of about 1 in {oneIn(g).toLocaleString('en-US')}. This is the slope of the Nîmes aqueduct. The fall is drawn much bigger than life.
+  </p>
+</div>

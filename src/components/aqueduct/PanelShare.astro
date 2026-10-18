@@ -1,0 +1,18 @@
+---
+// Hill 4: how much of Rome's water line was on arches.
+import { archShare, ROME } from '../../lib/aqueduct';
+---
+
+<div class="tool" data-share-tool>
+  <div class="bar" aria-hidden="true"><span class="under" data-share-under style={`width:${Math.round((ROME.underground / ROME.total) * 100)}%`}></span><span class="arch" data-share-arch style={`width:${archShare()}%`}></span></div>
+  <p class="key" aria-hidden="true"><span class="sw under-sw"></span> underground <span class="sw arch-sw"></span> on arches</p>
+  <div class="controls needs-js">
+    <label class="field"><span>Your guess <output data-share-out>30 per cent</output></span><input class="range" type="range" min="0" max="100" step="1" value="30" data-share-range aria-label="Your guess for the share of the water line on arches, in per cent" /></label>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-share-check>Check my guess</button>
+  </div>
+  <p class="status" aria-live="polite" data-share-status>
+    Rome’s aqueducts came to about {ROME.total} km in all. About {ROME.underground} km ran underground and about {ROME.arches} km stood on arches. That is about {archShare()} per cent on arches.
+  </p>
+</div>

@@ -484,6 +484,15 @@ The page is a dark bench with a scope screen and four things to try, with play b
 - `src/components/scope/Screen.astro` is the frame and `Panel*.astro` is one screen each.
 - `src/scripts/scope/scope.ts` starts all four screens.
 
+## The aqueduct page: how the four hills work
+
+The page is a dark hillside with four things to try. Hill 1 draws a channel from a spring to a town and works out the fall as the slope (cm per km) times the length (km), with the Nîmes values (34 cm/km over 50 km, 17 m) as the start. Hill 2 draws a siphon and gives the pressure at the bottom (0.0981 bar for each metre of depth) and the head the far tank must lose. Hill 3 is a quiz of four pieces of land (follow the slope, tunnel, arches, siphon), with the reason for each choice. Hill 4 is a guessing game for the share of Rome's water line on arches (about 48 of about 500 km). The fall is drawn much bigger than life, and the page says so. Without a script each hill shows one picture.
+
+- `src/data/aqueduct.ts` holds all the words, the takeaways and the sources.
+- `src/lib/aqueduct.ts` holds the fall and pressure maths, the four pieces of land and the drawings as SVG text.
+- `src/components/aqueduct/Channel.astro` is the frame and `Panel*.astro` is one hill each.
+- `src/scripts/aqueduct/aqueduct.ts` starts all four hills.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -544,6 +553,7 @@ src/data/eye.ts           everything the eye page says: tests, takeaways, source
 src/data/tongues.ts       everything the languages page says: cards, takeaways, sources
 src/data/scale.ts          everything the solar system page says: stops, takeaways, sources
 src/data/scope.ts          everything the sound page says: screens, takeaways, sources
+src/data/aqueduct.ts       everything the aqueduct page says: hills, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -587,6 +597,7 @@ src/components/eye/        the eye page: four tests and the room frame
 src/components/tongues/    the languages page: four cards and the desk frame
 src/components/scale/      the solar system page: four stops and the road frame
 src/components/scope/      the sound page: four screens and the scope frame
+src/components/aqueduct/   the aqueduct page: four hills and the channel frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -627,6 +638,7 @@ src/styles/eye.css         the eye page: dark room, cross and dot, eye, colour p
 src/styles/tongues.css     the languages page: light paper desk, bars, tree, quiz
 src/styles/scale.css       the solar system page: dark road, strip, tables
 src/styles/scope.css       the sound page: dark bench, scope screen, bars
+src/styles/aqueduct.css    the aqueduct page: dark hillside, side views, quiz
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -647,6 +659,7 @@ src/lib/eye.ts             blind spot, pupil, afterimage and letter size maths f
 src/lib/tongues.ts         word cards, similarity, family tree and sound shifts for the languages page
 src/lib/scale.ts           planets, scale model and trip time maths for the solar system page
 src/lib/wave.ts            wave sums, note names and scope drawings for the sound page
+src/lib/aqueduct.ts        fall, pressure and crossing maths and drawings for the aqueduct page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -699,6 +712,7 @@ src/scripts/eye/          all four eye tests (eye.ts)
 src/scripts/tongues/      all four language cards (tongues.ts)
 src/scripts/scale/        all four solar system stops (scale.ts)
 src/scripts/scope/        all four sound screens (scope.ts)
+src/scripts/aqueduct/     all four aqueduct hills (aqueduct.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

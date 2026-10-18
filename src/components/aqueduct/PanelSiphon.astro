@@ -1,0 +1,21 @@
+---
+// Hill 2: a siphon and the pressure at the bottom.
+import { pressureBar, siphonSvg } from '../../lib/aqueduct';
+const [d, loss] = [50, 2];
+---
+
+<div class="tool" data-siphon-tool>
+  <svg class="strip" viewBox="0 0 300 124" role="img" aria-label="A siphon: pipes that take water down into a valley and up the other side to a tank a little lower than the first" data-siphon-svg>
+    <rect class="stage" x="2" y="2" width="296" height="120" rx="8"></rect>
+    <g set:html={siphonSvg(d, loss)} data-siphon-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Valley depth <output data-siphon-out>{d} m</output></span><input class="range" type="range" min="5" max="120" step="1" value={d} data-siphon-range aria-label="Depth of the valley in metres" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Head lost <output data-siphon-loss-out>{loss} m</output></span><input class="range" type="range" min="0" max="10" step="0.5" value={loss} data-siphon-loss aria-label="Head lost along the pipe in metres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-siphon-status>
+    A valley {d} m deep puts the water at the bottom under about {pressureBar(d).toFixed(1)} bar, which is {(pressureBar(d) / 1.013).toFixed(1)} times the pressure of the air. The far tank must be at least {loss} m lower than the top tank.
+  </p>
+</div>

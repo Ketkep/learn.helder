@@ -437,6 +437,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-17',
     status: 'live',
   },
+  {
+    slug: 'how-roman-aqueducts-worked',
+    title: 'How Roman aqueducts worked',
+    hook: 'Set the slope of a channel, see the pressure in a siphon, and choose how to cross a valley.',
+    category: 'History',
+    accent: '#8C5A3C',
+    preview: 'how-roman-aqueducts-worked',
+    dateAdded: '2026-10-18',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

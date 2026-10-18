@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Channel from '../../components/aqueduct/Channel.astro';
+import { takeaways, sources, sourcesNote } from '../../data/aqueduct';
+---
+
+<TopicLayout
+  slug="how-roman-aqueducts-worked"
+  intro="Roman aqueducts had no pumps. Water ran downhill the whole way. Set the slope of a channel, see the pressure in a siphon, choose how to cross four kinds of land and guess how much of Rome’s water line stood on arches."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Channel />
+</TopicLayout>

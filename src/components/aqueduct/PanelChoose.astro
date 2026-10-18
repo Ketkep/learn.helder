@@ -1,0 +1,17 @@
+---
+// Hill 3: pick the right tool for a piece of land.
+import { methods, scenes } from '../../lib/aqueduct';
+const s = scenes[0];
+---
+
+<div class="tool" data-choose-tool>
+  <p class="scene" data-choose-scene>{s.name}</p>
+  <div class="controls needs-js" role="group" aria-label="Pick a way to cross" data-choose-methods>
+    {Object.entries(methods).map(([k, v]) => <button type="button" class="pick" aria-pressed="false" data-choose-pick={k}>{v}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn" data-choose-next>Next piece of land</button>
+  </div>
+  <p class="status" aria-live="polite" data-choose-status>Pick a way to carry the water across. {s.why[s.best]}</p>
+  <ol class="log">{scenes.map((x) => <li>{x.name} Best: {methods[x.best].toLowerCase()}.</li>)}</ol>
+</div>
