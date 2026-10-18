@@ -493,6 +493,15 @@ The page is a dark hillside with four things to try. Hill 1 draws a channel from
 - `src/components/aqueduct/Channel.astro` is the frame and `Panel*.astro` is one hill each.
 - `src/scripts/aqueduct/aqueduct.ts` starts all four hills.
 
+## The time zone page: how the four maps work
+
+The page is a dark navy room with a flat map of the world in four versions. Map 1 moves the Sun over the map with a UTC slider: the daylight band is 180 degrees wide around the point where the Sun is highest (15 degrees an hour), and the numbers under the map are the clock hour of each hourly zone. Map 2 gives the clocks of eight cities for a chosen time in Amsterdam (winter offsets, with the day shown). Map 3 shows how many minutes each city's clock is ahead of or behind its Sun (offset minus longitude divided by 15), with a switch for summer time in Europe and the US. Map 4 flies across zones and works out the clock at the other end. The offsets are standard winter time and the city longitudes are general knowledge. Without a script each map shows one picture or table.
+
+- `src/data/zones.ts` holds all the words, the takeaways and the sources.
+- `src/lib/zones.ts` holds the cities, the clock sums, the flights and the map drawing as SVG text.
+- `src/components/zones/Map.astro` is the frame and `Panel*.astro` is one map each.
+- `src/scripts/zones/zones.ts` starts all four maps.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -554,6 +563,7 @@ src/data/tongues.ts       everything the languages page says: cards, takeaways, 
 src/data/scale.ts          everything the solar system page says: stops, takeaways, sources
 src/data/scope.ts          everything the sound page says: screens, takeaways, sources
 src/data/aqueduct.ts       everything the aqueduct page says: hills, takeaways, sources
+src/data/zones.ts          everything the time zone page says: maps, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -598,6 +608,7 @@ src/components/tongues/    the languages page: four cards and the desk frame
 src/components/scale/      the solar system page: four stops and the road frame
 src/components/scope/      the sound page: four screens and the scope frame
 src/components/aqueduct/   the aqueduct page: four hills and the channel frame
+src/components/zones/      the time zone page: four maps and the world frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -639,6 +650,7 @@ src/styles/tongues.css     the languages page: light paper desk, bars, tree, qui
 src/styles/scale.css       the solar system page: dark road, strip, tables
 src/styles/scope.css       the sound page: dark bench, scope screen, bars
 src/styles/aqueduct.css    the aqueduct page: dark hillside, side views, quiz
+src/styles/zones.css       the time zone page: dark navy room, world map, bars
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -660,6 +672,7 @@ src/lib/tongues.ts         word cards, similarity, family tree and sound shifts 
 src/lib/scale.ts           planets, scale model and trip time maths for the solar system page
 src/lib/wave.ts            wave sums, note names and scope drawings for the sound page
 src/lib/aqueduct.ts        fall, pressure and crossing maths and drawings for the aqueduct page
+src/lib/zones.ts           cities, clock sums and the world map for the time zone page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -713,6 +726,7 @@ src/scripts/tongues/      all four language cards (tongues.ts)
 src/scripts/scale/        all four solar system stops (scale.ts)
 src/scripts/scope/        all four sound screens (scope.ts)
 src/scripts/aqueduct/     all four aqueduct hills (aqueduct.ts)
+src/scripts/zones/        all four time zone maps (zones.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

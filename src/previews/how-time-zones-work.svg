@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .tz-map { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 4; }
+    .tz-line { stroke: var(--on-cover); stroke-width: 3; stroke-dasharray: 3 7; }
+    .tz-day { fill: var(--on-cover); opacity: 0.35; }
+    .tz-sun { fill: var(--on-cover); }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .tz-sun { animation: tz-move 2.6s ease-in-out infinite alternate; }
+    }
+    /* The Sun moves across the map */
+    @keyframes tz-move { 0% { transform: translateX(0); } 100% { transform: translateX(200px); } }
+  </style>
+
+  <g>
+    <rect class="tz-map" x="60" y="80" width="280" height="130" rx="10"/>
+    <rect class="tz-day" x="120" y="86" width="110" height="118"/>
+    <line class="tz-line" x1="106" y1="86" x2="106" y2="204"/><line class="tz-line" x1="152" y1="86" x2="152" y2="204"/><line class="tz-line" x1="198" y1="86" x2="198" y2="204"/><line class="tz-line" x1="244" y1="86" x2="244" y2="204"/><line class="tz-line" x1="290" y1="86" x2="290" y2="204"/>
+    <circle class="tz-sun" cx="100" cy="64" r="12"/>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

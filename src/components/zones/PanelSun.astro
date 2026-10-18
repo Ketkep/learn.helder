@@ -1,0 +1,18 @@
+---
+// Map 1: the Sun moves over a flat world, and the clock hour of each zone.
+import { fmtClock, subsolarLon, worldSvg } from '../../lib/zones';
+const h = 12;
+---
+
+<div class="tool" data-sun-tool>
+  <svg class="strip" viewBox="0 0 300 118" role="img" aria-label="A flat map of the world with the daylight band and the clock hour of each hourly zone under it" data-sun-svg>
+    <rect class="stage" x="2" y="2" width="296" height="114" rx="8"></rect>
+    <g set:html={worldSvg(h)} data-sun-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Time at Greenwich <output data-sun-out>{fmtClock(h)}</output></span><input class="range" type="range" min="0" max="24" step="0.25" value={h} data-sun-range aria-label="Time at Greenwich in hours" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-sun-status>
+    At {fmtClock(h)} at Greenwich the Sun is highest at longitude {Math.abs(Math.round(subsolarLon(h)))} degrees {subsolarLon(h) >= 0 ? 'east' : 'west'}, so it is noon there. The pale band is where it is day.
+  </p>
+</div>

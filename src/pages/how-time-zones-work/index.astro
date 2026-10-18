@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Map from '../../components/zones/Map.astro';
+import { takeaways, sources, sourcesNote } from '../../data/zones';
+---
+
+<TopicLayout
+  slug="how-time-zones-work"
+  intro="The Sun is highest at different moments in different places, and time zones keep clocks in step. Move the Sun over a map, read clocks in eight cities, see how far each clock is from its Sun and fly across zones to arrive before you left."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Map />
+</TopicLayout>

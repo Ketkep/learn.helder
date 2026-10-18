@@ -1,0 +1,447 @@
+/* The time zone page: a dark navy room with a flat world map, a table and bars. */
+
+.zones {
+  --board: #0c1220;
+  --panel: #141c30;
+  --line: #2f3d63;
+  --wood: #f0c46a;
+  --cream: #f3f0e8;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .zones .needs-js {
+  display: none;
+}
+
+.zones :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.zones .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.zones .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .zones .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .zones .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.zones .words,
+.zones .bench,
+.zones .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.zones h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.zones .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.zones .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.zones .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.zones .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.zones .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.zones .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.zones .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.zones .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.zones .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.zones .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.zones .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.zones .times th,
+.zones .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.zones .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.zones .times tbody th {
+  font-weight: 700;
+}
+
+.zones .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.zones .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.zones .pick:hover {
+  background: var(--wash);
+}
+
+.zones .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .zones .no-js-name {
+  display: none;
+}
+
+.zones .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.zones .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.zones .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.zones .btn:hover {
+  background: var(--wash);
+}
+
+.zones .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.zones .btn.fill:hover {
+  background: var(--cream);
+}
+
+.zones .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.zones .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.zones .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.zones .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.zones .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.zones .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.zones .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.zones .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.zones .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.zones .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.zones .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.zones .snd[aria-pressed='true'] .slash,
+.zones .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zones * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.zones .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The map ---------- */
+.zones .strip {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.zones .stage {
+  fill: #0a0f1b;
+}
+
+.zones .night {
+  fill: #1a2442;
+}
+
+.zones .day {
+  fill: #6f86c7;
+  opacity: 0.55;
+}
+
+.zones .zone {
+  stroke: #0a0f1b;
+  stroke-width: 1;
+  opacity: 0.7;
+}
+
+.zones .hr {
+  fill: #d7def2;
+  font-family: var(--font-body, sans-serif);
+  font-size: 8px;
+}
+
+.zones .city {
+  fill: #f0c46a;
+  stroke: #0a0f1b;
+  stroke-width: 1;
+}
+
+.zones .city.on {
+  fill: #e8744f;
+  stroke: #f3f0e8;
+  stroke-width: 2;
+}
+
+.zones .sun {
+  fill: #f0c46a;
+  stroke: #f3f0e8;
+  stroke-width: 1.5;
+}
+
+.zones .gauges {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.zones .gauges li {
+  display: grid;
+  grid-template-columns: 5.6rem minmax(0, 1fr) 4.4rem;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+}
+
+.zones .track {
+  display: block;
+  height: 1rem;
+  border-radius: 5px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 2px var(--line);
+  overflow: hidden;
+}
+
+.zones .fill {
+  display: block;
+  height: 100%;
+  min-width: 3px;
+}
+
+.zones .fill.ahead {
+  background: var(--wood);
+}
+
+.zones .fill.behind {
+  background: #8fb4ee;
+}
+
+.zones .val {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.zones .cn {
+  fill: #f0c46a;
+  font-family: var(--font-body, sans-serif);
+  font-size: 7px;
+  font-weight: 700;
+}

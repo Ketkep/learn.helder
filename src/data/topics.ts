@@ -447,6 +447,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-18',
     status: 'live',
   },
+  {
+    slug: 'how-time-zones-work',
+    title: 'How time zones work',
+    hook: 'Move the Sun over a map, compare eight clocks and fly to a time before you left.',
+    category: 'Places',
+    accent: '#2C7A7B',
+    preview: 'how-time-zones-work',
+    dateAdded: '2026-10-18',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */
