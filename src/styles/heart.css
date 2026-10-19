@@ -1,0 +1,469 @@
+/* The heart page: a dark room with a flat heart, valves and big numbers. */
+
+.heart {
+  --board: #170e11;
+  --panel: #24161a;
+  --line: #5a3a43;
+  --wood: #f0a0ad;
+  --cream: #f6efec;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .heart .needs-js {
+  display: none;
+}
+
+.heart :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.heart .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.heart .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .heart .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .heart .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.heart .words,
+.heart .bench,
+.heart .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.heart h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.heart .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.heart .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.heart .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.heart .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.heart .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.heart .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.heart .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.heart .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.heart .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.heart .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.heart .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.heart .times th,
+.heart .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.heart .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.heart .times tbody th {
+  font-weight: 700;
+}
+
+.heart .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.heart .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.heart .pick:hover {
+  background: var(--wash);
+}
+
+.heart .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .heart .no-js-name {
+  display: none;
+}
+
+.heart .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.heart .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.heart .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.heart .btn:hover {
+  background: var(--wash);
+}
+
+.heart .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.heart .btn.fill:hover {
+  background: var(--cream);
+}
+
+.heart .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.heart .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.heart .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.heart .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.heart .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.heart .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.heart .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.heart .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.heart .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.heart .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.heart .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.heart .snd[aria-pressed='true'] .slash,
+.heart .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heart * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.heart .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The heart ---------- */
+.heart .strip {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.heart .stage {
+  fill: #f3ebe4;
+}
+
+.heart .chamber {
+  fill: #e9c2c8;
+  stroke: #4a1e27;
+  stroke-width: 2.5;
+}
+
+.heart .chamber.on {
+  fill: #e8744f;
+}
+
+.heart .chamber.fillc {
+  fill: #9fb8e0;
+}
+
+.heart .chamber.push {
+  fill: #e8744f;
+}
+
+.heart .lung,
+.heart .body {
+  fill: #d9d2ce;
+  stroke: #4a1e27;
+  stroke-width: 2.5;
+}
+
+.heart .lung.on,
+.heart .body.on {
+  fill: #f2c7a9;
+}
+
+.heart .aorta {
+  fill: none;
+  stroke: #4a1e27;
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.heart .aorta.on {
+  stroke: #d1432f;
+}
+
+.heart .drop {
+  stroke: #1c0d11;
+  stroke-width: 2;
+}
+
+.heart .drop.low {
+  fill: #3a6fc4;
+}
+
+.heart .drop.ox {
+  fill: #d1432f;
+}
+
+.heart .valve {
+  stroke: #1c0d11;
+  stroke-width: 1.5;
+}
+
+.heart .valve.open {
+  fill: #7dc47d;
+}
+
+.heart .valve.shut {
+  fill: #d1432f;
+}
+
+.heart .lab {
+  fill: #1c0d11;
+  font-family: var(--font-body, sans-serif);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.heart .key {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.7rem;
+  font-size: 0.92rem;
+}
+
+.heart .sw {
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+}
+
+.heart .low-sw {
+  background: #3a6fc4;
+}
+
+.heart .ox-sw {
+  background: #d1432f;
+}
+
+.heart .open-sw {
+  background: #7dc47d;
+}
+
+.heart .shut-sw {
+  background: #d1432f;
+}
+
+.heart .big {
+  margin: 0;
+  font-family: var(--font-display, serif);
+  font-size: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+  line-height: 1;
+}

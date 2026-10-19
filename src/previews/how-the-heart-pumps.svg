@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ht-body { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 6; stroke-linejoin: round; }
+    .ht-line { fill: none; stroke: var(--on-cover); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+    .ht-beat { transform-box: fill-box; transform-origin: 50% 50%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ht-beat { animation: ht-pump 0.9s ease-in-out infinite; }
+    }
+    /* The heart swells and settles with each beat */
+    @keyframes ht-pump { 0%, 100% { transform: scale(1); } 40% { transform: scale(1.1); } }
+  </style>
+
+  <g class="ht-beat">
+    <path class="ht-body" d="M200 215C120 160 100 120 125 92C148 68 182 80 200 108C218 80 252 68 275 92C300 120 280 160 200 215Z"/>
+    <path class="ht-line" d="M135 140H175L188 118L206 168L220 140H265"/>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

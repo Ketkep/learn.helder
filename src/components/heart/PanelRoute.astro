@@ -1,0 +1,19 @@
+---
+// Beat 1: the route of the blood.
+import { heartSvg, route } from '../../lib/heart';
+const s = route[0];
+---
+
+<div class="tool" data-route-tool>
+  <svg class="strip" viewBox="0 0 300 150" role="img" aria-label="A flat drawing of the heart with its four chambers, the lungs and the body, with a drop of blood marked" data-route-svg>
+    <rect class="stage" x="2" y="2" width="296" height="146" rx="8"></rect>
+    <g set:html={heartSvg(0)} data-route-g></g>
+  </svg>
+  <p class="key" aria-hidden="true"><span class="sw low-sw"></span> less oxygen <span class="sw ox-sw"></span> with oxygen</p>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-route-next>Next step</button>
+    <button type="button" class="btn" data-route-reset>Start again</button>
+  </div>
+  <p class="status" aria-live="polite" data-route-status>Step 1 of {route.length}: {s.name}. {s.text}</p>
+  <ol class="log">{route.map((x) => <li>{x.name}</li>)}</ol>
+</div>

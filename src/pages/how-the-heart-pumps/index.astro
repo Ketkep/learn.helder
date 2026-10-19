@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Pump from '../../components/heart/Pump.astro';
+import { takeaways, sources, sourcesNote } from '../../data/heart';
+---
+
+<TopicLayout
+  slug="how-the-heart-pumps"
+  intro="The heart is a pump with two sides and four valves. Follow a drop of blood round the whole trip, work out the litres a minute, count the beats of a lifetime and watch the valves. This is not medical advice."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Pump />
+</TopicLayout>

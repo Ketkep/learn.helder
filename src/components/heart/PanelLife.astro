@@ -1,0 +1,18 @@
+---
+// Beat 3: a lifetime of beats.
+import { beatsInLife, fmtBig } from '../../lib/heart';
+const [hr, age] = [70, 80];
+---
+
+<div class="tool" data-life-tool>
+  <div class="controls needs-js">
+    <label class="field"><span>Age in years <output data-life-age-out>{age}</output></span><input class="range" type="range" min="1" max="100" step="1" value={age} data-life-age aria-label="Age in years" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Beats a minute <output data-life-hr-out>{hr}</output></span><input class="range" type="range" min="50" max="100" step="1" value={hr} data-life-hr aria-label="Average beats a minute" /></label>
+  </div>
+  <p class="big" data-life-big>{fmtBig(beatsInLife(hr, age))} beats</p>
+  <p class="status" aria-live="polite" data-life-status>
+    At {hr} beats a minute for {age} years the heart beats about {fmtBig(beatsInLife(hr, age))} times. That is only arithmetic and does not predict anything about anyone.
+  </p>
+</div>

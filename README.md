@@ -529,6 +529,15 @@ The page is a dark bench with four things to try. Bench 1 stacks Volta's pile of
 - `src/components/cell/Bench.astro` is the frame and `Panel*.astro` is one bench each.
 - `src/scripts/cell/cell.ts` starts all four benches.
 
+## The heart page: how the four beats work
+
+The page is a dark room with a flat drawing of the heart and four things to try. Beat 1 goes through the eight steps of the blood's trip (body, right atrium, right ventricle, lungs, left atrium, left ventricle, aorta, body) with a drop that is blue before the lungs and red after. Beat 2 multiplies beats a minute by millilitres a beat to give litres a minute, and beats and litres in a day. Beat 3 multiplies a resting rate by an age to give the beats of a life. Beat 4 shows the four valves open or shut in the two halves of a beat. All sums are plain arithmetic and the page says it is not medical advice and gives no targets. Without a script each beat shows one picture.
+
+- `src/data/heart.ts` holds all the words, the takeaways and the sources.
+- `src/lib/heart.ts` holds the route, the sums and the drawings as SVG text.
+- `src/components/heart/Pump.astro` is the frame and `Panel*.astro` is one beat each.
+- `src/scripts/heart/heart.ts` starts all four beats.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -594,6 +603,7 @@ src/data/zones.ts          everything the time zone page says: maps, takeaways, 
 src/data/loan.ts           everything the loan page says: lines, takeaways, sources
 src/data/volcano.ts        everything the volcano page says: vents, takeaways, sources
 src/data/cell.ts           everything the battery page says: benches, takeaways, sources
+src/data/heart.ts          everything the heart page says: beats, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -642,6 +652,7 @@ src/components/zones/      the time zone page: four maps and the world frame
 src/components/loan/       the loan page: five lines and the ledger frame
 src/components/volcano/    the volcano page: four vents and the cone frame
 src/components/cell/       the battery page: four benches and the bench frame
+src/components/heart/      the heart page: four beats and the pump frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -687,6 +698,7 @@ src/styles/zones.css       the time zone page: dark navy room, world map, bars
 src/styles/loan.css        the loan page: dark ledger, stacked charts, bars
 src/styles/volcano.css     the volcano page: dark ash room, cone, bubbles, plate sections
 src/styles/cell.css        the battery page: dark bench, discs, two beakers, cells
+src/styles/heart.css       the heart page: dark room, flat heart, valves, big numbers
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -712,6 +724,7 @@ src/lib/zones.ts           cities, clock sums and the world map for the time zon
 src/lib/loan.ts            payment and schedule maths for the loan page
 src/lib/volcano.ts         magma, pressure, bubble and VEI maths for the volcano page
 src/lib/battery.ts         pile, cell, layout and run time maths for the battery page
+src/lib/heart.ts           route, sums and drawings for the heart page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -769,6 +782,7 @@ src/scripts/zones/        all four time zone maps (zones.ts)
 src/scripts/loan/         all five loan lines (loan.ts)
 src/scripts/volcano/      all four volcano vents (volcano.ts)
 src/scripts/cell/         all four battery benches (cell.ts)
+src/scripts/heart/        all four heart beats (heart.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

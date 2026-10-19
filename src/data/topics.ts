@@ -487,6 +487,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-19',
     status: 'live',
   },
+  {
+    slug: 'how-the-heart-pumps',
+    title: 'How the heart pumps',
+    hook: 'Follow a drop of blood round its trip and work out the litres the heart pumps.',
+    category: 'Body',
+    accent: '#A12F45',
+    preview: 'how-the-heart-pumps',
+    dateAdded: '2026-10-19',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

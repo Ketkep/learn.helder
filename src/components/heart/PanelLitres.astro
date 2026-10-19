@@ -1,0 +1,18 @@
+---
+// Beat 2: litres a minute.
+import { beatsPerDay, litresPerDay, output } from '../../lib/heart';
+const [hr, sv] = [70, 70];
+---
+
+<div class="tool" data-litres-tool>
+  <div class="controls needs-js">
+    <label class="field"><span>Beats a minute <output data-litres-hr-out>{hr}</output></span><input class="range" type="range" min="40" max="180" step="1" value={hr} data-litres-hr aria-label="Heart rate in beats a minute" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Millilitres a beat <output data-litres-sv-out>{sv}</output></span><input class="range" type="range" min="40" max="120" step="1" value={sv} data-litres-sv aria-label="Blood pumped in each beat in millilitres" /></label>
+  </div>
+  <p class="big" data-litres-big>{output(hr, sv).toFixed(1)} litres a minute</p>
+  <p class="status" aria-live="polite" data-litres-status>
+    {hr} beats a minute of {sv} millilitres each is {output(hr, sv).toFixed(1)} litres a minute. In a day that is {beatsPerDay(hr).toLocaleString('en-US')} beats and {Math.round(litresPerDay(hr, sv)).toLocaleString('en-US')} litres.
+  </p>
+</div>
