@@ -1,0 +1,481 @@
+/* The volcano page: a dark ash room with a cone, bubbles, plate sections and a bar. */
+
+.volcano {
+  --board: #15110f;
+  --panel: #211916;
+  --line: #53403a;
+  --wood: #f2a35a;
+  --cream: #f4efe8;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .volcano .needs-js {
+  display: none;
+}
+
+.volcano :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.volcano .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.volcano .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .volcano .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .volcano .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.volcano .words,
+.volcano .bench,
+.volcano .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.volcano h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.volcano .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.volcano .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.volcano .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.volcano .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.volcano .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.volcano .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.volcano .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.volcano .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.volcano .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.volcano .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.volcano .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.volcano .times th,
+.volcano .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.volcano .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.volcano .times tbody th {
+  font-weight: 700;
+}
+
+.volcano .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.volcano .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.volcano .pick:hover {
+  background: var(--wash);
+}
+
+.volcano .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .volcano .no-js-name {
+  display: none;
+}
+
+.volcano .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.volcano .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.volcano .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.volcano .btn:hover {
+  background: var(--wash);
+}
+
+.volcano .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.volcano .btn.fill:hover {
+  background: var(--cream);
+}
+
+.volcano .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.volcano .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.volcano .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.volcano .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.volcano .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.volcano .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.volcano .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.volcano .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.volcano .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.volcano .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.volcano .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.volcano .snd[aria-pressed='true'] .slash,
+.volcano .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .volcano * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.volcano .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The cone ---------- */
+.volcano .strip {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.volcano .stage {
+  fill: #e8dfd2;
+}
+
+.volcano .cone {
+  fill: #5a4338;
+  stroke: #2a1d17;
+  stroke-width: 2;
+}
+
+.volcano .cone.old {
+  opacity: 0.55;
+}
+
+.volcano .crater {
+  fill: #2a1d17;
+}
+
+.volcano .lava {
+  fill: none;
+  stroke: #e0541f;
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.volcano .glow {
+  fill: #f2a35a;
+}
+
+.volcano .ash {
+  fill: #6b6560;
+  stroke: #3b3733;
+  stroke-width: 1.5;
+}
+
+.volcano .rock {
+  fill: #3b3733;
+}
+
+.volcano .surface {
+  stroke: #2a1d17;
+  stroke-width: 2;
+}
+
+.volcano .bub {
+  fill: #f2a35a;
+  stroke: #8a3a14;
+  stroke-width: 2;
+}
+
+.volcano .rise {
+  fill: none;
+  stroke: #8a3a14;
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+
+.volcano .lab {
+  fill: #2a1d17;
+  font-family: var(--font-body, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.volcano .land {
+  fill: #cdbfae;
+}
+
+.volcano .slab {
+  fill: #8d7a68;
+  stroke: #2a1d17;
+  stroke-width: 2;
+}
+
+.volcano .slab2 {
+  fill: #a8947f;
+  stroke: #2a1d17;
+  stroke-width: 2;
+}
+
+.volcano .mag {
+  fill: none;
+  stroke: #e0541f;
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.volcano .plume {
+  fill: #e0541f;
+}
+
+.volcano .arrow {
+  fill: none;
+  stroke: #2a1d17;
+  stroke-width: 3;
+  stroke-dasharray: 6 4;
+}
+
+.volcano .gauges {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.volcano .gauges li {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.97rem;
+}
+
+.volcano .track {
+  display: block;
+  height: 1.2rem;
+  border-radius: 5px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 2px var(--line);
+  overflow: hidden;
+}
+
+.volcano .fill {
+  display: block;
+  height: 100%;
+  min-width: 3px;
+  background: var(--wood);
+}

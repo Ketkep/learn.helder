@@ -1,0 +1,17 @@
+---
+// Vent 4: the VEI scale.
+import { fmtTimes, veiRatio } from '../../lib/volcano';
+const v = 5;
+---
+
+<div class="tool" data-vei-tool>
+  <ul class="gauges" aria-hidden="true">
+    <li><span class="nm">Size, against a VEI of 8</span><span class="track"><span class="fill" data-vei-bar style={`width:${Math.max(0.4, veiRatio(v, 8) * 100)}%`}></span></span></li>
+  </ul>
+  <div class="controls needs-js">
+    <label class="field"><span>VEI <output data-vei-out>{v}</output></span><input class="range" type="range" min="0" max="8" step="1" value={v} data-vei-range aria-label="Volcanic Explosivity Index" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-vei-status>
+    A VEI of {v} is {fmtTimes(veiRatio(v))} a VEI of 2. The 1980 eruption of Mount St. Helens was a VEI of 5.
+  </p>
+</div>

@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Cone from '../../components/volcano/Cone.astro';
+import { takeaways, sources, sourcesNote } from '../../data/volcano';
+---
+
+<TopicLayout
+  slug="how-a-volcano-erupts"
+  intro="Magma holds gas like a shaken bottle. Make the magma sticky or runny, watch a gas bubble swell as it rises, see where volcanoes form and read the size scale for eruptions."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Cone />
+</TopicLayout>

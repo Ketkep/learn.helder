@@ -467,6 +467,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-18',
     status: 'live',
   },
+  {
+    slug: 'how-a-volcano-erupts',
+    title: 'How a volcano erupts',
+    hook: 'Make magma sticky or runny and watch a gas bubble swell as it rises.',
+    category: 'Nature',
+    accent: '#A63A2B',
+    preview: 'how-a-volcano-erupts',
+    dateAdded: '2026-10-19',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

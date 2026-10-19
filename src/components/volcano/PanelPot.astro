@@ -1,0 +1,22 @@
+---
+// Vent 1: how sticky the magma is, and the gas it holds.
+import { coneSvg, explosiveness, fmtViscosity, magmaType, style, tempC } from '../../lib/volcano';
+const [si, gas] = [50, 3];
+const e = explosiveness(si, gas);
+---
+
+<div class="tool" data-pot-tool>
+  <svg class="strip" viewBox="0 0 300 140" role="img" aria-label="A volcano cone with either lava running down its sides or a column of ash above it" data-pot-svg>
+    <rect class="stage" x="2" y="2" width="296" height="136" rx="8"></rect>
+    <g set:html={coneSvg(e)} data-pot-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Silica <output data-pot-si-out>{si}%</output></span><input class="range" type="range" min="45" max="75" step="1" value={si} data-pot-si aria-label="Silica in the magma in per cent" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Dissolved gas <output data-pot-gas-out>{gas}%</output></span><input class="range" type="range" min="1" max="6" step="0.5" value={gas} data-pot-gas aria-label="Dissolved gas in the magma in per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-pot-status>
+    With {si}% silica the magma is {magmaType(si).name}, at about {tempC(si)} degrees Celsius, and {fmtViscosity(si)} thick. With {gas}% gas, the toy score gives {style(e).name}. {style(e).text}
+  </p>
+</div>

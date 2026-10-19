@@ -1,0 +1,16 @@
+---
+// Vent 3: where volcanoes form.
+import { settings, settingsSvg } from '../../lib/volcano';
+const s = settings[0];
+---
+
+<div class="tool" data-where-tool>
+  <svg class="strip" viewBox="0 0 300 130" role="img" aria-label="A cross section of the Earth's crust for the chosen setting" data-where-svg>
+    <rect class="stage" x="2" y="2" width="296" height="126" rx="8"></rect>
+    <g set:html={settingsSvg(s.id)} data-where-g></g>
+  </svg>
+  <div class="controls needs-js" role="group" aria-label="Pick a setting">
+    {settings.map((x, i) => <button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'} data-where-pick={x.id}>{x.name}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-where-status>{s.name}. {s.magma} {s.example}</p>
+</div>

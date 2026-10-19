@@ -511,6 +511,15 @@ The page is a dark ledger with five things to try on a made up loan (a fixed yea
 - `src/components/loan/Ledger.astro` is the frame and `Panel*.astro` is one line each.
 - `src/scripts/loan/loan.ts` starts all five lines.
 
+## The volcano page: how the four vents work
+
+The page is a dark ash room with a cone and four things to try. Vent 1 sets the silica (45 to 75 per cent) and the dissolved gas of a magma and shows an eruption: the rock type (basalt below 52, rhyolite from 69), a toy temperature and a rough viscosity, and a toy score that turns stickiness and gas into a quiet flow, a fountain or an explosion, drawn as lava or an ash column. Vent 2 works out the pressure from the weight of rock (2,500 kg for every cubic metre) and how much a gas bubble grows on its way up (in proportion to the drop in pressure, constant temperature). Vent 3 draws four plate settings and says how magma is made in each. Vent 4 shows the VEI scale, each step about ten times the one before, with Mount St. Helens (1980) at 5. The scores are toys, and the page says so. Without a script each vent shows one picture.
+
+- `src/data/volcano.ts` holds all the words, the takeaways and the sources.
+- `src/lib/volcano.ts` holds the magma maths, the toy score, the pressure and growth sums, and the drawings as SVG text.
+- `src/components/volcano/Cone.astro` is the frame and `Panel*.astro` is one vent each.
+- `src/scripts/volcano/volcano.ts` starts all four vents.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -574,6 +583,7 @@ src/data/scope.ts          everything the sound page says: screens, takeaways, s
 src/data/aqueduct.ts       everything the aqueduct page says: hills, takeaways, sources
 src/data/zones.ts          everything the time zone page says: maps, takeaways, sources
 src/data/loan.ts           everything the loan page says: lines, takeaways, sources
+src/data/volcano.ts        everything the volcano page says: vents, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -620,6 +630,7 @@ src/components/scope/      the sound page: four screens and the scope frame
 src/components/aqueduct/   the aqueduct page: four hills and the channel frame
 src/components/zones/      the time zone page: four maps and the world frame
 src/components/loan/       the loan page: five lines and the ledger frame
+src/components/volcano/    the volcano page: four vents and the cone frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -663,6 +674,7 @@ src/styles/scope.css       the sound page: dark bench, scope screen, bars
 src/styles/aqueduct.css    the aqueduct page: dark hillside, side views, quiz
 src/styles/zones.css       the time zone page: dark navy room, world map, bars
 src/styles/loan.css        the loan page: dark ledger, stacked charts, bars
+src/styles/volcano.css     the volcano page: dark ash room, cone, bubbles, plate sections
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -686,6 +698,7 @@ src/lib/wave.ts            wave sums, note names and scope drawings for the soun
 src/lib/aqueduct.ts        fall, pressure and crossing maths and drawings for the aqueduct page
 src/lib/zones.ts           cities, clock sums and the world map for the time zone page
 src/lib/loan.ts            payment and schedule maths for the loan page
+src/lib/volcano.ts         magma, pressure, bubble and VEI maths for the volcano page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -741,6 +754,7 @@ src/scripts/scope/        all four sound screens (scope.ts)
 src/scripts/aqueduct/     all four aqueduct hills (aqueduct.ts)
 src/scripts/zones/        all four time zone maps (zones.ts)
 src/scripts/loan/         all five loan lines (loan.ts)
+src/scripts/volcano/      all four volcano vents (volcano.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

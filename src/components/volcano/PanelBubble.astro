@@ -1,0 +1,18 @@
+---
+// Vent 2: a bubble that grows as it rises.
+import { bubbleSvg, growth, pressureMPa } from '../../lib/volcano';
+const d = 5;
+---
+
+<div class="tool" data-bubble-tool>
+  <svg class="strip" viewBox="0 0 300 140" role="img" aria-label="A small bubble deep down and a much bigger bubble at the surface" data-bubble-svg>
+    <rect class="stage" x="2" y="2" width="296" height="136" rx="8"></rect>
+    <g set:html={bubbleSvg(d)} data-bubble-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Starting depth <output data-bubble-out>{d} km</output></span><input class="range" type="range" min="0.5" max="10" step="0.5" value={d} data-bubble-range aria-label="Depth where the bubble starts in kilometres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-bubble-status>
+    At {d} km the rock above presses with about {Math.round(pressureMPa(d))} megapascals. A bubble that starts there would be about {Math.round(growth(d)).toLocaleString('en-US')} times bigger in volume at the surface. The picture shows its width, which is about {Math.cbrt(growth(d)).toFixed(0)} times more.
+  </p>
+</div>
