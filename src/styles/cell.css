@@ -1,0 +1,461 @@
+/* The battery page: a dark bench with a pile of discs, a two beaker cell, cells in a layout and a run time. */
+
+.cell {
+  --board: #11130d;
+  --panel: #1b1e14;
+  --line: #484d30;
+  --wood: #e3d36a;
+  --cream: #f3f2e4;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .cell .needs-js {
+  display: none;
+}
+
+.cell :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.cell .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.cell .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .cell .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .cell .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.cell .words,
+.cell .bench,
+.cell .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.cell h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.cell .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.cell .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.cell .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.cell .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.cell .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.cell .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.cell .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.cell .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.cell .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.cell .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.cell .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.cell .times th,
+.cell .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.cell .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.cell .times tbody th {
+  font-weight: 700;
+}
+
+.cell .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.cell .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cell .pick:hover {
+  background: var(--wash);
+}
+
+.cell .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .cell .no-js-name {
+  display: none;
+}
+
+.cell .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.cell .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.cell .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.cell .btn:hover {
+  background: var(--wash);
+}
+
+.cell .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.cell .btn.fill:hover {
+  background: var(--cream);
+}
+
+.cell .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.cell .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.cell .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.cell .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.cell .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.cell .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.cell .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.cell .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.cell .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.cell .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.cell .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cell .snd[aria-pressed='true'] .slash,
+.cell .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.cell .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The bench ---------- */
+.cell .strip {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.cell .stage {
+  fill: #eeead8;
+}
+
+.cell .base {
+  stroke: #2a2a1c;
+  stroke-width: 3;
+}
+
+.cell .zinc {
+  fill: #9aa3a8;
+  stroke: #2a2a1c;
+  stroke-width: 1;
+}
+
+.cell .copper {
+  fill: #d0793a;
+  stroke: #2a2a1c;
+  stroke-width: 1;
+}
+
+.cell .card {
+  fill: #fbf7e6;
+  stroke: #2a2a1c;
+  stroke-width: 1;
+}
+
+.cell .wire {
+  fill: none;
+  stroke: #2a2a1c;
+  stroke-width: 3;
+}
+
+.cell .wire.hot {
+  stroke: #d0793a;
+  stroke-width: 5;
+}
+
+.cell .glass {
+  fill: none;
+  stroke: #2a2a1c;
+  stroke-width: 3;
+}
+
+.cell .zn-liquid {
+  fill: #cfd8da;
+}
+
+.cell .cu-liquid {
+  fill: #a9d0e0;
+}
+
+.cell .bridge {
+  fill: #e2c08a;
+  stroke: #2a2a1c;
+  stroke-width: 2;
+}
+
+.cell .zn-bar {
+  fill: #9aa3a8;
+  stroke: #2a2a1c;
+  stroke-width: 2;
+}
+
+.cell .cu-bar {
+  fill: #d0793a;
+  stroke: #2a2a1c;
+  stroke-width: 2;
+}
+
+.cell .zn-bar.hot,
+.cell .cu-bar.hot {
+  stroke: #b3402a;
+  stroke-width: 4;
+}
+
+.cell .el {
+  fill: #2f6f5f;
+}
+
+.cell .ion {
+  fill: #b3402a;
+}
+
+.cell .lab {
+  fill: #2a2a1c;
+  font-family: var(--font-body, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.cell .aa {
+  fill: #c9a53a;
+  stroke: #2a2a1c;
+  stroke-width: 2;
+}
+
+.cell .tip {
+  fill: #2a2a1c;
+}
+
+.cell .big {
+  margin: 0;
+  font-family: var(--font-display, serif);
+  font-size: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+  line-height: 1;
+}

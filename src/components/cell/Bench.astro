@@ -1,0 +1,60 @@
+---
+// The whole page: a bench with four things to try. They are the Panel components and src/scripts/cell.
+// Without a script each part shows one picture.
+import '../../styles/cell.css';
+import { intro, panels } from '../../data/cell';
+import PanelPile from './PanelPile.astro';
+import PanelCell from './PanelCell.astro';
+import PanelWire from './PanelWire.astro';
+import PanelLast from './PanelLast.astro';
+
+const tools: Record<string, typeof PanelPile> = { pile: PanelPile, cell: PanelCell, wire: PanelWire, last: PanelLast };
+---
+
+<div class="cell" data-cell>
+  <section class="panel opening" aria-labelledby="cell-intro">
+    <div class="panel-inner">
+      <div class="words">
+        <p class="kicker">Join the wire</p>
+        <h2 id="cell-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  {
+    panels.map((p) => {
+      const Tool = tools[p.id];
+      return (
+        <section class="panel" id={`panel-${p.id}`} aria-labelledby={`panel-${p.id}-h`}>
+          <div class="panel-inner">
+            <div class="words">
+              <p class="kicker">{p.kicker}</p>
+              <h2 id={`panel-${p.id}-h`}>{p.title}</h2>
+              <div class="paras">{p.paras.map((t) => <p class="para">{t}</p>)}</div>
+              {
+                p.tags && (
+                  <div class="tags">
+                    {p.tags.map((t) => (
+                      <aside class="tag">
+                        <p class="tag-label">{t.label}</p>
+                        <p class="tag-text">{t.text}</p>
+                      </aside>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+            <div class="bench">
+              <Tool />
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/cell/cell';
+</script>

@@ -1,0 +1,23 @@
+---
+// Bench 3: series and parallel.
+import { cellsSvg, layouts, pack } from '../../lib/battery';
+const l = layouts[0];
+const p = pack(l);
+---
+
+<div class="tool" data-wire-tool>
+  <svg class="strip" viewBox="0 0 300 150" role="img" aria-label="Four cells wired in the chosen layout" data-wire-svg>
+    <rect class="stage" x="2" y="2" width="296" height="146" rx="8"></rect>
+    <g set:html={cellsSvg(l)} data-wire-g></g>
+  </svg>
+  <div class="controls needs-js" role="group" aria-label="Pick a layout">
+    {layouts.map((x, i) => <button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'} data-wire-pick={x.id}>{x.name}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-wire-status>
+    {l.name}: {p.volts} volts, {p.mAh.toLocaleString('en-US')} milliamp hours, and {p.wh} watt hours of energy.
+  </p>
+  <table class="times">
+    <thead><tr><th scope="col">Layout</th><th scope="col">Voltage</th><th scope="col">Capacity</th><th scope="col">Energy</th></tr></thead>
+    <tbody>{layouts.map((x) => { const q = pack(x); return <tr><th scope="row">{x.name}</th><td>{q.volts} V</td><td>{q.mAh.toLocaleString('en-US')} mAh</td><td>{q.wh} Wh</td></tr>; })}</tbody>
+  </table>
+</div>

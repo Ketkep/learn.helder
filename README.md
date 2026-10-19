@@ -520,6 +520,15 @@ The page is a dark ash room with a cone and four things to try. Vent 1 sets the 
 - `src/components/volcano/Cone.astro` is the frame and `Panel*.astro` is one vent each.
 - `src/scripts/volcano/volcano.ts` starts all four vents.
 
+## The battery page: how the four benches work
+
+The page is a dark bench with four things to try. Bench 1 stacks Volta's pile of zinc discs, cards and copper discs, with a toy of 1.1 volts for each pair (the voltage of a zinc and copper cell). Bench 2 goes through the five steps of a Daniell cell and lights up the part that is working (zinc gives up electrons, they go round the wire, copper takes them up, ions finish the circuit). Bench 3 wires four toy cells of 1.5 V and 2,000 mAh in series, two by two or in parallel and shows the voltage, the capacity and the energy (volts times amp hours, the same in each layout). Bench 4 divides the energy by the power of a device to give hours, and says that real batteries give less when drained fast. The cell values are made up, and the page explains how batteries work and gives no advice on using or charging them. Without a script each bench shows one picture.
+
+- `src/data/cell.ts` holds all the words, the takeaways and the sources.
+- `src/lib/battery.ts` holds the pile, the cell steps, the layouts, the run time sum and the drawings as SVG text.
+- `src/components/cell/Bench.astro` is the frame and `Panel*.astro` is one bench each.
+- `src/scripts/cell/cell.ts` starts all four benches.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -584,6 +593,7 @@ src/data/aqueduct.ts       everything the aqueduct page says: hills, takeaways, 
 src/data/zones.ts          everything the time zone page says: maps, takeaways, sources
 src/data/loan.ts           everything the loan page says: lines, takeaways, sources
 src/data/volcano.ts        everything the volcano page says: vents, takeaways, sources
+src/data/cell.ts           everything the battery page says: benches, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -631,6 +641,7 @@ src/components/aqueduct/   the aqueduct page: four hills and the channel frame
 src/components/zones/      the time zone page: four maps and the world frame
 src/components/loan/       the loan page: five lines and the ledger frame
 src/components/volcano/    the volcano page: four vents and the cone frame
+src/components/cell/       the battery page: four benches and the bench frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -675,6 +686,7 @@ src/styles/aqueduct.css    the aqueduct page: dark hillside, side views, quiz
 src/styles/zones.css       the time zone page: dark navy room, world map, bars
 src/styles/loan.css        the loan page: dark ledger, stacked charts, bars
 src/styles/volcano.css     the volcano page: dark ash room, cone, bubbles, plate sections
+src/styles/cell.css        the battery page: dark bench, discs, two beakers, cells
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -699,6 +711,7 @@ src/lib/aqueduct.ts        fall, pressure and crossing maths and drawings for th
 src/lib/zones.ts           cities, clock sums and the world map for the time zone page
 src/lib/loan.ts            payment and schedule maths for the loan page
 src/lib/volcano.ts         magma, pressure, bubble and VEI maths for the volcano page
+src/lib/battery.ts         pile, cell, layout and run time maths for the battery page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -755,6 +768,7 @@ src/scripts/aqueduct/     all four aqueduct hills (aqueduct.ts)
 src/scripts/zones/        all four time zone maps (zones.ts)
 src/scripts/loan/         all five loan lines (loan.ts)
 src/scripts/volcano/      all four volcano vents (volcano.ts)
+src/scripts/cell/         all four battery benches (cell.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

@@ -1,0 +1,18 @@
+---
+// Bench 4: how long a battery lasts.
+import { fmtHours, layouts, loads, pack, runtimeHours } from '../../lib/battery';
+const p = pack(layouts[0]);
+---
+
+<div class="tool" data-last-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a device">
+    {loads.map((x, i) => <button type="button" class="pick" aria-pressed={i === 1 ? 'true' : 'false'} data-last-pick={x.id}>{x.name}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Cells <output data-last-out>4</output></span><input class="range" type="range" min="1" max="8" step="1" value="4" data-last-range aria-label="Number of cells" /></label>
+  </div>
+  <p class="big" data-last-big>{fmtHours(runtimeHours(p.wh, loads[1].watts))}</p>
+  <p class="status" aria-live="polite" data-last-status>
+    Four cells hold {p.wh} watt hours. {loads[1].name} uses {loads[1].watts} watt, so they last about {fmtHours(runtimeHours(p.wh, loads[1].watts))}. Real batteries give less when they are drained fast.
+  </p>
+</div>

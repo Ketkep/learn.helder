@@ -1,0 +1,18 @@
+---
+// Bench 2: one cell, step by step.
+import { cellSvg, steps } from '../../lib/battery';
+const s = steps[0];
+---
+
+<div class="tool" data-cell-tool>
+  <svg class="strip" viewBox="0 0 300 150" role="img" aria-label="A zinc bar in one beaker and a copper bar in another, joined by a wire and a porous barrier" data-cell-svg>
+    <rect class="stage" x="2" y="2" width="296" height="146" rx="8"></rect>
+    <g set:html={cellSvg(0)} data-cell-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-cell-next>Next step</button>
+    <button type="button" class="btn" data-cell-reset>Start again</button>
+  </div>
+  <p class="status" aria-live="polite" data-cell-status>Step 1 of {steps.length}: {s.title}. {s.text}</p>
+  <ol class="log">{steps.map((x) => <li>{x.title}</li>)}</ol>
+</div>

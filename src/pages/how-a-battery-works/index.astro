@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Bench from '../../components/cell/Bench.astro';
+import { takeaways, sources, sourcesNote } from '../../data/cell';
+---
+
+<TopicLayout
+  slug="how-a-battery-works"
+  intro="A battery turns chemical energy into electrical energy. Stack Volta’s pile, follow a zinc and copper cell step by step, wire four cells in a row and side by side, and work out how long a battery lasts."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Bench />
+</TopicLayout>

@@ -477,6 +477,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-19',
     status: 'live',
   },
+  {
+    slug: 'how-a-battery-works',
+    title: 'How a battery works',
+    hook: 'Stack a pile of discs, follow a zinc and copper cell, and work out how long a battery lasts.',
+    category: 'Technology',
+    accent: '#7A6A14',
+    preview: 'how-a-battery-works',
+    dateAdded: '2026-10-19',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

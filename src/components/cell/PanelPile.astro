@@ -1,0 +1,16 @@
+---
+// Bench 1: a pile of zinc and copper discs.
+import { pileSvg, pileVolts } from '../../lib/battery';
+const n = 6;
+---
+
+<div class="tool" data-pile-tool>
+  <svg class="strip" viewBox="0 0 300 140" role="img" aria-label="A pile of zinc discs, cards soaked in salt water, and copper discs" data-pile-svg>
+    <rect class="stage" x="2" y="2" width="296" height="136" rx="8"></rect>
+    <g set:html={pileSvg(n)} data-pile-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Pairs of discs <output data-pile-out>{n}</output></span><input class="range" type="range" min="1" max="20" step="1" value={n} data-pile-range aria-label="Number of pairs of discs in the pile" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-pile-status>{n} pairs of discs give about {pileVolts(n).toFixed(1)} volts in this toy, at 1.1 volts a pair.</p>
+</div>
