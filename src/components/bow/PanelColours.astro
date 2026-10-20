@@ -1,0 +1,18 @@
+---
+// Drop 2: each colour has its own angle.
+import { bowAngle, colours, indexOf } from '../../lib/rainbow';
+const nm = 550;
+---
+
+<div class="tool" data-colours-tool>
+  <table class="times">
+    <thead><tr><th scope="col">Colour</th><th scope="col">Bends water by</th><th scope="col">Bow angle</th></tr></thead>
+    <tbody>{colours.map((c) => <tr><th scope="row"><span class="sw" style={`background:${c.css}`}></span> {c.name}</th><td>{indexOf(c.nm).toFixed(4)}</td><td>{bowAngle(indexOf(c.nm), 1).toFixed(1)} degrees</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Wavelength <output data-colours-out>{nm} nm</output></span><input class="range" type="range" min="400" max="700" step="5" value={nm} data-colours-range aria-label="Wavelength of the light in nanometres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-colours-status>
+    Light of {nm} nm is bent by a factor of {indexOf(nm).toFixed(4)} in water, so its bow stands {bowAngle(indexOf(nm), 1).toFixed(1)} degrees from the point opposite the Sun. Red, at 700 nm, stands at {bowAngle(indexOf(700), 1).toFixed(1)} and violet, at 400 nm, at {bowAngle(indexOf(400), 1).toFixed(1)}. The higher the number, the further out the bow.
+  </p>
+</div>

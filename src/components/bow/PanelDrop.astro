@@ -1,0 +1,23 @@
+---
+// Drop 1: a ray through one drop.
+import { curveSvg, deviation, dropSvg, indexOf } from '../../lib/rainbow';
+const n = indexOf(589);
+const b = 0.7;
+---
+
+<div class="tool" data-drop-tool>
+  <svg class="strip" viewBox="0 0 300 160" role="img" aria-label="A ray of sunlight going into a round raindrop, bouncing off the back and coming out" data-drop-svg>
+    <rect class="stage" x="2" y="2" width="296" height="156" rx="8"></rect>
+    <g set:html={dropSvg(b, n, 1)} data-drop-g></g>
+  </svg>
+  <svg class="strip small" viewBox="0 0 300 100" role="img" aria-label="A curve of how much the ray turns, against where it hits the drop. The turn is smallest near the edge." data-drop-curve-svg>
+    <rect class="stage" x="2" y="2" width="296" height="96" rx="8"></rect>
+    <g set:html={curveSvg(b, n)} data-drop-curve></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Where it hits <output data-drop-out>{Math.round(b * 100)}%</output></span><input class="range" type="range" min="5" max="98" step="1" value={Math.round(b * 100)} data-drop-range aria-label="Where the ray hits the drop, from the middle to the edge, in per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-drop-status>
+    A ray that hits {Math.round(b * 100)} per cent of the way to the edge turns by {deviation(b, n, 1).toFixed(1)} degrees. The smallest possible turn is about 138 degrees, so the bow is at about 180 minus 138, which is 42 degrees.
+  </p>
+</div>

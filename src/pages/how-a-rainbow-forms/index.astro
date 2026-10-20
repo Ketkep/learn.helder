@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Shower from '../../components/bow/Shower.astro';
+import { takeaways, sources, sourcesNote } from '../../data/bow';
+---
+
+<TopicLayout
+  slug="how-a-rainbow-forms"
+  intro="A rainbow is sunlight that goes into raindrops and comes back out, seen only with the Sun behind you. Send a ray through one drop, see why each colour has its own angle, find where the bow stands for a high or low Sun and add the second bow."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Shower />
+</TopicLayout>

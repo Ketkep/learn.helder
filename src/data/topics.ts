@@ -497,6 +497,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-19',
     status: 'live',
   },
+  {
+    slug: 'how-a-rainbow-forms',
+    title: 'How a rainbow forms',
+    hook: 'Send a ray through a raindrop and see why the bow stands at 42 degrees.',
+    category: 'Nature',
+    accent: '#2D6F9C',
+    preview: 'how-a-rainbow-forms',
+    dateAdded: '2026-10-20',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

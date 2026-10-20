@@ -1,0 +1,19 @@
+---
+// Drop 3: where the bow stands in the sky.
+import { bowAngle, indexOf, skySvg } from '../../lib/rainbow';
+const alt = 20;
+const top = bowAngle(indexOf(700), 1) - alt;
+---
+
+<div class="tool" data-sky-tool>
+  <svg class="strip" viewBox="0 0 300 130" role="img" aria-label="A sky with the horizon and a rainbow arc round the point opposite the Sun" data-sky-svg>
+    <rect class="sky" x="2" y="2" width="296" height="126" rx="8"></rect>
+    <g set:html={skySvg(alt, false)} data-sky-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Height of the Sun <output data-sky-out>{alt} degrees</output></span><input class="range" type="range" min="0" max="60" step="1" value={alt} data-sky-range aria-label="Height of the Sun above the horizon in degrees" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-sky-status>
+    With the Sun {alt} degrees above the horizon, the top of the bow is about {top.toFixed(0)} degrees above the horizon. The bands are drawn wider than they are.
+  </p>
+</div>

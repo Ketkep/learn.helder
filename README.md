@@ -538,6 +538,15 @@ The page is a dark room with a flat drawing of the heart and four things to try.
 - `src/components/heart/Pump.astro` is the frame and `Panel*.astro` is one beat each.
 - `src/scripts/heart/heart.ts` starts all four beats.
 
+## The rainbow page: how the four drops work
+
+The page is a dark rain room with four things to try. Drop 1 sends a ray through a round drop (entry, one reflection, exit) and plots the total turn against where the ray hits, with the smallest turn of about 138 degrees marked (180 minus 138 gives the bow at about 42 degrees). Drop 2 uses a fitted formula for the refractive index of water (about 1.330 for red, 1.343 for violet) to give each colour its own bow angle (red 42.5, violet 40.6). Drop 3 draws the sky for a Sun at a chosen height, with the bow as a circle round the point opposite the Sun, and says when the whole bow is below the horizon (the page's own geometry). Drop 4 switches between one and two bounces, with the second bow at about 51 degrees and the colours reversed. The angles come from Snell's law, worked out in `src/lib/rainbow.ts`, and agree with the sources. Without a script each drop shows one picture.
+
+- `src/data/bow.ts` holds all the words, the takeaways and the sources.
+- `src/lib/rainbow.ts` holds the optics maths and the drawings of the drop, the curve and the sky as SVG text.
+- `src/components/bow/Shower.astro` is the frame and `Panel*.astro` is one drop each.
+- `src/scripts/bow/bow.ts` starts all four drops.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -604,6 +613,7 @@ src/data/loan.ts           everything the loan page says: lines, takeaways, sour
 src/data/volcano.ts        everything the volcano page says: vents, takeaways, sources
 src/data/cell.ts           everything the battery page says: benches, takeaways, sources
 src/data/heart.ts          everything the heart page says: beats, takeaways, sources
+src/data/bow.ts            everything the rainbow page says: drops, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -653,6 +663,7 @@ src/components/loan/       the loan page: five lines and the ledger frame
 src/components/volcano/    the volcano page: four vents and the cone frame
 src/components/cell/       the battery page: four benches and the bench frame
 src/components/heart/      the heart page: four beats and the pump frame
+src/components/bow/        the rainbow page: four drops and the shower frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -699,6 +710,7 @@ src/styles/loan.css        the loan page: dark ledger, stacked charts, bars
 src/styles/volcano.css     the volcano page: dark ash room, cone, bubbles, plate sections
 src/styles/cell.css        the battery page: dark bench, discs, two beakers, cells
 src/styles/heart.css       the heart page: dark room, flat heart, valves, big numbers
+src/styles/bow.css         the rainbow page: dark rain room, drop, curve, sky
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -725,6 +737,7 @@ src/lib/loan.ts            payment and schedule maths for the loan page
 src/lib/volcano.ts         magma, pressure, bubble and VEI maths for the volcano page
 src/lib/battery.ts         pile, cell, layout and run time maths for the battery page
 src/lib/heart.ts           route, sums and drawings for the heart page
+src/lib/rainbow.ts         refraction maths and drawings for the rainbow page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -783,6 +796,7 @@ src/scripts/loan/         all five loan lines (loan.ts)
 src/scripts/volcano/      all four volcano vents (volcano.ts)
 src/scripts/cell/         all four battery benches (cell.ts)
 src/scripts/heart/        all four heart beats (heart.ts)
+src/scripts/bow/          all four rainbow drops (bow.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

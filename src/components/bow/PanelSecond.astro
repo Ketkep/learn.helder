@@ -1,0 +1,19 @@
+---
+// Drop 4: one bounce or two.
+import { bowAngle, dropSvg, indexOf } from '../../lib/rainbow';
+const n = indexOf(589);
+---
+
+<div class="tool" data-second-tool>
+  <svg class="strip" viewBox="0 0 300 160" role="img" aria-label="A ray of sunlight inside a raindrop with the chosen number of bounces" data-second-svg>
+    <rect class="stage" x="2" y="2" width="296" height="156" rx="8"></rect>
+    <g set:html={dropSvg(0.86, n, 1)} data-second-g></g>
+  </svg>
+  <div class="controls needs-js" role="group" aria-label="Number of bounces inside the drop">
+    <button type="button" class="pick" aria-pressed="true" data-second-pick="1">One bounce</button>
+    <button type="button" class="pick" aria-pressed="false" data-second-pick="2">Two bounces</button>
+  </div>
+  <p class="status" aria-live="polite" data-second-status>
+    One bounce: the first bow, from {bowAngle(indexOf(400), 1).toFixed(1)} degrees for violet to {bowAngle(indexOf(700), 1).toFixed(1)} degrees for red, with red on the outside.
+  </p>
+</div>
