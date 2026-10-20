@@ -1,0 +1,18 @@
+---
+// Bench 1: from punch to page.
+import { stepSvg, steps } from '../../lib/press';
+const s = steps[0];
+---
+
+<div class="tool" data-steps-tool>
+  <svg class="strip" viewBox="0 0 300 150" role="img" aria-label="A picture of the current step in making and using a piece of type" data-steps-svg>
+    <rect class="stage" x="2" y="2" width="296" height="146" rx="8"></rect>
+    <g set:html={stepSvg(0)} data-steps-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-steps-next>Next step</button>
+    <button type="button" class="btn" data-steps-reset>Start again</button>
+  </div>
+  <p class="status" aria-live="polite" data-steps-status>Step 1 of {steps.length}: {s.title}. {s.text}</p>
+  <ol class="log">{steps.map((x) => <li>{x.title}</li>)}</ol>
+</div>

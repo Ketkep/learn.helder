@@ -517,6 +517,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-20',
     status: 'live',
   },
+  {
+    slug: 'how-the-printing-press-worked',
+    title: 'How the printing press worked',
+    hook: 'Follow a letter from a steel punch to a printed page and compare copying by hand with printing.',
+    category: 'History',
+    accent: '#7A5A2E',
+    preview: 'how-the-printing-press-worked',
+    dateAdded: '2026-10-20',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

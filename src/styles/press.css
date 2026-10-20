@@ -1,0 +1,476 @@
+/* The printing press page: a dark workshop with type, a frame and bars. */
+
+.press {
+  --board: #14110d;
+  --panel: #1f1a13;
+  --line: #4f4430;
+  --wood: #e0c78a;
+  --cream: #f4f0e4;
+  --ink-fixed: #121315;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .press .needs-js {
+  display: none;
+}
+
+.press :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.press .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.press .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .press .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .press .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.press .words,
+.press .bench,
+.press .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.press h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.press .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.press .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.press .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.press .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.press .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.press .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.press .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.press .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.press .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.press .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.press .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.press .times th,
+.press .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.press .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.press .times tbody th {
+  font-weight: 700;
+}
+
+.press .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.press .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.press .pick:hover {
+  background: var(--wash);
+}
+
+.press .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .press .no-js-name {
+  display: none;
+}
+
+.press .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.press .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.press .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.press .btn:hover {
+  background: var(--wash);
+}
+
+.press .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.press .btn.fill:hover {
+  background: var(--cream);
+}
+
+.press .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.press .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.press .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.press .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.press .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.press .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.press .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.press .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.press .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.press .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.press .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.press .snd[aria-pressed='true'] .slash,
+.press .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .press * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.press .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The workshop ---------- */
+.press .strip {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.press .stage {
+  fill: #efe6d2;
+}
+
+.press .glyph {
+  fill: #1c1710;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+}
+
+.press .glyph.print {
+  fill: #1c1710;
+}
+
+.press .lab {
+  fill: #3a3022;
+  font-family: var(--font-body, sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.press .type {
+  fill: #c9c2b4;
+  stroke: #3a3022;
+  stroke-width: 1;
+}
+
+.press .steel {
+  fill: #8d98a6;
+  stroke: #2a2f36;
+  stroke-width: 2;
+}
+
+.press .steel.dark {
+  fill: #6a7480;
+}
+
+.press .copper {
+  fill: #c97a3a;
+  stroke: #3a2a1c;
+  stroke-width: 2;
+}
+
+.press .hollow {
+  fill: #7a4a22;
+}
+
+.press .mould {
+  fill: #9aa0a8;
+  stroke: #2a2f36;
+  stroke-width: 2;
+}
+
+.press .melt {
+  fill: #e0541f;
+}
+
+.press .frame {
+  fill: #b59a6b;
+  stroke: #3a3022;
+  stroke-width: 2;
+}
+
+.press .inkblock {
+  fill: #1c1710;
+}
+
+.press .dabber {
+  fill: #5b4a30;
+  stroke: #1c1710;
+  stroke-width: 2;
+}
+
+.press .plate {
+  fill: #8d98a6;
+  stroke: #2a2f36;
+  stroke-width: 2;
+}
+
+.press .paper {
+  fill: #fbf7ea;
+  stroke: #3a3022;
+  stroke-width: 1.5;
+}
+
+.press .gauges {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.press .gauges li {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.97rem;
+}
+
+.press .track {
+  display: block;
+  height: 1.2rem;
+  border-radius: 5px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 2px var(--line);
+  overflow: hidden;
+}
+
+.press .fill {
+  display: block;
+  height: 100%;
+  min-width: 3px;
+  background: var(--wood);
+}
+
+.press .fill.hand {
+  background: #c97a3a;
+}
+
+.press .text.wide {
+  width: min(100%, 22rem);
+}

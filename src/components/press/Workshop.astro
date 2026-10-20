@@ -1,0 +1,60 @@
+---
+// The whole page: a printer's workshop with four things to try. They are the Panel components and src/scripts/press.
+// Without a script each part shows one picture or table.
+import '../../styles/press.css';
+import { intro, panels } from '../../data/press';
+import PanelSteps from './PanelSteps.astro';
+import PanelType from './PanelType.astro';
+import PanelTime from './PanelTime.astro';
+import PanelSpread from './PanelSpread.astro';
+
+const tools: Record<string, typeof PanelSteps> = { steps: PanelSteps, type: PanelType, time: PanelTime, spread: PanelSpread };
+---
+
+<div class="press" data-press>
+  <section class="panel opening" aria-labelledby="press-intro">
+    <div class="panel-inner">
+      <div class="words">
+        <p class="kicker">Set the type</p>
+        <h2 id="press-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  {
+    panels.map((p) => {
+      const Tool = tools[p.id];
+      return (
+        <section class="panel" id={`panel-${p.id}`} aria-labelledby={`panel-${p.id}-h`}>
+          <div class="panel-inner">
+            <div class="words">
+              <p class="kicker">{p.kicker}</p>
+              <h2 id={`panel-${p.id}-h`}>{p.title}</h2>
+              <div class="paras">{p.paras.map((t) => <p class="para">{t}</p>)}</div>
+              {
+                p.tags && (
+                  <div class="tags">
+                    {p.tags.map((t) => (
+                      <aside class="tag">
+                        <p class="tag-label">{t.label}</p>
+                        <p class="tag-text">{t.text}</p>
+                      </aside>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+            <div class="bench">
+              <Tool />
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/press/press';
+</script>

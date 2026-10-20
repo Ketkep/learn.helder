@@ -556,6 +556,15 @@ The page is a dark room with four things to try. Shot 1 is a pinhole: the bright
 - `src/components/camera/Darkroom.astro` is the frame and `Panel*.astro` is one shot each.
 - `src/scripts/camera/camera.ts` starts all four shots.
 
+## The printing press page: how the four benches work
+
+The page is a dark printer's workshop with four things to try. Bench 1 goes through seven steps (steel punch, matrix, cast type, set type, ink, press, lift the page) with a picture for each, using the usual punch and matrix account and noting that it is debated. Bench 2 shows a line of type as it stands in the frame (mirrored and running right to left) and as it prints, and counts the pieces of type of each letter. Bench 3 compares copying a book by hand (7 pages a day, from a source) with setting type once (1,000 letters an hour, from a source) and printing copies, using made up page size, press speed and working day. Bench 4 is a guessing game for three numbers on a scale that rises ten times each step: towns with a press by 1500 (282), different editions before 1501 (about 30,000) and surviving copies (about 550,000). Without a script each bench shows one picture or table.
+
+- `src/data/press.ts` holds all the words, the takeaways and the sources.
+- `src/lib/press.ts` holds the steps, the letter counts, the time sums, the numbers and the drawings as SVG text.
+- `src/components/press/Workshop.astro` is the frame and `Panel*.astro` is one bench each.
+- `src/scripts/press/press.ts` starts all four benches.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -624,6 +633,7 @@ src/data/cell.ts           everything the battery page says: benches, takeaways,
 src/data/heart.ts          everything the heart page says: beats, takeaways, sources
 src/data/bow.ts            everything the rainbow page says: drops, takeaways, sources
 src/data/camera.ts         everything the camera page says: shots, takeaways, sources
+src/data/press.ts          everything the printing press page says: benches, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -675,6 +685,7 @@ src/components/cell/       the battery page: four benches and the bench frame
 src/components/heart/      the heart page: four beats and the pump frame
 src/components/bow/        the rainbow page: four drops and the shower frame
 src/components/camera/     the camera page: four shots and the darkroom frame
+src/components/press/      the printing press page: four benches and the workshop frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -723,6 +734,7 @@ src/styles/cell.css        the battery page: dark bench, discs, two beakers, cel
 src/styles/heart.css       the heart page: dark room, flat heart, valves, big numbers
 src/styles/bow.css         the rainbow page: dark rain room, drop, curve, sky
 src/styles/camera.css      the camera page: dark room, pinhole, blur, toy scene, pixels
+src/styles/press.css       the printing press page: dark workshop, type, frame, bars
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -751,6 +763,7 @@ src/lib/battery.ts         pile, cell, layout and run time maths for the battery
 src/lib/heart.ts           route, sums and drawings for the heart page
 src/lib/rainbow.ts         refraction maths and drawings for the rainbow page
 src/lib/camera.ts          pinhole, f-number, exposure and pixel maths for the camera page
+src/lib/press.ts           steps, type, time sums and drawings for the printing press page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -811,6 +824,7 @@ src/scripts/cell/         all four battery benches (cell.ts)
 src/scripts/heart/        all four heart beats (heart.ts)
 src/scripts/bow/          all four rainbow drops (bow.ts)
 src/scripts/camera/       all four camera shots (camera.ts)
+src/scripts/press/        all four printing press benches (press.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

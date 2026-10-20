@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Workshop from '../../components/press/Workshop.astro';
+import { takeaways, sources, sourcesNote } from '../../data/press';
+---
+
+<TopicLayout
+  slug="how-the-printing-press-worked"
+  intro="Before printing, every book was copied by hand. Follow a letter from a steel punch to a printed page, set a line of type, compare hand copying with printing and guess how far printing spread."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Workshop />
+</TopicLayout>

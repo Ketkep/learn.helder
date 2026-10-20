@@ -1,0 +1,18 @@
+---
+// Bench 3: by hand or by press.
+import { fmtDays, handDays, pressDays } from '../../lib/press';
+const [pages, copies] = [100, 10];
+---
+
+<div class="tool" data-time-tool>
+  <ul class="gauges" aria-hidden="true">
+    <li><span class="nm">By hand</span><span class="track"><span class="fill hand" data-time-hand style={`width:${Math.min(100, (handDays(pages, copies) / Math.max(handDays(pages, copies), pressDays(pages, copies))) * 100)}%`}></span></span></li>
+    <li><span class="nm">By press</span><span class="track"><span class="fill" data-time-press style={`width:${(pressDays(pages, copies) / Math.max(handDays(pages, copies), pressDays(pages, copies))) * 100}%`}></span></span></li>
+  </ul>
+  <div class="controls needs-js">
+    <label class="field"><span>Copies <output data-time-out>{copies}</output></span><input class="range" type="range" min="1" max="200" step="1" value={copies} data-time-range aria-label="Number of copies of the book" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-time-status>
+    {copies} copies of a book of {pages} pages: {fmtDays(handDays(pages, copies))} by hand and {fmtDays(pressDays(pages, copies))} by press, in this toy. Setting the type takes {fmtDays(pressDays(pages, 0))} once.
+  </p>
+</div>

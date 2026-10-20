@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .pr-block { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 6; }
+    .pr-letter { fill: var(--on-cover); font-family: Georgia, serif; font-weight: 700; font-size: 74px; }
+    .pr-plate { fill: var(--on-cover); transform-box: fill-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pr-plate { animation: pr-press 1.6s ease-in-out infinite alternate; }
+    }
+    /* The plate presses down on the type */
+    @keyframes pr-press { 0% { transform: translateY(0); } 100% { transform: translateY(36px); } }
+  </style>
+
+  <g>
+    <rect class="pr-plate" x="110" y="46" width="180" height="16" rx="4"/>
+    <rect class="pr-block" x="130" y="130" width="140" height="90" rx="8"/>
+    <g transform="translate(400 0) scale(-1 1)"><text class="pr-letter" x="200" y="205" text-anchor="middle">R</text></g>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

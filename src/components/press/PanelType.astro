@@ -1,0 +1,24 @@
+---
+// Bench 2: set a line of type and count the letters.
+import { letterCounts, lineSvg, sample } from '../../lib/press';
+const text = 'press';
+const counts = letterCounts(sample);
+---
+
+<div class="tool" data-type-tool>
+  <svg class="strip" viewBox="0 0 300 100" role="img" aria-label="A line of type as it stands in the frame, backwards, and as it prints" data-type-svg>
+    <rect class="stage" x="2" y="2" width="296" height="96" rx="8"></rect>
+    <g set:html={lineSvg(text)} data-type-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Your words</span><input class="text wide" type="text" maxlength="24" value={text} autocomplete="off" spellcheck="false" data-type-q aria-label="Words to set in type" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-type-status>
+    The words "{text}" need {letterCounts(text).reduce((n, c) => n + c.n, 0)} pieces of type. A sentence of 61 characters, "{sample}", needs {counts.reduce((n, c) => n + c.n, 0)} letters, and {counts[0].n} of them are the letter {counts[0].ch}.
+  </p>
+  <table class="times">
+    <caption class="sr-only">How many pieces of type of each letter the sample sentence needs</caption>
+    <thead><tr><th scope="col">Letter</th><th scope="col">Pieces</th></tr></thead>
+    <tbody data-type-body>{counts.slice(0, 6).map((c) => <tr><th scope="row">{c.ch}</th><td>{c.n}</td></tr>)}</tbody>
+  </table>
+</div>

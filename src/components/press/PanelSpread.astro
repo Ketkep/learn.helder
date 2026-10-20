@@ -1,0 +1,18 @@
+---
+// Bench 4: guess the numbers of the spread.
+import { numbers } from '../../lib/press';
+const n = numbers[0];
+---
+
+<div class="tool" data-spread-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a number to guess">
+    {numbers.map((x, i) => <button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'} data-spread-pick={x.id}>{x.name}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Your guess <output data-spread-out>3,981</output></span><input class="range" type="range" min="0" max="100" step="1" value="50" data-spread-range aria-label="Your guess, on a scale that goes up by ten times at each step" /></label>
+  </div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-spread-check>Check my guess</button>
+  </div>
+  <p class="status" aria-live="polite" data-spread-status>{n.text}</p>
+</div>
