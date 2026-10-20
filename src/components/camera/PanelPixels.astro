@@ -1,0 +1,18 @@
+---
+// Shot 4: a picture is a grid of numbers.
+import { fmtBytes, pixelsSvg, rawBytes } from '../../lib/camera';
+const side = 16;
+---
+
+<div class="tool" data-pixels-tool>
+  <svg class="strip" viewBox="0 0 300 152" role="img" aria-label="A smiling face drawn with a grid of coloured squares" data-pixels-svg>
+    <rect class="stage" x="2" y="2" width="296" height="148" rx="8"></rect>
+    <g set:html={pixelsSvg(side)} data-pixels-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Squares on a side <output data-pixels-out>{side}</output></span><input class="range" type="range" min="1" max="4" step="1" value="4" data-pixels-range aria-label="How many squares along each side, as a power of two" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-pixels-status>
+    {side} by {side} is {side * side} pixels. Each is three numbers, so the list has {side * side * 3} numbers. A phone photo of 4,000 by 3,000 pixels has {(4000 * 3000).toLocaleString('en-US')} pixels and, kept this way, takes {fmtBytes(rawBytes(4000, 3000))}.
+  </p>
+</div>

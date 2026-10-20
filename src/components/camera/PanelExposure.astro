@@ -1,0 +1,24 @@
+---
+// Shot 3: balance the light.
+import { exposureStops, exposureSvg, isos, shutters, stops, verdict } from '../../lib/camera';
+const [a, s, i] = [3, 2, 0];
+const off = exposureStops(stops[a], shutters[s], isos[i]);
+---
+
+<div class="tool" data-exposure-tool>
+  <svg class="strip" viewBox="0 0 300 120" role="img" aria-label="A toy picture with a moving ball. Its brightness, the smear of the ball and the grain change with the settings." data-exposure-svg>
+    <g set:html={exposureSvg(stops[a], shutters[s], isos[i])} data-exposure-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Aperture <output data-exposure-a-out>f/{stops[a]}</output></span><input class="range" type="range" min="0" max={stops.length - 1} step="1" value={a} data-exposure-a aria-label="Aperture as an f-number" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Shutter <output data-exposure-s-out>1/{shutters[s]} s</output></span><input class="range" type="range" min="0" max={shutters.length - 1} step="1" value={s} data-exposure-s aria-label="Shutter time" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>ISO <output data-exposure-i-out>{isos[i]}</output></span><input class="range" type="range" min="0" max={isos.length - 1} step="1" value={i} data-exposure-i aria-label="ISO" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-exposure-status>
+    f/{stops[a]}, 1/{shutters[s]} s and ISO {isos[i]}: the picture is {verdict(off)}. This toy scene needs f/4, 1/250 s and ISO 100.
+  </p>
+</div>

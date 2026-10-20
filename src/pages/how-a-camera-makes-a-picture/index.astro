@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Darkroom from '../../components/camera/Darkroom.astro';
+import { takeaways, sources, sourcesNote } from '../../data/camera';
+---
+
+<TopicLayout
+  slug="how-a-camera-makes-a-picture"
+  intro="A camera is a dark box with an opening. Make a picture with a pinhole, open and close the aperture, balance the light with the shutter and the ISO, and see that a picture is a grid of numbers."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Darkroom />
+</TopicLayout>

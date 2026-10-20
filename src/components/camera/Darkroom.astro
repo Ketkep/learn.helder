@@ -1,0 +1,60 @@
+---
+// The whole page: a dark room with four things to try. They are the Panel components and src/scripts/camera.
+// Without a script each part shows one picture.
+import '../../styles/camera.css';
+import { intro, panels } from '../../data/camera';
+import PanelPinhole from './PanelPinhole.astro';
+import PanelAperture from './PanelAperture.astro';
+import PanelExposure from './PanelExposure.astro';
+import PanelPixels from './PanelPixels.astro';
+
+const tools: Record<string, typeof PanelPinhole> = { pinhole: PanelPinhole, aperture: PanelAperture, exposure: PanelExposure, pixels: PanelPixels };
+---
+
+<div class="camera" data-camera>
+  <section class="panel opening" aria-labelledby="camera-intro">
+    <div class="panel-inner">
+      <div class="words">
+        <p class="kicker">Close the shutter</p>
+        <h2 id="camera-intro">{intro.title}</h2>
+        {intro.paras.map((p) => <p class="para">{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  {
+    panels.map((p) => {
+      const Tool = tools[p.id];
+      return (
+        <section class="panel" id={`panel-${p.id}`} aria-labelledby={`panel-${p.id}-h`}>
+          <div class="panel-inner">
+            <div class="words">
+              <p class="kicker">{p.kicker}</p>
+              <h2 id={`panel-${p.id}-h`}>{p.title}</h2>
+              <div class="paras">{p.paras.map((t) => <p class="para">{t}</p>)}</div>
+              {
+                p.tags && (
+                  <div class="tags">
+                    {p.tags.map((t) => (
+                      <aside class="tag">
+                        <p class="tag-label">{t.label}</p>
+                        <p class="tag-text">{t.text}</p>
+                      </aside>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+            <div class="bench">
+              <Tool />
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../../scripts/camera/camera';
+</script>

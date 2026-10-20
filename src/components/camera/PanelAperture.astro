@@ -1,0 +1,22 @@
+---
+// Shot 2: the f-number.
+import { apertureSvg, lightAt, stops } from '../../lib/camera';
+const n = 4;
+---
+
+<div class="tool" data-aperture-tool>
+  <svg class="strip" viewBox="0 0 300 130" role="img" aria-label="A sharp subject with blurred lights behind it. A wider opening makes bigger blurs." data-aperture-svg>
+    <rect class="stage" x="2" y="2" width="296" height="126" rx="8"></rect>
+    <g set:html={apertureSvg(n)} data-aperture-g></g>
+  </svg>
+  <div class="controls needs-js" role="group" aria-label="Pick an f-number">
+    {stops.map((s) => <button type="button" class="pick" aria-pressed={s === n ? 'true' : 'false'} data-aperture-pick={s}>f/{s}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-aperture-status>
+    At f/{n} the opening lets in {lightAt(n).toFixed(2)} times the light of f/1.4. A wide opening blurs the background more.
+  </p>
+  <table class="times">
+    <thead><tr><th scope="col">f-number</th><th scope="col">Light against f/1.4</th></tr></thead>
+    <tbody>{stops.map((s) => <tr><th scope="row">f/{s}</th><td>{lightAt(s).toFixed(3)}</td></tr>)}</tbody>
+  </table>
+</div>

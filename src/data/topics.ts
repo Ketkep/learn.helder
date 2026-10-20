@@ -507,6 +507,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-20',
     status: 'live',
   },
+  {
+    slug: 'how-a-camera-makes-a-picture',
+    title: 'How a camera makes a picture',
+    hook: 'Make a picture with a pinhole, then balance the light with the aperture, the shutter and the ISO.',
+    category: 'Technology',
+    accent: '#5C5F6B',
+    preview: 'how-a-camera-makes-a-picture',
+    dateAdded: '2026-10-20',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .cm-body { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 6; }
+    .cm-ring { fill: none; stroke: var(--on-cover); stroke-width: 6; }
+    .cm-iris { fill: var(--on-cover); transform-box: fill-box; transform-origin: 50% 50%; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .cm-iris { animation: cm-open 1.8s ease-in-out infinite alternate; }
+    }
+    /* The opening widens and narrows */
+    @keyframes cm-open { 0% { transform: scale(0.4); } 100% { transform: scale(1.2); } }
+  </style>
+
+  <g>
+    <rect class="cm-body" x="70" y="90" width="260" height="130" rx="14"/>
+    <rect class="cm-body" x="140" y="72" width="60" height="22" rx="4"/>
+    <circle class="cm-ring" cx="200" cy="156" r="46"/>
+    <circle class="cm-iris" cx="200" cy="156" r="24"/>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

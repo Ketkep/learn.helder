@@ -547,6 +547,15 @@ The page is a dark rain room with four things to try. Drop 1 sends a ray through
 - `src/components/bow/Shower.astro` is the frame and `Panel*.astro` is one drop each.
 - `src/scripts/bow/bow.ts` starts all four drops.
 
+## The camera page: how the four shots work
+
+The page is a dark room with four things to try. Shot 1 is a pinhole: the brightness goes with the area of the hole and the blur is the width of the hole plus the spreading of light at a small hole (2.44 times the wavelength times the box depth over the hole width), so there is a best size (about 0.37 mm in a box 10 cm deep, the page's own simple optics). Shot 2 is the f-number series 1.4, 2, 2.8, 4, 5.6, 8, 11, 16, each full step halving the light, with blurred lights that grow with a wider opening. Shot 3 sets aperture, shutter time and ISO against a toy scene that needs f/4, 1/250 s and ISO 100, and shows the picture too bright or too dark in stops, a moving ball smeared by the shutter and grain from a high ISO. Shot 4 shows a face with 2, 4, 8 or 16 squares a side and the size of a 12 megapixel picture kept as three bytes a pixel (36 megabytes). The toy scene is made up. Without a script each shot shows one picture.
+
+- `src/data/camera.ts` holds all the words, the takeaways and the sources.
+- `src/lib/camera.ts` holds the pinhole, f-number, exposure and pixel maths and the drawings as SVG text.
+- `src/components/camera/Darkroom.astro` is the frame and `Panel*.astro` is one shot each.
+- `src/scripts/camera/camera.ts` starts all four shots.
+
 ## The Dutch version and other languages
 
 The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English page stays the default, and each page links to the other.
@@ -614,6 +623,7 @@ src/data/volcano.ts        everything the volcano page says: vents, takeaways, s
 src/data/cell.ts           everything the battery page says: benches, takeaways, sources
 src/data/heart.ts          everything the heart page says: beats, takeaways, sources
 src/data/bow.ts            everything the rainbow page says: drops, takeaways, sources
+src/data/camera.ts         everything the camera page says: shots, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -664,6 +674,7 @@ src/components/volcano/    the volcano page: four vents and the cone frame
 src/components/cell/       the battery page: four benches and the bench frame
 src/components/heart/      the heart page: four beats and the pump frame
 src/components/bow/        the rainbow page: four drops and the shower frame
+src/components/camera/     the camera page: four shots and the darkroom frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -711,6 +722,7 @@ src/styles/volcano.css     the volcano page: dark ash room, cone, bubbles, plate
 src/styles/cell.css        the battery page: dark bench, discs, two beakers, cells
 src/styles/heart.css       the heart page: dark room, flat heart, valves, big numbers
 src/styles/bow.css         the rainbow page: dark rain room, drop, curve, sky
+src/styles/camera.css      the camera page: dark room, pinhole, blur, toy scene, pixels
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -738,6 +750,7 @@ src/lib/volcano.ts         magma, pressure, bubble and VEI maths for the volcano
 src/lib/battery.ts         pile, cell, layout and run time maths for the battery page
 src/lib/heart.ts           route, sums and drawings for the heart page
 src/lib/rainbow.ts         refraction maths and drawings for the rainbow page
+src/lib/camera.ts          pinhole, f-number, exposure and pixel maths for the camera page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -797,6 +810,7 @@ src/scripts/volcano/      all four volcano vents (volcano.ts)
 src/scripts/cell/         all four battery benches (cell.ts)
 src/scripts/heart/        all four heart beats (heart.ts)
 src/scripts/bow/          all four rainbow drops (bow.ts)
+src/scripts/camera/       all four camera shots (camera.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image
