@@ -1,0 +1,22 @@
+---
+// Slate 4: find the best move. Without a script the first position is shown with every move marked.
+import { boardHtml, type Mark } from '../../lib/tttview';
+import { judge, movesOf, puzzles, turn, SQUARE, WORD } from '../../lib/ttt';
+const b = puzzles[0];
+const marks: Record<number, Mark> = {};
+movesOf(b).forEach((i) => (marks[i] = judge(b, i)));
+const list = movesOf(b).map((i) => `${SQUARE[i]} ${WORD[marks[i]]}`);
+---
+
+<div class="tool" data-best-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a position">
+    {puzzles.map((_, i) => <button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'} data-best-pick={i}>Position {i + 1}</button>)}
+  </div>
+  <div class="board" data-best-board set:html={boardHtml(b, { marks })}></div>
+  <p class="status" aria-live="polite" data-best-status>
+    {turn(b) === 'X' ? 'Cross' : 'Nought'} to move. With perfect play after each move: {list.join(', ')}.
+  </p>
+  <div class="controls needs-js">
+    <button type="button" class="btn" data-best-show>Show every move</button>
+  </div>
+</div>

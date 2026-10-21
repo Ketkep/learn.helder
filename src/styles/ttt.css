@@ -1,0 +1,495 @@
+/* The tic-tac-toe page: a dark green school slate with chalk. */
+
+.ttt {
+  --board: #172620;
+  --panel: #1f342b;
+  --line: #51695d;
+  --wood: #ead98f;
+  --cream: #f3f1e8;
+  --ink-fixed: #121815;
+  --pink: #f4aaa0;
+  --blue: #9fd3ea;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .ttt .needs-js {
+  display: none;
+}
+
+.ttt :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.ttt .panel {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.ttt .panel-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.4rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .ttt .panel-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .ttt .opening .panel-inner {
+    grid-template-columns: minmax(0, 42rem);
+  }
+}
+
+.ttt .words,
+.ttt .bench,
+.ttt .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.ttt h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.ttt .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.ttt .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.ttt .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.ttt .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.ttt .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.ttt .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.ttt .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.ttt .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.ttt .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.ttt .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.ttt .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.ttt .times th,
+.ttt .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.ttt .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.ttt .times tbody th {
+  font-weight: 700;
+}
+
+.ttt .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.ttt .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ttt .pick:hover {
+  background: var(--wash);
+}
+
+.ttt .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .ttt .no-js-name {
+  display: none;
+}
+
+.ttt .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.ttt .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.ttt .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.ttt .btn:hover {
+  background: var(--wash);
+}
+
+.ttt .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.ttt .btn.fill:hover {
+  background: var(--cream);
+}
+
+.ttt .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ttt .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.ttt .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.ttt .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.ttt .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.ttt .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.ttt .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.ttt .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.ttt .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.ttt .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.ttt .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ttt .snd[aria-pressed='true'] .slash,
+.ttt .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ttt * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.ttt .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The board ---------- */
+.ttt .board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(100%, 20rem);
+  padding: 0.4rem;
+  background: var(--panel);
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.ttt .cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-right: 3px solid var(--cream);
+  border-bottom: 3px solid var(--cream);
+  border-radius: 0;
+  background: transparent;
+  color: var(--cream);
+  font: inherit;
+}
+
+.ttt .cell:nth-child(3n) {
+  border-right: 0;
+}
+
+.ttt .cell:nth-child(n + 7) {
+  border-bottom: 0;
+}
+
+.ttt button.cell {
+  cursor: pointer;
+}
+
+.ttt button.cell:hover {
+  background: var(--wash);
+}
+
+.ttt .cell.last {
+  background: rgb(255 255 255 / 0.08);
+}
+
+.ttt .piece {
+  width: 62%;
+  height: 62%;
+  fill: none;
+  stroke-width: 4.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ttt .piece.x {
+  stroke: var(--pink);
+}
+
+.ttt .piece.o {
+  stroke: var(--blue);
+}
+
+.ttt .mk {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.ttt .mk.win {
+  color: var(--wood);
+}
+
+.ttt .mk.draw {
+  color: var(--cream);
+}
+
+.ttt .mk.lose {
+  color: var(--pink);
+}
+
+.ttt .cell.m-win {
+  background: rgb(234 217 143 / 0.16);
+}
+
+.ttt .cell.m-lose {
+  background: rgb(244 170 160 / 0.1);
+}
+
+.ttt .piece + .mk {
+  position: absolute;
+  bottom: 4px;
+}
+
+.ttt .hint,
+.ttt .score {
+  font-size: 0.97rem;
+  color: #d5dcd7;
+}
+
+/* ---------- Bars ---------- */
+.ttt .bars {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ttt .bars li {
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 1fr) 4.6rem;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.15rem 0.3rem;
+  border-radius: 6px;
+  font-size: 0.97rem;
+}
+
+.ttt .bars li.on {
+  box-shadow: 0 0 0 2px var(--wood);
+}
+
+.ttt .bar-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.ttt .track {
+  display: block;
+  height: 1.1rem;
+  border-radius: 5px;
+  background: var(--wash);
+  overflow: hidden;
+}
+
+.ttt .track .fill {
+  display: block;
+  height: 100%;
+  min-width: 3px;
+  background: var(--wood);
+}
+
+.ttt .on .track .fill {
+  background: var(--pink);
+}

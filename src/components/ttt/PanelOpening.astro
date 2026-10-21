@@ -1,0 +1,14 @@
+---
+// Slate 2: the first moves. Without a script the board shows the corner opening.
+import { boardHtml, type Mark } from '../../lib/tttview';
+import { judge, play, EMPTY } from '../../lib/ttt';
+const b = play(EMPTY, 0);
+const marks: Record<number, Mark> = {};
+[...b].forEach((c, i) => c === ' ' && (marks[i] = judge(b, i)));
+---
+
+<div class="tool" data-opening-tool>
+  <div class="board" data-opening-board set:html={boardHtml(b, { marks })}></div>
+  <p class="hint needs-js">Press a square to open there.</p>
+  <p class="status" aria-live="polite" data-opening-status>Cross opens in the top left corner. The nought has 1 reply that draws and 7 that lose.</p>
+</div>

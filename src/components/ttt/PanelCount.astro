@@ -1,0 +1,39 @@
+---
+// Slate 3: count every game. The numbers are worked out when the page is built, and again in the browser when asked.
+import { counts } from '../../lib/ttt';
+const c = counts();
+const f = (n: number) => n.toLocaleString('en-US');
+const ends = c.endedAt.map((n, k) => ({ k, n })).filter((x) => x.n > 0);
+const max = Math.max(...ends.map((x) => x.n));
+---
+
+<div class="tool" data-count-tool data-ends={JSON.stringify(c.endedAt)} data-total={c.games}>
+  <ul class="bars" data-count-bars>
+    {ends.map((x) => (
+      <li data-bar={x.k}>
+        <span class="bar-label">Move {x.k}</span>
+        <span class="track"><span class="fill" style={`width:${(x.n / max) * 100}%`}></span></span>
+        <span class="bar-num">{f(x.n)}</span>
+      </li>
+    ))}
+  </ul>
+  <div class="controls needs-js">
+    <label class="field"><span>Games that end on move <output data-count-out>9</output></span><input class="range" type="range" min="5" max="9" step="1" value="9" data-count-range aria-label="Move number, from 5 to 9" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-count-status>
+    {f(c.games)} games in all: {f(c.xWins)} won by cross, {f(c.oWins)} won by nought and {f(c.draws)} drawn. No game ends before move 5.
+  </p>
+  <table class="times">
+    <caption class="sr-only">Games, positions and what they are worth</caption>
+    <thead><tr><th scope="col">What</th><th scope="col">Number</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Different games</th><td data-count-games>{f(c.games)}</td></tr>
+      <tr><th scope="row">Positions that can arise</th><td data-count-pos>{f(c.positions)}</td></tr>
+      <tr><th scope="row">Positions if turned and mirrored copies are one</th><td data-count-canon>{f(c.canonical)}</td></tr>
+    </tbody>
+  </table>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-count-run>Count them again here</button>
+  </div>
+  <p class="status needs-js" aria-live="polite" data-count-result>Press the button and your browser will play out every game.</p>
+</div>

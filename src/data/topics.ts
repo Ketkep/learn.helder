@@ -527,6 +527,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-20',
     status: 'live',
   },
+  {
+    slug: 'why-tic-tac-toe-is-always-a-draw',
+    title: 'Why tic-tac-toe is always a draw',
+    hook: 'Play a machine that never errs, pick a first move and count all 255,168 games.',
+    category: 'Games',
+    accent: '#E3C75A',
+    preview: 'why-tic-tac-toe-is-always-a-draw',
+    dateAdded: '2026-10-21',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

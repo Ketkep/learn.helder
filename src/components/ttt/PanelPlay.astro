@@ -1,0 +1,15 @@
+---
+// Slate 1: play the machine.
+import { boardHtml } from '../../lib/tttview';
+const done = 'XOXXOOOXX';
+---
+
+<div class="tool" data-play-tool>
+  <div class="board" data-play-board set:html={boardHtml(done)}></div>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-play-new="X">Play first (cross)</button>
+    <button type="button" class="btn" data-play-new="O">Play second (nought)</button>
+  </div>
+  <p class="status" aria-live="polite" data-play-status>A finished game that nobody won. The machine cannot be beaten, so a draw is the best you can get.</p>
+  <p class="score needs-js" data-play-score>Your games: 0 won, 0 drawn, 0 lost.</p>
+</div>

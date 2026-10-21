@@ -583,6 +583,16 @@ The radiation page also exists in Dutch, at `/nl/radiotherapie/`. The English pa
 - `status: 'live'` topics show everywhere.
 - In `npm run build`, the pages of draft topics are deleted from the output, so unfinished work never goes online.
 
+## The tic-tac-toe page: how the four slates work
+
+The page is a dark green school slate with chalk and four things to try. Slate 1 plays the machine, which looks at every continuation (minimax) and picks at random among equally good moves, so it never errs, with a score of your games on the page. Slate 2 picks the first move of cross and marks every reply of the nought as a draw or a loss, from the computed values. Slate 3 shows how many of the 255,168 games end on each move (5 to 9), and has a button that makes the browser play out every game again and compare. Slate 4 asks for the best move in five positions and says whether a move wins, draws or loses. Without a script each slate shows one board or table.
+
+- `src/data/ttt.ts` holds all the words, the takeaways and the sources.
+- `src/lib/ttt.ts` holds the rules, the minimax values, the counts (positions, games, symmetry classes) and the practice positions. The counts match the published figures (5,478 positions, 255,168 games, 765 up to turning and mirroring).
+- `src/lib/tttview.ts` makes the board as HTML text, used at build time and in the browser. Pieces and marks always carry words as well as colour.
+- `src/components/ttt/Slate.astro` is the frame and `Panel*.astro` is one slate each.
+- `src/scripts/ttt/ttt.ts` starts all four slates.
+
 ## Where things are
 
 ```
@@ -634,6 +644,7 @@ src/data/heart.ts          everything the heart page says: beats, takeaways, sou
 src/data/bow.ts            everything the rainbow page says: drops, takeaways, sources
 src/data/camera.ts         everything the camera page says: shots, takeaways, sources
 src/data/press.ts          everything the printing press page says: benches, takeaways, sources
+src/data/ttt.ts            everything the tic-tac-toe page says: slates, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -686,6 +697,7 @@ src/components/heart/      the heart page: four beats and the pump frame
 src/components/bow/        the rainbow page: four drops and the shower frame
 src/components/camera/     the camera page: four shots and the darkroom frame
 src/components/press/      the printing press page: four benches and the workshop frame
+src/components/ttt/        the tic-tac-toe page: four slates and the slate frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -735,6 +747,7 @@ src/styles/heart.css       the heart page: dark room, flat heart, valves, big nu
 src/styles/bow.css         the rainbow page: dark rain room, drop, curve, sky
 src/styles/camera.css      the camera page: dark room, pinhole, blur, toy scene, pixels
 src/styles/press.css       the printing press page: dark workshop, type, frame, bars
+src/styles/ttt.css         the tic-tac-toe page: dark green slate, chalk board, bars
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -764,6 +777,8 @@ src/lib/heart.ts           route, sums and drawings for the heart page
 src/lib/rainbow.ts         refraction maths and drawings for the rainbow page
 src/lib/camera.ts          pinhole, f-number, exposure and pixel maths for the camera page
 src/lib/press.ts           steps, type, time sums and drawings for the printing press page
+src/lib/ttt.ts            tic-tac-toe rules, minimax values and counts
+src/lib/tttview.ts        the board as HTML for the tic-tac-toe page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -825,6 +840,7 @@ src/scripts/heart/        all four heart beats (heart.ts)
 src/scripts/bow/          all four rainbow drops (bow.ts)
 src/scripts/camera/       all four camera shots (camera.ts)
 src/scripts/press/        all four printing press benches (press.ts)
+src/scripts/ttt/         all four tic-tac-toe slates (ttt.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

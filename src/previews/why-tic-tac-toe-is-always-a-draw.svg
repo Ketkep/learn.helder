@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .tt-grid { fill: none; stroke: var(--on-cover); stroke-width: 7; stroke-linecap: round; }
+    .tt-x { fill: none; stroke: var(--on-cover); stroke-width: 9; stroke-linecap: round; }
+    .tt-o { fill: none; stroke: var(--on-cover); stroke-width: 9; stroke-linecap: round; }
+    .tt-new { opacity: 0.4; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .tt-new { animation: tt-blink 1.4s ease-in-out infinite alternate; }
+    }
+    /* The last mark fades in and out, as if the next move were being thought about */
+    @keyframes tt-blink { 0% { opacity: 0.1; } 100% { opacity: 1; } }
+  </style>
+
+  <g>
+    <path class="tt-grid" d="M150 50 V210 M250 50 V210 M100 100 H300 M100 160 H300"/>
+    <path class="tt-x" d="M115 62 L135 90 M135 62 L115 90"/>
+    <circle class="tt-o" cx="200" cy="75" r="15"/>
+    <path class="tt-x" d="M265 62 L285 90 M285 62 L265 90"/>
+    <path class="tt-x" d="M115 122 L135 150 M135 122 L115 150"/>
+    <circle class="tt-o" cx="200" cy="130" r="15"/>
+    <circle class="tt-o" cx="275" cy="130" r="15"/>
+    <circle class="tt-o" cx="125" cy="185" r="15"/>
+    <path class="tt-x" d="M190 172 L210 200 M210 172 L190 200"/>
+    <path class="tt-x tt-new" d="M265 172 L285 200 M285 172 L265 200"/>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

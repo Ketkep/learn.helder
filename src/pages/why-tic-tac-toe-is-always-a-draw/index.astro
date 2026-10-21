@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Slate from '../../components/ttt/Slate.astro';
+import { takeaways, sources, sourcesNote } from '../../data/ttt';
+---
+
+<TopicLayout
+  slug="why-tic-tac-toe-is-always-a-draw"
+  intro="Tic-tac-toe is small enough to solve. Play a machine that never errs, see which first moves are safe, count every game that can be played and find the best move in a position."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Slate />
+</TopicLayout>
