@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Day from '../../components/photo/Day.astro';
+import { takeaways, sources, sourcesNote } from '../../data/photo';
+---
+
+<TopicLayout
+  slug="how-photosynthesis-works"
+  intro="A leaf turns light, air and water into sugar. Follow one day in a leaf: which colours it uses, what holds it back, grams in and grams out, a willow that grew from 5 to 169 pounds, and a whole day."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Day />
+</TopicLayout>

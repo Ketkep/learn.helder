@@ -1,0 +1,29 @@
+---
+// Hour 21: scrub a whole day. Without a script the chart shows the day at noon.
+import { BREATH, clock, crossings, dayPath, making, net, sun } from '../../lib/photo';
+const [up, down] = crossings();
+const x = (12 / 24) * 280 + 10;
+---
+
+<div class="tool" data-day-tool>
+  <svg class="chart" viewBox="0 0 300 125" role="img" aria-label="Over 24 hours: sunlight rises to noon and falls, the leaf makes sugar from about 6 in the morning to 6 in the evening, and the balance after breathing is below zero at night.">
+    <rect class="stage" x="1" y="1" width="298" height="123" rx="8"></rect>
+    <line class="zero" x1="10" y1="70" x2="290" y2="70"></line>
+    <path class="curve sunl" d={dayPath(sun)}></path>
+    <path class="curve make" d={dayPath(making)}></path>
+    <path class="curve netc" d={dayPath(net)}></path>
+    <line class="mark" x1={x} y1="8" x2={x} y2="112" data-day-mark></line>
+    <text class="lab" x="10" y="120">00:00</text>
+    <text class="lab" x="150" y="120" text-anchor="middle">12:00</text>
+    <text class="lab" x="290" y="120" text-anchor="end">24:00</text>
+  </svg>
+  <ul class="key">
+    <li><span class="dot sunl"></span>Sunlight</li>
+    <li><span class="dot make"></span>Sugar made</li>
+    <li><span class="dot netc"></span>Balance after breathing</li>
+  </ul>
+  <div class="controls needs-js">
+    <label class="field"><span>Hour <output data-day-out>12:00</output></span><input class="range" type="range" min="0" max="24" step="0.5" value="12" data-day-range aria-label="Time of day, in hours" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-day-status>At {clock(12)}. The sun is at its highest. The toy leaf makes {Math.round(making(12) * 100)} units of sugar and breathes out {Math.round(BREATH * 100)}, so it gains {Math.round(net(12) * 100)}. It gains between {clock(up)} and {clock(down)}.</p>
+</div>

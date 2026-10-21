@@ -547,6 +547,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-21',
     status: 'live',
   },
+  {
+    slug: 'how-photosynthesis-works',
+    title: 'How photosynthesis works',
+    hook: 'Follow one day in a leaf and weigh the air, water and sugar.',
+    category: 'Nature',
+    accent: '#2F7F3A',
+    preview: 'how-photosynthesis-works',
+    dateAdded: '2026-10-21',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

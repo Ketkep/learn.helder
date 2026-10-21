@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ph-leaf { fill: var(--on-cover); }
+    .ph-vein { fill: none; stroke: var(--cover-b); stroke-width: 6; stroke-linecap: round; }
+    .ph-ray { stroke: var(--on-cover); stroke-width: 7; stroke-linecap: round; }
+    .ph-bubble { fill: var(--on-cover); transform-box: fill-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ph-bubble { animation: ph-rise 2s ease-in infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ph-bubble.two { animation-delay: 0.7s; }
+    }
+    /* Little bubbles of oxygen drift up from the leaf */
+    @keyframes ph-rise { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-34px); opacity: 0; } }
+  </style>
+
+  <g>
+    <path class="ph-leaf" d="M110 205 C110 110 190 62 300 58 C304 160 250 232 140 236 C128 237 112 226 110 205 Z"/>
+    <path class="ph-vein" d="M124 224 C170 170 220 124 282 80 M180 172 L190 218 M214 140 L262 156"/>
+    <path class="ph-ray" d="M70 48 L96 74 M104 28 L118 62 M40 82 L74 94"/>
+    <circle class="ph-bubble" cx="318" cy="130" r="9"/>
+    <circle class="ph-bubble two" cx="344" cy="104" r="6"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

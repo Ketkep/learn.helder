@@ -1,0 +1,24 @@
+---
+// Hour 06: the colours a leaf uses. Without a script the marker sits on green light.
+import { absorbPath, absorbs } from '../../lib/photo';
+import { colourName, rgb, wavelengthColour } from '../../lib/sky';
+const nm = 550;
+const x = ((nm - 400) / 300) * 280 + 10;
+---
+
+<div class="tool" data-colours-tool>
+  <svg class="chart" viewBox="0 0 300 125" role="img" aria-label="A curve of how much light a leaf takes in at each colour, from violet to red. It is high in blue and in red and low in green.">
+    <rect class="stage" x="1" y="1" width="298" height="123" rx="8"></rect>
+    <path class="curve" d={absorbPath()}></path>
+    <line class="mark" x1={x} y1="8" x2={x} y2="110" data-colours-mark></line>
+    <text class="lab" x="10" y="120">violet 400</text>
+    <text class="lab" x="290" y="120" text-anchor="end">red 700 nm</text>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Light <output data-colours-out>{nm}</output> nm</span><input class="range" type="range" min="400" max="700" step="2" value={nm} data-colours-range aria-label="Wavelength of the light, in nanometres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-colours-status>
+    <span class="swatch" style={`background:${rgb(wavelengthColour(nm))}`} data-colours-swatch></span>
+    <span data-colours-text>{colourName(nm)[0].toUpperCase() + colourName(nm).slice(1)} light at {nm} nm: the toy leaf takes in {Math.round(absorbs(nm) * 100)} per cent of it.</span>
+  </p>
+</div>

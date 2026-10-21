@@ -1,0 +1,26 @@
+---
+// Hour 09: what holds it back. Without a script the bars show the starting setting.
+import { limiting, terms } from '../../lib/photo';
+const l = { light: 100, co2: 420, temp: 25 };
+const t = terms(l);
+const lim = limiting(l);
+const rows = [
+  ['light', 'Light', t.light],
+  ['co2', 'Carbon dioxide', t.co2],
+  ['temp', 'Temperature', t.temp],
+] as const;
+---
+
+<div class="tool" data-limits-tool>
+  <ul class="bars" data-limits-bars>
+    {rows.map(([id, name, v]) => (
+      <li><span class="bar-label">{name}</span><span class="track"><span class="fill" style={`width:${v * 100}%`} data-bar={id}></span></span><span class="bar-num" data-num={id}>{Math.round(v * 100)}%</span></li>
+    ))}
+  </ul>
+  <div class="controls needs-js">
+    <label class="field"><span>Light <output data-limits-out-light>100</output>%</span><input class="range" type="range" min="0" max="100" step="1" value="100" data-limits-light aria-label="Light, as a share of full sun" /></label>
+    <label class="field"><span>Carbon dioxide <output data-limits-out-co2>420</output> ppm</span><input class="range" type="range" min="100" max="900" step="10" value="420" data-limits-co2 aria-label="Carbon dioxide, in parts per million" /></label>
+    <label class="field"><span>Temperature <output data-limits-out-temp>25</output> °C</span><input class="range" type="range" min="0" max="45" step="1" value="25" data-limits-temp aria-label="Temperature, in degrees Celsius" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-limits-status>The leaf works at {Math.round(lim.rate * 100)} per cent of its best speed. What holds it back is {lim.name}. A toy with made up curves.</p>
+</div>

@@ -602,6 +602,15 @@ The page is a dark ground station console with four modules and a toy map screen
 - `src/components/gps/Console.astro` is the frame and `Panel*.astro` is one channel each.
 - `src/scripts/gps/gps.ts` starts all four channels.
 
+## The photosynthesis page: how the five parts of the day work
+
+The page is a pale leaf green day with a 24 hour dial beside each part (the hand points at the hour, the day half is lit). Part 1 (06:00) slides the colour of light and shows a toy absorption curve of chlorophyll with its peaks at the measured 430 and 662 nm. Part 2 (09:00) is Blackman's idea as a toy: light, carbon dioxide and temperature each give a number from 0 to 1 and the smallest one sets the speed and is named. Part 3 (12:00) takes grams of carbon dioxide and works out water, glucose and oxygen from the atomic masses (C 12.011, H 1.008, O 15.999) and shows that the two sides weigh the same. Part 4 (15:00) is van Helmont's willow (5 lb to about 169 lb, soil 200 lb losing about 2 oz) with a guess of where the weight came from. Only the two ends are from the story, the curve between is made up. Part 5 (21:00) scrubs 24 hours of sunlight, sugar made and the balance after breathing (made up numbers). Without a script each part shows one picture or table.
+
+- `src/data/photo.ts` holds all the words, the takeaways and the sources.
+- `src/lib/photo.ts` holds the toy curves, the mass balance, the willow numbers, the day curves and the dial drawing.
+- `src/components/photo/Day.astro` is the frame and `Panel*.astro` is one part each.
+- `src/scripts/photo/photo.ts` starts all five parts. The colour of light comes from `src/lib/sky.ts`.
+
 ## Where things are
 
 ```
@@ -655,6 +664,7 @@ src/data/camera.ts         everything the camera page says: shots, takeaways, so
 src/data/press.ts          everything the printing press page says: benches, takeaways, sources
 src/data/ttt.ts            everything the tic-tac-toe page says: slates, takeaways, sources
 src/data/gps.ts            everything the GPS page says: channels, takeaways, sources
+src/data/photo.ts          everything the photosynthesis page says: hours, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -709,6 +719,7 @@ src/components/camera/     the camera page: four shots and the darkroom frame
 src/components/press/      the printing press page: four benches and the workshop frame
 src/components/ttt/        the tic-tac-toe page: four slates and the slate frame
 src/components/gps/        the GPS page: four channels and the console frame
+src/components/photo/      the photosynthesis page: five parts and the day frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -760,6 +771,7 @@ src/styles/camera.css      the camera page: dark room, pinhole, blur, toy scene,
 src/styles/press.css       the printing press page: dark workshop, type, frame, bars
 src/styles/ttt.css         the tic-tac-toe page: dark green slate, chalk board, bars
 src/styles/gps.css         the GPS page: dark console, map screens, bars
+src/styles/photo.css       the photosynthesis page: pale leaf green day, dials, charts, bars
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -792,6 +804,7 @@ src/lib/press.ts           steps, type, time sums and drawings for the printing 
 src/lib/ttt.ts            tic-tac-toe rules, minimax values and counts
 src/lib/tttview.ts        the board as HTML for the tic-tac-toe page
 src/lib/gps.ts            toy map, ring and spread maths and drawings for the GPS page
+src/lib/photo.ts          toy curves, mass balance and willow numbers for the photosynthesis page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -855,6 +868,7 @@ src/scripts/camera/       all four camera shots (camera.ts)
 src/scripts/press/        all four printing press benches (press.ts)
 src/scripts/ttt/         all four tic-tac-toe slates (ttt.ts)
 src/scripts/gps/         all four GPS channels (gps.ts)
+src/scripts/photo/       all five photosynthesis parts (photo.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

@@ -1,0 +1,27 @@
+---
+// Hour 12: grams in, grams out. Without a script the table shows 264 grams of carbon dioxide.
+import { balance, grams } from '../../lib/photo';
+const b = balance(264.054);
+---
+
+<div class="tool" data-grams-tool>
+  <table class="times">
+    <caption class="sr-only">Mass going in and coming out of photosynthesis</caption>
+    <thead><tr><th scope="col">Going in</th><th scope="col">Grams</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Carbon dioxide</th><td data-g="co2">{grams(b.co2)}</td></tr>
+      <tr><th scope="row">Water</th><td data-g="water">{grams(b.water)}</td></tr>
+      <tr class="sum"><th scope="row">Total in</th><td data-g="in">{grams(b.co2 + b.water)}</td></tr>
+    </tbody>
+    <thead><tr><th scope="col">Coming out</th><th scope="col">Grams</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Glucose</th><td data-g="glucose">{grams(b.glucose)}</td></tr>
+      <tr><th scope="row">Oxygen</th><td data-g="oxygen">{grams(b.oxygen)}</td></tr>
+      <tr class="sum"><th scope="row">Total out</th><td data-g="out">{grams(b.glucose + b.oxygen)}</td></tr>
+    </tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Carbon dioxide <output data-grams-out>264</output> g</span><input class="range" type="range" min="44" max="1000" step="4" value="264" data-grams-range aria-label="Grams of carbon dioxide taken in" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-grams-status>264 g of carbon dioxide and 108 g of water make 180 g of glucose and 192 g of oxygen. Both sides weigh 372 g.</p>
+</div>
