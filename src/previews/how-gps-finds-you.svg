@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .gp-ring { fill: none; stroke: var(--on-cover); stroke-width: 6; transform-box: fill-box; transform-origin: center; }
+    .gp-sat { fill: var(--on-cover); }
+    .gp-you { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 6; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .gp-ring { animation: gp-pulse 1.8s ease-in-out infinite alternate; }
+    }
+    /* The rings breathe in and out, but always cross at the same point */
+    @keyframes gp-pulse { 0% { transform: scale(0.94); } 100% { transform: scale(1.04); } }
+  </style>
+
+  <g>
+    <circle class="gp-ring" cx="120" cy="70" r="104"/>
+    <circle class="gp-ring" cx="290" cy="80" r="104" style="opacity:.75"/>
+    <circle class="gp-ring" cx="200" cy="30" r="170" style="opacity:.5"/>
+    <rect class="gp-sat" x="104" y="54" width="32" height="32" rx="6"/>
+    <rect class="gp-sat" x="274" y="64" width="32" height="32" rx="6"/>
+    <rect class="gp-sat" x="184" y="14" width="32" height="32" rx="6"/>
+    <circle class="gp-you" cx="205" cy="165" r="13"/>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

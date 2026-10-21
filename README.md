@@ -593,6 +593,15 @@ The page is a dark green school slate with chalk and four things to try. Slate 1
 - `src/components/ttt/Slate.astro` is the frame and `Panel*.astro` is one slate each.
 - `src/scripts/ttt/ttt.ts` starts all four slates.
 
+## The GPS page: how the four channels work
+
+The page is a dark ground station console with four modules and a toy map screen in each. Channel 1 draws a ring around one, two or three satellites from the distances to a point you move, and marks where the rings cross. Channel 2 gives the phone clock a secret error (23 toy units), so every ring is too big, and the reader slides a fix until the three rings meet. The misfit is found by a small least squares search. Channel 3 slides the angle between two satellites (10 to 90 degrees) and shows the patch where two bands of timing noise (made up, 5 metres) cross, with the dilution factor sqrt(2) over sin(angle). Channel 4 shows the clock offsets of a satellite, +45 microseconds a day for gravity and -7 for speed, and what the net 38 microseconds comes to as light travel over 1 to 10 days. Without a script each module shows one picture.
+
+- `src/data/gps.ts` holds all the words, the takeaways and the sources.
+- `src/lib/gps.ts` holds the toy map, ring crossings, the misfit search, the spread geometry, the clock numbers and the drawings as SVG text.
+- `src/components/gps/Console.astro` is the frame and `Panel*.astro` is one channel each.
+- `src/scripts/gps/gps.ts` starts all four channels.
+
 ## Where things are
 
 ```
@@ -645,6 +654,7 @@ src/data/bow.ts            everything the rainbow page says: drops, takeaways, s
 src/data/camera.ts         everything the camera page says: shots, takeaways, sources
 src/data/press.ts          everything the printing press page says: benches, takeaways, sources
 src/data/ttt.ts            everything the tic-tac-toe page says: slates, takeaways, sources
+src/data/gps.ts            everything the GPS page says: channels, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -698,6 +708,7 @@ src/components/bow/        the rainbow page: four drops and the shower frame
 src/components/camera/     the camera page: four shots and the darkroom frame
 src/components/press/      the printing press page: four benches and the workshop frame
 src/components/ttt/        the tic-tac-toe page: four slates and the slate frame
+src/components/gps/        the GPS page: four channels and the console frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -748,6 +759,7 @@ src/styles/bow.css         the rainbow page: dark rain room, drop, curve, sky
 src/styles/camera.css      the camera page: dark room, pinhole, blur, toy scene, pixels
 src/styles/press.css       the printing press page: dark workshop, type, frame, bars
 src/styles/ttt.css         the tic-tac-toe page: dark green slate, chalk board, bars
+src/styles/gps.css         the GPS page: dark console, map screens, bars
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -779,6 +791,7 @@ src/lib/camera.ts          pinhole, f-number, exposure and pixel maths for the c
 src/lib/press.ts           steps, type, time sums and drawings for the printing press page
 src/lib/ttt.ts            tic-tac-toe rules, minimax values and counts
 src/lib/tttview.ts        the board as HTML for the tic-tac-toe page
+src/lib/gps.ts            toy map, ring and spread maths and drawings for the GPS page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -841,6 +854,7 @@ src/scripts/bow/          all four rainbow drops (bow.ts)
 src/scripts/camera/       all four camera shots (camera.ts)
 src/scripts/press/        all four printing press benches (press.ts)
 src/scripts/ttt/         all four tic-tac-toe slates (ttt.ts)
+src/scripts/gps/         all four GPS channels (gps.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

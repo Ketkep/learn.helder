@@ -1,0 +1,17 @@
+---
+// Channel 2: the clock that is never right. Without a script the map shows the rings with the clock error left in.
+import { clockSvg, H, misfit, W } from '../../lib/gps';
+const you = { x: 140, y: 100 };
+const bias = 23;
+---
+
+<div class="tool" data-clock-tool data-bias={bias}>
+  <svg class="map" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Three rings around satellites A, B and C. All three are too big by the same amount because the clock is wrong, so they do not meet in one point." data-clock-svg>
+    <rect class="stage" x="1" y="1" width={W - 2} height={H - 2} rx="8"></rect>
+    <g set:html={clockSvg(you, bias, 0)} data-clock-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Clock fix <output data-clock-out>0</output></span><input class="range" type="range" min="0" max="40" step="1" value="0" data-clock-range aria-label="How much distance to take off every ring" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-clock-status>The phone clock is wrong, so all three distances are too long by the same amount. The rings overlap in a patch, and the best point misses the rings by {misfit(you, bias, 0).toFixed(1)} on average. This is a toy with made up units.</p>
+</div>

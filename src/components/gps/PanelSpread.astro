@@ -1,0 +1,16 @@
+---
+// Channel 3: spread out or bunched up. Without a script the drawing shows satellites 90 degrees apart.
+import { spreadGeometry, spreadSvg } from '../../lib/gps';
+const g = spreadGeometry(90, 5);
+---
+
+<div class="tool" data-spread-tool>
+  <svg class="map" viewBox="0 0 300 200" role="img" aria-label="Two bands of uncertainty crossing at a right angle. The patch where they cross is small and square." data-spread-svg>
+    <rect class="stage" x="1" y="1" width="298" height="198" rx="8"></rect>
+    <g set:html={spreadSvg(90, 5)} data-spread-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Angle between satellites <output data-spread-out>90</output>°</span><input class="range" type="range" min="10" max="90" step="1" value="90" data-spread-range aria-label="Angle between the two satellites as seen from you, in degrees" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-spread-status>Satellites 90° apart. The patch is {g.long.toFixed(0)} metres across at its longest and the error is multiplied by {g.hdop.toFixed(2)}.</p>
+</div>

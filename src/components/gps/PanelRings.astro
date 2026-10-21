@@ -1,0 +1,20 @@
+---
+// Channel 1: rings around satellites. Without a script the map shows three rings.
+import { H, ringsSvg, W } from '../../lib/gps';
+const you = { x: 140, y: 100 };
+---
+
+<div class="tool" data-rings-tool>
+  <svg class="map" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="A toy map with three satellites A, B and C, and a ring around each one. The rings cross at you." data-rings-svg>
+    <rect class="stage" x="1" y="1" width={W - 2} height={H - 2} rx="8"></rect>
+    <g set:html={ringsSvg(you, 3)} data-rings-g></g>
+  </svg>
+  <div class="controls needs-js" role="group" aria-label="How many satellites to use">
+    {[1, 2, 3].map((n) => <button type="button" class="pick" aria-pressed={n === 3 ? 'true' : 'false'} data-rings-n={n}>{n} satellite{n > 1 ? 's' : ''}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>You: left to right</span><input class="range" type="range" min="20" max="280" step="1" value="140" data-rings-x aria-label="Your place, left to right" /></label>
+    <label class="field"><span>You: up and down</span><input class="range" type="range" min="20" max="180" step="1" value="100" data-rings-y aria-label="Your place, up and down" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-rings-status>Three rings cross in one point. That point is you.</p>
+</div>

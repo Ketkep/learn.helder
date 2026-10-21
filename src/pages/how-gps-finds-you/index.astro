@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Console from '../../components/gps/Console.astro';
+import { takeaways, sources, sourcesNote } from '../../data/gps';
+---
+
+<TopicLayout
+  slug="how-gps-finds-you"
+  intro="Satellites send the time and your phone works out the distance. Draw the rings, fix a clock that is wrong, see why spread out satellites work better and check what Einstein has to do with it."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Console />
+</TopicLayout>

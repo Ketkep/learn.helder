@@ -1,0 +1,16 @@
+---
+// Channel 4: Einstein's clocks. Without a script the bars show one day.
+import { fmt, GRAVITY, kmOf, NET, SPEED } from '../../lib/gps';
+---
+
+<div class="tool" data-einstein-tool>
+  <ul class="bars" data-einstein-bars>
+    <li><span class="bar-label">Gravity</span><span class="track"><span class="fill" style={`width:${(GRAVITY / 500) * 100}%`} data-bar="gravity"></span></span><span class="bar-num" data-num="gravity">+{GRAVITY} µs</span></li>
+    <li><span class="bar-label">Speed</span><span class="track"><span class="fill slow" style={`width:${(-SPEED / 500) * 100}%`} data-bar="speed"></span></span><span class="bar-num" data-num="speed">{SPEED} µs</span></li>
+    <li><span class="bar-label">Net</span><span class="track"><span class="fill net" style={`width:${(NET / 500) * 100}%`} data-bar="net"></span></span><span class="bar-num" data-num="net">+{NET} µs</span></li>
+  </ul>
+  <div class="controls needs-js">
+    <label class="field"><span>Days <output data-einstein-out>1</output></span><input class="range" type="range" min="1" max="10" step="1" value="1" data-einstein-range aria-label="Days without correction" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-einstein-status>After 1 day the satellite clock would be ahead by {NET} microseconds. Light travels {fmt(kmOf(NET))} km in that time.</p>
+</div>

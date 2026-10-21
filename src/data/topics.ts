@@ -537,6 +537,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-21',
     status: 'live',
   },
+  {
+    slug: 'how-gps-finds-you',
+    title: 'How GPS finds you',
+    hook: 'Draw the rings that a satellite signal gives and fix a clock that is wrong.',
+    category: 'Technology',
+    accent: '#C8D94A',
+    preview: 'how-gps-finds-you',
+    dateAdded: '2026-10-21',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */
