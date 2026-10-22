@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Atlas from '../../components/plx/Atlas.astro';
+import { takeaways, sources, sourcesNote } from '../../data/plx';
+---
+
+<TopicLayout
+  slug="how-far-away-are-the-stars"
+  intro="Near stars shift a tiny bit against far ones as the Earth goes round the Sun. Slide a star nearer and farther, turn an angle into a distance and find out how old starlight is."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Atlas />
+</TopicLayout>

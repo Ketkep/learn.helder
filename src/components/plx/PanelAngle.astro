@@ -1,0 +1,24 @@
+---
+// Plate 2: from angle to distance. Without a script the table lists the stars.
+import { barShare, fmt, lyOf, parallaxOf, sig, stars } from '../../lib/plx';
+const first = stars[0];
+---
+
+<div class="tool" data-angle-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a star">
+    {stars.map((s, i) => <button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'} data-angle-pick={s.id}>{s.name}</button>)}
+  </div>
+  <table class="times">
+    <caption class="sr-only">Stars with their distance and parallax</caption>
+    <thead><tr><th scope="col">Star</th><th scope="col">Light years</th><th scope="col">Parallax (arcseconds)</th></tr></thead>
+    <tbody>{stars.map((s) => <tr><th scope="row">{s.name}</th><td>{sig(s.ly)}</td><td>{sig(parallaxOf(s.ly))}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Parallax <output data-angle-out>{sig(parallaxOf(first.ly))}</output>"</span><input class="range" type="range" min="0" max="100" step="1" value="96" data-angle-range aria-label="Parallax in arcseconds, on a scale that multiplies at each step" /></label>
+  </div>
+  <div class="needs-js">
+    <span class="track"><span class="fill" style={`width:${barShare(first.ly) * 100}%`} data-angle-bar></span></span>
+    <div class="ticks"><span>3 ly</span><span>30</span><span>300</span><span>3,000</span></div>
+  </div>
+  <p class="status" aria-live="polite" data-angle-status>{first.name}: a parallax of {sig(parallaxOf(first.ly))} arcseconds is {sig(1 / parallaxOf(first.ly))} parsecs, or {fmt(lyOf(parallaxOf(first.ly)), 2)} light years. {first.note}</p>
+</div>

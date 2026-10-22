@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .st-far { fill: var(--on-cover); }
+    .st-path { fill: none; stroke: var(--on-cover); stroke-width: 5; stroke-dasharray: 3 14; stroke-linecap: round; }
+    .st-near { fill: var(--on-cover); transform-box: view-box; transform-origin: 200px 140px; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .st-near { animation: st-swing 3.6s linear infinite; }
+    }
+    /* The near star goes round its small circle in a year, the far stars stay put */
+    @keyframes st-swing { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  </style>
+
+  <g>
+    <circle class="st-far" cx="90" cy="70" r="7"/>
+    <circle class="st-far" cx="310" cy="58" r="5"/>
+    <circle class="st-far" cx="330" cy="200" r="8"/>
+    <circle class="st-far" cx="70" cy="190" r="5"/>
+    <circle class="st-far" cx="150" cy="235" r="4"/>
+    <circle class="st-far" cx="262" cy="108" r="4"/>
+    <circle class="st-path" cx="200" cy="140" r="52"/>
+    <g class="st-near"><path d="M252 140 l7 -16 l7 16 l16 7 l-16 7 l-7 16 l-7 -16 l-16 -7 z" transform="translate(-27 -7)"/></g>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

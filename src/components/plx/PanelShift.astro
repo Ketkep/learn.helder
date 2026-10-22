@@ -1,0 +1,17 @@
+---
+// Plate 1: the yearly swing. Without a script the picture shows a star 4 light years away in July.
+import { shiftSvg, shiftText } from '../../lib/plx';
+const ly = 4;
+---
+
+<div class="tool" data-shift-tool>
+  <svg class="sky" viewBox="0 0 300 200" role="img" aria-label="A window onto the sky with many fixed far stars. One near star moves round a small circle during the year. The circle is magnified." data-shift-svg>
+    <rect class="stage" x="1" y="1" width="298" height="198" rx="8"></rect>
+    <g set:html={shiftSvg(ly, 6)} data-shift-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Distance <output data-shift-ly>4</output> light years</span><input class="range" type="range" min="0" max="100" step="1" value="0" data-shift-dist aria-label="Distance of the star, on a scale that multiplies at each step" /></label>
+    <label class="field"><span>Month <output data-shift-month>6</output></span><input class="range" type="range" min="0" max="12" step="0.5" value="6" data-shift-time aria-label="Month of the year, from 0 to 12" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-shift-status>{shiftText(ly)}</p>
+</div>

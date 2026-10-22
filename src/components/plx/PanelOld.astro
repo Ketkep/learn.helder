@@ -1,0 +1,21 @@
+---
+// Plate 4: old light. Without a script the table lists the stars and the Sun.
+import { fmt, SUN_MIN, stars } from '../../lib/plx';
+const first = stars[0];
+---
+
+<div class="tool" data-old-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a star">
+    <button type="button" class="pick" aria-pressed="false" data-old-pick="sun">The Sun</button>
+    {stars.map((s, i) => <button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'} data-old-pick={s.id}>{s.name}</button>)}
+  </div>
+  <table class="times">
+    <caption class="sr-only">How long the light of each takes to reach us</caption>
+    <thead><tr><th scope="col">Object</th><th scope="col">Light left</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">The Sun</th><td>{fmt(SUN_MIN, 1)} minutes ago</td></tr>
+      {stars.map((s) => <tr><th scope="row">{s.name}</th><td>{fmt(s.ly, 2)} years ago</td></tr>)}
+    </tbody>
+  </table>
+  <p class="status" aria-live="polite" data-old-status>{first.name}: the light you see tonight left it {fmt(first.ly, 2)} years ago. {first.note}</p>
+</div>

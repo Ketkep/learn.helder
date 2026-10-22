@@ -1,0 +1,452 @@
+/* The parallax page: a night sky atlas with gold rules, plates and a sky window in each. */
+
+.plx {
+  --board: #0a1024;
+  --panel: #121a36;
+  --line: #8a7a4c;
+  --wood: #e0bd7a;
+  --cream: #f1ecdf;
+  --ink-fixed: #0a1024;
+  --pink: #f4aaa0;
+  --blue: #9fd3ea;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .plx .needs-js {
+  display: none;
+}
+
+.plx :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.plx .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.plx .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+.plx .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.plx .words,
+.plx .paras,
+.plx .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.plx h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.plx .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.plx .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.plx .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.plx .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.plx .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.plx .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.plx .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.plx .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.plx .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.plx .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.plx .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.plx .times th,
+.plx .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.plx .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.plx .times tbody th {
+  font-weight: 700;
+}
+
+.plx .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.plx .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.plx .pick:hover {
+  background: var(--wash);
+}
+
+.plx .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .plx .no-js-name {
+  display: none;
+}
+
+.plx .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.plx .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.plx .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.plx .btn:hover {
+  background: var(--wash);
+}
+
+.plx .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.plx .btn.fill:hover {
+  background: var(--cream);
+}
+
+.plx .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.plx .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.plx .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.plx .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.plx .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.plx .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.plx .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.plx .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.plx .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.plx .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.plx .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.plx .snd[aria-pressed='true'] .slash,
+.plx .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plx * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.plx .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Plates ---------- */
+.plx .plate {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 1px solid var(--line);
+}
+
+.plx .plate-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem 2.6rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 60rem) {
+  .plx .plate-inner {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .plx .plate:nth-of-type(odd) .words {
+    order: 2;
+  }
+}
+
+.plx .kicker .num {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.2rem;
+  height: 2.2rem;
+  margin-right: 0.6rem;
+  padding: 0 0.4rem;
+  border: 2px solid var(--wood);
+  border-radius: 50%;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.plx .frame {
+  min-width: 0;
+  padding: 1rem;
+  background: var(--panel);
+  border: 2px solid var(--wood);
+  outline: 1px solid var(--line);
+  outline-offset: 5px;
+}
+
+.plx .tag {
+  background: var(--wood);
+}
+
+/* ---------- The sky window ---------- */
+.plx .sky {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+}
+
+.plx .stage {
+  fill: #050914;
+}
+
+.plx .far {
+  fill: #cfd6ea;
+}
+
+.plx .near {
+  fill: var(--wood);
+  stroke: var(--cream);
+  stroke-width: 1.5;
+}
+
+.plx .path {
+  fill: none;
+  stroke: var(--wood);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+
+.plx .rule {
+  stroke: var(--wood);
+  stroke-width: 1.5;
+}
+
+/* ---------- The distance bar ---------- */
+.plx .track {
+  display: block;
+  height: 1.1rem;
+  border-radius: 5px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 2px var(--line);
+  overflow: hidden;
+}
+
+.plx .track .fill {
+  display: block;
+  height: 100%;
+  min-width: 3px;
+  background: var(--wood);
+}
+
+.plx .ticks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: #d8d4c6;
+}

@@ -611,6 +611,15 @@ The page is a pale leaf green day with a 24 hour dial beside each part (the hand
 - `src/components/photo/Day.astro` is the frame and `Panel*.astro` is one part each.
 - `src/scripts/photo/photo.ts` starts all five parts. The colour of light comes from `src/lib/sky.ts`.
 
+## The parallax page: how the four plates work
+
+The page is a night sky atlas: navy paper, gold rules, four plates numbered I to IV with a framed sky window or table in each, and the words swapping sides on a wide screen. Plate I slides a star from 4 to 1,000 light years and through the months and draws the small circle it traces against fixed far stars (magnified, 120 pixels to the arcsecond). Plate II turns a parallax into parsecs and light years (distance in parsecs is one over the parallax in arcseconds, 1 parsec is 3.26156 light years) and lets the reader pick five real stars. Their distances come from the sources and the parallax is worked out from them. Plate III shows how far a one euro coin is when it spans an angle, and the rough reach of four instruments (Bessel, the ground, Hipparcos, Gaia) as the distance where the parallax equals the instrument's precision. Plate IV says how long the light of each star has travelled. Without a script each plate shows one picture or table.
+
+- `src/data/plx.ts` holds all the words, the takeaways and the sources.
+- `src/lib/plx.ts` holds the unit maths, the five stars, the instruments and the drawing of the shift. The far stars use `seeded()` so the sky is the same on every visit.
+- `src/components/plx/Atlas.astro` is the frame and `Panel*.astro` is one plate each.
+- `src/scripts/plx/plx.ts` starts all four plates.
+
 ## Where things are
 
 ```
@@ -665,6 +674,7 @@ src/data/press.ts          everything the printing press page says: benches, tak
 src/data/ttt.ts            everything the tic-tac-toe page says: slates, takeaways, sources
 src/data/gps.ts            everything the GPS page says: channels, takeaways, sources
 src/data/photo.ts          everything the photosynthesis page says: hours, takeaways, sources
+src/data/plx.ts            everything the parallax page says: plates, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -720,6 +730,7 @@ src/components/press/      the printing press page: four benches and the worksho
 src/components/ttt/        the tic-tac-toe page: four slates and the slate frame
 src/components/gps/        the GPS page: four channels and the console frame
 src/components/photo/      the photosynthesis page: five parts and the day frame
+src/components/plx/        the parallax page: four plates and the atlas frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -772,6 +783,7 @@ src/styles/press.css       the printing press page: dark workshop, type, frame, 
 src/styles/ttt.css         the tic-tac-toe page: dark green slate, chalk board, bars
 src/styles/gps.css         the GPS page: dark console, map screens, bars
 src/styles/photo.css       the photosynthesis page: pale leaf green day, dials, charts, bars
+src/styles/plx.css         the parallax page: navy atlas, gold rules, sky window, bar
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -805,6 +817,7 @@ src/lib/ttt.ts            tic-tac-toe rules, minimax values and counts
 src/lib/tttview.ts        the board as HTML for the tic-tac-toe page
 src/lib/gps.ts            toy map, ring and spread maths and drawings for the GPS page
 src/lib/photo.ts          toy curves, mass balance and willow numbers for the photosynthesis page
+src/lib/plx.ts            parallax, parsec and light travel maths for the parallax page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -869,6 +882,7 @@ src/scripts/press/        all four printing press benches (press.ts)
 src/scripts/ttt/         all four tic-tac-toe slates (ttt.ts)
 src/scripts/gps/         all four GPS channels (gps.ts)
 src/scripts/photo/       all five photosynthesis parts (photo.ts)
+src/scripts/plx/         all four parallax plates (plx.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

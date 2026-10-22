@@ -1,0 +1,19 @@
+---
+// Plate 3: the thinnest angle. Without a script the table lists the instruments.
+import { coinKm, fmt, reachLy, sig, tools } from '../../lib/plx';
+---
+
+<div class="tool" data-small-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick an instrument">
+    {tools.map((t, i) => <button type="button" class="pick" aria-pressed={i === 2 ? 'true' : 'false'} data-small-pick={t.id}>{t.name}</button>)}
+  </div>
+  <table class="times">
+    <caption class="sr-only">What each instrument can measure</caption>
+    <thead><tr><th scope="col">Instrument</th><th scope="col">Smallest angle</th><th scope="col">Rough reach</th></tr></thead>
+    <tbody>{tools.map((t) => <tr><th scope="row">{t.name}</th><td>{sig(t.precision)}"</td><td>{fmt(reachLy(t.precision))} ly</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Angle <output data-small-out>0.001</output>"</span><input class="range" type="range" min="0" max="100" step="1" value="60" data-small-range aria-label="An angle in arcseconds, on a scale that multiplies at each step" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-small-status>An angle of 0.001 arcseconds is a one euro coin about {fmt(coinKm(0.001))} km away. A parallax that small reaches about {fmt(reachLy(0.001))} light years.</p>
+</div>

@@ -557,6 +557,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-21',
     status: 'live',
   },
+  {
+    slug: 'how-far-away-are-the-stars',
+    title: 'How far away are the stars',
+    hook: 'Watch a near star swing against the far ones and turn the angle into a distance.',
+    category: 'Space',
+    accent: '#E6B8A2',
+    preview: 'how-far-away-are-the-stars',
+    dateAdded: '2026-10-22',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */
