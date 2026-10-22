@@ -1,0 +1,22 @@
+---
+// Inside: gear it. Without a script the picture shows the gears 19, 47, 10 and 50.
+import { fmt, gearsSvg, ratio, TARGET } from '../../lib/antikythera';
+const r = ratio(19, 47, 10, 50);
+---
+
+<div class="tool" data-gears-tool>
+  <svg class="dial" viewBox="0 0 300 140" role="img" aria-label="Four gears in two stages. The second and third are on one shaft." data-gears-svg>
+    <rect class="stage" x="1" y="1" width="298" height="138" rx="8"></rect>
+    <g set:html={gearsSvg(19, 47, 10, 50, 0)} data-gears-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Gear 1 <output data-gears-out-a>19</output> teeth</span><input class="range" type="range" min="10" max="60" step="1" value="19" data-gears-a aria-label="Teeth of gear 1" /></label>
+    <label class="field"><span>Gear 2 <output data-gears-out-b>47</output> teeth</span><input class="range" type="range" min="10" max="60" step="1" value="47" data-gears-b aria-label="Teeth of gear 2" /></label>
+    <label class="field"><span>Gear 3 <output data-gears-out-c>10</output> teeth</span><input class="range" type="range" min="10" max="60" step="1" value="10" data-gears-c aria-label="Teeth of gear 3" /></label>
+    <label class="field"><span>Gear 4 <output data-gears-out-d>50</output> teeth</span><input class="range" type="range" min="10" max="60" step="1" value="50" data-gears-d aria-label="Teeth of gear 4" /></label>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Crank <output data-gears-out-turn>0</output>°</span><input class="range" type="range" min="0" max="360" step="5" value="0" data-gears-turn aria-label="Turn of the first gear, in degrees" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-gears-status>Gears 19, 47, 10 and 50 make {fmt(r, 4)} turns of the last gear for one turn of the first. The target is 235 over 19, which is {fmt(TARGET, 4)}. That is spot on.</p>
+</div>

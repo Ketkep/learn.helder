@@ -1,0 +1,493 @@
+/* The Antikythera page: a dark bronze gearbox with a front face, a back face and an inside. */
+
+.anti {
+  --board: #15130d;
+  --panel: #242017;
+  --line: #8a7544;
+  --wood: #d9bd6a;
+  --cream: #f5efdc;
+  --ink-fixed: #14110a;
+  --pink: #e7a285;
+  --blue: #86cdb5;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .anti .needs-js {
+  display: none;
+}
+
+.anti :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.anti .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.anti .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+.anti .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.anti .plate,
+.anti .paras,
+.anti .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.anti h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.anti .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.anti .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.anti .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.anti .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.anti .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.anti .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.anti .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.anti .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.anti .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.anti .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.anti .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.anti .times th,
+.anti .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.anti .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.anti .times tbody th {
+  font-weight: 700;
+}
+
+.anti .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.anti .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.anti .pick:hover {
+  background: var(--wash);
+}
+
+.anti .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .anti .no-js-name {
+  display: none;
+}
+
+.anti .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.anti .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.anti .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.anti .btn:hover {
+  background: var(--wash);
+}
+
+.anti .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.anti .btn.fill:hover {
+  background: var(--cream);
+}
+
+.anti .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.anti .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.anti .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.anti .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.anti .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.anti .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.anti .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.anti .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.anti .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.anti .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.anti .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.anti .snd[aria-pressed='true'] .slash,
+.anti .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anti * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.anti .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The box ---------- */
+.anti .box {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem;
+  width: min(100%, 72rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter);
+}
+
+@media (min-width: 60rem) {
+  .anti .box {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      'front back1'
+      'front back2'
+      'inside inside';
+    align-items: start;
+  }
+
+  .anti .front {
+    grid-area: front;
+  }
+
+  .anti .back-1 {
+    grid-area: back1;
+  }
+
+  .anti .back-2 {
+    grid-area: back2;
+  }
+
+  .anti .inside {
+    grid-area: inside;
+  }
+}
+
+.anti .plate {
+  padding: 1.2rem 1.2rem 1.4rem;
+  background: var(--panel);
+  border: 4px double var(--line);
+  border-radius: 14px;
+}
+
+.anti .face {
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--wood);
+}
+
+.anti .tag {
+  background: var(--wood);
+}
+
+/* ---------- The dials ---------- */
+.anti .dial {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.anti .stage {
+  fill: #0e0c07;
+}
+
+.anti .ball {
+  fill: #2d2a22;
+}
+
+.anti .lit {
+  fill: #f1ead2;
+}
+
+.anti .rim {
+  fill: none;
+  stroke: var(--wood);
+  stroke-width: 3;
+}
+
+.anti .ring {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 3;
+}
+
+.anti .tick {
+  stroke: var(--wood);
+  stroke-width: 2;
+}
+
+.anti .sun {
+  fill: var(--wood);
+  stroke: var(--cream);
+  stroke-width: 2;
+}
+
+.anti .earth {
+  fill: #20382f;
+  stroke: var(--blue);
+  stroke-width: 3;
+}
+
+.anti .shadow {
+  fill: var(--pink);
+  opacity: 0.55;
+}
+
+.anti .shadow.now {
+  opacity: 1;
+  stroke: var(--cream);
+  stroke-width: 2;
+}
+
+.anti .gear {
+  fill: #6a5a31;
+  stroke: var(--wood);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.anti .gear.two,
+.anti .gear.four {
+  fill: #4f6a5e;
+  stroke: var(--blue);
+}
+
+.anti .hub {
+  fill: var(--board);
+}
+
+.anti .num {
+  fill: var(--cream);
+  font-family: var(--font-body, sans-serif);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.anti .shaft {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 2;
+  stroke-dasharray: 3 4;
+}
+
+.anti .lab {
+  fill: var(--cream);
+  font-family: var(--font-body, sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+}

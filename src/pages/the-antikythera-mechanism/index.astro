@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Gearbox from '../../components/antikythera/Gearbox.astro';
+import { takeaways, sources, sourcesNote } from '../../data/antikythera';
+---
+
+<TopicLayout
+  slug="the-antikythera-mechanism"
+  intro="A gearbox of bronze, about 2,000 years old, followed the Moon and the eclipses. Turn the crank, see why 19 years is 235 months, count the eclipse cycle and build a gear train."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Gearbox />
+</TopicLayout>

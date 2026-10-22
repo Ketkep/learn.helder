@@ -1,0 +1,17 @@
+---
+// Front face: the crank and the Moon. Without a script the dial shows the Moon after 7 days.
+import { fmt, MONTH, moonAge, moonSvg, phaseName, sunSvg } from '../../lib/antikythera';
+const days = 7;
+---
+
+<div class="tool" data-moon-tool>
+  <svg class="dial" viewBox="0 0 300 140" role="img" aria-label="A bronze dial with the Moon as a ball that is half pale and half dark, and a ring with a pointer for the Sun." data-moon-svg>
+    <rect class="stage" x="1" y="1" width="298" height="138" rx="8"></rect>
+    <g set:html={sunSvg(days)} data-moon-sun transform="translate(-60 0)"></g>
+    <g set:html={moonSvg(moonAge(days))} data-moon-moon transform="translate(60 0)"></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Crank: day <output data-moon-out>{days}</output></span><input class="range" type="range" min="0" max="400" step="1" value={days} data-moon-range aria-label="Days the crank has been turned" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-moon-status>After {days} days the Moon is {fmt(moonAge(days), 1)} days old, a {phaseName(moonAge(days))}. A month is {MONTH} days.</p>
+</div>

@@ -577,6 +577,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-22',
     status: 'live',
   },
+  {
+    slug: 'the-antikythera-mechanism',
+    title: 'The Antikythera mechanism',
+    hook: 'Turn the crank of a 2,000 year old gearbox and follow the Moon and the eclipses.',
+    category: 'History',
+    accent: '#C9B458',
+    preview: 'the-antikythera-mechanism',
+    dateAdded: '2026-10-22',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

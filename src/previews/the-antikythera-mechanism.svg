@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .an-gear { fill: var(--on-cover); transform-box: fill-box; transform-origin: center; }
+    .an-hole { fill: var(--cover-b); }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .an-gear.one { animation: an-turn 6s linear infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .an-gear.two { animation: an-turn 3.2s linear infinite reverse; }
+    }
+    /* Two gears that mesh turn in opposite directions */
+    @keyframes an-turn { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  </style>
+
+  <g>
+    <g class="an-gear one">
+      <circle cx="150" cy="140" r="52"/>
+      <g transform="translate(150 140)"><rect x="-8" y="-68" width="16" height="22" rx="3"/><rect x="-8" y="-68" width="16" height="22" rx="3" transform="rotate(45)"/><rect x="-8" y="-68" width="16" height="22" rx="3" transform="rotate(90)"/><rect x="-8" y="-68" width="16" height="22" rx="3" transform="rotate(135)"/><rect x="-8" y="-68" width="16" height="22" rx="3" transform="rotate(180)"/><rect x="-8" y="-68" width="16" height="22" rx="3" transform="rotate(225)"/><rect x="-8" y="-68" width="16" height="22" rx="3" transform="rotate(270)"/><rect x="-8" y="-68" width="16" height="22" rx="3" transform="rotate(315)"/></g>
+      <circle class="an-hole" cx="150" cy="140" r="18"/>
+    </g>
+    <g class="an-gear two">
+      <circle cx="262" cy="170" r="36"/>
+      <g transform="translate(262 170)"><rect x="-7" y="-52" width="14" height="18" rx="3"/><rect x="-7" y="-52" width="14" height="18" rx="3" transform="rotate(60)"/><rect x="-7" y="-52" width="14" height="18" rx="3" transform="rotate(120)"/><rect x="-7" y="-52" width="14" height="18" rx="3" transform="rotate(180)"/><rect x="-7" y="-52" width="14" height="18" rx="3" transform="rotate(240)"/><rect x="-7" y="-52" width="14" height="18" rx="3" transform="rotate(300)"/></g>
+      <circle class="an-hole" cx="262" cy="170" r="12"/>
+    </g>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

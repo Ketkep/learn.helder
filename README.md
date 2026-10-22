@@ -629,6 +629,15 @@ The page is a blueprint (white lines on blueprint blue, a faint grid) of a build
 - `src/components/ear/Building.astro` is the frame and `Panel*.astro` is one room each.
 - `src/scripts/ear/ear.ts` starts all four rooms.
 
+## The Antikythera page: how the four parts work
+
+The page is a dark bronze gearbox with a front face, a back face and an inside (two columns on a wide screen, the back face split into two dials, the inside across the bottom). The front part turns a crank from 0 to 400 days: the Moon ball (half pale, half dark, drawn from the age in days of the 29.53059 day month, starting at a new moon) and a ring with the Sun going round 365.2422 days. The upper back part shows the Moon's age on the same date after 1 to 19 years, which is nearly new again after 19 years (about 2 hours short, computed from 235 months against 19 years). The lower back part counts Saros periods (223 months, 6,585.32 days) and draws where the eclipse shadow falls, about 116 degrees farther west each time, nearly a full turn after three. The inside part has four gears in two stages with sliders for the teeth (10 to 60) and a crank, and compares the ratio with 235 over 19 (47 over 19 times 50 over 10 is exact). The gears are made up, not the machine's. Without a script each part shows one picture or table.
+
+- `src/data/antikythera.ts` holds all the words, the takeaways and the sources.
+- `src/lib/antikythera.ts` holds the cycle lengths, the Moon, Sun, Earth and gear drawings as SVG text and the ratio maths.
+- `src/components/antikythera/Gearbox.astro` is the frame and `Panel*.astro` is one part each.
+- `src/scripts/antikythera/antikythera.ts` starts all four parts.
+
 ## Where things are
 
 ```
@@ -685,6 +694,7 @@ src/data/gps.ts            everything the GPS page says: channels, takeaways, so
 src/data/photo.ts          everything the photosynthesis page says: hours, takeaways, sources
 src/data/plx.ts            everything the parallax page says: plates, takeaways, sources
 src/data/ear.ts            everything the ear page says: rooms, takeaways, sources
+src/data/antikythera.ts   everything the Antikythera page says: parts, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -742,6 +752,7 @@ src/components/gps/        the GPS page: four channels and the console frame
 src/components/photo/      the photosynthesis page: five parts and the day frame
 src/components/plx/        the parallax page: four plates and the atlas frame
 src/components/ear/        the ear page: four rooms and the building frame
+src/components/antikythera/  the Antikythera page: four parts and the gearbox frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -796,6 +807,7 @@ src/styles/gps.css         the GPS page: dark console, map screens, bars
 src/styles/photo.css       the photosynthesis page: pale leaf green day, dials, charts, bars
 src/styles/plx.css         the parallax page: navy atlas, gold rules, sky window, bar
 src/styles/ear.css         the ear page: blueprint blue, rooms, lift signs, drawings
+src/styles/antikythera.css  the Antikythera page: dark bronze, plates, dials, gears
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -831,6 +843,7 @@ src/lib/gps.ts            toy map, ring and spread maths and drawings for the GP
 src/lib/photo.ts          toy curves, mass balance and willow numbers for the photosynthesis page
 src/lib/plx.ts            parallax, parsec and light travel maths for the parallax page
 src/lib/ear.ts            ear canal, lever, air pipe and cochlea maths for the ear page
+src/lib/antikythera.ts    cycles, Moon, eclipse and gear maths and drawings for the Antikythera page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -897,6 +910,7 @@ src/scripts/gps/         all four GPS channels (gps.ts)
 src/scripts/photo/       all five photosynthesis parts (photo.ts)
 src/scripts/plx/         all four parallax plates (plx.ts)
 src/scripts/ear/         all four ear rooms (ear.ts)
+src/scripts/antikythera/ all four Antikythera parts (antikythera.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

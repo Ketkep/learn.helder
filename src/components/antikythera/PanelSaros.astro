@@ -1,0 +1,16 @@
+---
+// Back face, lower dial: the eclipse cycle. Without a script the picture shows three periods.
+import { earthSvg, fmt, sarosDays, sarosShift, yearsDays } from '../../lib/antikythera';
+const n = 3;
+---
+
+<div class="tool" data-saros-tool>
+  <svg class="dial" viewBox="0 0 300 140" role="img" aria-label="The Earth seen from above the north pole, with marks round the edge for where an eclipse shadow falls after each Saros period. Each one is about a third of the way round to the west." data-saros-svg>
+    <rect class="stage" x="1" y="1" width="298" height="138" rx="8"></rect>
+    <g set:html={earthSvg(n)} data-saros-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Saros periods <output data-saros-out>{n}</output></span><input class="range" type="range" min="0" max="3" step="1" value={n} data-saros-range aria-label="Number of Saros periods" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-saros-status>{n} Saros periods are {fmt(sarosDays * n)} days, which is {yearsDays(sarosDays * n)}. The shadow has moved about {Math.round(sarosShift(n))} degrees west, a few degrees short of a full turn.</p>
+</div>
