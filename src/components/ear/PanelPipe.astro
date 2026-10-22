@@ -1,0 +1,17 @@
+---
+// Back stairs: the air pipe. Without a script the picture shows the eardrum at rest.
+import { drumSvg } from '../../lib/ear';
+---
+
+<div class="tool" data-pipe-tool>
+  <svg class="plan" viewBox="0 0 300 150" role="img" aria-label="The eardrum seen from the side with the outside on one side and the middle ear on the other. A pipe leads from the middle ear to the throat." data-pipe-svg>
+    <rect class="stage" x="1" y="1" width="298" height="148" rx="6"></rect>
+    <g set:html={drumSvg({ outside: 100, inside: 100 })} data-pipe-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-pipe-climb>Climb</button>
+    <button type="button" class="btn" data-pipe-swallow>Swallow</button>
+    <button type="button" class="btn" data-pipe-land>Land</button>
+  </div>
+  <p class="status" aria-live="polite" data-pipe-status>On the ground the pressure is the same on both sides of the eardrum. A toy with made up numbers.</p>
+</div>

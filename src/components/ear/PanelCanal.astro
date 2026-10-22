@@ -1,0 +1,16 @@
+---
+// Ground floor: the ear canal as a tube. Without a script the drawing shows a canal 25 millimetres long.
+import { canalHz, canalSvg, fmt } from '../../lib/ear';
+const mm = 25;
+---
+
+<div class="tool" data-canal-tool>
+  <svg class="plan" viewBox="0 0 300 140" role="img" aria-label="A tube closed at the eardrum end, with a swell inside it that shows the pressure of the sound wave. It is largest at the eardrum and zero at the open end." data-canal-svg>
+    <rect class="stage" x="1" y="1" width="298" height="138" rx="6"></rect>
+    <g set:html={canalSvg(mm)} data-canal-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Length <output data-canal-out>{mm}</output> mm</span><input class="range" type="range" min="15" max="40" step="1" value={mm} data-canal-range aria-label="Length of the ear canal, in millimetres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-canal-status>A tube {mm} mm long, closed at one end, boosts sound near {fmt(canalHz(mm))} hertz. The next boost is near {fmt(canalHz(mm) * 3)} hertz.</p>
+</div>

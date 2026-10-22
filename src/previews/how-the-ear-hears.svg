@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ea-coil { fill: none; stroke: var(--on-cover); stroke-width: 12; stroke-linecap: round; }
+    .ea-wave { fill: none; stroke: var(--on-cover); stroke-width: 7; stroke-linecap: round; }
+    .ea-dot { fill: var(--on-cover); }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ea-wave { animation: ea-flow 1.2s linear infinite; }
+    }
+    /* The sound wave slides towards the coil */
+    @keyframes ea-flow { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -28; } }
+    .ea-wave { stroke-dasharray: 14 14; }
+  </style>
+
+  <g>
+    <path class="ea-coil" d="M262 150 C262 104 214 84 178 100 C138 118 134 178 176 196 C214 212 252 188 246 156 C242 134 214 128 198 140 C186 150 190 166 204 166"/>
+    <circle class="ea-dot" cx="206" cy="152" r="8"/>
+    <path class="ea-wave" d="M40 150 C60 110 80 190 100 150 C120 110 140 190 160 150"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

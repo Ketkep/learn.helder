@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Building from '../../components/ear/Building.astro';
+import { takeaways, sources, sourcesNote } from '../../data/ear';
+---
+
+<TopicLayout
+  slug="how-the-ear-hears"
+  intro="The ear is a building with three floors. Try the ear canal as a tube, the bones as a lever, the air pipe that makes ears pop and the cochlea as a keyboard laid along a strip."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Building />
+</TopicLayout>

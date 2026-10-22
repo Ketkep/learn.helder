@@ -620,6 +620,15 @@ The page is a night sky atlas: navy paper, gold rules, four plates numbered I to
 - `src/components/plx/Atlas.astro` is the frame and `Panel*.astro` is one plate each.
 - `src/scripts/plx/plx.ts` starts all four plates.
 
+## The ear page: how the four rooms work
+
+The page is a blueprint (white lines on blueprint blue, a faint grid) of a building cut open, with a lift sign for each floor: G, 1, S (the back stairs) and 2. Room G is the ear canal as a tube closed at one end (resonance 343 over four times the length), with the standing wave drawn inside it. Room 1 multiplies an area ratio (10 to 35, default 14) by a lever (1.0 to 2.0, default 1.3) and shows the pressure gain and the decibels (20 log10 of the gain). Room S is the air pipe: climb and land change the outside pressure in steps (percent, made up), swallow evens out the middle ear, and the eardrum bulges toward the lower pressure. Room 2 maps a pitch to a place along the cochlea with a made up smooth curve from 20 Hz at the tip to 20,000 Hz at the base and plays the note (a held tone while the button is pressed, a plucked note from the keyboard). Without a script each room shows one picture or table.
+
+- `src/data/ear.ts` holds all the words, the takeaways and the sources.
+- `src/lib/ear.ts` holds the tube, lever, pressure and place maths and the drawings as SVG text.
+- `src/components/ear/Building.astro` is the frame and `Panel*.astro` is one room each.
+- `src/scripts/ear/ear.ts` starts all four rooms.
+
 ## Where things are
 
 ```
@@ -675,6 +684,7 @@ src/data/ttt.ts            everything the tic-tac-toe page says: slates, takeawa
 src/data/gps.ts            everything the GPS page says: channels, takeaways, sources
 src/data/photo.ts          everything the photosynthesis page says: hours, takeaways, sources
 src/data/plx.ts            everything the parallax page says: plates, takeaways, sources
+src/data/ear.ts            everything the ear page says: rooms, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -731,6 +741,7 @@ src/components/ttt/        the tic-tac-toe page: four slates and the slate frame
 src/components/gps/        the GPS page: four channels and the console frame
 src/components/photo/      the photosynthesis page: five parts and the day frame
 src/components/plx/        the parallax page: four plates and the atlas frame
+src/components/ear/        the ear page: four rooms and the building frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -784,6 +795,7 @@ src/styles/ttt.css         the tic-tac-toe page: dark green slate, chalk board, 
 src/styles/gps.css         the GPS page: dark console, map screens, bars
 src/styles/photo.css       the photosynthesis page: pale leaf green day, dials, charts, bars
 src/styles/plx.css         the parallax page: navy atlas, gold rules, sky window, bar
+src/styles/ear.css         the ear page: blueprint blue, rooms, lift signs, drawings
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -818,6 +830,7 @@ src/lib/tttview.ts        the board as HTML for the tic-tac-toe page
 src/lib/gps.ts            toy map, ring and spread maths and drawings for the GPS page
 src/lib/photo.ts          toy curves, mass balance and willow numbers for the photosynthesis page
 src/lib/plx.ts            parallax, parsec and light travel maths for the parallax page
+src/lib/ear.ts            ear canal, lever, air pipe and cochlea maths for the ear page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -883,6 +896,7 @@ src/scripts/ttt/         all four tic-tac-toe slates (ttt.ts)
 src/scripts/gps/         all four GPS channels (gps.ts)
 src/scripts/photo/       all five photosynthesis parts (photo.ts)
 src/scripts/plx/         all four parallax plates (plx.ts)
+src/scripts/ear/         all four ear rooms (ear.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

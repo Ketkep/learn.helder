@@ -1,0 +1,483 @@
+/* The ear page: a blueprint of a building with floors, white lines on blueprint blue. */
+
+.ear {
+  --board: #0d3354;
+  --panel: #12456f;
+  --line: #8fc3e8;
+  --wood: #a8dcff;
+  --cream: #f2f8fd;
+  --ink-fixed: #08233a;
+  --pink: #f4aaa0;
+  --blue: #9fd3ea;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .ear .needs-js {
+  display: none;
+}
+
+.ear :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.ear .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.ear .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+.ear .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.ear .room-body,
+.ear .paras,
+.ear .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.ear h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.ear .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.ear .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.ear .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.ear .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.ear .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.ear .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.ear .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.ear .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.ear .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.ear .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.ear .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.ear .times th,
+.ear .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.ear .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.ear .times tbody th {
+  font-weight: 700;
+}
+
+.ear .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.ear .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ear .pick:hover {
+  background: var(--wash);
+}
+
+.ear .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .ear .no-js-name {
+  display: none;
+}
+
+.ear .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.ear .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.ear .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.ear .btn:hover {
+  background: var(--wash);
+}
+
+.ear .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.ear .btn.fill:hover {
+  background: var(--cream);
+}
+
+.ear .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ear .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.ear .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.ear .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.ear .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.ear .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.ear .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.ear .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.ear .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.ear .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.ear .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ear .snd[aria-pressed='true'] .slash,
+.ear .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ear * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.ear .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Rooms ---------- */
+.ear .house {
+  width: min(100%, 56rem);
+  margin: clamp(1.4rem, 4vw, 2.4rem) auto;
+  padding-inline: var(--gutter);
+}
+
+.ear .room {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr);
+  gap: 0 1rem;
+  padding: 1.3rem 1.1rem 1.5rem;
+  border: 3px solid var(--cream);
+  border-top-width: 0;
+  background-color: var(--panel);
+  background-image: linear-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.ear .room:first-child {
+  border-top-width: 3px;
+}
+
+@media (min-width: 40rem) {
+  .ear .room {
+    grid-template-columns: 4.6rem minmax(0, 1fr);
+    gap: 0 1.6rem;
+    padding: 1.8rem 1.8rem 2rem;
+  }
+}
+
+.ear .sign {
+  display: grid;
+  place-items: center;
+  align-self: start;
+  aspect-ratio: 1;
+  border: 3px solid var(--cream);
+  border-radius: 8px;
+  background: var(--board);
+}
+
+.ear .sign span {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ear .tag {
+  background: var(--wood);
+}
+
+.ear .paras {
+  background: var(--panel);
+}
+
+/* ---------- The drawings ---------- */
+.ear .plan {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  border: 3px solid var(--cream);
+  border-radius: 8px;
+}
+
+.ear .stage {
+  fill: var(--board);
+}
+
+.ear .lab {
+  fill: var(--cream);
+  font-family: var(--font-body, sans-serif);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ear .tube {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 3;
+}
+
+.ear .swell {
+  fill: rgb(168 220 255 / 0.55);
+  stroke: var(--wood);
+  stroke-width: 2;
+}
+
+.ear .drum {
+  fill: var(--cream);
+}
+
+.ear .drum-disc {
+  fill: rgb(168 220 255 / 0.3);
+  stroke: var(--cream);
+  stroke-width: 3;
+}
+
+.ear .win-disc {
+  fill: var(--wood);
+  stroke: var(--cream);
+  stroke-width: 3;
+}
+
+.ear .bar {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.ear .wall {
+  fill: var(--cream);
+}
+
+.ear .skin {
+  fill: none;
+  stroke: var(--wood);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.ear .pipe {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 6;
+  stroke-dasharray: 2 9;
+  stroke-linecap: round;
+}
+
+.ear .strip {
+  fill: rgb(168 220 255 / 0.3);
+  stroke: var(--cream);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.ear .peak {
+  fill: var(--wood);
+  stroke: var(--cream);
+  stroke-width: 3;
+}

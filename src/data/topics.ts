@@ -567,6 +567,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-22',
     status: 'live',
   },
+  {
+    slug: 'how-the-ear-hears',
+    title: 'How the ear hears',
+    hook: 'Walk up the three floors of the ear and try the tube, the lever and the snail.',
+    category: 'Body',
+    accent: '#C46A8A',
+    preview: 'how-the-ear-hears',
+    dateAdded: '2026-10-22',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

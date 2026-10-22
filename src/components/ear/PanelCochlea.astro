@@ -1,0 +1,25 @@
+---
+// Top floor: the cochlea as a keyboard. Without a script the table lists some notes and their places.
+import { fmt, placeOf, stripSvg } from '../../lib/ear';
+const notes = [['A low bass note', 110], ['A above middle C', 440], ['A high flute note', 2000], ['The top of a piano', 4186]] as const;
+---
+
+<div class="tool" data-cochlea-tool>
+  <svg class="plan" viewBox="0 0 300 140" role="img" aria-label="The cochlea unrolled into a strip that is wide at the tip and narrow at the base, with a marker where the note on the slider is felt most." data-cochlea-svg>
+    <rect class="stage" x="1" y="1" width="298" height="138" rx="6"></rect>
+    <g set:html={stripSvg(440)} data-cochlea-g></g>
+  </svg>
+  <div class="controls needs-js" role="group" aria-label="Pick a note">
+    {notes.map(([name, hz], i) => <button type="button" class="pick" aria-pressed={i === 1 ? 'true' : 'false'} data-cochlea-note={hz}>{name}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Pitch <output data-cochlea-out>440</output> Hz</span><input class="range" type="range" min="0" max="100" step="1" value="45" data-cochlea-range aria-label="Pitch of the note, in hertz, on a scale that multiplies at each step" /></label>
+    <button type="button" class="btn fill" data-cochlea-play>Hear it</button>
+  </div>
+  <table class="times">
+    <caption class="sr-only">Some notes and where they are felt along the cochlea in this toy map</caption>
+    <thead><tr><th scope="col">Note</th><th scope="col">Hertz</th><th scope="col">Along from the tip</th></tr></thead>
+    <tbody>{notes.map(([name, hz]) => <tr><th scope="row">{name}</th><td>{fmt(hz)}</td><td>{Math.round(placeOf(hz) * 100)}%</td></tr>)}</tbody>
+  </table>
+  <p class="status" aria-live="polite" data-cochlea-status>A note of 440 hertz is felt about {Math.round(placeOf(440) * 100)} per cent of the way from the tip to the base, in this toy map.</p>
+</div>
