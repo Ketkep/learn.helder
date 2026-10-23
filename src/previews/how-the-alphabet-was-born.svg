@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .al-stroke { fill: none; stroke: var(--on-cover); stroke-width: 14; stroke-linecap: round; stroke-linejoin: round; }
+    .al-glyph { transform-box: view-box; transform-origin: 200px 130px; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .al-glyph { animation: al-turn 3.4s ease-in-out infinite alternate; }
+    }
+    /* The ox head turns over, and becomes the letter A */
+    @keyframes al-turn { 0% { transform: rotate(0deg); } 100% { transform: rotate(180deg); } }
+  </style>
+
+  <g class="al-glyph">
+    <path class="al-stroke" d="M200,205 L152,70 M200,205 L248,70"/>
+    <path class="al-stroke" d="M152,70 C130,70 126,46 142,36 M248,70 C270,70 274,46 258,36"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

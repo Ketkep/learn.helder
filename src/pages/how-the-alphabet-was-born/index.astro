@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Cabinet from '../../components/alpha/Cabinet.astro';
+import { takeaways, sources, sourcesNote } from '../../data/alpha';
+---
+
+<TopicLayout
+  slug="how-the-alphabet-was-born"
+  intro="Our letter A began as a picture of an ox. Turn the ox head upside down, find what the old letter names meant, count the letters of different alphabets and follow the chain from hieroglyphs to English."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Cabinet />
+</TopicLayout>

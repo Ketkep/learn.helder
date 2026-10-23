@@ -656,6 +656,15 @@ The page is a river drawn down the page as a ribbon beside each stop, getting wi
 - `src/components/river/Valley.astro` is the frame and `Panel*.astro` is one stop each.
 - `src/scripts/river/river.ts` starts all four stops.
 
+## The alphabet page: how the four drawers work
+
+The page is a museum cabinet: four wooden drawers, each a `details` element that is open by default and can be closed by hand, with a cream inside. Drawer 1 turns one drawing, an ox head with horns, through 180 degrees in a slider, with the horns fading out and a crossbar fading in, so it ends as an A (four named steps from Proto-Sinaitic to Latin). The drawing is ours, not an ancient sign. Drawer 2 picks one of six letters (aleph, beth, gimel, daleth, mem, nun) and says what it meant, its Greek name and our letter, with a note where the meaning is argued. Drawer 3 shows the number of letters of seven alphabets (12 to 33) as bars. Drawer 4 steps along the chain from Egyptian hieroglyphs to English, with dates and letter counts, one step at a time. Without a script every drawer is open and every step is listed.
+
+- `src/data/alpha.ts` holds all the words, the takeaways and the sources.
+- `src/lib/alpha.ts` holds the stages, the letters, the alphabets, the chain and the drawing of the turning letter.
+- `src/components/alpha/Cabinet.astro` is the frame and `Panel*.astro` is one drawer each.
+- `src/scripts/alpha/alpha.ts` starts all four drawers.
+
 ## Where things are
 
 ```
@@ -715,6 +724,7 @@ src/data/ear.ts            everything the ear page says: rooms, takeaways, sourc
 src/data/antikythera.ts   everything the Antikythera page says: parts, takeaways, sources
 src/data/ecc.ts            everything the error correcting codes page says: counters, takeaways, sources
 src/data/river.ts          everything the river page says: stops, takeaways, sources
+src/data/alpha.ts          everything the alphabet page says: drawers, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -775,6 +785,7 @@ src/components/ear/        the ear page: four rooms and the building frame
 src/components/antikythera/  the Antikythera page: four parts and the gearbox frame
 src/components/ecc/        the error correcting codes page: four counters and the office frame
 src/components/river/      the river page: four stops and the valley frame
+src/components/alpha/      the alphabet page: four drawers and the cabinet frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -832,6 +843,7 @@ src/styles/ear.css         the ear page: blueprint blue, rooms, lift signs, draw
 src/styles/antikythera.css  the Antikythera page: dark bronze, plates, dials, gears
 src/styles/ecc.css         the error correcting codes page: kraft paper, postcards, bits, circles
 src/styles/river.css       the river page: sand paper, ribbon, charts
+src/styles/alpha.css       the alphabet page: wooden drawers, plate, bars, chain
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -870,6 +882,7 @@ src/lib/ear.ts            ear canal, lever, air pipe and cochlea maths for the e
 src/lib/antikythera.ts    cycles, Moon, eclipse and gear maths and drawings for the Antikythera page
 src/lib/ecc.ts            noise, vote, parity and Hamming code maths for the error correcting codes page
 src/lib/river.ts          long profile, grain, sinuosity and delta maths for the river page
+src/lib/alpha.ts          stages, letters, alphabets and chain for the alphabet page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -939,6 +952,7 @@ src/scripts/ear/         all four ear rooms (ear.ts)
 src/scripts/antikythera/ all four Antikythera parts (antikythera.ts)
 src/scripts/ecc/         all four error correcting code counters (ecc.ts)
 src/scripts/river/       all four river stops (river.ts)
+src/scripts/alpha/       all four alphabet drawers (alpha.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

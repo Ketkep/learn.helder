@@ -1,0 +1,15 @@
+---
+// Drawer 4: the chain. Without a script the list shows every step.
+import { STEPS } from '../../lib/alpha';
+---
+
+<div class="tool" data-chain-tool>
+  <ol class="chain" data-chain-list>
+    {STEPS.map((s, i) => <li data-step={i}><span class="step-name">{s.name}</span><span class="step-when">{s.when}</span><span class="step-letters">{s.letters}</span><span class="step-text">{s.text}</span></li>)}
+  </ol>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-chain-next>Next step</button>
+    <button type="button" class="btn" data-chain-reset>Start again</button>
+  </div>
+  <p class="status needs-js" aria-live="polite" data-chain-status>Press next to step along the chain.</p>
+</div>

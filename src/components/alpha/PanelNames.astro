@@ -1,0 +1,17 @@
+---
+// Drawer 2: what the names meant. Without a script the table lists six letters.
+import { LETTERS } from '../../lib/alpha';
+const l = LETTERS[0];
+---
+
+<div class="tool" data-names-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a letter">
+    {LETTERS.map((x, i) => <button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'} data-names-pick={i}>{x.name}</button>)}
+  </div>
+  <table class="times">
+    <caption class="sr-only">Six Phoenician letters, what they meant and what they became</caption>
+    <thead><tr><th scope="col">Phoenician</th><th scope="col">Meant</th><th scope="col">Greek</th><th scope="col">Ours</th></tr></thead>
+    <tbody>{LETTERS.map((x) => <tr><th scope="row">{x.name}</th><td>{x.meaning}</td><td>{x.greek}</td><td>{x.latin}</td></tr>)}</tbody>
+  </table>
+  <p class="status" aria-live="polite" data-names-status>{l.name} meant {l.meaning}. The Greeks called it {l.greek}, and it became our {l.latin}. {l.note}</p>
+</div>

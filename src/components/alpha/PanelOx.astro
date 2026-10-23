@@ -1,0 +1,16 @@
+---
+// Drawer 1: turn the ox. Without a script the drawing shows the ox head and the first stage.
+import { glyphSvg, STAGES } from '../../lib/alpha';
+---
+
+<div class="tool" data-ox-tool>
+  <svg class="plate" viewBox="0 0 300 140" role="img" aria-label="A drawing of an ox head with two horns that turns upside down, step by step, into the letter A." data-ox-svg>
+    <rect class="stage" x="1" y="1" width="298" height="138" rx="8"></rect>
+    <g set:html={glyphSvg(0)} data-ox-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Step <output data-ox-out>1</output> of 4</span><input class="range" type="range" min="0" max="300" step="1" value="0" data-ox-range aria-label="Turn the ox head into an A, from start to end" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-ox-status>{STAGES[0].name}. {STAGES[0].text}</p>
+  <ol class="log">{STAGES.map((s) => <li>{s.name}</li>)}</ol>
+</div>

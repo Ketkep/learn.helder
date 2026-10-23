@@ -1,0 +1,884 @@
+/* The error correcting codes page: a kraft paper sorting office with postcards and postmarks. */
+
+.alpha {
+  --board: #e7d8b6;
+  --panel: #fbf6e6;
+  --line: #9c8458;
+  --wood: #7a4e1e;
+  --cream: #271d12;
+  --ink-fixed: #fff6e4;
+  --pink: #7a4e1e;
+  --blue: #2d5f8a;
+  --wash: rgb(0 0 0 / 0.1);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .alpha .needs-js {
+  display: none;
+}
+
+.alpha :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.alpha .paras,
+.alpha .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.alpha h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.alpha .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.alpha .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.alpha .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.alpha .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.alpha .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.alpha .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.alpha .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.alpha .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.alpha .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.alpha .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.alpha .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.alpha .times th,
+.alpha .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.alpha .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.alpha .times tbody th {
+  font-weight: 700;
+}
+
+.alpha .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.alpha .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.alpha .pick:hover {
+  background: var(--wash);
+}
+
+.alpha .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .alpha .no-js-name {
+  display: none;
+}
+
+.alpha .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.alpha .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.alpha .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.alpha .btn:hover {
+  background: var(--wash);
+}
+
+.alpha .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.alpha .btn.fill:hover {
+  background: var(--cream);
+}
+
+.alpha .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.alpha .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.alpha .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.alpha .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.alpha .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.alpha .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.alpha .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.alpha .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.alpha .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.alpha .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.alpha .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.alpha .snd[aria-pressed='true'] .slash,
+.alpha .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alpha * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.alpha .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Cabinet ---------- */
+.alpha .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+}
+
+.alpha .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 52rem);
+  margin-inline: auto;
+}
+
+.alpha .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.alpha .cabinet {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 52rem);
+  margin-inline: auto;
+  padding: 1.4rem var(--gutter) 3rem;
+}
+
+.alpha .drawer {
+  background: #8b5a30;
+  border: 3px solid #4d2f16;
+  border-radius: 8px;
+  box-shadow: 0 5px 0 rgb(60 36 14 / 0.35);
+}
+
+.alpha .drawer summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'label handle'
+    'name handle';
+  align-items: center;
+  gap: 0.1rem 1rem;
+  padding: 0.9rem 1.2rem;
+  color: #fff4dc;
+  cursor: pointer;
+  list-style: none;
+}
+
+.alpha .drawer summary::-webkit-details-marker {
+  display: none;
+}
+
+.alpha .drawer .label {
+  grid-area: label;
+  font-family: var(--font-hand);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.alpha .drawer .name {
+  grid-area: name;
+  font-family: var(--font-display, Georgia, serif);
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.alpha .drawer .handle {
+  grid-area: handle;
+  width: 3.4rem;
+  height: 1rem;
+  border: 3px solid #5a4410;
+  border-radius: 999px;
+  background: #d5ae52;
+}
+
+.alpha .drawer-body {
+  display: grid;
+  gap: 0.8rem;
+  min-width: 0;
+  padding: 1.3rem 1.2rem 1.6rem;
+  background: var(--panel);
+  border-top: 3px solid #4d2f16;
+  border-radius: 0 0 5px 5px;
+}
+
+.alpha .drawer[open] summary {
+  padding-bottom: 0.7rem;
+}
+
+.alpha .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.alpha .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.alpha .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.alpha .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.alpha .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.alpha .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.alpha .times th,
+.alpha .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.alpha .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.alpha .times tbody th {
+  font-weight: 700;
+}
+
+.alpha .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.alpha .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.alpha .pick:hover {
+  background: var(--wash);
+}
+
+.alpha .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .alpha .no-js-name {
+  display: none;
+}
+
+.alpha .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.alpha .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.alpha .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.alpha .btn:hover {
+  background: var(--wash);
+}
+
+.alpha .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.alpha .btn.fill:hover {
+  background: var(--cream);
+}
+
+.alpha .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.alpha .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.alpha .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.alpha .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.alpha .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.alpha .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.alpha .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.alpha .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.alpha .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.alpha .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.alpha .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.alpha .snd[aria-pressed='true'] .slash,
+.alpha .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alpha * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.alpha .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Counters ---------- */
+.alpha .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.alpha .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 52rem);
+  margin-inline: auto;
+}
+
+.alpha .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.alpha .counters {
+  display: grid;
+  gap: 1.6rem;
+  width: min(100%, 52rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter);
+}
+
+.alpha .card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.8rem;
+  padding: 1.4rem 1.2rem 1.6rem;
+  background: var(--panel);
+  border: 2px dashed var(--line);
+  border-radius: 6px;
+  box-shadow: 0 6px 0 rgb(80 60 20 / 0.12);
+}
+
+@media (min-width: 40rem) {
+  .alpha .card {
+    grid-template-columns: 5rem minmax(0, 1fr);
+    gap: 0 1.6rem;
+    padding: 1.8rem 1.8rem 2rem;
+  }
+}
+
+.alpha .postmark {
+  width: 3.2rem;
+  display: grid;
+  place-items: center;
+  align-self: start;
+  aspect-ratio: 1;
+  border: 3px double var(--wood);
+  border-radius: 50%;
+  color: var(--wood);
+  transform: rotate(-8deg);
+}
+
+@media (min-width: 40rem) {
+  .alpha .postmark {
+    width: auto;
+  }
+}
+
+.alpha .postmark span {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.alpha .tag {
+  background: #f6e6a8;
+  color: #271d12;
+}
+
+.alpha .tag::before {
+  background: var(--board);
+}
+
+.alpha .tag :focus-visible {
+  outline-color: #271d12;
+}
+
+.alpha .times thead th {
+  color: #5a4a30;
+}
+
+/* ---------- The plate ---------- */
+.alpha .plate {
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.alpha .stage {
+  fill: #fffaf0;
+}
+
+.alpha .stroke {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.alpha .log li.on {
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+/* ---------- Bars ---------- */
+.alpha .bars {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.alpha .bars li {
+  display: grid;
+  grid-template-columns: 5.6rem minmax(0, 1fr) 2.2rem;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 6px;
+  font-size: 0.97rem;
+}
+
+.alpha .bars li.on {
+  box-shadow: 0 0 0 2px var(--wood);
+}
+
+.alpha .bar-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.alpha .track {
+  display: block;
+  height: 1.1rem;
+  border-radius: 5px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 2px var(--line);
+  overflow: hidden;
+}
+
+.alpha .track .fill {
+  display: block;
+  height: 100%;
+  min-width: 3px;
+  background: var(--wood);
+}
+
+/* ---------- The chain ---------- */
+.alpha .chain {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.alpha .chain li {
+  position: relative;
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.6rem 0.8rem 0.7rem 2.8rem;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  background: #fffaf0;
+  counter-increment: step;
+}
+
+.alpha .chain li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0.7rem;
+  top: 0.6rem;
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.alpha .chain li.now {
+  border-color: var(--wood);
+  box-shadow: 0 0 0 2px var(--wood);
+}
+
+.alpha .step-name {
+  font-weight: 800;
+}
+
+.alpha .step-when,
+.alpha .step-letters {
+  font-size: 0.92rem;
+  color: #5a4a30;
+}
+
+.alpha .step-text {
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+.alpha .stepper li:not(.shown) {
+  display: none;
+}

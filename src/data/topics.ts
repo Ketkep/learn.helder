@@ -607,6 +607,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-23',
     status: 'live',
   },
+  {
+    slug: 'how-the-alphabet-was-born',
+    title: 'How the alphabet was born',
+    hook: 'Turn an ox head upside down and watch it become the letter A.',
+    category: 'Language',
+    accent: '#8A9A5B',
+    preview: 'how-the-alphabet-was-born',
+    dateAdded: '2026-10-23',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

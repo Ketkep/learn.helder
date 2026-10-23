@@ -1,0 +1,15 @@
+---
+// Drawer 3: how many letters. Without a script the bars show all seven alphabets.
+import { ALPHABETS } from '../../lib/alpha';
+const a = ALPHABETS[4];
+---
+
+<div class="tool" data-count-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick an alphabet">
+    {ALPHABETS.map((x, i) => <button type="button" class="pick" aria-pressed={i === 4 ? 'true' : 'false'} data-count-pick={i}>{x.name}</button>)}
+  </div>
+  <ul class="bars" data-count-bars>
+    {ALPHABETS.map((x, i) => <li data-bar={i}><span class="bar-label">{x.name}</span><span class="track"><span class="fill" style={`width:${(x.letters / 33) * 100}%`}></span></span><span class="bar-num">{x.letters}</span></li>)}
+  </ul>
+  <p class="status" aria-live="polite" data-count-status>{a.name} has {a.letters} letters. {a.note}</p>
+</div>
