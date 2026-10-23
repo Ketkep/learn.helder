@@ -597,6 +597,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-23',
     status: 'live',
   },
+  {
+    slug: 'how-a-river-shapes-the-land',
+    title: 'How a river shapes the land',
+    hook: 'Follow a river from the spring to the sea and see what it lifts, carries and drops.',
+    category: 'Nature',
+    accent: '#C4A06A',
+    preview: 'how-a-river-shapes-the-land',
+    dateAdded: '2026-10-23',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

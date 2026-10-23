@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Valley from '../../components/river/Valley.astro';
+import { takeaways, sources, sourcesNote } from '../../data/river';
+---
+
+<TopicLayout
+  slug="how-a-river-shapes-the-land"
+  intro="Follow a river from its spring to the sea. See how steeply it falls, which grains the water can lift, how a bend eats its bank and what shape a delta takes."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Valley />
+</TopicLayout>

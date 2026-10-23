@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .rv-river { fill: none; stroke: var(--on-cover); stroke-linecap: round; stroke-linejoin: round; }
+    .rv-flow { fill: none; stroke: var(--cover-b); stroke-width: 3; stroke-dasharray: 2 16; stroke-linecap: round; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .rv-flow { animation: rv-run 1.4s linear infinite; }
+    }
+    /* Dots run down the river from spring to sea */
+    @keyframes rv-run { 0% { stroke-dashoffset: 36; } 100% { stroke-dashoffset: 0; } }
+  </style>
+
+  <g transform="translate(36 -6) scale(0.8)">
+    <path class="rv-river" stroke-width="6" d="M70 30 C100 60 40 90 80 120"/>
+    <path class="rv-river" stroke-width="12" d="M80 120 C120 150 170 110 200 150 C230 190 180 200 210 220"/>
+    <path class="rv-river" stroke-width="20" d="M210 220 C220 235 200 240 200 250"/>
+    <path class="rv-river" stroke-width="10" d="M200 250 L150 280 M200 250 L200 288 M200 250 L252 278"/>
+    <path class="rv-flow" d="M70 30 C100 60 40 90 80 120 C120 150 170 110 200 150 C230 190 180 200 210 220 C220 235 200 240 200 250"/>
+  </g>
+  <circle class="knob" cx="200" cy="266" r="14"/>
+</svg>

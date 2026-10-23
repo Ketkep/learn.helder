@@ -1,0 +1,20 @@
+---
+// Stop 2: what the water can lift. Without a script the table gives three grains at one speed.
+import { chartSvg, grainName, liftSpeed, settleSpeed, ZONE_TEXT, zoneOf } from '../../lib/river';
+const mm = 0.3;
+const v = 60;
+---
+
+<div class="tool" data-grains-tool>
+  <svg class="chart" viewBox="0 0 300 160" role="img" aria-label="A chart of grain size against water speed with three zones: eroded at high speed, carried in the middle and dropped at low speed." data-grains-svg>
+    <rect class="stage" x="1" y="1" width="298" height="158" rx="8"></rect>
+    <g set:html={chartSvg(mm, v)} data-grains-g></g>
+    <text class="lab" x="14" y="156">fine</text>
+    <text class="lab" x="286" y="156" text-anchor="end">coarse</text>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Grain <output data-grains-size>0.3</output> mm</span><input class="range" type="range" min="0" max="100" step="1" value="60" data-grains-grain aria-label="Grain size, on a scale that multiplies at each step" /></label>
+    <label class="field"><span>Speed <output data-grains-speed>60</output> cm/s</span><input class="range" type="range" min="1" max="300" step="1" value="60" data-grains-v aria-label="Water speed, in centimetres per second" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-grains-status>Grains of {mm} mm are {grainName(mm)}. The toy needs {Math.round(liftSpeed(mm))} cm/s to lift them and holds them down to {settleSpeed(mm).toFixed(1)} cm/s. At {v} cm/s: {zoneOf(mm, v) === 'lifted' ? ZONE_TEXT.lifted : ZONE_TEXT[zoneOf(mm, v)]}</p>
+</div>

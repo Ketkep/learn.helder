@@ -1,0 +1,17 @@
+---
+// Stop 3: a river that bends. Without a script the picture shows a winding river.
+import { meanderSvg, sinuosity, sinuosityClass } from '../../lib/river';
+const amp = 20;
+const si = sinuosity(amp);
+---
+
+<div class="tool" data-bend-tool>
+  <svg class="chart" viewBox="0 0 300 140" role="img" aria-label="A river seen from above, bending from side to side across a valley. Short marks show the outer bank of each bend." data-bend-svg>
+    <rect class="stage" x="1" y="1" width="298" height="138" rx="8"></rect>
+    <g set:html={meanderSvg(amp)} data-bend-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Size of the bends <output data-bend-out>{amp}</output></span><input class="range" type="range" min="0" max="45" step="1" value={amp} data-bend-range aria-label="Size of the bends" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-bend-status>The channel is {si.toFixed(2)} times as long as the valley. A sinuosity of {si.toFixed(2)} is called {sinuosityClass(si)} in one common scheme.</p>
+</div>

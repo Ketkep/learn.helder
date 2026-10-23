@@ -647,6 +647,15 @@ The page is a kraft paper sorting office with four postcards, each with a postma
 - `src/components/ecc/Office.astro` is the frame and `Panel*.astro` is one counter each.
 - `src/scripts/ecc/ecc.ts` starts all four counters.
 
+## The river page: how the four stops work
+
+The page is a river drawn down the page as a ribbon beside each stop, getting wider towards the sea, on warm sand paper. Stop 1 slides along a made up river (500 km, starting at 1,000 m) with a smooth concave profile and says which course it is and what the river mostly does there. Stop 2 is a Hjulstrom style chart: slide the grain size (0.001 to 100 mm) and the water speed (1 to 300 cm/s) and the page says whether the river lifts, carries or drops the grain, from two made up curves with the real shape (sand is lifted at the lowest speed). Stop 3 draws a sine shaped river across a valley, measures its sinuosity (channel length over valley length) and names the class (below 1.05, 1.25, 1.5 and above). Stop 4 turns river, wave and tide strength up and down, and the biggest decides which of three delta drawings is shown. Without a script each stop shows one picture.
+
+- `src/data/river.ts` holds all the words, the takeaways and the sources.
+- `src/lib/river.ts` holds the profile, the grain curves, the sinuosity and the drawings as SVG text.
+- `src/components/river/Valley.astro` is the frame and `Panel*.astro` is one stop each.
+- `src/scripts/river/river.ts` starts all four stops.
+
 ## Where things are
 
 ```
@@ -705,6 +714,7 @@ src/data/plx.ts            everything the parallax page says: plates, takeaways,
 src/data/ear.ts            everything the ear page says: rooms, takeaways, sources
 src/data/antikythera.ts   everything the Antikythera page says: parts, takeaways, sources
 src/data/ecc.ts            everything the error correcting codes page says: counters, takeaways, sources
+src/data/river.ts          everything the river page says: stops, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -764,6 +774,7 @@ src/components/plx/        the parallax page: four plates and the atlas frame
 src/components/ear/        the ear page: four rooms and the building frame
 src/components/antikythera/  the Antikythera page: four parts and the gearbox frame
 src/components/ecc/        the error correcting codes page: four counters and the office frame
+src/components/river/      the river page: four stops and the valley frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -820,6 +831,7 @@ src/styles/plx.css         the parallax page: navy atlas, gold rules, sky window
 src/styles/ear.css         the ear page: blueprint blue, rooms, lift signs, drawings
 src/styles/antikythera.css  the Antikythera page: dark bronze, plates, dials, gears
 src/styles/ecc.css         the error correcting codes page: kraft paper, postcards, bits, circles
+src/styles/river.css       the river page: sand paper, ribbon, charts
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -857,6 +869,7 @@ src/lib/plx.ts            parallax, parsec and light travel maths for the parall
 src/lib/ear.ts            ear canal, lever, air pipe and cochlea maths for the ear page
 src/lib/antikythera.ts    cycles, Moon, eclipse and gear maths and drawings for the Antikythera page
 src/lib/ecc.ts            noise, vote, parity and Hamming code maths for the error correcting codes page
+src/lib/river.ts          long profile, grain, sinuosity and delta maths for the river page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -925,6 +938,7 @@ src/scripts/plx/         all four parallax plates (plx.ts)
 src/scripts/ear/         all four ear rooms (ear.ts)
 src/scripts/antikythera/ all four Antikythera parts (antikythera.ts)
 src/scripts/ecc/         all four error correcting code counters (ecc.ts)
+src/scripts/river/       all four river stops (river.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

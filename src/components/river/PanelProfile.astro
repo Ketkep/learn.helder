@@ -1,0 +1,16 @@
+---
+// Stop 1: the long profile. Without a script the picture shows the river a third of the way down.
+import { COURSE_TEXT, courseOf, fmt, height, profileSvg, slope } from '../../lib/river';
+const x = 0.33;
+---
+
+<div class="tool" data-profile-tool>
+  <svg class="chart" viewBox="0 0 300 140" role="img" aria-label="The height of a made up river along its length. It starts high and falls steeply, then flattens as it reaches the sea." data-profile-svg>
+    <rect class="stage" x="1" y="1" width="298" height="138" rx="8"></rect>
+    <g set:html={profileSvg(x)} data-profile-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Distance <output data-profile-out>{Math.round(x * 500)}</output> km</span><input class="range" type="range" min="0" max="500" step="5" value={Math.round(x * 500)} data-profile-range aria-label="Distance from the source, in kilometres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-profile-status>At {Math.round(x * 500)} km the river is {fmt(height(x))} m above the sea and falls {fmt(slope(x), 1)} m for every km. {COURSE_TEXT[courseOf(x)]}</p>
+</div>

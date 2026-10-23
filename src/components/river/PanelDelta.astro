@@ -1,0 +1,16 @@
+---
+// Stop 4: what builds a delta. Without a script the picture shows the river dominated shape.
+import { deltaSvg, SHAPE_TEXT } from '../../lib/river';
+---
+
+<div class="tool" data-delta-tool>
+  <svg class="chart" viewBox="0 0 300 140" role="img" aria-label="A delta seen from above, with the land at the top and the sea below. The shape depends on the river, the waves and the tides." data-delta-svg>
+    <g set:html={deltaSvg('river')} data-delta-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>River <output data-delta-out-river>8</output></span><input class="range" type="range" min="0" max="10" step="1" value="8" data-delta-river aria-label="Strength of the river" /></label>
+    <label class="field"><span>Waves <output data-delta-out-waves>3</output></span><input class="range" type="range" min="0" max="10" step="1" value="3" data-delta-waves aria-label="Strength of the waves" /></label>
+    <label class="field"><span>Tides <output data-delta-out-tides>2</output></span><input class="range" type="range" min="0" max="10" step="1" value="2" data-delta-tides aria-label="Strength of the tides" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-delta-status>{SHAPE_TEXT.river}</p>
+</div>
