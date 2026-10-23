@@ -638,6 +638,15 @@ The page is a dark bronze gearbox with a front face, a back face and an inside (
 - `src/components/antikythera/Gearbox.astro` is the frame and `Panel*.astro` is one part each.
 - `src/scripts/antikythera/antikythera.ts` starts all four parts.
 
+## The error correcting codes page: how the four counters work
+
+The page is a kraft paper sorting office with four postcards, each with a postmark number. Counter 1 sends the letter H as eight bits through a wire that flips each bit with a chance you choose (0 to 30 per cent) and shows the bits that flipped. The chance that all eight arrive is (1 minus p) to the eighth. Counter 2 compares that with three copies and a majority vote, which fails with chance 3p squared times (1 minus p) plus p cubed per bit. Counter 3 adds an even parity bit and lets you flip bits to see that one flip is caught but not located and two flips slip through. Counter 4 is the Hamming (7,4) code drawn as three overlapping circles: four message bits plus three check bits, each circle holding an even number of ones, and the failed circles read as a binary position. On load the page tries all 16 messages with all 7 single flips (112 cases, all put right) and all 21 double flips of each (336 cases, none right) and says so. Without a script each counter shows one picture or table.
+
+- `src/data/ecc.ts` holds all the words, the takeaways and the sources.
+- `src/lib/ecc.ts` holds the bit helpers, the vote and parity sums, the Hamming encoder, decoder and self test, and the circle drawing.
+- `src/components/ecc/Office.astro` is the frame and `Panel*.astro` is one counter each.
+- `src/scripts/ecc/ecc.ts` starts all four counters.
+
 ## Where things are
 
 ```
@@ -695,6 +704,7 @@ src/data/photo.ts          everything the photosynthesis page says: hours, takea
 src/data/plx.ts            everything the parallax page says: plates, takeaways, sources
 src/data/ear.ts            everything the ear page says: rooms, takeaways, sources
 src/data/antikythera.ts   everything the Antikythera page says: parts, takeaways, sources
+src/data/ecc.ts            everything the error correcting codes page says: counters, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -753,6 +763,7 @@ src/components/photo/      the photosynthesis page: five parts and the day frame
 src/components/plx/        the parallax page: four plates and the atlas frame
 src/components/ear/        the ear page: four rooms and the building frame
 src/components/antikythera/  the Antikythera page: four parts and the gearbox frame
+src/components/ecc/        the error correcting codes page: four counters and the office frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -808,6 +819,7 @@ src/styles/photo.css       the photosynthesis page: pale leaf green day, dials, 
 src/styles/plx.css         the parallax page: navy atlas, gold rules, sky window, bar
 src/styles/ear.css         the ear page: blueprint blue, rooms, lift signs, drawings
 src/styles/antikythera.css  the Antikythera page: dark bronze, plates, dials, gears
+src/styles/ecc.css         the error correcting codes page: kraft paper, postcards, bits, circles
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -844,6 +856,7 @@ src/lib/photo.ts          toy curves, mass balance and willow numbers for the ph
 src/lib/plx.ts            parallax, parsec and light travel maths for the parallax page
 src/lib/ear.ts            ear canal, lever, air pipe and cochlea maths for the ear page
 src/lib/antikythera.ts    cycles, Moon, eclipse and gear maths and drawings for the Antikythera page
+src/lib/ecc.ts            noise, vote, parity and Hamming code maths for the error correcting codes page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -911,6 +924,7 @@ src/scripts/photo/       all five photosynthesis parts (photo.ts)
 src/scripts/plx/         all four parallax plates (plx.ts)
 src/scripts/ear/         all four ear rooms (ear.ts)
 src/scripts/antikythera/ all four Antikythera parts (antikythera.ts)
+src/scripts/ecc/         all four error correcting code counters (ecc.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

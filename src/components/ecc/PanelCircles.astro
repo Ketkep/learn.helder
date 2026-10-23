@@ -1,0 +1,22 @@
+---
+// Counter 4: three circles. Without a script the picture shows the message 1011 with no flips.
+import { circlesSvg, encode, syndrome } from '../../lib/ecc';
+const d = [1, 0, 1, 1];
+const w = encode(d);
+---
+
+<div class="tool" data-circles-tool>
+  <svg class="venn" viewBox="0 0 300 232" role="img" aria-label="Three overlapping circles holding seven bits. Each circle must hold an even number of ones." data-circles-svg>
+    <rect class="stage" x="1" y="1" width="298" height="230" rx="8"></rect>
+    <g set:html={circlesSvg(w, syndrome(w), [])} data-circles-g></g>
+  </svg>
+  <div class="controls needs-js" role="group" aria-label="The four message bits">
+    {d.map((b, i) => <button type="button" class="pick" aria-pressed={b ? 'true' : 'false'} data-circles-d={i}>Message bit {i + 1}: {b}</button>)}
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Flip a bit on the wire">
+    {['p1', 'p2', 'd1', 'p3', 'd2', 'd3', 'd4'].map((n, i) => <button type="button" class="btn" data-circles-flip={i + 1}>Flip {n}</button>)}
+    <button type="button" class="btn fill" data-circles-fix>Decode</button>
+    <button type="button" class="btn" data-circles-reset>Clean wire</button>
+  </div>
+  <p class="status" aria-live="polite" data-circles-status>The message 1011 is sent as seven bits. Every circle holds an even number of ones. Flip a bit to see the circles that fail.</p>
+</div>

@@ -1,0 +1,13 @@
+---
+// Counter 3: one check bit. Without a script the row shows the letter H with its check bit and the rule.
+import { bitsOf, parityOf } from '../../lib/ecc';
+const bits = bitsOf('H').slice(1);
+const check = parityOf(bits);
+---
+
+<div class="tool" data-check-tool>
+  <div class="row"><span class="row-label">Word</span><div class="bits" data-check-bits>{[...bits, check].map((b, i) => <span class={i === 7 ? 'bit check' : 'bit'}>{b}</span>)}</div></div>
+  <p class="hint needs-js">Press a bit to flip it. The last bit is the check bit.</p>
+  <div class="controls needs-js"><button type="button" class="btn" data-check-reset>Start again</button></div>
+  <p class="status" aria-live="polite" data-check-status>The letter H is 1001000. It has two ones, so the check bit is 0, and the number of ones is even. If one bit flips, the number turns odd and the receiver knows. It cannot tell which bit.</p>
+</div>

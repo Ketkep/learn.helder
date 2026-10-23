@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Office from '../../components/ecc/Office.astro';
+import { takeaways, sources, sourcesNote } from '../../data/ecc';
+---
+
+<TopicLayout
+  slug="how-error-correcting-codes-work"
+  intro="A flipped bit can turn one letter into another. See what a noisy wire does, say it three times, add a check bit and find the bad bit with three circles."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Office />
+</TopicLayout>

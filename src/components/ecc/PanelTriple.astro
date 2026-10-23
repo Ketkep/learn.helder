@@ -1,0 +1,23 @@
+---
+// Counter 2: say it three times. Without a script the table shows three chances.
+import { fmt, intact, tripleWrong } from '../../lib/ecc';
+const rows = [0.01, 0.05, 0.1, 0.2];
+---
+
+<div class="tool" data-triple-tool>
+  <table class="times">
+    <caption class="sr-only">Chance that a letter arrives right, without a code and with three copies and a vote</caption>
+    <thead><tr><th scope="col">Chance of a flip</th><th scope="col">Plain</th><th scope="col">Three copies</th></tr></thead>
+    <tbody data-triple-body>
+      {rows.map((p) => <tr><th scope="row">{fmt(p * 100)}%</th><td>{fmt(intact(p) * 100, 1)}%</td><td>{fmt(intact(tripleWrong(p) , 8) * 100, 1)}%</td></tr>)}
+    </tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Chance of a flip <output data-triple-out>10</output>%</span><input class="range" type="range" min="0" max="30" step="1" value="10" data-triple-range aria-label="Chance that each bit is flipped, in per cent" /></label>
+  </div>
+  <ul class="bars needs-js">
+    <li><span class="bar-label">Plain</span><span class="track"><span class="fill" data-triple-plain></span></span><span class="bar-num" data-triple-plain-num></span></li>
+    <li><span class="bar-label">Three copies</span><span class="track"><span class="fill alt" data-triple-three></span></span><span class="bar-num" data-triple-three-num></span></li>
+  </ul>
+  <p class="status" aria-live="polite" data-triple-status>Each row shows the chance that a whole letter arrives right. Three copies use 24 bits instead of 8.</p>
+</div>

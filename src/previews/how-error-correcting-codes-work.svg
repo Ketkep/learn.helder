@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ec-ring { fill: none; stroke: var(--on-cover); stroke-width: 7; }
+    .ec-bit { fill: var(--on-cover); font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 30px; font-weight: 800; }
+    .ec-bad { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 6; transform-box: fill-box; transform-origin: center; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ec-bad { animation: ec-blink 1.2s ease-in-out infinite alternate; }
+    }
+    /* The flipped bit blinks, and the circles point at it */
+    @keyframes ec-blink { 0% { opacity: 0.2; } 100% { opacity: 1; } }
+  </style>
+
+  <g>
+    <circle class="ec-ring" cx="165" cy="115" r="62"/>
+    <circle class="ec-ring" cx="235" cy="115" r="62"/>
+    <circle class="ec-ring" cx="200" cy="170" r="62"/>
+    <text class="ec-bit" x="200" y="128" text-anchor="middle">1</text>
+    <text class="ec-bit" x="150" y="108" text-anchor="middle">0</text>
+    <text class="ec-bit" x="250" y="108" text-anchor="middle">1</text>
+    <text class="ec-bit" x="200" y="205" text-anchor="middle">1</text>
+    <circle class="ec-bad" cx="200" cy="82" r="17"/>
+    <text class="ec-bit" x="200" y="93" text-anchor="middle" style="fill:var(--on-cover)">0</text>
+  </g>
+  <circle class="knob" cx="200" cy="270" r="14"/>
+</svg>

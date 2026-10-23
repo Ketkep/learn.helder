@@ -587,6 +587,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-22',
     status: 'live',
   },
+  {
+    slug: 'how-error-correcting-codes-work',
+    title: 'How computers fix their own mistakes',
+    hook: 'Flip a bit on a noisy wire and find it again with three circles.',
+    category: 'Technology',
+    accent: '#C23B52',
+    preview: 'how-error-correcting-codes-work',
+    dateAdded: '2026-10-23',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

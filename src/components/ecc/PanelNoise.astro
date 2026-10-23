@@ -1,0 +1,15 @@
+---
+// Counter 1: the noisy wire. Without a script the table shows the letter H and what 10 per cent noise does to it.
+import { bitsOf, fmt, intact } from '../../lib/ecc';
+const bits = bitsOf('H');
+---
+
+<div class="tool" data-noise-tool>
+  <div class="row"><span class="row-label">Sent</span><div class="bits" data-noise-sent>{bits.map((b) => <span class="bit">{b}</span>)}</div><span class="letter" data-noise-sent-letter>H</span></div>
+  <div class="row"><span class="row-label">Arrived</span><div class="bits" data-noise-got>{bits.map((b) => <span class="bit">{b}</span>)}</div><span class="letter" data-noise-got-letter>H</span></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Chance of a flip <output data-noise-out>10</output>%</span><input class="range" type="range" min="0" max="30" step="1" value="10" data-noise-range aria-label="Chance that each bit is flipped, in per cent" /></label>
+    <button type="button" class="btn fill" data-noise-send>Send the letter</button>
+  </div>
+  <p class="status" aria-live="polite" data-noise-status>With a chance of 10% for each bit, all eight bits arrive unharmed {fmt(intact(0.1) * 100, 1)}% of the time.</p>
+</div>
