@@ -674,6 +674,15 @@ The page is a patio of four paving slabs (stone grey with grout lines between th
 - `src/components/pyth/Patio.astro` is the frame and `Panel*.astro` is one slab each.
 - `src/scripts/pyth/pyth.ts` starts all four slabs.
 
+## The Moon face page: how the four prints work
+
+The page is a darkroom: a near black page with four white prints pegged on a rope, each tilted a little (not with reduced motion). Print 1 shows the Earth and the Moon seen from above with one side of the Moon marked. Three modes (not spinning, once per orbit, twice per orbit) and an orbit slider show where the marked side points (towards Earth, away, sideways). Print 2 is a toy: the Moon starts spinning once in 10 hours (made up), and each step shrinks the gap to the orbit rate by 40 per cent until it reaches 27.32 days, with a bulge drawn ahead of the line to Earth. Print 3 adds 3.8 cm a year to the distance of 384,400 km for up to 500 million years and works out the orbit time with Kepler's rule (the period grows as the distance to the power 1.5), with a warning that the rate has not been constant. Print 4 is a short list of other worlds (the Moon, Pluto and Charon, Mercury). Without a script each print shows one picture or table.
+
+- `src/data/face.ts` holds all the words, the takeaways and the sources.
+- `src/lib/face.ts` holds the modes, the spin down toy, the distance and orbit sums and the drawings as SVG text.
+- `src/components/face/Darkroom.astro` is the frame and `Panel*.astro` is one print each.
+- `src/scripts/face/face.ts` starts all four prints.
+
 ## Where things are
 
 ```
@@ -735,6 +744,7 @@ src/data/ecc.ts            everything the error correcting codes page says: coun
 src/data/river.ts          everything the river page says: stops, takeaways, sources
 src/data/alpha.ts          everything the alphabet page says: drawers, takeaways, sources
 src/data/pyth.ts           everything the Pythagoras page says: slabs, takeaways, sources
+src/data/face.ts           everything the Moon face page says: prints, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -797,6 +807,7 @@ src/components/ecc/        the error correcting codes page: four counters and th
 src/components/river/      the river page: four stops and the valley frame
 src/components/alpha/      the alphabet page: four drawers and the cabinet frame
 src/components/pyth/       the Pythagoras page: four slabs and the patio frame
+src/components/face/       the Moon face page: four prints and the darkroom frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -856,6 +867,7 @@ src/styles/ecc.css         the error correcting codes page: kraft paper, postcar
 src/styles/river.css       the river page: sand paper, ribbon, charts
 src/styles/alpha.css       the alphabet page: wooden drawers, plate, bars, chain
 src/styles/pyth.css        the Pythagoras page: stone slabs, squares, triangles
+src/styles/face.css        the Moon face page: darkroom, pegged prints, Moon and Earth drawings
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -896,6 +908,7 @@ src/lib/ecc.ts            noise, vote, parity and Hamming code maths for the err
 src/lib/river.ts          long profile, grain, sinuosity and delta maths for the river page
 src/lib/alpha.ts          stages, letters, alphabets and chain for the alphabet page
 src/lib/pyth.ts           squares, triangle moves, triples and corner checks for the Pythagoras page
+src/lib/face.ts           spin modes, spin down toy, distance and orbit sums for the Moon face page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -967,6 +980,7 @@ src/scripts/ecc/         all four error correcting code counters (ecc.ts)
 src/scripts/river/       all four river stops (river.ts)
 src/scripts/alpha/       all four alphabet drawers (alpha.ts)
 src/scripts/pyth/        all four Pythagoras slabs (pyth.ts)
+src/scripts/face/        all four Moon face prints (face.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

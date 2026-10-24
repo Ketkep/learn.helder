@@ -1,0 +1,17 @@
+---
+// Print 3: the Moon moving away. Without a script the table gives a few times.
+import { distanceAfter, fmt, orbitAfter } from '../../lib/face';
+const rows = [0, 10, 50, 100];
+---
+
+<div class="tool" data-away-tool>
+  <table class="times">
+    <caption class="sr-only">Distance and orbit time if the Moon kept moving away at 3.8 centimetres a year</caption>
+    <thead><tr><th scope="col">Million years</th><th scope="col">Distance (km)</th><th scope="col">Orbit (days)</th></tr></thead>
+    <tbody data-away-body>{rows.map((m) => <tr><th scope="row">{m}</th><td>{fmt(distanceAfter(m))}</td><td>{fmt(orbitAfter(m), 2)}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Time <output data-away-out>0</output> million years</span><input class="range" type="range" min="0" max="500" step="10" value="0" data-away-range aria-label="Years from now, in millions" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-away-status>Today the average distance is about {fmt(distanceAfter(0))} km and one orbit takes {fmt(orbitAfter(0), 2)} days. At 3.8 cm a year the Moon moves about 38 km in a million years.</p>
+</div>

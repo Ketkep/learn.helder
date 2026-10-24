@@ -1,0 +1,20 @@
+---
+// Print 1: spin it or not. Without a script the picture shows the locked Moon a quarter of the way round.
+import { facing, MODE_TEXT, viewSvg } from '../../lib/face';
+---
+
+<div class="tool" data-spin-tool>
+  <svg class="plate" viewBox="0 0 300 200" role="img" aria-label="The Earth in the middle and the Moon on its orbit, seen from above, with one side of the Moon marked by a dot." data-spin-svg>
+    <rect class="stage" x="1" y="1" width="298" height="198" rx="8"></rect>
+    <g set:html={viewSvg('locked', 90)} data-spin-g></g>
+  </svg>
+  <div class="controls needs-js" role="group" aria-label="How the Moon spins">
+    <button type="button" class="pick" aria-pressed="false" data-spin-mode="none">Not spinning</button>
+    <button type="button" class="pick" aria-pressed="true" data-spin-mode="locked">Once per orbit</button>
+    <button type="button" class="pick" aria-pressed="false" data-spin-mode="double">Twice per orbit</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Orbit <output data-spin-out>90</output>°, day <output data-spin-day>6.8</output></span><input class="range" type="range" min="0" max="360" step="1" value="90" data-spin-range aria-label="How far round its orbit the Moon is, in degrees" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-spin-status>{MODE_TEXT.locked} At this point the marked side points {facing('locked', 90)}.</p>
+</div>

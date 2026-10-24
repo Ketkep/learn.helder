@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Darkroom from '../../components/face/Darkroom.astro';
+import { takeaways, sources, sourcesNote } from '../../data/face';
+---
+
+<TopicLayout
+  slug="why-we-always-see-the-same-side-of-the-moon"
+  intro="The Moon does spin. It turns once for every trip round the Earth, so we never see its other face. Spin it yourself, see how tides lock a moon and watch the Moon drift away."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Darkroom />
+</TopicLayout>

@@ -1,0 +1,14 @@
+---
+// Print 4: other worlds. Without a script the list shows all three.
+import { WORLDS } from '../../lib/face';
+---
+
+<div class="tool" data-worlds-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a world">
+    {WORLDS.map((w, i) => <button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'} data-worlds-pick={w.id}>{w.name}</button>)}
+  </div>
+  <dl class="worlds">
+    {WORLDS.map((w) => <><dt>{w.name}</dt><dd>{w.text}</dd></>)}
+  </dl>
+  <p class="status needs-js" aria-live="polite" data-worlds-status>{WORLDS[0].name}: {WORLDS[0].text}</p>
+</div>

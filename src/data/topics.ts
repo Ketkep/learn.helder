@@ -627,6 +627,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-24',
     status: 'live',
   },
+  {
+    slug: 'why-we-always-see-the-same-side-of-the-moon',
+    title: 'Why we always see the same side of the Moon',
+    hook: 'Spin the Moon yourself and see when it keeps one face towards us.',
+    category: 'Space',
+    accent: '#A3BFA8',
+    preview: 'why-we-always-see-the-same-side-of-the-moon',
+    dateAdded: '2026-10-24',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

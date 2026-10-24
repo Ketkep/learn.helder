@@ -1,0 +1,22 @@
+---
+// Print 2: how tides lock it. Without a script the table lists a few steps.
+import { bulgeSvg, periodDays, periodText } from '../../lib/face';
+const rows = [0, 2, 5, 10, 20];
+---
+
+<div class="tool" data-lock-tool>
+  <svg class="plate" viewBox="0 0 300 200" role="img" aria-label="The Earth on the left and the Moon on the right with a bulge on the Moon turned slightly away from the line to Earth." data-lock-svg>
+    <rect class="stage" x="1" y="1" width="298" height="198" rx="8"></rect>
+    <g set:html={bulgeSvg(0)} data-lock-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">How long the toy Moon takes to spin once after some steps</caption>
+    <thead><tr><th scope="col">Steps</th><th scope="col">One spin takes</th></tr></thead>
+    <tbody>{rows.map((n) => <tr><th scope="row">{n}</th><td>{periodText(periodDays(n))}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-lock-age>Age one step</button>
+    <button type="button" class="btn" data-lock-reset>Start again</button>
+  </div>
+  <p class="status" aria-live="polite" data-lock-status>At the start, in this toy, the Moon spins once in {periodText(periodDays(0))}. Real Moon: it is locked, with a spin of 27.32 days.</p>
+</div>

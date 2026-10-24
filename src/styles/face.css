@@ -1,0 +1,833 @@
+/* The Moon face page: a dark darkroom with white prints pegged on a line. */
+
+.face {
+  --board: #181112;
+  --panel: #f1ede3;
+  --line: #7d7a8c;
+  --wood: #a9d4b8;
+  --cream: #f1ece0;
+  --ink-fixed: #14221b;
+  --pink: #e0583f;
+  --blue: #a9d4b8;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .face .needs-js {
+  display: none;
+}
+
+.face :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.face .card-body,
+.face .paras,
+.face .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.face h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.face .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.face .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.face .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.face .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.face .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.face .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.face .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.face .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.face .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.face .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.face .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.face .times th,
+.face .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.face .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.face .times tbody th {
+  font-weight: 700;
+}
+
+.face .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.face .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.face .pick:hover {
+  background: var(--wash);
+}
+
+.face .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .face .no-js-name {
+  display: none;
+}
+
+.face .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.face .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.face .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.face .btn:hover {
+  background: var(--wash);
+}
+
+.face .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.face .btn.fill:hover {
+  background: var(--cream);
+}
+
+.face .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.face .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.face .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.face .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.face .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.face .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.face .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.face .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.face .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.face .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.face .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.face .snd[aria-pressed='true'] .slash,
+.face .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .face * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.face .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Prints on the line ---------- */
+.face .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+}
+
+.face .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 56rem);
+  margin-inline: auto;
+}
+
+.face .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.face .line {
+  display: grid;
+  gap: 2.4rem;
+  width: min(100%, 56rem);
+  margin-inline: auto;
+  padding: 1rem var(--gutter) 3rem;
+}
+
+.face .print {
+  position: relative;
+  padding-top: 1.4rem;
+}
+
+.face .print::before {
+  content: '';
+  position: absolute;
+  top: 0.55rem;
+  left: -0.5rem;
+  right: -0.5rem;
+  border-top: 3px solid #6d5a3c;
+}
+
+.face .peg {
+  position: absolute;
+  top: 0;
+  left: 14%;
+  z-index: 1;
+  width: 1.1rem;
+  height: 2.2rem;
+  border: 2px solid #3e2f17;
+  border-radius: 3px;
+  background: #c79c52;
+}
+
+.face .print.p1 .peg {
+  left: auto;
+  right: 14%;
+}
+
+.face .sheet {
+  --cream: #1d1b18;
+  --fg: #1d1b18;
+  --line: #8b8678;
+  --wood: #2f5d4a;
+  --ink-fixed: #f7f2e4;
+  --wash: rgb(0 0 0 / 0.1);
+  --blue: #2f5d4a;
+  --pink: #b3402f;
+
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+  padding: 2rem 1.4rem 1.8rem;
+  background: #f1ede3;
+  color: #1d1b18;
+  box-shadow: 0 8px 0 rgb(0 0 0 / 0.5);
+  transform: rotate(-0.4deg);
+}
+
+.face .print.p1 .sheet {
+  transform: rotate(0.4deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .face .sheet,
+  .face .print.p1 .sheet {
+    transform: none;
+  }
+}
+
+.face .sheet :focus-visible {
+  outline-color: #1d1b18;
+}
+
+.face .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.face .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.face .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.face .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.face .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.face .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.face .times th,
+.face .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.face .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.face .times tbody th {
+  font-weight: 700;
+}
+
+.face .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.face .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.face .pick:hover {
+  background: var(--wash);
+}
+
+.face .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .face .no-js-name {
+  display: none;
+}
+
+.face .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.face .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.face .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.face .btn:hover {
+  background: var(--wash);
+}
+
+.face .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.face .btn.fill:hover {
+  background: var(--cream);
+}
+
+.face .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.face .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.face .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.face .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.face .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.face .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.face .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.face .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.face .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.face .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.face .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.face .snd[aria-pressed='true'] .slash,
+.face .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .face * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.face .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Counters ---------- */
+.face .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.face .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 52rem);
+  margin-inline: auto;
+}
+
+.face .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.face .counters {
+  display: grid;
+  gap: 1.6rem;
+  width: min(100%, 52rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter);
+}
+
+.face .card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.8rem;
+  padding: 1.4rem 1.2rem 1.6rem;
+  background: var(--panel);
+  border: 2px dashed var(--line);
+  border-radius: 6px;
+  box-shadow: 0 6px 0 rgb(80 60 20 / 0.12);
+}
+
+@media (min-width: 40rem) {
+  .face .card {
+    grid-template-columns: 5rem minmax(0, 1fr);
+    gap: 0 1.6rem;
+    padding: 1.8rem 1.8rem 2rem;
+  }
+}
+
+.face .postmark {
+  width: 3.2rem;
+  display: grid;
+  place-items: center;
+  align-self: start;
+  aspect-ratio: 1;
+  border: 3px double var(--wood);
+  border-radius: 50%;
+  color: var(--wood);
+  transform: rotate(-8deg);
+}
+
+@media (min-width: 40rem) {
+  .face .postmark {
+    width: auto;
+  }
+}
+
+.face .postmark span {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.face .tag {
+  color: #1d1b18;
+  background: #e6e1c8;
+  color: #f1ece0;
+}
+
+.face .tag::before {
+  background: var(--board);
+}
+
+.face .tag :focus-visible {
+  outline-color: #f1ece0;
+}
+
+.face .times thead th {
+  color: #5a4a30;
+}
+
+/* ---------- The drawings ---------- */
+.face .plate {
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 6px;
+}
+
+.face .stage {
+  fill: #0d0d11;
+}
+
+.face .path {
+  fill: none;
+  stroke: #6e7080;
+  stroke-width: 2;
+  stroke-dasharray: 4 5;
+}
+
+.face .earth {
+  fill: #4b7fb0;
+  stroke: #cfe0f2;
+  stroke-width: 2;
+}
+
+.face .moon {
+  fill: #b9b6ad;
+  stroke: #f1ece0;
+  stroke-width: 2;
+}
+
+.face .face {
+  fill: #e0583f;
+  stroke: #fff3dc;
+  stroke-width: 1.5;
+}
+
+.face .sight {
+  stroke: #a9a8b4;
+  stroke-width: 1.5;
+  stroke-dasharray: 2 4;
+}
+
+.face .bulge {
+  fill: rgb(240 236 224 / 0.35);
+  stroke: #f1ece0;
+  stroke-width: 2;
+}
+
+.face .worlds {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.face .worlds dt {
+  font-weight: 800;
+}
+
+.face .worlds dd {
+  margin: 0 0 0.5rem;
+  line-height: 1.45;
+}
+
+.face .picker .worlds {
+  display: none;
+}
+
+.face .tag-label,
+.face .tag-text {
+  color: #1d1b18;
+}
