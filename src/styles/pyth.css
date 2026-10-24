@@ -1,0 +1,795 @@
+/* The error correcting codes page: a kraft paper sorting office with postcards and postmarks. */
+
+.pyth {
+  --board: #dedad0;
+  --panel: #f3f1ea;
+  --line: #8a8576;
+  --wood: #9a4a24;
+  --cream: #25231f;
+  --ink-fixed: #fffdf6;
+  --pink: #9a4a24;
+  --blue: #2f5f86;
+  --wash: rgb(0 0 0 / 0.1);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .pyth .needs-js {
+  display: none;
+}
+
+.pyth :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.pyth .paras,
+.pyth .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.pyth h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.pyth .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.pyth .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.pyth .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.pyth .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.pyth .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.pyth .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.pyth .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.pyth .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.pyth .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.pyth .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.pyth .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.pyth .times th,
+.pyth .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.pyth .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.pyth .times tbody th {
+  font-weight: 700;
+}
+
+.pyth .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.pyth .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pyth .pick:hover {
+  background: var(--wash);
+}
+
+.pyth .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .pyth .no-js-name {
+  display: none;
+}
+
+.pyth .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.pyth .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.pyth .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.pyth .btn:hover {
+  background: var(--wash);
+}
+
+.pyth .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.pyth .btn.fill:hover {
+  background: var(--cream);
+}
+
+.pyth .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.pyth .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.pyth .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.pyth .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.pyth .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.pyth .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.pyth .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.pyth .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.pyth .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.pyth .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.pyth .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pyth .snd[aria-pressed='true'] .slash,
+.pyth .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pyth * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.pyth .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Patio ---------- */
+.pyth .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+}
+
+.pyth .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 56rem);
+  margin-inline: auto;
+}
+
+.pyth .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.pyth .patio {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  padding: 10px;
+  background: #aaa496;
+}
+
+@media (min-width: 60rem) {
+  .pyth .patio {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    width: min(100%, 76rem);
+    margin-inline: auto;
+  }
+}
+
+.pyth .slab {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+  padding: 1.6rem 1.3rem 1.9rem;
+  background: var(--panel);
+  box-shadow: inset 0 0 0 2px #d4cfc2;
+}
+
+.pyth .kicker .num {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2rem;
+  height: 2rem;
+  margin-right: 0.6rem;
+  border-radius: 4px;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.pyth .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.pyth .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.pyth .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.pyth .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.pyth .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.pyth .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.pyth .times th,
+.pyth .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.pyth .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.pyth .times tbody th {
+  font-weight: 700;
+}
+
+.pyth .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.pyth .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pyth .pick:hover {
+  background: var(--wash);
+}
+
+.pyth .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .pyth .no-js-name {
+  display: none;
+}
+
+.pyth .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.pyth .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.pyth .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.pyth .btn:hover {
+  background: var(--wash);
+}
+
+.pyth .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.pyth .btn.fill:hover {
+  background: var(--cream);
+}
+
+.pyth .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.pyth .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.pyth .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.pyth .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.pyth .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.pyth .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.pyth .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.pyth .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.pyth .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.pyth .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.pyth .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pyth .snd[aria-pressed='true'] .slash,
+.pyth .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pyth * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.pyth .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Counters ---------- */
+.pyth .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.pyth .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 52rem);
+  margin-inline: auto;
+}
+
+.pyth .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.pyth .counters {
+  display: grid;
+  gap: 1.6rem;
+  width: min(100%, 52rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter);
+}
+
+.pyth .card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.8rem;
+  padding: 1.4rem 1.2rem 1.6rem;
+  background: var(--panel);
+  border: 2px dashed var(--line);
+  border-radius: 6px;
+  box-shadow: 0 6px 0 rgb(80 60 20 / 0.12);
+}
+
+@media (min-width: 40rem) {
+  .pyth .card {
+    grid-template-columns: 5rem minmax(0, 1fr);
+    gap: 0 1.6rem;
+    padding: 1.8rem 1.8rem 2rem;
+  }
+}
+
+.pyth .postmark {
+  width: 3.2rem;
+  display: grid;
+  place-items: center;
+  align-self: start;
+  aspect-ratio: 1;
+  border: 3px double var(--wood);
+  border-radius: 50%;
+  color: var(--wood);
+  transform: rotate(-8deg);
+}
+
+@media (min-width: 40rem) {
+  .pyth .postmark {
+    width: auto;
+  }
+}
+
+.pyth .postmark span {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.pyth .tag {
+  background: #efe0a4;
+  color: #25231f;
+}
+
+.pyth .tag::before {
+  background: var(--board);
+}
+
+.pyth .tag :focus-visible {
+  outline-color: #25231f;
+}
+
+.pyth .times thead th {
+  color: #5a4a30;
+}
+
+/* ---------- The drawings ---------- */
+.pyth .plan {
+  display: block;
+  width: 100%;
+  max-width: 32rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.pyth .stage {
+  fill: #fffdf6;
+}
+
+.pyth .sq {
+  stroke: var(--cream);
+  stroke-width: 2;
+}
+
+.pyth .sq.a {
+  fill: rgb(47 95 134 / 0.28);
+}
+
+.pyth .sq.b {
+  fill: rgb(154 74 36 / 0.28);
+}
+
+.pyth .sq.c {
+  fill: rgb(80 120 70 / 0.3);
+}
+
+.pyth .tri {
+  fill: #efe0a4;
+  stroke: var(--cream);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.pyth .tri.t1 {
+  fill: #efe0a4;
+}
+
+.pyth .tri.t2 {
+  fill: #d9c27a;
+}
+
+.pyth .tri.t3 {
+  fill: #e5cf8c;
+}
+
+.pyth .tri.t4 {
+  fill: #d0b56a;
+}
+
+.pyth .frame {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 2;
+}
+
+.pyth .mark {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 2.5;
+}
+
+.pyth .num {
+  fill: var(--cream);
+  font-family: var(--font-body, sans-serif);
+  font-size: 14px;
+  font-weight: 800;
+}

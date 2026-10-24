@@ -1,0 +1,21 @@
+---
+// Slab 3: whole number triangles. Without a script the table lists the triples up to 100.
+import { allTriples, euclid } from '../../lib/pyth';
+const list = allTriples(100);
+const [a, b, c] = euclid(2, 1);
+---
+
+<div class="tool" data-triples-tool>
+  <div class="controls needs-js">
+    <label class="field"><span>m <output data-triples-m>2</output></span><input class="range" type="range" min="2" max="10" step="1" value="2" data-triples-rm aria-label="The number m" /></label>
+    <label class="field"><span>n <output data-triples-n>1</output></span><input class="range" type="range" min="1" max="9" step="1" value="1" data-triples-rn aria-label="The number n, smaller than m" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-triples-status>With m = 2 and n = 1 the sides are {a}, {b} and {c}. Check: {a} × {a} + {b} × {b} = {a * a + b * b} and {c} × {c} = {c * c}.</p>
+  <table class="times">
+    <caption class="sr-only">Whole number right triangles with a long side up to 100</caption>
+    <thead><tr><th scope="col">Short</th><th scope="col">Short</th><th scope="col">Long</th><th scope="col">Primitive</th></tr></thead>
+    <tbody data-triples-body>{list.slice(0, 12).map((t) => <tr><td>{t.a}</td><td>{t.b}</td><th scope="row">{t.c}</th><td>{t.primitive ? 'yes' : 'no'}</td></tr>)}</tbody>
+  </table>
+  <p class="hint">There are {list.length} triples with a long side up to 100, and {list.filter((t) => t.primitive).length} of them are primitive. The first 12 are shown. <span class="needs-js">Press the button to show them all.</span></p>
+  <div class="controls needs-js"><button type="button" class="btn" data-triples-all>Show all {list.length}</button></div>
+</div>

@@ -1,0 +1,15 @@
+---
+// Slab 2: move four triangles. Without a script the picture shows the tilted square.
+import { moveSvg, moveText } from '../../lib/pyth';
+---
+
+<div class="tool" data-move-tool>
+  <svg class="plan" viewBox="0 0 300 190" role="img" aria-label="A big square with four triangles that slide from the corners into two rectangles, leaving first one tilted square and then two smaller squares." data-move-svg>
+    <rect class="stage" x="1" y="1" width="298" height="188" rx="8"></rect>
+    <g set:html={moveSvg(0)} data-move-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Slide <output data-move-out>0</output>%</span><input class="range" type="range" min="0" max="100" step="1" value="0" data-move-range aria-label="Slide the triangles from the first picture to the second" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-move-status>{moveText(0)}</p>
+</div>

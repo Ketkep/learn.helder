@@ -1,0 +1,16 @@
+---
+// Slab 1: three squares. Without a script the picture shows 3, 4 and 5.
+import { hyp, squaresSvg } from '../../lib/pyth';
+---
+
+<div class="tool" data-squares-tool>
+  <svg class="plan" viewBox="0 0 300 190" role="img" aria-label="A right triangle with a square on each side. The squares have areas 9, 16 and 25." data-squares-svg>
+    <rect class="stage" x="1" y="1" width="298" height="188" rx="8"></rect>
+    <g set:html={squaresSvg(3, 4)} data-squares-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Short side a <output data-squares-a>3</output></span><input class="range" type="range" min="1" max="12" step="1" value="3" data-squares-ra aria-label="Length of the first short side" /></label>
+    <label class="field"><span>Short side b <output data-squares-b>4</output></span><input class="range" type="range" min="1" max="12" step="1" value="4" data-squares-rb aria-label="Length of the second short side" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-squares-status>3 × 3 = 9 and 4 × 4 = 16. Together 25, and the square on the long side is 5 × 5 = 25. The long side is {hyp(3, 4)}, a whole number, so 3, 4, 5 is a Pythagorean triple.</p>
+</div>

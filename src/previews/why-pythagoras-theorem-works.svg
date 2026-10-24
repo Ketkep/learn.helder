@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .py-sq { fill: none; stroke: var(--on-cover); stroke-width: 7; stroke-linejoin: round; }
+    .py-tri { fill: var(--on-cover); stroke: var(--on-cover); stroke-width: 7; stroke-linejoin: round; }
+    .py-slide { transform-box: fill-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .py-slide { animation: py-slide 1.8s ease-in-out infinite alternate; }
+    }
+    /* One triangle slides away from its corner and back */
+    @keyframes py-slide { 0% { transform: translate(0, 0); } 100% { transform: translate(-22px, 22px); } }
+  </style>
+
+  <g>
+    <rect class="py-sq" x="110" y="40" width="180" height="180"/>
+    <polygon class="py-tri" points="110,220 188,220 110,100"/>
+    <polygon class="py-tri py-slide" points="290,220 290,142 212,220" style="opacity:.85"/>
+    <polygon class="py-tri" points="290,40 290,142 212,40" />
+    <polygon class="py-tri" points="110,40 188,40 110,100" style="opacity:.6"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

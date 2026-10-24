@@ -617,6 +617,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-23',
     status: 'live',
   },
+  {
+    slug: 'why-pythagoras-theorem-works',
+    title: 'Why Pythagoras’ theorem works',
+    hook: 'Slide four triangles about and see why the squares add up.',
+    category: 'Maths',
+    accent: '#A85830',
+    preview: 'why-pythagoras-theorem-works',
+    dateAdded: '2026-10-24',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

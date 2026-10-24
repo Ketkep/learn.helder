@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Patio from '../../components/pyth/Patio.astro';
+import { takeaways, sources, sourcesNote } from '../../data/pyth';
+---
+
+<TopicLayout
+  slug="why-pythagoras-theorem-works"
+  intro="Draw a square on each side of a right triangle and the areas add up. Move four triangles about to see why, hunt for whole number triangles and check whether a corner is square."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Patio />
+</TopicLayout>

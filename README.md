@@ -665,6 +665,15 @@ The page is a museum cabinet: four wooden drawers, each a `details` element that
 - `src/components/alpha/Cabinet.astro` is the frame and `Panel*.astro` is one drawer each.
 - `src/scripts/alpha/alpha.ts` starts all four drawers.
 
+## The Pythagoras page: how the four slabs work
+
+The page is a patio of four paving slabs (stone grey with grout lines between them, two by two on a wide screen). Slab 1 draws a right triangle with short sides a and b (1 to 12) and a square on each side with its area written inside, and says whether the long side is a whole number. Slab 2 slides four copies of the 3, 4, 5 triangle from the corners of a 7 by 7 square (a tilted square of area 25 left in the middle) into two rectangles (squares of 9 and 16 left). Each triangle is turned and slid without bending, from its start pose to its end pose, so the area left over stays 25. Slab 3 uses Euclid's formula (m squared minus n squared, 2mn, m squared plus n squared) with sliders for m and n and lists every triple with a long side up to 100, found by trying every pair of short sides (52 in all, 16 primitive). Slab 4 takes three sides, sorts them, compares the squares and says whether the corner is right, sharper or wider, with the angle. Without a script each slab shows one picture or table.
+
+- `src/data/pyth.ts` holds all the words, the takeaways and the sources.
+- `src/lib/pyth.ts` holds the squares, the triangle moves, the triple search, the classification and the drawings as SVG text.
+- `src/components/pyth/Patio.astro` is the frame and `Panel*.astro` is one slab each.
+- `src/scripts/pyth/pyth.ts` starts all four slabs.
+
 ## Where things are
 
 ```
@@ -725,6 +734,7 @@ src/data/antikythera.ts   everything the Antikythera page says: parts, takeaways
 src/data/ecc.ts            everything the error correcting codes page says: counters, takeaways, sources
 src/data/river.ts          everything the river page says: stops, takeaways, sources
 src/data/alpha.ts          everything the alphabet page says: drawers, takeaways, sources
+src/data/pyth.ts           everything the Pythagoras page says: slabs, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -786,6 +796,7 @@ src/components/antikythera/  the Antikythera page: four parts and the gearbox fr
 src/components/ecc/        the error correcting codes page: four counters and the office frame
 src/components/river/      the river page: four stops and the valley frame
 src/components/alpha/      the alphabet page: four drawers and the cabinet frame
+src/components/pyth/       the Pythagoras page: four slabs and the patio frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -844,6 +855,7 @@ src/styles/antikythera.css  the Antikythera page: dark bronze, plates, dials, ge
 src/styles/ecc.css         the error correcting codes page: kraft paper, postcards, bits, circles
 src/styles/river.css       the river page: sand paper, ribbon, charts
 src/styles/alpha.css       the alphabet page: wooden drawers, plate, bars, chain
+src/styles/pyth.css        the Pythagoras page: stone slabs, squares, triangles
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -883,6 +895,7 @@ src/lib/antikythera.ts    cycles, Moon, eclipse and gear maths and drawings for 
 src/lib/ecc.ts            noise, vote, parity and Hamming code maths for the error correcting codes page
 src/lib/river.ts          long profile, grain, sinuosity and delta maths for the river page
 src/lib/alpha.ts          stages, letters, alphabets and chain for the alphabet page
+src/lib/pyth.ts           squares, triangle moves, triples and corner checks for the Pythagoras page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -953,6 +966,7 @@ src/scripts/antikythera/ all four Antikythera parts (antikythera.ts)
 src/scripts/ecc/         all four error correcting code counters (ecc.ts)
 src/scripts/river/       all four river stops (river.ts)
 src/scripts/alpha/       all four alphabet drawers (alpha.ts)
+src/scripts/pyth/        all four Pythagoras slabs (pyth.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

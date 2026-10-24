@@ -1,0 +1,17 @@
+---
+// Slab 4: is the corner square? Without a script the picture shows 3, 4, 5.
+import { cornerSvg } from '../../lib/pyth';
+---
+
+<div class="tool" data-corner-tool>
+  <svg class="plan" viewBox="0 0 300 190" role="img" aria-label="A triangle drawn from three side lengths. A small square marks the corner when it is a right angle." data-corner-svg>
+    <rect class="stage" x="1" y="1" width="298" height="188" rx="8"></rect>
+    <g set:html={cornerSvg(3, 4, 5)} data-corner-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Side <output data-corner-x>3</output></span><input class="range" type="range" min="1" max="20" step="1" value="3" data-corner-rx aria-label="First side" /></label>
+    <label class="field"><span>Side <output data-corner-y>4</output></span><input class="range" type="range" min="1" max="20" step="1" value="4" data-corner-ry aria-label="Second side" /></label>
+    <label class="field"><span>Side <output data-corner-z>5</output></span><input class="range" type="range" min="1" max="20" step="1" value="5" data-corner-rz aria-label="Third side" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-corner-status>The two short sides give 3 × 3 + 4 × 4 = 25 and the long side gives 5 × 5 = 25. They are equal, so the corner is a right angle.</p>
+</div>
