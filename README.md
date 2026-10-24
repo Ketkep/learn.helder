@@ -683,6 +683,15 @@ The page is a darkroom: a near black page with four white prints pegged on a rop
 - `src/components/face/Darkroom.astro` is the frame and `Panel*.astro` is one print each.
 - `src/scripts/face/face.ts` starts all four prints.
 
+## The lungs page: how the four jars work
+
+The page is a laboratory bench: four glass jar cards in pale teal (two by two on a wide screen). Jar 1 is a syringe from 20 to 100 mL with 28 fixed dots of gas, showing Boyle's law (pressure times volume stays the same, starting at 1.00 at 50 mL). Jar 2 is a bell jar model with a balloon and a rubber sheet pulled down by up to 0.5 L (a made up 2.5 L model lung): with the tube blocked the pressure falls to 0.83, with the tube open the air flows in and the pressure stays about the same. Jar 3 multiplies breaths a minute by litres a breath, per minute and per day (12 by 0.5 gives 6 L and 8,640 L). Jar 4 compares the air breathed in (21 per cent oxygen, 0.04 per cent carbon dioxide) with the air breathed out (16 and 4). Without a script each jar shows one picture or table. The page says it is not medical advice.
+
+- `src/data/lungs.ts` holds all the words, the takeaways and the sources.
+- `src/lib/lungs.ts` holds Boyle's law, the model chest, the ventilation sums, the air figures and the drawings as SVG text.
+- `src/components/lungs/Bench.astro` is the frame and `Panel*.astro` is one jar each.
+- `src/scripts/lungs/lungs.ts` starts all four jars.
+
 ## Where things are
 
 ```
@@ -745,6 +754,7 @@ src/data/river.ts          everything the river page says: stops, takeaways, sou
 src/data/alpha.ts          everything the alphabet page says: drawers, takeaways, sources
 src/data/pyth.ts           everything the Pythagoras page says: slabs, takeaways, sources
 src/data/face.ts           everything the Moon face page says: prints, takeaways, sources
+src/data/lungs.ts          everything the lungs page says: jars, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -808,6 +818,7 @@ src/components/river/      the river page: four stops and the valley frame
 src/components/alpha/      the alphabet page: four drawers and the cabinet frame
 src/components/pyth/       the Pythagoras page: four slabs and the patio frame
 src/components/face/       the Moon face page: four prints and the darkroom frame
+src/components/lungs/      the lungs page: four jars and the bench frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -868,6 +879,7 @@ src/styles/river.css       the river page: sand paper, ribbon, charts
 src/styles/alpha.css       the alphabet page: wooden drawers, plate, bars, chain
 src/styles/pyth.css        the Pythagoras page: stone slabs, squares, triangles
 src/styles/face.css        the Moon face page: darkroom, pegged prints, Moon and Earth drawings
+src/styles/lungs.css       the lungs page: teal bench, glass jar cards, syringe and bell jar
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -909,6 +921,7 @@ src/lib/river.ts          long profile, grain, sinuosity and delta maths for the
 src/lib/alpha.ts          stages, letters, alphabets and chain for the alphabet page
 src/lib/pyth.ts           squares, triangle moves, triples and corner checks for the Pythagoras page
 src/lib/face.ts           spin modes, spin down toy, distance and orbit sums for the Moon face page
+src/lib/lungs.ts          Boyle's law, model chest, ventilation and air figures for the lungs page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -981,6 +994,7 @@ src/scripts/river/       all four river stops (river.ts)
 src/scripts/alpha/       all four alphabet drawers (alpha.ts)
 src/scripts/pyth/        all four Pythagoras slabs (pyth.ts)
 src/scripts/face/        all four Moon face prints (face.ts)
+src/scripts/lungs/       all four lungs jars (lungs.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

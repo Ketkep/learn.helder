@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .lu-jar { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linejoin: round; }
+    .lu-lung { fill: var(--on-cover); transform-box: fill-box; transform-origin: center; }
+    .lu-sheet { fill: none; stroke: var(--on-cover); stroke-width: 9; stroke-linecap: round; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .lu-lung { animation: lu-breathe 2.4s ease-in-out infinite alternate; }
+    }
+    /* The balloon fills and empties, like a breath */
+    @keyframes lu-breathe { 0% { transform: scale(0.82); } 100% { transform: scale(1.12); } }
+  </style>
+
+  <g>
+    <path class="lu-jar" d="M130,40 H270 Q278,40 278,48 V190 H122 V48 Q122,40 130,40 Z"/>
+    <path class="lu-jar" d="M200,18 V92"/>
+    <circle class="lu-lung" cx="200" cy="130" r="38"/>
+    <path class="lu-sheet" d="M110,208 Q200,236 290,208"/>
+  </g>
+  <circle class="knob" cx="200" cy="270" r="14"/>
+</svg>

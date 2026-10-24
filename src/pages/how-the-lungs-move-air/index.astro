@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Bench from '../../components/lungs/Bench.astro';
+import { takeaways, sources, sourcesNote } from '../../data/lungs';
+---
+
+<TopicLayout
+  slug="how-the-lungs-move-air"
+  intro="Your lungs have no muscles of their own. Squeeze the gas in a syringe, pull the sheet of a model chest and compare the air going in with the air coming out."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Bench />
+</TopicLayout>

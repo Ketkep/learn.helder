@@ -1,0 +1,18 @@
+---
+// Jar 3: breaths and litres. Without a script the table shows three cases.
+import { fmt, perDay, perMinute } from '../../lib/lungs';
+const rows = [[12, 0.5], [16, 0.5], [30, 1]] as const;
+---
+
+<div class="tool" data-minute-tool>
+  <table class="times">
+    <caption class="sr-only">Air moved in a minute and in a day for some breathing rates</caption>
+    <thead><tr><th scope="col">Breaths a minute</th><th scope="col">Litres a breath</th><th scope="col">Litres a minute</th><th scope="col">Litres a day</th></tr></thead>
+    <tbody>{rows.map(([r, l]) => <tr><td>{r}</td><td>{l}</td><td>{fmt(perMinute(r, l), 1)}</td><td>{fmt(perDay(r, l))}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Breaths a minute <output data-minute-rate>12</output></span><input class="range" type="range" min="6" max="40" step="1" value="12" data-minute-rate-range aria-label="Breaths a minute" /></label>
+    <label class="field"><span>Litres a breath <output data-minute-litres>0.5</output></span><input class="range" type="range" min="2" max="30" step="1" value="5" data-minute-litres-range aria-label="Litres of air in each breath, times ten" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-minute-status>12 breaths of 0.5 litres make 6.0 litres a minute, about 8,640 litres in a day. A resting adult is around there.</p>
+</div>

@@ -1,0 +1,25 @@
+---
+// Jar 4: air in, air out. Without a script the table shows both.
+import { AIR, pctText } from '../../lib/lungs';
+---
+
+<div class="tool" data-air-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick the air">
+    <button type="button" class="pick" aria-pressed="true" data-air-pick="inhaled">Air breathed in</button>
+    <button type="button" class="pick" aria-pressed="false" data-air-pick="exhaled">Air breathed out</button>
+  </div>
+  <table class="times">
+    <caption class="sr-only">What the air holds before and after the lungs</caption>
+    <thead><tr><th scope="col">Gas</th><th scope="col">In</th><th scope="col">Out</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Oxygen</th><td>{pctText(AIR.inhaled.oxygen)}</td><td>{pctText(AIR.exhaled.oxygen)}</td></tr>
+      <tr><th scope="row">Carbon dioxide</th><td>{pctText(AIR.inhaled.carbon)}</td><td>{pctText(AIR.exhaled.carbon)}</td></tr>
+      <tr><th scope="row">Nitrogen</th><td>{pctText(AIR.inhaled.nitrogen)}</td><td>{pctText(AIR.exhaled.nitrogen)}</td></tr>
+    </tbody>
+  </table>
+  <ul class="bars needs-js">
+    <li><span class="bar-label">Oxygen</span><span class="track"><span class="fill" data-air-o></span></span><span class="bar-num" data-air-o-num></span></li>
+    <li><span class="bar-label">Carbon dioxide</span><span class="track"><span class="fill alt" data-air-c></span></span><span class="bar-num" data-air-c-num></span></li>
+  </ul>
+  <p class="status" aria-live="polite" data-air-status>The air has about 21% oxygen and 0.04% carbon dioxide going in, and about 16% oxygen and 4% carbon dioxide coming out. The rest is mostly nitrogen.</p>
+</div>

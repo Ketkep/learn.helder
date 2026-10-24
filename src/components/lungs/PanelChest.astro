@@ -1,0 +1,19 @@
+---
+// Jar 2: the chest. Without a script the picture shows the sheet half pulled down.
+import { jarSvg, jarText } from '../../lib/lungs';
+---
+
+<div class="tool" data-chest-tool>
+  <svg class="plate" viewBox="0 0 300 200" role="img" aria-label="A glass jar with a balloon inside, a tube at the top and a rubber sheet at the bottom that can be pulled down." data-chest-svg>
+    <rect class="stage" x="1" y="1" width="298" height="198" rx="8"></rect>
+    <g set:html={jarSvg(50)} data-chest-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Sheet pulled down <output data-chest-out>50</output>%</span><input class="range" type="range" min="0" max="100" step="1" value="50" data-chest-range aria-label="How far the sheet is pulled down, in per cent" /></label>
+  </div>
+  <div class="controls needs-js" role="group" aria-label="The tube">
+    <button type="button" class="pick" aria-pressed="false" data-chest-tube="shut">Tube blocked</button>
+    <button type="button" class="pick" aria-pressed="true" data-chest-tube="open">Tube open</button>
+  </div>
+  <p class="status" aria-live="polite" data-chest-status>{jarText(50, true)}</p>
+</div>

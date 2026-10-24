@@ -1,0 +1,15 @@
+---
+// Jar 1: the syringe. Without a script the picture shows 50 millilitres.
+import { START_ML, syringeSvg, syringeText } from '../../lib/lungs';
+---
+
+<div class="tool" data-syringe-tool>
+  <svg class="plate" viewBox="0 0 300 160" role="img" aria-label="A syringe with dots for gas inside. The plunger can slide so the gas has more or less room." data-syringe-svg>
+    <rect class="stage" x="1" y="1" width="298" height="158" rx="8"></rect>
+    <g set:html={syringeSvg(START_ML)} data-syringe-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Volume <output data-syringe-out>{START_ML}</output> mL</span><input class="range" type="range" min="20" max="100" step="1" value={START_ML} data-syringe-range aria-label="Volume of the gas, in millilitres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-syringe-status>{syringeText(START_ML)}</p>
+</div>

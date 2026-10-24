@@ -637,6 +637,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-24',
     status: 'live',
   },
+  {
+    slug: 'how-the-lungs-move-air',
+    title: 'How the lungs move air',
+    hook: 'Pull the sheet of a model chest and watch the air rush in.',
+    category: 'Body',
+    accent: '#5AA9B8',
+    preview: 'how-the-lungs-move-air',
+    dateAdded: '2026-10-24',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */
