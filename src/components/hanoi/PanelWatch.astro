@@ -1,0 +1,20 @@
+---
+// Altar 2: watch the best way. Without a script the table lists the seven moves for three disks.
+import { NAMES, solution } from '../../lib/hanoi';
+import { boardSvg, start } from '../../lib/hanoi';
+const moves = solution(3);
+---
+
+<div class="tool" data-watch-tool>
+  <svg class="plate" viewBox="0 0 300 195" role="img" aria-label="Three pegs with disks, showing the best solution one move at a time." data-watch-svg>
+    <rect class="stage" x="1" y="1" width="298" height="193" rx="8"></rect>
+    <g set:html={boardSvg(start(3), 3)} data-watch-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-watch-next>Next move</button>
+    <button type="button" class="btn" data-watch-reset>Start again</button>
+    <label class="field"><span>Disks <output data-watch-n>3</output></span><input class="range" type="range" min="2" max="6" step="1" value="3" data-watch-range aria-label="Number of disks" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-watch-status>The best solution for three disks has {moves.length} moves.</p>
+  <ol class="log" data-watch-log>{moves.map(([a, b]) => <li>Peg {NAMES[a]} to peg {NAMES[b]}</li>)}</ol>
+</div>

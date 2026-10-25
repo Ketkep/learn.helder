@@ -1,0 +1,21 @@
+---
+// Altar 1: play it. Without a script the picture shows three disks on the first peg.
+import { boardSvg, start } from '../../lib/hanoi';
+---
+
+<div class="tool" data-play-tool>
+  <svg class="plate" viewBox="0 0 300 195" role="img" aria-label="Three pegs, A, B and C, with three disks stacked on peg A, the biggest at the bottom." data-play-svg>
+    <rect class="stage" x="1" y="1" width="298" height="193" rx="8"></rect>
+    <g set:html={boardSvg(start(3), 3)} data-play-g></g>
+  </svg>
+  <div class="controls needs-js" role="group" aria-label="Choose a peg">
+    <button type="button" class="btn" data-play-peg="0">Peg A</button>
+    <button type="button" class="btn" data-play-peg="1">Peg B</button>
+    <button type="button" class="btn" data-play-peg="2">Peg C</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Disks <output data-play-n>3</output></span><input class="range" type="range" min="3" max="7" step="1" value="3" data-play-range aria-label="Number of disks" /></label>
+    <button type="button" class="btn" data-play-reset>Start again</button>
+  </div>
+  <p class="status" aria-live="polite" data-play-status>Three disks on peg A. Move them all to peg C. The fewest moves is 7.</p>
+</div>

@@ -692,6 +692,15 @@ The page is a laboratory bench: four glass jar cards in pale teal (two by two on
 - `src/components/lungs/Bench.astro` is the frame and `Panel*.astro` is one jar each.
 - `src/scripts/lungs/lungs.ts` starts all four jars.
 
+## The Towers of Hanoi page: how the four altars work
+
+The page is a dark stone temple with gold disks: four altars stacked down the page, each with a numbered plinth. Altar 1 is the playable puzzle (3 to 7 disks): press a peg (a button) to pick up its top disk and another to drop it. Illegal moves are refused, moves are counted against 2 to the n minus 1, and the page says whether you found the best way. Altar 2 steps through the best solution (2 to 6 disks), made by the recursive rule, and notes that the biggest disk moves once, in the middle. Altar 3 gives the fewest moves for 1 to 64 disks (exact, with BigInt for the big ones) and the time at one move a second (64 disks: 18,446,744,073,709,551,615 moves, about 585 billion years). Altar 4 shows the move number in binary and which disk moves (the place of the lowest 1), for four disks. The best solution is checked move by move against the rules and the ruler pattern when the library is tested. Without a script each altar shows one picture or table.
+
+- `src/data/hanoi.ts` holds all the words, the takeaways and the sources.
+- `src/lib/hanoi.ts` holds the puzzle rules, the recursive solution, the move and time counts, the ruler and the drawing of the pegs as SVG text.
+- `src/components/hanoi/Temple.astro` is the frame and `Panel*.astro` is one altar each.
+- `src/scripts/hanoi/hanoi.ts` starts all four altars.
+
 ## Where things are
 
 ```
@@ -755,6 +764,7 @@ src/data/alpha.ts          everything the alphabet page says: drawers, takeaways
 src/data/pyth.ts           everything the Pythagoras page says: slabs, takeaways, sources
 src/data/face.ts           everything the Moon face page says: prints, takeaways, sources
 src/data/lungs.ts          everything the lungs page says: jars, takeaways, sources
+src/data/hanoi.ts          everything the Towers of Hanoi page says: altars, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -819,6 +829,7 @@ src/components/alpha/      the alphabet page: four drawers and the cabinet frame
 src/components/pyth/       the Pythagoras page: four slabs and the patio frame
 src/components/face/       the Moon face page: four prints and the darkroom frame
 src/components/lungs/      the lungs page: four jars and the bench frame
+src/components/hanoi/      the Towers of Hanoi page: four altars and the temple frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -880,6 +891,7 @@ src/styles/alpha.css       the alphabet page: wooden drawers, plate, bars, chain
 src/styles/pyth.css        the Pythagoras page: stone slabs, squares, triangles
 src/styles/face.css        the Moon face page: darkroom, pegged prints, Moon and Earth drawings
 src/styles/lungs.css       the lungs page: teal bench, glass jar cards, syringe and bell jar
+src/styles/hanoi.css       the Towers of Hanoi page: dark stone temple, gold disks, pegs
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -922,6 +934,7 @@ src/lib/alpha.ts          stages, letters, alphabets and chain for the alphabet 
 src/lib/pyth.ts           squares, triangle moves, triples and corner checks for the Pythagoras page
 src/lib/face.ts           spin modes, spin down toy, distance and orbit sums for the Moon face page
 src/lib/lungs.ts          Boyle's law, model chest, ventilation and air figures for the lungs page
+src/lib/hanoi.ts           Hanoi rules, solution, move counts and drawings for the Towers of Hanoi page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -995,6 +1008,7 @@ src/scripts/alpha/       all four alphabet drawers (alpha.ts)
 src/scripts/pyth/        all four Pythagoras slabs (pyth.ts)
 src/scripts/face/        all four Moon face prints (face.ts)
 src/scripts/lungs/       all four lungs jars (lungs.ts)
+src/scripts/hanoi/       all four Hanoi altars (hanoi.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

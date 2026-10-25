@@ -647,6 +647,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-24',
     status: 'live',
   },
+  {
+    slug: 'the-towers-of-hanoi',
+    title: 'The Towers of Hanoi',
+    hook: 'Move the stack, one disk at a time, and find out why 64 disks would take forever.',
+    category: 'Games',
+    accent: '#4B8F8C',
+    preview: 'the-towers-of-hanoi',
+    dateAdded: '2026-10-25',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

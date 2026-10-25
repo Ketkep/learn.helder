@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Temple from '../../components/hanoi/Temple.astro';
+import { takeaways, sources, sourcesNote } from '../../data/hanoi';
+---
+
+<TopicLayout
+  slug="the-towers-of-hanoi"
+  intro="Move a stack of disks from one peg to another without ever putting a bigger disk on a smaller one. Play it, watch the best solution, count the moves and see the binary pattern inside."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Temple />
+</TopicLayout>
