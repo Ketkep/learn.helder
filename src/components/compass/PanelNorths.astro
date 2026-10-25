@@ -1,0 +1,16 @@
+---
+// Chart 2: two norths. Without a script the picture shows 10 degrees.
+import { fmt, missKm, norths } from '../../lib/compass';
+---
+
+<div class="tool" data-norths-tool>
+  <svg class="plate" viewBox="0 0 300 200" role="img" aria-label="A dial with the true north straight up and the compass north turned to one side by the declination." data-norths-svg>
+    <rect class="stage" x="1" y="1" width="298" height="198" rx="8"></rect>
+    <g set:html={norths(10)} data-norths-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Declination <output data-norths-decl>10</output>°</span><input class="range" type="range" min="-30" max="30" step="1" value="10" data-norths-range aria-label="Declination, in degrees" /></label>
+    <label class="field"><span>Walk <output data-norths-km>5</output> km</span><input class="range" type="range" min="1" max="20" step="1" value="5" data-norths-walk aria-label="Distance walked, in kilometres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-norths-status>With a declination of 10°, walking 5 km by the compass leaves you {fmt(missKm(10, 5) * 1000)} m to the side of where you meant to go.</p>
+</div>

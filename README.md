@@ -710,6 +710,15 @@ The page is a black page with four ivory keys (white cards with black tabs at th
 - `src/components/keys/Keys.astro` is the frame and `Panel*.astro` is one key each.
 - `src/scripts/keys/keys.ts` starts all four keys.
 
+## The compass page: how the four charts work
+
+The page is a navigator's chart table: parchment charts with navy ink and a red needle, two by two on a wide screen. Chart 1 draws the Earth as a bar magnet with dipole field lines and a needle at a latitude from 90 south to 90 north: the dip is the arctangent of twice the tangent of the latitude, and the level pull on a compass needle is the cosine of the latitude. Chart 2 turns the compass north away from the true north by a declination (30 west to 30 east) and works out how far to the side you end up after walking 1 to 20 km (distance times the tangent of the angle). Chart 3 multiplies three pole speeds (10, 55 and 40 km a year, from the sources) by 1 to 100 years, and warns that the speed has not been steady. Chart 4 slides a made up magnet (as strong as the Earth's pull at 20 cm, falling with the cube of the distance) towards the needle and shows the turn of the needle. Without a script each chart shows one picture or table.
+
+- `src/data/compass.ts` holds all the words, the takeaways and the sources.
+- `src/lib/compass.ts` holds the dip, the pull, the miss distance, the pole speeds, the magnet and the drawings as SVG text.
+- `src/components/compass/Table.astro` is the frame and `Panel*.astro` is one chart each.
+- `src/scripts/compass/compass.ts` starts all four charts.
+
 ## Where things are
 
 ```
@@ -775,6 +784,7 @@ src/data/face.ts           everything the Moon face page says: prints, takeaways
 src/data/lungs.ts          everything the lungs page says: jars, takeaways, sources
 src/data/hanoi.ts          everything the Towers of Hanoi page says: altars, takeaways, sources
 src/data/keys.ts           everything the musical scale page says: keys, takeaways, sources
+src/data/compass.ts         everything the compass page says: charts, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -841,6 +851,7 @@ src/components/face/       the Moon face page: four prints and the darkroom fram
 src/components/lungs/      the lungs page: four jars and the bench frame
 src/components/hanoi/      the Towers of Hanoi page: four altars and the temple frame
 src/components/keys/       the musical scale page: four keys and the keyboard frame
+src/components/compass/     the compass page: four charts and the chart table frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -904,6 +915,7 @@ src/styles/face.css        the Moon face page: darkroom, pegged prints, Moon and
 src/styles/lungs.css       the lungs page: teal bench, glass jar cards, syringe and bell jar
 src/styles/hanoi.css       the Towers of Hanoi page: dark stone temple, gold disks, pegs
 src/styles/keys.css        the musical scale page: black page, ivory keys, keyboard drawing
+src/styles/compass.css      the compass page: parchment charts, navy ink, needle drawings
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -948,6 +960,7 @@ src/lib/face.ts           spin modes, spin down toy, distance and orbit sums for
 src/lib/lungs.ts          Boyle's law, model chest, ventilation and air figures for the lungs page
 src/lib/hanoi.ts           Hanoi rules, solution, move counts and drawings for the Towers of Hanoi page
 src/lib/keys.ts            scales, keyboard drawing, frequencies and fifths for the musical scale page
+src/lib/compass.ts         dip, declination, pole speed and magnet maths for the compass page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -1023,6 +1036,7 @@ src/scripts/face/        all four Moon face prints (face.ts)
 src/scripts/lungs/       all four lungs jars (lungs.ts)
 src/scripts/hanoi/       all four Hanoi altars (hanoi.ts)
 src/scripts/keys/        all four musical scale keys (keys.ts)
+src/scripts/compass/     all four compass charts (compass.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

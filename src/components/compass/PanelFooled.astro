@@ -1,0 +1,15 @@
+---
+// Chart 4: fooling the needle. Without a script the picture shows the magnet at 20 centimetres.
+import { needleSvg, turnBy } from '../../lib/compass';
+---
+
+<div class="tool" data-fooled-tool>
+  <svg class="plate" viewBox="0 0 300 200" role="img" aria-label="A compass with a needle and a magnet to its right. The needle is turned towards the magnet." data-fooled-svg>
+    <rect class="stage" x="1" y="1" width="298" height="198" rx="8"></rect>
+    <g set:html={needleSvg(20)} data-fooled-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Magnet at <output data-fooled-out>20</output> cm</span><input class="range" type="range" min="5" max="80" step="1" value="20" data-fooled-range aria-label="Distance of the magnet from the compass, in centimetres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-fooled-status>With the magnet at 20 cm the needle is turned {turnBy(20).toFixed(0)}° from north. In this toy, the magnet pulls as hard as the Earth does at this distance. The strength is made up.</p>
+</div>

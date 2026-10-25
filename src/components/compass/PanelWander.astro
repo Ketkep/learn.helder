@@ -1,0 +1,19 @@
+---
+// Chart 3: the wandering pole. Without a script the table gives three speeds for 20 years.
+import { RATES } from '../../lib/compass';
+---
+
+<div class="tool" data-wander-tool>
+  <div class="controls needs-js" role="group" aria-label="Pick a speed">
+    {RATES.map((r, i) => <button type="button" class="pick" aria-pressed={i === 1 ? 'true' : 'false'} data-wander-rate={r.id}>{r.kmPerYear} km a year</button>)}
+  </div>
+  <table class="times">
+    <caption class="sr-only">How far the north magnetic pole moves in 20 years at three speeds</caption>
+    <thead><tr><th scope="col">Speed</th><th scope="col">When</th><th scope="col">In 20 years</th></tr></thead>
+    <tbody>{RATES.map((r) => <tr><th scope="row">{r.kmPerYear} km a year</th><td>{r.name}</td><td>{r.kmPerYear * 20} km</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Years <output data-wander-out>20</output></span><input class="range" type="range" min="1" max="100" step="1" value="20" data-wander-range aria-label="Number of years" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-wander-status>At 55 km a year the pole moves 1,100 km in 20 years. The speed has not been steady.</p>
+</div>

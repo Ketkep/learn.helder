@@ -667,6 +667,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-25',
     status: 'live',
   },
+  {
+    slug: 'how-a-compass-finds-north',
+    title: 'How a compass finds north',
+    hook: 'Slide a magnet towards a needle and see the Earth lose the argument.',
+    category: 'Technology',
+    accent: '#8A6A24',
+    preview: 'how-a-compass-finds-north',
+    dateAdded: '2026-10-25',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

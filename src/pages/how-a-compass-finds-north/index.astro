@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Table from '../../components/compass/Table.astro';
+import { takeaways, sources, sourcesNote } from '../../data/compass';
+---
+
+<TopicLayout
+  slug="how-a-compass-finds-north"
+  intro="A compass needle lines up with the Earth's field. See how the field dips, why compass north and true north differ, how fast the pole wanders and how a magnet can fool the needle."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Table />
+</TopicLayout>

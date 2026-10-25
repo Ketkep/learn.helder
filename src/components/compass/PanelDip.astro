@@ -1,0 +1,16 @@
+---
+// Chart 1: the field dips. Without a script the picture shows the needle at 45 degrees north.
+import { dipAt, fieldSvg, fmt, pullAt } from '../../lib/compass';
+const lat = 45;
+---
+
+<div class="tool" data-dip-tool>
+  <svg class="plate" viewBox="0 0 300 200" role="img" aria-label="The Earth with field lines like a bar magnet and a small needle on the surface that tilts along the field." data-dip-svg>
+    <rect class="stage" x="1" y="1" width="298" height="198" rx="8"></rect>
+    <g set:html={fieldSvg(lat)} data-dip-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Latitude <output data-dip-out>{lat}</output>°</span><input class="range" type="range" min="-90" max="90" step="1" value={lat} data-dip-range aria-label="Latitude, from 90 south to 90 north" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-dip-status>At 45° north the field dips {fmt(dipAt(lat), 1)}° below the level, and the level part of the pull is {fmt(pullAt(lat) * 100)}% of what it is at the equator.</p>
+</div>
