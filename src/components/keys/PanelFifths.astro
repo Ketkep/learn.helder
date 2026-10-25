@@ -1,0 +1,17 @@
+---
+// Key 3: stacking fifths. Without a script the table lists all twelve.
+import { drift, equalCents, fifthNote, fmt, justCents } from '../../lib/keys';
+const rows = Array.from({ length: 12 }, (_, i) => i + 1);
+---
+
+<div class="tool" data-fifths-tool>
+  <table class="times">
+    <caption class="sr-only">Stacking fifths from C: the note, the stack in cents and the gap to equal temperament</caption>
+    <thead><tr><th scope="col">Fifths</th><th scope="col">Note</th><th scope="col">Pure stack (cents)</th><th scope="col">Equal (cents)</th><th scope="col">Gap</th></tr></thead>
+    <tbody>{rows.map((n) => <tr><th scope="row">{n}</th><td>{fifthNote(n)}</td><td>{fmt(justCents(n), 1)}</td><td>{fmt(equalCents(n))}</td><td>{fmt(drift(n), 2)}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Fifths <output data-fifths-out>7</output></span><input class="range" type="range" min="1" max="12" step="1" value="7" data-fifths-range aria-label="Number of fifths stacked" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-fifths-status>After 12 fifths the pure stack is 23.46 cents above the start, which should be exactly back at the start. This gap is the Pythagorean comma.</p>
+</div>

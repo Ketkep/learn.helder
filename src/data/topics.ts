@@ -657,6 +657,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-25',
     status: 'live',
   },
+  {
+    slug: 'how-a-musical-scale-is-built',
+    title: 'How a musical scale is built',
+    hook: 'Follow a pattern of steps on the keys and hear a scale appear.',
+    category: 'Music',
+    accent: '#7A5AB2',
+    preview: 'how-a-musical-scale-is-built',
+    dateAdded: '2026-10-25',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

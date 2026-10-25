@@ -1,0 +1,18 @@
+---
+// Key 2: twelve equal steps. Without a script the table lists the twelve steps from A.
+import { fmt, freqAt, NOTES, ratioAt } from '../../lib/keys';
+const rows = Array.from({ length: 13 }, (_, i) => i);
+---
+
+<div class="tool" data-twelve-tool>
+  <table class="times">
+    <caption class="sr-only">Frequencies of the twelve steps up from A at 440 hertz</caption>
+    <thead><tr><th scope="col">Steps</th><th scope="col">Note</th><th scope="col">Times</th><th scope="col">Hertz</th></tr></thead>
+    <tbody data-twelve-body>{rows.map((i) => <tr><th scope="row">{i}</th><td>{NOTES[(9 + i) % 12]}</td><td>{fmt(ratioAt(i), 4)}</td><td>{fmt(freqAt(i), 2)}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Steps up from A <output data-twelve-out>0</output></span><input class="range" type="range" min="0" max="12" step="1" value="0" data-twelve-range aria-label="Number of half steps up from A" /></label>
+    <button type="button" class="btn fill" data-twelve-play>Hear it</button>
+  </div>
+  <p class="status" aria-live="polite" data-twelve-status>A is 440.00 hertz. Each step multiplies by 1.0595, and twelve of them double the frequency.</p>
+</div>

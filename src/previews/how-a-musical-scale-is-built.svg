@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .sc-white { fill: var(--on-cover); }
+    .sc-black { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 5; }
+    .sc-lit { fill: var(--cover-b); opacity: 0.35; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .sc-lit { animation: sc-step 2.8s steps(1, end) infinite; }
+    }
+    /* A lit key moves up the white keys, one note at a time */
+    @keyframes sc-step { 0% { transform: translateX(0); } 14% { transform: translateX(32px); } 29% { transform: translateX(64px); } 43% { transform: translateX(96px); } 57% { transform: translateX(128px); } 71% { transform: translateX(160px); } 86% { transform: translateX(192px); } }
+  </style>
+
+  <g>
+    <rect class="sc-white" x="72" y="56" width="30" height="150" rx="6"/>
+    <rect class="sc-white" x="104" y="56" width="30" height="150" rx="6"/>
+    <rect class="sc-white" x="136" y="56" width="30" height="150" rx="6"/>
+    <rect class="sc-white" x="168" y="56" width="30" height="150" rx="6"/>
+    <rect class="sc-white" x="200" y="56" width="30" height="150" rx="6"/>
+    <rect class="sc-white" x="232" y="56" width="30" height="150" rx="6"/>
+    <rect class="sc-white" x="264" y="56" width="30" height="150" rx="6"/>
+    <rect class="sc-white" x="296" y="56" width="30" height="150" rx="6"/>
+    <rect class="sc-lit" x="72" y="56" width="30" height="150" rx="6"/>
+    <rect class="sc-black" x="90" y="56" width="22" height="90" rx="4"/>
+    <rect class="sc-black" x="122" y="56" width="22" height="90" rx="4"/>
+    <rect class="sc-black" x="186" y="56" width="22" height="90" rx="4"/>
+    <rect class="sc-black" x="218" y="56" width="22" height="90" rx="4"/>
+    <rect class="sc-black" x="250" y="56" width="22" height="90" rx="4"/>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

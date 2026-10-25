@@ -1,0 +1,20 @@
+---
+// Key 1: build a scale. Without a script the keyboard shows C major.
+import { gaps, KINDS, keysSvg, nameOf, notesOf, NOTES } from '../../lib/keys';
+const kind = KINDS[0];
+const notes = notesOf(kind, 0);
+---
+
+<div class="tool" data-build-tool>
+  <svg class="keys" viewBox="0 0 300 112" role="img" aria-label="Two octaves of a piano keyboard with the notes of the chosen scale lit." data-build-svg>
+    <g set:html={keysSvg(notes, 0)} data-build-g></g>
+  </svg>
+  <div class="controls needs-js" role="group" aria-label="Pick a starting note">
+    {NOTES.map((n, i) => <button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'} data-build-root={i}>{n}</button>)}
+  </div>
+  <div class="controls needs-js" role="group" aria-label="Pick a kind of scale">
+    {KINDS.map((k, i) => <button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'} data-build-kind={k.id}>{k.name}</button>)}
+    <button type="button" class="btn fill" data-build-play>Play it</button>
+  </div>
+  <p class="status" aria-live="polite" data-build-status>C major: {notes.map((n) => nameOf(n)).join(', ')}. Gaps: {gaps(kind).join(' ')}.</p>
+</div>

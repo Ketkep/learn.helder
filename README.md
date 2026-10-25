@@ -701,6 +701,15 @@ The page is a dark stone temple with gold disks: four altars stacked down the pa
 - `src/components/hanoi/Temple.astro` is the frame and `Panel*.astro` is one altar each.
 - `src/scripts/hanoi/hanoi.ts` starts all four altars.
 
+## The musical scale page: how the four keys work
+
+The page is a black page with four ivory keys (white cards with black tabs at the top corners, two by two on a wide screen). Key 1 lights two octaves of a drawn keyboard for a chosen starting note and kind of scale (major, natural minor, major and minor pentatonic) from the semitone offsets, names the notes (sharps only) and writes the gaps as W, H or a number, and plays the scale. Key 2 slides 0 to 12 half steps up from A at 440 hertz with the multiplier 2 to the power n over 12. Key 3 stacks 1 to 12 pure fifths (3 to 2) from C, folded into an octave, and shows the gap to the equal notes, which is the Pythagorean comma of 23.46 cents at 12. Key 4 plays a scale on a random starting note and asks major or minor, with a score. Without a script each key shows a picture, a table or the rule. This page's files are named `keys` because `scale` is taken by the solar system page.
+
+- `src/data/keys.ts` holds all the words, the takeaways and the sources.
+- `src/lib/keys.ts` holds the scales, the keyboard drawing, the frequencies and the fifths sums.
+- `src/components/keys/Keys.astro` is the frame and `Panel*.astro` is one key each.
+- `src/scripts/keys/keys.ts` starts all four keys.
+
 ## Where things are
 
 ```
@@ -765,6 +774,7 @@ src/data/pyth.ts           everything the Pythagoras page says: slabs, takeaways
 src/data/face.ts           everything the Moon face page says: prints, takeaways, sources
 src/data/lungs.ts          everything the lungs page says: jars, takeaways, sources
 src/data/hanoi.ts          everything the Towers of Hanoi page says: altars, takeaways, sources
+src/data/keys.ts           everything the musical scale page says: keys, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -830,6 +840,7 @@ src/components/pyth/       the Pythagoras page: four slabs and the patio frame
 src/components/face/       the Moon face page: four prints and the darkroom frame
 src/components/lungs/      the lungs page: four jars and the bench frame
 src/components/hanoi/      the Towers of Hanoi page: four altars and the temple frame
+src/components/keys/       the musical scale page: four keys and the keyboard frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -892,6 +903,7 @@ src/styles/pyth.css        the Pythagoras page: stone slabs, squares, triangles
 src/styles/face.css        the Moon face page: darkroom, pegged prints, Moon and Earth drawings
 src/styles/lungs.css       the lungs page: teal bench, glass jar cards, syringe and bell jar
 src/styles/hanoi.css       the Towers of Hanoi page: dark stone temple, gold disks, pegs
+src/styles/keys.css        the musical scale page: black page, ivory keys, keyboard drawing
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -935,6 +947,7 @@ src/lib/pyth.ts           squares, triangle moves, triples and corner checks for
 src/lib/face.ts           spin modes, spin down toy, distance and orbit sums for the Moon face page
 src/lib/lungs.ts          Boyle's law, model chest, ventilation and air figures for the lungs page
 src/lib/hanoi.ts           Hanoi rules, solution, move counts and drawings for the Towers of Hanoi page
+src/lib/keys.ts            scales, keyboard drawing, frequencies and fifths for the musical scale page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -1009,6 +1022,7 @@ src/scripts/pyth/        all four Pythagoras slabs (pyth.ts)
 src/scripts/face/        all four Moon face prints (face.ts)
 src/scripts/lungs/       all four lungs jars (lungs.ts)
 src/scripts/hanoi/       all four Hanoi altars (hanoi.ts)
+src/scripts/keys/        all four musical scale keys (keys.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

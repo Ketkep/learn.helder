@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Keys from '../../components/keys/Keys.astro';
+import { takeaways, sources, sourcesNote } from '../../data/keys';
+---
+
+<TopicLayout
+  slug="how-a-musical-scale-is-built"
+  intro="A scale is a pattern of steps. Build major and minor scales on any note, see why an octave has twelve equal steps, stack fifths and find the gap that never closes."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Keys />
+</TopicLayout>
