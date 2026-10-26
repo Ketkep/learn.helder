@@ -1,0 +1,14 @@
+---
+// Carving 2: build a numeral. Without a script the example shows IIII.
+import { LETTERS } from '../../lib/roman';
+---
+
+<div class="tool" data-build-tool>
+  <p class="row-text">Your numeral: <span class="carved" data-build-row>IIII</span></p>
+  <div class="controls needs-js" role="group" aria-label="Add a letter">
+    {LETTERS.map(([c, v]) => <button type="button" class="tile" data-build-add={c} aria-label={`${c}, ${v}`}>{c}</button>)}
+    <button type="button" class="btn" data-build-back>Back</button>
+    <button type="button" class="btn" data-build-clear>Clear</button>
+  </div>
+  <p class="status" aria-live="polite" data-build-status>IIII is read as 4. The standard way to write 4 is IV. Clocks often keep IIII.</p>
+</div>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ro-stroke { fill: none; stroke: var(--on-cover); stroke-width: 15; stroke-linecap: square; stroke-linejoin: miter; }
+    .ro-slide { transform-box: fill-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ro-slide { animation: ro-slide 1.6s ease-in-out infinite alternate; }
+    }
+    /* The I in front of the V slides across: IV, then VI */
+    @keyframes ro-slide { 0% { transform: translateX(0); } 100% { transform: translateX(150px); } }
+  </style>
+
+  <g>
+    <path class="ro-stroke ro-slide" d="M120 80 V200"/>
+    <path class="ro-stroke" d="M170 80 L215 200 L260 80"/>
+  </g>
+  <circle class="knob" cx="200" cy="262" r="14"/>
+</svg>

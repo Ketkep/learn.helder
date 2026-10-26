@@ -687,6 +687,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-26',
     status: 'live',
   },
+  {
+    slug: 'how-roman-numerals-work',
+    title: 'How Roman numerals work',
+    hook: 'Build a numeral from tiles and find out why 3,999 is the end of the line.',
+    category: 'History',
+    accent: '#9B3B34',
+    preview: 'how-roman-numerals-work',
+    dateAdded: '2026-10-26',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

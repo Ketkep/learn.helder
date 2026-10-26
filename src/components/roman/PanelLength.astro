@@ -1,0 +1,16 @@
+---
+// Carving 3: how long can it get. Without a script the table shows the counts.
+import { fmt, lengths, longest, toRoman } from '../../lib/roman';
+const counts = lengths();
+const best = longest();
+---
+
+<div class="tool" data-length-tool>
+  <ul class="bars" data-length-bars>
+    {counts.map((c, len) => len > 0 && <li data-len={len}><span class="bar-label">{len} letter{len > 1 ? 's' : ''}</span><span class="track"><span class="fill" style={`width:${(c / Math.max(...counts)) * 100}%`}></span></span><span class="bar-num">{fmt(c)}</span></li>)}
+  </ul>
+  <div class="controls needs-js">
+    <label class="field"><span>Number <output data-length-out>1994</output></span><input class="range" type="range" min="1" max="3999" step="1" value="1994" data-length-range aria-label="A number from 1 to 3999" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-length-status>The longest numeral is {fmt(best.n)}, written {best.roman}, with {best.roman.length} letters. 1,994 is {toRoman(1994)}, with {toRoman(1994).length} letters.</p>
+</div>

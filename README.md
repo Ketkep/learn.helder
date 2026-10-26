@@ -728,6 +728,15 @@ The page is a telescope tube cut into four stations along a brass beam with an a
 - `src/components/tele/Tube.astro` is the frame and `Panel*.astro` is one station each.
 - `src/scripts/tele/tele.ts` starts all four stations.
 
+## The Roman numerals page: how the four carvings work
+
+The page is a wall of grey stone blocks (two by two on a wide screen) with letters carved and painted red. Carving 1 converts a number from 1 to 3,999 to a numeral and a numeral to a number, and says whether the numeral is the standard way of writing it (the standard form is made by the greedy rule with the six subtractive pairs, so IIII, VIIII and IC are understood but flagged). Carving 2 builds a numeral from letter tiles with the value and the standard form. Carving 3 tries every number from 1 to 3,999, finds the longest numeral (3,888, with 15 letters) and counts how many numbers have each length. Carving 4 adds two numbers the old way: write the additive forms, join and sort the letters, trade five of a kind for the next letter up, then write the answer in the usual way. Without a script each carving shows one table or list.
+
+- `src/data/roman.ts` holds all the words, the takeaways and the sources.
+- `src/lib/roman.ts` holds the conversions, the judging of a numeral, the lengths and the addition steps.
+- `src/components/roman/Wall.astro` is the frame and `Panel*.astro` is one carving each.
+- `src/scripts/roman/roman.ts` starts all four carvings.
+
 ## Where things are
 
 ```
@@ -795,6 +804,7 @@ src/data/hanoi.ts          everything the Towers of Hanoi page says: altars, tak
 src/data/keys.ts           everything the musical scale page says: keys, takeaways, sources
 src/data/compass.ts         everything the compass page says: charts, takeaways, sources
 src/data/tele.ts           everything the telescope page says: stations, takeaways, sources
+src/data/roman.ts          everything the Roman numerals page says: carvings, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -863,6 +873,7 @@ src/components/hanoi/      the Towers of Hanoi page: four altars and the temple 
 src/components/keys/       the musical scale page: four keys and the keyboard frame
 src/components/compass/     the compass page: four charts and the chart table frame
 src/components/tele/       the telescope page: four stations and the tube frame
+src/components/roman/      the Roman numerals page: four carvings and the wall frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -928,6 +939,7 @@ src/styles/hanoi.css       the Towers of Hanoi page: dark stone temple, gold dis
 src/styles/keys.css        the musical scale page: black page, ivory keys, keyboard drawing
 src/styles/compass.css      the compass page: parchment charts, navy ink, needle drawings
 src/styles/tele.css        the telescope page: night slate, brass beam, lens drawings
+src/styles/roman.css       the Roman numerals page: grey stone blocks, carved letters, bars
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -974,6 +986,7 @@ src/lib/hanoi.ts           Hanoi rules, solution, move counts and drawings for t
 src/lib/keys.ts            scales, keyboard drawing, frequencies and fifths for the musical scale page
 src/lib/compass.ts         dip, declination, pole speed and magnet maths for the compass page
 src/lib/tele.ts            magnification, light gathering and resolution maths for the telescope page
+src/lib/roman.ts           Roman numeral conversion, lengths and addition steps for the Roman numerals page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -1051,6 +1064,7 @@ src/scripts/hanoi/       all four Hanoi altars (hanoi.ts)
 src/scripts/keys/        all four musical scale keys (keys.ts)
 src/scripts/compass/     all four compass charts (compass.ts)
 src/scripts/tele/        all four telescope stations (tele.ts)
+src/scripts/roman/       all four Roman numeral carvings (roman.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

@@ -1,0 +1,14 @@
+---
+// Carving 4: adding the old way. Without a script the steps show 1,994 plus 38.
+import { addSteps } from '../../lib/roman';
+const steps = addSteps(1994, 38);
+---
+
+<div class="tool" data-add-tool>
+  <div class="controls needs-js">
+    <label class="field"><span>First <output data-add-a>1994</output></span><input class="range" type="range" min="1" max="3000" step="1" value="1994" data-add-ra aria-label="The first number" /></label>
+    <label class="field"><span>Second <output data-add-b>38</output></span><input class="range" type="range" min="1" max="999" step="1" value="38" data-add-rb aria-label="The second number" /></label>
+  </div>
+  <ol class="log" data-add-steps>{steps.map((s) => <li>{s}</li>)}</ol>
+  <p class="status needs-js" aria-live="polite" data-add-status>Slide the numbers and read the steps.</p>
+</div>

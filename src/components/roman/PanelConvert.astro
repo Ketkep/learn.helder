@@ -1,0 +1,18 @@
+---
+// Carving 1: convert. Without a script the table shows some examples.
+import { fmt, toRoman } from '../../lib/roman';
+const rows = [4, 9, 14, 49, 94, 444, 1994, 2026, 3999];
+---
+
+<div class="tool" data-convert-tool>
+  <div class="controls needs-js">
+    <label class="field"><span>Number</span><input class="text" type="text" inputmode="numeric" maxlength="4" value="1994" autocomplete="off" spellcheck="false" data-convert-n aria-label="A number from 1 to 3999" /></label>
+    <label class="field"><span>Numeral</span><input class="text wide" type="text" maxlength="16" value="MCMXCIV" autocomplete="off" spellcheck="false" data-convert-r aria-label="A Roman numeral" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-convert-status>1,994 is MCMXCIV. This is the standard way to write it.</p>
+  <table class="times">
+    <caption class="sr-only">Some numbers and their Roman numerals</caption>
+    <thead><tr><th scope="col">Number</th><th scope="col">Numeral</th></tr></thead>
+    <tbody>{rows.map((n) => <tr><th scope="row">{fmt(n)}</th><td class="mono">{toRoman(n)}</td></tr>)}</tbody>
+  </table>
+</div>

@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Wall from '../../components/roman/Wall.astro';
+import { takeaways, sources, sourcesNote } from '../../data/roman';
+---
+
+<TopicLayout
+  slug="how-roman-numerals-work"
+  intro="Seven letters and no zero. Convert numbers both ways, build a numeral from tiles, see how long a numeral can get and add two numerals the old way."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Wall />
+</TopicLayout>
