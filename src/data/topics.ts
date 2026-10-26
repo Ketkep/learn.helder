@@ -697,6 +697,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-26',
     status: 'live',
   },
+  {
+    slug: 'why-the-sea-is-salty',
+    title: 'Why the sea is salty',
+    hook: 'Fill a toy sea with salt and dry out a pan to see how it gets saltier.',
+    category: 'Nature',
+    accent: '#3C86A8',
+    preview: 'why-the-sea-is-salty',
+    dateAdded: '2026-10-26',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

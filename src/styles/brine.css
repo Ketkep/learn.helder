@@ -1,0 +1,813 @@
+/* The salty sea page: pale salt white and sea blue, a salt works with shallow pans. */
+
+.brine {
+  --board: #dfeaee;
+  --panel: #eef6f8;
+  --line: #6f95a3;
+  --wood: #1d6f8f;
+  --cream: #15272e;
+  --ink-fixed: #fbfeff;
+  --pink: #b3463a;
+  --blue: #1d6f8f;
+  --wash: rgb(0 0 0 / 0.1);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .brine .needs-js {
+  display: none;
+}
+
+.brine :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.brine .card-body,
+.brine .paras,
+.brine .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.brine h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.brine .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.brine .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.brine .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.brine .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.brine .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.brine .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.brine .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.brine .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.brine .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.brine .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.brine .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.brine .times th,
+.brine .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.brine .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.brine .times tbody th {
+  font-weight: 700;
+}
+
+.brine .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.brine .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.brine .pick:hover {
+  background: var(--wash);
+}
+
+.brine .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .brine .no-js-name {
+  display: none;
+}
+
+.brine .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.brine .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.brine .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.brine .btn:hover {
+  background: var(--wash);
+}
+
+.brine .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.brine .btn.fill:hover {
+  background: var(--cream);
+}
+
+.brine .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.brine .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.brine .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.brine .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.brine .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.brine .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.brine .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.brine .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.brine .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.brine .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.brine .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.brine .snd[aria-pressed='true'] .slash,
+.brine .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brine * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.brine .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Pans ---------- */
+.brine .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+}
+
+.brine .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 56rem);
+  margin-inline: auto;
+}
+
+.brine .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.brine .pans {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter) 3rem;
+}
+
+@media (min-width: 60rem) {
+  .brine .pans {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+.brine .pond {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+  padding: 1.6rem 1.3rem 1.9rem;
+  background: var(--panel);
+  border: 6px solid #f6f4ee;
+  border-radius: 18px;
+  box-shadow: 0 0 0 3px var(--line), 0 6px 0 3px rgb(40 90 110 / 0.2);
+}
+
+.brine .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.brine .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.brine .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.brine .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.brine .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.brine .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.brine .times th,
+.brine .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.brine .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.brine .times tbody th {
+  font-weight: 700;
+}
+
+.brine .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.brine .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.brine .pick:hover {
+  background: var(--wash);
+}
+
+.brine .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .brine .no-js-name {
+  display: none;
+}
+
+.brine .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.brine .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.brine .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.brine .btn:hover {
+  background: var(--wash);
+}
+
+.brine .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.brine .btn.fill:hover {
+  background: var(--cream);
+}
+
+.brine .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.brine .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.brine .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.brine .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.brine .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.brine .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.brine .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.brine .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.brine .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.brine .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.brine .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.brine .snd[aria-pressed='true'] .slash,
+.brine .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brine * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.brine .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Counters ---------- */
+.brine .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.brine .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 52rem);
+  margin-inline: auto;
+}
+
+.brine .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.brine .counters {
+  display: grid;
+  gap: 1.6rem;
+  width: min(100%, 52rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter);
+}
+
+.brine .card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.8rem;
+  padding: 1.4rem 1.2rem 1.6rem;
+  background: var(--panel);
+  border: 2px dashed var(--line);
+  border-radius: 6px;
+  box-shadow: 0 6px 0 rgb(80 60 20 / 0.12);
+}
+
+@media (min-width: 40rem) {
+  .brine .card {
+    grid-template-columns: 5rem minmax(0, 1fr);
+    gap: 0 1.6rem;
+    padding: 1.8rem 1.8rem 2rem;
+  }
+}
+
+.brine .postmark {
+  width: 3.2rem;
+  display: grid;
+  place-items: center;
+  align-self: start;
+  aspect-ratio: 1;
+  border: 3px double var(--wood);
+  border-radius: 50%;
+  color: var(--wood);
+  transform: rotate(-8deg);
+}
+
+@media (min-width: 40rem) {
+  .brine .postmark {
+    width: auto;
+  }
+}
+
+.brine .postmark span {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.brine .tag {
+  background: #f1e8b8;
+  color: #15272e;
+}
+
+.brine .tag::before {
+  background: var(--board);
+}
+
+.brine .tag :focus-visible {
+  outline-color: #15272e;
+}
+
+.brine .times thead th {
+  color: #5a4a30;
+}
+
+/* ---------- Drawings ---------- */
+.brine .plate {
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+}
+
+.brine .stage {
+  fill: #fbfeff;
+}
+
+.brine .curve {
+  fill: none;
+  stroke: var(--wood);
+  stroke-width: 3.5;
+  stroke-linejoin: round;
+}
+
+.brine .ref {
+  stroke: var(--pink);
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+}
+
+.brine .axis {
+  stroke: var(--cream);
+  stroke-width: 1.5;
+}
+
+.brine .lab {
+  fill: var(--cream);
+  font-family: var(--font-body, sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.brine .pan {
+  fill: #e8ddc8;
+  stroke: var(--cream);
+  stroke-width: 3;
+}
+
+.brine .water {
+  fill: rgb(60 140 175 / 0.6);
+}
+
+.brine .crystal {
+  fill: #fff;
+  stroke: var(--cream);
+  stroke-width: 1;
+}
+
+/* ---------- Bars ---------- */
+.brine .bars {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.brine .bars li {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr) 3.4rem;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 6px;
+  font-size: 0.97rem;
+}
+
+.brine .bars li.on {
+  box-shadow: 0 0 0 2px var(--wood);
+}
+
+.brine .bar-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.brine .track {
+  display: block;
+  height: 1.1rem;
+  border-radius: 5px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 2px var(--line);
+  overflow: hidden;
+}
+
+.brine .track.tall {
+  height: 1.8rem;
+}
+
+.brine .track .fill {
+  display: block;
+  height: 100%;
+  min-width: 3px;
+  background: var(--wood);
+}

@@ -737,6 +737,15 @@ The page is a wall of grey stone blocks (two by two on a wide screen) with lette
 - `src/components/roman/Wall.astro` is the frame and `Panel*.astro` is one carving each.
 - `src/scripts/roman/roman.ts` starts all four carvings.
 
+## The salty sea page: how the four pans work
+
+The page is a salt works: four shallow pans with a white rim on a pale sea blue page (two by two on a wide screen). Pan 1 is a toy bathtub: salt comes in at a steady rate and goes out in proportion to how salty the sea is, starting fresh. It settles where in matches out, with 35 as today's sea (made up units). Pan 2 evaporates a pan from 0 to 90 per cent of its water and works out the salt in a kilogram (35 over the share left), with the Dead Sea at about 342 g/kg as a reference. It ignores salts that crystallise out. Pan 3 shows the six main ions as shares of the dissolved salts, computed from a table in mg per litre (chloride 55.0, sodium 30.6, sulfate 7.7, magnesium 3.7, calcium 1.2, potassium 1.1 per cent). Pan 4 spreads a share of the sea's salt on the land: 166 m for all of it, by one estimate. Without a script each pan shows one picture or table.
+
+- `src/data/brine.ts` holds all the words, the takeaways and the sources.
+- `src/lib/brine.ts` holds the toy tub, the drying pan, the ion table, the land layer and the drawings as SVG text.
+- `src/components/brine/Works.astro` is the frame and `Panel*.astro` is one pan each.
+- `src/scripts/brine/brine.ts` starts all four pans.
+
 ## Where things are
 
 ```
@@ -805,6 +814,7 @@ src/data/keys.ts           everything the musical scale page says: keys, takeawa
 src/data/compass.ts         everything the compass page says: charts, takeaways, sources
 src/data/tele.ts           everything the telescope page says: stations, takeaways, sources
 src/data/roman.ts          everything the Roman numerals page says: carvings, takeaways, sources
+src/data/brine.ts          everything the salty sea page says: pans, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -874,6 +884,7 @@ src/components/keys/       the musical scale page: four keys and the keyboard fr
 src/components/compass/     the compass page: four charts and the chart table frame
 src/components/tele/       the telescope page: four stations and the tube frame
 src/components/roman/      the Roman numerals page: four carvings and the wall frame
+src/components/brine/      the salty sea page: four pans and the salt works frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -940,6 +951,7 @@ src/styles/keys.css        the musical scale page: black page, ivory keys, keybo
 src/styles/compass.css      the compass page: parchment charts, navy ink, needle drawings
 src/styles/tele.css        the telescope page: night slate, brass beam, lens drawings
 src/styles/roman.css       the Roman numerals page: grey stone blocks, carved letters, bars
+src/styles/brine.css       the salty sea page: salt white and sea blue, pans, bars
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -987,6 +999,7 @@ src/lib/keys.ts            scales, keyboard drawing, frequencies and fifths for 
 src/lib/compass.ts         dip, declination, pole speed and magnet maths for the compass page
 src/lib/tele.ts            magnification, light gathering and resolution maths for the telescope page
 src/lib/roman.ts           Roman numeral conversion, lengths and addition steps for the Roman numerals page
+src/lib/brine.ts           toy sea, drying pan, ion table and land layer for the salty sea page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -1065,6 +1078,7 @@ src/scripts/keys/        all four musical scale keys (keys.ts)
 src/scripts/compass/     all four compass charts (compass.ts)
 src/scripts/tele/        all four telescope stations (tele.ts)
 src/scripts/roman/       all four Roman numeral carvings (roman.ts)
+src/scripts/brine/       all four salty sea pans (brine.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

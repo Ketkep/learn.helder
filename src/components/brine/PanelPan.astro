@@ -1,0 +1,22 @@
+---
+// Pan 2: a pan that dries out. Without a script the table gives a few shares.
+import { fmt, saltier } from '../../lib/brine';
+import { panSvg } from '../../lib/brine';
+const rows = [0, 0.5, 0.8, 0.9];
+---
+
+<div class="tool" data-pan-tool>
+  <svg class="plate" viewBox="0 0 300 160" role="img" aria-label="A shallow pan with water that sinks as it dries and salt crystals forming on the bottom." data-pan-svg>
+    <rect class="stage" x="1" y="1" width="298" height="158" rx="8"></rect>
+    <g set:html={panSvg(0.5)} data-pan-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">How salty the water gets as the water goes</caption>
+    <thead><tr><th scope="col">Water gone</th><th scope="col">Grams of salt in a kilogram</th></tr></thead>
+    <tbody>{rows.map((r) => <tr><th scope="row">{fmt(r * 100)}%</th><td>{fmt(saltier(r))}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Water gone <output data-pan-out>50</output>%</span><input class="range" type="range" min="0" max="90" step="1" value="50" data-pan-range aria-label="Share of the water that has evaporated, in per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-pan-status>With half the water gone the rest holds {fmt(saltier(0.5))} grams of salt in each kilogram, twice as much as the sea. The Dead Sea has about 342.</p>
+</div>

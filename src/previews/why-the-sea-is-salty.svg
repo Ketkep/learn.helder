@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .sa-wave { fill: none; stroke: var(--on-cover); stroke-width: 9; stroke-linecap: round; }
+    .sa-cube { fill: var(--on-cover); transform-box: fill-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .sa-cube { animation: sa-fall 1.8s ease-in infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .sa-cube.two { animation-delay: 0.6s; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .sa-cube.three { animation-delay: 1.2s; }
+    }
+    /* Crystals of salt fall into the waves */
+    @keyframes sa-fall { 0% { transform: translateY(-30px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(56px); opacity: 0; } }
+  </style>
+
+  <g>
+    <path class="sa-wave" d="M60 190 C90 160 120 220 150 190 S210 160 240 190 S300 220 340 190"/>
+    <path class="sa-wave" d="M60 226 C90 196 120 256 150 226 S210 196 240 226 S300 256 340 226" style="opacity:.6"/>
+    <rect class="sa-cube" x="130" y="80" width="26" height="26" rx="4"/>
+    <rect class="sa-cube two" x="188" y="66" width="26" height="26" rx="4"/>
+    <rect class="sa-cube three" x="246" y="86" width="26" height="26" rx="4"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

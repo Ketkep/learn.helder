@@ -1,0 +1,16 @@
+---
+// Pan 1: a bathtub of salt. Without a script the chart shows salt in and out in balance.
+import { settles, tubSvg } from '../../lib/brine';
+---
+
+<div class="tool" data-tub-tool>
+  <svg class="plate" viewBox="0 0 300 150" role="img" aria-label="A line that rises from fresh water at the start and levels off at the saltiness of today's sea." data-tub-svg>
+    <rect class="stage" x="1" y="1" width="298" height="148" rx="8"></rect>
+    <g set:html={tubSvg(1, 1)} data-tub-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Salt in <output data-tub-in>1.0</output></span><input class="range" type="range" min="2" max="40" step="1" value="10" data-tub-rin aria-label="Salt coming in, in made up units, times ten" /></label>
+    <label class="field"><span>Salt out <output data-tub-out>1.0</output></span><input class="range" type="range" min="2" max="40" step="1" value="10" data-tub-rout aria-label="Salt taken out, in made up units, times ten" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-tub-status>Salt in and out are equal, so the toy sea settles at {settles(1, 1)}, the saltiness of today’s sea. Made up units.</p>
+</div>

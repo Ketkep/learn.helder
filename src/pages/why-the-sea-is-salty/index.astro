@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Works from '../../components/brine/Works.astro';
+import { takeaways, sources, sourcesNote } from '../../data/brine';
+---
+
+<TopicLayout
+  slug="why-the-sea-is-salty"
+  intro="Rain wears down rock and rivers carry the salt to the sea, where the water leaves and the salt stays. Fill a toy sea, dry out a pan and see what the salt is made of."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Works />
+</TopicLayout>

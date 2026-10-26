@@ -1,0 +1,18 @@
+---
+// Pan 4: all the salt on land. Without a script the table gives a few shares.
+import { fmt, layerAt } from '../../lib/brine';
+const rows = [0.1, 0.25, 0.5, 1];
+---
+
+<div class="tool" data-land-tool>
+  <table class="times">
+    <caption class="sr-only">Depth of the layer of salt if a share of the sea's salt were spread over the land</caption>
+    <thead><tr><th scope="col">Share of the sea’s salt</th><th scope="col">Depth on the land</th></tr></thead>
+    <tbody>{rows.map((r) => <tr><th scope="row">{fmt(r * 100)}%</th><td>{fmt(layerAt(r), 1)} m</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Share <output data-land-out>100</output>%</span><input class="range" type="range" min="1" max="100" step="1" value="100" data-land-range aria-label="Share of the sea's salt, in per cent" /></label>
+  </div>
+  <div class="needs-js"><span class="track tall"><span class="fill" data-land-bar style="width:100%"></span></span></div>
+  <p class="status" aria-live="polite" data-land-status>All the salt of the sea spread on the land would be about {fmt(layerAt(1))} metres deep, by one estimate.</p>
+</div>
