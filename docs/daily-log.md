@@ -298,3 +298,8 @@ Ideas that fit the same style, not yet built: how a lock works (pins to lift), t
 - facts re-checked (by computing, plus general knowledge as the source sites are blocked from here): 2 to the 64 minus 1 is 18,446,744,073,709,551,615 moves, which is about 585 billion years at one move a second (computed), 2 to the 20 minus 1 is 1,048,575 moves (computed), a just fifth of 701.96 cents and the Pythagorean comma of 23.46 cents (computed), a dip of 63.4 degrees at 45 degrees latitude from tan(dip) = 2 tan(latitude) (computed), Lucas selling the puzzle in 1883 as N. Claus de Siam, A at 440 Hz standardised in 1939. All agree with the pages.
 - found: nothing wrong. Nothing changed in the pages.
 - repair list: empty.
+
+## Error check 2026-10-26
+- checked: no new topics were published last night. The newest topic commits are still those of 2026-10-25 (the-towers-of-hanoi, how-a-musical-scale-is-built, how-a-compass-finds-north), and there is no builder block for 2026-10-26. `npm run check` (0 errors), `npm run build` (66 pages), preview on 4322. `check-topic.mjs --no-shots`: home page, the-dutch-golden-age, how-a-compass-finds-north and how-a-lock-works all 0 FAIL. Dash scan prints nothing.
+- found: nothing wrong. Nothing changed.
+- repair list: empty.
