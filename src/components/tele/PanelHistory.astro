@@ -1,0 +1,15 @@
+---
+// Station 4: history. Without a script the list shows every step.
+import { STEPS } from '../../lib/tele';
+---
+
+<div class="tool" data-history-tool>
+  <ol class="chain" data-history-list>
+    {STEPS.map((s, i) => <li data-step={i}><span class="step-name">{s.name}</span><span class="step-size">{s.size}</span><span class="step-text">{s.text}</span></li>)}
+  </ol>
+  <div class="controls needs-js">
+    <button type="button" class="btn fill" data-history-next>Next step</button>
+    <button type="button" class="btn" data-history-reset>Start again</button>
+  </div>
+  <p class="status needs-js" aria-live="polite" data-history-status>Press next to step along the story.</p>
+</div>

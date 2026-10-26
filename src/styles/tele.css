@@ -1,0 +1,502 @@
+/* The telescope page: a dark night slate with brass rays, a tube cut into four stations. */
+
+.tele {
+  --board: #0e1519;
+  --panel: #16232b;
+  --line: #5b7686;
+  --wood: #e0b25a;
+  --cream: #eef0ea;
+  --ink-fixed: #0e1519;
+  --pink: #e89a6a;
+  --blue: #9fd0e6;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .tele .needs-js {
+  display: none;
+}
+
+.tele :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.tele .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 3px solid var(--line);
+}
+
+.tele .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+}
+
+.tele .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.tele .station-body,
+.tele .paras,
+.tele .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.tele h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.tele .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.tele .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.tele .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.tele .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.tele .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.tele .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.tele .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.tele .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.tele .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.tele .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.tele .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.tele .times th,
+.tele .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.tele .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.tele .times tbody th {
+  font-weight: 700;
+}
+
+.tele .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.tele .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tele .pick:hover {
+  background: var(--wash);
+}
+
+.tele .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .tele .no-js-name {
+  display: none;
+}
+
+.tele .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.tele .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.tele .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.tele .btn:hover {
+  background: var(--wash);
+}
+
+.tele .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.tele .btn.fill:hover {
+  background: var(--cream);
+}
+
+.tele .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.tele .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.tele .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.tele .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.tele .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.tele .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.tele .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.tele .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.tele .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.tele .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.tele .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tele .snd[aria-pressed='true'] .slash,
+.tele .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tele * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.tele .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Stations ---------- */
+.tele .tube {
+  width: min(100%, 56rem);
+  margin-inline: auto;
+  padding: 1rem var(--gutter) 3rem;
+}
+
+.tele .station {
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+  gap: 0 1rem;
+}
+
+@media (min-width: 40rem) {
+  .tele .station {
+    grid-template-columns: 3.4rem minmax(0, 1fr);
+    gap: 0 1.6rem;
+  }
+}
+
+.tele .beam {
+  position: relative;
+  min-height: 100%;
+}
+
+.tele .beam::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 2px);
+  width: 4px;
+  background: var(--wood);
+}
+
+.tele .beam::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 9px);
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 12px solid var(--wood);
+}
+
+.tele .station-body {
+  padding: 1.6rem 0 2.4rem;
+}
+
+.tele .tag {
+  background: var(--wood);
+}
+
+.tele .times {
+  table-layout: auto;
+}
+
+/* ---------- Drawings ---------- */
+.tele .plate {
+  display: block;
+  width: 100%;
+  max-width: 32rem;
+  height: auto;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+}
+
+.tele .stage {
+  fill: #080d10;
+}
+
+.tele .axis {
+  stroke: var(--line);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 5;
+}
+
+.tele .ray {
+  fill: none;
+  stroke: var(--wood);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.tele .lens {
+  fill: rgb(159 208 230 / 0.35);
+  stroke: var(--blue);
+  stroke-width: 2.5;
+}
+
+.tele .focus {
+  fill: var(--cream);
+}
+
+.tele .eye {
+  fill: var(--cream);
+}
+
+.tele .mirror {
+  fill: rgb(159 208 230 / 0.3);
+  stroke: var(--blue);
+  stroke-width: 2.5;
+}
+
+.tele .star {
+  fill: var(--cream);
+}
+
+.tele .gapline {
+  stroke: var(--wood);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.tele .lab {
+  fill: var(--cream);
+  font-family: var(--font-body, sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ---------- The story ---------- */
+.tele .chain {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tele .chain li {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.7rem 0.9rem 0.8rem;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  background: #0b1215;
+}
+
+.tele .chain li.now {
+  border-color: var(--wood);
+  box-shadow: 0 0 0 2px var(--wood);
+}
+
+.tele .step-name {
+  font-weight: 800;
+}
+
+.tele .step-size {
+  font-size: 0.92rem;
+  color: var(--wood);
+  font-weight: 700;
+}
+
+.tele .step-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.tele .stepper li:not(.shown) {
+  display: none;
+}

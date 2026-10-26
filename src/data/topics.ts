@@ -677,6 +677,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-25',
     status: 'live',
   },
+  {
+    slug: 'how-a-telescope-sees-far',
+    title: 'How a telescope sees far',
+    hook: 'Slide two lenses, widen the opening and follow the story from a Dutch looker to Webb.',
+    category: 'Space',
+    accent: '#C4733F',
+    preview: 'how-a-telescope-sees-far',
+    dateAdded: '2026-10-26',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

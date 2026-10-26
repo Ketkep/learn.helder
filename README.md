@@ -719,6 +719,15 @@ The page is a navigator's chart table: parchment charts with navy ink and a red 
 - `src/components/compass/Table.astro` is the frame and `Panel*.astro` is one chart each.
 - `src/scripts/compass/compass.ts` starts all four charts.
 
+## The telescope page: how the four stations work
+
+The page is a telescope tube cut into four stations along a brass beam with an arrowhead (dark slate, brass rays). Station 1 slides the focal lengths of a big lens and an eyepiece, draws the rays through both lenses and gives the magnification (their ratio) and how wide the Moon (about half a degree) would look. Station 2 gives how many times more light an opening of a width gathers than a 5 mm eye (the square of the ratio of widths) with chips for a 50 mm telescope, a 150 mm one, Hubble (2,400 mm) and Webb (6,500 mm). Station 3 gives the Rayleigh limit for green light (1.22 times 550 nm over the width, 138 over the width in mm, in arcseconds) as a fraction of the width of the Moon. Station 4 steps through the history: Lippershey 1608, Galileo 1609 and 1610, Newton 1668, Hubble 1990 and Webb. Without a script each station shows one picture, a table or the whole list.
+
+- `src/data/tele.ts` holds all the words, the takeaways and the sources.
+- `src/lib/tele.ts` holds the magnification, the light gathering, the Rayleigh limit, the history and the drawings as SVG text.
+- `src/components/tele/Tube.astro` is the frame and `Panel*.astro` is one station each.
+- `src/scripts/tele/tele.ts` starts all four stations.
+
 ## Where things are
 
 ```
@@ -785,6 +794,7 @@ src/data/lungs.ts          everything the lungs page says: jars, takeaways, sour
 src/data/hanoi.ts          everything the Towers of Hanoi page says: altars, takeaways, sources
 src/data/keys.ts           everything the musical scale page says: keys, takeaways, sources
 src/data/compass.ts         everything the compass page says: charts, takeaways, sources
+src/data/tele.ts           everything the telescope page says: stations, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -852,6 +862,7 @@ src/components/lungs/      the lungs page: four jars and the bench frame
 src/components/hanoi/      the Towers of Hanoi page: four altars and the temple frame
 src/components/keys/       the musical scale page: four keys and the keyboard frame
 src/components/compass/     the compass page: four charts and the chart table frame
+src/components/tele/       the telescope page: four stations and the tube frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -916,6 +927,7 @@ src/styles/lungs.css       the lungs page: teal bench, glass jar cards, syringe 
 src/styles/hanoi.css       the Towers of Hanoi page: dark stone temple, gold disks, pegs
 src/styles/keys.css        the musical scale page: black page, ivory keys, keyboard drawing
 src/styles/compass.css      the compass page: parchment charts, navy ink, needle drawings
+src/styles/tele.css        the telescope page: night slate, brass beam, lens drawings
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -961,6 +973,7 @@ src/lib/lungs.ts          Boyle's law, model chest, ventilation and air figures 
 src/lib/hanoi.ts           Hanoi rules, solution, move counts and drawings for the Towers of Hanoi page
 src/lib/keys.ts            scales, keyboard drawing, frequencies and fifths for the musical scale page
 src/lib/compass.ts         dip, declination, pole speed and magnet maths for the compass page
+src/lib/tele.ts            magnification, light gathering and resolution maths for the telescope page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -1037,6 +1050,7 @@ src/scripts/lungs/       all four lungs jars (lungs.ts)
 src/scripts/hanoi/       all four Hanoi altars (hanoi.ts)
 src/scripts/keys/        all four musical scale keys (keys.ts)
 src/scripts/compass/     all four compass charts (compass.ts)
+src/scripts/tele/        all four telescope stations (tele.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

@@ -1,0 +1,16 @@
+---
+// Station 1: two lenses. Without a script the picture shows a 1,000 mm objective and a 25 mm eyepiece.
+import { fmt, lensesSvg, magnification, moonThrough } from '../../lib/tele';
+---
+
+<div class="tool" data-lenses-tool>
+  <svg class="plate" viewBox="0 0 300 150" role="img" aria-label="Light from a far star passing through a big lens, crossing at the focus and leaving through a small eyepiece lens." data-lenses-svg>
+    <rect class="stage" x="1" y="1" width="298" height="148" rx="8"></rect>
+    <g set:html={lensesSvg(1000, 25)} data-lenses-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Big lens <output data-lenses-fo>1000</output> mm</span><input class="range" type="range" min="200" max="1500" step="50" value="1000" data-lenses-ro aria-label="Focal length of the big lens, in millimetres" /></label>
+    <label class="field"><span>Eyepiece <output data-lenses-fe>25</output> mm</span><input class="range" type="range" min="5" max="40" step="1" value="25" data-lenses-re aria-label="Focal length of the eyepiece, in millimetres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-lenses-status>1,000 divided by 25 gives {fmt(magnification(1000, 25))} times. The Moon, about half a degree wide, looks {fmt(moonThrough(40))} degrees wide.</p>
+</div>

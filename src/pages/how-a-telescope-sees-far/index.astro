@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Tube from '../../components/tele/Tube.astro';
+import { takeaways, sources, sourcesNote } from '../../data/tele';
+---
+
+<TopicLayout
+  slug="how-a-telescope-sees-far"
+  intro="A telescope magnifies and gathers light. Slide two lenses, widen the opening, find the sharpest view a telescope can give and follow the story from a Dutch looker in 1608 to Webb."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Tube />
+</TopicLayout>

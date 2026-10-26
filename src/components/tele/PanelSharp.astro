@@ -1,0 +1,22 @@
+---
+// Station 3: how sharp it can be. Without a script the table gives four openings.
+import { fmt, MOON_ARCSEC, rayleighArcsec } from '../../lib/tele';
+import { sharpSvg } from '../../lib/tele';
+const rows = [50, 100, 150, 2400];
+---
+
+<div class="tool" data-sharp-tool>
+  <svg class="plate" viewBox="0 0 300 160" role="img" aria-label="Two stars drawn as discs with a gap between them that is the smallest gap the opening can show." data-sharp-svg>
+    <rect class="stage" x="1" y="1" width="298" height="158" rx="8"></rect>
+    <g set:html={sharpSvg(100)} data-sharp-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The smallest angle each opening can separate, for green light</caption>
+    <thead><tr><th scope="col">Opening</th><th scope="col">Smallest angle</th></tr></thead>
+    <tbody>{rows.map((d) => <tr><th scope="row">{fmt(d)} mm</th><td>{fmt(rayleighArcsec(d), rayleighArcsec(d) < 0.1 ? 3 : 2)}"</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Opening <output data-sharp-out>100</output> mm</span><input class="range" type="range" min="20" max="500" step="5" value="100" data-sharp-range aria-label="Width of the opening, in millimetres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-sharp-status>An opening of 100 mm can separate details {fmt(rayleighArcsec(100), 2)} arcseconds wide, which is {fmt(MOON_ARCSEC / rayleighArcsec(100))} times finer than the width of the Moon.</p>
+</div>

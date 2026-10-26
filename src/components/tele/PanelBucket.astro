@@ -1,0 +1,23 @@
+---
+// Station 2: the light bucket. Without a script the picture shows a 50 mm opening.
+import { bucketSvg, fmt, lightTimes, SCOPES } from '../../lib/tele';
+---
+
+<div class="tool" data-bucket-tool>
+  <svg class="plate" viewBox="0 0 300 200" role="img" aria-label="A small circle for the eye and a bigger circle for the opening of a telescope, with areas in proportion." data-bucket-svg>
+    <rect class="stage" x="1" y="1" width="298" height="198" rx="8"></rect>
+    <g set:html={bucketSvg(50)} data-bucket-g></g>
+  </svg>
+  <div class="controls needs-js" role="group" aria-label="Pick a telescope">
+    {SCOPES.map((s) => <button type="button" class="pick" aria-pressed="false" data-bucket-pick={s.mm}>{s.name}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Opening <output data-bucket-out>50</output> mm</span><input class="range" type="range" min="5" max="500" step="5" value="50" data-bucket-range aria-label="Width of the opening, in millimetres" /></label>
+  </div>
+  <table class="times">
+    <caption class="sr-only">How many times more light than a 5 millimetre eye some openings gather</caption>
+    <thead><tr><th scope="col">Opening</th><th scope="col">Times the light of the eye</th></tr></thead>
+    <tbody>{SCOPES.map((s) => <tr><th scope="row">{s.name}</th><td>{fmt(lightTimes(s.mm))}</td></tr>)}</tbody>
+  </table>
+  <p class="status" aria-live="polite" data-bucket-status>An opening of 50 mm gathers {fmt(lightTimes(50))} times as much light as a 5 mm eye.</p>
+</div>
