@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Board from '../../components/muscle/Board.astro';
+import { takeaways, sources, sourcesNote } from '../../data/muscle';
+---
+
+<TopicLayout
+  slug="how-a-muscle-pulls"
+  intro="A muscle shortens because tiny filaments slide past each other, hand over hand. Change the length of one unit, step through one pull, stack thousands in a row and flip the two switches."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Board />
+</TopicLayout>

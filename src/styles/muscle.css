@@ -1,0 +1,495 @@
+/* The muscle page: a gym floor in maple, with a coach's whiteboard for each thing to try. */
+
+.muscle {
+  --board: #ecdcb8;
+  --panel: #fffdf7;
+  --line: #6b5640;
+  --wood: #b3392b;
+  --cream: #2a1d15;
+  --ink-fixed: #fffdf7;
+  --pink: #b3392b;
+  --blue: #245a8a;
+  --wash: rgb(0 0 0 / 0.1);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .muscle .needs-js {
+  display: none;
+}
+
+.muscle :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.muscle .card-body,
+.muscle .paras,
+.muscle .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.muscle h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.muscle .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.muscle .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.muscle .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.muscle .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.muscle .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.muscle .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.muscle .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.muscle .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.muscle .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.muscle .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.muscle .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.muscle .times th,
+.muscle .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.muscle .times thead th {
+  color: #4a3a2c;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.muscle .times tbody th {
+  font-weight: 700;
+}
+
+.muscle .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.muscle .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.muscle .pick:hover {
+  background: var(--wash);
+}
+
+.muscle .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .muscle .no-js-name {
+  display: none;
+}
+
+.muscle .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.muscle .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.muscle .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.muscle .btn:hover {
+  background: var(--wash);
+}
+
+.muscle .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.muscle .btn.fill:hover {
+  background: var(--cream);
+}
+
+.muscle .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.muscle .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.muscle .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.muscle .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.muscle .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.muscle .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.muscle .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.muscle .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.muscle .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.muscle .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.muscle .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.muscle .snd[aria-pressed='true'] .slash,
+.muscle .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .muscle * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.muscle .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+
+/* ---------- Gym floor ---------- */
+.muscle .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 8px solid var(--wood);
+}
+
+.muscle .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.muscle .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.muscle .boards {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3.4rem);
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: clamp(1.6rem, 4vw, 2.6rem) var(--gutter) 3.4rem;
+}
+
+.muscle .session {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.2rem;
+  align-items: start;
+}
+
+@media (min-width: 60rem) {
+  .muscle .session {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 2.4rem;
+  }
+
+  .muscle .session:nth-child(even) .notes {
+    order: 2;
+  }
+}
+
+.muscle .notes {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+/* The whiteboard: a thick dark frame and a tray along the bottom for the pen */
+.muscle .board {
+  position: relative;
+  min-width: 0;
+  padding: 1.1rem 1.1rem 1.5rem;
+  border: 8px solid var(--cream);
+  border-radius: 10px;
+  background: var(--panel);
+  box-shadow: 0 10px 0 -2px rgb(0 0 0 / 0.28);
+}
+
+.muscle .board::after {
+  content: '';
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: -0.95rem;
+  height: 0.55rem;
+  border-radius: 0 0 6px 6px;
+  background: var(--cream);
+}
+
+.muscle .tag {
+  background: #f1d56a;
+  color: var(--cream);
+  transform: rotate(0.5deg);
+}
+
+.muscle .tag::before {
+  background: var(--wood);
+}
+
+.muscle .tag :focus-visible {
+  outline-color: var(--cream);
+}
+
+.muscle .btn.fill:hover {
+  background: var(--cream);
+}
+
+/* ---------- Drawings ---------- */
+.muscle .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.muscle .stage {
+  fill: var(--panel);
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.muscle .thin {
+  stroke: var(--blue);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.muscle .thick {
+  fill: var(--wood);
+}
+
+.muscle .bead {
+  fill: var(--blue);
+}
+
+.muscle .head {
+  stroke: #6b5640;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.muscle .head.on {
+  stroke: var(--wood);
+  stroke-width: 3.5;
+}
+
+.muscle .zdisc {
+  stroke: var(--cream);
+  stroke-width: 4;
+}
+
+.muscle .lab {
+  fill: var(--cream);
+  font-size: 10px;
+}
+
+.muscle .arm {
+  fill: none;
+  stroke: #6b5640;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.muscle .arm.on {
+  stroke: var(--wood);
+}
+
+.muscle .knob2 {
+  fill: #6b5640;
+}
+
+.muscle .knob2.on {
+  fill: var(--wood);
+}
+
+.muscle .site {
+  fill: #3b7a4a;
+  stroke: var(--cream);
+  stroke-width: 1.5;
+}
+
+.muscle .site.shut {
+  fill: #8a8070;
+}
+
+.muscle .cap {
+  fill: var(--cream);
+}

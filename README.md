@@ -755,6 +755,15 @@ The page is a hotel corridor in navy and brass: a lobby and four floors, one und
 - `src/components/hotel/Hotel.astro` is the frame and `Panel*.astro` is one floor each.
 - `src/scripts/hotel/hotel.ts` starts all four floors.
 
+## The muscle page: how the four whiteboards work
+
+The page is a gym floor in maple with four whiteboards, each with a thick frame and a pen tray, and the words on sticky notes beside them (text and board swap sides on a wide screen). Board 1 slides one sarcomere from 2.00 to 3.80 micrometres and counts how many of 14 drawn heads sit on a thin filament (thick filament 1.6, thin filaments reach 1.025 from each Z disc, bare middle 0.2). Overlap ends at 3.65 and is complete from 2.05 to 2.25. The drawn heads are a made up number. Board 2 steps one head through ready, attach, power stroke and release, and counts the pulls (11 nm each, one study, not to scale). Board 3 slides how much each sarcomere shortens (0 to 25 per cent, a toy cap) and works out one centimetre of sarcomeres (about 4,545 at 2.2 micrometres). Board 4 has three states: signal on with ATP, signal off, and signal on with no ATP (stuck, as in rigor mortis). Without a script each board shows one picture or table.
+
+- `src/data/muscle.ts` holds all the words, the takeaways and the sources.
+- `src/lib/muscle.ts` holds the overlap sums, the head cycle, the chain and the drawings as SVG text.
+- `src/components/muscle/Board.astro` is the frame and `Panel*.astro` is one whiteboard each.
+- `src/scripts/muscle/muscle.ts` starts all four boards.
+
 ## Where things are
 
 ```
@@ -825,6 +834,7 @@ src/data/tele.ts           everything the telescope page says: stations, takeawa
 src/data/roman.ts          everything the Roman numerals page says: carvings, takeaways, sources
 src/data/brine.ts          everything the salty sea page says: pans, takeaways, sources
 src/data/hotel.ts          everything the Hilbert hotel page says: floors, takeaways, sources
+src/data/muscle.ts         everything the muscle page says: boards, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -896,6 +906,7 @@ src/components/tele/       the telescope page: four stations and the tube frame
 src/components/roman/      the Roman numerals page: four carvings and the wall frame
 src/components/brine/      the salty sea page: four pans and the salt works frame
 src/components/hotel/      the Hilbert hotel page: four floors and the hotel frame
+src/components/muscle/     the muscle page: four whiteboards and the gym frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -964,6 +975,7 @@ src/styles/tele.css        the telescope page: night slate, brass beam, lens dra
 src/styles/roman.css       the Roman numerals page: grey stone blocks, carved letters, bars
 src/styles/brine.css       the salty sea page: salt white and sea blue, pans, bars
 src/styles/hotel.css       the Hilbert hotel page: navy and brass, floors, doors, digit grid
+src/styles/muscle.css      the muscle page: maple floor, whiteboards, filaments
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -1013,6 +1025,7 @@ src/lib/tele.ts            magnification, light gathering and resolution maths f
 src/lib/roman.ts           Roman numeral conversion, lengths and addition steps for the Roman numerals page
 src/lib/brine.ts           toy sea, drying pan, ion table and land layer for the salty sea page
 src/lib/hotel.ts           room shifts, fraction order, place finder and digit lists for the hotel page
+src/lib/muscle.ts          sarcomere overlap, head cycle and chain sums for the muscle page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -1093,6 +1106,7 @@ src/scripts/tele/        all four telescope stations (tele.ts)
 src/scripts/roman/       all four Roman numeral carvings (roman.ts)
 src/scripts/brine/       all four salty sea pans (brine.ts)
 src/scripts/hotel/       all four hotel floors (hotel.ts)
+src/scripts/muscle/      all four muscle boards (muscle.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

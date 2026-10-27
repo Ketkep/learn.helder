@@ -1,0 +1,21 @@
+---
+// Board 3: thousands in a row. Without a script the table gives a few shortenings of one centimetre.
+import { chainSvg, countIn, fmt } from '../../lib/muscle';
+const rows = [0.05, 0.1, 0.2];
+---
+
+<div class="tool" data-chain-tool>
+  <svg class="plate" viewBox="0 0 300 124" role="img" aria-label="Six sarcomeres end to end, each a little shorter than at rest." data-chain-svg>
+    <rect class="stage" x="1" y="1" width="298" height="122" rx="8"></rect>
+    <g set:html={chainSvg(0.1)} data-chain-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">How much one centimetre of sarcomeres shortens</caption>
+    <thead><tr><th scope="col">Each sarcomere shortens by</th><th scope="col">One centimetre becomes</th></tr></thead>
+    <tbody>{rows.map((r) => <tr><th scope="row">{fmt(r * 100)}%</th><td>{fmt(10 * (1 - r), 1)} mm</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Each shortens by <output data-chain-out>10</output>%</span><input class="range" type="range" min="0" max="25" step="1" value="10" data-chain-range aria-label="How much each sarcomere shortens, in per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-chain-status>One centimetre holds about {fmt(countIn(1))} sarcomeres. With each one 10% shorter, the centimetre becomes 9.0 millimetres, 1.0 millimetre shorter.</p>
+</div>

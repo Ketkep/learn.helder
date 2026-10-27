@@ -1,0 +1,20 @@
+---
+// Board 4: the signal and ATP. Without a script the table lists the three states.
+import { STATES, switchSvg } from '../../lib/muscle';
+---
+
+<div class="tool" data-switch-tool>
+  <svg class="plate" viewBox="0 0 300 176" role="img" aria-label="A thin filament with five binding sites above a thick filament with five heads." data-switch-svg>
+    <rect class="stage" x="1" y="1" width="298" height="174" rx="8"></rect>
+    <g set:html={switchSvg(0)} data-switch-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Three states of a muscle</caption>
+    <thead><tr><th scope="col">State</th><th scope="col">What happens</th></tr></thead>
+    <tbody>{STATES.map((s) => <tr><th scope="row">{s.name}</th><td>{s.text}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    {STATES.map((s, i) => <button class="pick" type="button" aria-pressed={i === 0 ? 'true' : 'false'} data-switch-pick={i}>{s.name}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-switch-status>{STATES[0].text}</p>
+</div>

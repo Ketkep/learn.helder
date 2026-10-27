@@ -1,0 +1,21 @@
+---
+// Board 2: one pull of one head. Without a script the table lists the four steps.
+import { CYCLE, cycleSvg } from '../../lib/muscle';
+---
+
+<div class="tool" data-cycle-tool>
+  <svg class="plate" viewBox="0 0 300 176" role="img" aria-label="A myosin head on a thick filament reaching up to a thin filament with beads on it." data-cycle-svg>
+    <rect class="stage" x="1" y="1" width="298" height="174" rx="8"></rect>
+    <g set:html={cycleSvg(1, 0)} data-cycle-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The four steps of one pull</caption>
+    <thead><tr><th scope="col">Step</th><th scope="col">What happens</th></tr></thead>
+    <tbody>{CYCLE.map((c, i) => <tr><th scope="row">{i + 1}. {c.name}</th><td>{c.text}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-cycle-next>Next step</button>
+    <button class="btn" type="button" data-cycle-reset>Start again</button>
+  </div>
+  <p class="status" aria-live="polite" data-cycle-status>Step 1, ready. The head is cocked, holds the leftovers of the last ATP and is not yet on the thin filament.</p>
+</div>

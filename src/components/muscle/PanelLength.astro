@@ -1,0 +1,21 @@
+---
+// Board 1: the length of a sarcomere. Without a script the table gives a few lengths.
+import { fmt, headsInReach, HEADS, sarcomereSvg } from '../../lib/muscle';
+const rows = [2.2, 2.8, 3.2, 3.65];
+---
+
+<div class="tool" data-length-tool>
+  <svg class="plate" viewBox="0 0 300 124" role="img" aria-label="One sarcomere between two Z discs, with a thick filament in the middle and thin filaments reaching in from each side." data-length-svg>
+    <rect class="stage" x="1" y="1" width="298" height="122" rx="8"></rect>
+    <g set:html={sarcomereSvg(2.2)} data-length-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">How many of the drawn heads can reach a thin filament at some sarcomere lengths</caption>
+    <thead><tr><th scope="col">Length in micrometres</th><th scope="col">Heads in reach (of {HEADS})</th></tr></thead>
+    <tbody>{rows.map((l) => <tr><th scope="row">{fmt(l, 2)}</th><td>{headsInReach(l)}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Length <output data-length-out>2.20</output> µm</span><input class="range" type="range" min="200" max="380" step="5" value="220" data-length-range aria-label="Length of the sarcomere in micrometres, times one hundred" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-length-status>At 2.20 micrometres, the resting length, {headsInReach(2.2)} of the {HEADS} drawn heads can reach a thin filament.</p>
+</div>

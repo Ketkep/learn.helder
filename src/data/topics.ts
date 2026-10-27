@@ -717,6 +717,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-27',
     status: 'live',
   },
+  {
+    slug: 'how-a-muscle-pulls',
+    title: 'How a muscle pulls',
+    hook: 'Slide the filaments, step through one pull and flip the switches that let a muscle pull and let go.',
+    category: 'Body',
+    accent: '#D2553F',
+    preview: 'how-a-muscle-pulls',
+    dateAdded: '2026-10-27',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */
