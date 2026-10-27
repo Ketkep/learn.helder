@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Hotel from '../../components/hotel/Hotel.astro';
+import { takeaways, sources, sourcesNote } from '../../data/hotel';
+---
+
+<TopicLayout
+  slug="hilberts-hotel"
+  intro="A hotel with a room for every counting number is full, and a new guest arrives. Make room, fit a bus with infinitely many seats, count the fractions and see why one infinity cannot be counted."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Hotel />
+</TopicLayout>

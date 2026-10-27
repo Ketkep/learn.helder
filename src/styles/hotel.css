@@ -1,0 +1,547 @@
+/* The infinite hotel page: a night corridor in navy and brass, one floor for each thing to try. */
+
+.hotel {
+  --board: #1a2340;
+  --panel: #232f55;
+  --line: #7a8cc4;
+  --wood: #e0b862;
+  --cream: #f6eedb;
+  --ink-fixed: #1a2340;
+  --pink: #e0b862;
+  --blue: #8fc0e6;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .hotel .needs-js {
+  display: none;
+}
+
+.hotel :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.hotel .card-body,
+.hotel .paras,
+.hotel .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.hotel h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.hotel .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.hotel .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.hotel .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.hotel .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.hotel .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.hotel .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.hotel .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.hotel .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.hotel .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.hotel .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.hotel .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.hotel .times th,
+.hotel .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.hotel .times thead th {
+  color: #d5d9e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.hotel .times tbody th {
+  font-weight: 700;
+}
+
+.hotel .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.hotel .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.hotel .pick:hover {
+  background: var(--wash);
+}
+
+.hotel .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .hotel .no-js-name {
+  display: none;
+}
+
+.hotel .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.hotel .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.hotel .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.hotel .btn:hover {
+  background: var(--wash);
+}
+
+.hotel .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.hotel .btn.fill:hover {
+  background: var(--cream);
+}
+
+.hotel .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.hotel .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.hotel .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.hotel .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.hotel .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.hotel .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.hotel .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.hotel .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.hotel .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.hotel .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.hotel .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.hotel .snd[aria-pressed='true'] .slash,
+.hotel .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hotel * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.hotel .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Lobby and floors ---------- */
+.hotel .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 6px solid var(--wood);
+}
+
+.hotel .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.hotel .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.hotel .floors {
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: 0 var(--gutter) 3rem;
+}
+
+.hotel .floor {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.4rem;
+  padding: clamp(1.6rem, 4vw, 2.6rem) 0;
+  border-bottom: 3px dashed var(--line);
+}
+
+.hotel .floor:last-child {
+  border-bottom: 0;
+}
+
+.hotel .floor-body {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+  max-width: 46rem;
+}
+
+/* The brass floor number, like the one over a lift door */
+.hotel .level {
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  margin: 0;
+  border: 3px solid var(--wood);
+  border-radius: 50%;
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+@media (min-width: 50rem) {
+  .hotel .floor {
+    grid-template-columns: 5rem minmax(0, 1fr);
+    gap: 1.2rem;
+  }
+}
+
+/* ---------- Drawings ---------- */
+.hotel .plate {
+  display: block;
+  width: 100%;
+  max-width: 42rem;
+  height: auto;
+}
+
+.hotel .stage {
+  fill: var(--panel);
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.hotel .door {
+  stroke: var(--wood);
+  stroke-width: 1.5;
+}
+
+.hotel .door.old {
+  fill: #2f4080;
+}
+
+.hotel .door.new {
+  fill: var(--wood);
+}
+
+.hotel .door.bus {
+  fill: var(--blue);
+  stroke: var(--blue);
+}
+
+.hotel .door.empty {
+  fill: none;
+  stroke: var(--line);
+  stroke-dasharray: 4 3;
+}
+
+.hotel .num {
+  fill: var(--cream);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.hotel .who {
+  fill: var(--cream);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.hotel .who.new,
+.hotel .who.bus {
+  fill: var(--ink-fixed);
+}
+
+.hotel .who.new {
+  font-size: 8px;
+}
+
+.hotel .dots {
+  fill: var(--cream);
+  font-size: 10px;
+}
+
+.hotel .cell {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.hotel .cell.dim {
+  fill: #2f4080;
+}
+
+.hotel .cell.lit {
+  fill: var(--wood);
+  stroke: var(--wood);
+}
+
+.hotel .cell.skip {
+  fill: none;
+  stroke-dasharray: 3 3;
+}
+
+.hotel .frac {
+  fill: var(--cream);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.hotel .frac.lit {
+  fill: var(--ink-fixed);
+}
+
+.hotel .frac.skip {
+  fill: #a9b6e0;
+  text-decoration: line-through;
+}
+
+.hotel .walk {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+/* ---------- Strings of digits ---------- */
+.hotel .digits {
+  border-collapse: separate;
+  border-spacing: 3px;
+  width: 100%;
+  max-width: 28rem;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+  font-weight: 700;
+}
+
+.hotel .digits th {
+  padding-right: 0.5rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.hotel .digits td {
+  min-width: 1.6rem;
+  height: 2rem;
+  padding: 0;
+  border-radius: 4px;
+  background: #2f4080;
+  text-align: center;
+}
+
+.hotel .digits td.diag {
+  background: var(--blue);
+  color: var(--ink-fixed);
+}
+
+.hotel .digits .new td {
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.hotel .bit {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 2rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.hotel .digits td.diag .bit:focus-visible {
+  outline-color: var(--ink-fixed);
+}

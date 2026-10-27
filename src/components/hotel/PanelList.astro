@@ -1,0 +1,20 @@
+---
+// Floor 4: a list that always misses. Without a script the table shows one list and the string that is not on it.
+import { diagonalFlip, makeList } from '../../lib/hotel';
+const list = makeList(7);
+const flip = diagonalFlip(list);
+---
+
+<div class="tool" data-list-tool>
+  <table class="digits" data-list-table>
+    <caption class="sr-only">A list of eight strings of eight digits and a ninth string that differs from line k at place k</caption>
+    <tbody>
+      {list.map((row, k) => <tr><th scope="row">Line {k + 1}</th>{row.map((d, j) => <td class={j === k ? 'diag' : ''}>{d}</td>)}</tr>)}
+      <tr class="new"><th scope="row">New</th>{flip.map((d) => <td>{d}</td>)}</tr>
+    </tbody>
+  </table>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-list-new>Make a new list</button>
+  </div>
+  <p class="status" aria-live="polite" data-list-status>The new string is {flip.join('')}. It differs from line 1 at place 1, from line 2 at place 2 and so on, so it is not on the list.</p>
+</div>

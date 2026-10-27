@@ -707,6 +707,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-26',
     status: 'live',
   },
+  {
+    slug: 'hilberts-hotel',
+    title: 'Hilbert’s hotel',
+    hook: 'A full hotel with no last room: make space for one guest, a bus and a list that always misses.',
+    category: 'Maths',
+    accent: '#34508F',
+    preview: 'hilberts-hotel',
+    dateAdded: '2026-10-27',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

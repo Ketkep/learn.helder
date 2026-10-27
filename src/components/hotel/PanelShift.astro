@@ -1,0 +1,21 @@
+---
+// Floor 1: one more guest. Without a script the table shows a few guests and where they move.
+import { fmt, shiftRoom, shiftSvg } from '../../lib/hotel';
+const rows = [1, 2, 100, 1000000];
+---
+
+<div class="tool" data-shift-tool>
+  <svg class="plate" viewBox="0 0 300 140" role="img" aria-label="A corridor of twelve doors, numbered from 1, in which every guest has moved one door along and room 1 is free." data-shift-svg>
+    <rect class="stage" x="1" y="1" width="298" height="138" rx="8"></rect>
+    <g set:html={shiftSvg(1)} data-shift-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Where a guest goes when one new guest arrives</caption>
+    <thead><tr><th scope="col">Guest in room</th><th scope="col">Moves to room</th></tr></thead>
+    <tbody>{rows.map((n) => <tr><th scope="row">{fmt(n)}</th><td>{fmt(shiftRoom(n, 1))}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>New guests <output data-shift-out>1</output></span><input class="range" type="range" min="1" max="8" step="1" value="1" data-shift-range aria-label="Number of new guests" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-shift-status>One new guest arrives. Everyone moves one door along, so the guest in room 1 goes to room 2, and room 1 is free.</p>
+</div>

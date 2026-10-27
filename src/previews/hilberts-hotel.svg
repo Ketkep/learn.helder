@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ho-door { fill: none; stroke: var(--on-cover); stroke-width: 6; }
+    .ho-guest { fill: var(--on-cover); transform-box: fill-box; }
+    .ho-dot { fill: var(--on-cover); }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ho-guest { animation: ho-shift 2.4s ease-in-out infinite; }
+    }
+    /* Every guest steps one door along */
+    @keyframes ho-shift { 0%, 20% { transform: translateX(0); } 60%, 100% { transform: translateX(54px); } }
+  </style>
+
+  <g>
+    <rect class="ho-door" x="40" y="90" width="44" height="100" rx="4"/>
+    <rect class="ho-door" x="94" y="90" width="44" height="100" rx="4"/>
+    <rect class="ho-door" x="148" y="90" width="44" height="100" rx="4"/>
+    <rect class="ho-door" x="202" y="90" width="44" height="100" rx="4"/>
+    <rect class="ho-door" x="256" y="90" width="44" height="100" rx="4"/>
+    <circle class="ho-guest" cx="62" cy="140" r="12"/>
+    <circle class="ho-guest" cx="116" cy="140" r="12"/>
+    <circle class="ho-guest" cx="170" cy="140" r="12"/>
+    <circle class="ho-guest" cx="224" cy="140" r="12"/>
+    <circle class="ho-dot" cx="326" cy="140" r="5"/>
+    <circle class="ho-dot" cx="344" cy="140" r="5"/>
+    <circle class="ho-dot" cx="362" cy="140" r="5"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

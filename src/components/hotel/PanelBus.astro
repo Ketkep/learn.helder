@@ -1,0 +1,26 @@
+---
+// Floor 2: a bus with infinitely many seats. Without a script the table shows where a few guests and passengers go.
+import { busSvg, evenRoom, fmt, oddRoom } from '../../lib/hotel';
+const rows = [1, 2, 3, 1000];
+---
+
+<div class="tool" data-bus-tool>
+  <svg class="plate" viewBox="0 0 300 140" role="img" aria-label="A corridor of twelve doors in which the old guests sit in the even rooms and the bus passengers, marked B, fill the odd rooms." data-bus-svg>
+    <rect class="stage" x="1" y="1" width="298" height="138" rx="8"></rect>
+    <g set:html={busSvg(2)} data-bus-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Where a guest and a bus passenger with the same number go</caption>
+    <thead><tr><th scope="col">Number</th><th scope="col">Guest goes to room</th><th scope="col">Passenger goes to room</th></tr></thead>
+    <tbody>{rows.map((n) => <tr><th scope="row">{fmt(n)}</th><td>{fmt(evenRoom(n))}</td><td>{fmt(oddRoom(n))}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <button class="pick" type="button" aria-pressed="false" data-bus-step="0">Full hotel</button>
+    <button class="pick" type="button" aria-pressed="false" data-bus-step="1">Guests double</button>
+    <button class="pick" type="button" aria-pressed="true" data-bus-step="2">Bus boards</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Number</span><input class="text" type="number" min="1" max="1000000" step="1" value="5" data-bus-num aria-label="A guest or passenger number from 1 to 1,000,000" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-bus-status>Guest 5 moves to room 10. Passenger 5 takes room 9.</p>
+</div>

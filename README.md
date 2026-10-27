@@ -746,6 +746,15 @@ The page is a salt works: four shallow pans with a white rim on a pale sea blue 
 - `src/components/brine/Works.astro` is the frame and `Panel*.astro` is one pan each.
 - `src/scripts/brine/brine.ts` starts all four pans.
 
+## Hilbert's hotel page: how the four floors work
+
+The page is a hotel corridor in navy and brass: a lobby and four floors, one under the other, each with a brass floor number. Floor 1 moves every guest k doors along to fit k new guests (room n becomes n plus k). Floor 2 doubles every room number (n becomes 2n) and seats the bus passengers in the odd rooms (passenger m takes 2m minus 1), with a box to try a number up to a million. Floor 3 lists the fractions in a staircase where p plus q grows row by row, skipping any fraction not in lowest terms, and works out the place of any fraction up to 60 over 60. Floor 4 is a list of eight strings of eight digits whose digits can be flipped, with the diagonal flipped into a string that is not on the list (a small copy of Cantor's argument, said so on the page). Without a script each floor shows one picture or table.
+
+- `src/data/hotel.ts` holds all the words, the takeaways and the sources.
+- `src/lib/hotel.ts` holds the shifts, the fraction order, the place finder, the digit lists and the drawings as SVG text.
+- `src/components/hotel/Hotel.astro` is the frame and `Panel*.astro` is one floor each.
+- `src/scripts/hotel/hotel.ts` starts all four floors.
+
 ## Where things are
 
 ```
@@ -815,6 +824,7 @@ src/data/compass.ts         everything the compass page says: charts, takeaways,
 src/data/tele.ts           everything the telescope page says: stations, takeaways, sources
 src/data/roman.ts          everything the Roman numerals page says: carvings, takeaways, sources
 src/data/brine.ts          everything the salty sea page says: pans, takeaways, sources
+src/data/hotel.ts          everything the Hilbert hotel page says: floors, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -885,6 +895,7 @@ src/components/compass/     the compass page: four charts and the chart table fr
 src/components/tele/       the telescope page: four stations and the tube frame
 src/components/roman/      the Roman numerals page: four carvings and the wall frame
 src/components/brine/      the salty sea page: four pans and the salt works frame
+src/components/hotel/      the Hilbert hotel page: four floors and the hotel frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -952,6 +963,7 @@ src/styles/compass.css      the compass page: parchment charts, navy ink, needle
 src/styles/tele.css        the telescope page: night slate, brass beam, lens drawings
 src/styles/roman.css       the Roman numerals page: grey stone blocks, carved letters, bars
 src/styles/brine.css       the salty sea page: salt white and sea blue, pans, bars
+src/styles/hotel.css       the Hilbert hotel page: navy and brass, floors, doors, digit grid
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -1000,6 +1012,7 @@ src/lib/compass.ts         dip, declination, pole speed and magnet maths for the
 src/lib/tele.ts            magnification, light gathering and resolution maths for the telescope page
 src/lib/roman.ts           Roman numeral conversion, lengths and addition steps for the Roman numerals page
 src/lib/brine.ts           toy sea, drying pan, ion table and land layer for the salty sea page
+src/lib/hotel.ts           room shifts, fraction order, place finder and digit lists for the hotel page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -1079,6 +1092,7 @@ src/scripts/compass/     all four compass charts (compass.ts)
 src/scripts/tele/        all four telescope stations (tele.ts)
 src/scripts/roman/       all four Roman numeral carvings (roman.ts)
 src/scripts/brine/       all four salty sea pans (brine.ts)
+src/scripts/hotel/       all four hotel floors (hotel.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image
