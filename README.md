@@ -764,6 +764,15 @@ The page is a gym floor in maple with four whiteboards, each with a thick frame 
 - `src/components/muscle/Board.astro` is the frame and `Panel*.astro` is one whiteboard each.
 - `src/scripts/muscle/muscle.ts` starts all four boards.
 
+## The transit map page: how the four sheets work
+
+The page is a drafting desk: four sheets of tracing paper with a faint grid and the sheets underneath showing at the edge, on a pale grey-blue desk. The city is made up: Maplebury, twelve stations on three lines, with made up positions in kilometres and a made up diagram on a grid. Sheet 1 slides every station from the real layout to the diagram and counts the stretches that lie flat, upright or at 45 degrees (2 of 12 to 12 of 12). Sheet 2 pushes the real layout outward from the centre (distance r becomes 12 times (r over 12) to the power g) and reports how many times wider the box around the four middle stations is. Sheet 3 finds the route with the fewest stops, then the fewest changes, and gives the straight line distance. Sheet 4 marks two trips in orange and violet and asks which covers more ground in a straight line. In all five pairs the trip with more stops is the shorter one. The history (Beck in 1931, 500 copies in 1932, 700,000 in 1933) comes from the sources. Without a script each sheet shows one picture or table.
+
+- `src/data/transit.ts` holds all the words, the takeaways and the sources.
+- `src/lib/transit.ts` holds the stations, the lines, the drawings as SVG text, the route search and the trip pairs.
+- `src/components/transit/Desk.astro` is the frame and `Panel*.astro` is one sheet each.
+- `src/scripts/transit/transit.ts` starts all four sheets.
+
 ## Where things are
 
 ```
@@ -835,6 +844,7 @@ src/data/roman.ts          everything the Roman numerals page says: carvings, ta
 src/data/brine.ts          everything the salty sea page says: pans, takeaways, sources
 src/data/hotel.ts          everything the Hilbert hotel page says: floors, takeaways, sources
 src/data/muscle.ts         everything the muscle page says: boards, takeaways, sources
+src/data/transit.ts        everything the transit map page says: sheets, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -907,6 +917,7 @@ src/components/roman/      the Roman numerals page: four carvings and the wall f
 src/components/brine/      the salty sea page: four pans and the salt works frame
 src/components/hotel/      the Hilbert hotel page: four floors and the hotel frame
 src/components/muscle/     the muscle page: four whiteboards and the gym frame
+src/components/transit/    the transit map page: four sheets and the desk frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -976,6 +987,7 @@ src/styles/roman.css       the Roman numerals page: grey stone blocks, carved le
 src/styles/brine.css       the salty sea page: salt white and sea blue, pans, bars
 src/styles/hotel.css       the Hilbert hotel page: navy and brass, floors, doors, digit grid
 src/styles/muscle.css      the muscle page: maple floor, whiteboards, filaments
+src/styles/transit.css     the transit map page: drafting desk, tracing paper, lines
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -1026,6 +1038,7 @@ src/lib/roman.ts           Roman numeral conversion, lengths and addition steps 
 src/lib/brine.ts           toy sea, drying pan, ion table and land layer for the salty sea page
 src/lib/hotel.ts           room shifts, fraction order, place finder and digit lists for the hotel page
 src/lib/muscle.ts          sarcomere overlap, head cycle and chain sums for the muscle page
+src/lib/transit.ts         stations, lines, route search and drawings for the transit map page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -1107,6 +1120,7 @@ src/scripts/roman/       all four Roman numeral carvings (roman.ts)
 src/scripts/brine/       all four salty sea pans (brine.ts)
 src/scripts/hotel/       all four hotel floors (hotel.ts)
 src/scripts/muscle/      all four muscle boards (muscle.ts)
+src/scripts/transit/     all four transit map sheets (transit.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

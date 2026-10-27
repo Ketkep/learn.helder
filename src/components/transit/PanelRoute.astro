@@ -1,0 +1,23 @@
+---
+// Sheet 3: find the way. Without a script the table lists three routes.
+import { crow, fmt, route, routeSvg, STATIONS } from '../../lib/transit';
+const pairs: [string, string][] = [['Hillfoot', 'Ferry'], ['Orchard', 'Marsh'], ['Tower', 'Quay']];
+const first = route('Hillfoot', 'Ferry');
+---
+
+<div class="tool" data-route-tool>
+  <svg class="plate" viewBox="0 0 300 210" role="img" aria-label="The made up railway map with the route from Hillfoot to Ferry marked in orange." data-route-svg>
+    <rect class="stage" x="1" y="1" width="298" height="208" rx="8"></rect>
+    <g set:html={routeSvg(first)} data-route-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Three routes in Maplebury</caption>
+    <thead><tr><th scope="col">Trip</th><th scope="col">Stops</th><th scope="col">Changes</th><th scope="col">Straight line</th></tr></thead>
+    <tbody>{pairs.map(([a, b]) => { const r = route(a, b); return <tr><th scope="row">{a} to {b}</th><td>{r.stops}</td><td>{r.changes}</td><td>{fmt(crow(a, b), 1)} km</td></tr>; })}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>From</span><select class="pickbox" data-route-from aria-label="Start station">{STATIONS.map((s) => <option value={s.name} selected={s.name === 'Hillfoot'}>{s.name}</option>)}</select></label>
+    <label class="field"><span>To</span><select class="pickbox" data-route-to aria-label="End station">{STATIONS.map((s) => <option value={s.name} selected={s.name === 'Ferry'}>{s.name}</option>)}</select></label>
+  </div>
+  <p class="status" aria-live="polite" data-route-status>Hillfoot to Ferry: {first.stops} stops with {first.changes} {first.changes === 1 ? 'change' : 'changes'}, {fmt(crow('Hillfoot', 'Ferry'), 1)} km in a straight line.</p>
+</div>

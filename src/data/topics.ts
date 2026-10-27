@@ -727,6 +727,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-27',
     status: 'live',
   },
+  {
+    slug: 'how-a-transit-map-is-drawn',
+    title: 'How a transit map is drawn',
+    hook: 'Straighten the lines of a made up city and see what a rail map leaves out.',
+    category: 'Technology',
+    accent: '#7FA3BC',
+    preview: 'how-a-transit-map-is-drawn',
+    dateAdded: '2026-10-27',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Desk from '../../components/transit/Desk.astro';
+import { takeaways, sources, sourcesNote } from '../../data/transit';
+---
+
+<TopicLayout
+  slug="how-a-transit-map-is-drawn"
+  intro="A map of a rail network can leave out the miles and still get you there. Straighten the lines, give the crowded middle room, find a route and guess which trip is farther."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Desk />
+</TopicLayout>

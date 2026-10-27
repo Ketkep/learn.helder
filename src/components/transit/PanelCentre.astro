@@ -1,0 +1,21 @@
+---
+// Sheet 2: give the middle room. Without a script the picture shows the middle stretched.
+import { coreGrowth, fmt, warpSvg } from '../../lib/transit';
+const rows = [1, 0.8, 0.6, 0.4];
+---
+
+<div class="tool" data-centre-tool>
+  <svg class="plate" viewBox="0 0 300 210" role="img" aria-label="The made up railway map with the crowded middle pushed apart so it has more room." data-centre-svg>
+    <rect class="stage" x="1" y="1" width="298" height="208" rx="8"></rect>
+    <g set:html={warpSvg(0.6)} data-centre-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">How much bigger the middle gets for some strengths of the push</caption>
+    <thead><tr><th scope="col">Push</th><th scope="col">Width of the box around the four middle stations</th></tr></thead>
+    <tbody>{rows.map((g) => <tr><th scope="row">{fmt((1 - g) * 100)}%</th><td>{fmt(coreGrowth(g), 1)} times as wide</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Push <output data-centre-out>40</output>%</span><input class="range" type="range" min="0" max="60" step="1" value="40" data-centre-range aria-label="How hard the middle is pushed outward, in per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-centre-status>With a 40% push the box around the four middle stations is {fmt(coreGrowth(0.6), 1)} times as wide.</p>
+</div>

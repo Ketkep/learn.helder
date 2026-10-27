@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .tr-line { fill: none; stroke: var(--on-cover); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    .tr-dot { fill: var(--cover-b); stroke: var(--on-cover); stroke-width: 6; }
+    .tr-wiggle { transition: opacity 0.4s; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .tr-wiggle { animation: tr-swap 2.8s ease-in-out infinite; }
+    }
+    /* The wandering line straightens into the diagram line */
+    @keyframes tr-swap { 0%, 20% { opacity: 1; } 50%, 80% { opacity: 0; } 100% { opacity: 1; } }
+  </style>
+
+  <g>
+    <path class="tr-line" d="M60 190 H170 L230 130 H340"/>
+    <path class="tr-line tr-wiggle" d="M60 110 C100 70 120 150 170 110 S250 60 340 100" style="opacity:.5"/>
+    <circle class="tr-dot" cx="60" cy="190" r="10"/>
+    <circle class="tr-dot" cx="170" cy="190" r="10"/>
+    <circle class="tr-dot" cx="230" cy="130" r="10"/>
+    <circle class="tr-dot" cx="340" cy="130" r="10"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

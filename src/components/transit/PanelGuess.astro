@@ -1,0 +1,31 @@
+---
+// Sheet 4: which is farther. Without a script the table lists the five pairs of trips with their answers.
+import { crow, fmt, route, routeSvg, TRIPS } from '../../lib/transit';
+const [a, b] = TRIPS[0];
+---
+
+<div class="tool" data-guess-tool>
+  <svg class="plate" viewBox="0 0 300 210" role="img" aria-label="The made up railway map with two trips marked, one in orange and one in violet." data-guess-svg>
+    <rect class="stage" x="1" y="1" width="298" height="208" rx="8"></rect>
+    <g set:html={routeSvg(route(a[0], a[1]), route(b[0], b[1]))} data-guess-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Pairs of trips, with the stops and the straight line distance of each</caption>
+    <thead><tr><th scope="col">Trip</th><th scope="col">Stops</th><th scope="col">Straight line</th></tr></thead>
+    <tbody>
+      {
+        TRIPS.map(([x, y]) =>
+          [x, y].map((t) => (
+            <tr><th scope="row">{t[0]} to {t[1]}</th><td>{route(t[0], t[1]).stops}</td><td>{fmt(crow(t[0], t[1]), 1)} km</td></tr>
+          )),
+        )
+      }
+    </tbody>
+  </table>
+  <div class="controls needs-js">
+    <button class="btn" type="button" data-guess-pick="0"><span class="swatch hot" aria-hidden="true"></span>Orange covers more ground</button>
+    <button class="btn" type="button" data-guess-pick="1"><span class="swatch hot2" aria-hidden="true"></span>Violet covers more ground</button>
+    <button class="btn" type="button" data-guess-next>Next pair</button>
+  </div>
+  <p class="status" aria-live="polite" data-guess-status>Orange is {a[0]} to {a[1]}. Violet is {b[0]} to {b[1]}. Which trip covers more ground in a straight line?</p>
+</div>
