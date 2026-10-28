@@ -737,6 +737,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-27',
     status: 'live',
   },
+  {
+    slug: 'how-a-barcode-is-read',
+    title: 'How a barcode is read',
+    hook: 'Turn digits into stripes, work out the check digit and smudge the bars to see what a scanner does.',
+    category: 'Technology',
+    accent: '#E39B2D',
+    preview: 'how-a-barcode-is-read',
+    dateAdded: '2026-10-28',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

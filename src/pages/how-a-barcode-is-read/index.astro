@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Lane from '../../components/barcode/Lane.astro';
+import { takeaways, sources, sourcesNote } from '../../data/barcode';
+---
+
+<TopicLayout
+  slug="how-a-barcode-is-read"
+  intro="The stripes on a pack are a number with a built in check. See digits become bars, work out the check digit, make a typo and smudge the stripes to see what a scanner does."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Lane />
+</TopicLayout>

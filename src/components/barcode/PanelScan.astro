@@ -1,0 +1,30 @@
+---
+// Window 4: a smudge on the stripes. Without a script the picture shows the clean code and the table the counts.
+import { barsSvg, digitsOf, encode, full, MODULES, SAMPLE, smudges } from '../../lib/barcode';
+const code = full(digitsOf(SAMPLE));
+const s = smudges(encode(code));
+---
+
+<div class="tool" data-scan-tool>
+  <div class="scanbox" data-scan-box>
+    <svg class="plate" viewBox="0 0 300 126" role="img" aria-label="A barcode with a red line sweeping across it. A smudged slot is marked in red." data-scan-svg>
+      <rect class="stage" x="1" y="1" width="298" height="124" rx="8"></rect>
+      <g set:html={barsSvg(encode(code), code)} data-scan-g></g>
+      <line class="laser" x1="8" y1="56" x2="292" y2="56"></line>
+    </svg>
+  </div>
+  <table class="times">
+    <caption class="sr-only">What happens to the example code when slots are flipped</caption>
+    <thead><tr><th scope="col">Smudge</th><th scope="col">Ways</th><th scope="col">Cannot be read</th><th scope="col">Read, but fails the check</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">One slot</th><td>{s.singles}</td><td>{s.singlesBad}</td><td>0</td></tr>
+      <tr><th scope="row">Two slots</th><td>{s.pairs}</td><td>{s.pairsUnreadable}</td><td>{s.pairsRejected}</td></tr>
+    </tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>First smudge <output data-scan-out1>none</output></span><input class="range" type="range" min="0" max={MODULES} step="1" value="0" data-scan-m1 aria-label="Slot to flip, 1 to 95, or 0 for none" /></label>
+    <label class="field"><span>Second smudge <output data-scan-out2>none</output></span><input class="range" type="range" min="0" max={MODULES} step="1" value="0" data-scan-m2 aria-label="Another slot to flip, 1 to 95, or 0 for none" /></label>
+    <label class="field"><span>Size <output data-scan-outsize>100</output>%</span><input class="range" type="range" min="50" max="100" step="5" value="100" data-scan-size aria-label="Size of the code, in per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-scan-status>Of the {s.pairs.toLocaleString('en-US')} ways to flip two slots, {s.pairsUnreadable.toLocaleString('en-US')} cannot be read, {s.pairsRejected} read as digits but fail the check, and none pass as a wrong code.</p>
+</div>

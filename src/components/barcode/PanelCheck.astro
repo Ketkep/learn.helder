@@ -1,0 +1,21 @@
+---
+// Window 2: the check digit. Without a script the table shows the sums for the example.
+import { digitsOf, SAMPLE, sums } from '../../lib/barcode';
+const s = sums(digitsOf(SAMPLE));
+---
+
+<div class="tool" data-check-tool>
+  <table class="times">
+    <caption class="sr-only">The steps of the check digit sum</caption>
+    <thead><tr><th scope="col">Step</th><th scope="col">Value</th></tr></thead>
+    <tbody data-check-body>
+      <tr><th scope="row">Digits in places 1, 3, 5, 7, 9, 11 added</th><td>{s.odd}</td></tr>
+      <tr><th scope="row">That times 3</th><td>{3 * s.odd}</td></tr>
+      <tr><th scope="row">Digits in places 2, 4, 6, 8, 10 added</th><td>{s.even}</td></tr>
+      <tr><th scope="row">Total</th><td>{s.total}</td></tr>
+      <tr><th scope="row">Last digit of the total</th><td>{s.rest}</td></tr>
+      <tr><th scope="row">Check digit</th><td>{s.check}</td></tr>
+    </tbody>
+  </table>
+  <p class="status" aria-live="polite" data-check-status>For {SAMPLE} the total is {s.total}, its last digit is {s.rest}, so the check digit is {s.check}.</p>
+</div>

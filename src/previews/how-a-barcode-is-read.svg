@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .bc-bar { fill: var(--on-cover); }
+    .bc-laser { stroke: var(--on-cover); stroke-width: 5; stroke-linecap: round; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .bc-laser { animation: bc-sweep 2s ease-in-out infinite; }
+    }
+    /* The scanner beam sweeps up and down the stripes */
+    @keyframes bc-sweep { 0%, 100% { transform: translateY(-34px); } 50% { transform: translateY(34px); } }
+  </style>
+
+  <g>
+    <rect class="bc-bar" x="82" y="80" width="10" height="140"/>
+    <rect class="bc-bar" x="102" y="80" width="10" height="140"/>
+    <rect class="bc-bar" x="126" y="80" width="20" height="140"/>
+    <rect class="bc-bar" x="160" y="80" width="10" height="140"/>
+    <rect class="bc-bar" x="184" y="80" width="30" height="140"/>
+    <rect class="bc-bar" x="228" y="80" width="10" height="140"/>
+    <rect class="bc-bar" x="250" y="80" width="20" height="140"/>
+    <rect class="bc-bar" x="284" y="80" width="10" height="140"/>
+    <rect class="bc-bar" x="304" y="80" width="10" height="140"/>
+    <line class="bc-laser" x1="60" y1="150" x2="340" y2="150"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

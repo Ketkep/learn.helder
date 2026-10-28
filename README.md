@@ -773,6 +773,15 @@ The page is a drafting desk: four sheets of tracing paper with a faint grid and 
 - `src/components/transit/Desk.astro` is the frame and `Panel*.astro` is one sheet each.
 - `src/scripts/transit/transit.ts` starts all four sheets.
 
+## The barcode page: how the four scanner windows work
+
+The page is a checkout lane: four dark scanner windows with an amber frame and a belt strip under each (two by two on a wide screen), all sharing one code. The code is a UPC-A: 95 slots (guard 3, six digits of 7, middle guard 5, six digits of 7, guard 3), with the right half patterns the left ones turned inside out. Window 1 takes 11 typed digits, works out the twelfth and draws the bars. Window 2 shows the check sum step by step (3 times the odd places plus the even places, then 10 minus the last digit). Window 3 changes a digit or swaps two neighbours and says if the check still matches, and counts every one digit mistake (all caught) and every swap (all caught except digits that differ by 5). Window 4 flips one or two slots and reads the bars back as a scanner does: a single flip is never a valid digit pattern, and two flips inside one digit can make a wrong digit that the check then catches. The counts for the example code are 95 single flips and 4,465 pairs (4,401 unreadable, 64 rejected by the check, 0 accepted). The history (first scan on 26 June 1974, Woodland and Silver in 1949, Laurer) comes from the sources. Without a script each window shows one picture or table.
+
+- `src/data/barcode.ts` holds all the words, the takeaways and the sources.
+- `src/lib/barcode.ts` holds the patterns, the check sum, the decoder, the mistake and smudge counts and the bars as SVG text.
+- `src/components/barcode/Lane.astro` is the frame and `Panel*.astro` is one window each.
+- `src/scripts/barcode/barcode.ts` starts all four windows.
+
 ## Where things are
 
 ```
@@ -845,6 +854,7 @@ src/data/brine.ts          everything the salty sea page says: pans, takeaways, 
 src/data/hotel.ts          everything the Hilbert hotel page says: floors, takeaways, sources
 src/data/muscle.ts         everything the muscle page says: boards, takeaways, sources
 src/data/transit.ts        everything the transit map page says: sheets, takeaways, sources
+src/data/barcode.ts        everything the barcode page says: windows, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -918,6 +928,7 @@ src/components/brine/      the salty sea page: four pans and the salt works fram
 src/components/hotel/      the Hilbert hotel page: four floors and the hotel frame
 src/components/muscle/     the muscle page: four whiteboards and the gym frame
 src/components/transit/    the transit map page: four sheets and the desk frame
+src/components/barcode/    the barcode page: four scanner windows and the lane frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -988,6 +999,7 @@ src/styles/brine.css       the salty sea page: salt white and sea blue, pans, ba
 src/styles/hotel.css       the Hilbert hotel page: navy and brass, floors, doors, digit grid
 src/styles/muscle.css      the muscle page: maple floor, whiteboards, filaments
 src/styles/transit.css     the transit map page: drafting desk, tracing paper, lines
+src/styles/barcode.css     the barcode page: charcoal and amber, windows, bars
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -1039,6 +1051,7 @@ src/lib/brine.ts           toy sea, drying pan, ion table and land layer for the
 src/lib/hotel.ts           room shifts, fraction order, place finder and digit lists for the hotel page
 src/lib/muscle.ts          sarcomere overlap, head cycle and chain sums for the muscle page
 src/lib/transit.ts         stations, lines, route search and drawings for the transit map page
+src/lib/barcode.ts         UPC-A patterns, check sum, decoder and drawings for the barcode page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -1121,6 +1134,7 @@ src/scripts/brine/       all four salty sea pans (brine.ts)
 src/scripts/hotel/       all four hotel floors (hotel.ts)
 src/scripts/muscle/      all four muscle boards (muscle.ts)
 src/scripts/transit/     all four transit map sheets (transit.ts)
+src/scripts/barcode/     all four barcode windows (barcode.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

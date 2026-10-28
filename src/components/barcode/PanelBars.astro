@@ -1,0 +1,21 @@
+---
+// Window 1: from digits to bars. Without a script the picture shows the example and the table gives the patterns.
+import { barsSvg, digitsOf, encode, full, LEFT, RIGHT, SAMPLE } from '../../lib/barcode';
+const code = full(digitsOf(SAMPLE));
+---
+
+<div class="tool" data-bars-tool>
+  <svg class="plate" viewBox="0 0 300 126" role="img" aria-label="A barcode of twelve digits with longer guard bars at the start, in the middle and at the end." data-bars-svg>
+    <rect class="stage" x="1" y="1" width="298" height="124" rx="8"></rect>
+    <g set:html={barsSvg(encode(code), code)} data-bars-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>First 11 digits</span><input class="text wide" type="text" inputmode="numeric" maxlength="11" value={SAMPLE} data-code-input aria-label="The first eleven digits of the code" /></label>
+  </div>
+  <table class="times">
+    <caption class="sr-only">The pattern of each digit on the left and on the right, dark as 1 and light as 0</caption>
+    <thead><tr><th scope="col">Digit</th><th scope="col">Left half</th><th scope="col">Right half</th></tr></thead>
+    <tbody>{LEFT.map((l, d) => <tr><th scope="row">{d}</th><td class="mono">{l}</td><td class="mono">{RIGHT[d]}</td></tr>)}</tbody>
+  </table>
+  <p class="status" aria-live="polite" data-bars-status>The code {code.join('')} is 95 slots wide. The twelfth digit, {code[11]}, is the check digit.</p>
+</div>

@@ -1,0 +1,27 @@
+---
+// Window 3: catch the typo. Without a script the table shows the counts for the example.
+import { digitsOf, full, mistakes, SAMPLE } from '../../lib/barcode';
+const m = mistakes(full(digitsOf(SAMPLE)));
+const places = Array.from({ length: 12 }, (_, i) => i + 1);
+---
+
+<div class="tool" data-typo-tool>
+  <table class="times">
+    <caption class="sr-only">How many mistakes the check digit catches in the example code</caption>
+    <thead><tr><th scope="col">Mistake</th><th scope="col">Tried</th><th scope="col">Caught</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">One digit changed</th><td data-typo-singles>{m.singles}</td><td data-typo-singles-caught>{m.singlesCaught}</td></tr>
+      <tr><th scope="row">Two neighbours swapped</th><td data-typo-swaps>{m.swaps}</td><td data-typo-swaps-caught>{m.swapsCaught}</td></tr>
+    </tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Place</span><select class="pickbox" data-typo-place aria-label="Which place to change, 1 to 12">{places.map((p) => <option value={p}>{p}</option>)}</select></label>
+    <label class="field"><span>New digit</span><select class="pickbox" data-typo-digit aria-label="The new digit">{[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((d) => <option value={d}>{d}</option>)}</select></label>
+    <button class="btn fill" type="button" data-typo-change>Change the digit</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Swap places</span><select class="pickbox" data-typo-swap aria-label="Swap this place with the next one">{places.slice(0, 11).map((p) => <option value={p}>{p} and {p + 1}</option>)}</select></label>
+    <button class="btn" type="button" data-typo-do-swap>Swap them</button>
+  </div>
+  <p class="status" aria-live="polite" data-typo-status>Change a digit or swap two neighbours to see if the check digit still matches.</p>
+</div>
