@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Alcoves from '../../components/halflife/Alcoves.astro';
+import { takeaways, sources, sourcesNote } from '../../data/halflife';
+---
+
+<TopicLayout
+  slug="how-old-is-a-rock"
+  intro="Atoms that fall apart at a steady rate are clocks inside rocks and bones. Watch atoms decay at random, read an age from what is left and pick the right clock for the age."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Alcoves />
+</TopicLayout>

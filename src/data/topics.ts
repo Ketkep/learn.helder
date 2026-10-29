@@ -777,6 +777,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-29',
     status: 'live',
   },
+  {
+    slug: 'how-old-is-a-rock',
+    title: 'How old is a rock',
+    hook: 'Watch atoms decay at random and read an age from the share that is left.',
+    category: 'Nature',
+    accent: '#6FB3A8',
+    preview: 'how-old-is-a-rock',
+    dateAdded: '2026-10-29',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

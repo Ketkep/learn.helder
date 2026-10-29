@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .hl-glass { fill: none; stroke: var(--on-cover); stroke-width: 9; stroke-linejoin: round; stroke-linecap: round; }
+    .hl-sand { fill: var(--on-cover); }
+    .hl-drop { fill: var(--on-cover); transform-box: fill-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .hl-drop { animation: hl-fall 1.2s linear infinite; }
+    }
+    /* A grain falls through the neck of the hourglass */
+    @keyframes hl-fall { 0% { transform: translateY(-14px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(40px); opacity: 0; } }
+  </style>
+
+  <g>
+    <path class="hl-glass" d="M140 60 H260 M140 220 H260 M150 60 L150 90 Q150 130 200 140 Q250 130 250 90 L250 60 M150 220 L150 190 Q150 150 200 140 Q250 150 250 190 L250 220"/>
+    <path class="hl-sand" d="M162 90 H238 Q232 118 200 128 Q168 118 162 90 Z" style="opacity:.5"/>
+    <path class="hl-sand" d="M168 212 Q175 184 200 176 Q225 184 232 212 Z"/>
+    <circle class="hl-drop" cx="200" cy="146" r="4"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

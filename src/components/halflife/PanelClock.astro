@@ -1,0 +1,24 @@
+---
+// Alcove 2: read the clock. Without a script the table gives a few shares for each clock.
+import { ageFrom, barSvg, CLOCKS, fmt, years } from '../../lib/halflife';
+const shares = [0.5, 0.25, 0.1, 0.01];
+---
+
+<div class="tool" data-clock-tool>
+  <svg class="plate" viewBox="0 0 300 110" role="img" aria-label="A bar showing how much of the parent atoms is left and how much has turned into daughter atoms." data-clock-svg>
+    <rect class="stage" x="1" y="1" width="298" height="108" rx="8"></rect>
+    <g set:html={barSvg(0.25)} data-clock-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The age for a share of the parent left, for each clock</caption>
+    <thead><tr><th scope="col">Parent left</th>{CLOCKS.map((c) => <th scope="col">{c.name}</th>)}</tr></thead>
+    <tbody>{shares.map((s) => <tr><th scope="row">{fmt(s * 100)}%</th>{CLOCKS.map((c) => <td>{years(ageFrom(s, c.half))}</td>)}</tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    {CLOCKS.map((c, i) => <button class="pick" type="button" aria-pressed={i === 0 ? 'true' : 'false'} data-clock-pick={i}>{c.name}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Parent left <output data-clock-out>25</output>%</span><input class="range" type="range" min="1" max="100" step="1" value="25" data-clock-range aria-label="Share of the parent atoms left, in per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-clock-status>With 25% of the carbon-14 left, the sample is {years(ageFrom(0.25, 5730))} old.</p>
+</div>

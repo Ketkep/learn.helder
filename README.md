@@ -809,6 +809,15 @@ The page is a music box opened up: a lid and three felt lined compartments with 
 - `src/components/musicbox/Box.astro` is the frame and `Panel*.astro` is one compartment each.
 - `src/scripts/musicbox/musicbox.ts` starts all three compartments.
 
+## The rock age page: how the three alcoves work
+
+The page is a museum wall with three arched alcoves (side by side on a very wide screen), in sandstone and teal. Alcove 1 shows 16, 100 or 1,000 atoms that each have an even chance of decaying in a half-life, drawn at random from a fixed seed, next to what the rule expects. Alcove 2 reads an age from the share of the parent left (the half-life times how many times the share has halved) for carbon-14 (5,730 years) and uranium-238 (4.47 billion years). Alcove 3 slides the age of a sample from 100 years to 5 billion and shows which clock can read it. The limits (under 0.2 per cent left, over 99 per cent left) are a rule of thumb made up for the page, and with them carbon-14 reads to about 51 thousand years, which agrees with the sources. The age of the Earth (4.54 billion years, give or take 50 million) comes from the sources. Without a script each alcove shows one picture or table.
+
+- `src/data/halflife.ts` holds all the words, the takeaways and the sources.
+- `src/lib/halflife.ts` holds the decay run, the age sums, the verdicts and the drawings as SVG text.
+- `src/components/halflife/Alcoves.astro` is the frame and `Panel*.astro` is one alcove each.
+- `src/scripts/halflife/halflife.ts` starts all three alcoves.
+
 ## Where things are
 
 ```
@@ -885,6 +894,7 @@ src/data/barcode.ts        everything the barcode page says: windows, takeaways,
 src/data/mountains.ts      everything the mountains page says: trays, takeaways, sources
 src/data/quill.ts          everything the punctuation page says: spreads, takeaways, sources
 src/data/musicbox.ts       everything the music box page says: compartments, takeaways, sources
+src/data/halflife.ts       everything the rock age page says: alcoves, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -962,6 +972,7 @@ src/components/barcode/    the barcode page: four scanner windows and the lane f
 src/components/mountains/  the mountains page: four trays and the workshop frame
 src/components/quill/      the punctuation page: three spreads and the book frame
 src/components/musicbox/   the music box page: three compartments and the box frame
+src/components/halflife/   the rock age page: three alcoves and the gallery frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -1036,6 +1047,7 @@ src/styles/barcode.css     the barcode page: charcoal and amber, windows, bars
 src/styles/mountains.css   the mountains page: stone and clay, trays, strata
 src/styles/quill.css       the punctuation page: parchment and ink, spreads, lines of text
 src/styles/musicbox.css    the music box page: mahogany and brass, compartments, pin grid
+src/styles/halflife.css    the rock age page: sandstone and teal, arched alcoves
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -1091,6 +1103,7 @@ src/lib/barcode.ts         UPC-A patterns, check sum, decoder and drawings for t
 src/lib/mountains.ts       squeeze, root, race sums and drawings for the mountains page
 src/lib/quill.ts           puzzles, comma sentences and stages of writing for the punctuation page
 src/lib/musicbox.ts        notes, tooth lengths, pitch rule and pin grid for the music box page
+src/lib/halflife.ts        decay run, age sums and verdicts for the rock age page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -1177,6 +1190,7 @@ src/scripts/barcode/     all four barcode windows (barcode.ts)
 src/scripts/mountains/   all four mountain trays (mountains.ts)
 src/scripts/quill/       all three punctuation spreads (quill.ts)
 src/scripts/musicbox/    all three music box compartments (musicbox.ts)
+src/scripts/halflife/    all three rock age alcoves (halflife.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

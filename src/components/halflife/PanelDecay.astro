@@ -1,0 +1,27 @@
+---
+// Alcove 1: atoms that decay at random. Without a script the table shows what the rule expects.
+import { atomsSvg, fmt, runDecay } from '../../lib/halflife';
+const run = runDecay(100, 5, 11);
+---
+
+<div class="tool" data-decay-tool>
+  <svg class="plate" viewBox="0 0 300 150" role="img" aria-label="A grid of 100 small squares for atoms, most of them dark because they have decayed and the others lit." data-decay-svg>
+    <rect class="stage" x="1" y="1" width="298" height="148" rx="8"></rect>
+    <g set:html={atomsSvg(100, run[2])} data-decay-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Atoms left after each half-life, from a sample of 100 as drawn and as the rule expects</caption>
+    <thead><tr><th scope="col">Half-lives</th><th scope="col">Left in the sample</th><th scope="col">The rule expects</th></tr></thead>
+    <tbody>{run.map((n, s) => <tr><th scope="row">{s}</th><td>{n}</td><td>{fmt(100 / Math.pow(2, s), 1)}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <button class="pick" type="button" aria-pressed="false" data-decay-size="16">16 atoms</button>
+    <button class="pick" type="button" aria-pressed="true" data-decay-size="100">100 atoms</button>
+    <button class="pick" type="button" aria-pressed="false" data-decay-size="1000">1,000 atoms</button>
+  </div>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-decay-step>One more half-life</button>
+    <button class="btn" type="button" data-decay-reset>Start again</button>
+  </div>
+  <p class="status" aria-live="polite" data-decay-status>Press the button to pass a half-life.</p>
+</div>
