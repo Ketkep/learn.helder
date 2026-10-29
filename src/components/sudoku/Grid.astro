@@ -1,0 +1,27 @@
+---
+// A grid as a plain table, for the page without a script. The script puts buttons in its place.
+import { type Shape } from '../../lib/sudoku';
+interface Props {
+  grid: number[];
+  shape: Shape;
+  label: string;
+  id: string;
+}
+const { grid, shape, label, id } = Astro.props;
+const rows = Array.from({ length: shape.n }, (_, r) => grid.slice(r * shape.n, r * shape.n + shape.n));
+---
+
+<div class="board" data-board={id} aria-label={label} role="group">
+  <table class={`still n${shape.n}`}>
+    <caption class="sr-only">{label}</caption>
+    <tbody>
+      {
+        rows.map((r, ri) => (
+          <tr class={(ri + 1) % shape.bh === 0 && ri + 1 < shape.n ? 'gap' : ''}>
+            {r.map((v, ci) => <td class={(ci + 1) % shape.bw === 0 && ci + 1 < shape.n ? 'gapc' : ''}>{v || ''}</td>)}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

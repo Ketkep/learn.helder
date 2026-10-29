@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .su-line { stroke: var(--on-cover); stroke-width: 4; }
+    .su-thick { stroke: var(--on-cover); stroke-width: 9; stroke-linecap: square; }
+    .su-fill { fill: var(--on-cover); transform-box: fill-box; transform-origin: center; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .su-fill { animation: su-pop 2.4s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .su-fill.two { animation-delay: 0.6s; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .su-fill.three { animation-delay: 1.2s; }
+    }
+    /* The empty squares fill in one by one */
+    @keyframes su-pop { 0%, 25% { transform: scale(0); } 45%, 100% { transform: scale(1); } }
+  </style>
+
+  <g>
+    <line class="su-line" x1="140" y1="70" x2="140" y2="230"/>
+    <line class="su-line" x1="260" y1="70" x2="260" y2="230"/>
+    <line class="su-line" x1="100" y1="110" x2="300" y2="110"/>
+    <line class="su-line" x1="100" y1="190" x2="300" y2="190"/>
+    <path class="su-thick" d="M200 62 V238 M92 150 H308"/>
+    <rect class="su-fill" x="154" y="124" width="32" height="32" rx="4"/>
+    <rect class="su-fill two" x="214" y="164" width="32" height="32" rx="4"/>
+    <rect class="su-fill three" x="114" y="204" width="32" height="26" rx="4"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

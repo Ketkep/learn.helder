@@ -818,6 +818,15 @@ The page is a museum wall with three arched alcoves (side by side on a very wide
 - `src/components/halflife/Alcoves.astro` is the frame and `Panel*.astro` is one alcove each.
 - `src/scripts/halflife/halflife.ts` starts all three alcoves.
 
+## The sudoku page: how the four puzzles work
+
+The page is a newspaper puzzle page: four boxed puzzles with a hard shadow on newsprint, in pencil blue (two by two on a wide screen). Puzzle 1 is a 4 by 4 grid to play: click a cell to cycle its digit or type 1 to 4, repeats turn red, and a hint fills one cell from the solver. Puzzle 2 is a 9 by 9 puzzle (made for the page, 34 digits, one solution) where a click shows the row, column and box of a cell and its candidates, with pencil marks, a button that finds a naked single and one that places it. Puzzle 3 uses the same grid: pick a digit and the cells where it cannot go are shaded and the hidden singles are marked. Puzzle 4 starts from a finished 4 by 4 grid and counts every way to finish it as you take digits away (it finds 288 grids in all). The count of 9 by 9 grids (6,670,903,752,021,072,936,960) and the history come from the sources. The grids are buttons made by `src/scripts/sudoku/board.ts` (arrow keys move between cells), and the page without a script shows plain tables. Without a script each puzzle shows one grid or table.
+
+- `src/data/sudoku.ts` holds all the words, the takeaways and the sources.
+- `src/lib/sudoku.ts` holds the candidates, the singles, the solution counter and the grids.
+- `src/components/sudoku/Page.astro` is the frame, `Grid.astro` the plain table and `Panel*.astro` one puzzle each.
+- `src/scripts/sudoku/sudoku.ts` starts all four puzzles and `board.ts` builds the grids.
+
 ## Where things are
 
 ```
@@ -895,6 +904,7 @@ src/data/mountains.ts      everything the mountains page says: trays, takeaways,
 src/data/quill.ts          everything the punctuation page says: spreads, takeaways, sources
 src/data/musicbox.ts       everything the music box page says: compartments, takeaways, sources
 src/data/halflife.ts       everything the rock age page says: alcoves, takeaways, sources
+src/data/sudoku.ts         everything the sudoku page says: puzzles, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -973,6 +983,7 @@ src/components/mountains/  the mountains page: four trays and the workshop frame
 src/components/quill/      the punctuation page: three spreads and the book frame
 src/components/musicbox/   the music box page: three compartments and the box frame
 src/components/halflife/   the rock age page: three alcoves and the gallery frame
+src/components/sudoku/    the sudoku page: four boxed puzzles and the plain table grid
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -1048,6 +1059,7 @@ src/styles/mountains.css   the mountains page: stone and clay, trays, strata
 src/styles/quill.css       the punctuation page: parchment and ink, spreads, lines of text
 src/styles/musicbox.css    the music box page: mahogany and brass, compartments, pin grid
 src/styles/halflife.css    the rock age page: sandstone and teal, arched alcoves
+src/styles/sudoku.css      the sudoku page: newsprint and pencil, boxed puzzles, grids
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -1104,6 +1116,7 @@ src/lib/mountains.ts       squeeze, root, race sums and drawings for the mountai
 src/lib/quill.ts           puzzles, comma sentences and stages of writing for the punctuation page
 src/lib/musicbox.ts        notes, tooth lengths, pitch rule and pin grid for the music box page
 src/lib/halflife.ts        decay run, age sums and verdicts for the rock age page
+src/lib/sudoku.ts          candidates, singles and the solution counter for the sudoku page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -1191,6 +1204,7 @@ src/scripts/mountains/   all four mountain trays (mountains.ts)
 src/scripts/quill/       all three punctuation spreads (quill.ts)
 src/scripts/musicbox/    all three music box compartments (musicbox.ts)
 src/scripts/halflife/    all three rock age alcoves (halflife.ts)
+src/scripts/sudoku/      all four sudoku puzzles (sudoku.ts) and the grid builder (board.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

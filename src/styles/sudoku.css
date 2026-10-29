@@ -1,0 +1,516 @@
+/* The sudoku page: a newspaper puzzle page in newsprint and pencil, one boxed puzzle for each thing to try. */
+
+.sudoku {
+  --board: #ebe6d8;
+  --panel: #faf8f1;
+  --line: #6a6a62;
+  --wood: #2b4f8c;
+  --cream: #1c1c1a;
+  --ink-fixed: #faf8f1;
+  --pink: #2b4f8c;
+  --blue: #2b4f8c;
+  --wash: rgb(0 0 0 / 0.1);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .sudoku .needs-js {
+  display: none;
+}
+
+.sudoku :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.sudoku .card-body,
+.sudoku .paras,
+.sudoku .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.sudoku h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.sudoku .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.sudoku .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.sudoku .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.sudoku .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.sudoku .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.sudoku .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.sudoku .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.sudoku .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.sudoku .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.sudoku .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.sudoku .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.sudoku .times th,
+.sudoku .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.sudoku .times thead th {
+  color: #454540;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.sudoku .times tbody th {
+  font-weight: 700;
+}
+
+.sudoku .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.sudoku .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sudoku .pick:hover {
+  background: var(--wash);
+}
+
+.sudoku .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .sudoku .no-js-name {
+  display: none;
+}
+
+.sudoku .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.sudoku .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.sudoku .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.sudoku .btn:hover {
+  background: var(--wash);
+}
+
+.sudoku .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.sudoku .btn.fill:hover {
+  background: var(--cream);
+}
+
+.sudoku .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.sudoku .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.sudoku .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.sudoku .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.sudoku .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.sudoku .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.sudoku .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.sudoku .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.sudoku .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.sudoku .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.sudoku .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sudoku .snd[aria-pressed='true'] .slash,
+.sudoku .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sudoku * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.sudoku .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Puzzle page ---------- */
+.sudoku .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 4px double var(--cream);
+}
+
+.sudoku .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.sudoku .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.sudoku .columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.6rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter) 3rem;
+}
+
+@media (min-width: 60rem) {
+  .sudoku .columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+/* A puzzle in a box, like one in a paper */
+.sudoku .box {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+  padding: 1.2rem;
+  border: 3px solid var(--cream);
+  background: var(--panel);
+  box-shadow: 6px 6px 0 var(--cream);
+}
+
+.sudoku .tag {
+  transform: rotate(0.3deg);
+}
+
+/* ---------- The grids ---------- */
+.sudoku .board {
+  width: 100%;
+  max-width: 24rem;
+  justify-self: center;
+}
+
+.sudoku .still,
+.sudoku .cells {
+  width: 100%;
+  border: 3px solid var(--cream);
+}
+
+.sudoku .still {
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.sudoku .still td {
+  height: 2.4rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.sudoku .still.n4 td {
+  height: 3.6rem;
+  font-size: 1.5rem;
+}
+
+.sudoku .still .gapc {
+  border-right: 3px solid var(--cream);
+}
+
+.sudoku .still .gap td {
+  border-bottom: 3px solid var(--cream);
+}
+
+.sudoku .cells {
+  display: grid;
+}
+
+.sudoku .cells.n4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.sudoku .cells.n9 {
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+}
+
+.sudoku .cell {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--panel);
+  color: var(--blue);
+  font: inherit;
+  font-size: clamp(0.9rem, 0.6rem + 1.4vw, 1.3rem);
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.sudoku .cells.n4 .cell {
+  font-size: clamp(1.4rem, 1rem + 2vw, 2rem);
+}
+
+.sudoku .cell.gapc {
+  border-right: 3px solid var(--cream);
+}
+
+.sudoku .cell.gapr {
+  border-bottom: 3px solid var(--cream);
+}
+
+.sudoku .cell.given {
+  color: var(--cream);
+  background: #e6e1d2;
+}
+
+.sudoku .cell.peer {
+  background: #fbefbf;
+}
+
+.sudoku .cell.sel {
+  background: #f4d96a;
+}
+
+.sudoku .cell.blocked {
+  background: #d6d3c8;
+}
+
+.sudoku .cell.same {
+  background: #c8d6ee;
+}
+
+.sudoku .cell.single {
+  background: #bfe3c4;
+  outline: 3px solid #2f7a46;
+  outline-offset: -3px;
+}
+
+.sudoku .cell.clash {
+  background: #f2c4bd;
+  color: #8c1d12;
+}
+
+.sudoku .cell.hint {
+  outline: 3px solid var(--blue);
+  outline-offset: -3px;
+}
+
+.sudoku .cell:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: -3px;
+  z-index: 1;
+}
+
+.sudoku .marks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  height: 100%;
+  padding: 1px;
+  font-size: clamp(0.4rem, 0.25rem + 0.7vw, 0.65rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #4a4a44;
+  text-align: center;
+}
+
+/* The count of grids is one long number, so it may break anywhere */
+.sudoku .para,
+.sudoku .tag-text,
+.sudoku .times td,
+.sudoku .times th {
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,11 @@
+---
+// Puzzle 3: where can this digit go, on the same 9 by 9 grid.
+import Grid from './Grid.astro';
+import { BIG, parse, PUZZLE9 } from '../../lib/sudoku';
+---
+
+<div class="tool" data-hidden-tool>
+  <Grid grid={parse(PUZZLE9)} shape={BIG} label="The same 9 by 9 sudoku" id="hidden" />
+  <div class="controls needs-js" data-hidden-digits></div>
+  <p class="status" aria-live="polite" data-hidden-status>Pick a digit to see where it can still go.</p>
+</div>

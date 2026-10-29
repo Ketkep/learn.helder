@@ -1,0 +1,14 @@
+---
+// Puzzle 1: the one rule, on a 4 by 4 grid.
+import Grid from './Grid.astro';
+import { parse, PUZZLE4, SMALL } from '../../lib/sudoku';
+---
+
+<div class="tool" data-rule-tool>
+  <Grid grid={parse(PUZZLE4)} shape={SMALL} label="A 4 by 4 sudoku with six digits given" id="rule" />
+  <div class="controls needs-js">
+    <button class="btn" type="button" data-rule-reset>Start again</button>
+    <button class="btn" type="button" data-rule-hint>Give me a hint</button>
+  </div>
+  <p class="status" aria-live="polite" data-rule-status>Fill each row, column and box with 1 to 4, once. Six digits are given.</p>
+</div>

@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Page from '../../components/sudoku/Page.astro';
+import { takeaways, sources, sourcesNote } from '../../data/sudoku';
+---
+
+<TopicLayout
+  slug="the-logic-of-sudoku"
+  intro="A sudoku has one rule and no arithmetic. See which digits can go in a cell, find a digit with only one home and count how many solutions a puzzle has."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Page />
+</TopicLayout>

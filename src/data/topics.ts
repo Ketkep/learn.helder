@@ -787,6 +787,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-29',
     status: 'live',
   },
+  {
+    slug: 'the-logic-of-sudoku',
+    title: 'The logic of sudoku',
+    hook: 'See which digits fit a cell, find a digit with one home and count solutions as clues disappear.',
+    category: 'Games',
+    accent: '#A9B89C',
+    preview: 'the-logic-of-sudoku',
+    dateAdded: '2026-10-29',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */
