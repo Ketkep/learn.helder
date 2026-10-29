@@ -1,0 +1,22 @@
+---
+// Compartment 1: the tuned teeth. Without a script the table gives the length of each tooth.
+import { combSvg, fmt, lengthOf, noteFreq, NOTES } from '../../lib/musicbox';
+---
+
+<div class="tool" data-teeth-tool>
+  <svg class="plate" viewBox="0 0 300 184" role="img" aria-label="A comb of eight teeth, the longest at the top for the lowest note and the shortest at the bottom for the highest." data-teeth-svg>
+    <rect class="stage" x="1" y="1" width="298" height="182" rx="8"></rect>
+    <g set:html={combSvg(-1)} data-teeth-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The eight notes of a C major scale, their pitch and the length of a tooth of equal thickness</caption>
+    <thead><tr><th scope="col">Note</th><th scope="col">Pitch in hertz</th><th scope="col">Length, shortest tooth as 1</th></tr></thead>
+    <tbody>{NOTES.map((n, i) => <tr><th scope="row">{n.name}{i === 7 ? ' (high)' : ''}</th><td>{fmt(noteFreq(i), 1)}</td><td>{fmt(lengthOf(i), 2)}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-teeth-keys></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Length <output data-teeth-outl>1.00</output> times</span><input class="range" type="range" min="50" max="200" step="5" value="100" data-teeth-l aria-label="Length of the tooth as a multiple of the first tooth, times one hundred" /></label>
+    <label class="field"><span>Thickness <output data-teeth-outt>1.00</output> times</span><input class="range" type="range" min="50" max="200" step="5" value="100" data-teeth-t aria-label="Thickness of the tooth as a multiple of the first tooth, times one hundred" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-teeth-status>Each note needs its own length. The low C tooth is {fmt(lengthOf(0), 2)} times as long as the high C tooth, if they are just as thick.</p>
+</div>

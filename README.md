@@ -800,6 +800,15 @@ The page is an open book in parchment and ink: a title page and three spreads, w
 - `src/components/quill/Book.astro` is the frame and `Panel*.astro` is one spread each.
 - `src/scripts/quill/quill.ts` starts all three spreads.
 
+## The music box page: how the three compartments work
+
+The page is a music box opened up: a lid and three felt lined compartments with a brass rim (side by side on a wide screen), on dark mahogany. Compartment 1 draws a comb of eight teeth for a C major scale (A at 440 Hz) with lengths worked out as one over the square root of the pitch (the longest tooth is 1.41 times the shortest), plays each tooth, and has sliders for length and thickness (pitch goes as thickness over length squared, from the formula for a bar fixed at one end). Compartment 2 is the cylinder rolled flat: an 8 by 16 grid of pins you can place with the mouse or the arrow keys, a play button that turns the cylinder, and a speed slider for the governor, with Twinkle, twinkle as the preset. Compartment 3 lists four changes to a tooth (shorter, thicker, weight at the tip, thinner root) and whether the note goes up or down. The sums are computed on the page, the history (Favre, 1796) comes from the sources, and the grid and tune are made up. Nothing plays by itself. Without a script each compartment shows one picture or table.
+
+- `src/data/musicbox.ts` holds all the words, the takeaways and the sources.
+- `src/lib/musicbox.ts` holds the notes, the tooth lengths, the pitch rule, the pin grid and the drawings as SVG text.
+- `src/components/musicbox/Box.astro` is the frame and `Panel*.astro` is one compartment each.
+- `src/scripts/musicbox/musicbox.ts` starts all three compartments.
+
 ## Where things are
 
 ```
@@ -875,6 +884,7 @@ src/data/transit.ts        everything the transit map page says: sheets, takeawa
 src/data/barcode.ts        everything the barcode page says: windows, takeaways, sources
 src/data/mountains.ts      everything the mountains page says: trays, takeaways, sources
 src/data/quill.ts          everything the punctuation page says: spreads, takeaways, sources
+src/data/musicbox.ts       everything the music box page says: compartments, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -951,6 +961,7 @@ src/components/transit/    the transit map page: four sheets and the desk frame
 src/components/barcode/    the barcode page: four scanner windows and the lane frame
 src/components/mountains/  the mountains page: four trays and the workshop frame
 src/components/quill/      the punctuation page: three spreads and the book frame
+src/components/musicbox/   the music box page: three compartments and the box frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -1024,6 +1035,7 @@ src/styles/transit.css     the transit map page: drafting desk, tracing paper, l
 src/styles/barcode.css     the barcode page: charcoal and amber, windows, bars
 src/styles/mountains.css   the mountains page: stone and clay, trays, strata
 src/styles/quill.css       the punctuation page: parchment and ink, spreads, lines of text
+src/styles/musicbox.css    the music box page: mahogany and brass, compartments, pin grid
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -1078,6 +1090,7 @@ src/lib/transit.ts         stations, lines, route search and drawings for the tr
 src/lib/barcode.ts         UPC-A patterns, check sum, decoder and drawings for the barcode page
 src/lib/mountains.ts       squeeze, root, race sums and drawings for the mountains page
 src/lib/quill.ts           puzzles, comma sentences and stages of writing for the punctuation page
+src/lib/musicbox.ts        notes, tooth lengths, pitch rule and pin grid for the music box page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -1163,6 +1176,7 @@ src/scripts/transit/     all four transit map sheets (transit.ts)
 src/scripts/barcode/     all four barcode windows (barcode.ts)
 src/scripts/mountains/   all four mountain trays (mountains.ts)
 src/scripts/quill/       all three punctuation spreads (quill.ts)
+src/scripts/musicbox/    all three music box compartments (musicbox.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

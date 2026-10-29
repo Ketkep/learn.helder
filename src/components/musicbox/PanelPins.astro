@@ -1,0 +1,27 @@
+---
+// Compartment 2: the pinned cylinder. Without a script the picture and the list show the preset tune.
+import { grid, pinsSvg, TUNE, NOTES } from '../../lib/musicbox';
+const names = TUNE.map((n) => (n < 0 ? 'rest' : NOTES[n].name));
+---
+
+<div class="tool" data-pins-tool>
+  <svg class="plate" viewBox="0 0 300 176" role="img" aria-label="The pins of a music box cylinder rolled flat: a row for each note and a column for each moment." data-pins-svg>
+    <rect class="stage" x="1" y="1" width="298" height="174" rx="8"></rect>
+    <g set:html={pinsSvg(grid(TUNE), -1)} data-pins-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The notes of the preset tune in order</caption>
+    <thead><tr><th scope="col">Step</th><th scope="col">Note</th></tr></thead>
+    <tbody>{names.map((n, i) => <tr><th scope="row">{i + 1}</th><td>{n}</td></tr>)}</tbody>
+  </table>
+  <div class="grid needs-js" data-pins-grid></div>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-pins-play>Play</button>
+    <button class="btn" type="button" data-pins-clear>Clear the pins</button>
+    <button class="btn" type="button" data-pins-reset>Twinkle, twinkle</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Speed <output data-pins-outs>120</output> steps a minute</span><input class="range" type="range" min="60" max="240" step="10" value="120" data-pins-speed aria-label="Speed of the cylinder in steps a minute" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-pins-status>The cylinder holds the tune: 16 steps, a pin for each note. Click a spot to place or remove a pin.</p>
+</div>

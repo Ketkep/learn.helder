@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .mb-comb { fill: var(--on-cover); }
+    .mb-pin { fill: var(--on-cover); transform-box: fill-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .mb-pin { animation: mb-roll 1.6s linear infinite; }
+    }
+    /* The pins roll past the teeth */
+    @keyframes mb-roll { 0% { transform: translateX(0); } 100% { transform: translateX(-60px); } }
+  </style>
+
+  <g>
+    <rect class="mb-comb" x="70" y="80" width="200" height="14" rx="5"/>
+    <rect class="mb-comb" x="70" y="108" width="170" height="14" rx="5"/>
+    <rect class="mb-comb" x="70" y="136" width="140" height="14" rx="5"/>
+    <rect class="mb-comb" x="70" y="164" width="110" height="14" rx="5"/>
+    <rect class="mb-comb" x="70" y="192" width="80" height="14" rx="5"/>
+    <rect class="mb-comb" x="50" y="70" width="22" height="146" rx="5"/>
+    <circle class="mb-pin" cx="300" cy="87" r="9"/>
+    <circle class="mb-pin" cx="330" cy="143" r="9"/>
+    <circle class="mb-pin" cx="360" cy="115" r="9"/>
+    <circle class="mb-pin" cx="390" cy="171" r="9"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

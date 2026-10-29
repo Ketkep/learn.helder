@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Box from '../../components/musicbox/Box.astro';
+import { takeaways, sources, sourcesNote } from '../../data/musicbox';
+---
+
+<TopicLayout
+  slug="how-a-music-box-plays"
+  intro="A music box plays a tune by plucking a steel comb with pins on a turning cylinder. Hear how the length of a tooth sets its pitch, pin your own tune and see what a tuner changes."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Box />
+</TopicLayout>

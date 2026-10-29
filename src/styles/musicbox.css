@@ -1,0 +1,459 @@
+/* The music box page: dark mahogany and brass, a compartment for each thing to try. */
+
+.musicbox {
+  --board: #2a1710;
+  --panel: #3a2218;
+  --line: #a9835a;
+  --wood: #e0b45e;
+  --cream: #f6ead2;
+  --ink-fixed: #2a1710;
+  --pink: #e0b45e;
+  --blue: #e6a78f;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .musicbox .needs-js {
+  display: none;
+}
+
+.musicbox :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.musicbox .card-body,
+.musicbox .paras,
+.musicbox .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.musicbox h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.musicbox .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.musicbox .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.musicbox .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.musicbox .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.musicbox .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.musicbox .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.musicbox .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.musicbox .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.musicbox .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.musicbox .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.musicbox .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.musicbox .times th,
+.musicbox .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.musicbox .times thead th {
+  color: #e8d6b4;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.musicbox .times tbody th {
+  font-weight: 700;
+}
+
+.musicbox .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.musicbox .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.musicbox .pick:hover {
+  background: var(--wash);
+}
+
+.musicbox .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .musicbox .no-js-name {
+  display: none;
+}
+
+.musicbox .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.musicbox .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.musicbox .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.musicbox .btn:hover {
+  background: var(--wash);
+}
+
+.musicbox .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.musicbox .btn.fill:hover {
+  background: var(--cream);
+}
+
+.musicbox .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.musicbox .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.musicbox .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.musicbox .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.musicbox .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.musicbox .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.musicbox .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.musicbox .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.musicbox .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.musicbox .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.musicbox .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.musicbox .snd[aria-pressed='true'] .slash,
+.musicbox .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .musicbox * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.musicbox .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Lid and compartments ---------- */
+.musicbox .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 6px solid var(--wood);
+}
+
+.musicbox .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.musicbox .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.musicbox .bays {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.6rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter) 3rem;
+}
+
+@media (min-width: 60rem) {
+  .musicbox .bays {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+/* A compartment lined with felt, with a brass rim */
+.musicbox .bay {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+  padding: 1.2rem;
+  border: 3px solid var(--wood);
+  border-radius: 10px;
+  background: var(--panel);
+  box-shadow: inset 0 0 0 4px var(--board);
+}
+
+.musicbox .tag {
+  background: #c9974a;
+  color: var(--ink-fixed);
+}
+
+.musicbox .tag::before {
+  background: var(--ink-fixed);
+}
+
+.musicbox .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Drawings ---------- */
+.musicbox .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.musicbox .stage {
+  fill: #f1e2c3;
+  stroke: var(--wood);
+  stroke-width: 2;
+}
+
+.musicbox .lab {
+  fill: #2a1710;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.musicbox .base {
+  fill: #6b4a30;
+}
+
+.musicbox .tooth {
+  fill: #7d8793;
+  stroke: #2a1710;
+  stroke-width: 1;
+}
+
+.musicbox .tooth.on {
+  fill: #b3392b;
+}
+
+.musicbox .row {
+  stroke: #b8a47c;
+  stroke-width: 1;
+}
+
+.musicbox .pin {
+  fill: #6b4a30;
+}
+
+.musicbox .pin.hit {
+  fill: #b3392b;
+}
+
+.musicbox .head {
+  fill: none;
+  stroke: #b3392b;
+  stroke-width: 2;
+}
+
+/* ---------- The pin grid ---------- */
+.musicbox .grid {
+  display: grid;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+  gap: 2px;
+}
+
+.musicbox .cell {
+  min-width: 0;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--board);
+  cursor: pointer;
+}
+
+.musicbox .cell.on {
+  background: var(--wood);
+}
+
+.musicbox .cell:focus-visible {
+  outline-offset: 1px;
+}

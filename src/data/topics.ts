@@ -767,6 +767,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-28',
     status: 'live',
   },
+  {
+    slug: 'how-a-music-box-plays',
+    title: 'How a music box plays',
+    hook: 'Pin a tune on a cylinder and hear how the length of a tooth sets its pitch.',
+    category: 'Music',
+    accent: '#C99A55',
+    preview: 'how-a-music-box-plays',
+    dateAdded: '2026-10-29',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

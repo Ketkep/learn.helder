@@ -1,0 +1,16 @@
+---
+// Compartment 3: what changes a pitch. Without a script the table lists the four changes.
+import { CHANGES } from '../../lib/musicbox';
+---
+
+<div class="tool" data-tuning-tool>
+  <table class="times">
+    <caption class="sr-only">Four changes to a tooth and what each does to the pitch</caption>
+    <thead><tr><th scope="col">Change</th><th scope="col">Pitch</th><th scope="col">Why</th></tr></thead>
+    <tbody>{CHANGES.map((c) => <tr><th scope="row">{c.name}</th><td>{c.result}</td><td>{c.why}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-tuning-cards>
+    {CHANGES.map((c, i) => <button class="pick" type="button" aria-pressed="false" data-tuning-pick={i}>{c.name}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-tuning-status>Pick a change to a tooth. Will the note go up or down?</p>
+</div>
