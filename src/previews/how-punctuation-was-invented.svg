@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .qu-line { fill: none; stroke: var(--on-cover); stroke-width: 9; stroke-linecap: round; }
+    .qu-dot { fill: var(--on-cover); transform-box: fill-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .qu-dot { animation: qu-pop 2.4s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .qu-dot.two { animation-delay: 0.5s; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .qu-dot.three { animation-delay: 1s; }
+    }
+    /* The marks appear one by one between the lines of writing */
+    @keyframes qu-pop { 0%, 20% { transform: scale(0); } 40%, 100% { transform: scale(1); } }
+  </style>
+
+  <g>
+    <path class="qu-line" d="M70 100 H250"/>
+    <path class="qu-line" d="M70 150 H190"/>
+    <path class="qu-line" d="M70 200 H300"/>
+    <circle class="qu-dot" cx="276" cy="100" r="9"/>
+    <circle class="qu-dot two" cx="216" cy="150" r="9"/>
+    <circle class="qu-dot three" cx="326" cy="200" r="9"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

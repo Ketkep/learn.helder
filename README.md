@@ -791,6 +791,15 @@ The page is a model maker's workshop: four trays with a thin frame and four band
 - `src/components/mountains/Sandbox.astro` is the frame and `Panel*.astro` is one tray each.
 - `src/scripts/mountains/mountains.ts` starts all four trays.
 
+## The punctuation page: how the three spreads work
+
+The page is an open book in parchment and ink: a title page and three spreads, with the words on the left leaf and the thing to try on the right leaf (stacked on a narrow screen). Spread 1 shows a line of capitals with no spaces and asks you to type it with the spaces back, checked by `judge()` (same letters, then a known reading). The first line has two readings. Spread 2 switches commas on and off in three made up sentences and shows what each version means (the last one is based on the 2017 Maine overtime ruling). Spread 3 shows one text written four ways: run together, dots at three heights, spaces, and the marks we know. The history comes from the sources, and the question mark is left out because its origin is disputed. Without a script each spread shows one picture or table.
+
+- `src/data/quill.ts` holds all the words, the takeaways and the sources.
+- `src/lib/quill.ts` holds the puzzles, the comma sentences, the stages of writing and the checks.
+- `src/components/quill/Book.astro` is the frame and `Panel*.astro` is one spread each.
+- `src/scripts/quill/quill.ts` starts all three spreads.
+
 ## Where things are
 
 ```
@@ -865,6 +874,7 @@ src/data/muscle.ts         everything the muscle page says: boards, takeaways, s
 src/data/transit.ts        everything the transit map page says: sheets, takeaways, sources
 src/data/barcode.ts        everything the barcode page says: windows, takeaways, sources
 src/data/mountains.ts      everything the mountains page says: trays, takeaways, sources
+src/data/quill.ts          everything the punctuation page says: spreads, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -940,6 +950,7 @@ src/components/muscle/     the muscle page: four whiteboards and the gym frame
 src/components/transit/    the transit map page: four sheets and the desk frame
 src/components/barcode/    the barcode page: four scanner windows and the lane frame
 src/components/mountains/  the mountains page: four trays and the workshop frame
+src/components/quill/      the punctuation page: three spreads and the book frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -1012,6 +1023,7 @@ src/styles/muscle.css      the muscle page: maple floor, whiteboards, filaments
 src/styles/transit.css     the transit map page: drafting desk, tracing paper, lines
 src/styles/barcode.css     the barcode page: charcoal and amber, windows, bars
 src/styles/mountains.css   the mountains page: stone and clay, trays, strata
+src/styles/quill.css       the punctuation page: parchment and ink, spreads, lines of text
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -1065,6 +1077,7 @@ src/lib/muscle.ts          sarcomere overlap, head cycle and chain sums for the 
 src/lib/transit.ts         stations, lines, route search and drawings for the transit map page
 src/lib/barcode.ts         UPC-A patterns, check sum, decoder and drawings for the barcode page
 src/lib/mountains.ts       squeeze, root, race sums and drawings for the mountains page
+src/lib/quill.ts           puzzles, comma sentences and stages of writing for the punctuation page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -1149,6 +1162,7 @@ src/scripts/muscle/      all four muscle boards (muscle.ts)
 src/scripts/transit/     all four transit map sheets (transit.ts)
 src/scripts/barcode/     all four barcode windows (barcode.ts)
 src/scripts/mountains/   all four mountain trays (mountains.ts)
+src/scripts/quill/       all three punctuation spreads (quill.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

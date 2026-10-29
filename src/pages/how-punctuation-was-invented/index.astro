@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Book from '../../components/quill/Book.astro';
+import { takeaways, sources, sourcesNote } from '../../data/quill';
+---
+
+<TopicLayout
+  slug="how-punctuation-was-invented"
+  intro="Punctuation was invented a piece at a time to help readers. Put spaces back into words that run together, move a comma and change a meaning, and follow one sentence through time."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Book />
+</TopicLayout>

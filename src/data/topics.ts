@@ -757,6 +757,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-28',
     status: 'live',
   },
+  {
+    slug: 'how-punctuation-was-invented',
+    title: 'How punctuation was invented',
+    hook: 'Put spaces back into words that run together and see how one comma changes a meaning.',
+    category: 'Language',
+    accent: '#D8A27C',
+    preview: 'how-punctuation-was-invented',
+    dateAdded: '2026-10-28',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

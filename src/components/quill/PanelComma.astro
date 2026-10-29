@@ -1,0 +1,25 @@
+---
+// Spread 2: a comma changes the meaning. Without a script the table gives both versions of each sentence.
+import { COMMAS, meaningOf, sentence } from '../../lib/quill';
+const first = COMMAS[0];
+---
+
+<div class="tool" data-comma-tool>
+  <p class="line" data-comma-line>{sentence(first, '1')}</p>
+  <table class="times">
+    <caption class="sr-only">Each sentence with and without its commas, and what it means</caption>
+    <thead><tr><th scope="col">Sentence</th><th scope="col">Meaning</th></tr></thead>
+    <tbody>
+      {
+        COMMAS.map((c) =>
+          Object.keys(c.meanings).map((m) => <tr><th scope="row">{sentence(c, m)}</th><td>{meaningOf(c, m)}</td></tr>),
+        )
+      }
+    </tbody>
+  </table>
+  <div class="controls needs-js">
+    {COMMAS.map((_, i) => <button class="pick" type="button" aria-pressed={i === 0 ? 'true' : 'false'} data-comma-pick={i}>Sentence {i + 1}</button>)}
+  </div>
+  <div class="controls needs-js" data-comma-switches></div>
+  <p class="status" aria-live="polite" data-comma-status>{meaningOf(first, '1')} {first.more}</p>
+</div>

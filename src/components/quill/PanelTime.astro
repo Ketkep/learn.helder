@@ -1,0 +1,17 @@
+---
+// Spread 3: one sentence through time. Without a script the table lists the four ways of writing it.
+import { STAGES } from '../../lib/quill';
+---
+
+<div class="tool" data-time-tool>
+  <p class="line" data-time-line set:html={STAGES[3].html}></p>
+  <table class="times">
+    <caption class="sr-only">One text written four ways</caption>
+    <thead><tr><th scope="col">Way of writing</th><th scope="col">The text</th></tr></thead>
+    <tbody>{STAGES.map((s) => <tr><th scope="row">{s.name}</th><td class="mono" set:html={s.html}></td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    {STAGES.map((s, i) => <button class="pick" type="button" aria-pressed={i === 3 ? 'true' : 'false'} data-time-pick={i}>{s.name}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-time-status>{STAGES[3].when}. {STAGES[3].note}</p>
+</div>

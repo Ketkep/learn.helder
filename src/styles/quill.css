@@ -1,0 +1,456 @@
+/* The punctuation page: an open book in parchment and ink, one spread for each thing to try. */
+
+.quill {
+  --board: #e9dcc0;
+  --panel: #f6edd8;
+  --line: #7d6a4f;
+  --wood: #9c2a1f;
+  --cream: #2a1c10;
+  --ink-fixed: #f6edd8;
+  --pink: #9c2a1f;
+  --blue: #2f4d73;
+  --wash: rgb(0 0 0 / 0.1);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .quill .needs-js {
+  display: none;
+}
+
+.quill :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.quill .card-body,
+.quill .paras,
+.quill .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.quill h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.quill .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.quill .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.quill .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.quill .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.quill .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.quill .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.quill .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.quill .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.quill .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.quill .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.quill .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.quill .times th,
+.quill .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.quill .times thead th {
+  color: #4a3a28;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.quill .times tbody th {
+  font-weight: 700;
+}
+
+.quill .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.quill .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.quill .pick:hover {
+  background: var(--wash);
+}
+
+.quill .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .quill .no-js-name {
+  display: none;
+}
+
+.quill .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.quill .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.quill .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.quill .btn:hover {
+  background: var(--wash);
+}
+
+.quill .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.quill .btn.fill:hover {
+  background: var(--cream);
+}
+
+.quill .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.quill .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.quill .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.quill .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.quill .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.quill .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.quill .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.quill .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.quill .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.quill .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.quill .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.quill .snd[aria-pressed='true'] .slash,
+.quill .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quill * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.quill .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Title page and spreads ---------- */
+.quill .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 8px double var(--wood);
+}
+
+.quill .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.quill .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.quill .spreads {
+  display: grid;
+  gap: clamp(1.6rem, 4vw, 2.6rem);
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter) 3.2rem;
+}
+
+/* Two leaves of an open book: the text on the left, the thing to try on the right, with a shadow in the gutter */
+.quill .spread {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border: 2px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  box-shadow: 0 6px 0 -1px rgb(0 0 0 / 0.18);
+}
+
+.quill .leaf {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+  padding: clamp(1.1rem, 3vw, 1.8rem);
+}
+
+.quill .leaf.right {
+  border-top: 2px solid var(--line);
+}
+
+@media (min-width: 60rem) {
+  .quill .spread {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .quill .leaf.right {
+    border-top: 0;
+    border-left: 2px solid var(--line);
+    background-image: linear-gradient(to right, rgb(0 0 0 / 0.1), transparent 1.4rem);
+  }
+}
+
+.quill .tag {
+  transform: rotate(0.3deg);
+}
+
+.quill .pickbox,
+.quill .text.long {
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--cream);
+  font: inherit;
+  font-weight: 700;
+}
+
+.quill .text.long {
+  width: 100%;
+  min-width: 12rem;
+  text-transform: uppercase;
+}
+
+/* ---------- The lines of text ---------- */
+.quill .run,
+.quill .line {
+  margin: 0;
+  padding: 1rem 1.1rem;
+  border: 2px solid var(--line);
+  border-radius: 4px;
+  background: #fffaf0;
+  overflow-wrap: anywhere;
+}
+
+.quill .run {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: clamp(1.1rem, 0.9rem + 1.4vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.quill .line {
+  font-size: clamp(1.15rem, 0.95rem + 1.2vw, 1.55rem);
+  line-height: 1.5;
+}
+
+.quill .line .hi,
+.quill .line .mid,
+.quill .line .low,
+.quill .mono .hi,
+.quill .mono .mid,
+.quill .mono .low {
+  color: var(--wood);
+  font-weight: 700;
+}
+
+.quill .hi {
+  position: relative;
+  top: -0.5em;
+}
+
+.quill .low {
+  position: relative;
+  top: 0.35em;
+}
+
+/* Letters run together have no place to break, so the tables break them anywhere */
+.quill .times {
+  table-layout: fixed;
+}
+
+.quill .times th,
+.quill .times td {
+  overflow-wrap: anywhere;
+}
