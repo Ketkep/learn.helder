@@ -747,6 +747,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-28',
     status: 'live',
   },
+  {
+    slug: 'how-mountains-are-made',
+    title: 'How mountains are made',
+    hook: 'Squeeze layers of rock, float a block of crust and race lifting against wearing away.',
+    category: 'Nature',
+    accent: '#8E96D4',
+    preview: 'how-mountains-are-made',
+    dateAdded: '2026-10-28',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

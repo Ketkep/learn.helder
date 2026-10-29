@@ -782,6 +782,15 @@ The page is a checkout lane: four dark scanner windows with an amber frame and a
 - `src/components/barcode/Lane.astro` is the frame and `Panel*.astro` is one window each.
 - `src/scripts/barcode/barcode.ts` starts all four windows.
 
+## The mountains page: how the four trays work
+
+The page is a model maker's workshop: four trays with a thin frame and four bands of rock along the bottom (two by two on a wide screen), on a stone coloured page. Tray 1 squeezes a stack of five layers from the side (0 to 50 per cent) and works out how much thicker the stack must get if its volume stays the same (1 over the width left). The folds are a toy shape. Tray 2 floats a block of crust: the root is the height times 2.7 over (3.3 minus 2.7), so 4.5 times the height, on 35 km of normal crust. Tray 3 races lifting against wearing away in millimetres a year (one millimetre a year for a million years is a kilometre), with Everest at 8.85 km as a reference line and the distance a plate at 5 cm a year would travel. Tray 4 shows the three kinds of mountain (fold, fault block, volcanic) as cross sections. Sources differ on the crust thickness and density, and the page says so. Without a script each tray shows one picture or table.
+
+- `src/data/mountains.ts` holds all the words, the takeaways and the sources.
+- `src/lib/mountains.ts` holds the squeeze sum, the root formula, the race and the drawings as SVG text.
+- `src/components/mountains/Sandbox.astro` is the frame and `Panel*.astro` is one tray each.
+- `src/scripts/mountains/mountains.ts` starts all four trays.
+
 ## Where things are
 
 ```
@@ -855,6 +864,7 @@ src/data/hotel.ts          everything the Hilbert hotel page says: floors, takea
 src/data/muscle.ts         everything the muscle page says: boards, takeaways, sources
 src/data/transit.ts        everything the transit map page says: sheets, takeaways, sources
 src/data/barcode.ts        everything the barcode page says: windows, takeaways, sources
+src/data/mountains.ts      everything the mountains page says: trays, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
@@ -929,6 +939,7 @@ src/components/hotel/      the Hilbert hotel page: four floors and the hotel fra
 src/components/muscle/     the muscle page: four whiteboards and the gym frame
 src/components/transit/    the transit map page: four sheets and the desk frame
 src/components/barcode/    the barcode page: four scanner windows and the lane frame
+src/components/mountains/  the mountains page: four trays and the workshop frame
 src/components/water/    the water page: the river and its four stops
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
@@ -1000,6 +1011,7 @@ src/styles/hotel.css       the Hilbert hotel page: navy and brass, floors, doors
 src/styles/muscle.css      the muscle page: maple floor, whiteboards, filaments
 src/styles/transit.css     the transit map page: drafting desk, tracing paper, lines
 src/styles/barcode.css     the barcode page: charcoal and amber, windows, bars
+src/styles/mountains.css   the mountains page: stone and clay, trays, strata
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
@@ -1052,6 +1064,7 @@ src/lib/hotel.ts           room shifts, fraction order, place finder and digit l
 src/lib/muscle.ts          sarcomere overlap, head cycle and chain sums for the muscle page
 src/lib/transit.ts         stations, lines, route search and drawings for the transit map page
 src/lib/barcode.ts         UPC-A patterns, check sum, decoder and drawings for the barcode page
+src/lib/mountains.ts       squeeze, root, race sums and drawings for the mountains page
 src/lib/thermostat.ts    room and thermostat model for the thermostat page
 src/lib/growth.ts        growth sums and charts for the growth page
 src/lib/bees.ts          dance maths for the bee page
@@ -1135,6 +1148,7 @@ src/scripts/hotel/       all four hotel floors (hotel.ts)
 src/scripts/muscle/      all four muscle boards (muscle.ts)
 src/scripts/transit/     all four transit map sheets (transit.ts)
 src/scripts/barcode/     all four barcode windows (barcode.ts)
+src/scripts/mountains/   all four mountain trays (mountains.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 public/                  favicon and the link preview image

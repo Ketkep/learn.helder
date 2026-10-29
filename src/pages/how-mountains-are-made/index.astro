@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Sandbox from '../../components/mountains/Sandbox.astro';
+import { takeaways, sources, sourcesNote } from '../../data/mountains';
+---
+
+<TopicLayout
+  slug="how-mountains-are-made"
+  intro="Mountains are crust that gets squeezed, lifted and worn away. Squeeze a stack of layers, float a block of crust, race lifting against wearing away and compare three kinds of mountain."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Sandbox />
+</TopicLayout>

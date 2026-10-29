@@ -1,0 +1,21 @@
+---
+// Tray 1: squeeze the layers. Without a script the table gives a few squeezes.
+import { fmt, foldSvg, thickerBy } from '../../lib/mountains';
+const rows = [0.1, 0.25, 0.5];
+---
+
+<div class="tool" data-fold-tool>
+  <svg class="plate" viewBox="0 0 300 190" role="img" aria-label="A stack of five layers of rock squeezed from the sides into folds." data-fold-svg>
+    <rect class="stage" x="1" y="1" width="298" height="188" rx="8"></rect>
+    <g set:html={foldSvg(0.35)} data-fold-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">How much thicker a squeezed slab gets if its volume stays the same</caption>
+    <thead><tr><th scope="col">Squeezed by</th><th scope="col">Width left</th><th scope="col">Thickness</th></tr></thead>
+    <tbody>{rows.map((r) => <tr><th scope="row">{fmt(r * 100)}%</th><td>{fmt((1 - r) * 100)}%</td><td>{fmt(thickerBy(r), 2)} times</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Squeeze <output data-fold-out>35</output>%</span><input class="range" type="range" min="0" max="50" step="1" value="35" data-fold-range aria-label="How much the stack is squeezed from the side, in per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-fold-status>Squeezed by 35%, the stack has 65% of its width, so with the same volume it is {fmt(thickerBy(0.35), 2)} times as thick.</p>
+</div>

@@ -1,0 +1,20 @@
+---
+// Tray 4: three kinds of mountain. Without a script the table lists them.
+import { kindSvg, KINDS } from '../../lib/mountains';
+---
+
+<div class="tool" data-kinds-tool>
+  <svg class="plate" viewBox="0 0 300 190" role="img" aria-label="A cross section of a fold mountain." data-kinds-svg>
+    <rect class="stage" x="1" y="1" width="298" height="188" rx="8"></rect>
+    <g set:html={kindSvg(0)} data-kinds-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Three kinds of mountain</caption>
+    <thead><tr><th scope="col">Kind</th><th scope="col">Example</th><th scope="col">How it is made</th></tr></thead>
+    <tbody>{KINDS.map((k) => <tr><th scope="row">{k.name}</th><td>{k.example}</td><td>{k.how}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    {KINDS.map((k, i) => <button class="pick" type="button" aria-pressed={i === 0 ? 'true' : 'false'} data-kinds-pick={i}>{k.name}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-kinds-status>Fold mountains, such as the Alps. Two plates push together and the layers between them buckle and pile up.</p>
+</div>

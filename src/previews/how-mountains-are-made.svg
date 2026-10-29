@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .mt-rock { fill: none; stroke: var(--on-cover); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    .mt-push { fill: var(--on-cover); transform-box: fill-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .mt-push.left { animation: mt-left 2.2s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .mt-push.right { animation: mt-right 2.2s ease-in-out infinite; }
+    }
+    /* The two sides push in toward the peak */
+    @keyframes mt-left { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(16px); } }
+    @keyframes mt-right { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-16px); } }
+  </style>
+
+  <g>
+    <path class="mt-rock" d="M70 210 L150 130 L190 170 L250 80 L330 210"/>
+    <path class="mt-rock" d="M70 240 H330" style="opacity:.6"/>
+    <path class="mt-push left" d="M40 150 l24 -14 v28 z"/>
+    <path class="mt-push right" d="M360 150 l-24 -14 v28 z"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

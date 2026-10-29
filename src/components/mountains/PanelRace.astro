@@ -1,0 +1,23 @@
+---
+// Tray 3: lifting against wearing away. Without a script the table gives a few rates.
+import { fmt, raceSvg, rise } from '../../lib/mountains';
+const rows: [number, number][] = [[4, 0], [4, 3], [6, 6]];
+---
+
+<div class="tool" data-race-tool>
+  <svg class="plate" viewBox="0 0 300 176" role="img" aria-label="A line chart of the height of a peak over five million years, with a dashed line for lifting alone and a solid line for lifting minus wearing away." data-race-svg>
+    <rect class="stage" x="1" y="1" width="298" height="174" rx="8"></rect>
+    <g set:html={raceSvg(5, 3, 5)} data-race-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Height gained in five million years for a few rates</caption>
+    <thead><tr><th scope="col">Lifting</th><th scope="col">Wearing away</th><th scope="col">After 5 million years</th></tr></thead>
+    <tbody>{rows.map(([u, e]) => <tr><th scope="row">{u} mm a year</th><td>{e} mm a year</td><td>{fmt(rise(u, e, 5), 1)} km</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Lifting <output data-race-outu>5</output> mm a year</span><input class="range" type="range" min="0" max="10" step="1" value="5" data-race-u aria-label="Rate of lifting, in millimetres a year" /></label>
+    <label class="field"><span>Wearing away <output data-race-oute>3</output> mm a year</span><input class="range" type="range" min="0" max="10" step="1" value="3" data-race-e aria-label="Rate of wearing away, in millimetres a year" /></label>
+    <label class="field"><span>Time <output data-race-outt>5.0</output> million years</span><input class="range" type="range" min="0" max="50" step="1" value="50" data-race-t aria-label="Time in million years, times ten" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-race-status>After 5.0 million years the peak is {fmt(rise(5, 3, 5), 1)} km higher, at a net rate of 2 mm a year. A plate at 5 cm a year would have moved 250 km.</p>
+</div>

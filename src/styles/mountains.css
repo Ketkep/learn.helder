@@ -1,0 +1,455 @@
+/* The mountains page: a model maker's workshop in stone and clay, a glass fronted tray for each thing to try. */
+
+.mountains {
+  --board: #e7e2d8;
+  --panel: #f8f5ee;
+  --line: #6c6558;
+  --wood: #a4472f;
+  --cream: #241f1a;
+  --ink-fixed: #f8f5ee;
+  --pink: #a4472f;
+  --blue: #36597a;
+  --wash: rgb(0 0 0 / 0.1);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .mountains .needs-js {
+  display: none;
+}
+
+.mountains :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.mountains .card-body,
+.mountains .paras,
+.mountains .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.mountains h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.mountains .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.mountains .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.mountains .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.mountains .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.mountains .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.mountains .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.mountains .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.mountains .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.mountains .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.mountains .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.mountains .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.mountains .times th,
+.mountains .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.mountains .times thead th {
+  color: #4a4338;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.mountains .times tbody th {
+  font-weight: 700;
+}
+
+.mountains .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.mountains .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mountains .pick:hover {
+  background: var(--wash);
+}
+
+.mountains .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .mountains .no-js-name {
+  display: none;
+}
+
+.mountains .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.mountains .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.mountains .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.mountains .btn:hover {
+  background: var(--wash);
+}
+
+.mountains .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.mountains .btn.fill:hover {
+  background: var(--cream);
+}
+
+.mountains .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.mountains .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.mountains .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.mountains .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.mountains .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.mountains .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.mountains .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.mountains .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.mountains .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.mountains .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.mountains .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mountains .snd[aria-pressed='true'] .slash,
+.mountains .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mountains * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.mountains .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Workshop ---------- */
+.mountains .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 10px solid var(--wood);
+}
+
+.mountains .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.mountains .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.mountains .trays {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.6rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter) 3rem;
+}
+
+@media (min-width: 60rem) {
+  .mountains .trays {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+/* A tray with a glass front: a thin frame, and four bands of rock along the bottom */
+.mountains .tray {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+  padding: 1.2rem 1.2rem 2.4rem;
+  border: 3px solid var(--cream);
+  border-radius: 6px;
+  background-color: var(--panel);
+  background-image: linear-gradient(to bottom, #c9a066 0 25%, #a8744b 25% 50%, #7e8f6a 50% 75%, #8a8fa6 75% 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 1.1rem;
+  background-position: bottom;
+}
+
+.mountains .pickbox {
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--cream);
+  font: inherit;
+  font-weight: 700;
+}
+
+/* ---------- Drawings ---------- */
+.mountains .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mountains .stage {
+  fill: #fdfbf6;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.mountains .lab {
+  fill: var(--cream);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.mountains .lab.on-dark {
+  fill: #f8f5ee;
+}
+
+.mountains .mantle {
+  fill: #7a4a3a;
+}
+
+.mountains .crust {
+  fill: #c9a066;
+  stroke: var(--cream);
+  stroke-width: 1.5;
+}
+
+.mountains .sea {
+  stroke: var(--blue);
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+}
+
+.mountains .axis {
+  stroke: var(--cream);
+  stroke-width: 1.5;
+}
+
+.mountains .ref {
+  stroke: var(--line);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.mountains .plain {
+  stroke: var(--line);
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+}
+
+.mountains .net {
+  stroke: var(--wood);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.mountains .now {
+  fill: var(--wood);
+  stroke: var(--panel);
+  stroke-width: 2;
+}
+
+.mountains .faultline {
+  stroke: var(--wood);
+  stroke-width: 3;
+}
