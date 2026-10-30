@@ -1,0 +1,21 @@
+---
+// Screen 4: how fast it travels. Without a script the table gives a few lengths.
+import { FAST, fmt, raceSvg, SLOW, travelMs } from '../../lib/nerve';
+const rows = [0.1, 0.5, 1, 1.8];
+---
+
+<div class="tool" data-speed-tool>
+  <svg class="plate" viewBox="0 0 300 126" role="img" aria-label="Two bars: the time a signal takes along a nerve without myelin and with it. The second is much shorter." data-speed-svg>
+    <rect class="stage" x="1" y="1" width="298" height="124" rx="8"></rect>
+    <g set:html={raceSvg(1)} data-speed-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The time for a signal to travel some lengths of nerve</caption>
+    <thead><tr><th scope="col">Length</th><th scope="col">Without myelin ({SLOW} m/s)</th><th scope="col">With myelin ({FAST} m/s)</th></tr></thead>
+    <tbody>{rows.map((m) => <tr><th scope="row">{m} m</th><td>{fmt(travelMs(m, SLOW))} ms</td><td>{fmt(travelMs(m, FAST), travelMs(m, FAST) < 10 ? 1 : 0)} ms</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Length <output data-speed-out>1.0</output> m</span><input class="range" type="range" min="1" max="20" step="1" value="10" data-speed-range aria-label="Length of the nerve fibre in metres, times ten" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-speed-status>Along 1.0 m of fibre, a signal takes {fmt(travelMs(1, SLOW))} ms without myelin and {fmt(travelMs(1, FAST))} ms with it.</p>
+</div>

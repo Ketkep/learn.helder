@@ -827,6 +827,15 @@ The page is a newspaper puzzle page: four boxed puzzles with a hard shadow on ne
 - `src/components/sudoku/Page.astro` is the frame, `Grid.astro` the plain table and `Panel*.astro` one puzzle each.
 - `src/scripts/sudoku/sudoku.ts` starts all four puzzles and `board.ts` builds the grids.
 
+## The nerve page: how the four screens work
+
+The page is an oscilloscope bench: four scope screens with a thick bezel on a near black page, with green traces and cyan edges (two by two on a wide screen). Screen 1 pushes a model cell from rest (minus 70 millivolts) and shows a full spike only if the push reaches the threshold (minus 55), always the same size. Screen 2 gives a steady push for a tenth of a second to a leaky membrane and counts the spikes (the refractory period caps the rate under 500 a second). Screen 3 sends a second push after the first spike: nothing in the absolute period (2 ms), a push 2.5 times as big in the relative period (to 5 ms), the usual push after. Screen 4 compares the time along a fibre at 1 metre a second and at 100. The voltages, the speed ranges and the history come from the sources. The timings and the 2.5 times rule are made up and marked. Not medical advice. Without a script each screen shows one picture or table.
+
+- `src/data/nerve.ts` holds all the words, the takeaways and the sources.
+- `src/lib/nerve.ts` holds the spike shape, the threshold rule, the leaky membrane, the refractory rules and the charts as SVG text.
+- `src/components/nerve/Scope.astro` is the frame and `Panel*.astro` is one screen each.
+- `src/scripts/nerve/nerve.ts` starts all four screens.
+
 ## Where things are
 
 ```
@@ -906,6 +915,7 @@ src/data/musicbox.ts       everything the music box page says: compartments, tak
 src/data/halflife.ts       everything the rock age page says: alcoves, takeaways, sources
 src/data/sudoku.ts         everything the sudoku page says: puzzles, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
+src/data/nerve.ts          everything the nerve page says: screens, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -985,6 +995,7 @@ src/components/musicbox/   the music box page: three compartments and the box fr
 src/components/halflife/   the rock age page: three alcoves and the gallery frame
 src/components/sudoku/    the sudoku page: four boxed puzzles and the plain table grid
 src/components/water/    the water page: the river and its four stops
+src/components/nerve/      the nerve page: four scope screens and the bench frame
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1061,6 +1072,7 @@ src/styles/musicbox.css    the music box page: mahogany and brass, compartments,
 src/styles/halflife.css    the rock age page: sandstone and teal, arched alcoves
 src/styles/sudoku.css      the sudoku page: newsprint and pencil, boxed puzzles, grids
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
+src/styles/nerve.css       the nerve page: near black and cyan, scope screens, traces
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1130,6 +1142,7 @@ src/lib/bread.ts         bread models and pictures for the bread page
 src/lib/lock.ts          lock maths for the lock page: pins, keys, the wooden lock, key counts
 src/lib/projections.ts   map maths for the maps page: projections, circles, routes, the globe.  src/lib/maplayers.ts: what each panel draws
 src/lib/light.ts         light travel maths for the light page
+src/lib/nerve.ts           spike shape, threshold, leaky membrane and refractory rules for the nerve page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1207,6 +1220,7 @@ src/scripts/halflife/    all three rock age alcoves (halflife.ts)
 src/scripts/sudoku/      all four sudoku puzzles (sudoku.ts) and the grid builder (board.ts)
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
+src/scripts/nerve/         all four nerve screens (nerve.ts)
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

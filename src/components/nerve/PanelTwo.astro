@@ -1,0 +1,25 @@
+---
+// Screen 3: a rest after every spike. Without a script the table gives the three stages.
+import { ABSOLUTE_MS, RELATIVE_MS, twoSvg } from '../../lib/nerve';
+---
+
+<div class="tool" data-two-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="Two spikes close together: a second push soon after the first is too weak to start a spike." data-two-svg>
+    <rect class="stage" x="1" y="1" width="298" height="168" rx="8"></rect>
+    <g set:html={twoSvg(3, 20)} data-two-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The stages after a spike in the toy cell</caption>
+    <thead><tr><th scope="col">Time after the spike starts</th><th scope="col">What a second push can do</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Under {ABSOLUTE_MS} ms</th><td>Nothing. No push can start a spike.</td></tr>
+      <tr><th scope="row">{ABSOLUTE_MS} to {RELATIVE_MS} ms</th><td>Only a push 2.5 times the usual size works.</td></tr>
+      <tr><th scope="row">After {RELATIVE_MS} ms</th><td>The usual push, 15 mV, works.</td></tr>
+    </tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Second push after <output data-two-outg>3</output> ms</span><input class="range" type="range" min="1" max="10" step="0.5" value="3" data-two-gap aria-label="Time of the second push after the first, in milliseconds" /></label>
+    <label class="field"><span>Second push <output data-two-outp>20</output> mV</span><input class="range" type="range" min="5" max="60" step="1" value="20" data-two-push aria-label="Size of the second push in millivolts" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-two-status>A second push of 20 mV after 3 ms is too weak for the relative refractory period. No second spike.</p>
+</div>

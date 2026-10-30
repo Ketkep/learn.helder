@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Scope from '../../components/nerve/Scope.astro';
+import { takeaways, sources, sourcesNote } from '../../data/nerve';
+---
+
+<TopicLayout
+  slug="how-a-nerve-fires"
+  intro="A nerve cell sends a message as a spike that is either there or not. Push a cell past its threshold, push harder for more spikes, send two pushes close together and race a signal down a nerve."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Scope />
+</TopicLayout>

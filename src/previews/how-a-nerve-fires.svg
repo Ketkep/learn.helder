@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .nv-line { fill: none; stroke: var(--on-cover); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .nv-line { stroke-dasharray: 520; animation: nv-draw 2.2s ease-in-out infinite; }
+    }
+    /* The trace is drawn from left to right, spike and all */
+    @keyframes nv-draw { 0% { stroke-dashoffset: 520; } 70%, 100% { stroke-dashoffset: 0; } }
+  </style>
+
+  <g>
+    <path class="nv-line" d="M40 190 H120 L140 190 L160 70 L190 230 L215 190 H250 L270 190 L290 90 L316 220 L336 190 H365"/>
+    <path class="nv-line" d="M40 240 H365" style="opacity:.35;stroke-width:5"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

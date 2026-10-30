@@ -797,6 +797,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-29',
     status: 'live',
   },
+  {
+    slug: 'how-a-nerve-fires',
+    title: 'How a nerve fires',
+    hook: 'Push a nerve cell past its threshold and see why a spike is all or nothing.',
+    category: 'Body',
+    accent: '#58BEDC',
+    preview: 'how-a-nerve-fires',
+    dateAdded: '2026-10-30',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

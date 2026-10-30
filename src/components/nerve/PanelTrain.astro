@@ -1,0 +1,21 @@
+---
+// Screen 2: harder push, more spikes. Without a script the table gives a few pushes and spike counts.
+import { fmt, spikeTrain, trainSvg } from '../../lib/nerve';
+const rows = [10, 20, 30, 50, 100, 200];
+---
+
+<div class="tool" data-train-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A tenth of a second of a nerve cell, with a tall line for each spike. A stronger push has more of them." data-train-svg>
+    <rect class="stage" x="1" y="1" width="298" height="168" rx="8"></rect>
+    <g set:html={trainSvg(50)} data-train-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Spikes in a tenth of a second for a steady push of each size, in the toy cell</caption>
+    <thead><tr><th scope="col">Steady push</th><th scope="col">Spikes in 0.1 s</th><th scope="col">Spikes a second</th></tr></thead>
+    <tbody>{rows.map((p) => { const n = spikeTrain(p).length; return <tr><th scope="row">{p} mV</th><td>{n}</td><td>{fmt(n * 10)}</td></tr>; })}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Steady push <output data-train-out>50</output> mV</span><input class="range" type="range" min="0" max="200" step="5" value="50" data-train-range aria-label="Size of the steady push in millivolts" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-train-status>A steady push of 50 mV gives {spikeTrain(50).length} spikes in a tenth of a second, or {fmt(spikeTrain(50).length * 10)} a second.</p>
+</div>
