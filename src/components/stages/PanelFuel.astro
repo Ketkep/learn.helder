@@ -1,0 +1,25 @@
+---
+// Sheet 1: fuel buys speed. Without a script the table gives a few shares for each engine.
+import { ENGINES, exhaust, fmt, fromFuel, fuelNeeded, fuelSvg, NEED } from '../../lib/stages';
+const shares = [0.5, 0.75, 0.9, 0.95];
+---
+
+<div class="tool" data-fuel-tool>
+  <svg class="plate" viewBox="0 0 300 160" role="img" aria-label="A curve of the gain in speed against the share of the launch mass that is propellant. It climbs fast and then flattens." data-fuel-svg>
+    <rect class="stage" x="1" y="1" width="298" height="158" rx="8"></rect>
+    <g set:html={fuelSvg(exhaust(ENGINES[0].isp), 0.8)} data-fuel-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The gain in speed in kilometres a second for a share of propellant, for two engines, with no structure</caption>
+    <thead><tr><th scope="col">Propellant share</th>{ENGINES.map((e) => <th scope="col">{e.name} ({fmt(exhaust(e.isp), 1)} km/s)</th>)}</tr></thead>
+    <tbody>{shares.map((s) => <tr><th scope="row">{fmt(s * 100)}%</th>{ENGINES.map((e) => <td>{fmt(fromFuel(exhaust(e.isp), s), 1)} km/s</td>)}</tr>)}</tbody>
+    <tfoot><tr><th scope="row">Share needed for {NEED} km/s</th>{ENGINES.map((e) => <td>{fmt(fuelNeeded(exhaust(e.isp), NEED) * 100, 1)}%</td>)}</tr></tfoot>
+  </table>
+  <div class="controls needs-js">
+    {ENGINES.map((e, i) => <button class="pick" type="button" aria-pressed={i === 0 ? 'true' : 'false'} data-fuel-pick={i}>{e.name}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Propellant <output data-fuel-out>80</output>% of launch mass</span><input class="range" type="range" min="0" max="99" step="1" value="80" data-fuel-range aria-label="Share of the launch mass that is propellant, in per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-fuel-status>With 80% propellant and an exhaust speed of {fmt(exhaust(ENGINES[0].isp), 1)} km/s, the gain in speed is {fmt(fromFuel(exhaust(ENGINES[0].isp), 0.8), 1)} km/s.</p>
+</div>

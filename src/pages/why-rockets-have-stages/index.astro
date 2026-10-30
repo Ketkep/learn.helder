@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Sheets from '../../components/stages/Sheets.astro';
+import { takeaways, sources, sourcesNote } from '../../data/stages';
+---
+
+<TopicLayout
+  slug="why-rockets-have-stages"
+  intro="A rocket gains speed by throwing mass backwards, and the maths of it explains why rockets drop empty stages. See how fuel buys speed, what one stage can do and what staging adds."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Sheets />
+</TopicLayout>

@@ -807,6 +807,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-30',
     status: 'live',
   },
+  {
+    slug: 'why-rockets-have-stages',
+    title: 'Why rockets have stages',
+    hook: 'Throw mass backwards to go forwards and see why empty stages are dropped.',
+    category: 'Space',
+    accent: '#3E6FB8',
+    preview: 'why-rockets-have-stages',
+    dateAdded: '2026-10-30',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

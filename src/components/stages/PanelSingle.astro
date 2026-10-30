@@ -1,0 +1,24 @@
+---
+// Sheet 2: what one stage can do. Without a script the table gives a few structure shares.
+import { ENGINES, exhaust, fmt, NEED, oneStage } from '../../lib/stages';
+const rows = [0.05, 0.08, 0.1, 0.15];
+---
+
+<div class="tool" data-single-tool>
+  <svg class="plate" viewBox="0 0 300 100" role="img" aria-label="A bar for the gain in speed of one stage, with a line at the speed needed for orbit." data-single-svg>
+    <rect class="stage" x="1" y="1" width="298" height="98" rx="8"></rect>
+    <g data-single-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The gain in speed of one stage for a share of structure, with 2 per cent payload</caption>
+    <thead><tr><th scope="col">Structure share</th>{ENGINES.map((e) => <th scope="col">{e.name}</th>)}</tr></thead>
+    <tbody>{rows.map((s) => <tr><th scope="row">{fmt(s * 100)}%</th>{ENGINES.map((e) => <td>{fmt(oneStage(exhaust(e.isp), s, 0.02), 1)} km/s</td>)}</tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    {ENGINES.map((e, i) => <button class="pick" type="button" aria-pressed={i === 0 ? 'true' : 'false'} data-single-pick={i}>{e.name}</button>)}
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Structure <output data-single-out>10</output>% of launch mass</span><input class="range" type="range" min="3" max="25" step="1" value="10" data-single-range aria-label="Share of the launch mass that is structure, in per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-single-status>One stage with 10% structure and 2% payload, burning kerosene and oxygen, gains {fmt(oneStage(exhaust(ENGINES[0].isp), 0.1, 0.02), 1)} km/s. The speed needed is {NEED}.</p>
+</div>

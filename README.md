@@ -836,6 +836,15 @@ The page is an oscilloscope bench: four scope screens with a thick bezel on a ne
 - `src/components/nerve/Scope.astro` is the frame and `Panel*.astro` is one screen each.
 - `src/scripts/nerve/nerve.ts` starts all four screens.
 
+## The rocket stages page: how the three sheets work
+
+The page is a set of blueprint sheets: three drawing sheets with a double white border and a title block in the corner (side by side on a wide screen), on blueprint blue. Sheet 1 plots the gain in speed against the share of the launch mass that is propellant (the rocket equation: exhaust speed times the natural log of launch mass over final mass) for a kerosene engine (348 s, 3.4 km/s) and a hydrogen engine (452.3 s, 4.4 km/s), and works out the propellant share needed for 9.4 km/s. Sheet 2 gives one stage a made up share of structure and 2 per cent payload and shows whether it reaches 9.4. Sheet 3 splits the rocket into one to four stages of equal step in mass and adds their gains. The engine figures, 7.8 km/s for orbit and 9.4 km/s with losses, and the history come from the sources. The structure share, the payload and the equal steps are made up and marked. Without a script each sheet shows one picture or table.
+
+- `src/data/stages.ts` holds all the words, the takeaways and the sources.
+- `src/lib/stages.ts` holds the rocket equation, the engines, the one stage and staging sums and the drawings as SVG text.
+- `src/components/stages/Sheets.astro` is the frame and `Panel*.astro` is one sheet each.
+- `src/scripts/stages/stages.ts` starts all three sheets.
+
 ## Where things are
 
 ```
@@ -916,6 +925,7 @@ src/data/halflife.ts       everything the rock age page says: alcoves, takeaways
 src/data/sudoku.ts         everything the sudoku page says: puzzles, takeaways, sources
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/data/nerve.ts          everything the nerve page says: screens, takeaways, sources
+src/data/stages.ts         everything the rocket stages page says: sheets, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -996,6 +1006,7 @@ src/components/halflife/   the rock age page: three alcoves and the gallery fram
 src/components/sudoku/    the sudoku page: four boxed puzzles and the plain table grid
 src/components/water/    the water page: the river and its four stops
 src/components/nerve/      the nerve page: four scope screens and the bench frame
+src/components/stages/     the rocket stages page: three blueprint sheets and the title block frame
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1073,6 +1084,7 @@ src/styles/halflife.css    the rock age page: sandstone and teal, arched alcoves
 src/styles/sudoku.css      the sudoku page: newsprint and pencil, boxed puzzles, grids
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/styles/nerve.css       the nerve page: near black and cyan, scope screens, traces
+src/styles/stages.css      the rocket stages page: blueprint blue and white, sheets, bars
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1143,6 +1155,7 @@ src/lib/lock.ts          lock maths for the lock page: pins, keys, the wooden lo
 src/lib/projections.ts   map maths for the maps page: projections, circles, routes, the globe.  src/lib/maplayers.ts: what each panel draws
 src/lib/light.ts         light travel maths for the light page
 src/lib/nerve.ts           spike shape, threshold, leaky membrane and refractory rules for the nerve page
+src/lib/stages.ts          rocket equation, engines and staging sums for the rocket stages page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1221,6 +1234,7 @@ src/scripts/sudoku/      all four sudoku puzzles (sudoku.ts) and the grid builde
 src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and one script per stop
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 src/scripts/nerve/         all four nerve screens (nerve.ts)
+src/scripts/stages/        all three rocket stages sheets (stages.ts)
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

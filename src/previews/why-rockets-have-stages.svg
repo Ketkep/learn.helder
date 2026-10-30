@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .rk-body { fill: none; stroke: var(--on-cover); stroke-width: 9; stroke-linejoin: round; stroke-linecap: round; }
+    .rk-fill { fill: var(--on-cover); }
+    .rk-drop { transform-box: fill-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .rk-drop { animation: rk-away 2.4s ease-in infinite; }
+    }
+    /* The empty stage drops away */
+    @keyframes rk-away { 0%, 30% { transform: translate(0, 0); opacity: 1; } 100% { transform: translate(-30px, 70px); opacity: 0; } }
+  </style>
+
+  <g>
+    <path class="rk-body" d="M200 40 Q222 70 222 110 V150 H178 V110 Q178 70 200 40 Z"/>
+    <g class="rk-drop">
+      <path class="rk-body" d="M178 160 H222 V215 H178 Z"/>
+      <path class="rk-fill" d="M184 222 L216 222 L200 250 Z"/>
+    </g>
+  </g>
+  <circle class="knob" cx="200" cy="274" r="14"/>
+</svg>
