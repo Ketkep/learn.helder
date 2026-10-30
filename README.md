@@ -845,6 +845,15 @@ The page is a set of blueprint sheets: three drawing sheets with a double white 
 - `src/components/stages/Sheets.astro` is the frame and `Panel*.astro` is one sheet each.
 - `src/scripts/stages/stages.ts` starts all three sheets.
 
+## The insurance page: how the four jars work
+
+The page is a village hall with four jars on a shelf (two by two on a wide screen), each a rounded body with a green lid, in warm paper. All the numbers are made up: each person has a 1 in 100 chance of a loss of 10,000 units a year, and the fair price is the expected loss. Jar 1 draws twenty years of claims as a share of what was collected for villages of 10 to 10,000 people (random draws from fixed seeds, with a button for twenty more years). Jar 2 shows the usual swing in the number of losses as a share of the expected number (the square root of (1 minus p) over (n times p)). Jar 3 works out from the exact binomial odds the chance that what was collected, with an extra charge, covers the claims in a year. Jar 4 compares independent losses with one event that hits everyone at once. The idea of pooling, the history (the Great Fire of London, Barbon, Lloyd's, Bernoulli) and the roles of reserves and reinsurance come from the sources. It explains pooling and gives no money advice. Without a script each jar shows one picture or table.
+
+- `src/data/jars.ts` holds all the words, the takeaways and the sources.
+- `src/lib/jars.ts` holds the seeded years, the swing, the exact odds and the bar charts as SVG text.
+- `src/components/jars/Hall.astro` is the frame and `Panel*.astro` is one jar each.
+- `src/scripts/jars/jars.ts` starts all four jars.
+
 ## Where things are
 
 ```
@@ -926,6 +935,7 @@ src/data/sudoku.ts         everything the sudoku page says: puzzles, takeaways, 
 src/data/water.ts        everything the water page says: stops, the shares of Earth's water, takeaways, sources
 src/data/nerve.ts          everything the nerve page says: screens, takeaways, sources
 src/data/stages.ts         everything the rocket stages page says: sheets, takeaways, sources
+src/data/jars.ts           everything the insurance page says: jars, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1007,6 +1017,7 @@ src/components/sudoku/    the sudoku page: four boxed puzzles and the plain tabl
 src/components/water/    the water page: the river and its four stops
 src/components/nerve/      the nerve page: four scope screens and the bench frame
 src/components/stages/     the rocket stages page: three blueprint sheets and the title block frame
+src/components/jars/       the insurance page: four jars and the village hall frame
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1085,6 +1096,7 @@ src/styles/sudoku.css      the sudoku page: newsprint and pencil, boxed puzzles,
 src/styles/water.css     the water page: the river ribbon, stops, bars, air box, mountain
 src/styles/nerve.css       the nerve page: near black and cyan, scope screens, traces
 src/styles/stages.css      the rocket stages page: blueprint blue and white, sheets, bars
+src/styles/jars.css        the insurance page: warm paper and green, jars, bars
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1156,6 +1168,7 @@ src/lib/projections.ts   map maths for the maps page: projections, circles, rout
 src/lib/light.ts         light travel maths for the light page
 src/lib/nerve.ts           spike shape, threshold, leaky membrane and refractory rules for the nerve page
 src/lib/stages.ts          rocket equation, engines and staging sums for the rocket stages page
+src/lib/jars.ts            seeded years, swing and exact odds for the insurance page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1235,6 +1248,7 @@ src/scripts/water/       the air maths (air.ts), the drop game (journey.ts) and 
 src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the on/off switch.  util.ts: small shared helpers
 src/scripts/nerve/         all four nerve screens (nerve.ts)
 src/scripts/stages/        all three rocket stages sheets (stages.ts)
+src/scripts/jars/          all four insurance jars (jars.ts)
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

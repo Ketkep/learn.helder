@@ -1,0 +1,23 @@
+---
+// Jar 4: when everyone is hit together. Without a script the picture shows twenty years of each village.
+import { CHANCE, claimsRatio, sharedYears, yearsOfLosses, yearsSvg } from '../../lib/jars';
+const sep = yearsOfLosses(1000, CHANCE, 3).map((k) => claimsRatio(k, 1000, CHANCE));
+const tog = sharedYears(1000, CHANCE, 1).map((k) => claimsRatio(k, 1000, CHANCE));
+---
+
+<div class="tool" data-together-tool>
+  <p class="cap">Independent losses</p>
+  <svg class="plate" viewBox="0 0 300 166" role="img" aria-label="Twenty bars of claims over what was collected for a village with independent losses, all close to 100 per cent." data-together-svg-a>
+    <rect class="stage" x="1" y="1" width="298" height="164" rx="8"></rect>
+    <g set:html={yearsSvg(sep)} data-together-a></g>
+  </svg>
+  <p class="cap">One event hits everyone</p>
+  <svg class="plate" viewBox="0 0 300 166" role="img" aria-label="Twenty bars for a village where one event hits every house: mostly nothing, and one year far above the top of the chart." data-together-svg-b>
+    <rect class="stage" x="1" y="1" width="298" height="164" rx="8"></rect>
+    <g set:html={yearsSvg(tog)} data-together-b></g>
+  </svg>
+  <div class="controls needs-js">
+    <button class="btn" type="button" data-together-next>Twenty more years</button>
+  </div>
+  <p class="status" aria-live="polite" data-together-status>In the first village the claims stay near what was collected. In the second, most years have none, and the year of the event has about 100 times what was collected.</p>
+</div>

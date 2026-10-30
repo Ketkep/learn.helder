@@ -1,0 +1,22 @@
+---
+// Jar 2: why a bigger pool is steadier. Without a script the table gives the swing for a few sizes.
+import { CHANCE, fmt, spread, spreadSvg } from '../../lib/jars';
+const sizes = [10, 100, 1000, 10000, 100000];
+---
+
+<div class="tool" data-steady-tool>
+  <svg class="plate" viewBox="0 0 300 160" role="img" aria-label="Bars for the usual swing in the number of losses, as a share of the expected number. They shrink as the pool grows." data-steady-svg>
+    <rect class="stage" x="1" y="1" width="298" height="158" rx="8"></rect>
+    <g set:html={spreadSvg(CHANCE, 1000)} data-steady-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The usual swing in the number of losses as a share of the expected number, for a loss chance of 1 in 100</caption>
+    <thead><tr><th scope="col">People in the pool</th><th scope="col">Usual swing</th></tr></thead>
+    <tbody>{sizes.map((n) => <tr><th scope="row">{fmt(n)}</th><td>{fmt(spread(n, CHANCE) * 100)}%</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-steady-sizes></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Chance of a loss <output data-steady-out>1.0</output>% a year</span><input class="range" type="range" min="1" max="100" step="1" value="10" data-steady-range aria-label="Chance of a loss in a year, in tenths of a per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-steady-status>With a 1 in 100 chance and 1,000 people, the usual swing is {fmt(spread(1000, CHANCE) * 100)}% of the expected 10 losses.</p>
+</div>

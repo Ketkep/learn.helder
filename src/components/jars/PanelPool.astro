@@ -1,0 +1,27 @@
+---
+// Jar 1: twenty years of one village jar. Without a script the table gives the range of years for each size.
+import { CHANCE, claimsRatio, fmt, yearsOfLosses, yearsSvg } from '../../lib/jars';
+const sizes = [10, 100, 1000, 10000];
+const rows = sizes.map((n) => {
+  const r = yearsOfLosses(n, CHANCE, 1).map((k) => claimsRatio(k, n, CHANCE));
+  return { n, lo: Math.min(...r), hi: Math.max(...r) };
+});
+const first = yearsOfLosses(1000, CHANCE, 1).map((k) => claimsRatio(k, 1000, CHANCE));
+---
+
+<div class="tool" data-pool-tool>
+  <svg class="plate" viewBox="0 0 300 166" role="img" aria-label="Twenty bars, one for each year: claims paid as a share of what was collected, close to the 100 per cent line for a big village." data-pool-svg>
+    <rect class="stage" x="1" y="1" width="298" height="164" rx="8"></rect>
+    <g set:html={yearsSvg(first)} data-pool-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Lowest and highest year of twenty, as claims paid over what was collected</caption>
+    <thead><tr><th scope="col">People in the village</th><th scope="col">Lowest year</th><th scope="col">Highest year</th></tr></thead>
+    <tbody>{rows.map((r) => <tr><th scope="row">{fmt(r.n)}</th><td>{fmt(r.lo * 100)}%</td><td>{fmt(r.hi * 100)}%</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    {sizes.map((n) => <button class="pick" type="button" aria-pressed={n === 1000 ? 'true' : 'false'} data-pool-size={n}>{fmt(n)} people</button>)}
+    <button class="btn" type="button" data-pool-next>Twenty more years</button>
+  </div>
+  <p class="status" aria-live="polite" data-pool-status>A village of 1,000 collects 100 units from each person. Over twenty years the claims ran from {fmt(Math.min(...first) * 100)}% to {fmt(Math.max(...first) * 100)}% of what was collected.</p>
+</div>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .in-jar { fill: none; stroke: var(--on-cover); stroke-width: 9; stroke-linejoin: round; stroke-linecap: round; }
+    .in-coin { fill: var(--on-cover); transform-box: fill-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .in-coin { animation: in-drop 1.8s ease-in infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .in-coin.two { animation-delay: 0.6s; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .in-coin.three { animation-delay: 1.2s; }
+    }
+    /* Coins drop into the shared jar one by one */
+    @keyframes in-drop { 0% { transform: translateY(-40px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(60px); opacity: 0; } }
+  </style>
+
+  <g>
+    <path class="in-jar" d="M130 100 H270 M140 100 Q120 130 124 190 Q130 235 200 235 Q270 235 276 190 Q280 130 260 100"/>
+    <rect class="in-jar" x="136" y="78" width="128" height="22" rx="6"/>
+    <circle class="in-coin" cx="170" cy="60" r="12"/>
+    <circle class="in-coin two" cx="204" cy="50" r="12"/>
+    <circle class="in-coin three" cx="236" cy="62" r="12"/>
+    <rect class="in-coin" x="150" y="200" width="100" height="20" rx="8" style="opacity:.55"/>
+  </g>
+  <circle class="knob" cx="200" cy="270" r="14"/>
+</svg>

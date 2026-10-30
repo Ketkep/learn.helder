@@ -1,0 +1,460 @@
+/* The insurance page: a village hall in warm paper and green, a jar for each thing to try. */
+
+.jars {
+  --board: #f0e6d0;
+  --panel: #fbf6ea;
+  --line: #7a6b50;
+  --wood: #2f6b45;
+  --cream: #2a2418;
+  --ink-fixed: #fbf6ea;
+  --pink: #2f6b45;
+  --blue: #2f6b45;
+  --wash: rgb(0 0 0 / 0.1);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .jars .needs-js {
+  display: none;
+}
+
+.jars :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.jars .card-body,
+.jars .paras,
+.jars .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.jars h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.jars .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.jars .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.jars .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.jars .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.jars .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.jars .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.jars .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.jars .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.jars .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.jars .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.jars .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.jars .times th,
+.jars .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.jars .times thead th {
+  color: #4a4030;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.jars .times tbody th {
+  font-weight: 700;
+}
+
+.jars .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.jars .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.jars .pick:hover {
+  background: var(--wash);
+}
+
+.jars .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .jars .no-js-name {
+  display: none;
+}
+
+.jars .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.jars .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.jars .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.jars .btn:hover {
+  background: var(--wash);
+}
+
+.jars .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.jars .btn.fill:hover {
+  background: var(--cream);
+}
+
+.jars .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.jars .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.jars .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.jars .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.jars .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.jars .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.jars .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.jars .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.jars .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.jars .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.jars .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.jars .snd[aria-pressed='true'] .slash,
+.jars .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jars * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.jars .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Hall and jars ---------- */
+.jars .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 8px solid var(--wood);
+}
+
+.jars .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.jars .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.jars .shelf {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: clamp(1.8rem, 4vw, 2.6rem) var(--gutter) 3rem;
+}
+
+@media (min-width: 60rem) {
+  .jars .shelf {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+/* A jar: a rounded body with a lid on top */
+.jars .jar {
+  position: relative;
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+  padding: 2rem 1.2rem 1.4rem;
+  border: 3px solid var(--cream);
+  border-radius: 12px 12px 28px 28px;
+  background: var(--panel);
+}
+
+.jars .jar::before {
+  content: '';
+  position: absolute;
+  left: 1.2rem;
+  right: 1.2rem;
+  top: -1rem;
+  height: 0.9rem;
+  border: 3px solid var(--cream);
+  border-radius: 6px;
+  background: var(--wood);
+}
+
+.jars .tag {
+  transform: rotate(0.3deg);
+}
+
+.jars .cap {
+  margin: 0;
+  font-weight: 700;
+}
+
+.jars .meter {
+  height: 1.6rem;
+  border: 3px solid var(--cream);
+  border-radius: 999px;
+  background: var(--board);
+  overflow: hidden;
+}
+
+.jars .fillbar {
+  display: block;
+  height: 100%;
+  background: var(--wood);
+}
+
+.jars .pickbox {
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--cream);
+  font: inherit;
+  font-weight: 700;
+}
+
+/* ---------- Drawings ---------- */
+.jars .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.jars .stage {
+  fill: #fffdf6;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.jars .axis {
+  stroke: var(--cream);
+  stroke-width: 1.5;
+}
+
+.jars .par {
+  stroke: #b3392b;
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+
+.jars .bar {
+  fill: var(--wood);
+}
+
+.jars .bar.hot {
+  fill: #b3392b;
+}
+
+.jars .bar.off {
+  fill: #b3392b;
+}
+
+.jars .arrow {
+  fill: #b3392b;
+}
+
+.jars .lab {
+  fill: var(--cream);
+  font-size: 8.5px;
+  font-weight: 700;
+}

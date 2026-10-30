@@ -1,0 +1,20 @@
+---
+// Jar 3: can the jar pay. Without a script the table gives the chance for a few sizes and extras.
+import { CHANCE, chancePaid, fmt } from '../../lib/jars';
+const sizes = [100, 1000, 10000];
+const margins = [0, 0.1, 0.2];
+---
+
+<div class="tool" data-pay-tool>
+  <table class="times">
+    <caption class="sr-only">The chance in a year that what was collected covers the claims, for a loss chance of 1 in 100</caption>
+    <thead><tr><th scope="col">People</th>{margins.map((m) => <th scope="col">{fmt(m * 100)}% extra</th>)}</tr></thead>
+    <tbody>{sizes.map((n) => <tr><th scope="row">{fmt(n)}</th>{margins.map((m) => <td>{fmt(chancePaid(n, CHANCE, m) * 100)}%</td>)}</tr>)}</tbody>
+  </table>
+  <div class="meter needs-js"><span class="fillbar" data-pay-bar style="width:74%"></span></div>
+  <div class="controls needs-js" data-pay-sizes></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Extra charged <output data-pay-out>10</output>%</span><input class="range" type="range" min="0" max="40" step="1" value="10" data-pay-range aria-label="Extra charged on top of the fair price, in per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-pay-status>With a 1 in 100 chance, 1,000 people and 10% extra, the jar covers the claims in {fmt(chancePaid(1000, CHANCE, 0.1) * 100)}% of years.</p>
+</div>

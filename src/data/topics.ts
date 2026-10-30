@@ -817,6 +817,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-30',
     status: 'live',
   },
+  {
+    slug: 'how-insurance-shares-risk',
+    title: 'How insurance shares risk',
+    hook: 'Pay into a shared jar and see why a big pool is steady but a linked one is not.',
+    category: 'Maths',
+    accent: '#6FAF84',
+    preview: 'how-insurance-shares-risk',
+    dateAdded: '2026-10-30',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

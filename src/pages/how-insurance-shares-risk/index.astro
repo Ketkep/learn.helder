@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Hall from '../../components/jars/Hall.astro';
+import { takeaways, sources, sourcesNote } from '../../data/jars';
+---
+
+<TopicLayout
+  slug="how-insurance-shares-risk"
+  intro="Many people pay a little into a shared jar, and the few who suffer a loss are paid from it. See why a big pool is steady, whether the jar can pay, and what happens when everyone is hit at once."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Hall />
+</TopicLayout>
