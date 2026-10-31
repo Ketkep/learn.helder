@@ -59,8 +59,8 @@ export function flaskSvg(on: string[]): string {
     const w = 1.5 + v * 14;
     return `<line class="arrow ${cls}" x1="${f1(x1)}" y1="${f1(y1)}" x2="${f1(x2)}" y2="${f1(y2)}" stroke-width="${f1(w)}"/>`;
   };
-  s += arrow(210, 100, 270, 100, r.cond, 'cond') + arrow(150, 28, 150, -2, r.conv, 'conv') + arrow(210, 70, 270, 50, r.rad, 'rad');
-  s += `<text class="lab" x="272" y="104">conduction</text><text class="lab" x="272" y="54">radiation</text><text class="lab" x="158" y="12">convection</text>`;
+  s += arrow(210, 100, 236, 100, r.cond, 'cond') + arrow(150, 28, 150, -2, r.conv, 'conv') + arrow(210, 70, 236, 57, r.rad, 'rad');
+  s += `<text class="lab" x="240" y="104">conduction</text><text class="lab" x="240" y="61">radiation</text><text class="lab" x="158" y="12">convection</text>`;
   return s;
 }
 
