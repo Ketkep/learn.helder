@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ab-frame { fill: none; stroke: var(--on-cover); stroke-width: 9; stroke-linejoin: round; }
+    .ab-rod { stroke: var(--on-cover); stroke-width: 5; }
+    .ab-bead { fill: var(--on-cover); transform-box: fill-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ab-bead.slide { animation: ab-slide 1.8s ease-in-out infinite; }
+    }
+    /* A row of beads slides to the beam and back */
+    @keyframes ab-slide { 0%, 20% { transform: translateY(0); } 55%, 100% { transform: translateY(-26px); } }
+  </style>
+
+  <g>
+    <rect class="ab-frame" x="90" y="60" width="220" height="170" rx="8"/>
+    <line class="ab-frame" x1="90" y1="110" x2="310" y2="110"/>
+    <line class="ab-rod" x1="140" y1="64" x2="140" y2="226"/>
+    <line class="ab-rod" x1="200" y1="64" x2="200" y2="226"/>
+    <line class="ab-rod" x1="260" y1="64" x2="260" y2="226"/>
+    <ellipse class="ab-bead" cx="140" cy="96" rx="20" ry="9"/>
+    <ellipse class="ab-bead" cx="200" cy="76" rx="20" ry="9"/>
+    <ellipse class="ab-bead" cx="260" cy="96" rx="20" ry="9"/>
+    <ellipse class="ab-bead slide" cx="140" cy="205" rx="20" ry="9"/>
+    <ellipse class="ab-bead slide" cx="140" cy="183" rx="20" ry="9"/>
+    <ellipse class="ab-bead" cx="200" cy="130" rx="20" ry="9"/>
+    <ellipse class="ab-bead" cx="200" cy="152" rx="20" ry="9"/>
+    <ellipse class="ab-bead slide" cx="200" cy="205" rx="20" ry="9"/>
+    <ellipse class="ab-bead slide" cx="260" cy="205" rx="20" ry="9"/>
+    <ellipse class="ab-bead" cx="260" cy="130" rx="20" ry="9"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

@@ -1,0 +1,28 @@
+---
+// Frame 3: two layouts. Without a script the table gives the ways to show each value for both layouts.
+import { DESIGNS, largestRod, waysToShow } from '../../lib/abacus';
+const values = [0, 4, 5, 9, 10, 15];
+---
+
+<div class="tool" data-designs-tool>
+  <table class="times">
+    <caption class="sr-only">How many ways each layout can show a value on one rod</caption>
+    <thead><tr><th scope="col">Value on one rod</th>{DESIGNS.map((d) => <th scope="col">{d.name}</th>)}</tr></thead>
+    <tbody>
+      {
+        values.map((v) => (
+          <tr>
+            <th scope="row">{v}</th>
+            {DESIGNS.map((d) => <td>{v > largestRod(d) ? 'cannot be shown' : `${waysToShow(v, d).length} ${waysToShow(v, d).length === 1 ? 'way' : 'ways'}`}</td>)}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  <div class="controls needs-js" data-designs-picks></div>
+  <div class="rig needs-js" data-designs-rig></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Value on one rod <output data-designs-out>7</output></span><input class="range" type="range" min="0" max="15" step="1" value="7" data-designs-range aria-label="The value to show on one rod, from 0 to 15" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-designs-status>On the soroban, 7 has one way to be shown. The soroban shows 0 to 9 on a rod.</p>
+</div>

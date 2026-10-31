@@ -1,0 +1,22 @@
+---
+// Frame 2: add with a carry. Without a script the table gives the steps for one sum.
+import { addSteps } from '../../lib/abacus';
+const steps = addSteps(4789, 1536);
+---
+
+<div class="tool" data-add-tool>
+  <ol class="steps" data-add-steps>
+    {steps.map((s) => <li>{s.text}</li>)}
+  </ol>
+  <div class="rig needs-js" data-add-rig></div>
+  <div class="controls needs-js">
+    <label class="field"><span>First number</span><input class="text wide" type="text" inputmode="numeric" maxlength="6" value="4789" data-add-a aria-label="First number, up to 6 digits" /></label>
+    <label class="field"><span>Add</span><input class="text wide" type="text" inputmode="numeric" maxlength="6" value="1536" data-add-b aria-label="Number to add, up to 6 digits" /></label>
+  </div>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-add-next>Next step</button>
+    <button class="btn" type="button" data-add-reset>Start again</button>
+    <button class="btn" type="button" data-add-nines>Try 999 plus 1</button>
+  </div>
+  <p class="status" aria-live="polite" data-add-status>Press next step to add 1,536 to 4,789.</p>
+</div>

@@ -1,0 +1,23 @@
+---
+// Frame 1: read the rods. Without a script the picture shows 3,904 and the table gives a few numbers.
+import { abacusSvg, fmt, rodsOf, rodValue } from '../../lib/abacus';
+const rows = [7, 305, 3904, 1234567];
+---
+
+<div class="tool" data-read-tool>
+  <svg class="plate" viewBox="0 0 300 144" role="img" aria-label="A Japanese abacus with seven rods that reads 3,904." data-read-svg>
+    <rect class="stage" x="1" y="1" width="298" height="142" rx="8"></rect>
+    <g set:html={abacusSvg(3904)}></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">A few numbers and the value of each rod, from the left</caption>
+    <thead><tr><th scope="col">Number</th><th scope="col">Rod values from the left</th></tr></thead>
+    <tbody>{rows.map((n) => <tr><th scope="row">{fmt(n)}</th><td>{rodsOf(n).map(rodValue).join(' ')}</td></tr>)}</tbody>
+  </table>
+  <div class="rig needs-js" data-read-rig></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Set a number</span><input class="text wide" type="text" inputmode="numeric" maxlength="7" value="3904" data-read-input aria-label="A number from 0 to 9,999,999" /></label>
+    <button class="btn" type="button" data-read-clear>Clear</button>
+  </div>
+  <p class="status" aria-live="polite" data-read-status>The rods read 3,904. Push a bead to change a rod.</p>
+</div>

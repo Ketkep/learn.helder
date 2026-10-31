@@ -827,6 +827,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-30',
     status: 'live',
   },
+  {
+    slug: 'how-an-abacus-works',
+    title: 'How an abacus works',
+    hook: 'Push beads to read a number, add with a carry and compare two layouts.',
+    category: 'History',
+    accent: '#93B86F',
+    preview: 'how-an-abacus-works',
+    dateAdded: '2026-10-31',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

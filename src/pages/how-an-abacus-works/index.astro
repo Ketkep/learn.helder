@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Counting from '../../components/abacus/Counting.astro';
+import { takeaways, sources, sourcesNote } from '../../data/abacus';
+---
+
+<TopicLayout
+  slug="how-an-abacus-works"
+  intro="An abacus is place value you can push with a finger. Read the rods, add with a carry and compare the Chinese and Japanese layouts."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Counting />
+</TopicLayout>

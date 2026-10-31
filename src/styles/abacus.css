@@ -1,0 +1,538 @@
+/* The abacus page: a counting house in bamboo and red lacquer, a frame for each thing to try. */
+
+.abacus {
+  --board: #ecdfb4;
+  --panel: #f8f0d4;
+  --line: #6b5638;
+  --wood: #a2321f;
+  --cream: #2a1d12;
+  --ink-fixed: #f8f0d4;
+  --pink: #a2321f;
+  --blue: #a2321f;
+  --wash: rgb(0 0 0 / 0.1);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .abacus .needs-js {
+  display: none;
+}
+
+.abacus :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.abacus .card-body,
+.abacus .paras,
+.abacus .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.abacus h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.abacus .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.abacus .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.abacus .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.abacus .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.abacus .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.abacus .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.abacus .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.abacus .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.abacus .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.abacus .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.abacus .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.abacus .times th,
+.abacus .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.abacus .times thead th {
+  color: #4a3a22;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.abacus .times tbody th {
+  font-weight: 700;
+}
+
+.abacus .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.abacus .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.abacus .pick:hover {
+  background: var(--wash);
+}
+
+.abacus .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .abacus .no-js-name {
+  display: none;
+}
+
+.abacus .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.abacus .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.abacus .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.abacus .btn:hover {
+  background: var(--wash);
+}
+
+.abacus .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.abacus .btn.fill:hover {
+  background: var(--cream);
+}
+
+.abacus .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.abacus .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.abacus .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.abacus .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.abacus .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.abacus .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.abacus .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.abacus .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.abacus .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.abacus .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.abacus .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.abacus .snd[aria-pressed='true'] .slash,
+.abacus .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .abacus * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.abacus .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Counting house ---------- */
+.abacus .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 10px solid var(--wood);
+}
+
+.abacus .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.abacus .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.abacus .frames {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.6rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter) 3rem;
+}
+
+@media (min-width: 70rem) {
+  .abacus .frames {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+.abacus .frame-box {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+  padding: 1.2rem;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+}
+
+.abacus .tag {
+  transform: rotate(0.3deg);
+}
+
+.abacus .pickbox,
+.abacus .text.wide {
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--cream);
+  font: inherit;
+  font-weight: 700;
+}
+
+.abacus .text.wide {
+  width: 9rem;
+  letter-spacing: 0.1em;
+}
+
+/* ---------- The abacus of buttons ---------- */
+.abacus .rig {
+  --bh: 1.5rem;
+}
+
+.abacus .soroban {
+  display: flex;
+  max-width: 100%;
+  padding: 0.3rem 0.4rem;
+  border: 8px solid var(--wood);
+  border-radius: 6px;
+  background: #f3e5b8;
+}
+
+.abacus .rodcol {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+}
+
+.abacus .rodcol::before {
+  content: '';
+  position: absolute;
+  left: calc(50% - 2px);
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--line);
+}
+
+.abacus .area {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(var(--n) * var(--bh) + 1.1rem);
+  padding: 2px 0;
+}
+
+.abacus .gap {
+  flex: 1;
+  min-height: 0.5rem;
+}
+
+.abacus .beam {
+  position: relative;
+  display: block;
+  height: 6px;
+  margin-inline: -0.4rem;
+  background: var(--wood);
+}
+
+.abacus .bead {
+  position: relative;
+  display: block;
+  width: min(90%, 2.8rem);
+  height: var(--bh);
+  min-width: 0;
+  padding: 0;
+  border: 2px solid var(--cream);
+  border-radius: 50%;
+  background: #cfb27a;
+  cursor: default;
+}
+
+.abacus button.bead {
+  cursor: pointer;
+}
+
+.abacus .bead.on {
+  background: #6a3a20;
+}
+
+.abacus .bead:focus-visible {
+  outline-offset: 1px;
+}
+
+.abacus .ways {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.abacus .way {
+  width: 5rem;
+}
+
+.abacus .way .rig,
+.abacus .way {
+  --bh: 1.4rem;
+}
+
+.abacus .none {
+  margin: 0;
+  font-weight: 700;
+}
+
+.abacus .steps {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding-left: 1.4rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+/* ---------- Drawings ---------- */
+.abacus .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.abacus .stage {
+  fill: #fffaf0;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.abacus .frame {
+  fill: #f3e5b8;
+  stroke: var(--wood);
+  stroke-width: 6;
+}
+
+.abacus .plate .beam {
+  height: auto;
+  margin: 0;
+  background: none;
+  stroke: var(--wood);
+  stroke-width: 3;
+}
+
+.abacus .plate .rod {
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.abacus .plate .bead {
+  fill: #cfb27a;
+  stroke: var(--cream);
+  stroke-width: 1.5;
+}
+
+.abacus .plate .bead.on {
+  fill: #6a3a20;
+}

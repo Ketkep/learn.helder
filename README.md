@@ -854,6 +854,15 @@ The page is a village hall with four jars on a shelf (two by two on a wide scree
 - `src/components/jars/Hall.astro` is the frame and `Panel*.astro` is one jar each.
 - `src/scripts/jars/jars.ts` starts all four jars.
 
+## The abacus page: how the three frames work
+
+The page is a counting house: three frames in red lacquer on bamboo (side by side on a wide screen). Frame 1 is a seven rod soroban made of buttons (`build()` in `src/scripts/abacus/abacus.ts`): push a bead and it moves with the beads between it and the beam, and the page reads the number (five for each upper bead, one for each lower bead); a box also takes a typed number. Frame 2 adds two numbers rod by rod from the units, with a carry when a rod would pass nine, one step at a time (`addSteps()`), with a shortcut to 999 plus 1. Frame 3 compares the soroban (one above, four below, 0 to 9, one way each) with the suanpan (two above, five below, 0 to 15, some values in two ways) and draws every way to show a value on one rod. The history (the Salamis tablet, the suanpan, the Roman hand abacus) comes from the sources, and the sources that disagree on dates are named on the page. Without a script each frame shows one picture or table.
+
+- `src/data/abacus.ts` holds all the words, the takeaways and the sources.
+- `src/lib/abacus.ts` holds the rods, the layouts, the addition steps and the drawing as SVG text.
+- `src/components/abacus/Counting.astro` is the frame and `Panel*.astro` is one frame each.
+- `src/scripts/abacus/abacus.ts` starts all three frames.
+
 ## Where things are
 
 ```
@@ -936,6 +945,7 @@ src/data/water.ts        everything the water page says: stops, the shares of Ea
 src/data/nerve.ts          everything the nerve page says: screens, takeaways, sources
 src/data/stages.ts         everything the rocket stages page says: sheets, takeaways, sources
 src/data/jars.ts           everything the insurance page says: jars, takeaways, sources
+src/data/abacus.ts         everything the abacus page says: frames, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1018,6 +1028,7 @@ src/components/water/    the water page: the river and its four stops
 src/components/nerve/      the nerve page: four scope screens and the bench frame
 src/components/stages/     the rocket stages page: three blueprint sheets and the title block frame
 src/components/jars/       the insurance page: four jars and the village hall frame
+src/components/abacus/     the abacus page: three frames and the counting house frame
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1097,6 +1108,7 @@ src/styles/water.css     the water page: the river ribbon, stops, bars, air box,
 src/styles/nerve.css       the nerve page: near black and cyan, scope screens, traces
 src/styles/stages.css      the rocket stages page: blueprint blue and white, sheets, bars
 src/styles/jars.css        the insurance page: warm paper and green, jars, bars
+src/styles/abacus.css      the abacus page: bamboo and red lacquer, frames, beads
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1169,6 +1181,7 @@ src/lib/light.ts         light travel maths for the light page
 src/lib/nerve.ts           spike shape, threshold, leaky membrane and refractory rules for the nerve page
 src/lib/stages.ts          rocket equation, engines and staging sums for the rocket stages page
 src/lib/jars.ts            seeded years, swing and exact odds for the insurance page
+src/lib/abacus.ts          rods, layouts and addition steps for the abacus page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1249,6 +1262,7 @@ src/scripts/sound.ts     the sounds (made in the browser).  soundButton.ts: the 
 src/scripts/nerve/         all four nerve screens (nerve.ts)
 src/scripts/stages/        all three rocket stages sheets (stages.ts)
 src/scripts/jars/          all four insurance jars (jars.ts)
+src/scripts/abacus/        all three abacus frames (abacus.ts)
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next
