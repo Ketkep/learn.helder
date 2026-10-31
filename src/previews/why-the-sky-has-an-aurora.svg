@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .au-curtain { fill: none; stroke: var(--on-cover); stroke-width: 12; stroke-linecap: round; }
+    .au-star { fill: var(--on-cover); }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .au-curtain { animation: au-sway 3.2s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .au-curtain.two { animation-delay: 0.8s; }
+    }
+    /* The curtains of light sway sideways */
+    @keyframes au-sway { 0%, 100% { transform: translateX(-10px); } 50% { transform: translateX(10px); } }
+  </style>
+
+  <g>
+    <path class="au-curtain" d="M70 200 Q120 90 170 70 T270 100 T340 70"/>
+    <path class="au-curtain two" d="M70 235 Q130 140 190 120 T290 150" style="opacity:.55"/>
+    <circle class="au-star" cx="90" cy="60" r="5"/>
+    <circle class="au-star" cx="310" cy="44" r="4"/>
+    <circle class="au-star" cx="350" cy="130" r="4"/>
+    <circle class="au-star" cx="60" cy="130" r="3"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

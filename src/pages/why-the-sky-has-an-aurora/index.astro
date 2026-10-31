@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Sky from '../../components/aurora/Sky.astro';
+import { takeaways, sources, sourcesNote } from '../../data/aurora';
+---
+
+<TopicLayout
+  slug="why-the-sky-has-an-aurora"
+  intro="The Sun blows charged particles at the Earth, and the magnetic field steers some of them to the poles, where they make the air glow. See how far the lights spread, the colour at each height and the light of an atom."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Sky />
+</TopicLayout>

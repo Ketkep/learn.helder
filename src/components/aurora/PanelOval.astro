@@ -1,0 +1,21 @@
+---
+// Stop 1: how far south the lights spread. Without a script the table gives the edge for each Kp.
+import { edgeLatitude, ovalSvg } from '../../lib/aurora';
+const rows = [0, 2, 4, 6, 8, 9];
+---
+
+<div class="tool" data-oval-tool>
+  <svg class="plate" viewBox="0 0 300 180" role="img" aria-label="The Earth seen from above the north pole with a ring for the auroral oval, wider and further from the pole when the Kp index is high." data-oval-svg>
+    <rect class="stage" x="1" y="1" width="298" height="178" rx="8"></rect>
+    <g set:html={ovalSvg(3)} data-oval-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The edge of the auroral oval for each Kp index, by the NOAA rule</caption>
+    <thead><tr><th scope="col">Kp index</th><th scope="col">Edge of the oval, degrees of geomagnetic latitude</th></tr></thead>
+    <tbody>{rows.map((k) => <tr><th scope="row">{k}</th><td>{edgeLatitude(k)}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Kp index <output data-oval-out>3</output></span><input class="range" type="range" min="0" max="9" step="1" value="3" data-oval-range aria-label="The Kp index, from 0 to 9" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-oval-status>At Kp 3 the edge of the oval is at about {edgeLatitude(3)} degrees of geomagnetic latitude.</p>
+</div>

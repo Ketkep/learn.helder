@@ -863,6 +863,15 @@ The page is a counting house: three frames in red lacquer on bamboo (side by sid
 - `src/components/abacus/Counting.astro` is the frame and `Panel*.astro` is one frame each.
 - `src/scripts/abacus/abacus.ts` starts all three frames.
 
+## The aurora page: how the three stops work
+
+The page is a column down through the sky: a dotted line runs down the page and each stop hangs on it with its height written above it (space, the thin air, one atom), on a night blue page with green. Stop 1 draws the Earth from above the north pole with the auroral oval, whose edge is at 66 degrees of geomagnetic latitude minus 2 degrees for each step of the Kp index (the NOAA rule, an average). Stop 2 is a column from 60 to 400 km with the colour at each height (nitrogen blue and purple low, oxygen green at about 100 to 150 km, red above about 300), with the part where the sources disagree drawn dashed. Stop 3 slides a wavelength across the visible colours and gives the energy of a photon (1239.84 divided by the wavelength in nanometres) and the frequency, with the two oxygen lines at 557.7 and 630 nm. The colours on screen are a rough drawing. Without a script each stop shows one picture or table.
+
+- `src/data/aurora.ts` holds all the words, the takeaways and the sources.
+- `src/lib/aurora.ts` holds the oval rule, the colour bands, the photon sums and the drawings as SVG text.
+- `src/components/aurora/Sky.astro` is the frame and `Panel*.astro` is one stop each.
+- `src/scripts/aurora/aurora.ts` starts all three stops.
+
 ## Where things are
 
 ```
@@ -946,6 +955,7 @@ src/data/nerve.ts          everything the nerve page says: screens, takeaways, s
 src/data/stages.ts         everything the rocket stages page says: sheets, takeaways, sources
 src/data/jars.ts           everything the insurance page says: jars, takeaways, sources
 src/data/abacus.ts         everything the abacus page says: frames, takeaways, sources
+src/data/aurora.ts         everything the aurora page says: stops, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1029,6 +1039,7 @@ src/components/nerve/      the nerve page: four scope screens and the bench fram
 src/components/stages/     the rocket stages page: three blueprint sheets and the title block frame
 src/components/jars/       the insurance page: four jars and the village hall frame
 src/components/abacus/     the abacus page: three frames and the counting house frame
+src/components/aurora/     the aurora page: three stops down the sky column
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1109,6 +1120,7 @@ src/styles/nerve.css       the nerve page: near black and cyan, scope screens, t
 src/styles/stages.css      the rocket stages page: blueprint blue and white, sheets, bars
 src/styles/jars.css        the insurance page: warm paper and green, jars, bars
 src/styles/abacus.css      the abacus page: bamboo and red lacquer, frames, beads
+src/styles/aurora.css      the aurora page: night blue and green, the dotted column, drawings
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1182,6 +1194,7 @@ src/lib/nerve.ts           spike shape, threshold, leaky membrane and refractory
 src/lib/stages.ts          rocket equation, engines and staging sums for the rocket stages page
 src/lib/jars.ts            seeded years, swing and exact odds for the insurance page
 src/lib/abacus.ts          rods, layouts and addition steps for the abacus page
+src/lib/aurora.ts          oval rule, colour bands and photon sums for the aurora page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1263,6 +1276,7 @@ src/scripts/nerve/         all four nerve screens (nerve.ts)
 src/scripts/stages/        all three rocket stages sheets (stages.ts)
 src/scripts/jars/          all four insurance jars (jars.ts)
 src/scripts/abacus/        all three abacus frames (abacus.ts)
+src/scripts/aurora/        all three aurora stops (aurora.ts)
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

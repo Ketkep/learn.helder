@@ -837,6 +837,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-31',
     status: 'live',
   },
+  {
+    slug: 'why-the-sky-has-an-aurora',
+    title: 'Why the sky has an aurora',
+    hook: 'Slide the Kp index to see how far the lights spread and which colour belongs to which height.',
+    category: 'Space',
+    accent: '#58C99A',
+    preview: 'why-the-sky-has-an-aurora',
+    dateAdded: '2026-10-31',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

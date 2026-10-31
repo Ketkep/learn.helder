@@ -1,0 +1,20 @@
+---
+// Stop 2: a colour for each height. Without a script the table lists the colours and their heights.
+import { BANDS, columnSvg } from '../../lib/aurora';
+---
+
+<div class="tool" data-height-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A column of the sky from 60 to 400 kilometres, with blue and purple at the bottom, green above it and red at the top." data-height-svg>
+    <rect class="stage" x="1" y="1" width="298" height="168" rx="8"></rect>
+    <g set:html={columnSvg(120)} data-height-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The colour of the aurora at each height</caption>
+    <thead><tr><th scope="col">Height in kilometres</th><th scope="col">Colour</th><th scope="col">Agreed by the sources</th></tr></thead>
+    <tbody>{BANDS.map((b) => <tr><th scope="row">{b.from} to {b.to}</th><td>{b.name}</td><td>{b.sure ? 'Yes' : 'No, they differ'}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Height <output data-height-out>120</output> km</span><input class="range" type="range" min="60" max="399" step="1" value="120" data-height-range aria-label="Height above the ground in kilometres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-height-status>{BANDS[1].text}</p>
+</div>

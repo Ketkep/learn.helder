@@ -1,0 +1,21 @@
+---
+// Stop 3: the light of an atom. Without a script the table gives the two oxygen lines.
+import { energyEv, fmt, LINES, spectrumSvg, terahertz } from '../../lib/aurora';
+---
+
+<div class="tool" data-light-tool>
+  <svg class="plate" viewBox="0 0 300 120" role="img" aria-label="A strip of visible colours from violet to red with a marker at the chosen wavelength." data-light-svg>
+    <rect class="stage" x="1" y="1" width="298" height="118" rx="8"></rect>
+    <g set:html={spectrumSvg(557.7)} data-light-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The two main lines of oxygen in the aurora, with the energy and the frequency of their light</caption>
+    <thead><tr><th scope="col">Line</th><th scope="col">Wavelength</th><th scope="col">Energy of a photon</th><th scope="col">Frequency</th></tr></thead>
+    <tbody>{LINES.map((l) => <tr><th scope="row">{l.name}</th><td>{fmt(l.nm, l.nm % 1 ? 1 : 0)} nm</td><td>{fmt(energyEv(l.nm), 2)} eV</td><td>{fmt(terahertz(l.nm))} THz</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-light-picks></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Wavelength <output data-light-out>557.7</output> nm</span><input class="range" type="range" min="3800" max="7000" step="1" value="5577" data-light-range aria-label="Wavelength of the light in nanometres, times ten" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-light-status>Light of 557.7 nm carries {fmt(energyEv(557.7), 2)} electronvolts per photon, at a frequency of {fmt(terahertz(557.7))} terahertz.</p>
+</div>
