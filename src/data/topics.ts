@@ -847,6 +847,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-31',
     status: 'live',
   },
+  {
+    slug: 'how-a-thermos-keeps-heat',
+    title: 'How a thermos keeps heat',
+    hook: 'Build a flask from its parts and follow how fast a drink cools.',
+    category: 'Technology',
+    accent: '#B9C7CF',
+    preview: 'how-a-thermos-keeps-heat',
+    dateAdded: '2026-10-31',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

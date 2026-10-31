@@ -1,0 +1,24 @@
+---
+// Board 2: build a flask. Without a script the picture and table show the full flask.
+import { FEATURES, flaskSvg, fmt, halfTime, ratesFor } from '../../lib/flask';
+const all = FEATURES.map((f) => f.id);
+const r = ratesFor(all);
+const mug = ratesFor([]);
+---
+
+<div class="tool" data-build-tool>
+  <svg class="plate" viewBox="0 0 300 160" role="img" aria-label="A cross section of a flask with a vacuum gap, silvered walls and a stopper, and thin arrows for the heat that still escapes." data-build-svg>
+    <rect class="stage" x="1" y="1" width="298" height="158" rx="8"></rect>
+    <g set:html={flaskSvg(all)} data-build-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The toy rates of heat loss, as a share of the temperature gap lost each hour</caption>
+    <thead><tr><th scope="col">Design</th><th scope="col">Loss a hour</th><th scope="col">Gap halves in</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Open mug</th><td>{fmt(mug.total * 100)}%</td><td>{fmt(halfTime(mug.total), 1)} hours</td></tr>
+      <tr><th scope="row">Full flask</th><td>{fmt(r.total * 100, 1)}%</td><td>{fmt(halfTime(r.total), 1)} hours</td></tr>
+    </tbody>
+  </table>
+  <div class="controls needs-js" data-build-parts></div>
+  <p class="status" aria-live="polite" data-build-status>With all three parts the toy flask loses {fmt(r.total * 100, 1)}% of the gap each hour, so the gap halves in {fmt(halfTime(r.total), 1)} hours. An open mug loses {fmt(mug.total * 100)}%.</p>
+</div>

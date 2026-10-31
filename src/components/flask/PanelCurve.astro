@@ -1,0 +1,26 @@
+---
+// Board 3: the cooling curve. Without a script the table gives the temperature of a hot drink after some hours.
+import { curveSvg, DESIGNS, fmt, ratesFor, temperature } from '../../lib/flask';
+const hours = [1, 3, 6, 12];
+---
+
+<div class="tool" data-curve-tool>
+  <svg class="plate" viewBox="0 0 300 166" role="img" aria-label="Three cooling curves for a hot drink in a room: an open mug that cools fast, a flask with only a vacuum and a full flask that cools slowly." data-curve-svg>
+    <rect class="stage" x="1" y="1" width="298" height="164" rx="8"></rect>
+    <g set:html={curveSvg(90, 20)} data-curve-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The temperature of a drink poured at 90 °C into a room of 20 °C, after some hours</caption>
+    <thead><tr><th scope="col">After</th>{DESIGNS.map((d) => <th scope="col">{d.name}</th>)}</tr></thead>
+    <tbody>{hours.map((h) => <tr><th scope="row">{h} {h === 1 ? 'hour' : 'hours'}</th>{DESIGNS.map((d) => <td>{fmt(temperature(h, 90, 20, ratesFor(d.on).total))} °C</td>)}</tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <button class="pick" type="button" aria-pressed="true" data-curve-start="90">Hot drink, 90 °C</button>
+    <button class="pick" type="button" aria-pressed="false" data-curve-start="5">Cold drink, 5 °C</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>Room <output data-curve-outr>20</output> °C</span><input class="range" type="range" min="0" max="35" step="1" value="20" data-curve-room aria-label="Room temperature in degrees Celsius" /></label>
+    <label class="field"><span>Target <output data-curve-outt>60</output> °C</span><input class="range" type="range" min="5" max="85" step="1" value="60" data-curve-target aria-label="The temperature to wait for, in degrees Celsius" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-curve-status>A drink at 90 °C in a room of 20 °C reaches 60 °C after {fmt(Math.log(70 / 40) / ratesFor(DESIGNS[0].on).total, 1)} hours in an open mug.</p>
+</div>

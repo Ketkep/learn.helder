@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .fl-body { fill: none; stroke: var(--on-cover); stroke-width: 9; stroke-linejoin: round; stroke-linecap: round; }
+    .fl-fill { fill: var(--on-cover); }
+    .fl-steam { fill: none; stroke: var(--on-cover); stroke-width: 6; stroke-linecap: round; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .fl-steam { animation: fl-rise 2.2s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .fl-steam.two { animation-delay: 0.7s; }
+    }
+    /* Steam rises from the open top */
+    @keyframes fl-rise { 0% { transform: translateY(10px); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(-14px); opacity: 0; } }
+  </style>
+
+  <g>
+    <rect class="fl-body" x="150" y="90" width="100" height="150" rx="16"/>
+    <rect class="fl-body" x="165" y="105" width="70" height="120" rx="10" style="opacity:.5"/>
+    <rect class="fl-fill" x="168" y="160" width="64" height="62" rx="8"/>
+    <rect class="fl-fill" x="168" y="70" width="64" height="16" rx="5"/>
+    <path class="fl-steam" d="M180 56 q10 -14 0 -26"/>
+    <path class="fl-steam two" d="M220 56 q10 -14 0 -26"/>
+  </g>
+  <circle class="knob" cx="200" cy="270" r="14"/>
+</svg>

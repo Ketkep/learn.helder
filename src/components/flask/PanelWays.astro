@@ -1,0 +1,16 @@
+---
+// Board 1: three ways out. Without a script the table lists the three ways and what stops each.
+import { WAYS } from '../../lib/flask';
+---
+
+<div class="tool" data-ways-tool>
+  <table class="times">
+    <caption class="sr-only">The three ways heat travels and what stops each</caption>
+    <thead><tr><th scope="col">Way</th><th scope="col">How it works</th><th scope="col">What stops it</th></tr></thead>
+    <tbody>{WAYS.map((w) => <tr><th scope="row">{w.name}</th><td>{w.how}</td><td>{w.stop}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    {WAYS.map((w, i) => <button class="pick" type="button" aria-pressed="false" data-ways-pick={i}>{w.name}</button>)}
+  </div>
+  <p class="status" aria-live="polite" data-ways-status>Pick a way heat can travel.</p>
+</div>

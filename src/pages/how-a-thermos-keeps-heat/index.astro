@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Shelf from '../../components/flask/Shelf.astro';
+import { takeaways, sources, sourcesNote } from '../../data/flask';
+---
+
+<TopicLayout
+  slug="how-a-thermos-keeps-heat"
+  intro="A flask does not make heat last for ever. It slows the three ways heat escapes. Build a flask from its parts and follow the temperature of a drink over twelve hours."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Shelf />
+</TopicLayout>

@@ -872,6 +872,15 @@ The page is a column down through the sky: a dotted line runs down the page and 
 - `src/components/aurora/Sky.astro` is the frame and `Panel*.astro` is one stop each.
 - `src/scripts/aurora/aurora.ts` starts all three stops.
 
+## The thermos page: how the three boards work
+
+The page is a kitchen shelf: three boards on a cream wall with a faint blue tile grid, each with a plank under it (side by side on a wide screen). Board 1 explains the three ways heat travels (conduction, convection, radiation) and what stops each. Board 2 is a cross section of a flask with three parts you can switch on and off (a vacuum gap, silvered walls, a stopper). The arrows get thinner as each way out is closed, and the page adds up the toy rates (an open mug loses 60 per cent of the gap to the room each hour, a full flask under 5). Board 3 draws the cooling curves for an open mug, a flask with only a vacuum and a full flask (Newton's law of cooling, an exponential fall toward the room temperature), for a hot or cold drink and a room temperature you choose, and says when the drink reaches a target. The shape of the cooling and the history (Dewar in 1892, Thermos in 1904) come from the sources. The rates are made up and marked. Without a script each board shows one picture or table.
+
+- `src/data/flask.ts` holds all the words, the takeaways and the sources.
+- `src/lib/flask.ts` holds the ways heat travels, the toy rates, the cooling law and the drawings as SVG text.
+- `src/components/flask/Shelf.astro` is the frame and `Panel*.astro` is one board each.
+- `src/scripts/flask/flask.ts` starts all three boards.
+
 ## Where things are
 
 ```
@@ -956,6 +965,7 @@ src/data/stages.ts         everything the rocket stages page says: sheets, takea
 src/data/jars.ts           everything the insurance page says: jars, takeaways, sources
 src/data/abacus.ts         everything the abacus page says: frames, takeaways, sources
 src/data/aurora.ts         everything the aurora page says: stops, takeaways, sources
+src/data/flask.ts          everything the thermos page says: boards, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1040,6 +1050,7 @@ src/components/stages/     the rocket stages page: three blueprint sheets and th
 src/components/jars/       the insurance page: four jars and the village hall frame
 src/components/abacus/     the abacus page: three frames and the counting house frame
 src/components/aurora/     the aurora page: three stops down the sky column
+src/components/flask/      the thermos page: three boards on a kitchen shelf
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1121,6 +1132,7 @@ src/styles/stages.css      the rocket stages page: blueprint blue and white, she
 src/styles/jars.css        the insurance page: warm paper and green, jars, bars
 src/styles/abacus.css      the abacus page: bamboo and red lacquer, frames, beads
 src/styles/aurora.css      the aurora page: night blue and green, the dotted column, drawings
+src/styles/flask.css       the thermos page: cream and blue tiles, boards, curves
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1195,6 +1207,7 @@ src/lib/stages.ts          rocket equation, engines and staging sums for the roc
 src/lib/jars.ts            seeded years, swing and exact odds for the insurance page
 src/lib/abacus.ts          rods, layouts and addition steps for the abacus page
 src/lib/aurora.ts          oval rule, colour bands and photon sums for the aurora page
+src/lib/flask.ts           ways heat travels, toy rates and the cooling law for the thermos page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1277,6 +1290,7 @@ src/scripts/stages/        all three rocket stages sheets (stages.ts)
 src/scripts/jars/          all four insurance jars (jars.ts)
 src/scripts/abacus/        all three abacus frames (abacus.ts)
 src/scripts/aurora/        all three aurora stops (aurora.ts)
+src/scripts/flask/         all three thermos boards (flask.ts)
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next
