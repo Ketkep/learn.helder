@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Tree from '../../components/bloodtypes/Tree.astro';
+import { takeaways, sources, sourcesNote } from '../../data/bloodtypes';
+---
+
+<TopicLayout
+  slug="how-blood-types-are-inherited"
+  intro="Your ABO blood group comes from one gene with three versions, one copy from each parent. Fill in a Punnett square, see which groups a child can have and draw a family by chance."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Tree />
+</TopicLayout>

@@ -899,6 +899,15 @@ The page is a slide show: a dark slate page with three white slides, each with a
 - `src/components/charts/Slides.astro` is the frame and `Panel*.astro` is one slide each.
 - `src/scripts/charts/charts.ts` starts all three slides.
 
+## The blood types page: how the three branches work
+
+The page is a family album: three cards with photo corners on a sepia page (side by side on a very wide screen). All the maths is the ABO inheritance from the sources: one gene with three versions, A and B both showing and O hidden by either, one copy from each parent. Branch 1 fills in a Punnett square for two chosen genotypes (AA, AO, BB, BO, AB, OO) and adds up the chances of each genotype and group. Branch 2 takes two blood groups and tries every pair of genotypes the parents could have (a group A parent is AA or AO) to list which groups a child can have and the lowest and highest chance (so group AB with group O gives only A and B, and no child can be O). Branch 3 draws a family of up to 16 children by chance from fixed seeds, with a button for another family, to show that chances are not counts. It does not cover the Rh factor or how common each group is, because the search did not confirm them. Nothing on the page is medical advice. Without a script each branch shows one picture or table.
+
+- `src/data/bloodtypes.ts` holds all the words, the takeaways and the sources.
+- `src/lib/bloodtypes.ts` holds the genotypes, the chances, the search of possible children and the drawings as SVG text.
+- `src/components/bloodtypes/Tree.astro` is the frame and `Panel*.astro` is one branch each.
+- `src/scripts/bloodtypes/bloodtypes.ts` starts all three branches.
+
 ## Where things are
 
 ```
@@ -986,6 +995,7 @@ src/data/aurora.ts         everything the aurora page says: stops, takeaways, so
 src/data/flask.ts          everything the thermos page says: boards, takeaways, sources
 src/data/kaleido.ts        everything the kaleidoscope page says: eyepieces, takeaways, sources
 src/data/charts.ts         everything the misleading charts page says: slides, takeaways, sources
+src/data/bloodtypes.ts     everything the blood types page says: branches, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1073,6 +1083,7 @@ src/components/aurora/     the aurora page: three stops down the sky column
 src/components/flask/      the thermos page: three boards on a kitchen shelf
 src/components/kaleido/    the kaleidoscope page: three eyepieces in brass rings
 src/components/charts/     the misleading charts page: three slides on a dark deck
+src/components/bloodtypes/ the blood types page: three branches as album pages
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1157,6 +1168,7 @@ src/styles/aurora.css      the aurora page: night blue and green, the dotted col
 src/styles/flask.css       the thermos page: cream and blue tiles, boards, curves
 src/styles/kaleido.css     the kaleidoscope page: dark violet and brass, rings, mirrors
 src/styles/charts.css      the misleading charts page: slate and white slides, bars, lines, circles
+src/styles/bloodtypes.css  the blood types page: sepia and rose, album cards, squares
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1234,6 +1246,7 @@ src/lib/aurora.ts          oval rule, colour bands and photon sums for the auror
 src/lib/flask.ts           ways heat travels, toy rates and the cooling law for the thermos page
 src/lib/kaleido.ts         mirror rule, bead placing and drawings for the kaleidoscope page
 src/lib/charts.ts          bar ratio, made up series, window search and circle sums for the misleading charts page
+src/lib/bloodtypes.ts      genotypes, chances and possible children for the blood types page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1319,6 +1332,7 @@ src/scripts/aurora/        all three aurora stops (aurora.ts)
 src/scripts/flask/         all three thermos boards (flask.ts)
 src/scripts/kaleido/       all three kaleidoscope eyepieces (kaleido.ts)
 src/scripts/charts/        all three chart slides (charts.ts)
+src/scripts/bloodtypes/    all three blood types branches (bloodtypes.ts)
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

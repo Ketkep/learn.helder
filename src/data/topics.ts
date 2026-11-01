@@ -877,6 +877,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-01',
     status: 'live',
   },
+  {
+    slug: 'how-blood-types-are-inherited',
+    title: 'How blood types are inherited',
+    hook: 'Fill in a Punnett square for two parents and see which blood groups a child can have.',
+    category: 'Body',
+    accent: '#D9708A',
+    preview: 'how-blood-types-are-inherited',
+    dateAdded: '2026-11-01',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

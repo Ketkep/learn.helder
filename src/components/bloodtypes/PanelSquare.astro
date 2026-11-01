@@ -1,0 +1,20 @@
+---
+// Branch 1: a square for two parents. Without a script the picture and the table show AO and BO.
+import { child, fmt, punnettSvg } from '../../lib/bloodtypes';
+const c = child('AO', 'BO');
+---
+
+<div class="tool" data-square-tool>
+  <svg class="plate" viewBox="0 0 300 150" role="img" aria-label="A Punnett square for a parent with genotype AO and a parent with genotype BO, with four equally likely children." data-square-svg>
+    <rect class="stage" x="1" y="1" width="298" height="148" rx="8"></rect>
+    <g set:html={punnettSvg('AO', 'BO')} data-square-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The chance of each blood group in a child of AO and BO parents</caption>
+    <thead><tr><th scope="col">Blood group of the child</th><th scope="col">Chance</th></tr></thead>
+    <tbody data-square-body>{Object.entries(c.types).map(([t, p]) => <tr><th scope="row">{t}</th><td>{fmt(p * 100)}%</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-square-first></div>
+  <div class="controls needs-js" data-square-second></div>
+  <p class="status" aria-live="polite" data-square-status>Parents AO and BO: each child has a one in four chance of AB, AO, BO or OO, so the groups are A, B, AB and O, each 25%.</p>
+</div>

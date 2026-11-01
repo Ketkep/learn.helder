@@ -1,0 +1,20 @@
+---
+// Branch 3: a family by chance. Without a script the picture shows eight children of AO and BO.
+import { family, familySvg, typeOf } from '../../lib/bloodtypes';
+const kids = family('AO', 'BO', 8, 3);
+const counts = ['A', 'B', 'AB', 'O'].map((t) => `${kids.filter((k) => typeOf(k) === t).length} of group ${t}`).join(', ');
+---
+
+<div class="tool" data-family-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="Two parents joined by a line and, below them, their children as circles in the colour of each blood group." data-family-svg>
+    <rect class="stage" x="1" y="1" width="298" height="168" rx="8"></rect>
+    <g set:html={familySvg('AO', 'BO', kids)} data-family-g></g>
+  </svg>
+  <div class="controls needs-js" data-family-first></div>
+  <div class="controls needs-js" data-family-second></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Children <output data-family-out>8</output></span><input class="range" type="range" min="1" max="16" step="1" value="8" data-family-range aria-label="Number of children" /></label>
+    <button class="btn fill" type="button" data-family-next>Another family</button>
+  </div>
+  <p class="status" aria-live="polite" data-family-status>Parents AO and BO have {kids.length} children: {counts}.</p>
+</div>

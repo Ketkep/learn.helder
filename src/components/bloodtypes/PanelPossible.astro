@@ -1,0 +1,17 @@
+---
+// Branch 2: which groups can a child have. Without a script the table gives four pairs of parents.
+import { possible } from '../../lib/bloodtypes';
+const pairs: [string, string][] = [['A', 'B'], ['A', 'A'], ['AB', 'O'], ['O', 'O']];
+const word = (p: { possible: boolean; min: number; max: number }) => (!p.possible ? 'impossible' : p.min === p.max ? `${Math.round(p.max * 100)}%` : `${Math.round(p.min * 100)} to ${Math.round(p.max * 100)}%`);
+---
+
+<div class="tool" data-possible-tool>
+  <table class="times">
+    <caption class="sr-only">For each pair of parents, the chance of each blood group in a child</caption>
+    <thead><tr><th scope="col">Parents</th><th scope="col">Child A</th><th scope="col">Child B</th><th scope="col">Child AB</th><th scope="col">Child O</th></tr></thead>
+    <tbody data-possible-body>{pairs.map(([a, b]) => <tr><th scope="row">{a} and {b}</th>{possible(a, b).map((p) => <td>{word(p)}</td>)}</tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-possible-first></div>
+  <div class="controls needs-js" data-possible-second></div>
+  <p class="status" aria-live="polite" data-possible-status>Pick the blood group of each parent.</p>
+</div>

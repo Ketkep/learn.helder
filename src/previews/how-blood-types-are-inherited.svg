@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .bt-line { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linecap: round; }
+    .bt-dot { fill: var(--on-cover); transform-box: fill-box; transform-origin: center; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .bt-dot.kid { animation: bt-pop 2.4s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .bt-dot.k2 { animation-delay: 0.5s; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .bt-dot.k3 { animation-delay: 1s; }
+    }
+    /* The children appear one by one under the parents */
+    @keyframes bt-pop { 0%, 25% { transform: scale(0); } 45%, 100% { transform: scale(1); } }
+  </style>
+
+  <g>
+    <circle class="bt-dot" cx="150" cy="80" r="24"/>
+    <circle class="bt-dot" cx="250" cy="80" r="24"/>
+    <path class="bt-line" d="M176 80 H224 M200 80 V130 M130 175 Q130 130 200 130 Q270 130 270 175"/>
+    <circle class="bt-dot kid" cx="130" cy="200" r="22"/>
+    <circle class="bt-dot kid k2" cx="200" cy="200" r="22"/>
+    <circle class="bt-dot kid k3" cx="270" cy="200" r="22"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>
