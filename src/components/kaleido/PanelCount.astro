@@ -1,0 +1,16 @@
+---
+// Eyepiece 2: counting the images. Without a script the table gives the angles that close up.
+import { ANGLES, copies, images, mirrorLines } from '../../lib/kaleido';
+---
+
+<div class="tool" data-count-tool>
+  <table class="times">
+    <caption class="sr-only">For each mirror angle, the copies of an object, the images in the mirrors and the mirror lines of the pattern</caption>
+    <thead><tr><th scope="col">Angle between the mirrors</th><th scope="col">Copies of an object</th><th scope="col">Images in the mirrors</th><th scope="col">Mirror lines</th></tr></thead>
+    <tbody>{ANGLES.map((a) => <tr><th scope="row">{a} degrees</th><td>{copies(a)}</td><td>{images(a)}</td><td>{mirrorLines(a)}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Angle <output data-count-out>60</output> degrees</span><input class="range" type="range" min="10" max="180" step="1" value="60" data-count-range aria-label="The angle between the mirrors, in degrees" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-count-status>At 60 degrees, 360 over 60 is 6, so an object has 6 copies, 5 of them images in the mirrors. The pattern has 3 mirror lines.</p>
+</div>

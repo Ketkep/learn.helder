@@ -857,6 +857,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-10-31',
     status: 'live',
   },
+  {
+    slug: 'how-a-kaleidoscope-makes-patterns',
+    title: 'How a kaleidoscope makes patterns',
+    hook: 'Drop beads into one wedge between two mirrors and watch the whole pattern fill in.',
+    category: 'Technology',
+    accent: '#C77BC0',
+    preview: 'how-a-kaleidoscope-makes-patterns',
+    dateAdded: '2026-11-01',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

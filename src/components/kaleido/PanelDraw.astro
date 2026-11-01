@@ -1,0 +1,25 @@
+---
+// Eyepiece 1: one wedge, a whole pattern. Without a script the picture shows a pattern of 60 degrees from three beads.
+import { beads, copies, roseSvg, wedgeSvg } from '../../lib/kaleido';
+const list = beads(5, 3);
+---
+
+<div class="tool" data-draw-tool>
+  <div class="pair">
+    <svg class="plate round" viewBox="0 0 300 200" role="img" aria-label="A round pattern made of one wedge of coloured beads repeated around the middle, each wedge flipped from the one before." data-draw-rose>
+      <rect class="stage" x="1" y="1" width="298" height="198" rx="8"></rect>
+      <g set:html={roseSvg(60, list)} data-draw-rose-g></g>
+    </svg>
+    <svg class="plate" viewBox="0 0 200 170" role="img" aria-label="The wedge between the two mirrors with the beads in it. Click inside it to add a bead." data-draw-wedge>
+      <rect class="stage" x="1" y="1" width="198" height="168" rx="8"></rect>
+      <g set:html={wedgeSvg(60, list)} data-draw-wedge-g></g>
+    </svg>
+  </div>
+  <div class="controls needs-js" data-draw-angles></div>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-draw-add>Add a bead</button>
+    <button class="btn" type="button" data-draw-shake>Shake in new beads</button>
+    <button class="btn" type="button" data-draw-clear>Clear</button>
+  </div>
+  <p class="status" aria-live="polite" data-draw-status>At 60 degrees the pattern has {copies(60)} wedges. The wedge holds {list.length} beads, so the view shows {list.length * copies(60)}.</p>
+</div>

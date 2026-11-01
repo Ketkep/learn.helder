@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ka-ring { fill: none; stroke: var(--on-cover); stroke-width: 9; }
+    .ka-bead { fill: var(--on-cover); transform-box: view-box; transform-origin: 200px 130px; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ka-bead { animation: ka-turn 6s linear infinite; }
+    }
+    /* The pattern turns around the middle */
+    @keyframes ka-turn { to { transform: rotate(60deg); } }
+  </style>
+
+  <g>
+    <circle class="ka-ring" cx="200" cy="130" r="86"/>
+    <g class="ka-bead">
+      <circle cx="200" cy="80" r="10"/>
+      <circle cx="243" cy="105" r="10"/>
+      <circle cx="243" cy="155" r="10"/>
+      <circle cx="200" cy="180" r="10"/>
+      <circle cx="157" cy="155" r="10"/>
+      <circle cx="157" cy="105" r="10"/>
+      <circle cx="200" cy="108" r="6"/>
+      <circle cx="224" cy="144" r="6"/>
+      <circle cx="176" cy="144" r="6"/>
+    </g>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

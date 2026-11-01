@@ -881,6 +881,15 @@ The page is a kitchen shelf: three boards on a cream wall with a faint blue tile
 - `src/components/flask/Shelf.astro` is the frame and `Panel*.astro` is one board each.
 - `src/scripts/flask/flask.ts` starts all three boards.
 
+## The kaleidoscope page: how the three eyepieces work
+
+The page is a tube with three eyepieces, each a panel in a thick brass ring on dark violet (side by side on a very wide screen). Eyepiece 1 shows one wedge between two mirrors (90, 60, 45, 36 or 30 degrees, so that 360 over the angle is even) next to the round view where every wedge is the neighbour's mirror image (`placed()`: wedge m is turned for even m and flipped and turned for odd m). You can click inside the wedge to drop a bead, add or shake in beads, or clear them. Eyepiece 2 gives the copies (360 over the angle), the images (one fewer, the rule in the sources) and the mirror lines (n over 2 for n wedges) for any angle, and says when the angle does not divide 360 or gives an odd number of wedges (the sources disagree, so the page does not draw those). Eyepiece 3 follows one bead and its numbered images as the bead slides across the wedge. The history (Brewster, 1816 and 1817) comes from the sources. Beads come from fixed seeds. Without a script each eyepiece shows one picture or table.
+
+- `src/data/kaleido.ts` holds all the words, the takeaways and the sources.
+- `src/lib/kaleido.ts` holds the mirror rule, the placing of beads and the drawings as SVG text.
+- `src/components/kaleido/Tube.astro` is the frame and `Panel*.astro` is one eyepiece each.
+- `src/scripts/kaleido/kaleido.ts` starts all three eyepieces.
+
 ## Where things are
 
 ```
@@ -966,6 +975,7 @@ src/data/jars.ts           everything the insurance page says: jars, takeaways, 
 src/data/abacus.ts         everything the abacus page says: frames, takeaways, sources
 src/data/aurora.ts         everything the aurora page says: stops, takeaways, sources
 src/data/flask.ts          everything the thermos page says: boards, takeaways, sources
+src/data/kaleido.ts        everything the kaleidoscope page says: eyepieces, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1051,6 +1061,7 @@ src/components/jars/       the insurance page: four jars and the village hall fr
 src/components/abacus/     the abacus page: three frames and the counting house frame
 src/components/aurora/     the aurora page: three stops down the sky column
 src/components/flask/      the thermos page: three boards on a kitchen shelf
+src/components/kaleido/    the kaleidoscope page: three eyepieces in brass rings
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1133,6 +1144,7 @@ src/styles/jars.css        the insurance page: warm paper and green, jars, bars
 src/styles/abacus.css      the abacus page: bamboo and red lacquer, frames, beads
 src/styles/aurora.css      the aurora page: night blue and green, the dotted column, drawings
 src/styles/flask.css       the thermos page: cream and blue tiles, boards, curves
+src/styles/kaleido.css     the kaleidoscope page: dark violet and brass, rings, mirrors
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1208,6 +1220,7 @@ src/lib/jars.ts            seeded years, swing and exact odds for the insurance 
 src/lib/abacus.ts          rods, layouts and addition steps for the abacus page
 src/lib/aurora.ts          oval rule, colour bands and photon sums for the aurora page
 src/lib/flask.ts           ways heat travels, toy rates and the cooling law for the thermos page
+src/lib/kaleido.ts         mirror rule, bead placing and drawings for the kaleidoscope page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1291,6 +1304,7 @@ src/scripts/jars/          all four insurance jars (jars.ts)
 src/scripts/abacus/        all three abacus frames (abacus.ts)
 src/scripts/aurora/        all three aurora stops (aurora.ts)
 src/scripts/flask/         all three thermos boards (flask.ts)
+src/scripts/kaleido/       all three kaleidoscope eyepieces (kaleido.ts)
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

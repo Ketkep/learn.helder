@@ -1,0 +1,16 @@
+---
+// Eyepiece 3: one bead and its images. Without a script the picture shows the bead in the middle of a 60 degree wedge.
+import { copies, imagesSvg } from '../../lib/kaleido';
+---
+
+<div class="tool" data-follow-tool>
+  <svg class="plate round" viewBox="0 0 300 200" role="img" aria-label="One bead marked o in the real wedge and its numbered images in the other wedges around the middle." data-follow-svg>
+    <rect class="stage" x="1" y="1" width="298" height="198" rx="8"></rect>
+    <g set:html={imagesSvg(60, 0.5)} data-follow-g></g>
+  </svg>
+  <div class="controls needs-js" data-follow-angles></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Bead across the wedge <output data-follow-out>50</output>%</span><input class="range" type="range" min="0" max="100" step="1" value="50" data-follow-range aria-label="Where the bead is between the two mirrors, in per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-follow-status>At 60 degrees there are {copies(60) - 1} images of the bead. Image 1 is flipped, image 2 is turned, and so on round the circle.</p>
+</div>

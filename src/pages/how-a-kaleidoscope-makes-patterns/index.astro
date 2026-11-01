@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Tube from '../../components/kaleido/Tube.astro';
+import { takeaways, sources, sourcesNote } from '../../data/kaleido';
+---
+
+<TopicLayout
+  slug="how-a-kaleidoscope-makes-patterns"
+  intro="Two mirrors and a few beads make a round pattern. Drop beads into one wedge, count the images and follow one bead through the mirrors."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Tube />
+</TopicLayout>

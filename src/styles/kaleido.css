@@ -1,0 +1,454 @@
+/* The kaleidoscope page: a dark violet tube with brass rings, an eyepiece for each thing to try. */
+
+.kaleido {
+  --board: #1c1030;
+  --panel: #2a1a47;
+  --line: #a58fd0;
+  --wood: #f0b24a;
+  --cream: #f6ecff;
+  --ink-fixed: #1c1030;
+  --pink: #f08fc0;
+  --blue: #8fd0ff;
+  --wash: rgb(255 255 255 / 0.12);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .kaleido .needs-js {
+  display: none;
+}
+
+.kaleido :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.kaleido .card-body,
+.kaleido .paras,
+.kaleido .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.kaleido h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.kaleido .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.kaleido .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.kaleido .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.kaleido .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.kaleido .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.kaleido .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.kaleido .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.kaleido .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.kaleido .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.kaleido .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.kaleido .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.kaleido .times th,
+.kaleido .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.kaleido .times thead th {
+  color: #d6c8ee;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.kaleido .times tbody th {
+  font-weight: 700;
+}
+
+.kaleido .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.kaleido .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.kaleido .pick:hover {
+  background: var(--wash);
+}
+
+.kaleido .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .kaleido .no-js-name {
+  display: none;
+}
+
+.kaleido .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.kaleido .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.kaleido .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.kaleido .btn:hover {
+  background: var(--wash);
+}
+
+.kaleido .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.kaleido .btn.fill:hover {
+  background: var(--cream);
+}
+
+.kaleido .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.kaleido .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.kaleido .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.kaleido .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.kaleido .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.kaleido .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.kaleido .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.kaleido .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.kaleido .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.kaleido .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.kaleido .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.kaleido .snd[aria-pressed='true'] .slash,
+.kaleido .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kaleido * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.kaleido .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The tube and its eyepieces ---------- */
+.kaleido .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 6px solid var(--wood);
+}
+
+.kaleido .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.kaleido .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.kaleido .eyes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.6rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter) 3rem;
+}
+
+@media (min-width: 90rem) {
+  .kaleido .eyes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+/* An eyepiece: a thick brass ring around the panel */
+.kaleido .eyepiece {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+  padding: 1.2rem;
+  border: 5px solid var(--wood);
+  border-radius: 22px;
+  background: var(--panel);
+}
+
+.kaleido .tag {
+  background: #4a2f78;
+  color: #f6ecff;
+}
+
+.kaleido .tag::before {
+  background: #f6ecff;
+}
+
+.kaleido .tag :focus-visible {
+  outline-color: #f6ecff;
+}
+
+.kaleido .pair {
+  display: grid;
+  gap: 0.8rem;
+}
+
+/* ---------- Drawings ---------- */
+.kaleido .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: default;
+}
+
+.kaleido svg[data-draw-wedge] {
+  cursor: crosshair;
+}
+
+.kaleido .stage {
+  fill: #12091f;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.kaleido .eye {
+  fill: #1c1030;
+  stroke: var(--wood);
+  stroke-width: 3;
+}
+
+.kaleido .seam {
+  stroke: #6a4aa0;
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.kaleido .wedge {
+  fill: #2a1a47;
+  stroke: none;
+}
+
+.kaleido .mirror {
+  stroke: #e6eefc;
+  stroke-width: 3;
+}
+
+.kaleido .real {
+  fill: var(--wood);
+  stroke: #f6ecff;
+  stroke-width: 2;
+}
+
+.kaleido .image {
+  fill: #8fd0ff;
+  stroke: #12091f;
+  stroke-width: 1.5;
+}
+
+.kaleido .num {
+  fill: #12091f;
+  font-size: 8px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.kaleido .times {
+  table-layout: fixed;
+}
+
+.kaleido .times th,
+.kaleido .times td {
+  overflow-wrap: anywhere;
+}
