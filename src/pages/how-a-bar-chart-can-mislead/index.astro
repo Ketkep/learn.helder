@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Slides from '../../components/charts/Slides.astro';
+import { takeaways, sources, sourcesNote } from '../../data/charts';
+---
+
+<TopicLayout
+  slug="how-a-bar-chart-can-mislead"
+  intro="A chart can be made of true numbers and still leave the wrong idea. Move the start of the axis, pick which months to show and compare a length with an area."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Slides />
+</TopicLayout>

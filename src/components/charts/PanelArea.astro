@@ -1,0 +1,21 @@
+---
+// Slide 3: length or area. Without a script the table gives the area ratio for a few factors.
+import { areaRatio, circlesSvg, fmt } from '../../lib/charts';
+const rows = [1.5, 2, 3, 4];
+---
+
+<div class="tool" data-area-tool>
+  <svg class="plate" viewBox="0 0 300 166" role="img" aria-label="Three circles: the first value, a circle with a doubled radius, which is four times the area, and a circle with a doubled area." data-area-svg>
+    <rect class="stage" x="1" y="1" width="298" height="164" rx="8"></rect>
+    <g set:html={circlesSvg(2)} data-area-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">How many times as big the area is when the radius grows by a factor</caption>
+    <thead><tr><th scope="col">Value is this many times bigger</th><th scope="col">Area if the radius grows by that factor</th><th scope="col">Radius for a fair circle</th></tr></thead>
+    <tbody>{rows.map((r) => <tr><th scope="row">{r}</th><td>{fmt(areaRatio(r), 2)} times</td><td>{fmt(Math.sqrt(r), 2)} times</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Value is <output data-area-out>2.0</output> times bigger</span><input class="range" type="range" min="10" max="40" step="1" value="20" data-area-range aria-label="How many times bigger the value is, times ten" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-area-status>A value that is 2.0 times bigger, drawn with a radius 2.0 times as long, takes 4.0 times the area.</p>
+</div>

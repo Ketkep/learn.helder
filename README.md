@@ -890,6 +890,15 @@ The page is a tube with three eyepieces, each a panel in a thick brass ring on d
 - `src/components/kaleido/Tube.astro` is the frame and `Panel*.astro` is one eyepiece each.
 - `src/scripts/kaleido/kaleido.ts` starts all three eyepieces.
 
+## The misleading charts page: how the three slides work
+
+The page is a slide show: a dark slate page with three white slides, each with a coloured title bar and a slide number (one under the other). All the data are made up. Slide 1 draws two bars for 50 and 52 on an axis that starts where you choose, and says how many times as tall the second bar looks against the true ratio (1.04). Slide 2 draws a made up series of 24 months from a fixed seed and shades the window you choose (or the best or worst stretch of at least six months, found by trying every window) and gives the change from the first to the last month of the window against the change over the whole series. Slide 3 compares a circle whose radius grows by a factor (area grows by the square) with a fair circle whose area grows by the factor (radius by the square root). The ideas (Huff in 1954, the 83.5 per cent study, which tricks mislead most) come from the sources, and the page says where the sources found little effect. Without a script each slide shows one picture or table.
+
+- `src/data/charts.ts` holds all the words, the takeaways and the sources.
+- `src/lib/charts.ts` holds the bar ratio, the made up series, the window search, the circle sums and the drawings as SVG text.
+- `src/components/charts/Slides.astro` is the frame and `Panel*.astro` is one slide each.
+- `src/scripts/charts/charts.ts` starts all three slides.
+
 ## Where things are
 
 ```
@@ -976,6 +985,7 @@ src/data/abacus.ts         everything the abacus page says: frames, takeaways, s
 src/data/aurora.ts         everything the aurora page says: stops, takeaways, sources
 src/data/flask.ts          everything the thermos page says: boards, takeaways, sources
 src/data/kaleido.ts        everything the kaleidoscope page says: eyepieces, takeaways, sources
+src/data/charts.ts         everything the misleading charts page says: slides, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1062,6 +1072,7 @@ src/components/abacus/     the abacus page: three frames and the counting house 
 src/components/aurora/     the aurora page: three stops down the sky column
 src/components/flask/      the thermos page: three boards on a kitchen shelf
 src/components/kaleido/    the kaleidoscope page: three eyepieces in brass rings
+src/components/charts/     the misleading charts page: three slides on a dark deck
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1145,6 +1156,7 @@ src/styles/abacus.css      the abacus page: bamboo and red lacquer, frames, bead
 src/styles/aurora.css      the aurora page: night blue and green, the dotted column, drawings
 src/styles/flask.css       the thermos page: cream and blue tiles, boards, curves
 src/styles/kaleido.css     the kaleidoscope page: dark violet and brass, rings, mirrors
+src/styles/charts.css      the misleading charts page: slate and white slides, bars, lines, circles
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1221,6 +1233,7 @@ src/lib/abacus.ts          rods, layouts and addition steps for the abacus page
 src/lib/aurora.ts          oval rule, colour bands and photon sums for the aurora page
 src/lib/flask.ts           ways heat travels, toy rates and the cooling law for the thermos page
 src/lib/kaleido.ts         mirror rule, bead placing and drawings for the kaleidoscope page
+src/lib/charts.ts          bar ratio, made up series, window search and circle sums for the misleading charts page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1305,6 +1318,7 @@ src/scripts/abacus/        all three abacus frames (abacus.ts)
 src/scripts/aurora/        all three aurora stops (aurora.ts)
 src/scripts/flask/         all three thermos boards (flask.ts)
 src/scripts/kaleido/       all three kaleidoscope eyepieces (kaleido.ts)
+src/scripts/charts/        all three chart slides (charts.ts)
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

@@ -867,6 +867,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-01',
     status: 'live',
   },
+  {
+    slug: 'how-a-bar-chart-can-mislead',
+    title: 'How a bar chart can mislead',
+    hook: 'Move the start of an axis and pick which months to show, and see a true chart tell the wrong story.',
+    category: 'Maths',
+    accent: '#F0A860',
+    preview: 'how-a-bar-chart-can-mislead',
+    dateAdded: '2026-11-01',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

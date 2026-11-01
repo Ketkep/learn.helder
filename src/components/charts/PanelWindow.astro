@@ -1,0 +1,33 @@
+---
+// Slide 2: which months to show. Without a script the table gives the best and the worst stretch and the whole series.
+import { change, extreme, fmt, lineSvg, MONTHS, series } from '../../lib/charts';
+const d = series();
+const best = extreme(d, 6, true);
+const worst = extreme(d, 6, false);
+---
+
+<div class="tool" data-window-tool>
+  <svg class="plate" viewBox="0 0 300 166" role="img" aria-label="A line over 24 months with a shaded window that picks out the months shown." data-window-svg>
+    <rect class="stage" x="1" y="1" width="298" height="164" rx="8"></rect>
+    <g set:html={lineSvg(d, best[0], best[1])} data-window-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The change in per cent for three windows on the same series</caption>
+    <thead><tr><th scope="col">Window</th><th scope="col">Months</th><th scope="col">Change</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Best stretch of six months or more</th><td>{best[0] + 1} to {best[1] + 1}</td><td>{fmt(change(d, best[0], best[1]), 1)}%</td></tr>
+      <tr><th scope="row">Worst stretch</th><td>{worst[0] + 1} to {worst[1] + 1}</td><td>{fmt(change(d, worst[0], worst[1]), 1)}%</td></tr>
+      <tr><th scope="row">The whole series</th><td>1 to {MONTHS}</td><td>{fmt(change(d, 0, MONTHS - 1), 1)}%</td></tr>
+    </tbody>
+  </table>
+  <div class="controls needs-js">
+    <button class="pick" type="button" aria-pressed="false" data-window-best>Show the best stretch</button>
+    <button class="pick" type="button" aria-pressed="false" data-window-worst>Show the worst stretch</button>
+    <button class="pick" type="button" aria-pressed="false" data-window-all>Show all months</button>
+  </div>
+  <div class="controls needs-js">
+    <label class="field"><span>First month <output data-window-outa>{best[0] + 1}</output></span><input class="range" type="range" min="1" max={MONTHS - 1} step="1" value={best[0] + 1} data-window-a aria-label="First month of the window" /></label>
+    <label class="field"><span>Last month <output data-window-outb>{best[1] + 1}</output></span><input class="range" type="range" min="2" max={MONTHS} step="1" value={best[1] + 1} data-window-b aria-label="Last month of the window" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-window-status>From month {best[0] + 1} to month {best[1] + 1} the line changes by {fmt(change(d, best[0], best[1]), 1)}%. Over all {MONTHS} months it changes by {fmt(change(d, 0, MONTHS - 1), 1)}%.</p>
+</div>

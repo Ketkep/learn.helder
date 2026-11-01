@@ -1,0 +1,22 @@
+---
+// Slide 1: where the bars start. Without a script the table gives how tall bar B looks for a few axis starts.
+import { A, B, barsSvg, fmt, looksLike, really } from '../../lib/charts';
+const rows = [0, 20, 40, 48];
+---
+
+<div class="tool" data-baseline-tool>
+  <svg class="plate" viewBox="0 0 300 166" role="img" aria-label="Two bars for 50 and 52 on an axis that starts at 40, so the second bar looks much taller than the first." data-baseline-svg>
+    <rect class="stage" x="1" y="1" width="298" height="164" rx="8"></rect>
+    <g set:html={barsSvg(40)} data-baseline-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">How many times as tall bar B looks as bar A for some starts of the axis</caption>
+    <thead><tr><th scope="col">Axis starts at</th><th scope="col">B looks this many times as tall as A</th></tr></thead>
+    <tbody>{rows.map((s) => <tr><th scope="row">{s}</th><td>{fmt(looksLike(s), 2)}</td></tr>)}</tbody>
+    <tfoot><tr><th scope="row">True ratio of {B} to {A}</th><td>{fmt(really, 2)}</td></tr></tfoot>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Axis starts at <output data-baseline-out>40</output></span><input class="range" type="range" min="0" max="48" step="1" value="40" data-baseline-range aria-label="Where the axis starts" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-baseline-status>With the axis starting at 40, bar B looks {fmt(looksLike(40), 2)} times as tall as bar A, but the values are in the ratio {fmt(really, 2)}.</p>
+</div>
