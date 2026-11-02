@@ -907,6 +907,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-02',
     status: 'live',
   },
+  {
+    slug: 'how-conways-game-of-life-grows',
+    title: 'How Conway’s Game of Life grows',
+    hook: 'Switch squares on and off, apply one rule and watch patterns stay, blink and walk.',
+    category: 'Games',
+    accent: '#B4E88F',
+    preview: 'how-conways-game-of-life-grows',
+    dateAdded: '2026-11-02',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

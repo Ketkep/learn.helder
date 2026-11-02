@@ -1,0 +1,25 @@
+---
+// Sheet 2: patterns that stay, blink or walk. Without a script the picture shows a glider and the table lists all six patterns.
+import { PATTERNS, boardSvg, withPattern } from '../../lib/life';
+const b = withPattern(PATTERNS[4], 24, 16);
+---
+
+<div class="tool" data-patterns-tool>
+  <div data-patterns-host>
+    <svg class="plate" viewBox="0 0 300 200" role="img" aria-label="A sheet of squares with a glider, five live squares in the shape of a small arrow, in the middle." data-patterns-svg>
+      <g set:html={boardSvg(b, 300)}></g>
+    </svg>
+  </div>
+  <table class="times">
+    <caption class="sr-only">Six patterns and what each one does</caption>
+    <thead><tr><th scope="col">Pattern</th><th scope="col">What it does</th></tr></thead>
+    <tbody>{PATTERNS.map((x) => <tr><th scope="row">{x.name}</th><td>{x.words}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-patterns-picks></div>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-patterns-next>Next round</button>
+    <button class="btn" type="button" data-patterns-run aria-pressed="false">Run</button>
+    <button class="btn" type="button" data-patterns-reset>Start again</button>
+  </div>
+  <p class="status" aria-live="polite" data-patterns-status>Glider: five squares that move one square diagonally every four rounds.</p>
+</div>

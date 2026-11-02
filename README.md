@@ -926,6 +926,15 @@ The page is a dark dome with three seats shown as tabs, one at a time (one after
 - `src/components/retro/Dome.astro` is the frame with the tabs and `Panel*.astro` is one seat each.
 - `src/scripts/retro/retro.ts` starts the tabs and all three seats.
 
+## The Game of Life page: how the three sheets work
+
+The page is three sheets of graph paper, each with the words on top and one tool under them. The rule is the one from the sources: a live square with 2 or 3 live neighbours stays alive, an empty square with exactly 3 comes alive, and every other square is empty next round (written B3/S23). Sheet 1 is a 7 by 7 board with the middle square marked. You click squares and the page counts the live neighbours of the middle one and says what happens to it and why. Next round applies the rule to the whole board, and the squares past the edge count as empty. Sheet 2 is a 24 by 16 board that wraps round at the edges, with six patterns (block, beehive, blinker, toad, glider, R-pentomino), a Next round button, a Run button that the reader presses and a way to edit squares by hand. The page does not play by itself. Sheet 3 scatters a random soup from a fixed seed at 15, 30 or 45 per cent full, jumps 100 rounds at once and graphs the number of live squares. It reports when the sheet only has patterns that stay or repeat every two rounds. The squares are real buttons with labels, and the arrow keys move between them. The wrap makes patterns that grow forever on an endless sheet behave differently, and the page says so. Without a script each sheet shows one picture.
+
+- `src/data/life.ts` holds all the words, the takeaways and the sources.
+- `src/lib/life.ts` holds the rule, the patterns, the soups and the drawings as SVG text.
+- `src/components/life/Paper.astro` is the frame and `Panel*.astro` is one sheet each.
+- `src/scripts/life/life.ts` builds the grids of squares and starts all three sheets.
+
 ## Where things are
 
 ```
@@ -1016,6 +1025,7 @@ src/data/charts.ts         everything the misleading charts page says: slides, t
 src/data/bloodtypes.ts     everything the blood types page says: branches, takeaways, sources
 src/data/lighthouse.ts     everything the lighthouse page says: rooms, takeaways, sources
 src/data/retro.ts          everything the retrograde page says: seats, takeaways, sources
+src/data/life.ts           everything the Game of Life page says: sheets, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1106,6 +1116,7 @@ src/components/charts/     the misleading charts page: three slides on a dark de
 src/components/bloodtypes/ the blood types page: three branches as album pages
 src/components/lighthouse/ the lighthouse page: three rooms of a tower
 src/components/retro/      the retrograde page: three seats under a dome, as tabs
+src/components/life/       the Game of Life page: three sheets of graph paper
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1193,6 +1204,7 @@ src/styles/charts.css      the misleading charts page: slate and white slides, b
 src/styles/bloodtypes.css  the blood types page: sepia and rose, album cards, squares
 src/styles/lighthouse.css  the lighthouse page: night blue and lamp yellow, rooms with round windows
 src/styles/retro.css       the retrograde page: night violet, a dome edge, tabs
+src/styles/life.css        the Game of Life page: graph paper and green ink
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1273,6 +1285,7 @@ src/lib/charts.ts          bar ratio, made up series, window search and circle s
 src/lib/bloodtypes.ts      genotypes, chances and possible children for the blood types page
 src/lib/lighthouse.ts      the range rule, the glass sums, the light patterns and the drawings
 src/lib/retro.ts           the orbits, the loops and the drawings for the retrograde page
+src/lib/life.ts            the rule, the patterns, the soups and the drawings for the Game of Life page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1361,6 +1374,7 @@ src/scripts/charts/        all three chart slides (charts.ts)
 src/scripts/bloodtypes/    all three blood types branches (bloodtypes.ts)
 src/scripts/lighthouse/    starts the three rooms of the lighthouse page
 src/scripts/retro/         starts the tabs and three seats of the retrograde page
+src/scripts/life/          the grids of squares and the three sheets of the Game of Life page
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

@@ -1,0 +1,24 @@
+---
+// Sheet 3: a soup of random squares. Without a script the picture shows one soup and the graph of its first 100 rounds.
+import { boardSvg, popSvg, run, soup } from '../../lib/life';
+const start = soup(24, 16, 0.3, 1);
+const res = run(start, 100, true);
+---
+
+<div class="tool" data-soup-tool>
+  <div data-soup-host>
+    <svg class="plate" viewBox="0 0 300 200" role="img" aria-label="A sheet of squares with a random scatter of live squares, after 100 rounds." data-soup-svg>
+      <g set:html={boardSvg(res.board, 300)}></g>
+    </svg>
+  </div>
+  <svg class="plate" viewBox="0 0 300 80" role="img" aria-label="A graph of how many squares were alive in each of the first 100 rounds. It falls fast and then flattens." data-soup-graph>
+    <g set:html={popSvg(res.pop, 130)} data-soup-g></g>
+  </svg>
+  <div class="controls needs-js" data-soup-picks></div>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-soup-new>Another soup</button>
+    <button class="btn" type="button" data-soup-jump>Jump 100 rounds</button>
+    <button class="btn" type="button" data-soup-step>Next round</button>
+  </div>
+  <p class="status" aria-live="polite" data-soup-status>This soup started with {res.pop[0]} live squares and has {res.pop[100]} after 100 rounds.</p>
+</div>

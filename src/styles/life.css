@@ -1,0 +1,476 @@
+/* The Game of Life page: graph paper and green ink, a sheet for each thing to try, the words above and the tool below. */
+
+.life {
+  --board: #f6f2e2;
+  --panel: #fffdf4;
+  --line: #8aa58a;
+  --wood: #2f6b2f;
+  --cream: #1b2a1b;
+  --ink-fixed: #fffdf4;
+  --pink: #2f6b2f;
+  --blue: #2f6b2f;
+  --wash: rgb(0 0 0 / 0.08);
+  --fg: var(--cream);
+
+  background-color: var(--board);
+  background-image: linear-gradient(rgb(47 107 47 / 0.12) 1px, transparent 1px), linear-gradient(90deg, rgb(47 107 47 / 0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--cream);
+}
+
+html:not(.js) .life .needs-js {
+  display: none;
+}
+
+.life :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.life .card-body,
+.life .paras,
+.life .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.life h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.life .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.life .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.life .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.life .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.life .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.life .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.life .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.life .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.life .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.life .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.life .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.life .times th,
+.life .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.life .times thead th {
+  color: #3d523d;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.life .times tbody th {
+  font-weight: 700;
+}
+
+.life .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.life .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.life .pick:hover {
+  background: var(--wash);
+}
+
+.life .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .life .no-js-name {
+  display: none;
+}
+
+.life .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.life .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.life .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.life .btn:hover {
+  background: var(--wash);
+}
+
+.life .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.life .btn.fill:hover {
+  background: var(--cream);
+}
+
+.life .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.life .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.life .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.life .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.life .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.life .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.life .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.life .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.life .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.life .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.life .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.life .snd[aria-pressed='true'] .slash,
+.life .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .life * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.life .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The sheets ---------- */
+.life .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 8px solid var(--wood);
+  background: var(--board);
+}
+
+.life .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.life .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.life .sheets {
+  display: grid;
+  gap: 2rem;
+  width: min(100%, 60rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter) 3rem;
+}
+
+/* A sheet is a page torn from a pad: the words, then the tool under them */
+.life .sheet {
+  display: grid;
+  gap: 1.2rem;
+  min-width: 0;
+  padding: clamp(1.1rem, 3vw, 1.8rem);
+  border: 2px solid var(--line);
+  border-top: 14px solid var(--wood);
+  background: var(--panel);
+  box-shadow: 5px 5px 0 rgb(0 0 0 / 0.14);
+}
+
+.life .words {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+  max-width: 44rem;
+}
+
+.life .bench {
+  min-width: 0;
+  max-width: 34rem;
+  width: 100%;
+  margin-inline: auto;
+}
+
+/* ---------- Drawings and the sheet of squares ---------- */
+.life .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.life .field {
+  fill: #fffdf4;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.life .live {
+  fill: #2f6b2f;
+}
+
+.life .mark {
+  fill: none;
+  stroke: #b3402a;
+  stroke-width: 3;
+}
+
+.life .popline {
+  fill: none;
+  stroke: #2f6b2f;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.life .lab {
+  fill: var(--cream);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.life .lab.small {
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.life .grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  gap: 1px;
+  padding: 1px;
+  border: 2px solid var(--line);
+  background: var(--line);
+}
+
+.life .cell {
+  display: block;
+  width: 100%;
+  height: 0;
+  margin: 0;
+  padding: 0 0 100%;
+  border: 0;
+  border-radius: 0;
+  background: #fffdf4;
+  cursor: pointer;
+}
+
+.life .cell[aria-pressed='true'] {
+  background: #2f6b2f;
+}
+
+.life .cell.mid {
+  box-shadow: inset 0 0 0 3px #b3402a;
+}
+
+.life .cell:hover {
+  background: #cfe0c4;
+}
+
+.life .cell[aria-pressed='true']:hover {
+  background: #1f4a1f;
+}
+
+.life .cell:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 3px solid #b3402a;
+  outline-offset: -3px;
+}
+
+.life .times {
+  table-layout: fixed;
+}
+
+.life .times th,
+.life .times td {
+  overflow-wrap: anywhere;
+}
+
+.life .livedot {
+  fill: #2f6b2f;
+}

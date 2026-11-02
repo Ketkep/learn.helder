@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Paper from '../../components/life/Paper.astro';
+import { takeaways, sources, sourcesNote } from '../../data/life';
+---
+
+<TopicLayout
+  slug="how-conways-game-of-life-grows"
+  intro="One rule decides which squares live. Test it on a single square, watch patterns stay, blink and walk, and see what a random soup turns into."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Paper />
+</TopicLayout>

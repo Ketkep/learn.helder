@@ -1,0 +1,20 @@
+---
+// Sheet 1: the rule for one square. Without a script the picture shows the middle square with three live neighbours.
+import { boardSvg, make } from '../../lib/life';
+const b = make(7, 7);
+[[2, 2], [4, 2], [3, 4], [3, 3]].forEach(([x, y]) => (b.cells[y * 7 + x] = 1));
+---
+
+<div class="tool" data-rule-tool>
+  <div data-rule-host>
+    <svg class="plate" viewBox="0 0 300 300" role="img" aria-label="A seven by seven sheet of squares. The middle square and three of its neighbours are alive." data-rule-svg>
+      <g set:html={boardSvg(b, 300)}></g>
+      <rect class="mark" x="128.6" y="128.6" width="42.9" height="42.9"></rect>
+    </svg>
+  </div>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-rule-next>Next round</button>
+    <button class="btn" type="button" data-rule-clear>Clear</button>
+  </div>
+  <p class="status" aria-live="polite" data-rule-status>The middle square is alive and has 3 live neighbours, so it stays alive: 2 or 3 live neighbours.</p>
+</div>

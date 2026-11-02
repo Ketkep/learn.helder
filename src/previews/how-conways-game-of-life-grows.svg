@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .gl-cell { fill: var(--on-cover); }
+    .gl-grid { fill: none; stroke: var(--on-cover); stroke-width: 3; opacity: 0.35; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .gl-walk { animation: gl-walk 2.4s steps(1) infinite; }
+    }
+    /* The glider takes one step across the grid every beat */
+    @keyframes gl-walk { 0% { transform: translate(0, 0); } 25% { transform: translate(0, 0); } 50% { transform: translate(24px, 24px); } 75% { transform: translate(24px, 24px); } 100% { transform: translate(48px, 48px); } }
+  </style>
+
+  <g>
+    <path class="gl-grid" d="M104 60 V228 M152 60 V228 M200 60 V228 M248 60 V228 M296 60 V228 M104 60 H296 M104 108 H296 M104 156 H296 M104 204 H296"/>
+    <g class="gl-walk">
+      <rect class="gl-cell" x="157" y="65" width="38" height="38" rx="4"/>
+      <rect class="gl-cell" x="205" y="113" width="38" height="38" rx="4"/>
+      <rect class="gl-cell" x="109" y="161" width="38" height="38" rx="4"/>
+      <rect class="gl-cell" x="157" y="161" width="38" height="38" rx="4"/>
+      <rect class="gl-cell" x="205" y="161" width="38" height="38" rx="4"/>
+    </g>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>
