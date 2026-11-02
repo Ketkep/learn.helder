@@ -887,6 +887,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-01',
     status: 'live',
   },
+  {
+    slug: 'how-a-lighthouse-works',
+    title: 'How a lighthouse works',
+    hook: 'Cut a lens into rings, slide the height of the lamp and read a pattern of flashes.',
+    category: 'Technology',
+    accent: '#FF8C94',
+    preview: 'how-a-lighthouse-works',
+    dateAdded: '2026-11-02',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

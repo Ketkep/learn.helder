@@ -1,0 +1,23 @@
+---
+// Room 1: how far the light goes. Without a script the picture shows a 36 m light and a 4 m eye, and the table lists three towers.
+import { WEATHER, fmt, geoRange, horizonSvg, KM_PER_NM, seen } from '../../lib/lighthouse';
+const s = seen(36, 4, 25);
+---
+
+<div class="tool" data-range-tool>
+  <svg class="plate" viewBox="0 0 400 170" role="img" aria-label="A tower on a curved sea, a ship far away and a straight line of sight between the lamp and the eye of someone on the ship." data-range-svg>
+    <g set:html={horizonSvg(36, 4, 25, 14)} data-range-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The geographic range for three lights, seen from an eye 4 metres up</caption>
+    <thead><tr><th scope="col">Height of light</th><th scope="col">Range</th></tr></thead>
+    <tbody>{[10, 36, 60].map((h) => <tr><th scope="row">{h} m</th><td>{fmt(geoRange(h, 4), 1)} nautical miles, {fmt(geoRange(h, 4) * KM_PER_NM, 1)} km</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Light <output data-range-light-out>36</output> m</span><input class="range" type="range" min="5" max="80" step="1" value="36" data-range-light aria-label="Height of the light in metres" /></label>
+    <label class="field"><span>Eye <output data-range-eye-out>4</output> m</span><input class="range" type="range" min="1" max="20" step="1" value="4" data-range-eye aria-label="Height of your eye in metres" /></label>
+    <label class="field"><span>Ship <output data-range-dist-out>14</output> nm</span><input class="range" type="range" min="1" max="30" step="1" value="14" data-range-dist aria-label="Distance of the ship in nautical miles" /></label>
+  </div>
+  <div class="controls needs-js" data-range-weather></div>
+  <p class="status" aria-live="polite" data-range-status>The curve allows {fmt(s.geo, 1)} nautical miles, so a ship 14 nautical miles away can see the light in clear air.</p>
+</div>

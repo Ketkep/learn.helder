@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .lh-line { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    .lh-fill { fill: var(--on-cover); }
+    .lh-beam { stroke: var(--on-cover); stroke-width: 6; stroke-linecap: round; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .lh-beam.l { animation: lh-flash 3s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .lh-beam.r { animation: lh-flash 3s ease-in-out infinite 1.5s; }
+    }
+    /* The beam sweeps from one side to the other */
+    @keyframes lh-flash { 0%, 60%, 100% { opacity: 0.15; } 20%, 40% { opacity: 1; } }
+  </style>
+
+  <g>
+    <path class="lh-line" d="M170 236 L182 112 H218 L230 236 Z"/>
+    <path class="lh-line" d="M176 112 H224 M188 80 H212 V112 M188 80 L200 62 L212 80"/>
+    <circle class="lh-fill" cx="200" cy="96" r="7"/>
+    <path class="lh-line" d="M152 236 H248"/>
+    <g class="lh-beam l"><path d="M176 96 H110 M174 84 L120 62 M174 108 L120 130"/></g>
+    <g class="lh-beam r"><path d="M224 96 H290 M226 84 L280 62 M226 108 L280 130"/></g>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

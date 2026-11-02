@@ -1,0 +1,29 @@
+---
+// Room 3: how a light says who it is. Without a script the strip shows Fl(2) 10s and the table lists all six patterns.
+import { LIGHTS, period, stripSvg } from '../../lib/lighthouse';
+const l = LIGHTS[1];
+---
+
+<div class="tool" data-pattern-tool>
+  <svg class="plate" viewBox="0 0 300 80" role="img" aria-label="A strip of 30 seconds with the lamp on in the yellow parts. The light flashes twice, then stays dark, and repeats every 10 seconds." data-pattern-svg>
+    <g set:html={stripSvg(l, true)} data-pattern-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Six example light patterns and what each one means</caption>
+    <thead><tr><th scope="col">Code</th><th scope="col">Meaning</th></tr></thead>
+    <tbody>{LIGHTS.map((x) => <tr><th scope="row">{x.name}</th><td>{x.words} Repeats every {period(x)} seconds.</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-pattern-picks></div>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-pattern-watch>Watch the lamp</button>
+    <svg class="lampsvg" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true" focusable="false"><g data-pattern-lamp></g></svg>
+  </div>
+  <p class="status" aria-live="polite" data-pattern-status>{l.name}: {l.words}</p>
+  <div class="quiz needs-js">
+    <p class="quiz-head">Name that light</p>
+    <svg class="plate" viewBox="0 0 300 80" role="img" aria-label="A strip of 30 seconds of an unnamed light. Choose its code below." data-quiz-svg><g data-quiz-g></g></svg>
+    <div class="controls" data-quiz-choices></div>
+    <button class="btn" type="button" data-quiz-next>A new light</button>
+    <p class="status small" aria-live="polite" data-quiz-status>Press “A new light” and read the strip.</p>
+  </div>
+</div>

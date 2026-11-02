@@ -1,0 +1,19 @@
+---
+// Room 2: how a lamp becomes a beam. Without a script the picture shows a lens in 6 rings.
+import { fmt, glassShare, lensSvg, thickest } from '../../lib/lighthouse';
+---
+
+<div class="tool" data-lens-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A lamp on the left, a lens cut into six rings and rays leaving it in parallel to the right. A faint outline shows a solid lens of the same width." data-lens-svg>
+    <g set:html={lensSvg(6)} data-lens-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Glass used by lenses with different numbers of rings, as a share of a solid lens</caption>
+    <thead><tr><th scope="col">Rings</th><th scope="col">Glass used</th><th scope="col">Thickest part</th></tr></thead>
+    <tbody>{[1, 3, 6, 12].map((n) => <tr><th scope="row">{n}</th><td>{fmt(glassShare(n) * 100)}%</td><td>{fmt(thickest(n) * 100)}% of the width</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Rings <output data-lens-out>6</output></span><input class="range" type="range" min="1" max="12" step="1" value="6" data-lens-range aria-label="Number of rings" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-lens-status>With 6 rings the toy lens uses {fmt(glassShare(6) * 100)}% of the glass of a solid lens, and its thickest part is {fmt(thickest(6) * 100)}% of its width.</p>
+</div>

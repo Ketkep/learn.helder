@@ -1,0 +1,529 @@
+/* The lighthouse page: a night tower, a room for each thing to try, the words on the left and the tool on the right. */
+
+.lighthouse {
+  --board: #0e2236;
+  --panel: #153049;
+  --line: #5f86a8;
+  --wood: #f2c14e;
+  --cream: #f4ecd8;
+  --ink-fixed: #0e2236;
+  --pink: #f2c14e;
+  --blue: #f2c14e;
+  --wash: rgb(255 255 255 / 0.14);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .lighthouse .needs-js {
+  display: none;
+}
+
+.lighthouse :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.lighthouse .card-body,
+.lighthouse .paras,
+.lighthouse .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.lighthouse h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.lighthouse .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.lighthouse .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.lighthouse .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.lighthouse .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.lighthouse .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.lighthouse .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.lighthouse .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.lighthouse .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.lighthouse .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.lighthouse .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.lighthouse .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.lighthouse .times th,
+.lighthouse .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.lighthouse .times thead th {
+  color: #c9d8e6;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.lighthouse .times tbody th {
+  font-weight: 700;
+}
+
+.lighthouse .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.lighthouse .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.lighthouse .pick:hover {
+  background: var(--wash);
+}
+
+.lighthouse .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .lighthouse .no-js-name {
+  display: none;
+}
+
+.lighthouse .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.lighthouse .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.lighthouse .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.lighthouse .btn:hover {
+  background: var(--wash);
+}
+
+.lighthouse .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.lighthouse .btn.fill:hover {
+  background: var(--cream);
+}
+
+.lighthouse .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.lighthouse .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.lighthouse .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.lighthouse .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.lighthouse .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.lighthouse .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.lighthouse .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.lighthouse .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.lighthouse .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.lighthouse .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.lighthouse .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.lighthouse .snd[aria-pressed='true'] .slash,
+.lighthouse .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lighthouse * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.lighthouse .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The tower ---------- */
+.lighthouse .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 8px solid var(--wood);
+}
+
+.lighthouse .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.lighthouse .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.lighthouse .rooms {
+  display: grid;
+  gap: 0;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: 0 var(--gutter) 3rem;
+}
+
+/* A room is a band of the tower, with a brick edge and a lit window for the tool */
+.lighthouse .room {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem;
+  min-width: 0;
+  padding: clamp(1.6rem, 4vw, 2.6rem) 0;
+  border-bottom: 3px dashed var(--line);
+}
+
+.lighthouse .room:last-child {
+  border-bottom: 0;
+}
+
+@media (min-width: 64rem) {
+  .lighthouse .room {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 2.4rem;
+    align-items: start;
+  }
+}
+
+.lighthouse .words {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.lighthouse .bench {
+  min-width: 0;
+  padding: 1.1rem;
+  border: 3px solid var(--line);
+  border-radius: 40px 40px 6px 6px;
+  background: var(--panel);
+}
+
+/* ---------- Drawings ---------- */
+.lighthouse .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lighthouse .sea-sky {
+  fill: #0a1828;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.lighthouse .sea {
+  fill: #1f5c82;
+  stroke: #8fc0e0;
+  stroke-width: 2;
+}
+
+.lighthouse .tower {
+  fill: #f4ecd8;
+  stroke: #0a1828;
+  stroke-width: 0.8;
+}
+
+.lighthouse .lamp {
+  fill: #f2c14e;
+}
+
+.lighthouse .hull {
+  fill: #f4ecd8;
+}
+
+.lighthouse .mastl {
+  stroke: #f4ecd8;
+  stroke-width: 1.4;
+}
+
+.lighthouse .eye {
+  fill: #f4ecd8;
+}
+
+.lighthouse .ray {
+  stroke: #f2c14e;
+  stroke-width: 1.5;
+  opacity: 0.8;
+}
+
+.lighthouse .sight {
+  stroke-width: 1.6;
+  stroke-dasharray: 5 3;
+}
+
+.lighthouse .sight.ok {
+  stroke: #9be3a8;
+}
+
+.lighthouse .sight.no {
+  stroke: #ff9f8f;
+}
+
+.lighthouse .glass {
+  fill: #bfe3f2;
+  fill-opacity: 0.85;
+  stroke: #e8f6fc;
+  stroke-width: 1;
+}
+
+.lighthouse .ghost {
+  fill: none;
+  stroke: #8fc0e0;
+  stroke-width: 1.2;
+  stroke-dasharray: 4 3;
+}
+
+.lighthouse .dark {
+  fill: #050c14;
+}
+
+.lighthouse .on {
+  fill: #f2c14e;
+}
+
+.lighthouse .tick {
+  stroke: var(--cream);
+  stroke-width: 1;
+}
+
+.lighthouse .lab {
+  fill: var(--cream);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.lighthouse .lab.small {
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.lighthouse .lab.mid {
+  text-anchor: middle;
+}
+
+.lighthouse .lampbig {
+  fill: #050c14;
+  stroke: #f2c14e;
+  stroke-width: 2;
+}
+
+.lighthouse .lampbig.on {
+  fill: #f2c14e;
+}
+
+.lighthouse .lampsvg {
+  flex: none;
+}
+
+.lighthouse .quiz {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 0.6rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--line);
+}
+
+.lighthouse .quiz-head {
+  font-family: var(--font-hand);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.lighthouse .status.small {
+  min-height: 2.8rem;
+}
+
+.lighthouse .times {
+  table-layout: fixed;
+}
+
+.lighthouse .times th,
+.lighthouse .times td {
+  overflow-wrap: anywhere;
+}

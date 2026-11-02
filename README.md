@@ -908,6 +908,15 @@ The page is a family album: three cards with photo corners on a sepia page (side
 - `src/components/bloodtypes/Tree.astro` is the frame and `Panel*.astro` is one branch each.
 - `src/scripts/bloodtypes/bloodtypes.ts` starts all three branches.
 
+## The lighthouse page: how the three rooms work
+
+The page is a night tower cut into three rooms, one above the other, each with the words on the left and a tool in a round-topped window on the right (stacked on a narrow screen). Room 1 uses the rule of thumb from the sources: range in nautical miles is 2.08 times the sum of the square roots of the height of the light and of the eye, in metres. A ship slider and a weather switch add the second limit, how far the lamp reaches through the air. The page takes the smaller of the two. The three lamp ranges for clear, haze and fog (25, 12 and 3 nautical miles) are made up and marked as such. The drawing puts the Earth far too small so the curve shows, and says so. Room 2 is a toy model of a Fresnel lens: a flat-sided lens, glass with an index of 1.5, rings of equal width, and the glass left as a share of a solid lens. Room 3 shows six example light patterns (Fl 5s, Fl(2) 10s, Fl(3) 15s, Fl(2+1) 15s, Oc 6s, Iso 4s) as strips of 30 seconds, with a button to watch the lamp and a quiz that picks a strip by seed and asks for its code. The patterns are examples, not real lighthouses. Nothing is advice for sailing. Without a script each room shows one picture or table.
+
+- `src/data/lighthouse.ts` holds all the words, the takeaways and the sources.
+- `src/lib/lighthouse.ts` holds the range rule, the glass sums, the example patterns and the drawings as SVG text.
+- `src/components/lighthouse/Tower.astro` is the frame and `Panel*.astro` is one room each.
+- `src/scripts/lighthouse/lighthouse.ts` starts all three rooms.
+
 ## Where things are
 
 ```
@@ -996,6 +1005,7 @@ src/data/flask.ts          everything the thermos page says: boards, takeaways, 
 src/data/kaleido.ts        everything the kaleidoscope page says: eyepieces, takeaways, sources
 src/data/charts.ts         everything the misleading charts page says: slides, takeaways, sources
 src/data/bloodtypes.ts     everything the blood types page says: branches, takeaways, sources
+src/data/lighthouse.ts     everything the lighthouse page says: rooms, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1084,6 +1094,7 @@ src/components/flask/      the thermos page: three boards on a kitchen shelf
 src/components/kaleido/    the kaleidoscope page: three eyepieces in brass rings
 src/components/charts/     the misleading charts page: three slides on a dark deck
 src/components/bloodtypes/ the blood types page: three branches as album pages
+src/components/lighthouse/ the lighthouse page: three rooms of a tower
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1169,6 +1180,7 @@ src/styles/flask.css       the thermos page: cream and blue tiles, boards, curve
 src/styles/kaleido.css     the kaleidoscope page: dark violet and brass, rings, mirrors
 src/styles/charts.css      the misleading charts page: slate and white slides, bars, lines, circles
 src/styles/bloodtypes.css  the blood types page: sepia and rose, album cards, squares
+src/styles/lighthouse.css  the lighthouse page: night blue and lamp yellow, rooms with round windows
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1247,6 +1259,7 @@ src/lib/flask.ts           ways heat travels, toy rates and the cooling law for 
 src/lib/kaleido.ts         mirror rule, bead placing and drawings for the kaleidoscope page
 src/lib/charts.ts          bar ratio, made up series, window search and circle sums for the misleading charts page
 src/lib/bloodtypes.ts      genotypes, chances and possible children for the blood types page
+src/lib/lighthouse.ts      the range rule, the glass sums, the light patterns and the drawings
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1333,6 +1346,7 @@ src/scripts/flask/         all three thermos boards (flask.ts)
 src/scripts/kaleido/       all three kaleidoscope eyepieces (kaleido.ts)
 src/scripts/charts/        all three chart slides (charts.ts)
 src/scripts/bloodtypes/    all three blood types branches (bloodtypes.ts)
+src/scripts/lighthouse/    starts the three rooms of the lighthouse page
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

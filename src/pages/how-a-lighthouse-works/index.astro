@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Tower from '../../components/lighthouse/Tower.astro';
+import { takeaways, sources, sourcesNote } from '../../data/lighthouse';
+---
+
+<TopicLayout
+  slug="how-a-lighthouse-works"
+  intro="A lighthouse light is limited by the curve of the sea, shaped by a lens cut into rings and named by its pattern of flashes. Try each in a room of the tower."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Tower />
+</TopicLayout>
