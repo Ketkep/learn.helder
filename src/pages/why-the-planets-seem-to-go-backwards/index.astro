@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Dome from '../../components/retro/Dome.astro';
+import { takeaways, sources, sourcesNote } from '../../data/retro';
+---
+
+<TopicLayout
+  slug="why-the-planets-seem-to-go-backwards"
+  intro="Now and then a planet seems to stop and slide backwards across the sky. Watch the Earth overtake it from above, graph its direction and compare the two old stories that explain it."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Dome />
+</TopicLayout>

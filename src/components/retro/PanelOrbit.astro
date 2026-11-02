@@ -1,0 +1,20 @@
+---
+// Seat 1: Earth overtakes a planet. Without a script the picture shows Mars at day 0 and the table lists the four planets.
+import { PLANETS, MARS, fmt, loop, orbitSvg, synodic } from '../../lib/retro';
+---
+
+<div class="tool" data-orbit-tool>
+  <svg class="plate" viewBox="0 0 300 280" role="img" aria-label="Looking down on the Sun, with the orbits of the Earth and Mars. A line runs from the Earth through Mars out to the stars." data-orbit-svg>
+    <g set:html={orbitSvg(MARS, 0)} data-orbit-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">How often each planet lines up with the Earth, and how long it seems to go backwards in this simplified model</caption>
+    <thead><tr><th scope="col">Planet</th><th scope="col">Lines up every</th><th scope="col">Seems to go backwards for</th></tr></thead>
+    <tbody>{PLANETS.map((p) => <tr><th scope="row">{p.name}</th><td>{fmt(synodic(p))} days</td><td>{fmt(loop(p).days)} days</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-orbit-picks></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Day <output data-orbit-out>0</output></span><input class="range" type="range" min="-389" max="389" step="1" value="0" data-orbit-range aria-label="Day, with day 0 when the Earth is level with the planet" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-orbit-status>Mars on day 0: the Earth is level with Mars, and Mars seems to be moving backwards.</p>
+</div>

@@ -917,6 +917,15 @@ The page is a night tower cut into three rooms, one above the other, each with t
 - `src/components/lighthouse/Tower.astro` is the frame and `Panel*.astro` is one room each.
 - `src/scripts/lighthouse/lighthouse.ts` starts all three rooms.
 
+## The retrograde page: how the three seats work
+
+The page is a dark dome with three seats shown as tabs, one at a time (one after the other without a script). The orbits are flat circles around the Sun, with the distances and periods from the sources (Mercury 0.387 AU and 87.97 days, Venus 0.723 and 224.7, Earth 1 and 365.25, Mars 1.524 and 686.98, Jupiter 5.203 and 4332.59). Day 0 is when the Earth and the planet are level, the middle of the backwards swing. Seat 1 looks down on the Sun, with a slider for the day, a planet picker and a line of sight that is green going forwards and orange going backwards. Seat 2 graphs the direction of the planet in the sky against the stars for a window around day 0, and says how many days the loop lasts and how far back the planet moves. These lengths (22, 42, 72 and 120 days) are worked out on the page for the flat circular model, so the page calls them that and does not give them as real loops. Seat 3 puts Ptolemy’s circle on a circle beside the Sun in the middle, for Mars, and shows that both point at the same place in the sky. It does not include Saturn, because its distance was not confirmed. The tabs follow the usual keyboard pattern (arrow keys, Home and End).
+
+- `src/data/retro.ts` holds all the words, the takeaways and the sources.
+- `src/lib/retro.ts` holds the orbits, the loops and the drawings as SVG text.
+- `src/components/retro/Dome.astro` is the frame with the tabs and `Panel*.astro` is one seat each.
+- `src/scripts/retro/retro.ts` starts the tabs and all three seats.
+
 ## Where things are
 
 ```
@@ -1006,6 +1015,7 @@ src/data/kaleido.ts        everything the kaleidoscope page says: eyepieces, tak
 src/data/charts.ts         everything the misleading charts page says: slides, takeaways, sources
 src/data/bloodtypes.ts     everything the blood types page says: branches, takeaways, sources
 src/data/lighthouse.ts     everything the lighthouse page says: rooms, takeaways, sources
+src/data/retro.ts          everything the retrograde page says: seats, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1095,6 +1105,7 @@ src/components/kaleido/    the kaleidoscope page: three eyepieces in brass rings
 src/components/charts/     the misleading charts page: three slides on a dark deck
 src/components/bloodtypes/ the blood types page: three branches as album pages
 src/components/lighthouse/ the lighthouse page: three rooms of a tower
+src/components/retro/      the retrograde page: three seats under a dome, as tabs
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1181,6 +1192,7 @@ src/styles/kaleido.css     the kaleidoscope page: dark violet and brass, rings, 
 src/styles/charts.css      the misleading charts page: slate and white slides, bars, lines, circles
 src/styles/bloodtypes.css  the blood types page: sepia and rose, album cards, squares
 src/styles/lighthouse.css  the lighthouse page: night blue and lamp yellow, rooms with round windows
+src/styles/retro.css       the retrograde page: night violet, a dome edge, tabs
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1260,6 +1272,7 @@ src/lib/kaleido.ts         mirror rule, bead placing and drawings for the kaleid
 src/lib/charts.ts          bar ratio, made up series, window search and circle sums for the misleading charts page
 src/lib/bloodtypes.ts      genotypes, chances and possible children for the blood types page
 src/lib/lighthouse.ts      the range rule, the glass sums, the light patterns and the drawings
+src/lib/retro.ts           the orbits, the loops and the drawings for the retrograde page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1347,6 +1360,7 @@ src/scripts/kaleido/       all three kaleidoscope eyepieces (kaleido.ts)
 src/scripts/charts/        all three chart slides (charts.ts)
 src/scripts/bloodtypes/    all three blood types branches (bloodtypes.ts)
 src/scripts/lighthouse/    starts the three rooms of the lighthouse page
+src/scripts/retro/         starts the tabs and three seats of the retrograde page
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

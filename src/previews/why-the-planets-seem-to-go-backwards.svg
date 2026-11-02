@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .rt-line { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    .rt-fill { fill: var(--on-cover); }
+    .rt-path { stroke-dasharray: 420; stroke-dashoffset: 0; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .rt-path { animation: rt-draw 3.2s ease-in-out infinite; }
+    }
+    /* The path is drawn from left to right, loop and all */
+    @keyframes rt-draw { 0% { stroke-dashoffset: 420; } 70%, 100% { stroke-dashoffset: 0; } }
+  </style>
+
+  <g>
+    <path class="rt-line rt-path" d="M60 190 C110 120 190 90 240 128 C280 160 230 200 200 170 C170 140 220 100 290 96 C320 94 340 100 350 106"/>
+    <circle class="rt-fill" cx="60" cy="190" r="9"/>
+    <circle class="rt-fill" cx="350" cy="106" r="9"/>
+    <path class="rt-line" d="M60 238 H350" stroke-dasharray="2 16"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

@@ -897,6 +897,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-02',
     status: 'live',
   },
+  {
+    slug: 'why-the-planets-seem-to-go-backwards',
+    title: 'Why the planets seem to go backwards',
+    hook: 'Watch the Earth overtake a planet from above and see why its path in the sky makes a loop.',
+    category: 'Space',
+    accent: '#E8C1FF',
+    preview: 'why-the-planets-seem-to-go-backwards',
+    dateAdded: '2026-11-02',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

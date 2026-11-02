@@ -1,0 +1,14 @@
+---
+// Seat 3: two stories, one sky. Without a script the picture shows day 0.
+import { storiesSvg } from '../../lib/retro';
+---
+
+<div class="tool" data-stories-tool>
+  <svg class="plate" viewBox="0 0 320 180" role="img" aria-label="Two drawings of Mars. On the left the Earth is in the middle and Mars rides a circle on a circle. On the right the Sun is in the middle. In both, a line from the Earth points at Mars in the same direction." data-stories-svg>
+    <g set:html={storiesSvg(0)} data-stories-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Day <output data-stories-out>0</output></span><input class="range" type="range" min="-389" max="389" step="1" value="0" data-stories-range aria-label="Day, with day 0 when the Earth is level with Mars" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-stories-status>Day 0: both pictures point at Mars in the same direction. Mars is closest to Earth now, about 0.5 astronomical units away in this model.</p>
+</div>

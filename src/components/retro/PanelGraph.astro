@@ -1,0 +1,16 @@
+---
+// Seat 2: the direction day by day. Without a script the picture shows Mars.
+import { MARS, fmt, graphSvg, loop } from '../../lib/retro';
+const l = loop(MARS);
+---
+
+<div class="tool" data-graph-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A graph of the direction of Mars in the sky over about six months. The line climbs, falls for a while in a different colour and climbs again." data-graph-svg>
+    <g set:html={graphSvg(MARS, 0)} data-graph-g></g>
+  </svg>
+  <div class="controls needs-js" data-graph-picks></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Day <output data-graph-out>0</output></span><input class="range" type="range" min="-90" max="90" step="1" value="0" data-graph-range aria-label="Day, with day 0 when the Earth is level with the planet" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-graph-status>In this simplified model Mars goes backwards for {fmt(l.days)} days and moves back about {fmt(l.back)} degrees. That is about 30 times the width of the full Moon.</p>
+</div>
