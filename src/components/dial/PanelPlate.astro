@@ -1,0 +1,21 @@
+---
+// Slab 1: the shadow over a flat dial. Without a script the picture shows 10:00 at latitude 52 and the table lists three places.
+import { clock, fmt, lineAngle, plateSvg } from '../../lib/dial';
+const a0 = Math.abs(lineAngle(52, 10));
+---
+
+<div class="tool" data-plate-tool>
+  <svg class="plate" viewBox="0 0 300 300" role="img" aria-label="A flat round dial seen from above with hour lines fanning out from the middle and a dark shadow lying on the ten o'clock line." data-plate-svg>
+    <g set:html={plateSvg(52, 10)} data-plate-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Angle of the hour lines from the noon line, for three latitudes</caption>
+    <thead><tr><th scope="col">Hour</th><th scope="col">30 degrees</th><th scope="col">52 degrees</th><th scope="col">64 degrees</th></tr></thead>
+    <tbody>{[8, 10, 11].map((h) => <tr><th scope="row">{clock(h)}</th>{[30, 52, 64].map((l) => <td>{fmt(Math.abs(lineAngle(l, h)), 1)}° west</td>)}</tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Hour <output data-plate-hour-out>10:00</output></span><input class="range" type="range" min="6" max="18" step="0.25" value="10" data-plate-hour aria-label="Time of day by the Sun" /></label>
+    <label class="field"><span>Latitude <output data-plate-lat-out>52</output>°</span><input class="range" type="range" min="0" max="70" step="1" value="52" data-plate-lat aria-label="Latitude in degrees" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-plate-status>At 10:00 and 52 degrees of latitude the shadow lies {fmt(a0, 1)} degrees west of the noon line.</p>
+</div>

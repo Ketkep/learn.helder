@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .sd-line { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    .sd-fill { fill: var(--on-cover); }
+    .sd-shadow { transform-box: view-box; transform-origin: 200px 200px; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .sd-shadow { animation: sd-turn 4s ease-in-out infinite alternate; }
+    }
+    /* The shadow turns across the plate and back */
+    @keyframes sd-turn { from { transform: rotate(-40deg); } to { transform: rotate(40deg); } }
+  </style>
+
+  <g>
+    <circle class="sd-line" cx="200" cy="160" r="82"/>
+    <path class="sd-line" d="M200 160 L200 90 M200 160 L142 112 M200 160 L258 112 M200 160 L124 160 M200 160 L276 160" opacity="0.4"/>
+    <circle class="sd-fill" cx="200" cy="160" r="9"/>
+    <g class="sd-shadow" style="transform-origin: 200px 160px"><path class="sd-line" d="M200 160 L200 96" stroke-width="12"/></g>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

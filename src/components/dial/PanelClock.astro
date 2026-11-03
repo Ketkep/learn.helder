@@ -1,0 +1,20 @@
+---
+// Slab 3: sundial and clock. Without a script the picture shows 3 November and the table lists four dates.
+import { dateOf, eot, eotSvg, fmt } from '../../lib/dial';
+const days = [42, 105, 166, 307];
+---
+
+<div class="tool" data-clock-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A graph of how many minutes a sundial is ahead of a clock through the year. It is lowest in February, rises through zero in April, falls again in July and peaks in early November." data-clock-svg>
+    <g set:html={eotSvg(307)} data-clock-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Minutes a sundial is ahead of a clock, on four dates</caption>
+    <thead><tr><th scope="col">Date</th><th scope="col">Sundial minus clock</th></tr></thead>
+    <tbody>{days.map((d) => <tr><th scope="row">{dateOf(d)}</th><td>{eot(d) >= 0 ? '+' : '-'}{fmt(Math.abs(eot(d)), 1)} minutes</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span><output data-clock-out>3 November</output></span><input class="range" type="range" min="1" max="365" step="1" value="307" data-clock-range aria-label="Day of the year" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-clock-status>On 3 November the sundial is about {fmt(eot(307), 1)} minutes ahead of the clock.</p>
+</div>

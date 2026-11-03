@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Slabs from '../../components/dial/Slabs.astro';
+import { takeaways, sources, sourcesNote } from '../../data/dial';
+---
+
+<TopicLayout
+  slug="how-a-sundial-tells-the-time"
+  intro="A sundial reads the hour from a shadow. Slide the hour over a flat dial, tilt the edge and see the error, and see why a sundial and a clock never quite agree."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Slabs />
+</TopicLayout>

@@ -917,6 +917,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-02',
     status: 'live',
   },
+  {
+    slug: 'how-a-sundial-tells-the-time',
+    title: 'How a sundial tells the time',
+    hook: 'Slide the hour over a flat dial, tilt its edge and see why a sundial and a clock disagree.',
+    category: 'History',
+    accent: '#EBCB8B',
+    preview: 'how-a-sundial-tells-the-time',
+    dateAdded: '2026-11-03',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

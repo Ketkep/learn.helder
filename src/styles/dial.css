@@ -1,0 +1,470 @@
+/* The sundial page: warm sandstone slabs, the words and the tool side by side, swapping sides on every second slab. */
+
+.dial {
+  --board: #efe3c8;
+  --panel: #f9f1dc;
+  --line: #8a7448;
+  --wood: #8a4b14;
+  --cream: #2a2113;
+  --ink-fixed: #fbf3de;
+  --pink: #8a4b14;
+  --blue: #8a4b14;
+  --wash: rgb(0 0 0 / 0.1);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .dial .needs-js {
+  display: none;
+}
+
+.dial :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.dial .card-body,
+.dial .paras,
+.dial .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.dial h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.dial .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.dial .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.dial .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.dial .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.dial .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.dial .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.dial .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.dial .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.dial .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.dial .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.dial .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.dial .times th,
+.dial .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.dial .times thead th {
+  color: #4a3c22;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.dial .times tbody th {
+  font-weight: 700;
+}
+
+.dial .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.dial .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dial .pick:hover {
+  background: var(--wash);
+}
+
+.dial .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .dial .no-js-name {
+  display: none;
+}
+
+.dial .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.dial .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.dial .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.dial .btn:hover {
+  background: var(--wash);
+}
+
+.dial .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.dial .btn.fill:hover {
+  background: var(--cream);
+}
+
+.dial .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.dial .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.dial .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.dial .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.dial .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.dial .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.dial .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.dial .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.dial .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.dial .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.dial .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dial .snd[aria-pressed='true'] .slash,
+.dial .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dial * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.dial .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The slabs ---------- */
+.dial .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 8px solid var(--wood);
+}
+
+.dial .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.dial .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.dial .slabs {
+  display: grid;
+  gap: 1.6rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter) 3rem;
+}
+
+/* A slab of stone: the words on one side and the tool on the other */
+.dial .slab {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem;
+  min-width: 0;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 3px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  box-shadow: 6px 6px 0 rgb(0 0 0 / 0.16);
+}
+
+@media (min-width: 64rem) {
+  .dial .slab {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 2.4rem;
+    align-items: start;
+  }
+
+  .dial .slab:nth-child(even) .words {
+    order: 2;
+  }
+}
+
+.dial .words {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.dial .bench {
+  min-width: 0;
+}
+
+/* ---------- Drawings ---------- */
+.dial .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.dial .stone {
+  fill: #f2e6c6;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.dial .disc {
+  fill: #e4d3a6;
+  stroke: #8a7448;
+  stroke-width: 2;
+}
+
+.dial .hourline {
+  stroke: #8a7448;
+  stroke-width: 1.2;
+}
+
+.dial .shadow {
+  stroke: #2a2113;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.dial .root {
+  fill: #8a4b14;
+}
+
+.dial .ground {
+  stroke: #2a2113;
+  stroke-width: 2;
+}
+
+.dial .axis {
+  stroke: #1c5a8a;
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+}
+
+.dial .edge {
+  stroke: #8a4b14;
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.dial .curve {
+  fill: none;
+  stroke: #8a4b14;
+  stroke-width: 2.5;
+}
+
+.dial .tick {
+  stroke: #2a2113;
+  stroke-width: 1;
+}
+
+.dial .lab {
+  fill: var(--cream);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.dial .lab.small {
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.dial .lab.mid {
+  text-anchor: middle;
+}
+
+.dial .times {
+  table-layout: fixed;
+}
+
+.dial .times th,
+.dial .times td {
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,17 @@
+---
+// Slab 2: why the edge must tilt. Without a script the picture shows a dial at latitude 52 with the edge tilted at 30.
+import { clock, fmt, readTime, sideSvg } from '../../lib/dial';
+const r = readTime(52, 30, 10);
+---
+
+<div class="tool" data-tilt-tool>
+  <svg class="plate" viewBox="0 0 300 220" role="img" aria-label="A side view of a dial. A dashed line rises at the latitude towards the pole of the sky, and the edge of the dial rises at a smaller angle." data-tilt-svg>
+    <g set:html={sideSvg(52, 30)} data-tilt-g></g>
+  </svg>
+  <div class="controls needs-js" data-tilt-picks></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Tilt <output data-tilt-out>30</output>°</span><input class="range" type="range" min="10" max="90" step="1" value="30" data-tilt-range aria-label="Tilt of the edge in degrees" /></label>
+    <label class="field"><span>True time <output data-tilt-hour-out>10:00</output></span><input class="range" type="range" min="7" max="11" step="0.25" value="10" data-tilt-hour aria-label="True time of day, before noon" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-tilt-status>At 52 degrees of latitude with the edge tilted at 30 degrees, the dial reads {clock(r)} when the true time is 10:00, which is {fmt(Math.abs(r - 10) * 60)} minutes off.</p>
+</div>
