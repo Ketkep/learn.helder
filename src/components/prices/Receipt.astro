@@ -1,0 +1,63 @@
+---
+// The whole page: a till receipt, one line to try per item. They are the Panel components and src/scripts/prices.
+// Without a script each line shows one picture or table.
+import '../../styles/prices.css';
+import { intro, lines } from '../../data/prices';
+import PanelYears from './PanelYears.astro';
+import PanelBasket from './PanelBasket.astro';
+import PanelPay from './PanelPay.astro';
+
+const tools: Record<string, typeof PanelYears> = { years: PanelYears, basket: PanelBasket, pay: PanelPay };
+---
+
+<div class="prices" data-prices>
+  <section class="opening" aria-labelledby="prices-intro">
+    <div class="wrap">
+      <p class="kicker">Receipt</p>
+      <h2 id="prices-intro">{intro.title}</h2>
+      <div class="intro-paras">{intro.paras.map((p) => <p class="para">{p}</p>)}</div>
+      <button class="snd needs-js" type="button" data-sound aria-pressed="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+          <path class="wave" d="M15 9a4 4 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <path class="slash" d="M16 8.5l5 7M21 8.5l-5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span data-sound-label>Sound on</span>
+      </button>
+    </div>
+  </section>
+
+  <div class="roll">
+    {
+      lines.map((p) => {
+        const Tool = tools[p.id];
+        return (
+          <section class="line" id={`line-${p.id}`} aria-labelledby={`line-${p.id}-h`}>
+            <p class="kicker">{p.kicker}</p>
+            <h2 id={`line-${p.id}-h`}>{p.title}</h2>
+            <div class="paras">{p.paras.map((t) => <p class="para">{t}</p>)}</div>
+            <div class="bench">
+              <Tool />
+            </div>
+            {
+              p.tags && (
+                <div class="tags">
+                  {p.tags.map((t) => (
+                    <aside class="tag">
+                      <p class="tag-label">{t.label}</p>
+                      <p class="tag-text">{t.text}</p>
+                    </aside>
+                  ))}
+                </div>
+              )
+            }
+          </section>
+        );
+      })
+    }
+  </div>
+</div>
+
+<script>
+  import '../../scripts/prices/prices';
+</script>

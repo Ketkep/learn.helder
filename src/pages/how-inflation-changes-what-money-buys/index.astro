@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Receipt from '../../components/prices/Receipt.astro';
+import { takeaways, sources, sourcesNote } from '../../data/prices';
+---
+
+<TopicLayout
+  slug="how-inflation-changes-what-money-buys"
+  intro="Prices rise and the same money buys less. Watch steady rises add up, build the one number from a basket of goods and see how a pay rise can still buy less. All numbers are made up."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Receipt />
+</TopicLayout>

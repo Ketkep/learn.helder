@@ -927,6 +927,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-03',
     status: 'live',
   },
+  {
+    slug: 'how-inflation-changes-what-money-buys',
+    title: 'How inflation changes what money buys',
+    hook: 'Watch steady price rises add up, build one number from a basket and see how a pay rise can still buy less.',
+    category: 'Maths',
+    accent: '#B7E3C4',
+    preview: 'how-inflation-changes-what-money-buys',
+    dateAdded: '2026-11-03',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

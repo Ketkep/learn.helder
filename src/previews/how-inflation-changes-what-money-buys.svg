@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .pr-line { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    .pr-fill { fill: var(--on-cover); }
+    .pr-coin { transform-box: fill-box; transform-origin: center bottom; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pr-coin { animation: pr-shrink 3s ease-in-out infinite alternate; }
+    }
+    /* The pile of coins buys a smaller and smaller basket */
+    @keyframes pr-shrink { from { transform: scale(1); } to { transform: scale(0.6); } }
+  </style>
+
+  <g>
+    <path class="pr-line" d="M80 230 H200 M80 230 L100 160 H180 L200 230 M110 160 C110 120 170 120 170 160"/>
+    <g class="pr-coin">
+      <ellipse class="pr-line" cx="290" cy="220" rx="46" ry="14"/>
+      <ellipse class="pr-line" cx="290" cy="190" rx="46" ry="14"/>
+      <ellipse class="pr-line" cx="290" cy="160" rx="46" ry="14"/>
+    </g>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

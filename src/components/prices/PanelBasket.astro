@@ -1,0 +1,18 @@
+---
+// Line 2: a basket gives one number. Without a script the picture shows the made-up changes and the table lists the basket.
+import { BASKET, START, basketChange, basketSvg, euro, fmt } from '../../lib/prices';
+const t = basketChange(START);
+---
+
+<div class="tool" data-basket-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="Bars for the price change of five made-up items, with rent counting for the most." data-basket-svg>
+    <g set:html={basketSvg(START)} data-basket-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The made-up basket: what each item costs and how much of the spending it takes</caption>
+    <thead><tr><th scope="col">Item</th><th scope="col">Share of spending</th><th scope="col">Monthly price</th></tr></thead>
+    <tbody>{BASKET.map((it) => <tr><th scope="row">{it.name}</th><td>{it.weight}%</td><td>{euro(it.price)}</td></tr>)}</tbody>
+  </table>
+  <div class="sliders needs-js" data-basket-sliders></div>
+  <p class="status" aria-live="polite" data-basket-status>With these changes the basket costs {fmt(t, 1)}% more. Energy rose 20% but counts for only 15%.</p>
+</div>

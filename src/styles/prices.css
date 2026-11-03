@@ -1,0 +1,448 @@
+/* The inflation page: a long till receipt in monospace, one line to try per item. */
+
+.prices {
+  --board: #d6d4cc;
+  --panel: #fffef8;
+  --line: #6e6a5c;
+  --wood: #1f5e3c;
+  --cream: #1f1f1a;
+  --ink-fixed: #fffef8;
+  --pink: #1f5e3c;
+  --blue: #1f5e3c;
+  --wash: rgb(0 0 0 / 0.08);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .prices .needs-js {
+  display: none;
+}
+
+.prices :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.prices .card-body,
+.prices .paras,
+.prices .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.prices h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.prices .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.prices .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.prices .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.prices .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.prices .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.prices .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.prices .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.prices .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.prices .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.prices .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.prices .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.prices .times th,
+.prices .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.prices .times thead th {
+  color: #4a4a40;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.prices .times tbody th {
+  font-weight: 700;
+}
+
+.prices .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.prices .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.prices .pick:hover {
+  background: var(--wash);
+}
+
+.prices .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .prices .no-js-name {
+  display: none;
+}
+
+.prices .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.prices .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.prices .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.prices .btn:hover {
+  background: var(--wash);
+}
+
+.prices .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.prices .btn.fill:hover {
+  background: var(--cream);
+}
+
+.prices .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.prices .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.prices .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.prices .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.prices .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.prices .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.prices .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.prices .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.prices .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.prices .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.prices .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.prices .snd[aria-pressed='true'] .slash,
+.prices .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prices * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.prices .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The receipt ---------- */
+.prices .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 8px solid var(--wood);
+  background: var(--panel);
+}
+
+.prices .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.prices .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.prices .roll {
+  display: grid;
+  gap: 0;
+  width: min(100%, 42rem);
+  margin: 2rem auto 3rem;
+  padding: 0.5rem clamp(1rem, 4vw, 2rem);
+  border-left: 2px solid var(--line);
+  border-right: 2px solid var(--line);
+  background: var(--panel);
+  box-shadow: 6px 6px 0 rgb(0 0 0 / 0.18);
+}
+
+.prices .line {
+  display: grid;
+  gap: 0.9rem;
+  min-width: 0;
+  padding: 1.8rem 0;
+  border-bottom: 3px dashed var(--line);
+}
+
+.prices .line:last-child {
+  border-bottom: 0;
+}
+
+.prices .line .kicker {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.prices .bench {
+  display: grid;
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+.prices .sliders {
+  display: grid;
+  gap: 0.2rem;
+}
+
+/* ---------- Drawings ---------- */
+.prices .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.prices .paper {
+  fill: #f4f1e6;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.prices .axis {
+  stroke: #1f1f1a;
+  stroke-width: 1.5;
+}
+
+.prices .tick {
+  stroke: #1f1f1a;
+  stroke-width: 1;
+}
+
+.prices .curve {
+  fill: none;
+  stroke: #1f5e3c;
+  stroke-width: 3;
+}
+
+.prices .dot {
+  fill: #b3402a;
+}
+
+.prices .up {
+  fill: #b3402a;
+}
+
+.prices .down {
+  fill: #1f5e3c;
+}
+
+.prices .lab {
+  fill: var(--cream);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.prices .lab.small {
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.prices .lab.mid {
+  text-anchor: middle;
+}
+
+.prices .times {
+  table-layout: fixed;
+}
+
+.prices .times th,
+.prices .times td {
+  overflow-wrap: anywhere;
+}

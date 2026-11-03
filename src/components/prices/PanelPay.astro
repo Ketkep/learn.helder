@@ -1,0 +1,16 @@
+---
+// Line 3: a pay rise that buys less. Without a script the picture shows a 3 per cent pay rise and 5 per cent prices.
+import { fmt, paySvg, realChange } from '../../lib/prices';
+const r = realChange(3, 5);
+---
+
+<div class="tool" data-pay-tool>
+  <svg class="plate" viewBox="0 0 300 150" role="img" aria-label="Two bars: pay rising by 3 per cent and prices rising by 5 per cent, so the pay buys less." data-pay-svg>
+    <g set:html={paySvg(3, 5)} data-pay-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Pay <output data-pay-out>3</output>%</span><input class="range" type="range" min="0" max="12" step="0.5" value="3" data-pay-range aria-label="Pay rise in per cent" /></label>
+    <label class="field"><span>Prices <output data-prices-out>5</output>%</span><input class="range" type="range" min="0" max="12" step="0.5" value="5" data-prices-range aria-label="Price rise in per cent" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-pay-status>Pay rose 3% and prices rose 5%, so the pay buys about {fmt(Math.abs(r), 1)}% less.</p>
+</div>

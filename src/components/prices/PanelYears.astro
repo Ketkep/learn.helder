@@ -1,0 +1,20 @@
+---
+// Line 1: steady rises add up. Without a script the picture shows 3 per cent for 10 years and the table lists two rates.
+import { buys, euro, fmt, grow, priceSvg } from '../../lib/prices';
+---
+
+<div class="tool" data-years-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A graph of the price of a loaf over thirty years, rising faster and faster, with a marker at ten years." data-years-svg>
+    <g set:html={priceSvg(2, 3, 10)} data-years-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The price of a loaf that costs 2 euros now, and what 100 euros buys, after some years</caption>
+    <thead><tr><th scope="col">After</th><th scope="col">At 2% a year</th><th scope="col">At 5% a year</th></tr></thead>
+    <tbody>{[1, 10, 20, 30].map((y) => <tr><th scope="row">{y} {y === 1 ? 'year' : 'years'}</th>{[2, 5].map((r) => <td>{euro(grow(2, r, y))}, and 100 euros buys {fmt(buys(r, y) * 100)} euros’ worth</td>)}</tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Rate <output data-years-rate-out>3</output>%</span><input class="range" type="range" min="0" max="10" step="0.5" value="3" data-years-rate aria-label="Price rise per year, in per cent" /></label>
+    <label class="field"><span>Years <output data-years-out>10</output></span><input class="range" type="range" min="1" max="30" step="1" value="10" data-years-range aria-label="Number of years" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-years-status>At 3% a year the made-up loaf costs {euro(grow(2, 3, 10))} after 10 years, and 100 euros then buys only what {fmt(buys(3, 10) * 100)} euros buys now.</p>
+</div>
