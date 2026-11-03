@@ -1,0 +1,444 @@
+/* The honeycomb page: a dark hive frame with amber cells, a row for each thing to try, every second row shifted like a comb. */
+
+.comb {
+  --board: #2a1a08;
+  --panel: #3a2610;
+  --line: #b98a3a;
+  --wood: #f5cf65;
+  --cream: #fbf1d8;
+  --ink-fixed: #2a1a08;
+  --pink: #f5cf65;
+  --blue: #f5cf65;
+  --wash: rgb(255 255 255 / 0.14);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .comb .needs-js {
+  display: none;
+}
+
+.comb :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.comb .card-body,
+.comb .paras,
+.comb .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.comb h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.comb .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.comb .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.comb .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.comb .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.comb .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.comb .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.comb .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.comb .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.comb .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.comb .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.comb .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.comb .times th,
+.comb .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.comb .times thead th {
+  color: #e7d3a8;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.comb .times tbody th {
+  font-weight: 700;
+}
+
+.comb .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.comb .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.comb .pick:hover {
+  background: var(--wash);
+}
+
+.comb .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .comb .no-js-name {
+  display: none;
+}
+
+.comb .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.comb .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.comb .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.comb .btn:hover {
+  background: var(--wash);
+}
+
+.comb .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.comb .btn.fill:hover {
+  background: var(--cream);
+}
+
+.comb .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.comb .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.comb .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.comb .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.comb .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.comb .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.comb .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.comb .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.comb .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.comb .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.comb .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.comb .snd[aria-pressed='true'] .slash,
+.comb .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comb * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.comb .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The hive frame ---------- */
+.comb .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 8px solid var(--wood);
+}
+
+.comb .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.comb .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.comb .frame-rows {
+  display: grid;
+  gap: 1.6rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter) 3rem;
+}
+
+/* A cell of the comb: a thick amber wall, every second one shifted to the right on a wide screen */
+.comb .hexcell {
+  display: grid;
+  gap: 0.9rem;
+  min-width: 0;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 4px solid var(--line);
+  border-radius: 28px 28px 28px 28px / 28px 28px 28px 28px;
+  background: var(--panel);
+}
+
+@media (min-width: 64rem) {
+  .comb .hexcell {
+    width: 80%;
+  }
+
+  .comb .hexcell:nth-child(even) {
+    justify-self: end;
+  }
+}
+
+.comb .bench {
+  display: grid;
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+/* ---------- Drawings ---------- */
+.comb .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.comb .frame {
+  fill: #20130a;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.comb .cellshape {
+  fill: #f5cf65;
+  fill-opacity: 0.85;
+  stroke: #2a1a08;
+  stroke-width: 1.5;
+}
+
+.comb .gapwedge {
+  fill: #d4543a;
+  fill-opacity: 0.9;
+}
+
+.comb .corner {
+  fill: #fbf1d8;
+}
+
+.comb .bar {
+  fill: #b98a3a;
+}
+
+.comb .best {
+  fill: #f5cf65;
+}
+
+.comb .fieldbox {
+  fill: #0e0803;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.comb .waxcell {
+  fill: #f5cf65;
+  stroke: #2a1a08;
+  stroke-width: 1;
+}
+
+.comb .lab {
+  fill: var(--cream);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.comb .lab.small {
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.comb .times {
+  table-layout: fixed;
+}
+
+.comb .times th,
+.comb .times td {
+  overflow-wrap: anywhere;
+}

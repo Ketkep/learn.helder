@@ -1,0 +1,17 @@
+---
+// Cell 1: which shapes fit together. Without a script the picture shows hexagons and the table lists all six shapes.
+import { NAMES, SIDES, angle, around, fmt, tileSvg } from '../../lib/comb';
+---
+
+<div class="tool" data-tile-tool>
+  <svg class="plate" viewBox="0 0 300 200" role="img" aria-label="Three hexagons meeting at one corner with no gap." data-tile-svg>
+    <g set:html={tileSvg(6)} data-tile-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">For each regular shape, the angle in a corner, how many fit round a point and the gap that is left</caption>
+    <thead><tr><th scope="col">Shape</th><th scope="col">Corner</th><th scope="col">Round a point</th></tr></thead>
+    <tbody>{SIDES.map((n) => { const a = around(n); return <tr><th scope="row">{NAMES[n]}</th><td>{fmt(angle(n), 1)}°</td><td>{a.k}, {a.tiles ? 'no gap' : `gap of ${fmt(a.gap, 1)}°`}</td></tr>; })}</tbody>
+  </table>
+  <div class="controls needs-js" data-tile-picks></div>
+  <p class="status" aria-live="polite" data-tile-status>A hexagon has corners of 120 degrees. Three fit round a point and 3 times 120 is 360, so there is no gap.</p>
+</div>

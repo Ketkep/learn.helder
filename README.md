@@ -953,6 +953,15 @@ The page is one long till receipt in monospace on a grey background, with one li
 - `src/components/prices/Receipt.astro` is the frame and `Panel*.astro` is one line each.
 - `src/scripts/prices/prices.ts` starts all three lines and builds the basket sliders.
 
+## The honeycomb page: how the three cells work
+
+The page is a dark hive frame with three amber-walled cells stacked in a column, every second one shifted to the right on a wide screen like a comb. Cell 1 puts as many copies of a regular shape (triangle to octagon) as fit round one corner and shows the gap that is left, in a second colour: 360 over the corner angle gives 6, 4 and 3 for the triangle, square and hexagon with no gap, and gaps for the others. Cell 2 shows the outline of a regular shape of area 1, 2 times the square root of n times tan(180 over n), for the triangle, square, hexagon and circle, and the wax for a comb of a chosen number of cells (each wall shared by two cells counts half). The hexagon is about 7 per cent shorter than the square and 18 per cent shorter than the triangle. Cell 3 is a toy model: round cells that touch, walls moved outwards towards a hexagon with a slider, and the gaps counted (9.3 per cent for circles, none for hexagons). The page says how real wax and bees make the shape is still debated, because sources disagree between warm flowing wax and mechanical squeezing. It gives no wax-to-honey ratio because none was found. Without a script each cell shows one picture or table.
+
+- `src/data/comb.ts` holds all the words, the takeaways and the sources.
+- `src/lib/comb.ts` holds the tiling, the outlines, the squeezed cells and the drawings as SVG text.
+- `src/components/comb/Hive.astro` is the frame and `Panel*.astro` is one cell each.
+- `src/scripts/comb/comb.ts` starts all three cells.
+
 ## Where things are
 
 ```
@@ -1046,6 +1055,7 @@ src/data/retro.ts          everything the retrograde page says: seats, takeaways
 src/data/life.ts           everything the Game of Life page says: sheets, takeaways, sources
 src/data/dial.ts           everything the sundial page says: slabs, takeaways, sources
 src/data/prices.ts         everything the inflation page says: lines, takeaways, sources
+src/data/comb.ts           everything the honeycomb page says: cells, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1139,6 +1149,7 @@ src/components/retro/      the retrograde page: three seats under a dome, as tab
 src/components/life/       the Game of Life page: three sheets of graph paper
 src/components/dial/       the sundial page: three stone slabs
 src/components/prices/     the inflation page: a till receipt with three lines
+src/components/comb/       the honeycomb page: three cells of a hive
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1229,6 +1240,7 @@ src/styles/retro.css       the retrograde page: night violet, a dome edge, tabs
 src/styles/life.css        the Game of Life page: graph paper and green ink
 src/styles/dial.css        the sundial page: sandstone slabs
 src/styles/prices.css      the inflation page: grey receipt paper in monospace
+src/styles/comb.css        the honeycomb page: dark hive frame and amber walls
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1312,6 +1324,7 @@ src/lib/retro.ts           the orbits, the loops and the drawings for the retrog
 src/lib/life.ts            the rule, the patterns, the soups and the drawings for the Game of Life page
 src/lib/dial.ts            the hour lines, the wrong tilt, the equation of time and the drawings for the sundial page
 src/lib/prices.ts          the growth, the basket, the pay sums and the drawings for the inflation page
+src/lib/comb.ts            the tiling, the outlines, the squeezed cells and the drawings for the honeycomb page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1403,6 +1416,7 @@ src/scripts/retro/         starts the tabs and three seats of the retrograde pag
 src/scripts/life/          the grids of squares and the three sheets of the Game of Life page
 src/scripts/dial/          starts the three slabs of the sundial page
 src/scripts/prices/        starts the three lines of the inflation page
+src/scripts/comb/          starts the three cells of the honeycomb page
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

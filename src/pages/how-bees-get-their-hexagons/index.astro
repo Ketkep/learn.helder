@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Hive from '../../components/comb/Hive.astro';
+import { takeaways, sources, sourcesNote } from '../../data/comb';
+---
+
+<TopicLayout
+  slug="how-bees-get-their-hexagons"
+  intro="Why is a honeycomb made of hexagons? See which shapes fit together, how much wall each one needs and how round cells squeezed together turn into hexagons."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Hive />
+</TopicLayout>

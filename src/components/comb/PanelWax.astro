@@ -1,0 +1,19 @@
+---
+// Cell 2: the same room with less wall. Without a script the picture shows the outlines and the table the wax for 100 cells.
+import { KINDS, fmt, outline, wallSvg, wax } from '../../lib/comb';
+---
+
+<div class="tool" data-wax-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="Bars for the length of wall around one unit of area for a triangle, a square, a hexagon and a circle. The hexagon is the shortest of the three that tile." data-wax-svg>
+    <g set:html={wallSvg(100)} data-wax-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Wall needed for 100 cells of area 1, in units</caption>
+    <thead><tr><th scope="col">Shape</th><th scope="col">Outline of one cell</th><th scope="col">Wall for 100 cells</th></tr></thead>
+    <tbody>{[3, 4, 6].map((n) => <tr><th scope="row">{KINDS.filter((k) => Math.abs(k.len - outline(n)) < 1e-9)[0].name}</th><td>{fmt(outline(n), 2)}</td><td>{fmt(wax(n, 100))}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Cells <output data-wax-out>100</output></span><input class="range" type="range" min="10" max="500" step="10" value="100" data-wax-range aria-label="Number of cells in the comb" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-wax-status>For 100 cells the hexagon needs {fmt(wax(6, 100))} units of wall, the square {fmt(wax(4, 100))} and the triangle {fmt(wax(3, 100))}.</p>
+</div>

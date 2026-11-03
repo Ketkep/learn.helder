@@ -937,6 +937,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-03',
     status: 'live',
   },
+  {
+    slug: 'how-bees-get-their-hexagons',
+    title: 'How bees get their hexagons',
+    hook: 'See which shapes fit together, which needs the least wall and how round cells squeeze into hexagons.',
+    category: 'Nature',
+    accent: '#F5CF65',
+    preview: 'how-bees-get-their-hexagons',
+    dateAdded: '2026-11-03',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */
