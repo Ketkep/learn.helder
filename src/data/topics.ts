@@ -947,6 +947,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-03',
     status: 'live',
   },
+  {
+    slug: 'why-two-close-notes-wobble',
+    title: 'Why two close notes wobble',
+    hook: 'Add two waves, tune a string by ear and hear where the swells turn rough.',
+    category: 'Music',
+    accent: '#8ECAE6',
+    preview: 'why-two-close-notes-wobble',
+    dateAdded: '2026-11-04',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

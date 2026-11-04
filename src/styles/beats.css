@@ -1,0 +1,484 @@
+/* The beats page: a pale score with staff lines behind each movement, the words and the tool side by side. */
+
+.beats {
+  --board: #e6eef3;
+  --panel: #f8fbfd;
+  --line: #5f7f95;
+  --wood: #1f5a7a;
+  --cream: #14232d;
+  --ink-fixed: #f8fbfd;
+  --pink: #1f5a7a;
+  --blue: #1f5a7a;
+  --wash: rgb(0 0 0 / 0.08);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .beats .needs-js {
+  display: none;
+}
+
+.beats :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.beats .card-body,
+.beats .paras,
+.beats .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.beats h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.beats .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.beats .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.beats .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.beats .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.beats .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.beats .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.beats .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.beats .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.beats .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.beats .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.beats .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.beats .times th,
+.beats .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.beats .times thead th {
+  color: #3b5566;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.beats .times tbody th {
+  font-weight: 700;
+}
+
+.beats .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.beats .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.beats .pick:hover {
+  background: var(--wash);
+}
+
+.beats .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .beats .no-js-name {
+  display: none;
+}
+
+.beats .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.beats .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.beats .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.beats .btn:hover {
+  background: var(--wash);
+}
+
+.beats .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.beats .btn.fill:hover {
+  background: var(--cream);
+}
+
+.beats .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.beats .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.beats .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.beats .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.beats .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.beats .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.beats .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.beats .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.beats .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.beats .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.beats .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.beats .snd[aria-pressed='true'] .slash,
+.beats .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beats * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.beats .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The score ---------- */
+.beats .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 8px solid var(--wood);
+  background: var(--panel);
+}
+
+.beats .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.beats .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.beats .staves {
+  display: grid;
+  gap: 2rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter) 3rem;
+}
+
+/* A movement: a sheet with a bar line on the left, and five staff lines across the top */
+.beats .movement {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem;
+  min-width: 0;
+  padding: clamp(1.6rem, 3vw, 2.2rem) clamp(1rem, 3vw, 2rem) clamp(1.2rem, 3vw, 2rem) clamp(1.4rem, 3vw, 2.4rem);
+  border-left: 6px double var(--wood);
+  background-color: var(--panel);
+  box-shadow: 4px 4px 0 rgb(0 0 0 / 0.12);
+}
+
+.beats .movement::before {
+  content: '';
+  grid-column: 1 / -1;
+  height: 2.5rem;
+  margin-bottom: -0.6rem;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px);
+  background-size: 100% 0.6rem;
+  background-repeat: repeat-y;
+}
+
+@media (min-width: 64rem) {
+  .beats .movement {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 2.4rem;
+    align-items: start;
+  }
+}
+
+.beats .words {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.beats .bench {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+/* ---------- Drawings ---------- */
+.beats .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.beats .sheet {
+  fill: #fdfeff;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.beats .wa {
+  fill: none;
+  stroke: #1f5a7a;
+  stroke-width: 1.6;
+}
+
+.beats .wb {
+  fill: none;
+  stroke: #b3402a;
+  stroke-width: 1.6;
+}
+
+.beats .wsum {
+  fill: none;
+  stroke: #14232d;
+  stroke-width: 1.8;
+}
+
+.beats .axis {
+  stroke: #14232d;
+  stroke-width: 2;
+}
+
+.beats .goal {
+  stroke: #1f5a7a;
+  stroke-width: 3;
+}
+
+.beats .pin {
+  fill: #b3402a;
+  stroke: #14232d;
+  stroke-width: 2;
+}
+
+.beats .pin.ok {
+  fill: #2f7a3a;
+}
+
+.beats .zone.slow {
+  fill: #bfe0c4;
+}
+
+.beats .zone.mid {
+  fill: #f2dc9c;
+}
+
+.beats .zone.fast {
+  fill: #f0b9a8;
+}
+
+.beats .lab {
+  fill: var(--cream);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.beats .lab.small {
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.beats .lab.mid {
+  text-anchor: middle;
+}
+
+.beats .lab.end {
+  text-anchor: end;
+}
+
+.beats .times {
+  table-layout: fixed;
+}
+
+.beats .times th,
+.beats .times td {
+  overflow-wrap: anywhere;
+}

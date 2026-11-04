@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .bt-line { fill: none; stroke: var(--on-cover); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+    .bt-env { opacity: 0.45; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .bt-wave { animation: bt-slide 2s linear infinite; }
+    }
+    /* The wave slides along under the envelope */
+    @keyframes bt-slide { from { transform: translateX(0); } to { transform: translateX(-36px); } }
+  </style>
+
+  <g>
+    <path class="bt-line bt-env" d="M40 150 C100 60 140 60 200 150 C260 240 300 240 360 150"/>
+    <path class="bt-line bt-env" d="M40 150 C100 240 140 240 200 150 C260 60 300 60 360 150"/>
+    <g class="bt-wave">
+      <path class="bt-line" d="M40 150 q9 -52 18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0"/>
+    </g>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

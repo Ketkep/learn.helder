@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Score from '../../components/beats/Score.astro';
+import { takeaways, sources, sourcesNote } from '../../data/beats';
+---
+
+<TopicLayout
+  slug="why-two-close-notes-wobble"
+  intro="Two notes of almost the same pitch swell and fade. Add the waves, tune a string by listening for the wobble and hear where the swells turn rough."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Score />
+</TopicLayout>

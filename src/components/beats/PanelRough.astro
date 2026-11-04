@@ -1,0 +1,24 @@
+---
+// Movement 3: when the swells turn rough. Without a script the picture shows two notes 5 hertz apart and the table lists the zones.
+import { zonesSvg } from '../../lib/beats';
+---
+
+<div class="tool" data-rough-tool>
+  <svg class="plate" viewBox="0 0 300 120" role="img" aria-label="A bar from 0 to 60 hertz of difference, in three zones: swells, flutter, and roughness and then two notes. A marker shows five hertz." data-rough-svg>
+    <g set:html={zonesSvg(5)} data-rough-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">What two notes sound like at different gaps, as sources describe it</caption>
+    <thead><tr><th scope="col">Gap</th><th scope="col">What you hear</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">0 to about 10 Hz</th><td>Swells you can count</td></tr>
+      <tr><th scope="row">about 10 to 20 Hz</th><td>A flutter</td></tr>
+      <tr><th scope="row">above about 20 Hz</th><td>Roughness, and then two separate notes</td></tr>
+    </tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Gap <output data-rough-out>5</output> Hz</span><input class="range" type="range" min="0" max="60" step="1" value="5" data-rough-range aria-label="Gap between the two notes in hertz" /></label>
+    <button class="btn fill" type="button" data-rough-listen>Listen</button>
+  </div>
+  <p class="status" aria-live="polite" data-rough-status>Two notes of 440 and 445 hertz: five swells a second, which you can still count with effort. The zones are rough guides.</p>
+</div>

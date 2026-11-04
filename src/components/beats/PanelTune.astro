@@ -1,0 +1,18 @@
+---
+// Movement 2: tune a string by ear. Without a script the picture shows a string 9 hertz too high.
+import { gaugeSvg } from '../../lib/beats';
+---
+
+<div class="tool" data-tune-tool>
+  <svg class="plate" viewBox="0 0 300 100" role="img" aria-label="A gauge with a marker to the right of the middle, showing a string that is too high." data-tune-svg>
+    <g set:html={gaugeSvg(9)} data-tune-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Peg <output data-tune-out>0</output></span><input class="range" type="range" min="-15" max="15" step="0.5" value="0" data-tune-range aria-label="Turn of the tuning peg, lower to the left and higher to the right" /></label>
+  </div>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-tune-listen>Listen</button>
+    <button class="btn" type="button" data-tune-new>New string</button>
+  </div>
+  <p class="status" aria-live="polite" data-tune-status>Press Listen, then turn the peg until the swells stop.</p>
+</div>

@@ -962,6 +962,15 @@ The page is a dark hive frame with three amber-walled cells stacked in a column,
 - `src/components/comb/Hive.astro` is the frame and `Panel*.astro` is one cell each.
 - `src/scripts/comb/comb.ts` starts all three cells.
 
+## The beats page: how the three movements work
+
+The page is a pale score: each movement is a sheet with a double bar line on the left and five staff lines across the top, the words on one side and the tool on the other. Movement 1 adds two waves. The first note is fixed at 220 hertz and the second is chosen, and the sum swells and fades at a rate equal to the difference of the two frequencies, with the pitch heard at the average. The picture is drawn slowed down (30 and 32 cycles in a window of two swells) and says so. Movement 2 tunes a string: a reference note of 440 hertz, a string that starts off by a seeded amount (9, minus 6, 3.5, minus 12, 7), and a peg slider, with a gauge and a swell rate. When the swells stop within a quarter of a hertz it says the string is in tune. Movement 3 moves the notes up to 60 hertz apart and describes swells, flutter and roughness. Sources disagree between about 7 and 40 hertz on where beats turn into roughness, so the zones are called rough guides. The Listen buttons play two pure tones with `hold()` from `sound.ts` for three seconds, only when pressed. Without a script each movement shows one picture or table.
+
+- `src/data/beats.ts` holds all the words, the takeaways and the sources.
+- `src/lib/beats.ts` holds the beat sums and the drawings as SVG text.
+- `src/components/beats/Score.astro` is the frame and `Panel*.astro` is one movement each.
+- `src/scripts/beats/beats.ts` starts all three movements and plays the notes.
+
 ## Where things are
 
 ```
@@ -1056,6 +1065,7 @@ src/data/life.ts           everything the Game of Life page says: sheets, takeaw
 src/data/dial.ts           everything the sundial page says: slabs, takeaways, sources
 src/data/prices.ts         everything the inflation page says: lines, takeaways, sources
 src/data/comb.ts           everything the honeycomb page says: cells, takeaways, sources
+src/data/beats.ts          everything the beats page says: movements, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1150,6 +1160,7 @@ src/components/life/       the Game of Life page: three sheets of graph paper
 src/components/dial/       the sundial page: three stone slabs
 src/components/prices/     the inflation page: a till receipt with three lines
 src/components/comb/       the honeycomb page: three cells of a hive
+src/components/beats/      the beats page: a score in three movements
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1241,6 +1252,7 @@ src/styles/life.css        the Game of Life page: graph paper and green ink
 src/styles/dial.css        the sundial page: sandstone slabs
 src/styles/prices.css      the inflation page: grey receipt paper in monospace
 src/styles/comb.css        the honeycomb page: dark hive frame and amber walls
+src/styles/beats.css       the beats page: pale score with staff lines
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1325,6 +1337,7 @@ src/lib/life.ts            the rule, the patterns, the soups and the drawings fo
 src/lib/dial.ts            the hour lines, the wrong tilt, the equation of time and the drawings for the sundial page
 src/lib/prices.ts          the growth, the basket, the pay sums and the drawings for the inflation page
 src/lib/comb.ts            the tiling, the outlines, the squeezed cells and the drawings for the honeycomb page
+src/lib/beats.ts           the beat sums and the drawings for the beats page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1417,6 +1430,7 @@ src/scripts/life/          the grids of squares and the three sheets of the Game
 src/scripts/dial/          starts the three slabs of the sundial page
 src/scripts/prices/        starts the three lines of the inflation page
 src/scripts/comb/          starts the three cells of the honeycomb page
+src/scripts/beats/         starts the three movements of the beats page and plays the notes
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next
