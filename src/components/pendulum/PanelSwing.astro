@@ -1,0 +1,21 @@
+---
+// Pendulum 2: weight and size of swing. Without a script the picture shows a swing of 60 degrees and the table lists five sizes.
+import { exactPeriod, fmt, pendulumSvg, period } from '../../lib/pendulum';
+---
+
+<div class="tool" data-swing-tool>
+  <svg class="plate" viewBox="0 0 300 200" role="img" aria-label="A pendulum pulled out to the side by sixty degrees." data-swing-svg>
+    <g set:html={pendulumSvg(1, 60, 0.2, 'Swing of 60 degrees')} data-swing-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">How much longer a big swing takes than a small one, for a pendulum one metre long on Earth</caption>
+    <thead><tr><th scope="col">Swing</th><th scope="col">Full swing</th><th scope="col">Longer than small swing</th></tr></thead>
+    <tbody>{[5, 15, 30, 60, 90].map((d) => <tr><th scope="row">{d}°</th><td>{fmt(exactPeriod(1, 9.81, d), 3)} s</td><td>{fmt((exactPeriod(1, 9.81, d) / period(1, 9.81) - 1) * 100, 1)}%</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Swing <output data-swing-out>60</output>°</span><input class="range" type="range" min="2" max="90" step="1" value="60" data-swing-range aria-label="Size of the swing in degrees" /></label>
+    <label class="field"><span>Weight <output data-swing-mass-out>200</output> g</span><input class="range" type="range" min="10" max="1000" step="10" value="200" data-swing-mass aria-label="Weight of the bob in grams" /></label>
+    <button class="btn fill" type="button" data-swing-go aria-pressed="false">Swing</button>
+  </div>
+  <p class="status" aria-live="polite" data-swing-status>A swing of 60 degrees takes {fmt(exactPeriod(1, 9.81, 60), 3)} seconds, which is {fmt((exactPeriod(1, 9.81, 60) / period(1, 9.81) - 1) * 100, 1)}% longer than a small swing. The weight makes no difference.</p>
+</div>

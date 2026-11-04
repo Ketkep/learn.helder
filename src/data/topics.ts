@@ -967,6 +967,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-04',
     status: 'live',
   },
+  {
+    slug: 'why-a-pendulum-keeps-a-steady-beat',
+    title: 'Why a pendulum keeps a steady beat',
+    hook: 'Change the length and the place, the weight and the swing, and set a pendulum to beat seconds.',
+    category: 'Technology',
+    accent: '#E0B872',
+    preview: 'why-a-pendulum-keeps-a-steady-beat',
+    dateAdded: '2026-11-04',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

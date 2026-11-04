@@ -980,6 +980,15 @@ The page is three full-width brown bands, like the zones of a flower head, each 
 - `src/components/phyllo/Head.astro` is the frame and `Panel*.astro` is one ring each.
 - `src/scripts/phyllo/phyllo.ts` starts all three rings.
 
+## The pendulum page: how the three pendulums work
+
+The page is a dark wood wall with a thin line under each section, the words on one side and a pendulum drawing on the other (sides swap on the second). The small-swing rule is the one from the sources: one full swing takes 2 pi times the square root of length over gravity. Pendulum 1 changes the length and the place (Earth 9.81, Mars 3.71, Moon 1.62, rounded). Pendulum 2 changes the weight, which makes no difference, and the size of the swing, for which the page uses the exact period from the arithmetic-geometric mean (about 0.4 per cent longer at 15 degrees, 1.7 at 30, 7.3 at 60 and 18 at 90). Pendulum 3 sets a length against the seconds pendulum of about 0.994 metres and works out the seconds a clock would gain or lose in a day. The Swing buttons run a twelve second swing, drawn with a plain cosine, only after they are pressed, and press again to stop. Jupiter is left out because its gravity depends on the definition. Without a script each pendulum shows one picture or table.
+
+- `src/data/pendulum.ts` holds all the words, the takeaways and the sources.
+- `src/lib/pendulum.ts` holds the periods, the drift of a clock and the drawing as SVG text.
+- `src/components/pendulum/Wall.astro` is the frame and `Panel*.astro` is one pendulum each.
+- `src/scripts/pendulum/pendulum.ts` starts all three pendulums and the Swing buttons.
+
 ## Where things are
 
 ```
@@ -1076,6 +1085,7 @@ src/data/prices.ts         everything the inflation page says: lines, takeaways,
 src/data/comb.ts           everything the honeycomb page says: cells, takeaways, sources
 src/data/beats.ts          everything the beats page says: movements, takeaways, sources
 src/data/phyllo.ts         everything the sunflower page says: rings, takeaways, sources
+src/data/pendulum.ts       everything the pendulum page says: hooks, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1172,6 +1182,7 @@ src/components/prices/     the inflation page: a till receipt with three lines
 src/components/comb/       the honeycomb page: three cells of a hive
 src/components/beats/      the beats page: a score in three movements
 src/components/phyllo/     the sunflower page: three rings of a flower head
+src/components/pendulum/   the pendulum page: a clockmaker's wall with three pendulums
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1265,6 +1276,7 @@ src/styles/prices.css      the inflation page: grey receipt paper in monospace
 src/styles/comb.css        the honeycomb page: dark hive frame and amber walls
 src/styles/beats.css       the beats page: pale score with staff lines
 src/styles/phyllo.css      the sunflower page: brown bands and amber seeds
+src/styles/pendulum.css    the pendulum page: dark wood and brass
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1351,6 +1363,7 @@ src/lib/prices.ts          the growth, the basket, the pay sums and the drawings
 src/lib/comb.ts            the tiling, the outlines, the squeezed cells and the drawings for the honeycomb page
 src/lib/beats.ts           the beat sums and the drawings for the beats page
 src/lib/phyllo.ts          the seed model, the gap measure and the drawings for the sunflower page
+src/lib/pendulum.ts        the periods, the drift of a clock and the drawing for the pendulum page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1445,6 +1458,7 @@ src/scripts/prices/        starts the three lines of the inflation page
 src/scripts/comb/          starts the three cells of the honeycomb page
 src/scripts/beats/         starts the three movements of the beats page and plays the notes
 src/scripts/phyllo/        starts the three rings of the sunflower page
+src/scripts/pendulum/      starts the three pendulums of the pendulum page
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

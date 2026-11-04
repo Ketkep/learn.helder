@@ -1,0 +1,20 @@
+---
+// Pendulum 3: set a pendulum to beat seconds. Without a script the picture shows 1.00 m and the table lists three lengths.
+import { driftPerDay, fmt, lengthFor, pendulumSvg, period } from '../../lib/pendulum';
+const day = (l: number) => driftPerDay(2, period(l, 9.81));
+---
+
+<div class="tool" data-seconds-tool>
+  <svg class="plate" viewBox="0 0 300 200" role="img" aria-label="A pendulum about one metre long hanging at rest." data-seconds-svg>
+    <g set:html={pendulumSvg(1, 0, 0.5, '1.00 m on Earth')} data-seconds-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">How a clock with a pendulum of each length gains or loses time in a day on Earth</caption>
+    <thead><tr><th scope="col">Length</th><th scope="col">Full swing</th><th scope="col">Clock in a day</th></tr></thead>
+    <tbody>{[0.98, 0.994, 1.0].map((l) => <tr><th scope="row">{fmt(l, 3)} m</th><td>{fmt(period(l, 9.81), 3)} s</td><td>{Math.abs(day(l)) < 5 ? 'right' : `${day(l) > 0 ? 'gains' : 'loses'} ${fmt(Math.abs(day(l)))} s`}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Length <output data-seconds-out>1.000</output> m</span><input class="range" type="range" min="0.9" max="1.1" step="0.001" value="1" data-seconds-range aria-label="Length of the pendulum in metres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-seconds-status>A pendulum 1 metre long takes {fmt(period(1, 9.81), 3)} seconds for a full swing. A clock with it loses {fmt(Math.abs(day(1)))} seconds in a day.</p>
+</div>

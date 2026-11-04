@@ -1,0 +1,21 @@
+---
+// Pendulum 1: length and place. Without a script the picture shows 1 m on Earth and the table lists three places.
+import { PLACES, fmt, pendulumSvg, period } from '../../lib/pendulum';
+---
+
+<div class="tool" data-length-tool>
+  <svg class="plate" viewBox="0 0 300 200" role="img" aria-label="A pendulum one metre long hanging at rest from a rail." data-length-svg>
+    <g set:html={pendulumSvg(1, 0, 0.2, '1.00 m on Earth')} data-length-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Time of one full small swing of a pendulum one metre long, in three places</caption>
+    <thead><tr><th scope="col">Place</th><th scope="col">Pull of gravity</th><th scope="col">One full swing</th></tr></thead>
+    <tbody>{PLACES.map((p) => <tr><th scope="row">{p.name}</th><td>{p.g} m/s²</td><td>{fmt(period(1, p.g), 2)} seconds</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-length-picks></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Length <output data-length-out>1.00</output> m</span><input class="range" type="range" min="0.1" max="2.5" step="0.05" value="1" data-length-range aria-label="Length of the pendulum in metres" /></label>
+    <button class="btn fill" type="button" data-length-swing aria-pressed="false">Swing</button>
+  </div>
+  <p class="status" aria-live="polite" data-length-status>A pendulum 1 metre long on Earth takes {fmt(period(1, 9.81), 2)} seconds for one full swing.</p>
+</div>

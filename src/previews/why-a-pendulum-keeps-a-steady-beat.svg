@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .pd-line { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linecap: round; }
+    .pd-fill { fill: var(--on-cover); }
+    .pd-arm { transform-box: view-box; transform-origin: 200px 70px; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .pd-arm { animation: pd-swing 2.4s ease-in-out infinite; }
+    }
+    /* The pendulum swings from side to side at an even pace */
+    @keyframes pd-swing { 0%, 100% { transform: rotate(-24deg); } 50% { transform: rotate(24deg); } }
+  </style>
+
+  <g>
+    <path class="pd-line" d="M150 70 H250"/>
+    <g class="pd-arm">
+      <path class="pd-line" d="M200 70 V190"/>
+      <circle class="pd-fill" cx="200" cy="205" r="22"/>
+    </g>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

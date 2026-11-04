@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Wall from '../../components/pendulum/Wall.astro';
+import { takeaways, sources, sourcesNote } from '../../data/pendulum';
+---
+
+<TopicLayout
+  slug="why-a-pendulum-keeps-a-steady-beat"
+  intro="A swinging weight takes the same time for each swing. Change the length and the place, the weight and the size of the swing, and set a pendulum to beat seconds."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Wall />
+</TopicLayout>
