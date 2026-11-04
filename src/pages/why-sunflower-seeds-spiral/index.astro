@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Head from '../../components/phyllo/Head.astro';
+import { takeaways, sources, sourcesNote } from '../../data/phyllo';
+---
+
+<TopicLayout
+  slug="why-sunflower-seeds-spiral"
+  intro="Turn each new seed by the same angle and spirals appear. Try the golden angle, count the arms and see which angles leave gaps."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Head />
+</TopicLayout>

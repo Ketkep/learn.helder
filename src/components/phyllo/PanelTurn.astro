@@ -1,0 +1,16 @@
+---
+// Ring 1: turn each new seed by the same angle. Without a script the picture shows the golden angle with 400 seeds.
+import { GOLDEN, fmt, headSvg } from '../../lib/phyllo';
+---
+
+<div class="tool" data-turn-tool>
+  <svg class="plate round" viewBox="0 0 300 300" role="img" aria-label="A round head of 400 seeds in curving spirals with no straight rays and no gaps." data-turn-svg>
+    <g set:html={headSvg(GOLDEN, 400)} data-turn-g></g>
+  </svg>
+  <div class="controls needs-js" data-turn-picks></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Angle <output data-turn-out>137.5</output>°</span><input class="range" type="range" min="90" max="180" step="0.1" value="137.5" data-turn-range aria-label="Angle of turn between seeds, in degrees" /></label>
+    <label class="field"><span>Seeds <output data-turn-n-out>400</output></span><input class="range" type="range" min="50" max="800" step="10" value="400" data-turn-n aria-label="Number of seeds" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-turn-status>At the golden angle ({fmt(GOLDEN, 3)} degrees) the seeds line up on no straight rays and spread evenly.</p>
+</div>

@@ -1,0 +1,14 @@
+---
+// Ring 3: which angles leave gaps. Without a script the picture shows the graph with the golden angle marked.
+import { GOLDEN, landscapeSvg } from '../../lib/phyllo';
+---
+
+<div class="tool" data-gaps-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A graph of the biggest empty space in a head of seeds for each angle from 100 to 180 degrees. There are sharp spikes at 120, 144 and 180 degrees. The golden angle is marked and is low." data-gaps-svg>
+    <g set:html={landscapeSvg(GOLDEN)} data-gaps-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Angle <output data-gaps-out>137.5</output>°</span><input class="range" type="range" min="100" max="180" step="0.5" value="137.5" data-gaps-range aria-label="Angle of turn between seeds, in degrees" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-gaps-status>At 137.5 degrees the biggest gap is about 1.4 times the average spacing, and the seeds fall on no straight rays.</p>
+</div>

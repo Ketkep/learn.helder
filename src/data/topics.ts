@@ -957,6 +957,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-04',
     status: 'live',
   },
+  {
+    slug: 'why-sunflower-seeds-spiral',
+    title: 'Why sunflower seeds spiral',
+    hook: 'Turn each new seed by the same angle, count the spiral arms and see which angles leave gaps.',
+    category: 'Nature',
+    accent: '#F2B544',
+    preview: 'why-sunflower-seeds-spiral',
+    dateAdded: '2026-11-04',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

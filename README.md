@@ -971,6 +971,15 @@ The page is a pale score: each movement is a sheet with a double bar line on the
 - `src/components/beats/Score.astro` is the frame and `Panel*.astro` is one movement each.
 - `src/scripts/beats/beats.ts` starts all three movements and plays the notes.
 
+## The sunflower page: how the three rings work
+
+The page is three full-width brown bands, like the zones of a flower head, each with the words on one side and a round picture on the other (the sides swap on the second band). The model is Vogel's: seed n sits at a distance proportional to the square root of n and is turned by a fixed angle from the one before. Ring 1 has an angle slider (90 to 180 degrees), a seed count and four picks (90, 120, 144 and 137.5 golden). The golden angle is 180 times (3 minus the square root of 5), about 137.508, and the page notes that 137.5 is rounded. It says how many straight rays a simple fraction gives. Ring 2 colours seeds by their number modulo a Fibonacci number to show that many spiral arms, and gives the neighbouring Fibonacci numbers for the other direction. The typical pairs (34 and 55 for sunflowers, 8 and 13 for pine cones) are marked as typical. Ring 3 is a toy gap measure made for the page: the biggest empty circle as a share of the average seed spacing, drawn for each angle from 100 to 180. It spikes at 120, 144 and 180 degrees. The page says many other angles look about as good as the golden one at this size, as one source says, and mentions a gerbera study that found spirals without the golden angle. Without a script each ring shows one picture.
+
+- `src/data/phyllo.ts` holds all the words, the takeaways and the sources.
+- `src/lib/phyllo.ts` holds the seed model, the gap measure and the drawings as SVG text.
+- `src/components/phyllo/Head.astro` is the frame and `Panel*.astro` is one ring each.
+- `src/scripts/phyllo/phyllo.ts` starts all three rings.
+
 ## Where things are
 
 ```
@@ -1066,6 +1075,7 @@ src/data/dial.ts           everything the sundial page says: slabs, takeaways, s
 src/data/prices.ts         everything the inflation page says: lines, takeaways, sources
 src/data/comb.ts           everything the honeycomb page says: cells, takeaways, sources
 src/data/beats.ts          everything the beats page says: movements, takeaways, sources
+src/data/phyllo.ts         everything the sunflower page says: rings, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1161,6 +1171,7 @@ src/components/dial/       the sundial page: three stone slabs
 src/components/prices/     the inflation page: a till receipt with three lines
 src/components/comb/       the honeycomb page: three cells of a hive
 src/components/beats/      the beats page: a score in three movements
+src/components/phyllo/     the sunflower page: three rings of a flower head
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1253,6 +1264,7 @@ src/styles/dial.css        the sundial page: sandstone slabs
 src/styles/prices.css      the inflation page: grey receipt paper in monospace
 src/styles/comb.css        the honeycomb page: dark hive frame and amber walls
 src/styles/beats.css       the beats page: pale score with staff lines
+src/styles/phyllo.css      the sunflower page: brown bands and amber seeds
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1338,6 +1350,7 @@ src/lib/dial.ts            the hour lines, the wrong tilt, the equation of time 
 src/lib/prices.ts          the growth, the basket, the pay sums and the drawings for the inflation page
 src/lib/comb.ts            the tiling, the outlines, the squeezed cells and the drawings for the honeycomb page
 src/lib/beats.ts           the beat sums and the drawings for the beats page
+src/lib/phyllo.ts          the seed model, the gap measure and the drawings for the sunflower page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1431,6 +1444,7 @@ src/scripts/dial/          starts the three slabs of the sundial page
 src/scripts/prices/        starts the three lines of the inflation page
 src/scripts/comb/          starts the three cells of the honeycomb page
 src/scripts/beats/         starts the three movements of the beats page and plays the notes
+src/scripts/phyllo/        starts the three rings of the sunflower page
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next
