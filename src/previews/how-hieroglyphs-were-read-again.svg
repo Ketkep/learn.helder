@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .rs-line { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    .rs-fill { fill: var(--on-cover); }
+    .rs-sign { transform-box: fill-box; transform-origin: center; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .rs-sign { animation: rs-pulse 2.4s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .rs-sign.two { animation-delay: 0.4s; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .rs-sign.three { animation-delay: 0.8s; }
+    }
+    /* The signs light up one after another, like letters being matched */
+    @keyframes rs-pulse { 0%, 100% { transform: scale(1); } 40% { transform: scale(1.25); } }
+  </style>
+
+  <g>
+    <path class="rs-line" d="M120 90 H280 A32 32 0 0 1 280 154 H120 A32 32 0 0 1 120 90 Z"/>
+    <rect class="rs-fill rs-sign" x="140" y="110" width="26" height="14" rx="2"/>
+    <path class="rs-fill rs-sign two" d="M184 134 A14 14 0 0 1 212 134 Z"/>
+    <circle class="rs-fill rs-sign three" cx="236" cy="122" r="9"/>
+    <path class="rs-line" d="M120 200 H280"/>
+    <path class="rs-line" d="M120 226 H280" opacity="0.5"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

@@ -998,6 +998,15 @@ The page is a green card table with three rounded trays with a cream rim, one af
 - `src/components/sorting/Table.astro` is the frame and `Panel*.astro` is one tray each.
 - `src/scripts/sorting/sorting.ts` builds the bars and starts all three trays.
 
+## The Rosetta Stone page: how the three bands work
+
+The page is a dark basalt slab with gold lettering, three rows, each with the words on one side and a tool on the other (swapping sides on the second). The history is from the sources: a decree for Ptolemy V of 196 BCE in hieroglyphs, demotic and Greek, found in 1799, in the British Museum since 1802, Champollion's announcement on 27 September 1822 and Thomas Young's earlier steps. Where sources differ (July or August for the find, 1801 or 1802 for the transfer) the page gives both. Band 1 draws the stone in three bands and describes each script. Band 2 puts the cartouches of Ptolemy and Cleopatra in two rows of signs, and pressing a sign of the first name lights the same sign in the second with its sound (p, t, o and l are shared). The signs are simplified shapes made for the page, not the real hieroglyphs, the spelling of the names is simplified, and the page says so. Band 3 is a toy picture puzzle in English that shows how pictures can stand for sounds, to introduce sound signs, whole word signs and determinatives. The title avoids the banned word "unlocked", which the topic check caught. Without a script each band shows one picture or table.
+
+- `src/data/rosetta.ts` holds all the words, the takeaways and the sources.
+- `src/lib/rosetta.ts` holds the scripts, the simplified signs, the two names, the puzzles and the drawings as SVG text.
+- `src/components/rosetta/Slab.astro` is the frame and `Panel*.astro` is one band each.
+- `src/scripts/rosetta/rosetta.ts` starts all three bands.
+
 ## Where things are
 
 ```
@@ -1096,6 +1105,7 @@ src/data/beats.ts          everything the beats page says: movements, takeaways,
 src/data/phyllo.ts         everything the sunflower page says: rings, takeaways, sources
 src/data/pendulum.ts       everything the pendulum page says: hooks, takeaways, sources
 src/data/sorting.ts        everything the sorting page says: trays, takeaways, sources
+src/data/rosetta.ts        everything the Rosetta Stone page says: bands, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1194,6 +1204,7 @@ src/components/beats/      the beats page: a score in three movements
 src/components/phyllo/     the sunflower page: three rings of a flower head
 src/components/pendulum/   the pendulum page: a clockmaker's wall with three pendulums
 src/components/sorting/    the sorting page: a card table with three trays
+src/components/rosetta/    the Rosetta Stone page: a slab in three bands
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1289,6 +1300,7 @@ src/styles/beats.css       the beats page: pale score with staff lines
 src/styles/phyllo.css      the sunflower page: brown bands and amber seeds
 src/styles/pendulum.css    the pendulum page: dark wood and brass
 src/styles/sorting.css     the sorting page: green felt and cream bars
+src/styles/rosetta.css     the Rosetta Stone page: dark basalt and gold
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1377,6 +1389,7 @@ src/lib/beats.ts           the beat sums and the drawings for the beats page
 src/lib/phyllo.ts          the seed model, the gap measure and the drawings for the sunflower page
 src/lib/pendulum.ts        the periods, the drift of a clock and the drawing for the pendulum page
 src/lib/sorting.ts         the three sorting methods, the counts, the bounds and the drawings for the sorting page
+src/lib/rosetta.ts         the scripts, the simplified signs, the two names and the drawings for the Rosetta Stone page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1473,6 +1486,7 @@ src/scripts/beats/         starts the three movements of the beats page and play
 src/scripts/phyllo/        starts the three rings of the sunflower page
 src/scripts/pendulum/      starts the three pendulums of the pendulum page
 src/scripts/sorting/       builds the bars and starts the three trays of the sorting page
+src/scripts/rosetta/       starts the three bands of the Rosetta Stone page
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

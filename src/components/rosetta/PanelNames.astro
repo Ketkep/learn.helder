@@ -1,0 +1,14 @@
+---
+// Band 2: two names with signs in common. Without a script the picture shows both names and the status lists the shared signs.
+import { cartouchesSvg } from '../../lib/rosetta';
+---
+
+<div class="tool" data-names-tool>
+  <div data-names-host>
+    <svg class="plate" viewBox="0 0 300 176" role="img" aria-label="Two ovals, each holding a row of simple signs. The first spells Ptolemy and the second Cleopatra. Signs that appear in both are the same shape." data-names-svg>
+      <g set:html={cartouchesSvg('p')} data-names-g></g>
+    </svg>
+  </div>
+  <div class="controls needs-js" data-names-picks></div>
+  <p class="status" aria-live="polite" data-names-status>The signs for p, t, o and l appear in both names, in different places. Press a sign to light it up.</p>
+</div>

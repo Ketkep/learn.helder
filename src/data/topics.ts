@@ -987,6 +987,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-05',
     status: 'live',
   },
+  {
+    slug: 'how-hieroglyphs-were-read-again',
+    title: 'How hieroglyphs were read again',
+    hook: 'Look at the three scripts, match the signs in two royal names and see how a script mixes sound and meaning.',
+    category: 'Language',
+    accent: '#D4B483',
+    preview: 'how-hieroglyphs-were-read-again',
+    dateAdded: '2026-11-05',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

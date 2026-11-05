@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Slab from '../../components/rosetta/Slab.astro';
+import { takeaways, sources, sourcesNote } from '../../data/rosetta';
+---
+
+<TopicLayout
+  slug="how-hieroglyphs-were-read-again"
+  intro="One decree in three scripts, and one of them could be read. See the stone, match the signs in two royal names as Champollion did, and see how a script mixes sound and meaning."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Slab />
+</TopicLayout>

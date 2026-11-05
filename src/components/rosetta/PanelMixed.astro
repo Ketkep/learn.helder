@@ -1,0 +1,15 @@
+---
+// Band 3: signs for sounds and signs for meaning. Without a script the table lists the four puzzles.
+import { REBUSES } from '../../lib/rosetta';
+---
+
+<div class="tool" data-mixed-tool>
+  <table class="times">
+    <caption class="sr-only">Four picture puzzles, their pictures, sounds and words</caption>
+    <thead><tr><th scope="col">Pictures</th><th scope="col">Sounds</th><th scope="col">Word</th></tr></thead>
+    <tbody>{REBUSES.map((r) => <tr><th scope="row">{r.parts.map((p) => p.pic).join(' and ')}</th><td>{r.parts.map((p) => p.sound).join(' + ')}</td><td>{r.word}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-mixed-picks></div>
+  <div class="rebus needs-js" data-mixed-out aria-live="polite"></div>
+  <p class="status" aria-live="polite" data-mixed-status>Press a puzzle. Each picture stands for a sound, and the sounds make a word.</p>
+</div>
