@@ -1,0 +1,14 @@
+---
+// Board 3: a heavier planet, a faster moon. Without a script the picture shows one Earth mass.
+import { daysAround, fmt, massSvg } from '../../lib/kepler';
+---
+
+<div class="tool" data-mass-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A chalk graph of the days for one orbit at 384,400 kilometres against the mass of the planet. The curve falls as the planet gets heavier." data-mass-svg>
+    <g set:html={massSvg(1)} data-mass-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Mass <output data-mass-out>1</output> Earths</span><input class="range" type="range" min="0" max="3.5" step="0.05" value="1" data-mass-range aria-label="Mass of the planet, on a log scale from a tenth of the Earth to about 3000 Earths" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-mass-status>A moon at 384,400 kilometres round a planet of 1 Earth mass takes {fmt(daysAround(1), 1)} days to go round.</p>
+</div>

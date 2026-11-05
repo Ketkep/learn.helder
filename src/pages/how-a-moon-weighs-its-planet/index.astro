@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Chalk from '../../components/kepler/Chalk.astro';
+import { takeaways, sources, sourcesNote } from '../../data/kepler';
+---
+
+<TopicLayout
+  slug="how-a-moon-weighs-its-planet"
+  intro="The time a moon takes to go round, and how far away it is, give the mass of its planet. Check Kepler's law, weigh the Earth and Jupiter, and see what a heavier planet does."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Chalk />
+</TopicLayout>

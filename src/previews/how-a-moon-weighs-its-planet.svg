@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .mw-line { fill: none; stroke: var(--on-cover); stroke-width: 7; stroke-linecap: round; stroke-dasharray: 2 16; }
+    .mw-fill { fill: var(--on-cover); }
+    .mw-moon { transform-box: view-box; transform-origin: 200px 140px; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .mw-moon { animation: mw-orbit 6s linear infinite; }
+    }
+    /* The moon goes round its planet */
+    @keyframes mw-orbit { to { transform: rotate(360deg); } }
+  </style>
+
+  <g>
+    <circle class="mw-line" cx="200" cy="140" r="86"/>
+    <circle class="mw-fill" cx="200" cy="140" r="38"/>
+    <g class="mw-moon"><circle class="mw-fill" cx="286" cy="140" r="14"/></g>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

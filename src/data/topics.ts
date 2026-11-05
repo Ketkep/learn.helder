@@ -997,6 +997,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-05',
     status: 'live',
   },
+  {
+    slug: 'how-a-moon-weighs-its-planet',
+    title: 'How a moon weighs its planet',
+    hook: 'Check Kepler’s law, weigh the Earth and Jupiter from their moons and see what a heavier planet does.',
+    category: 'Space',
+    accent: '#B8C7F0',
+    preview: 'how-a-moon-weighs-its-planet',
+    dateAdded: '2026-11-05',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

@@ -1,0 +1,17 @@
+---
+// Board 2: weigh a planet from its moon. Without a script the picture shows the Moon and the table lists three moons.
+import { MOONS, fmt, massOf, moonSvg, sci } from '../../lib/kepler';
+---
+
+<div class="tool" data-weigh-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A planet in the middle with a moon on a circle round it." data-weigh-svg>
+    <g set:html={moonSvg('The Moon', 'Earth', 384400)} data-weigh-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The mass of a planet worked out from a moon, and the accepted value</caption>
+    <thead><tr><th scope="col">Moon</th><th scope="col">Distance and time</th><th scope="col">Mass worked out</th><th scope="col">Against accepted</th></tr></thead>
+    <tbody>{MOONS.map((m) => <tr><th scope="row">{m.name}</th><td>{fmt(m.km)} km, {m.days} days</td><td>{sci(massOf(m.km, m.days))} kg</td><td>{fmt((massOf(m.km, m.days) / m.known) * 100, 1)}%</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-weigh-picks></div>
+  <p class="status" aria-live="polite" data-weigh-status>The Moon is {fmt(384400)} kilometres from the Earth and goes round in 27.32 days. That gives the Earth a mass of {sci(massOf(384400, 27.32))} kilograms, which is {fmt((massOf(384400, 27.32) / 5.972e24) * 100, 1)}% of the accepted value.</p>
+</div>

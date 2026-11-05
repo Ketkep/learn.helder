@@ -1007,6 +1007,15 @@ The page is a dark basalt slab with gold lettering, three rows, each with the wo
 - `src/components/rosetta/Slab.astro` is the frame and `Panel*.astro` is one band each.
 - `src/scripts/rosetta/rosetta.ts` starts all three bands.
 
+## The moon page: how the three boards work
+
+The page is a green chalkboard with chalk white lettering, three rows, each with the words on one side and a chalk drawing on the other (sides swap on the second). Kepler's third law is for things going round the Sun, with years and astronomical units. Board 1 slides a distance and gives the time as the distance to the power of one and a half, and its table checks five planets (the time squared over the distance cubed comes out within a thousandth of 1). Board 2 uses Newton's form, mass = 4 pi squared times distance cubed over G times time squared, in metres, kilograms and seconds. The Moon gives the Earth's mass to about 1 per cent (computed 1.010, as a source says) and Ganymede and Callisto both give Jupiter's accepted mass to within a thousandth. Board 3 keeps the distance at 384,400 kilometres and changes the mass of the planet on a log scale from a tenth of an Earth to about 3000, with the time falling as the square root of the mass. The page says it is a made-up moon. Orbit numbers, G, and the masses of the Earth and Jupiter come from the sources named on the page. Without a script each board shows one picture or table.
+
+- `src/data/kepler.ts` holds all the words, the takeaways and the sources.
+- `src/lib/kepler.ts` holds Kepler's law, Newton's form, the moons and the drawings as SVG text.
+- `src/components/kepler/Chalk.astro` is the frame and `Panel*.astro` is one board each.
+- `src/scripts/kepler/kepler.ts` starts all three boards.
+
 ## Where things are
 
 ```
@@ -1106,6 +1115,7 @@ src/data/phyllo.ts         everything the sunflower page says: rings, takeaways,
 src/data/pendulum.ts       everything the pendulum page says: hooks, takeaways, sources
 src/data/sorting.ts        everything the sorting page says: trays, takeaways, sources
 src/data/rosetta.ts        everything the Rosetta Stone page says: bands, takeaways, sources
+src/data/kepler.ts         everything the moon page says: boards, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1205,6 +1215,7 @@ src/components/phyllo/     the sunflower page: three rings of a flower head
 src/components/pendulum/   the pendulum page: a clockmaker's wall with three pendulums
 src/components/sorting/    the sorting page: a card table with three trays
 src/components/rosetta/    the Rosetta Stone page: a slab in three bands
+src/components/kepler/     the moon page: a chalkboard with three boards
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1301,6 +1312,7 @@ src/styles/phyllo.css      the sunflower page: brown bands and amber seeds
 src/styles/pendulum.css    the pendulum page: dark wood and brass
 src/styles/sorting.css     the sorting page: green felt and cream bars
 src/styles/rosetta.css     the Rosetta Stone page: dark basalt and gold
+src/styles/kepler.css      the moon page: green chalkboard
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1390,6 +1402,7 @@ src/lib/phyllo.ts          the seed model, the gap measure and the drawings for 
 src/lib/pendulum.ts        the periods, the drift of a clock and the drawing for the pendulum page
 src/lib/sorting.ts         the three sorting methods, the counts, the bounds and the drawings for the sorting page
 src/lib/rosetta.ts         the scripts, the simplified signs, the two names and the drawings for the Rosetta Stone page
+src/lib/kepler.ts          Kepler's law, Newton's form, the moons and the drawings for the moon page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1487,6 +1500,7 @@ src/scripts/phyllo/        starts the three rings of the sunflower page
 src/scripts/pendulum/      starts the three pendulums of the pendulum page
 src/scripts/sorting/       builds the bars and starts the three trays of the sorting page
 src/scripts/rosetta/       starts the three bands of the Rosetta Stone page
+src/scripts/kepler/        starts the three boards of the moon page
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next
