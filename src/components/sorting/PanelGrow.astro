@@ -1,0 +1,29 @@
+---
+// Tray 3: how the work grows. Without a script the picture shows 100 items.
+import { costSvg, countCompares, floorCompares, fmt, quadratic, shuffled } from '../../lib/sorting';
+const list = shuffled(100, 5);
+const rows = [
+  { name: 'Bubble', value: countCompares('Bubble', list) },
+  { name: 'Insertion', value: countCompares('Insertion', list) },
+  { name: 'Merge', value: countCompares('Merge', list) },
+];
+---
+
+<div class="tool" data-grow-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="Bars for the number of comparisons bubble sort, insertion sort and merge sort make on 100 items. Merge sort's bar is far shorter." data-grow-svg>
+    <g set:html={costSvg(rows)} data-grow-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Comparisons on a shuffled list of 100 items, and the limits</caption>
+    <thead><tr><th scope="col">Method</th><th scope="col">Comparisons</th></tr></thead>
+    <tbody>
+      {rows.map((r) => <tr><th scope="row">{r.name} sort</th><td>{fmt(r.value)}</td></tr>)}
+      <tr><th scope="row">Most for bubble or insertion</th><td>{fmt(quadratic(100))}</td></tr>
+      <tr><th scope="row">Floor for any comparing method</th><td>{fmt(floorCompares(100))}</td></tr>
+    </tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Items <output data-grow-out>100</output></span><input class="range" type="range" min="10" max="500" step="10" value="100" data-grow-range aria-label="Number of items in the list" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-grow-status>On 100 shuffled items merge sort makes {fmt(rows[2].value)} comparisons and bubble sort {fmt(rows[0].value)}. No comparing method can always do better than {fmt(floorCompares(100))}.</p>
+</div>

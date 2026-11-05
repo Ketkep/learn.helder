@@ -1,0 +1,452 @@
+/* The sorting page: a green card table with a tray for each thing to try, side by side on a very wide screen. */
+
+.sorting {
+  --board: #12392b;
+  --panel: #1a4a39;
+  --line: #7fb59b;
+  --wood: #f2e3b0;
+  --cream: #f6f0dc;
+  --ink-fixed: #12392b;
+  --pink: #f2e3b0;
+  --blue: #f2e3b0;
+  --wash: rgb(255 255 255 / 0.14);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .sorting .needs-js {
+  display: none;
+}
+
+.sorting :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.sorting .card-body,
+.sorting .paras,
+.sorting .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.sorting h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.sorting .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.sorting .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.sorting .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.sorting .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.sorting .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.sorting .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.sorting .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.sorting .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.sorting .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.sorting .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.sorting .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.sorting .times th,
+.sorting .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.sorting .times thead th {
+  color: #cfe5da;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.sorting .times tbody th {
+  font-weight: 700;
+}
+
+.sorting .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.sorting .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sorting .pick:hover {
+  background: var(--wash);
+}
+
+.sorting .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .sorting .no-js-name {
+  display: none;
+}
+
+.sorting .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.sorting .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.sorting .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.sorting .btn:hover {
+  background: var(--wash);
+}
+
+.sorting .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.sorting .btn.fill:hover {
+  background: var(--cream);
+}
+
+.sorting .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.sorting .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.sorting .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.sorting .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.sorting .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.sorting .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.sorting .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.sorting .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.sorting .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.sorting .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.sorting .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sorting .snd[aria-pressed='true'] .slash,
+.sorting .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sorting * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.sorting .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The table ---------- */
+.sorting .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 8px solid var(--wood);
+}
+
+.sorting .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.sorting .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.sorting .trays {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.6rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem) var(--gutter) 3rem;
+}
+
+@media (min-width: 90rem) {
+  .sorting .trays {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+/* A tray: a rounded tray on the felt with a cream rim */
+.sorting .tray {
+  display: grid;
+  gap: 0.9rem;
+  align-content: start;
+  min-width: 0;
+  padding: 1.4rem 1.2rem 1.2rem;
+  border: 3px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+  box-shadow: 0 0 0 4px var(--board), 0 0 0 6px var(--wood);
+}
+
+.sorting .tool {
+  display: grid;
+  gap: 0.8rem;
+  min-width: 0;
+  max-width: 36rem;
+}
+
+/* ---------- Drawings and the row of bars ---------- */
+.sorting .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.sorting .bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 11rem;
+  padding: 0.6rem;
+  border-radius: 8px;
+  background: #0d2b20;
+  border: 2px solid var(--line);
+}
+
+.sorting .barbtn {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 2px solid #12392b;
+  border-radius: 3px;
+  background: #f2e3b0;
+  cursor: pointer;
+}
+
+.sorting .barbtn:hover:not(:disabled) {
+  background: #ffffff;
+}
+
+.sorting .barbtn:disabled {
+  cursor: default;
+}
+
+.sorting .barbtn:focus-visible {
+  outline: 3px solid #ff9f8f;
+  outline-offset: 2px;
+}
+
+.sorting .lab {
+  fill: var(--cream);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.sorting .lab.small {
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.sorting .times {
+  table-layout: fixed;
+}
+
+.sorting .times th,
+.sorting .times td {
+  overflow-wrap: anywhere;
+}
+
+.sorting .bed {
+  fill: #0d2b20;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.sorting .bar {
+  fill: #f2e3b0;
+}
+
+.sorting .bar.hot {
+  fill: #ff9f8f;
+}

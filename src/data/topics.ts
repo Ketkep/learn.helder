@@ -977,6 +977,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-04',
     status: 'live',
   },
+  {
+    slug: 'how-computers-sort-things',
+    title: 'How computers sort things',
+    hook: 'Sort a row by swapping neighbours, watch three methods on one list and see how the work grows.',
+    category: 'Technology',
+    accent: '#9EE493',
+    preview: 'how-computers-sort-things',
+    dateAdded: '2026-11-05',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

@@ -1,0 +1,24 @@
+---
+// Tray 2: three methods on one list. Without a script the picture shows the list and the table lists the three methods.
+import { barsSvg, countCompares, fmt, inversions, shuffled } from '../../lib/sorting';
+const list = shuffled(12, 3);
+---
+
+<div class="tool" data-watch-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="Twelve bars in a jumbled order, to be sorted." data-watch-svg>
+    <g set:html={barsSvg(list, [], 'Start')} data-watch-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Comparisons each method makes on this list of 12</caption>
+    <thead><tr><th scope="col">Method</th><th scope="col">Comparisons</th></tr></thead>
+    <tbody>{(['Bubble', 'Insertion', 'Merge'] as const).map((m) => <tr><th scope="row">{m} sort</th><td>{fmt(countCompares(m, list))}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-watch-picks></div>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-watch-step>Next step</button>
+    <button class="btn" type="button" data-watch-run aria-pressed="false">Run</button>
+    <button class="btn" type="button" data-watch-reset>Start again</button>
+    <button class="btn" type="button" data-watch-new>New list</button>
+  </div>
+  <p class="status" aria-live="polite" data-watch-status>This list has {inversions(list)} wrong pairs. Press Next step.</p>
+</div>

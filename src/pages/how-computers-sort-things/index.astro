@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Table from '../../components/sorting/Table.astro';
+import { takeaways, sources, sourcesNote } from '../../data/sorting';
+---
+
+<TopicLayout
+  slug="how-computers-sort-things"
+  intro="A computer sorts by comparing two items at a time. Sort a row by hand, watch three methods race on one list and see how the work grows with the length of the list."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Table />
+</TopicLayout>

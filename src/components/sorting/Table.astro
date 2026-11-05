@@ -1,0 +1,61 @@
+---
+// The whole page: a card table with three trays, one thing to try in each. They are the Panel components and src/scripts/sorting.
+// Without a script each tray shows one picture or table.
+import '../../styles/sorting.css';
+import { intro, trays } from '../../data/sorting';
+import PanelHand from './PanelHand.astro';
+import PanelWatch from './PanelWatch.astro';
+import PanelGrow from './PanelGrow.astro';
+
+const tools: Record<string, typeof PanelHand> = { hand: PanelHand, watch: PanelWatch, grow: PanelGrow };
+---
+
+<div class="sorting" data-sorting>
+  <section class="opening" aria-labelledby="sorting-intro">
+    <div class="wrap">
+      <p class="kicker">The table</p>
+      <h2 id="sorting-intro">{intro.title}</h2>
+      <div class="intro-paras">{intro.paras.map((p) => <p class="para">{p}</p>)}</div>
+      <button class="snd needs-js" type="button" data-sound aria-pressed="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+          <path class="wave" d="M15 9a4 4 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <path class="slash" d="M16 8.5l5 7M21 8.5l-5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span data-sound-label>Sound on</span>
+      </button>
+    </div>
+  </section>
+
+  <div class="trays">
+    {
+      trays.map((p) => {
+        const Tool = tools[p.id];
+        return (
+          <section class="tray" id={`tray-${p.id}`} aria-labelledby={`tray-${p.id}-h`}>
+            <p class="kicker">{p.kicker}</p>
+            <h2 id={`tray-${p.id}-h`}>{p.title}</h2>
+            <div class="paras">{p.paras.map((t) => <p class="para">{t}</p>)}</div>
+            <Tool />
+            {
+              p.tags && (
+                <div class="tags">
+                  {p.tags.map((t) => (
+                    <aside class="tag">
+                      <p class="tag-label">{t.label}</p>
+                      <p class="tag-text">{t.text}</p>
+                    </aside>
+                  ))}
+                </div>
+              )
+            }
+          </section>
+        );
+      })
+    }
+  </div>
+</div>
+
+<script>
+  import '../../scripts/sorting/sorting';
+</script>

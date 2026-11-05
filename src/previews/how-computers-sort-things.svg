@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .so-bar { fill: var(--on-cover); transform-box: fill-box; transform-origin: center bottom; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .so-bar { animation: so-rise 3s ease-in-out infinite alternate; }
+    }
+    /* The bars slide into order and back */
+    @keyframes so-rise { 0% { transform: translateX(0); } 100% { transform: translateX(var(--shift, 0px)); } }
+  </style>
+
+  <g>
+    <rect class="so-bar" style="--shift:-96px" x="296" y="110" width="32" height="120" rx="4"/>
+    <rect class="so-bar" style="--shift:32px" x="104" y="170" width="32" height="60" rx="4"/>
+    <rect class="so-bar" style="--shift:32px" x="152" y="140" width="32" height="90" rx="4"/>
+    <rect class="so-bar" style="--shift:-48px" x="248" y="200" width="32" height="30" rx="4"/>
+    <rect class="so-bar" style="--shift:-48px" x="200" y="80" width="32" height="150" rx="4"/>
+    <path d="M90 240 H340" stroke="var(--on-cover)" stroke-width="8" stroke-linecap="round" fill="none"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

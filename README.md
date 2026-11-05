@@ -989,6 +989,15 @@ The page is a dark wood wall with a thin line under each section, the words on o
 - `src/components/pendulum/Wall.astro` is the frame and `Panel*.astro` is one pendulum each.
 - `src/scripts/pendulum/pendulum.ts` starts all three pendulums and the Swing buttons.
 
+## The sorting page: how the three trays work
+
+The page is a green card table with three rounded trays with a cream rim, one after the other, side by side on a very wide screen. The three methods are plain bubble sort, insertion sort and top-down merge sort, written out in `src/lib/sorting.ts` so each step can be shown and each comparison counted. Tray 1 is a row of eight bars that are real buttons: pressing one swaps it with its right neighbour. The fewest swaps of neighbours that sort a row is the number of inversions, which the page counts and compares with the reader's swaps. Tray 2 steps or runs one method on a seeded list of twelve and shows the comparisons and moves, with a note for each step. The Run button runs only when pressed. Tray 3 sorts a seeded list of up to 500 items with each method, counts the real comparisons and shows the n times n minus 1, over 2 maximum and the floor of log base 2 of n factorial. The page says that other versions of a method, for example a bubble sort that does not stop early, may count differently. Without a script each tray shows one picture or table.
+
+- `src/data/sorting.ts` holds all the words, the takeaways and the sources.
+- `src/lib/sorting.ts` holds the three methods, the counts, the bounds and the drawings as SVG text.
+- `src/components/sorting/Table.astro` is the frame and `Panel*.astro` is one tray each.
+- `src/scripts/sorting/sorting.ts` builds the bars and starts all three trays.
+
 ## Where things are
 
 ```
@@ -1086,6 +1095,7 @@ src/data/comb.ts           everything the honeycomb page says: cells, takeaways,
 src/data/beats.ts          everything the beats page says: movements, takeaways, sources
 src/data/phyllo.ts         everything the sunflower page says: rings, takeaways, sources
 src/data/pendulum.ts       everything the pendulum page says: hooks, takeaways, sources
+src/data/sorting.ts        everything the sorting page says: trays, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1183,6 +1193,7 @@ src/components/comb/       the honeycomb page: three cells of a hive
 src/components/beats/      the beats page: a score in three movements
 src/components/phyllo/     the sunflower page: three rings of a flower head
 src/components/pendulum/   the pendulum page: a clockmaker's wall with three pendulums
+src/components/sorting/    the sorting page: a card table with three trays
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1277,6 +1288,7 @@ src/styles/comb.css        the honeycomb page: dark hive frame and amber walls
 src/styles/beats.css       the beats page: pale score with staff lines
 src/styles/phyllo.css      the sunflower page: brown bands and amber seeds
 src/styles/pendulum.css    the pendulum page: dark wood and brass
+src/styles/sorting.css     the sorting page: green felt and cream bars
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1364,6 +1376,7 @@ src/lib/comb.ts            the tiling, the outlines, the squeezed cells and the 
 src/lib/beats.ts           the beat sums and the drawings for the beats page
 src/lib/phyllo.ts          the seed model, the gap measure and the drawings for the sunflower page
 src/lib/pendulum.ts        the periods, the drift of a clock and the drawing for the pendulum page
+src/lib/sorting.ts         the three sorting methods, the counts, the bounds and the drawings for the sorting page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1459,6 +1472,7 @@ src/scripts/comb/          starts the three cells of the honeycomb page
 src/scripts/beats/         starts the three movements of the beats page and plays the notes
 src/scripts/phyllo/        starts the three rings of the sunflower page
 src/scripts/pendulum/      starts the three pendulums of the pendulum page
+src/scripts/sorting/       builds the bars and starts the three trays of the sorting page
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next
