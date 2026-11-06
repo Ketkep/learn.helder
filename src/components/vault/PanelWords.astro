@@ -1,0 +1,24 @@
+---
+// Lock 2: words against characters. Without a script the picture shows four words against eight characters.
+import { barSvg, bits, bitsOfWords, fmt } from '../../lib/vault';
+const rows = [
+  { name: 'Four random words', bits: bitsOfWords(4) },
+  { name: '8 random characters from 94', bits: bits(94, 8) },
+];
+---
+
+<div class="tool" data-words-tool>
+  <svg class="plate" viewBox="0 0 300 100" role="img" aria-label="Two bars of about the same length: four random words and eight random characters." data-words-svg>
+    <g set:html={barSvg(rows)} data-words-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Bits for words and for random characters</caption>
+    <thead><tr><th scope="col">Password</th><th scope="col">Bits</th></tr></thead>
+    <tbody>{[2, 4, 5, 6].map((n) => <tr><th scope="row">{n} random words</th><td>{fmt(bitsOfWords(n), 1)}</td></tr>)}<tr><th scope="row">8 random characters from 94</th><td>{fmt(bits(94, 8), 1)}</td></tr></tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Words <output data-words-w-out>4</output></span><input class="range" type="range" min="1" max="8" step="1" value="4" data-words-w aria-label="Number of random words" /></label>
+    <label class="field"><span>Characters <output data-words-c-out>8</output></span><input class="range" type="range" min="4" max="20" step="1" value="8" data-words-c aria-label="Number of random characters" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-words-status>4 random words give {fmt(bitsOfWords(4), 1)} bits and 8 random characters give {fmt(bits(94, 8), 1)} bits.</p>
+</div>

@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Door from '../../components/vault/Door.astro';
+import { takeaways, sources, sourcesNote } from '../../data/vault';
+---
+
+<TopicLayout
+  slug="why-long-passwords-are-strong"
+  intro="The number of guesses a password needs grows with every extra place. See the sums for length, for random words and for passwords that follow a habit. The speeds are made up, and this is not security advice."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Door />
+</TopicLayout>

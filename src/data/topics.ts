@@ -1027,6 +1027,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-06',
     status: 'live',
   },
+  {
+    slug: 'why-long-passwords-are-strong',
+    title: 'Why long passwords are strong',
+    hook: 'See how the number of guesses grows with every extra place, and why a habit is weaker than it looks.',
+    category: 'Technology',
+    accent: '#CDB89A',
+    preview: 'why-long-passwords-are-strong',
+    dateAdded: '2026-11-06',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

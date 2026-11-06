@@ -1,0 +1,17 @@
+---
+// Lock 3: a habit is not random. Without a script the picture and the table list four kinds of password.
+import { ATTACKS, HABITS, barSvg, fmt, seconds, span } from '../../lib/vault';
+---
+
+<div class="tool" data-habit-tool>
+  <svg class="plate" viewBox="0 0 300 160" role="img" aria-label="Four bars for four kinds of password. Random characters and random words are long. A common word with digits and a birthday are short." data-habit-svg>
+    <g set:html={barSvg(HABITS)} data-habit-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Four kinds of password, their bits and the time to guess at the speed of a stolen file with a fast hash</caption>
+    <thead><tr><th scope="col">Kind</th><th scope="col">Bits</th><th scope="col">Fast hash</th></tr></thead>
+    <tbody>{HABITS.map((h) => <tr><th scope="row">{h.name}</th><td>{fmt(h.bits, 1)}</td><td>{span(seconds(h.bits, ATTACKS[2].rate))}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-habit-picks></div>
+  <p class="status" aria-live="polite" data-habit-status>Press a kind of password.</p>
+</div>

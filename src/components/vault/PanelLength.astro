@@ -1,0 +1,20 @@
+---
+// Lock 1: every extra place multiplies the tries. Without a script the picture shows 8 lowercase letters and the table lists three lengths.
+import { ATTACKS, bits, dialsSvg, fmt, seconds, span } from '../../lib/vault';
+---
+
+<div class="tool" data-length-tool>
+  <svg class="plate" viewBox="0 0 300 120" role="img" aria-label="A row of dials with eight of them set, each with twenty-six choices." data-length-svg>
+    <g set:html={dialsSvg(26, 8)} data-length-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Bits and average time to guess, for random lowercase letters of three lengths</caption>
+    <thead><tr><th scope="col">Lowercase letters</th><th scope="col">Bits</th><th scope="col">Stolen file, slow hash</th></tr></thead>
+    <tbody>{[6, 8, 12].map((n) => <tr><th scope="row">{n}</th><td>{fmt(bits(26, n), 1)}</td><td>{span(seconds(bits(26, n), ATTACKS[1].rate))}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-length-picks></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Length <output data-length-out>8</output></span><input class="range" type="range" min="4" max="24" step="1" value="8" data-length-range aria-label="Number of places in the password" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-length-status>8 random lowercase letters give {fmt(bits(26, 8), 1)} bits. Average time to hit it, at made-up speeds: a web login with limits, {span(seconds(bits(26, 8), 1))}; a stolen file with a slow hash, {span(seconds(bits(26, 8), 10000))}; a stolen file with a fast hash, {span(seconds(bits(26, 8), 1e10))}.</p>
+</div>
