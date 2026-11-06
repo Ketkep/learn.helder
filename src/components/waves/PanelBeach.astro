@@ -1,0 +1,14 @@
+---
+// Stretch 3: coming in to the beach. Without a script the picture shows the wave at the far edge.
+import { SPAN, beachSvg, clock, travelTime } from '../../lib/waves';
+---
+
+<div class="tool" data-beach-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A made-up beach seen from the side, sloping from deep water on the left to the shore on the right, with a wave over deep water." data-beach-svg>
+    <g set:html={beachSvg(0)} data-beach-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Place <output data-beach-out>0</output> km</span><input class="range" type="range" min="0" max="199" step="1" value="0" data-beach-range aria-label="Distance along the beach in kilometres from the far edge" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-beach-status>At the far edge the water is 4000 metres deep. The whole trip to the shore takes about {clock(travelTime(SPAN))}, against about {clock(SPAN / 198.1)} at the open-sea speed.</p>
+</div>

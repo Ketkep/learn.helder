@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ow-line { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    .ow-wave { transform-box: view-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ow-wave { animation: ow-roll 2.8s linear infinite; }
+    }
+    /* The waves roll along to the right */
+    @keyframes ow-roll { from { transform: translateX(-60px); } to { transform: translateX(0); } }
+  </style>
+
+  <g>
+    <g class="ow-wave">
+      <path class="ow-line" d="M20 130 q30 -50 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0"/>
+      <path class="ow-line" d="M20 180 q30 -50 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" opacity="0.6"/>
+    </g>
+    <path class="ow-line" d="M60 226 H340" opacity="0.4"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Shore from '../../components/waves/Shore.astro';
+import { takeaways, sources, sourcesNote } from '../../data/waves';
+---
+
+<TopicLayout
+  slug="how-ocean-waves-travel"
+  intro="How fast a wave goes depends on its length and on the depth. See why long waves outrun short ones, why a tsunami is as fast as a jet and why waves slow down near the shore."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Shore />
+</TopicLayout>

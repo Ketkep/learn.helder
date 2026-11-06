@@ -1,0 +1,19 @@
+---
+// Stretch 1: in deep water, long waves are fast. Without a script the picture shows 50 metres and the table lists four lengths.
+import { clock, deepSpeed, deepSvg, fmt } from '../../lib/waves';
+---
+
+<div class="tool" data-deep-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A wave on the sea with a wavelength of fifty metres." data-deep-svg>
+    <g set:html={deepSvg(50)} data-deep-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Speed of deep-water waves of four lengths, and the time to cross 1000 kilometres</caption>
+    <thead><tr><th scope="col">Wavelength</th><th scope="col">Speed</th><th scope="col">1000 km takes</th></tr></thead>
+    <tbody>{[10, 50, 100, 200].map((l) => <tr><th scope="row">{l} m</th><td>{fmt(deepSpeed(l), 1)} m/s</td><td>{clock(1000000 / deepSpeed(l))}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Wavelength <output data-deep-out>50</output> m</span><input class="range" type="range" min="5" max="200" step="5" value="50" data-deep-range aria-label="Wavelength in metres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-deep-status>A wave 50 metres long goes {fmt(deepSpeed(50), 1)} metres a second in deep water, and takes {fmt(50 / deepSpeed(50), 1)} seconds between crests.</p>
+</div>

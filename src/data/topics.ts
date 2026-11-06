@@ -1017,6 +1017,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-06',
     status: 'live',
   },
+  {
+    slug: 'how-ocean-waves-travel',
+    title: 'How ocean waves travel',
+    hook: 'See why long waves outrun short ones, why a tsunami goes as fast as a jet and why waves slow near the shore.',
+    category: 'Nature',
+    accent: '#8FD0EE',
+    preview: 'how-ocean-waves-travel',
+    dateAdded: '2026-11-06',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */
