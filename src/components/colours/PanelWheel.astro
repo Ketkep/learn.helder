@@ -1,0 +1,25 @@
+---
+// Table 2: why three is sometimes not enough. Without a script the picture shows a hub with five ring regions, coloured with four.
+import { mapSvg, search, wheel } from '../../lib/colours';
+const l = wheel(5);
+const col = search(l, 4) as number[];
+---
+
+<div class="tool" data-wheel-tool>
+  <svg class="plate" viewBox="0 0 300 300" role="img" aria-label="A hub with five regions round it, coloured with four colours. Three colours are not enough for five." data-wheel-svg>
+    <g set:html={mapSvg(l, col)} data-wheel-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Colours needed for a hub with a ring of regions round it</caption>
+    <thead><tr><th scope="col">Regions on the ring</th><th scope="col">Colours needed</th></tr></thead>
+    <tbody>{[3, 4, 5, 6, 7, 8].map((n) => <tr><th scope="row">{n}</th><td>{n % 2 ? 4 : 3}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Ring regions <output data-wheel-out>5</output></span><input class="range" type="range" min="3" max="11" step="1" value="5" data-wheel-range aria-label="Number of regions on the ring" /></label>
+  </div>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-wheel-three>Try three colours</button>
+    <button class="btn" type="button" data-wheel-four>Use four colours</button>
+  </div>
+  <p class="status" aria-live="polite" data-wheel-status>Five ring regions need four colours: the hub, and three more round an odd ring.</p>
+</div>

@@ -1,0 +1,17 @@
+---
+// Table 1: colour a map by hand. Without a script the picture shows the made-up map with a valid colouring.
+import { island, mapSvg, search } from '../../lib/colours';
+const l = island();
+const col = search(l, 4) as number[];
+---
+
+<div class="tool" data-hand-tool>
+  <svg class="plate" viewBox="0 0 300 300" role="img" aria-label="A round made-up map: a hub, a ring of five regions and an outer ring of five regions, coloured with four colours so that no two neighbours match." data-hand-svg>
+    <g set:html={mapSvg(l, col)} data-hand-g></g>
+  </svg>
+  <div class="controls needs-js" data-hand-swatches></div>
+  <div class="controls needs-js">
+    <button class="btn" type="button" data-hand-clear>Clear the map</button>
+  </div>
+  <p class="status" aria-live="polite" data-hand-status>This colouring uses 4 colours and no two neighbours match.</p>
+</div>

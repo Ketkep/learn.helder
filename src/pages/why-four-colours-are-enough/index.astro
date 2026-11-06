@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Room from '../../components/colours/Room.astro';
+import { takeaways, sources, sourcesNote } from '../../data/colours';
+---
+
+<TopicLayout
+  slug="why-four-colours-are-enough"
+  intro="Any map can be coloured with four colours so that neighbours never match. Colour a made-up map, see why three are sometimes not enough and see how a quick rule can waste colours."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Room />
+</TopicLayout>

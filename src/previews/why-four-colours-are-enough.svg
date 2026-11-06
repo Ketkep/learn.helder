@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .fc-line { fill: none; stroke: var(--on-cover); stroke-width: 7; stroke-linejoin: round; stroke-linecap: round; }
+    .fc-fill { fill: var(--on-cover); }
+    .fc-a, .fc-b { opacity: 0.25; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .fc-a { animation: fc-fill 3s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .fc-b { animation: fc-fill 3s ease-in-out infinite 1s; }
+    }
+    /* The regions take their colours one after another */
+    @keyframes fc-fill { 0%, 100% { opacity: 0.25; } 40%, 70% { opacity: 1; } }
+  </style>
+
+  <g>
+    <path class="fc-line" d="M120 150 A80 80 0 0 1 280 150 A80 80 0 0 1 120 150 Z"/>
+    <path class="fc-line" d="M200 70 V230 M120 150 H280"/>
+    <path class="fc-fill fc-a" d="M200 70 A80 80 0 0 1 280 150 H200 Z"/>
+    <path class="fc-fill fc-b" d="M120 150 A80 80 0 0 0 200 230 V150 Z"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

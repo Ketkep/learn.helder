@@ -1007,6 +1007,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-05',
     status: 'live',
   },
+  {
+    slug: 'why-four-colours-are-enough',
+    title: 'Why four colours are enough',
+    hook: 'Colour a made-up map by hand, see why three are not enough and see how a quick rule wastes colours.',
+    category: 'Maths',
+    accent: '#F0D58A',
+    preview: 'why-four-colours-are-enough',
+    dateAdded: '2026-11-06',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

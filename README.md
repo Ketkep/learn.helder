@@ -1016,6 +1016,15 @@ The page is a green chalkboard with chalk white lettering, three rows, each with
 - `src/components/kepler/Chalk.astro` is the frame and `Panel*.astro` is one board each.
 - `src/scripts/kepler/kepler.ts` starts all three boards.
 
+## The four colours page: how the three tables work
+
+The page is a map room in warm paper tones, three rows with the words on one side and a round made-up map on the other (sides swap on the second). A map is a set of regions, and two regions that share a border get different colours. The page uses the usual rule that regions meeting only at a point are not neighbours, and says so. Table 1 is a made-up map of eleven regions (a hub, a ring of five and an outer ring of five turned half a step) that the reader colours by hand: the regions are real buttons in the picture (Enter or Space colours one, with a visible focus ring), the four colours are numbered and each region shows its number so colour is not the only clue, and clashing neighbours get a dark outline. Table 2 is a wheel, a hub with a ring of 3 to 11 regions, and runs a full search with three or four colours. An even ring needs three colours and an odd ring four. Table 3 colours the map by a quick rule (greedy, in a seeded order) and shows that it can use four, five or six colours, then runs a full search that finds four. The page says that the greedy result was found by running it and is not from a source. The history (Guthrie 1852, Kempe 1879, Heawood 1890, Appel and Haken 1976, a shorter proof in the 1990s) is from the sources, and where they differ on a year the page says so. Without a script each table shows one picture.
+
+- `src/data/colours.ts` holds all the words, the takeaways and the sources.
+- `src/lib/colours.ts` holds the maps, the searches and the drawings as SVG text.
+- `src/components/colours/Room.astro` is the frame and `Panel*.astro` is one table each.
+- `src/scripts/colours/colours.ts` starts all three tables.
+
 ## Where things are
 
 ```
@@ -1116,6 +1125,7 @@ src/data/pendulum.ts       everything the pendulum page says: hooks, takeaways, 
 src/data/sorting.ts        everything the sorting page says: trays, takeaways, sources
 src/data/rosetta.ts        everything the Rosetta Stone page says: bands, takeaways, sources
 src/data/kepler.ts         everything the moon page says: boards, takeaways, sources
+src/data/colours.ts        everything the four colours page says: tables, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1216,6 +1226,7 @@ src/components/pendulum/   the pendulum page: a clockmaker's wall with three pen
 src/components/sorting/    the sorting page: a card table with three trays
 src/components/rosetta/    the Rosetta Stone page: a slab in three bands
 src/components/kepler/     the moon page: a chalkboard with three boards
+src/components/colours/    the four colours page: a map room with three tables
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1313,6 +1324,7 @@ src/styles/pendulum.css    the pendulum page: dark wood and brass
 src/styles/sorting.css     the sorting page: green felt and cream bars
 src/styles/rosetta.css     the Rosetta Stone page: dark basalt and gold
 src/styles/kepler.css      the moon page: green chalkboard
+src/styles/colours.css     the four colours page: warm paper and a round map
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1403,6 +1415,7 @@ src/lib/pendulum.ts        the periods, the drift of a clock and the drawing for
 src/lib/sorting.ts         the three sorting methods, the counts, the bounds and the drawings for the sorting page
 src/lib/rosetta.ts         the scripts, the simplified signs, the two names and the drawings for the Rosetta Stone page
 src/lib/kepler.ts          Kepler's law, Newton's form, the moons and the drawings for the moon page
+src/lib/colours.ts         the maps, the searches and the drawings for the four colours page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1501,6 +1514,7 @@ src/scripts/pendulum/      starts the three pendulums of the pendulum page
 src/scripts/sorting/       builds the bars and starts the three trays of the sorting page
 src/scripts/rosetta/       starts the three bands of the Rosetta Stone page
 src/scripts/kepler/        starts the three boards of the moon page
+src/scripts/colours/       starts the three tables of the four colours page
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

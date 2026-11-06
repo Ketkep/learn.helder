@@ -1,0 +1,23 @@
+---
+// Table 3: a quick rule can waste colours. Without a script the picture shows a greedy colouring and the table the first six orders.
+import { greedy, island, mapSvg, order, used } from '../../lib/colours';
+const l = island();
+const rows = [1, 2, 3, 4, 5, 6].map((s) => used(greedy(l, order(11, s))));
+const col = greedy(l, order(11, 1));
+---
+
+<div class="tool" data-greedy-tool>
+  <svg class="plate" viewBox="0 0 300 300" role="img" aria-label="The made-up map coloured by a quick rule that goes through the regions in one order." data-greedy-svg>
+    <g set:html={mapSvg(l, col)} data-greedy-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Colours used by the quick rule for six different orders</caption>
+    <thead><tr><th scope="col">Order</th><th scope="col">Colours used</th></tr></thead>
+    <tbody>{rows.map((n, i) => <tr><th scope="row">Order {i + 1}</th><td>{n}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-greedy-new>New order</button>
+    <button class="btn" type="button" data-greedy-best>Search for the fewest</button>
+  </div>
+  <p class="status" aria-live="polite" data-greedy-status>The quick rule used {rows[0]} colours on this order. Four are always enough.</p>
+</div>
