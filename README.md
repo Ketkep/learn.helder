@@ -1043,6 +1043,15 @@ The page is a dark steel vault door with brass, three rows, each with the words 
 - `src/components/vault/Door.astro` is the frame and `Panel*.astro` is one lock each.
 - `src/scripts/vault/vault.ts` starts all three locks.
 
+## The ice page: how the three layers work
+
+The page is deep winter blue with ice white lettering, three layers of a frozen lake with the words on one side and a drawing on the other (sides swap on the second). Layer 1 uses the rule that the share of a floating thing under the surface is its density over the density of the water: ice is about 917 kilograms per cubic metre, fresh water 1000 and sea water 1025, so 91.7 and 89.5 per cent. A density slider (200 to 1300) shows a block that sinks above the density of the water. The page says that real icebergs vary and that about 90 per cent is the usual figure. Layer 2 steps a lake through four stages (warm summer, autumn, winter cold, ice on top) with typical temperatures, the idea that fresh water is heaviest at about 4 degrees, and the layered lake under ice. No table of the density of water against temperature was found, so none is given. Layer 3 is a toy bottle that shows water taking 1000 over 917, about 9 per cent, more room as ice. Without a script each layer shows one picture or table.
+
+- `src/data/ice.ts` holds all the words, the takeaways and the sources.
+- `src/lib/ice.ts` holds the floating rule, the lake stages, the bottle and the drawings as SVG text.
+- `src/components/ice/Lake.astro` is the frame and `Panel*.astro` is one layer each.
+- `src/scripts/ice/ice.ts` starts all three layers.
+
 ## Where things are
 
 ```
@@ -1146,6 +1155,7 @@ src/data/kepler.ts         everything the moon page says: boards, takeaways, sou
 src/data/colours.ts        everything the four colours page says: tables, takeaways, sources
 src/data/waves.ts          everything the ocean waves page says: stretches, takeaways, sources
 src/data/vault.ts          everything the password page says: locks, takeaways, sources
+src/data/ice.ts            everything the ice page says: layers, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1249,6 +1259,7 @@ src/components/kepler/     the moon page: a chalkboard with three boards
 src/components/colours/    the four colours page: a map room with three tables
 src/components/waves/      the ocean waves page: a shore with three stretches
 src/components/vault/      the password page: a vault door with three locks
+src/components/ice/        the ice page: a frozen lake in three layers
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1349,6 +1360,7 @@ src/styles/kepler.css      the moon page: green chalkboard
 src/styles/colours.css     the four colours page: warm paper and a round map
 src/styles/waves.css       the ocean waves page: deep blue and foam white
 src/styles/vault.css       the password page: dark steel and brass
+src/styles/ice.css         the ice page: winter blue and ice white
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1442,6 +1454,7 @@ src/lib/kepler.ts          Kepler's law, Newton's form, the moons and the drawin
 src/lib/colours.ts         the maps, the searches and the drawings for the four colours page
 src/lib/waves.ts           the wave speeds, the made-up beach and the drawings for the ocean waves page
 src/lib/vault.ts           the password sums, the made-up speeds and the drawings for the password page
+src/lib/ice.ts             the floating rule, the lake stages, the bottle and the drawings for the ice page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1543,6 +1556,7 @@ src/scripts/kepler/        starts the three boards of the moon page
 src/scripts/colours/       starts the three tables of the four colours page
 src/scripts/waves/         starts the three stretches of the ocean waves page
 src/scripts/vault/         starts the three locks of the password page
+src/scripts/ice/           starts the three layers of the ice page
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

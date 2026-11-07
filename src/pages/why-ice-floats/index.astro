@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Lake from '../../components/ice/Lake.astro';
+import { takeaways, sources, sourcesNote } from '../../data/ice';
+---
+
+<TopicLayout
+  slug="why-ice-floats"
+  intro="Ice is lighter than water, so it floats, and lakes freeze from the top. See how deep a block sinks, follow a lake through the seasons and see how much room water needs as ice."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Lake />
+</TopicLayout>

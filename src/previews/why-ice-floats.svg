@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ic-line { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    .ic-fill { fill: var(--on-cover); }
+    .ic-cube { transform-box: fill-box; transform-origin: center; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ic-cube { animation: ic-bob 3s ease-in-out infinite; }
+    }
+    /* The ice bobs up and down, mostly under the surface */
+    @keyframes ic-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+  </style>
+
+  <g>
+    <path class="ic-line" d="M60 130 H340 M60 130 V230 H340 V130" opacity="0.6"/>
+    <rect class="ic-fill ic-cube" x="160" y="104" width="80" height="80" rx="8"/>
+    <path class="ic-line" d="M70 130 q15 -10 30 0 t30 0 M270 130 q15 -10 30 0 t30 0" opacity="0.6"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

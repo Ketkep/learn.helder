@@ -1,0 +1,17 @@
+---
+// Layer 2: a lake from summer to ice. Without a script the picture shows the lake under ice and the table lists the four stages.
+import { STAGES, lakeSvg } from '../../lib/ice';
+---
+
+<div class="tool" data-lake-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A lake in three layers with ice on top, water just under the ice at zero degrees and water near four degrees at the bottom." data-lake-svg>
+    <g set:html={lakeSvg(3)} data-lake-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The four stages of a lake through the year and what happens in each</caption>
+    <thead><tr><th scope="col">Stage</th><th scope="col">What happens</th></tr></thead>
+    <tbody>{STAGES.map((s) => <tr><th scope="row">{s.name}</th><td>{s.says}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-lake-picks></div>
+  <p class="status" aria-live="polite" data-lake-status>{STAGES[3].says}</p>
+</div>

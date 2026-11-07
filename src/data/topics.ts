@@ -1037,6 +1037,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-06',
     status: 'live',
   },
+  {
+    slug: 'why-ice-floats',
+    title: 'Why ice floats',
+    hook: 'See how deep a block of ice sinks, follow a lake from summer to ice and see how much room water takes as ice.',
+    category: 'Nature',
+    accent: '#BFE3F5',
+    preview: 'why-ice-floats',
+    dateAdded: '2026-11-07',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

@@ -1,0 +1,20 @@
+---
+// Layer 1: why things float, and how deep. Without a script the picture shows ice in sea water and the table lists two waters.
+import { FLUIDS, ICE, below, floatSvg, fmt } from '../../lib/ice';
+---
+
+<div class="tool" data-float-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A block of ice floating in a tank of sea water, with about nine tenths of it under the surface." data-float-svg>
+    <g set:html={floatSvg(ICE, 1025)} data-float-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The share of a block of ice that is under the surface in two kinds of water</caption>
+    <thead><tr><th scope="col">Water</th><th scope="col">Density</th><th scope="col">Ice under the surface</th></tr></thead>
+    <tbody>{FLUIDS.map((f) => <tr><th scope="row">{f.name}</th><td>{fmt(f.rho)} kg/m³</td><td>{fmt(below(ICE, f.rho) * 100, 1)}%</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-float-picks></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Block <output data-float-out>917</output> kg/m³</span><input class="range" type="range" min="200" max="1300" step="1" value="917" data-float-range aria-label="Density of the block in kilograms per cubic metre" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-float-status>A block of ice, 917 kilograms per cubic metre, floats in sea water with {fmt(below(ICE, 1025) * 100, 1)}% of it under the surface.</p>
+</div>

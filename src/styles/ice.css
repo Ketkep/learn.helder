@@ -1,0 +1,471 @@
+/* The password page: dark steel with brass, the words and the tool side by side, swapping sides on the second lock. */
+
+.ice {
+  --board: #0e2638;
+  --panel: #153650;
+  --line: #86b6d6;
+  --wood: #d6eefb;
+  --cream: #f1f8fc;
+  --ink-fixed: #0e2638;
+  --pink: #d6eefb;
+  --blue: #d6eefb;
+  --wash: rgb(255 255 255 / 0.14);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .ice .needs-js {
+  display: none;
+}
+
+.ice :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.ice .card-body,
+.ice .paras,
+.ice .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.ice h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.ice .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.ice .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.ice .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.ice .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.ice .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.ice .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.ice .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.ice .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.ice .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.ice .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.ice .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.ice .times th,
+.ice .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.ice .times thead th {
+  color: #cde3f0;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.ice .times tbody th {
+  font-weight: 700;
+}
+
+.ice .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.ice .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ice .pick:hover {
+  background: var(--wash);
+}
+
+.ice .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .ice .no-js-name {
+  display: none;
+}
+
+.ice .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.ice .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.ice .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.ice .btn:hover {
+  background: var(--wash);
+}
+
+.ice .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.ice .btn.fill:hover {
+  background: var(--cream);
+}
+
+.ice .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ice .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.ice .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.ice .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.ice .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.ice .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.ice .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.ice .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.ice .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.ice .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.ice .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ice .snd[aria-pressed='true'] .slash,
+.ice .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ice * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.ice .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The slab ---------- */
+.ice .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 8px solid var(--wood);
+}
+
+.ice .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.ice .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.ice .layers {
+  display: grid;
+  gap: 0;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: 0 var(--gutter) 3rem;
+}
+
+/* Each row is a band of the stone, divided from the next by a carved line */
+.ice .layer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem;
+  min-width: 0;
+  padding: clamp(1.8rem, 4vw, 2.6rem) 0;
+  border-bottom: 4px double var(--line);
+}
+
+.ice .layer:last-child {
+  border-bottom: 0;
+}
+
+@media (min-width: 64rem) {
+  .ice .layer {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 2.4rem;
+    align-items: start;
+  }
+
+  .ice .layer:nth-child(even) .words {
+    order: 2;
+  }
+}
+
+.ice .words {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.ice .bench {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.ice .tool {
+  display: grid;
+  gap: 0.8rem;
+  min-width: 0;
+  max-width: 36rem;
+}
+
+/* ---------- Drawings ---------- */
+.ice .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ice .tank {
+  fill: #0a1c2a;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.ice .water {
+  fill: #3f86b8;
+}
+
+.ice .surface {
+  stroke: #f1f8fc;
+  stroke-width: 2;
+}
+
+.ice .block {
+  fill: #eaf6fd;
+  fill-opacity: 0.92;
+  stroke: #f1f8fc;
+  stroke-width: 2;
+}
+
+.ice .block.sunk {
+  fill: #b9a98a;
+  stroke: #6b5a3a;
+}
+
+.ice .glass {
+  fill: none;
+  stroke: #f1f8fc;
+  stroke-width: 2.5;
+}
+
+.ice .icefill {
+  fill: #eaf6fd;
+}
+
+.ice .over {
+  fill: #ff9f8f;
+}
+
+.ice .lab {
+  fill: var(--cream);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ice .lab.small {
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.ice .lab.mid {
+  text-anchor: middle;
+}
+
+.ice .lab.dark {
+  fill: #0b2236;
+}
+
+.ice .times {
+  table-layout: fixed;
+}
+
+.ice .times th,
+.ice .times td {
+  overflow-wrap: anywhere;
+}
