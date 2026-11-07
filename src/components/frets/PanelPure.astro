@@ -1,0 +1,15 @@
+---
+// Position 3: a fret and a simple fraction. Without a script the table lists four intervals.
+import { INTERVALS, cents, fmt, fretAt, pureAt } from '../../lib/frets';
+---
+
+<div class="tool" data-pure-tool>
+  <table class="times">
+    <caption class="sr-only">Four intervals: the fret of equal temperament, the place of a simple fraction and the difference, on a 648 millimetre scale</caption>
+    <thead><tr><th scope="col">Interval</th><th scope="col">Equal temperament</th><th scope="col">Simple fraction</th><th scope="col">Difference</th></tr></thead>
+    <tbody>{INTERVALS.map((i) => <tr><th scope="row">{i.name}, {i.simple}</th><td>fret {i.fret}, {fmt(fretAt(648, i.fret), 1)} mm</td><td>{fmt(pureAt(648, i.ratio), 1)} mm</td><td>{fmt(Math.abs(cents(i.ratio) - i.fret * 100), 1)} cents</td></tr>)}</tbody>
+  </table>
+  <svg class="plate needs-js" viewBox="0 0 300 100" role="img" aria-label="A line for the string with two marks, one at the place of the simple fraction and one at the fret of equal temperament." data-pure-svg><g data-pure-g></g></svg>
+  <div class="controls needs-js" data-pure-picks></div>
+  <p class="status" aria-live="polite" data-pure-status>Pick an interval.</p>
+</div>

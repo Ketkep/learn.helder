@@ -1052,6 +1052,15 @@ The page is deep winter blue with ice white lettering, three layers of a frozen 
 - `src/components/ice/Lake.astro` is the frame and `Panel*.astro` is one layer each.
 - `src/scripts/ice/ice.ts` starts all three layers.
 
+## The guitar fret page: how the three positions work
+
+The page is warm dark wood with brass, three positions on a neck, with the words on one side and a drawing on the other (sides swap on the second). The pitch of a string is inversely proportional to the length that vibrates, so halving it doubles the pitch. In equal temperament each fret raises the pitch by the twelfth root of 2, about 1.0595, so the distance from the nut to fret n is the scale length times 1 minus 2 to the power minus n over 12, and the twelfth fret is at half. Position 1 draws frets 1 to 12 for two common scale lengths (648 mm and 629 mm, the conversions of 25.5 and 24.75 inches, which the page does not tie to a maker) and tells how far each fret is from the nut and how much string is left. Position 2 shows the shrinking gaps (each fret takes about 5.6 per cent off what is left, the rule of dividing by 17.817 is a shortcut for it) and plays the note at a fret with `pluck()` from `sound.ts` only when Play is pressed, for the six open strings of the usual tuning. Position 3 compares the fret of equal temperament with the place of a simple fraction for an octave, fifth, fourth and major third, in millimetres and cents (0, 2, 2 and 13.7). Without a script each position shows one picture or table.
+
+- `src/data/frets.ts` holds all the words, the takeaways and the sources.
+- `src/lib/frets.ts` holds the fret formula, the strings, the intervals and the drawings as SVG text.
+- `src/components/frets/Neck.astro` is the frame and `Panel*.astro` is one position each.
+- `src/scripts/frets/frets.ts` starts all three positions and plays the notes.
+
 ## Where things are
 
 ```
@@ -1156,6 +1165,7 @@ src/data/colours.ts        everything the four colours page says: tables, takeaw
 src/data/waves.ts          everything the ocean waves page says: stretches, takeaways, sources
 src/data/vault.ts          everything the password page says: locks, takeaways, sources
 src/data/ice.ts            everything the ice page says: layers, takeaways, sources
+src/data/frets.ts          everything the guitar fret page says: positions, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1260,6 +1270,7 @@ src/components/colours/    the four colours page: a map room with three tables
 src/components/waves/      the ocean waves page: a shore with three stretches
 src/components/vault/      the password page: a vault door with three locks
 src/components/ice/        the ice page: a frozen lake in three layers
+src/components/frets/      the guitar fret page: a neck with three positions
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1361,6 +1372,7 @@ src/styles/colours.css     the four colours page: warm paper and a round map
 src/styles/waves.css       the ocean waves page: deep blue and foam white
 src/styles/vault.css       the password page: dark steel and brass
 src/styles/ice.css         the ice page: winter blue and ice white
+src/styles/frets.css       the guitar fret page: dark wood and brass
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1455,6 +1467,7 @@ src/lib/colours.ts         the maps, the searches and the drawings for the four 
 src/lib/waves.ts           the wave speeds, the made-up beach and the drawings for the ocean waves page
 src/lib/vault.ts           the password sums, the made-up speeds and the drawings for the password page
 src/lib/ice.ts             the floating rule, the lake stages, the bottle and the drawings for the ice page
+src/lib/frets.ts           the fret formula, the strings, the intervals and the drawings for the guitar fret page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1557,6 +1570,7 @@ src/scripts/colours/       starts the three tables of the four colours page
 src/scripts/waves/         starts the three stretches of the ocean waves page
 src/scripts/vault/         starts the three locks of the password page
 src/scripts/ice/           starts the three layers of the ice page
+src/scripts/frets/         starts the three positions of the guitar fret page and plays the notes
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

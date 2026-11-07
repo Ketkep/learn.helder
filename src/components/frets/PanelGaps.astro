@@ -1,0 +1,21 @@
+---
+// Position 2: why the gaps shrink. Without a script the picture shows the gaps and the table lists the six open strings.
+import { STRINGS, fmt, gapsSvg } from '../../lib/frets';
+---
+
+<div class="tool" data-gaps-tool>
+  <svg class="plate" viewBox="0 0 300 140" role="img" aria-label="Twelve bars, one for the gap before each fret. Each bar is a little shorter than the one before." data-gaps-svg>
+    <g set:html={gapsSvg(648, 0)} data-gaps-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">The open strings of the usual tuning and their pitch in hertz</caption>
+    <thead><tr><th scope="col">String</th><th scope="col">Open pitch</th></tr></thead>
+    <tbody>{STRINGS.map((s) => <tr><th scope="row">{s.name}</th><td>{fmt(s.hz, 2)} Hz</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-gaps-picks></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Fret <output data-gaps-out>5</output></span><input class="range" type="range" min="0" max="12" step="1" value="5" data-gaps-range aria-label="Fret number, from 0 for the open string to 12" /></label>
+    <button class="btn fill" type="button" data-gaps-play>Play</button>
+  </div>
+  <p class="status" aria-live="polite" data-gaps-status>Press a fret and a string.</p>
+</div>

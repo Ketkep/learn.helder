@@ -1047,6 +1047,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-07',
     status: 'live',
   },
+  {
+    slug: 'why-frets-get-closer-together',
+    title: 'Why frets get closer together',
+    hook: 'See where the frets go, hear the note at each one and compare them with a simple fraction.',
+    category: 'Music',
+    accent: '#E8B67A',
+    preview: 'why-frets-get-closer-together',
+    dateAdded: '2026-11-07',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

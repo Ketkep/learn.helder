@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .fg-line { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    .fg-fret { opacity: 0.35; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .fg-fret { animation: fg-lit 3.6s ease-in-out infinite; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .fg-fret.f2 { animation-delay: 0.3s; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .fg-fret.f3 { animation-delay: 0.6s; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .fg-fret.f4 { animation-delay: 0.9s; }
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .fg-fret.f5 { animation-delay: 1.2s; }
+    }
+    /* The frets light one after another along the neck */
+    @keyframes fg-lit { 0%, 100% { opacity: 0.35; } 30%, 60% { opacity: 1; } }
+  </style>
+
+  <g>
+    <path class="fg-line" d="M60 110 H340 V190 H60 Z"/>
+    <path class="fg-line fg-fret f1" d="M120 110 V190"/>
+    <path class="fg-line fg-fret f2" d="M170 110 V190"/>
+    <path class="fg-line fg-fret f3" d="M212 110 V190"/>
+    <path class="fg-line fg-fret f4" d="M248 110 V190"/>
+    <path class="fg-line fg-fret f5" d="M278 110 V190"/>
+    <path class="fg-line" d="M60 150 H340" stroke-width="3"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

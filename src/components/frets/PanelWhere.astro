@@ -1,0 +1,20 @@
+---
+// Position 1: where the frets go. Without a script the picture shows 648 mm and the table lists the first twelve frets.
+import { fmt, fretAt, neckSvg } from '../../lib/frets';
+---
+
+<div class="tool" data-where-tool>
+  <svg class="plate" viewBox="0 0 300 120" role="img" aria-label="The top of a guitar neck with twelve frets. The frets are far apart near the nut and closer together towards the twelfth." data-where-svg>
+    <g set:html={neckSvg(648, 0)} data-where-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Distance from the nut to each of the first twelve frets, for a scale length of 648 millimetres</caption>
+    <thead><tr><th scope="col">Fret</th><th scope="col">From the nut</th><th scope="col">Gap before it</th></tr></thead>
+    <tbody>{Array.from({ length: 12 }, (_, i) => i + 1).map((n) => <tr><th scope="row">{n}</th><td>{fmt(fretAt(648, n), 1)} mm</td><td>{fmt(fretAt(648, n) - fretAt(648, n - 1), 1)} mm</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-where-picks></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Fret <output data-where-out>0</output></span><input class="range" type="range" min="0" max="12" step="1" value="0" data-where-range aria-label="Fret number, from 0 for no fret to 12" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-where-status>With a scale length of 648 millimetres, the first fret is {fmt(fretAt(648, 1), 1)} millimetres from the nut and the twelfth fret is {fmt(fretAt(648, 12), 1)}, exactly halfway.</p>
+</div>

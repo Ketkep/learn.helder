@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Neck from '../../components/frets/Neck.astro';
+import { takeaways, sources, sourcesNote } from '../../data/frets';
+---
+
+<TopicLayout
+  slug="why-frets-get-closer-together"
+  intro="Each fret raises the pitch by the same ratio, so the gaps shrink. See where the frets go, hear the note at each one and compare them with the places a simple fraction would give."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Neck />
+</TopicLayout>
