@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .nc-line { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    .nc-anti { opacity: 0.55; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .nc-anti { animation: nc-slide 3s ease-in-out infinite alternate; }
+    }
+    /* The upside down copy slides until it fits the noise */
+    @keyframes nc-slide { from { transform: translateX(14px); } to { transform: translateX(0); } }
+  </style>
+
+  <g>
+    <path class="nc-line" d="M50 110 q25 -60 50 0 t50 0 t50 0 t50 0"/>
+    <path class="nc-line nc-anti" d="M50 170 q25 60 50 0 t50 0 t50 0 t50 0"/>
+    <path class="nc-line" d="M50 232 H250"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

@@ -1,0 +1,19 @@
+---
+// Part 2: a small delay and the pitch of the noise. Without a script the picture shows a delay of 0.1 ms and the table lists four pitches.
+import { fmt, graphSvg, left, reduction } from '../../lib/anc';
+---
+
+<div class="tool" data-delay-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A graph of how much of the noise is left at each pitch for a delay of a tenth of a millisecond. It is small for low pitches and rises above the line of no change for high pitches." data-delay-svg>
+    <g set:html={graphSvg(0.1)} data-delay-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">What is left of the noise at four pitches when the copy is 0.1 milliseconds late</caption>
+    <thead><tr><th scope="col">Pitch</th><th scope="col">Left of the noise</th><th scope="col">Change in loudness</th></tr></thead>
+    <tbody>{[100, 500, 1000, 3000].map((f) => <tr><th scope="row">{fmt(f)} Hz</th><td>{fmt(left(f, 0.1) * 100)}%</td><td>{reduction(left(f, 0.1)) >= 0 ? `${fmt(reduction(left(f, 0.1)), 1)} dB quieter` : `${fmt(-reduction(left(f, 0.1)), 1)} dB louder`}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Late by <output data-delay-out>0.10</output> ms</span><input class="range" type="range" min="0.01" max="1" step="0.01" value="0.1" data-delay-range aria-label="How late the copy is, in milliseconds" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-delay-status>With a delay of 0.10 milliseconds, the copy helps up to about 1667 hertz. Above that it is mostly worse, and comes and goes at pitches where the delay is a whole number of periods.</p>
+</div>

@@ -1,0 +1,15 @@
+---
+// Part 1: an upside down copy. Without a script the picture shows a 500 Hz tone with a copy 0.1 ms late.
+import { fmt, left, reduction, wavesSvg } from '../../lib/anc';
+---
+
+<div class="tool" data-cancel-tool>
+  <svg class="plate" viewBox="0 0 300 200" role="img" aria-label="Three waves one above the other: the noise, its upside down copy a little late, and the small wave that is left when they are added." data-cancel-svg>
+    <g set:html={wavesSvg(500, 0.1)} data-cancel-g></g>
+  </svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Pitch <output data-cancel-hz-out>500</output> Hz</span><input class="range" type="range" min="100" max="2000" step="50" value="500" data-cancel-hz aria-label="Pitch of the noise in hertz" /></label>
+    <label class="field"><span>Late by <output data-cancel-ms-out>0.10</output> ms</span><input class="range" type="range" min="0" max="1" step="0.01" value="0.1" data-cancel-ms aria-label="How late the copy is, in milliseconds" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-cancel-status>A 500 hertz noise with a copy 0.10 milliseconds late leaves {fmt(left(500, 0.1) * 100)}% of the noise, a cut of {fmt(reduction(left(500, 0.1)), 1)} decibels.</p>
+</div>

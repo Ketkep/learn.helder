@@ -1,0 +1,17 @@
+---
+// Part 3: how exact the timing must be. Without a script the table lists four phase errors.
+import { fmt, leftFromPhase, micro, reduction } from '../../lib/anc';
+---
+
+<div class="tool" data-exact-tool>
+  <table class="times">
+    <caption class="sr-only">What is left of the noise for four phase errors, and the time each takes at 100 and 1000 hertz</caption>
+    <thead><tr><th scope="col">Phase error</th><th scope="col">Left</th><th scope="col">At 100 Hz</th><th scope="col">At 1000 Hz</th></tr></thead>
+    <tbody>{[1, 5.7, 20, 60].map((d) => <tr><th scope="row">{d}°</th><td>{fmt(leftFromPhase(d) * 100, 1)}%</td><td>{fmt(micro(d, 100))} µs</td><td>{fmt(micro(d, 1000), 1)} µs</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-exact-picks></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Phase error <output data-exact-out>5.7</output>°</span><input class="range" type="range" min="0" max="180" step="0.1" value="5.7" data-exact-range aria-label="Phase error in degrees" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-exact-status>A phase error of 5.7 degrees leaves {fmt(leftFromPhase(5.7) * 100, 1)}% of the noise, a cut of {fmt(reduction(leftFromPhase(5.7)), 1)} decibels. At 1000 hertz it takes {fmt(micro(5.7, 1000), 1)} millionths of a second.</p>
+</div>

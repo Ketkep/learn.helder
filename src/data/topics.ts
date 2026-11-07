@@ -1057,6 +1057,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-07',
     status: 'live',
   },
+  {
+    slug: 'how-noise-cancelling-works',
+    title: 'How noise cancelling works',
+    hook: 'Add an upside down copy of a tone and see what a small delay does at different pitches.',
+    category: 'Technology',
+    accent: '#8FE0D2',
+    preview: 'how-noise-cancelling-works',
+    dateAdded: '2026-11-07',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

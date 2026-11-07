@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Cups from '../../components/anc/Cups.astro';
+import { takeaways, sources, sourcesNote } from '../../data/anc';
+---
+
+<TopicLayout
+  slug="how-noise-cancelling-works"
+  intro="Headphones make a sound to silence a sound. Add an upside down copy of a tone, see what a small delay does at different pitches and see how exact the timing must be."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Cups />
+</TopicLayout>

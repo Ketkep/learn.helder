@@ -1061,6 +1061,15 @@ The page is warm dark wood with brass, three positions on a neck, with the words
 - `src/components/frets/Neck.astro` is the frame and `Panel*.astro` is one position each.
 - `src/scripts/frets/frets.ts` starts all three positions and plays the notes.
 
+## The noise cancelling page: how the three parts work
+
+The page is dark graphite with a soft teal, three parts of a pair of headphones, with the words on one side and a drawing on the other (sides swap on the second). The model is plain: a steady tone is cancelled by adding the same tone turned upside down, and if that copy is late by a time the part left is 2 times the sine of half the phase error, as a share of the noise. Part 1 draws the noise, the late copy and the sum for a chosen pitch (100 to 2000 hertz) and delay (0 to 1 millisecond). Past a sixth of a period late the sum is louder than the noise. Part 2 graphs what is left against pitch for a chosen delay and says where the copy stops helping, one over six times the delay. The graph comes and goes at higher pitches because the delay is sometimes a whole number of periods, which the page says is a quirk of the model. Part 3 turns a phase error into what is left (5.7 degrees leaves about a tenth, a cut of 20 decibels) and into the time it takes at 100, 500, 1000 and 2000 hertz. The sources say the method works best on steady, low sounds and that the cups block the higher sounds. No cutoff of about 1000 hertz was found, so none is given. No sound is played on this page. Without a script each part shows one picture or table.
+
+- `src/data/anc.ts` holds all the words, the takeaways and the sources.
+- `src/lib/anc.ts` holds the delay model and the drawings as SVG text.
+- `src/components/anc/Cups.astro` is the frame and `Panel*.astro` is one part each.
+- `src/scripts/anc/anc.ts` starts all three parts.
+
 ## Where things are
 
 ```
@@ -1166,6 +1175,7 @@ src/data/waves.ts          everything the ocean waves page says: stretches, take
 src/data/vault.ts          everything the password page says: locks, takeaways, sources
 src/data/ice.ts            everything the ice page says: layers, takeaways, sources
 src/data/frets.ts          everything the guitar fret page says: positions, takeaways, sources
+src/data/anc.ts            everything the noise cancelling page says: parts, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1271,6 +1281,7 @@ src/components/waves/      the ocean waves page: a shore with three stretches
 src/components/vault/      the password page: a vault door with three locks
 src/components/ice/        the ice page: a frozen lake in three layers
 src/components/frets/      the guitar fret page: a neck with three positions
+src/components/anc/        the noise cancelling page: headphones in three parts
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1373,6 +1384,7 @@ src/styles/waves.css       the ocean waves page: deep blue and foam white
 src/styles/vault.css       the password page: dark steel and brass
 src/styles/ice.css         the ice page: winter blue and ice white
 src/styles/frets.css       the guitar fret page: dark wood and brass
+src/styles/anc.css         the noise cancelling page: graphite and teal
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1468,6 +1480,7 @@ src/lib/waves.ts           the wave speeds, the made-up beach and the drawings f
 src/lib/vault.ts           the password sums, the made-up speeds and the drawings for the password page
 src/lib/ice.ts             the floating rule, the lake stages, the bottle and the drawings for the ice page
 src/lib/frets.ts           the fret formula, the strings, the intervals and the drawings for the guitar fret page
+src/lib/anc.ts             the delay model and the drawings for the noise cancelling page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1571,6 +1584,7 @@ src/scripts/waves/         starts the three stretches of the ocean waves page
 src/scripts/vault/         starts the three locks of the password page
 src/scripts/ice/           starts the three layers of the ice page
 src/scripts/frets/         starts the three positions of the guitar fret page and plays the notes
+src/scripts/anc/           starts the three parts of the noise cancelling page
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next
