@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Sky from '../../components/eclipse/Sky.astro';
+import { takeaways, sources, sourcesNote } from '../../data/eclipse';
+---
+
+<TopicLayout
+  slug="why-the-moon-can-cover-the-sun"
+  intro="The Sun is 400 times wider than the Moon and 400 times further away. See when the Moon covers the Sun, how far its shadow reaches and why there is not an eclipse every month."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Sky />
+</TopicLayout>

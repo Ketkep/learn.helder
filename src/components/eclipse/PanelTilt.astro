@@ -1,0 +1,19 @@
+---
+// Part 3: why not every month. Without a script the picture shows the Moon at the node and the table lists three points.
+import { LIMIT, TILT, fmt, height, share, tiltSvg } from '../../lib/eclipse';
+---
+
+<div class="tool" data-tilt-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A wavy line for the height of the Moon at new moon, round a whole orbit. A band near zero marks where the Moon can cross the Sun." data-tilt-svg>
+    <g set:html={tiltSvg(0)} data-tilt-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Height of the Moon at three points round its orbit</caption>
+    <thead><tr><th scope="col">Round the orbit</th><th scope="col">Height</th></tr></thead>
+    <tbody>{[0, 30, 90].map((a) => <tr><th scope="row">{a}° from a node</th><td>{fmt(height(a), 2)}°</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>From a node <output data-tilt-out>0</output>°</span><input class="range" type="range" min="0" max="360" step="1" value="0" data-tilt-range aria-label="How far round its orbit the Moon is from a node, in degrees" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-tilt-status>At a node the Moon is at height 0 degrees, so it can cross the Sun. With a tilt of {TILT} degrees and a limit of {LIMIT} degrees, about {fmt(share * 100)}% of new moons are close enough.</p>
+</div>

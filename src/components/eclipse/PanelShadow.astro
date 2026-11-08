@@ -1,0 +1,20 @@
+---
+// Part 2: a shadow that only just reaches. Without a script the picture shows the mean distances.
+import { fmt, shadowSvg, umbra } from '../../lib/eclipse';
+---
+
+<div class="tool" data-shadow-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="The Moon on the left casting a narrowing cone of shadow towards the Earth on the right. The tip of the cone is close to the Earth." data-shadow-svg>
+    <g set:html={shadowSvg(384400, 149.6e6)} data-shadow-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">Length of the Moon's shadow for the nearest and furthest Sun</caption>
+    <thead><tr><th scope="col">Sun distance</th><th scope="col">Shadow length</th></tr></thead>
+    <tbody>{[147.5, 149.6, 152.6].map((s) => <tr><th scope="row">{s} million km</th><td>{fmt(umbra(s * 1e6))} km</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Moon <output data-shadow-m-out>384,400</output> km</span><input class="range" type="range" min="363104" max="405696" step="500" value="384400" data-shadow-m aria-label="Distance of the Moon in kilometres" /></label>
+    <label class="field"><span>Sun <output data-shadow-s-out>149.6</output> million km</span><input class="range" type="range" min="147.5" max="152.6" step="0.1" value="149.6" data-shadow-s aria-label="Distance of the Sun in millions of kilometres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-shadow-status>The shadow is {fmt(umbra(149.6e6))} kilometres long and the Moon is 384,400 kilometres away, so the tip falls short of the Earth.</p>
+</div>

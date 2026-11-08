@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .ec-ring { fill: none; stroke: var(--on-cover); stroke-width: 8; }
+    .ec-disc { fill: var(--on-cover); }
+    .ec-moon { transform-box: view-box; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .ec-moon { animation: ec-pass 4s ease-in-out infinite alternate; }
+    }
+    /* The Moon slides across the Sun until it covers it */
+    @keyframes ec-pass { from { transform: translateX(-70px); } to { transform: translateX(0); } }
+  </style>
+
+  <g>
+    <circle class="ec-ring" cx="200" cy="140" r="82" stroke-dasharray="2 16" stroke-linecap="round"/>
+    <circle class="ec-ring" cx="200" cy="140" r="58"/>
+    <g class="ec-moon"><circle class="ec-disc" cx="200" cy="140" r="52"/></g>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

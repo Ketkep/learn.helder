@@ -1,0 +1,26 @@
+---
+// Part 1: the same size in the sky. Without a script the picture shows a near Moon and the table lists four cases.
+import { MOON_FAR, MOON_KM, MOON_NEAR, SUN_FAR, SUN_KM, SUN_NEAR, arcmin, discsSvg, fmt, kind } from '../../lib/eclipse';
+const cases = [
+  { name: 'Moon near, Sun far', m: MOON_NEAR, s: SUN_FAR },
+  { name: 'Moon near, Sun near', m: MOON_NEAR, s: SUN_NEAR },
+  { name: 'Moon far, Sun near', m: MOON_FAR, s: SUN_NEAR },
+  { name: 'Moon far, Sun far', m: MOON_FAR, s: SUN_FAR },
+];
+---
+
+<div class="tool" data-sizes-tool>
+  <svg class="plate" viewBox="0 0 300 170" role="img" aria-label="A big dark disc, the Moon, covering a yellow disc, the Sun, completely." data-sizes-svg>
+    <g set:html={discsSvg(MOON_NEAR, SUN_FAR)} data-sizes-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">How big the Moon and the Sun look for the nearest and furthest distances, and what kind of eclipse results</caption>
+    <thead><tr><th scope="col">Case</th><th scope="col">Moon</th><th scope="col">Sun</th><th scope="col">Result</th></tr></thead>
+    <tbody>{cases.map((c) => <tr><th scope="row">{c.name}</th><td>{fmt(arcmin(MOON_KM, c.m), 1)}′</td><td>{fmt(arcmin(SUN_KM, c.s), 1)}′</td><td>{kind(c.m, c.s)}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js">
+    <label class="field"><span>Moon <output data-sizes-m-out>363,104</output> km</span><input class="range" type="range" min="363104" max="405696" step="500" value="363104" data-sizes-m aria-label="Distance of the Moon in kilometres" /></label>
+    <label class="field"><span>Sun <output data-sizes-s-out>152.6</output> million km</span><input class="range" type="range" min="147.5" max="152.6" step="0.1" value="152.6" data-sizes-s aria-label="Distance of the Sun in millions of kilometres" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-sizes-status>The Moon looks {fmt(arcmin(MOON_KM, MOON_NEAR), 1)} arcminutes wide and the Sun {fmt(arcmin(SUN_KM, SUN_FAR), 1)}, so the Moon covers the Sun.</p>
+</div>

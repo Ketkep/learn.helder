@@ -1067,6 +1067,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-07',
     status: 'live',
   },
+  {
+    slug: 'why-the-moon-can-cover-the-sun',
+    title: 'Why the Moon can cover the Sun',
+    hook: 'Change the distance of the Moon and see when it covers the Sun, and why there is not an eclipse every month.',
+    category: 'Space',
+    accent: '#FFD9A0',
+    preview: 'why-the-moon-can-cover-the-sun',
+    dateAdded: '2026-11-08',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

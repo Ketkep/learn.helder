@@ -1070,6 +1070,15 @@ The page is dark graphite with a soft teal, three parts of a pair of headphones,
 - `src/components/anc/Cups.astro` is the frame and `Panel*.astro` is one part each.
 - `src/scripts/anc/anc.ts` starts all three parts.
 
+## The eclipse page: how the three parts work
+
+The page is a night sky with a pale gold edge, three parts with the words on one side and a drawing on the other (sides swap on the second). The Sun is about 1.39 million kilometres across and the Moon about 3475, so about 400 times wider, and the Sun is about 400 times further away. Part 1 draws the Sun and the Moon one over the other as they look in the sky for a chosen Moon distance (about 363,100 to 405,700 kilometres) and Sun distance (147.5 to 152.6 million kilometres): the Moon looks 29.4 to 32.9 arcminutes wide and the Sun 31.4 to 32.4, which agrees with a table in the sources, so a near Moon covers the Sun (total) and a far one leaves a ring (annular). Part 2 works out the length of the Moon's shadow by similar triangles (369,000 to 382,000 kilometres, against the Moon's distance) and draws the cone, with the Moon and Earth much too big and the page saying so. Part 3 shows the height of the Moon at new moon round its orbit with a tilt of 5.14 degrees. The limit of about 1.5 degrees, and so the share of one new moon in five, is a rough value worked out for the page and not from a source, and the page says so. No sound is played on this page. Without a script each part shows one picture or table.
+
+- `src/data/eclipse.ts` holds all the words, the takeaways and the sources.
+- `src/lib/eclipse.ts` holds the sizes, the shadow, the tilt and the drawings as SVG text.
+- `src/components/eclipse/Sky.astro` is the frame and `Panel*.astro` is one part each.
+- `src/scripts/eclipse/eclipse.ts` starts all three parts.
+
 ## Where things are
 
 ```
@@ -1176,6 +1185,7 @@ src/data/vault.ts          everything the password page says: locks, takeaways, 
 src/data/ice.ts            everything the ice page says: layers, takeaways, sources
 src/data/frets.ts          everything the guitar fret page says: positions, takeaways, sources
 src/data/anc.ts            everything the noise cancelling page says: parts, takeaways, sources
+src/data/eclipse.ts        everything the eclipse page says: parts, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1282,6 +1292,7 @@ src/components/vault/      the password page: a vault door with three locks
 src/components/ice/        the ice page: a frozen lake in three layers
 src/components/frets/      the guitar fret page: a neck with three positions
 src/components/anc/        the noise cancelling page: headphones in three parts
+src/components/eclipse/    the eclipse page: a sky in three parts
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1385,6 +1396,7 @@ src/styles/vault.css       the password page: dark steel and brass
 src/styles/ice.css         the ice page: winter blue and ice white
 src/styles/frets.css       the guitar fret page: dark wood and brass
 src/styles/anc.css         the noise cancelling page: graphite and teal
+src/styles/eclipse.css     the eclipse page: night sky and pale gold
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1481,6 +1493,7 @@ src/lib/vault.ts           the password sums, the made-up speeds and the drawing
 src/lib/ice.ts             the floating rule, the lake stages, the bottle and the drawings for the ice page
 src/lib/frets.ts           the fret formula, the strings, the intervals and the drawings for the guitar fret page
 src/lib/anc.ts             the delay model and the drawings for the noise cancelling page
+src/lib/eclipse.ts         the sizes, the shadow, the tilt and the drawings for the eclipse page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1585,6 +1598,7 @@ src/scripts/vault/         starts the three locks of the password page
 src/scripts/ice/           starts the three layers of the ice page
 src/scripts/frets/         starts the three positions of the guitar fret page and plays the notes
 src/scripts/anc/           starts the three parts of the noise cancelling page
+src/scripts/eclipse/       starts the three parts of the eclipse page
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next
