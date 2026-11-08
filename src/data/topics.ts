@@ -1087,6 +1087,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-08',
     status: 'live',
   },
+  {
+    slug: 'why-ten-days-went-missing',
+    title: 'Why ten days went missing',
+    hook: 'Turn a date from the old calendar into the new one, watch a tiny error add up and see when each place skipped its days.',
+    category: 'History',
+    accent: '#E8C9A0',
+    preview: 'why-ten-days-went-missing',
+    dateAdded: '2026-11-08',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

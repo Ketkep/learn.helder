@@ -1088,6 +1088,15 @@ The page is a dark bench with a bright signal box, three tests with the words on
 - `src/components/react/Bench.astro` is the frame and `Panel*.astro` is one test each.
 - `src/scripts/react/react.ts` runs the three tests in the browser.
 
+## The calendar page: how the three parts work
+
+The page is a calendar paper that shows the days around a change, with three parts. Part 1 turns a date from the Julian calendar into the Gregorian one and back, and says which weekday it falls on. A date that never happened, such as 10 October 1582, is named as one that was skipped. Part 2 is a slider for the length of the year. It shows how far a calendar drifts from the seasons over the years, with the Julian year of 365.25 days and the Gregorian one of 365.2425 days against 365.2422. Part 3 lists six places that changed at different times, from 1582 to 1923, and draws the days around each change and how many were left out. The sums use the Julian day number and were checked against the dates in the sources. The page gives no date for Holland because the sources differ. Without a script each part shows one picture or table.
+
+- `src/data/cal.ts` holds all the words, the takeaways and the sources.
+- `src/lib/cal.ts` holds the date sums, the six changes and the drawings as SVG text.
+- `src/components/cal/Page.astro` is the frame and `Panel*.astro` is one part each.
+- `src/scripts/cal/cal.ts` runs the three parts in the browser.
+
 ## Where things are
 
 ```
@@ -1196,6 +1205,7 @@ src/data/frets.ts          everything the guitar fret page says: positions, take
 src/data/anc.ts            everything the noise cancelling page says: parts, takeaways, sources
 src/data/eclipse.ts        everything the eclipse page says: parts, takeaways, sources
 src/data/react.ts          everything the reaction time page says: tests, takeaways, sources
+src/data/cal.ts          everything the calendar page says: parts, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1304,6 +1314,7 @@ src/components/frets/      the guitar fret page: a neck with three positions
 src/components/anc/        the noise cancelling page: headphones in three parts
 src/components/eclipse/    the eclipse page: a sky in three parts
 src/components/react/      the reaction time page: a bench with three tests
+src/components/cal/      the calendar page: a calendar paper with three parts
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1409,6 +1420,7 @@ src/styles/frets.css       the guitar fret page: dark wood and brass
 src/styles/anc.css         the noise cancelling page: graphite and teal
 src/styles/eclipse.css     the eclipse page: night sky and pale gold
 src/styles/react.css       the reaction time page: dark bench and a bright signal
+src/styles/cal.css       the calendar page: paper and ink
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1507,6 +1519,7 @@ src/lib/frets.ts           the fret formula, the strings, the intervals and the 
 src/lib/anc.ts             the delay model and the drawings for the noise cancelling page
 src/lib/eclipse.ts         the sizes, the shadow, the tilt and the drawings for the eclipse page
 src/lib/react.ts           the distance and ruler sums and the drawings for the reaction time page
+src/lib/cal.ts           the date sums, the six changes and the drawings for the calendar page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1613,6 +1626,7 @@ src/scripts/frets/         starts the three positions of the guitar fret page an
 src/scripts/anc/           starts the three parts of the noise cancelling page
 src/scripts/eclipse/       starts the three parts of the eclipse page
 src/scripts/react/         runs the three tests of the reaction time page in the browser
+src/scripts/cal/         runs the three parts of the calendar page in the browser
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next
