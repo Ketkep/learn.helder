@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .cl-line { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    .cl-fill { fill: var(--on-cover); }
+    .cl-gone { opacity: 1; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .cl-gone { animation: cl-vanish 3.2s ease-in-out infinite; }
+    }
+    /* The ten days fade away and the calendar jumps ahead */
+    @keyframes cl-vanish { 0%, 25% { opacity: 1; } 55%, 85% { opacity: 0.1; } 100% { opacity: 1; } }
+  </style>
+
+  <g>
+    <rect class="cl-line" x="90" y="70" width="220" height="150" rx="14"/>
+    <path class="cl-line" d="M90 112 H310"/>
+    <rect class="cl-fill" x="116" y="136" width="26" height="26" rx="4"/>
+    <rect class="cl-fill cl-gone" x="152" y="136" width="26" height="26" rx="4"/>
+    <rect class="cl-fill cl-gone" x="188" y="136" width="26" height="26" rx="4"/>
+    <rect class="cl-fill cl-gone" x="224" y="136" width="26" height="26" rx="4"/>
+    <rect class="cl-fill" x="260" y="136" width="26" height="26" rx="4"/>
+    <rect class="cl-fill" x="116" y="176" width="26" height="26" rx="4"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

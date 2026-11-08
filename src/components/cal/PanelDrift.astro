@@ -1,0 +1,17 @@
+---
+// Part 2: a small error adds up. Without a script the table lists the drift after 128, 1280 and 3300 years.
+import { GREGORIAN_YEAR, JULIAN_YEAR, drift, fmt } from '../../lib/cal';
+---
+
+<div class="tool" data-drift-tool>
+  <table class="times">
+    <caption class="sr-only">Days of drift from the seasons after some years, for each calendar</caption>
+    <thead><tr><th scope="col">Years</th><th scope="col">Julian</th><th scope="col">Gregorian</th></tr></thead>
+    <tbody>{[128, 1280, 3300].map((y) => <tr><th scope="row">{fmt(y)}</th><td>{fmt(drift(y, JULIAN_YEAR), 1)} days</td><td>{fmt(drift(y, GREGORIAN_YEAR), 1)} days</td></tr>)}</tbody>
+  </table>
+  <svg class="plate needs-js" viewBox="0 0 300 100" role="img" aria-label="Two bars for the days each calendar has drifted." data-drift-svg><g data-drift-g></g></svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Years <output data-drift-out>1280</output></span><input class="range" type="range" min="0" max="3300" step="10" value="1280" data-drift-range aria-label="Number of years" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-drift-status>After 1280 years the Julian calendar has drifted {fmt(drift(1280, JULIAN_YEAR), 1)} days and the Gregorian calendar {fmt(drift(1280, GREGORIAN_YEAR), 2)} days.</p>
+</div>

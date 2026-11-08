@@ -1,0 +1,18 @@
+---
+// Test 2: how far in that time. Without a script the table lists the distance in a quarter of a second at five speeds.
+import { SPEEDS, fmt, metres, ruler } from '../../lib/react';
+---
+
+<div class="tool" data-far-tool>
+  <table class="times">
+    <caption class="sr-only">Distance travelled in 250 milliseconds at five speeds</caption>
+    <thead><tr><th scope="col">Speed</th><th scope="col">In 250 milliseconds</th></tr></thead>
+    <tbody>{SPEEDS.map((s) => <tr><th scope="row">{s.name}, {s.kmh} km/h</th><td>{fmt(metres(s.kmh, 250), 1)} metres</td></tr>)}</tbody>
+  </table>
+  <svg class="plate needs-js" viewBox="0 0 300 100" role="img" aria-label="A bar showing how far something goes." data-far-svg><g data-far-g></g></svg>
+  <div class="controls needs-js" data-far-picks></div>
+  <div class="controls needs-js">
+    <label class="field"><span>Time <output data-far-out>250</output> ms</span><input class="range" type="range" min="100" max="500" step="10" value="250" data-far-range aria-label="Reaction time in milliseconds" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-far-status>At 100 kilometres an hour, something goes {fmt(metres(100, 250), 1)} metres in 250 milliseconds. A ruler falls {fmt(ruler(250))} centimetres in that time.</p>
+</div>

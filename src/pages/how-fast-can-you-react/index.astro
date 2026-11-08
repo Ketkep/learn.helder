@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Bench from '../../components/react/Bench.astro';
+import { takeaways, sources, sourcesNote } from '../../data/react';
+---
+
+<TopicLayout
+  slug="how-fast-can-you-react"
+  intro="Time your own reaction, see how far something moves in that time and compare a simple reaction with a choice. The tests run in your browser, and nothing is saved. It is a toy, not a medical test."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Bench />
+</TopicLayout>

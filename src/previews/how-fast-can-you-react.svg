@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .rc-line { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    .rc-fill { fill: var(--on-cover); }
+    .rc-light { opacity: 0.25; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .rc-light { animation: rc-go 3s steps(1) infinite; }
+    }
+    /* The signal comes on after a wait */
+    @keyframes rc-go { 0%, 60% { opacity: 0.25; } 61%, 100% { opacity: 1; } }
+  </style>
+
+  <g>
+    <rect class="rc-line" x="110" y="70" width="180" height="120" rx="16"/>
+    <circle class="rc-fill rc-light" cx="200" cy="130" r="30"/>
+    <path class="rc-line" d="M150 225 H250" opacity="0.5"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Page from '../../components/cal/Page.astro';
+import { takeaways, sources, sourcesNote } from '../../data/cal';
+---
+
+<TopicLayout
+  slug="why-ten-days-went-missing"
+  intro="In 1582 Thursday the fourth was followed by Friday the fifteenth. Turn a date from one calendar into the other, see how a tiny error adds up and see when each place changed."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Page />
+</TopicLayout>

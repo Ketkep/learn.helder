@@ -1077,6 +1077,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-08',
     status: 'live',
   },
+  {
+    slug: 'how-fast-can-you-react',
+    title: 'How fast can you react',
+    hook: 'Time your own reaction, see how far something moves in that time and compare a simple reaction with a choice.',
+    category: 'Body',
+    accent: '#B5EBC0',
+    preview: 'how-fast-can-you-react',
+    dateAdded: '2026-11-08',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

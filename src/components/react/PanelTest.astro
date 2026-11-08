@@ -1,0 +1,22 @@
+---
+// Test 1: time your own reaction. Without a script the table lists typical times from the sources.
+---
+
+<div class="tool" data-test-tool>
+  <table class="times">
+    <caption class="sr-only">Typical simple reaction times from the sources, which differ</caption>
+    <thead><tr><th scope="col">Signal</th><th scope="col">Typical time</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Something you see</th><td>about 200 to 250 milliseconds</td></tr>
+      <tr><th scope="row">Something you hear</th><td>about 140 to 170 milliseconds</td></tr>
+    </tbody>
+  </table>
+  <div class="needs-js">
+    <button class="signal" type="button" data-test-signal aria-live="off"><span data-test-text>Press Start</span></button>
+  </div>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-test-start>Start</button>
+  </div>
+  <svg class="plate needs-js" viewBox="0 0 300 120" role="img" aria-label="Five bars for your five tries." data-test-svg><g data-test-g></g></svg>
+  <p class="status" aria-live="polite" data-test-status>Press Start, wait for the box to say Now, then press the big button or the space bar.</p>
+</div>

@@ -1079,6 +1079,15 @@ The page is a night sky with a pale gold edge, three parts with the words on one
 - `src/components/eclipse/Sky.astro` is the frame and `Panel*.astro` is one part each.
 - `src/scripts/eclipse/eclipse.ts` starts all three parts.
 
+## The reaction time page: how the three tests work
+
+The page is a dark bench with a bright signal box, three tests with the words on one side and the test on the other (sides swap on the second). The tests run in the browser, nothing is saved or sent anywhere, and the page says it is a toy and not a medical test. Test 1 times your own reaction: Start, a random wait of 1 to 4.5 seconds, the box turns green and says Now, and you press the big box, or Space or Enter, as fast as you can. A press before Now does not count. The last five times are drawn as bars with the average. The cue is a colour and a word, not a flash. Test 2 multiplies a speed by a time (distance is speed times time) and shows the fall of a ruler, half the pull of gravity times the time squared, about 20 centimetres in 200 milliseconds. Test 3 is a choice between Left and Right, with the left and right arrow keys as well as the buttons, to compare with the simple test, after Donders's work of 1868. Typical times come from the sources, which differ, so the page says to compare your own tries with each other. Age, tiredness and the like are not mentioned because no source was found. Without a script each test shows one picture or table.
+
+- `src/data/react.ts` holds all the words, the takeaways and the sources.
+- `src/lib/react.ts` holds the distance and ruler sums and the drawings as SVG text.
+- `src/components/react/Bench.astro` is the frame and `Panel*.astro` is one test each.
+- `src/scripts/react/react.ts` runs the three tests in the browser.
+
 ## Where things are
 
 ```
@@ -1186,6 +1195,7 @@ src/data/ice.ts            everything the ice page says: layers, takeaways, sour
 src/data/frets.ts          everything the guitar fret page says: positions, takeaways, sources
 src/data/anc.ts            everything the noise cancelling page says: parts, takeaways, sources
 src/data/eclipse.ts        everything the eclipse page says: parts, takeaways, sources
+src/data/react.ts          everything the reaction time page says: tests, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1293,6 +1303,7 @@ src/components/ice/        the ice page: a frozen lake in three layers
 src/components/frets/      the guitar fret page: a neck with three positions
 src/components/anc/        the noise cancelling page: headphones in three parts
 src/components/eclipse/    the eclipse page: a sky in three parts
+src/components/react/      the reaction time page: a bench with three tests
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1397,6 +1408,7 @@ src/styles/ice.css         the ice page: winter blue and ice white
 src/styles/frets.css       the guitar fret page: dark wood and brass
 src/styles/anc.css         the noise cancelling page: graphite and teal
 src/styles/eclipse.css     the eclipse page: night sky and pale gold
+src/styles/react.css       the reaction time page: dark bench and a bright signal
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1494,6 +1506,7 @@ src/lib/ice.ts             the floating rule, the lake stages, the bottle and th
 src/lib/frets.ts           the fret formula, the strings, the intervals and the drawings for the guitar fret page
 src/lib/anc.ts             the delay model and the drawings for the noise cancelling page
 src/lib/eclipse.ts         the sizes, the shadow, the tilt and the drawings for the eclipse page
+src/lib/react.ts           the distance and ruler sums and the drawings for the reaction time page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1599,6 +1612,7 @@ src/scripts/ice/           starts the three layers of the ice page
 src/scripts/frets/         starts the three positions of the guitar fret page and plays the notes
 src/scripts/anc/           starts the three parts of the noise cancelling page
 src/scripts/eclipse/       starts the three parts of the eclipse page
+src/scripts/react/         runs the three tests of the reaction time page in the browser
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

@@ -1,0 +1,17 @@
+---
+// Part 3: who changed, and when. Without a script the picture shows the change of 1582 and the table lists six places.
+import { SWITCHES, fmt, say, skipped, stripSvg } from '../../lib/cal';
+---
+
+<div class="tool" data-switch-tool>
+  <svg class="plate" viewBox="0 0 300 140" role="img" aria-label="A row of days: three days before the change, the days that were left out, struck through, and three days after." data-switch-svg>
+    <g set:html={stripSvg(SWITCHES[0])} data-switch-g></g>
+  </svg>
+  <table class="times">
+    <caption class="sr-only">When each place changed, the last Julian day, the first Gregorian day and the days left out</caption>
+    <thead><tr><th scope="col">Place</th><th scope="col">Julian, then Gregorian</th><th scope="col">Days left out</th></tr></thead>
+    <tbody>{SWITCHES.map((s) => <tr><th scope="row">{s.name}</th><td>{say(s.last)}, then {say(s.first)}</td><td>{fmt(skipped(s))}</td></tr>)}</tbody>
+  </table>
+  <div class="controls needs-js" data-switch-picks></div>
+  <p class="status" aria-live="polite" data-switch-status>{SWITCHES[0].name}: {SWITCHES[0].note} {fmt(skipped(SWITCHES[0]))} days were left out.</p>
+</div>

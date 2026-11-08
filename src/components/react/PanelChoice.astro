@@ -1,0 +1,16 @@
+---
+// Test 3: a simple reaction and a choice. Without a script there is no test and the text explains what it does.
+---
+
+<div class="tool" data-choice-tool>
+  <p class="para no-js-note">This test needs a script. It shows Left or Right after a random wait, and times your press.</p>
+  <div class="needs-js">
+    <div class="signal" data-choice-signal role="status" aria-live="off"><span data-choice-text>Press Start</span></div>
+  </div>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-choice-start>Start</button>
+    <button class="btn" type="button" data-choice-left>Left</button>
+    <button class="btn" type="button" data-choice-right>Right</button>
+  </div>
+  <p class="status" aria-live="polite" data-choice-status>Press Start, wait for the box to say Left or Right, then press that button or the arrow key.</p>
+</div>
