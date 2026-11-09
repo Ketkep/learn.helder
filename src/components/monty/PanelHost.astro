@@ -1,0 +1,16 @@
+---
+// Act 3: what the host does. The first host is drawn here, so without a script it is still a picture and a table.
+import { HOSTS, casesSvg, chances, pct } from '../../lib/monty';
+const first = casesSvg('knows');
+---
+
+<div class="tool" data-host-tool>
+  <table class="times">
+    <caption class="sr-only">Three kinds of host, and the chance that staying or switching wins</caption>
+    <thead><tr><th scope="col">Host</th><th scope="col">Stay</th><th scope="col">Switch</th></tr></thead>
+    <tbody>{HOSTS.map((h) => { const c = chances(h.id); return <tr><th scope="row">{h.name}</th><td>{pct(c.stay)}</td><td>{pct(c.swap)}</td></tr>; })}</tbody>
+  </table>
+  <svg class="plate" viewBox={`0 0 420 ${first.h}`} role="img" aria-label="Every case when you pick door 1 and the host knows where the car is." data-host-svg><g data-host-g set:html={first.svg}></g></svg>
+  <div class="controls needs-js" data-host-picks></div>
+  <p class="status" aria-live="polite" data-host-status>{HOSTS[0].note} Switching wins {pct(chances('knows').swap)} of the time.</p>
+</div>

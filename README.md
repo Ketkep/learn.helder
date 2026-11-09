@@ -1097,6 +1097,15 @@ The page is a calendar paper that shows the days around a change, with three par
 - `src/components/cal/Page.astro` is the frame and `Panel*.astro` is one part each.
 - `src/scripts/cal/cal.ts` runs the three parts in the browser.
 
+## The Monty Hall page: how the three acts work
+
+The page is a dark red stage with gold, three acts with the words on one side and the tool on a panel on the other (sides swap on the second act). Act 1 is the game: three doors that are buttons, the host opens a goat door, then Stay or Switch, with one score for stays and one for switches kept for the visit. Act 2 changes the number of doors from 3 to 100 and shows the chances (staying wins 1 in n, switching n minus 1 in n), and a button plays 1,000 random games. Act 3 lists every case for three kinds of host (one who knows and always opens a goat, one who opens at random, one who offers a switch only when you picked the car) and works out the chance from the cases that fit. The play is random each time (`Math.random`) and nothing is saved or sent. The page says it is a toy. The trick host is made up for the page, and the page says so. Without a script each act shows one table or picture.
+
+- `src/data/monty.ts` holds all the words, the takeaways and the sources.
+- `src/lib/monty.ts` holds the chances, the list of cases and the drawings as SVG text.
+- `src/components/monty/Stage.astro` is the frame and `Panel*.astro` is one act each.
+- `src/scripts/monty/monty.ts` runs the three acts in the browser.
+
 ## Where things are
 
 ```
@@ -1206,6 +1215,7 @@ src/data/anc.ts            everything the noise cancelling page says: parts, tak
 src/data/eclipse.ts        everything the eclipse page says: parts, takeaways, sources
 src/data/react.ts          everything the reaction time page says: tests, takeaways, sources
 src/data/cal.ts          everything the calendar page says: parts, takeaways, sources
+src/data/monty.ts          everything the Monty Hall page says: acts, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1315,6 +1325,7 @@ src/components/anc/        the noise cancelling page: headphones in three parts
 src/components/eclipse/    the eclipse page: a sky in three parts
 src/components/react/      the reaction time page: a bench with three tests
 src/components/cal/      the calendar page: a calendar paper with three parts
+src/components/monty/      the Monty Hall page: a stage with three acts
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1421,6 +1432,7 @@ src/styles/anc.css         the noise cancelling page: graphite and teal
 src/styles/eclipse.css     the eclipse page: night sky and pale gold
 src/styles/react.css       the reaction time page: dark bench and a bright signal
 src/styles/cal.css       the calendar page: paper and ink
+src/styles/monty.css       the Monty Hall page: dark red curtain and gold
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1520,6 +1532,7 @@ src/lib/anc.ts             the delay model and the drawings for the noise cancel
 src/lib/eclipse.ts         the sizes, the shadow, the tilt and the drawings for the eclipse page
 src/lib/react.ts           the distance and ruler sums and the drawings for the reaction time page
 src/lib/cal.ts           the date sums, the six changes and the drawings for the calendar page
+src/lib/monty.ts           the chances, the cases and the drawings for the Monty Hall page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1627,6 +1640,7 @@ src/scripts/anc/           starts the three parts of the noise cancelling page
 src/scripts/eclipse/       starts the three parts of the eclipse page
 src/scripts/react/         runs the three tests of the reaction time page in the browser
 src/scripts/cal/         runs the three parts of the calendar page in the browser
+src/scripts/monty/         runs the three acts of the Monty Hall page in the browser
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

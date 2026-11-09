@@ -1,0 +1,21 @@
+---
+// Act 2: more doors. Without a script the table lists the chances at five numbers of doors.
+import { fmt, pct, stay, swap } from '../../lib/monty';
+const sizes = [3, 10, 100, 1000];
+---
+
+<div class="tool" data-doors-tool>
+  <table class="times">
+    <caption class="sr-only">Chance of winning by staying and by switching, for four numbers of doors</caption>
+    <thead><tr><th scope="col">Doors</th><th scope="col">Stay</th><th scope="col">Switch</th></tr></thead>
+    <tbody>{sizes.map((n) => <tr><th scope="row">{fmt(n)}</th><td>{pct(stay(n))}</td><td>{pct(swap(n))}</td></tr>)}</tbody>
+  </table>
+  <svg class="plate needs-js" viewBox="0 0 420 120" role="img" aria-label="The doors: yours, the one left shut and the ones the host opened." data-doors-svg><g data-doors-g></g></svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Doors <output data-doors-out>3</output></span><input class="range" type="range" min="3" max="100" step="1" value="3" data-doors-range aria-label="Number of doors" /></label>
+  </div>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-doors-run>Play 1,000 games</button>
+  </div>
+  <p class="status" aria-live="polite" data-doors-status>With 3 doors, staying wins 1 time in 3 and switching wins 2 in 3.</p>
+</div>

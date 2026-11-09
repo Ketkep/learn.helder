@@ -1,0 +1,28 @@
+---
+// Act 1: play the game. Without a script the table lists the three places of the car and what happens when you pick door 1 and the host
+// opens a goat door.
+const rows = [
+  { car: 'Door 1', host: 'Opens door 2 or door 3', stay: 'Wins', swap: 'Loses' },
+  { car: 'Door 2', host: 'Opens door 3', stay: 'Loses', swap: 'Wins' },
+  { car: 'Door 3', host: 'Opens door 2', stay: 'Loses', swap: 'Wins' },
+];
+---
+
+<div class="tool" data-play-tool>
+  <table class="times">
+    <caption class="sr-only">You pick door 1. Where the car is, what the host does, and whether staying or switching wins</caption>
+    <thead><tr><th scope="col">Car is behind</th><th scope="col">Host</th><th scope="col">Stay</th><th scope="col">Switch</th></tr></thead>
+    <tbody>{rows.map((r) => <tr><th scope="row">{r.car}</th><td>{r.host}</td><td>{r.stay}</td><td>{r.swap}</td></tr>)}</tbody>
+  </table>
+  <p class="para">Each place of the car is one in three. Switching wins in two of the three.</p>
+  <div class="needs-js">
+    <div class="doors" data-play-doors role="group" aria-label="Three doors"></div>
+  </div>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-play-stay disabled>Stay</button>
+    <button class="btn fill" type="button" data-play-switch disabled>Switch</button>
+    <button class="btn" type="button" data-play-again disabled>New game</button>
+  </div>
+  <p class="score needs-js mono" data-play-score>Stayed: 0 of 0. Switched: 0 of 0.</p>
+  <p class="status" aria-live="polite" data-play-status>Pick a door.</p>
+</div>

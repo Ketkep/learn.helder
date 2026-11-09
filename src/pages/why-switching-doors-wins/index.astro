@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Stage from '../../components/monty/Stage.astro';
+import { takeaways, sources, sourcesNote } from '../../data/monty';
+---
+
+<TopicLayout
+  slug="why-switching-doors-wins"
+  intro="Pick a door, see the host open a goat, then stay or switch. Play the game, change the number of doors and change what the host does. The play is random each time and nothing is saved."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Stage />
+</TopicLayout>

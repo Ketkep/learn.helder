@@ -1,0 +1,516 @@
+/* The Monty Hall page: a dark red curtain with gold, each act with the words above and the tool below on a wooden floor. */
+
+.monty {
+  --board: #2b0e18;
+  --panel: #3d1624;
+  --line: #b98a97;
+  --wood: #f0c75e;
+  --cream: #fbf1e6;
+  --ink-fixed: #2b0e18;
+  --pink: #f0c75e;
+  --blue: #f0c75e;
+  --wash: rgb(255 255 255 / 0.14);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .monty .needs-js {
+  display: none;
+}
+
+.monty :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.monty .card-body,
+.monty .paras,
+.monty .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.monty h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.monty .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.monty .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.monty .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.monty .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.monty .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.monty .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.monty .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.monty .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.monty .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.monty .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.monty .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.monty .times th,
+.monty .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.monty .times thead th {
+  color: #ecd3da;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.monty .times tbody th {
+  font-weight: 700;
+}
+
+.monty .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.monty .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.monty .pick:hover {
+  background: var(--wash);
+}
+
+.monty .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .monty .no-js-name {
+  display: none;
+}
+
+.monty .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.monty .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.monty .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.monty .btn:hover {
+  background: var(--wash);
+}
+
+.monty .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.monty .btn.fill:hover {
+  background: var(--cream);
+}
+
+.monty .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.monty .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.monty .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.monty .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.monty .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.monty .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.monty .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.monty .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.monty .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.monty .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.monty .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.monty .snd[aria-pressed='true'] .slash,
+.monty .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .monty * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.monty .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The stage ---------- */
+.monty .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 8px solid var(--wood);
+}
+
+.monty .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.monty .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.monty .acts {
+  display: grid;
+  gap: 0;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: 0 var(--gutter) 3rem;
+}
+
+/* Each act is a band: the words in a narrow column on the left, the tool on the floor to the right at wide widths */
+.monty .act {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem;
+  min-width: 0;
+  padding: clamp(1.8rem, 4vw, 2.6rem) 0;
+  border-bottom: 4px double var(--line);
+}
+
+.monty .act:last-child {
+  border-bottom: 0;
+}
+
+@media (min-width: 64rem) {
+  .monty .act {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 2.4rem;
+    align-items: start;
+  }
+
+  .monty .act:nth-child(even) .words {
+    order: 2;
+  }
+}
+
+.monty .words,
+.monty .floor {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.monty .floor {
+  padding: 1rem;
+  border: 3px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+}
+
+.monty .tool {
+  display: grid;
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+html:not(.js) .monty .no-js-note {
+  display: block;
+}
+
+/* ---------- The doors ---------- */
+.monty .doors {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.monty .door-btn {
+  display: grid;
+  align-content: space-between;
+  justify-items: center;
+  min-height: 9.5rem;
+  padding: 0.6rem 0.4rem;
+  border: 3px solid var(--line);
+  border-radius: 10px 10px 4px 4px;
+  background: #7a3b32;
+  color: var(--cream);
+  font: inherit;
+  cursor: pointer;
+}
+
+.monty .door-btn:disabled {
+  cursor: default;
+}
+
+.monty .door-btn .num {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.monty .door-btn .what {
+  min-height: 1.5rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.monty .door-btn.open {
+  background: #12080c;
+  border-style: dashed;
+}
+
+.monty .door-btn.mine {
+  border-color: var(--wood);
+  box-shadow: 0 0 0 3px var(--wood);
+}
+
+.monty .score {
+  font-size: 0.95rem;
+}
+
+.monty .btn:disabled,
+.monty .btn.fill:disabled {
+  border-color: var(--line);
+  background: #4a2030;
+  color: #f1dde3;
+  cursor: default;
+}
+
+/* ---------- Drawings ---------- */
+.monty .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.monty .card {
+  fill: #2b0e18;
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+
+.monty .door {
+  fill: #7a3b32;
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+
+.monty .door.mine {
+  stroke: var(--wood);
+  stroke-width: 3;
+}
+
+.monty .door.left {
+  fill: var(--wood);
+  stroke: var(--wood);
+}
+
+.monty .door.open {
+  fill: #12080c;
+  stroke-dasharray: 3 3;
+}
+
+.monty .lab {
+  fill: var(--cream);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.monty .lab.small {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.monty .lab.mid {
+  text-anchor: middle;
+}
+
+.monty .times {
+  table-layout: fixed;
+}
+
+.monty .times th,
+.monty .times td {
+  overflow-wrap: anywhere;
+}

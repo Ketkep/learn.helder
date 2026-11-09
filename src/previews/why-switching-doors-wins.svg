@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .md-line { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    .md-fill { fill: var(--on-cover); }
+    .md-open { opacity: 0.25; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .md-flip { animation: md-open 3s ease-in-out infinite; transform-origin: 270px 190px; }
+    }
+    /* The host's door swings open and shut */
+    @keyframes md-open { 0%, 40% { transform: scaleX(1); } 60%, 90% { transform: scaleX(0.2); } 100% { transform: scaleX(1); } }
+  </style>
+
+  <g>
+    <rect class="md-line" x="60" y="80" width="80" height="110" rx="10"/>
+    <rect class="md-line md-flip" x="230" y="80" width="80" height="110" rx="10"/>
+    <rect class="md-line" x="145" y="80" width="80" height="110" rx="10" stroke-dasharray="1 16"/>
+    <circle class="md-fill md-open" cx="100" cy="150" r="8"/>
+    <path class="md-line" d="M60 215 H310" opacity="0.5"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

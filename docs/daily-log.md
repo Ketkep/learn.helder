@@ -485,3 +485,6 @@ Ideas that fit the same style, not yet built: how a lock works (pins to lift), t
 - facts re-checked (by computing, plus general knowledge as the source sites are blocked from here): the Moon at 384,400 km looks 31.1 arcminutes wide and the Sun at 149.6 million km looks 31.9 (computed with 3,474 km and 1.3914 million km), 15 October 1582 was a Friday (computed), at 100 km/h something moves 6.9 m in 250 ms (computed), a ruler falls 20 cm in 0.2 s (computed), the Julian year of 365.25 days is too long by about 11 minutes 14 seconds against the 365.2422 day tropical year so 128 years add up to a day (computed), Donders's reaction time work of 1868, the Gregorian reform by Pope Gregory XIII in 1582, Great Britain leaving out 11 days in September 1752, Russia 13 days in 1918. All agree with the pages.
 - found: nothing wrong. Nothing changed in the pages.
 - repair list: empty.
+
+## 2026-11-09
+- why-switching-doors-wins (Games, gold): a game show stage with three acts (play the three door game and keep a score for staying and for switching, change the number of doors from 3 to 100, change what the host does and see every case). 10 sources.

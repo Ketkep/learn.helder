@@ -1097,6 +1097,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-08',
     status: 'live',
   },
+  {
+    slug: 'why-switching-doors-wins',
+    title: 'Why switching doors wins',
+    hook: 'Play the three door game, add more doors and change what the host does, to see why switching wins two times in three.',
+    category: 'Games',
+    accent: '#F0C75E',
+    preview: 'why-switching-doors-wins',
+    dateAdded: '2026-11-09',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */
