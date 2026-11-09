@@ -1,0 +1,21 @@
+---
+// Spread 1: one cell. Without a script the table lists the six places and the count of patterns.
+const places = [
+  { n: 1, where: 'Top left' }, { n: 2, where: 'Middle left' }, { n: 3, where: 'Bottom left' },
+  { n: 4, where: 'Top right' }, { n: 5, where: 'Middle right' }, { n: 6, where: 'Bottom right' },
+];
+---
+
+<div class="tool" data-cell-tool>
+  <table class="times">
+    <caption class="sr-only">The six places of a braille cell and their numbers</caption>
+    <thead><tr><th scope="col">Place</th><th scope="col">Number</th></tr></thead>
+    <tbody>{places.map((p) => <tr><th scope="row">{p.where}</th><td>{p.n}</td></tr>)}</tbody>
+  </table>
+  <p class="para">Six places, each raised or flat: 2 × 2 × 2 × 2 × 2 × 2 = 64 patterns, or 63 with at least one dot.</p>
+  <div class="cell-grid needs-js" data-cell-grid role="group" aria-label="The six dots of one cell"></div>
+  <div class="controls needs-js">
+    <button class="btn" type="button" data-cell-clear>Flatten all</button>
+  </div>
+  <p class="status" aria-live="polite" data-cell-status>Press a place to raise a dot.</p>
+</div>

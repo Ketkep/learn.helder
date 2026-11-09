@@ -488,3 +488,4 @@ Ideas that fit the same style, not yet built: how a lock works (pins to lift), t
 
 ## 2026-11-09
 - why-switching-doors-wins (Games, gold): a game show stage with three acts (play the three door game and keep a score for staying and for switching, change the number of doors from 3 to 100, change what the host does and see every case). 10 sources.
+- how-braille-turns-dots-into-letters (Language, lavender): a paper book with three spreads (raise the dots of one cell and see what it means, the alphabet built in three rows, write your own text in cells). 11 sources. Punctuation and short forms are left out because they were not confirmed.

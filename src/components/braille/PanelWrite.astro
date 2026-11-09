@@ -1,0 +1,13 @@
+---
+// Spread 3: write in dots. The default word is drawn here, so without a script it is still a picture.
+import { writeSvg } from '../../lib/braille';
+const first = writeSvg('Braille 1829');
+---
+
+<div class="tool" data-write-tool>
+  <svg class="plate" viewBox={`0 0 420 ${first.h}`} role="img" aria-label="The words Braille 1829 written in braille cells." data-write-svg><g set:html={first.svg} data-write-g></g></svg>
+  <div class="controls needs-js">
+    <label class="field"><span>Your text</span><input class="text wide" type="text" maxlength="24" value="Braille 1829" data-write-text aria-label="Text to write in braille" autocomplete="off" spellcheck="false" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-write-status>Braille 1829 takes {first.count} cells, with the signs for a capital and for a number.</p>
+</div>

@@ -1,0 +1,499 @@
+/* The braille page: a paper book, a spread for each idea with the words on the left page and the tool on the right. */
+
+.braille {
+  --board: #efe4cd;
+  --panel: #fbf6ea;
+  --line: #8a7a62;
+  --wood: #3b2a5c;
+  --cream: #2a2330;
+  --ink-fixed: #fbf6ea;
+  --pink: #3b2a5c;
+  --blue: #3b2a5c;
+  --wash: rgb(0 0 0 / 0.08);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .braille .needs-js {
+  display: none;
+}
+
+.braille :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.braille .card-body,
+.braille .paras,
+.braille .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.braille h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.braille .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.braille .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.braille .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.braille .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.braille .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.braille .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.25);
+  transform: rotate(-0.4deg);
+}
+
+.braille .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.braille .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.braille .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.braille .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.braille .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.braille .times th,
+.braille .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.braille .times thead th {
+  color: #4a4150;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.braille .times tbody th {
+  font-weight: 700;
+}
+
+.braille .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.braille .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.braille .pick:hover {
+  background: var(--wash);
+}
+
+.braille .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .braille .no-js-name {
+  display: none;
+}
+
+.braille .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.braille .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.braille .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.braille .btn:hover {
+  background: var(--wash);
+}
+
+.braille .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.braille .btn.fill:hover {
+  background: var(--cream);
+}
+
+.braille .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.braille .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.braille .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.braille .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.braille .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.braille .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.braille .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.braille .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.braille .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.braille .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.braille .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.braille .snd[aria-pressed='true'] .slash,
+.braille .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .braille * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.braille .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The book ---------- */
+.braille .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 8px solid var(--wood);
+}
+
+.braille .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.braille .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.braille .spreads {
+  display: grid;
+  gap: 2.4rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  padding: 2.4rem var(--gutter) 3rem;
+}
+
+/* A spread is two pages with a spine between them at wide widths. On a phone the pages stack. */
+.braille .spread {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+  border: 3px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  box-shadow: 0 6px 0 rgb(0 0 0 / 0.18);
+}
+
+.braille .page {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+  padding: clamp(1.2rem, 3vw, 2rem);
+}
+
+.braille .floor {
+  border-top: 3px double var(--line);
+}
+
+@media (min-width: 64rem) {
+  .braille .spread {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .braille .floor {
+    border-top: 0;
+    border-left: 3px double var(--line);
+  }
+}
+
+.braille .tool {
+  display: grid;
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+.braille .opening .tag,
+.braille .page .tag {
+  color: var(--ink-fixed);
+}
+
+/* ---------- The cell ---------- */
+.braille .cell-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 5.2rem);
+  gap: 0.8rem 1.1rem;
+  justify-content: center;
+  padding: 1rem;
+  border: 3px solid var(--line);
+  border-radius: 12px;
+  background: #e5d9bf;
+}
+
+.braille .dot-btn {
+  display: grid;
+  place-items: center;
+  width: 5.2rem;
+  height: 5.2rem;
+  padding: 0;
+  border: 3px solid #8a7a62;
+  border-radius: 50%;
+  background: #f4ead2;
+  color: var(--cream);
+  font: inherit;
+  cursor: pointer;
+}
+
+.braille .dot-btn .dot-n {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.braille .dot-btn[aria-pressed='true'] {
+  border-color: #1f1530;
+  background: #3b2a5c;
+  color: #fbf6ea;
+  box-shadow: inset 0 -6px 0 rgb(0 0 0 / 0.35);
+}
+
+.braille .text {
+  min-width: 0;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--cream);
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.braille .text.wide {
+  width: min(100%, 22rem);
+}
+
+/* ---------- Drawings ---------- */
+.braille .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 0.4rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: #e5d9bf;
+}
+
+.braille .up {
+  fill: #3b2a5c;
+}
+
+.braille .up.new {
+  fill: #b3401f;
+}
+
+.braille .flat {
+  fill: #8a7a62;
+}
+
+.braille .lab {
+  fill: var(--cream);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.braille .lab.small {
+  font-size: 11px;
+}
+
+.braille .lab.mid {
+  text-anchor: middle;
+}
+
+.braille .times {
+  table-layout: fixed;
+}
+
+.braille .times th,
+.braille .times td {
+  overflow-wrap: anywhere;
+}
+
+.braille .btn:disabled {
+  border-color: var(--line);
+  color: #5a5060;
+  cursor: default;
+}

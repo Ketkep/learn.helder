@@ -1,0 +1,10 @@
+---
+// Spread 2: the alphabet in three rows. The picture is drawn here, so without a script it is still a picture.
+import { rowsSvg } from '../../lib/braille';
+---
+
+<div class="tool" data-rows-tool>
+  <svg class="plate" viewBox="0 0 420 190" role="img" aria-label="The alphabet in braille in three rows: A to J, K to T and U to Z." data-rows-svg><g set:html={rowsSvg()} data-rows-g></g></svg>
+  <div class="controls needs-js" data-rows-picks></div>
+  <p class="status" aria-live="polite" data-rows-status>The first ten letters, A to J, use only the top four dots: 1, 2, 4 and 5. K to T add dot 3. U, V, X, Y and Z add dots 3 and 6. W is J with dot 6.</p>
+</div>

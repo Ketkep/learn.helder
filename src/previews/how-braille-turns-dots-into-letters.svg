@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <style>
+    .bl-line { fill: none; stroke: var(--on-cover); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    .bl-dot { fill: var(--on-cover); }
+    .bl-flat { fill: var(--on-cover); opacity: 0.25; }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(a, .head-art):is(:hover, :focus-visible, .is-playing) .bl-pop { animation: bl-pop 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    }
+    /* One dot rises and settles */
+    @keyframes bl-pop { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.35); } }
+  </style>
+
+  <g>
+    <rect class="bl-line" x="120" y="55" width="160" height="150" rx="16"/>
+    <circle class="bl-dot" cx="165" cy="95" r="14"/>
+    <circle class="bl-flat" cx="165" cy="130" r="9"/>
+    <circle class="bl-dot" cx="165" cy="165" r="14"/>
+    <circle class="bl-dot bl-pop" cx="235" cy="95" r="14"/>
+    <circle class="bl-dot" cx="235" cy="130" r="14"/>
+    <circle class="bl-flat" cx="235" cy="165" r="9"/>
+  </g>
+  <circle class="knob" cx="200" cy="268" r="14"/>
+</svg>

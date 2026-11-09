@@ -1107,6 +1107,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-09',
     status: 'live',
   },
+  {
+    slug: 'how-braille-turns-dots-into-letters',
+    title: 'How braille turns dots into letters',
+    hook: 'Raise the dots of one cell, see how the alphabet is built in three rows and write your own text in braille.',
+    category: 'Language',
+    accent: '#D9C7F2',
+    preview: 'how-braille-turns-dots-into-letters',
+    dateAdded: '2026-11-09',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */

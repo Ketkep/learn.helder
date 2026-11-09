@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Book from '../../components/braille/Book.astro';
+import { takeaways, sources, sourcesNote } from '../../data/braille';
+---
+
+<TopicLayout
+  slug="how-braille-turns-dots-into-letters"
+  intro="Raise the dots of one braille cell, see how the alphabet is built in three rows and write your own text in dots. The page shows English braille without the short forms."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Book />
+</TopicLayout>

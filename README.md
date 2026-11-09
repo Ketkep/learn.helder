@@ -1106,6 +1106,15 @@ The page is a dark red stage with gold, three acts with the words on one side an
 - `src/components/monty/Stage.astro` is the frame and `Panel*.astro` is one act each.
 - `src/scripts/monty/monty.ts` runs the three acts in the browser.
 
+## The braille page: how the three spreads work
+
+The page is a paper book with a spread for each idea, the words on the left page and the tool on the right (the pages stack on a phone). Spread 1 is one cell: six round buttons, numbered like the dots (1, 2, 3 down the left, 4, 5, 6 down the right). Raise some and the page says whether the pattern is a letter, the capital sign, the number sign or the space, and how many patterns there are (2 to the power 6 is 64, or 63 with at least one dot). Spread 2 draws the alphabet in three rows and lets you pick a row to see the dots that are new in it (K to T add dot 3, U to Z add dots 3 and 6, W is J with dot 6). Spread 3 writes your own text in cells, with a capital sign before a capital letter and a number sign before a run of digits. Only English letters, numbers and spaces are shown. Punctuation and short forms are left out because the sources were not checked for them, and the page says so. Without a script each spread shows one picture or table.
+
+- `src/data/braille.ts` holds all the words, the takeaways and the sources.
+- `src/lib/braille.ts` holds the letter patterns and the cell drawings as SVG text.
+- `src/components/braille/Book.astro` is the frame and `Panel*.astro` is one spread each.
+- `src/scripts/braille/braille.ts` runs the three spreads in the browser.
+
 ## Where things are
 
 ```
@@ -1216,6 +1225,7 @@ src/data/eclipse.ts        everything the eclipse page says: parts, takeaways, s
 src/data/react.ts          everything the reaction time page says: tests, takeaways, sources
 src/data/cal.ts          everything the calendar page says: parts, takeaways, sources
 src/data/monty.ts          everything the Monty Hall page says: acts, takeaways, sources
+src/data/braille.ts        everything the braille page says: spreads, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1326,6 +1336,7 @@ src/components/eclipse/    the eclipse page: a sky in three parts
 src/components/react/      the reaction time page: a bench with three tests
 src/components/cal/      the calendar page: a calendar paper with three parts
 src/components/monty/      the Monty Hall page: a stage with three acts
+src/components/braille/    the braille page: a book with three spreads
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1433,6 +1444,7 @@ src/styles/eclipse.css     the eclipse page: night sky and pale gold
 src/styles/react.css       the reaction time page: dark bench and a bright signal
 src/styles/cal.css       the calendar page: paper and ink
 src/styles/monty.css       the Monty Hall page: dark red curtain and gold
+src/styles/braille.css     the braille page: paper and purple ink
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1533,6 +1545,7 @@ src/lib/eclipse.ts         the sizes, the shadow, the tilt and the drawings for 
 src/lib/react.ts           the distance and ruler sums and the drawings for the reaction time page
 src/lib/cal.ts           the date sums, the six changes and the drawings for the calendar page
 src/lib/monty.ts           the chances, the cases and the drawings for the Monty Hall page
+src/lib/braille.ts         the letter patterns and the cell drawings for the braille page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1641,6 +1654,7 @@ src/scripts/eclipse/       starts the three parts of the eclipse page
 src/scripts/react/         runs the three tests of the reaction time page in the browser
 src/scripts/cal/         runs the three parts of the calendar page in the browser
 src/scripts/monty/         runs the three acts of the Monty Hall page in the browser
+src/scripts/braille/       runs the three spreads of the braille page in the browser
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next
