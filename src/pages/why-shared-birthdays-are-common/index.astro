@@ -1,0 +1,16 @@
+---
+import TopicLayout from '../../layouts/TopicLayout.astro';
+import Hall from '../../components/birthday/Hall.astro';
+import { takeaways, sources, sourcesNote } from '../../data/birthday';
+---
+
+<TopicLayout
+  slug="why-shared-birthdays-are-common"
+  intro="Let guests arrive on a year of 365 days, see how fast the chance of a shared birthday grows, and see why a match with you in particular needs far more people. The party is random and nothing is saved."
+  takeaways={takeaways}
+  sources={sources}
+  sourcesNote={sourcesNote}
+  wide
+>
+  <Hall />
+</TopicLayout>

@@ -1,0 +1,18 @@
+---
+// Room 2: why it grows so fast. Without a script the table lists the chance at five sizes of room.
+import { fmt, pAny, pairs, pct } from '../../lib/birthday';
+const sizes = [10, 23, 30, 50, 57, 70];
+---
+
+<div class="tool" data-odds-tool>
+  <table class="times">
+    <caption class="sr-only">The number of pairs and the chance of a shared birthday for six sizes of room</caption>
+    <thead><tr><th scope="col">People</th><th scope="col">Pairs</th><th scope="col">Chance of a match</th></tr></thead>
+    <tbody>{sizes.map((n) => <tr><th scope="row">{n}</th><td>{fmt(pairs(n))}</td><td>{pct(pAny(n))}</td></tr>)}</tbody>
+  </table>
+  <svg class="plate needs-js" viewBox="0 0 420 200" role="img" aria-label="A curve of the chance of a shared birthday against the number of people." data-odds-svg><g data-odds-g></g></svg>
+  <div class="controls needs-js">
+    <label class="field"><span>People <output data-odds-out>23</output></span><input class="range" type="range" min="2" max="100" step="1" value="23" data-odds-range aria-label="Number of people in the room" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-odds-status>With 23 people there are {fmt(pairs(23))} pairs, and the chance of a shared birthday is {pct(pAny(23))}.</p>
+</div>

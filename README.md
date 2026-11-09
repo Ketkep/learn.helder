@@ -1115,6 +1115,15 @@ The page is a paper book with a spread for each idea, the words on the left page
 - `src/components/braille/Book.astro` is the frame and `Panel*.astro` is one spread each.
 - `src/scripts/braille/braille.ts` runs the three spreads in the browser.
 
+## The birthday page: how the three rooms work
+
+The page is a night blue party wall with three rooms side by side (stacked on a phone), the words first and the tool under them. Room 1 is a year of 365 small squares. Next guest gives a random birthday and fills that day, a second guest on a filled day turns it red, and Run 1,000 parties plays the game a thousand times and reports the average (near 25) and the middle. Room 2 slides the number of people from 2 to 100 and draws the chance of a shared birthday, 1 minus 365/365 times 364/365 and so on, with the number of pairs (n times n minus 1 over 2). Room 3 slides the room size to 365 and draws a second, dashed curve for a match with you, 1 minus (364/365) to the power n, which needs 253 other people to pass 50 per cent (worked out here). Leap days and the uneven spread of real birthdays are left out and the page says so. The play is random (`Math.random`) and the page says it is a toy. Without a script each room shows a table or a made-up room drawn from a fixed seed.
+
+- `src/data/birthday.ts` holds all the words, the takeaways and the sources.
+- `src/lib/birthday.ts` holds the chances, the year grid and the charts as SVG text.
+- `src/components/birthday/Hall.astro` is the frame and `Panel*.astro` is one room each.
+- `src/scripts/birthday/birthday.ts` runs the three rooms in the browser.
+
 ## Where things are
 
 ```
@@ -1226,6 +1235,7 @@ src/data/react.ts          everything the reaction time page says: tests, takeaw
 src/data/cal.ts          everything the calendar page says: parts, takeaways, sources
 src/data/monty.ts          everything the Monty Hall page says: acts, takeaways, sources
 src/data/braille.ts        everything the braille page says: spreads, takeaways, sources
+src/data/birthday.ts       everything the birthday page says: rooms, takeaways, sources
 src/pages/index.astro    the homepage (hero, filter, grid)
 src/pages/<slug>/        one folder per topic.  src/pages/nl/<slug>/: the Dutch versions
 src/layouts/             BaseLayout (page shell) and TopicLayout (topic frame)
@@ -1337,6 +1347,7 @@ src/components/react/      the reaction time page: a bench with three tests
 src/components/cal/      the calendar page: a calendar paper with three parts
 src/components/monty/      the Monty Hall page: a stage with three acts
 src/components/braille/    the braille page: a book with three spreads
+src/components/birthday/   the birthday page: a party wall with three rooms
 src/styles/global.css    colors, fonts, spacing: change the look here
 src/styles/chess.css     boards and pieces
 src/styles/dig.css       the Peru dig: gauge, layers, controls
@@ -1445,6 +1456,7 @@ src/styles/react.css       the reaction time page: dark bench and a bright signa
 src/styles/cal.css       the calendar page: paper and ink
 src/styles/monty.css       the Monty Hall page: dark red curtain and gold
 src/styles/braille.css     the braille page: paper and purple ink
+src/styles/birthday.css    the birthday page: night blue and coral
 src/previews/            one SVG drawing per topic, shown on its cover
 src/lib/                 small helpers (cover text color, loading the drawings)
 src/lib/siteText.ts      the words around the topics (header, footer, headings) in English and Dutch
@@ -1546,6 +1558,7 @@ src/lib/react.ts           the distance and ruler sums and the drawings for the 
 src/lib/cal.ts           the date sums, the six changes and the drawings for the calendar page
 src/lib/monty.ts           the chances, the cases and the drawings for the Monty Hall page
 src/lib/braille.ts         the letter patterns and the cell drawings for the braille page
+src/lib/birthday.ts        the chances, the year grid and the charts for the birthday page
 src/scripts/             lamp.ts (pull the cord to switch light and dark) and cover-play.ts (plays the covers on touch screens)
 src/scripts/film/        the browser side of the chess film: board and controller
 src/scripts/peru/        one script per Peru tool, plus the gauge
@@ -1655,6 +1668,7 @@ src/scripts/react/         runs the three tests of the reaction time page in the
 src/scripts/cal/         runs the three parts of the calendar page in the browser
 src/scripts/monty/         runs the three acts of the Monty Hall page in the browser
 src/scripts/braille/       runs the three spreads of the braille page in the browser
+src/scripts/birthday/      runs the three rooms of the birthday page in the browser
 public/                  favicon and the link preview image
 CLAUDE.md                the rules for working on the site, and the daily routine for new topics
 docs/daily-log.md        what the daily routine published, skipped and wants to do next

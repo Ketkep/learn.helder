@@ -1,0 +1,16 @@
+---
+// Room 1: guests arrive. The first made-up room is drawn here, so without a script it is still a picture.
+import { room, yearSvg, fmt } from '../../lib/birthday';
+const first = room(23, 7);
+const d = yearSvg(first.days);
+---
+
+<div class="tool" data-party-tool>
+  <svg class="plate" viewBox={`0 0 420 ${d.h}`} role="img" aria-label="A year of 365 squares. A made-up room of 23 guests has filled some of them." data-party-svg><g set:html={d.svg} data-party-g></g></svg>
+  <div class="controls needs-js">
+    <button class="btn fill" type="button" data-party-next>Next guest</button>
+    <button class="btn" type="button" data-party-reset>Start again</button>
+    <button class="btn" type="button" data-party-run>Run 1,000 parties</button>
+  </div>
+  <p class="status" aria-live="polite" data-party-status>In a made-up room of 23 guests, {first.shared === 0 ? 'no two share a birthday' : `${fmt(first.shared)} ${first.shared === 1 ? 'day is' : 'days are'} shared`}. Without a script this room is fixed. With a script, press Next guest.</p>
+</div>

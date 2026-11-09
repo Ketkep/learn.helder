@@ -1,0 +1,19 @@
+---
+// Room 3: a match with you. Without a script the table gives the chance at six sizes of room.
+import { pAny, pYou, pct } from '../../lib/birthday';
+const sizes = [23, 57, 100, 183, 254, 365];
+---
+
+<div class="tool" data-you-tool>
+  <table class="times">
+    <caption class="sr-only">The chance of any shared birthday and of a match with you, for six sizes of room</caption>
+    <thead><tr><th scope="col">People in the room</th><th scope="col">Any match</th><th scope="col">With you</th></tr></thead>
+    <tbody>{sizes.map((n) => <tr><th scope="row">{n}</th><td>{pct(pAny(n))}</td><td>{pct(pYou(n - 1))}</td></tr>)}</tbody>
+  </table>
+  <svg class="plate needs-js" viewBox="0 0 420 200" role="img" aria-label="Two curves against the number of people: any shared birthday, and a match with you." data-you-svg><g data-you-g></g></svg>
+  <p class="para needs-js">Solid curve: any two people match. Dashed curve: one of the others matches you.</p>
+  <div class="controls needs-js">
+    <label class="field"><span>People <output data-you-out>23</output></span><input class="range" type="range" min="2" max="365" step="1" value="23" data-you-range aria-label="Number of people in the room, you included" /></label>
+  </div>
+  <p class="status" aria-live="polite" data-you-status>With 23 people in the room, you included, the chance that some two of them match is {pct(pAny(23))}. The chance that one of the 22 matches you is {pct(pYou(22))}.</p>
+</div>

@@ -1,0 +1,475 @@
+/* The birthday page: a night blue party wall with coral, three rooms side by side at wide widths. */
+
+.birthday {
+  --board: #151d3b;
+  --panel: #222c57;
+  --line: #8f9cd6;
+  --wood: #f7b6a0;
+  --cream: #f5f7ff;
+  --ink-fixed: #151d3b;
+  --pink: #f7b6a0;
+  --blue: #f7b6a0;
+  --wash: rgb(255 255 255 / 0.14);
+  --fg: var(--cream);
+
+  background: var(--board);
+  color: var(--cream);
+}
+
+html:not(.js) .birthday .needs-js {
+  display: none;
+}
+
+.birthday :focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.birthday .card-body,
+.birthday .paras,
+.birthday .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.birthday h2 {
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.2rem);
+  line-height: 1;
+}
+
+.birthday .kicker {
+  color: var(--wood);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.birthday .paras {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.birthday .para {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.birthday .mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Tags ---------- */
+.birthday .tags {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.birthday .tag {
+  position: relative;
+  padding: 0.8rem 1rem 0.9rem 2.7rem;
+  background: var(--wood);
+  color: var(--ink-fixed);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.4);
+  transform: rotate(-0.4deg);
+}
+
+.birthday .tag::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.95rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--board);
+}
+
+.birthday .tag-label {
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.birthday .tag-text {
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.birthday .tag :focus-visible {
+  outline-color: var(--ink-fixed);
+}
+
+/* ---------- Tables ---------- */
+.birthday .times {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.birthday .times th,
+.birthday .times td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.birthday .times thead th {
+  color: #dfe4fb;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.birthday .times tbody th {
+  font-weight: 700;
+}
+
+.birthday .times td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.birthday .pick {
+  padding: 0.25rem 0.7rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.birthday .pick:hover {
+  background: var(--wash);
+}
+
+.birthday .pick[aria-pressed='true'] {
+  border-color: var(--wood);
+  background: var(--wood);
+  color: var(--ink-fixed);
+}
+
+html.js .birthday .no-js-name {
+  display: none;
+}
+
+.birthday .log {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding-left: 1.2rem;
+  font-size: 0.97rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Controls ---------- */
+.birthday .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.birthday .btn {
+  padding: 0.5rem 1.05rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.birthday .btn:hover {
+  background: var(--wash);
+}
+
+.birthday .btn.fill {
+  background: var(--wood);
+  border-color: var(--wood);
+  color: var(--ink-fixed);
+}
+
+.birthday .btn.fill:hover {
+  background: var(--cream);
+}
+
+.birthday .status {
+  min-height: 4.4rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.birthday .text {
+  width: 6rem;
+  padding: 0.45rem 0.7rem;
+  border: 3px solid var(--line);
+  border-radius: 8px;
+  background: var(--board);
+  color: var(--cream);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.birthday .range {
+  --p: 0%;
+
+  flex: 1;
+  min-width: 8rem;
+  height: 1.8rem;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.birthday .range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--wood) var(--p), var(--wash) var(--p));
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.birthday .range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 1px var(--fg);
+}
+
+.birthday .range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--wood);
+}
+
+.birthday .range::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: calc((5px - 1.5rem) / 2);
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+  appearance: none;
+}
+
+.birthday .range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--fg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.birthday .field {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  min-width: 13rem;
+  font-weight: 600;
+}
+
+.birthday .field span {
+  min-width: 8rem;
+}
+
+/* ---------- Sound switch ---------- */
+.birthday .snd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.birthday .snd[aria-pressed='true'] .slash,
+.birthday .snd[aria-pressed='false'] .wave {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .birthday * {
+    scroll-behavior: auto !important;
+  }
+}
+
+.birthday .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- The party ---------- */
+.birthday .opening {
+  padding: clamp(2rem, 5vw, 3.2rem) var(--gutter);
+  border-bottom: 8px solid var(--wood);
+}
+
+.birthday .wrap {
+  display: grid;
+  gap: 0.9rem;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.birthday .intro-paras {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+}
+
+.birthday .rooms {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.6rem;
+  width: min(100%, 90rem);
+  margin-inline: auto;
+  padding: 2rem var(--gutter) 3rem;
+}
+
+/* Each room is a card: the words first, then the tool. Three cards side by side when there is room. */
+.birthday .room {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1.2rem;
+  min-width: 0;
+  padding: clamp(1.1rem, 2.5vw, 1.6rem);
+  border: 3px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+}
+
+@media (min-width: 72rem) {
+  .birthday .rooms {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+  }
+}
+
+.birthday .words,
+.birthday .floor {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.birthday .floor {
+  padding-top: 1.1rem;
+  border-top: 3px double var(--line);
+}
+
+.birthday .tool {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-width: 0;
+}
+
+/* ---------- Drawings ---------- */
+.birthday .plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.birthday .day {
+  fill: #151d3b;
+  stroke: #3b4780;
+  stroke-width: 1;
+}
+
+.birthday .day.one {
+  fill: var(--wood);
+  stroke: var(--wood);
+}
+
+.birthday .day.two {
+  fill: #ff5a4e;
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+
+.birthday .grid {
+  stroke: #3b4780;
+  stroke-width: 1;
+}
+
+.birthday .curve {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.birthday .curve.any {
+  stroke: var(--wood);
+}
+
+.birthday .curve.you {
+  stroke: #8fd3ff;
+  stroke-dasharray: 7 4;
+}
+
+.birthday .mark {
+  stroke: var(--cream);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 3;
+}
+
+.birthday .pt {
+  stroke: var(--cream);
+  stroke-width: 2;
+}
+
+.birthday .pt.any {
+  fill: var(--wood);
+}
+
+.birthday .pt.you {
+  fill: #8fd3ff;
+}
+
+.birthday .lab {
+  fill: var(--cream);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.birthday .lab.small {
+  font-size: 11px;
+}
+
+.birthday .lab.mid {
+  text-anchor: middle;
+}
+
+.birthday .times {
+  table-layout: fixed;
+}
+
+.birthday .times th,
+.birthday .times td {
+  overflow-wrap: anywhere;
+}

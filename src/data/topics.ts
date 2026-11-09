@@ -1117,6 +1117,16 @@ export const topics: Topic[] = [
     dateAdded: '2026-11-09',
     status: 'live',
   },
+  {
+    slug: 'why-shared-birthdays-are-common',
+    title: 'Why shared birthdays are common',
+    hook: 'Let guests arrive on a year of 365 days and see why 23 people are enough for a shared birthday.',
+    category: 'Maths',
+    accent: '#F7B6A0',
+    preview: 'why-shared-birthdays-are-common',
+    dateAdded: '2026-11-09',
+    status: 'live',
+  },
 ];
 
 /** How a topic is shown in a list (homepage card, "next topic" card): where it leads, and in which words. */
