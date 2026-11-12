@@ -1,0 +1,258 @@
+---
+// Learndle No. 2: "Twenty-three strangers". The hook is a real count (the 2014 World Cup squads), the
+// guess is a number, and the experiment is a room you can fill with random birthdays, one room at a
+// time or a thousand at once. A switch changes the question from "any two" to "someone has MY
+// birthday", which is the mix-up behind most wrong guesses. The model is in model.ts.
+import EditionLayout from '../../components/daily/EditionLayout.astro';
+import Step from '../../components/daily/Step.astro';
+import Guess from '../../components/daily/Guess.astro';
+import Question from '../../components/daily/Question.astro';
+import Reveal from '../../components/daily/Reveal.astro';
+import Done from '../../components/daily/Done.astro';
+import type { Edition } from '../../data/editions';
+import { seeded } from '../../lib/rand';
+import { anyMatch, room, rooms } from './model';
+import { curves, grid, pairsView, runsChart, squads, wheel } from './draw';
+import './edition.css';
+
+interface Props {
+  edition: Edition;
+}
+const { edition } = Astro.props;
+
+// The picture without a script: one sample room and a sample of 1,000 rooms, always the same ones
+const rand = seeded(23);
+const sample = room(23, 'any', rand);
+const thousand = rooms(23, 'any', 1000, rand);
+const hits = thousand.filter(Boolean).length;
+
+const steps = [
+  { id: 'hook', label: 'The question' },
+  { id: 'guess', label: 'Your guess' },
+  { id: 'try', label: 'Try it' },
+  { id: 'why', label: 'Why' },
+  { id: 'use', label: 'Use it' },
+  { id: 'done', label: 'Done' },
+];
+
+const sources = [
+  { label: 'BBC News, More or Less: the birthday paradox at the World Cup (2014)', url: 'https://www.bbc.com/news/magazine-27835311', for: 'The count of the 2014 squads: 16 of 32 had at least one shared birthday.' },
+  { label: 'Wikipedia: birthday problem', url: 'https://en.wikipedia.org/wiki/Birthday_problem', for: 'The chance for 23 people (50.7 per cent), the World Cup example, the square root rule, and uneven birth dates.' },
+  { label: 'Cornell University: the birthday problem', url: 'https://pi.math.cornell.edu/%7Emec/2008-2009/TianyiZheng/Birthday.html', for: 'The step by step sum behind 23.' },
+  { label: 'HowStuffWorks: the birthday paradox', url: 'https://science.howstuffworks.com/math-concepts/birthday-paradox.htm', for: 'Why the chance that someone shares your own birthday is much lower: about 6 per cent with 22 others.' },
+  { label: 'FlowingData: the birthday problem explained', url: 'https://flowingdata.com/2012/10/05/the-birthday-problem-explained', for: 'Pairs as the reason the answer is small.' },
+  { label: 'Purdue University: lecture notes on the birthday paradox', url: 'https://www.cs.purdue.edu/homes/hmaji/teaching/Fall%202017/lectures/10.pdf', for: 'Repeats start after about the square root of the number of possible values.' },
+  { label: 'University of Chicago: notes on hash functions', url: 'https://people.cs.uchicago.edu/~davidcash/284-autumn-21/12-hash.pdf', for: 'The same sum used for repeats among computer codes.' },
+  { label: 'Fadnavis (2011): a generalisation of the birthday problem, on arXiv', url: 'https://arxiv.org/pdf/1105.0698', for: 'Equally likely birthdays give the lowest chance of a match, so uneven ones only raise it.' },
+];
+
+const sourcesNote =
+  'The pages below could not be opened directly while this edition was made, so each fact was checked through search results that quote them, in at least two places. Every chance on this page is worked out here with the exact sum, and the numbers match the ones in the sources: 50.7 per cent for 23 people, 253 others for your own birthday. The model is the textbook one: 365 equally likely birthdays, no 29 February and no twins. Real births are a little uneven through the year, which makes a match slightly more likely, not less. The order of the squares in the first picture is shuffled: it does not show which squads they were.';
+---
+
+<EditionLayout edition={edition} steps={steps} sources={sources} sourcesNote={sourcesNote}>
+  <!-- 1. The question -->
+  <Step id="hook" index={0} label="The question" title="Half the squads had a match" next="Make a guess" hint="">
+    <figure class="ts-card ts-hook">
+      <div class="ts-pic" set:html={squads()} />
+      <figcaption>Each square is one squad at the 2014 World Cup in Brazil, 23 players each. Dark squares: at least two players in the squad were born on the same day of the year. The order is shuffled.</figcaption>
+    </figure>
+    <p class="lead">In June 2014, as the World Cup began, the BBC programme More or Less went through the birth dates of all 32 squads. Every squad had 23 players. In 16 of the 32 squads, at least two players shared a birthday.</p>
+    <p>A year has 365 days, and a squad has only 23 players. Half the squads with a match sounds like a strange run of luck. Is it?</p>
+    <div class="ed-aside">
+      <p class="ed-aside-title">In about {edition.minutes} minutes you will be able to</p>
+      <ul class="ts-goals">
+        {edition.goals.map((g) => <li>{g}</li>)}
+      </ul>
+    </div>
+  </Step>
+
+  <!-- 2. Your guess -->
+  <Step id="guess" index={1} label="Your guess" title="How many people does it take?" needs={['answered:size']} next="Put it to the test" hint="Lock in a guess to go on.">
+    <p>Picture a room of strangers. People keep walking in. At some point it becomes more likely than not that two of them share a birthday: the same day and month, not the same year.</p>
+    <Guess
+      id="size"
+      prompt="How many people need to be in the room for that?"
+      min={2}
+      max={366}
+      start={184}
+      unit="people"
+      rightMin={20}
+      rightMax={26}
+      noted="Saved. Now fill some rooms and see."
+    />
+  </Step>
+
+  <!-- 3. Try it -->
+  <Step
+    id="try"
+    index={2}
+    label="Try it"
+    title="Fill a room, then a thousand"
+    wide
+    needs={['ran-23', 'sizes', 'me-23', 'correct:obs']}
+    todo={[
+      { goal: 'ran-23', text: 'Run 1,000 rooms of 23 people.' },
+      { goal: 'sizes', text: 'Run 1,000 rooms at two other sizes too.' },
+      { goal: 'me-23', text: 'Switch to "Someone shares my birthday" and run 1,000 rooms of 23.' },
+    ]}
+    next="See why"
+    hint="Do the three things in the list, then answer the question, to go on."
+  >
+    <p>Every person gets a random birthday. One room shows you who matched. A thousand rooms show you how often it happens. Each run of a thousand rooms adds a point to the chart.</p>
+
+    <div class="ts-sim" data-ts-sim>
+      <div class="ts-controls needs-js">
+        <div class="ed-chips" role="group" aria-label="What counts as a match">
+          <button type="button" class="ed-chip" data-ts-mode="any" aria-pressed="true">Any two people share a birthday</button>
+          <button type="button" class="ed-chip" data-ts-mode="me" aria-pressed="false">Someone shares my birthday</button>
+        </div>
+        <div class="ts-size">
+          <label for="ts-n">People in the room</label>
+          <input type="range" class="ed-range" id="ts-n" min="2" max="80" step="1" value="23" data-ts-n />
+          <output for="ts-n" data-ts-n-out>23</output>
+        </div>
+        <div class="ed-chips" role="group" aria-label="Jump to a size">
+          {[10, 23, 40, 60].map((n) => <button type="button" class="ed-chip" data-ts-jump={n} aria-pressed={n === 23 ? 'true' : 'false'}>{n}</button>)}
+        </div>
+      </div>
+
+      <div class="ts-panels">
+        <figure class="ts-card">
+          <figcaption>One room</figcaption>
+          <div class="ts-pic" data-ts-wheel set:html={wheel(sample, 'any')} />
+          <p class="ts-pairs" data-ts-pairs>23 people make 253 pairs. Each pair has a 1 in 365 chance of sharing a birthday.</p>
+          <button type="button" class="ed-btn ed-btn-quiet needs-js" data-ts-one>New room</button>
+        </figure>
+        <figure class="ts-card">
+          <figcaption>A thousand rooms</figcaption>
+          <div class="ts-pic" data-ts-grid set:html={grid(thousand)} />
+          <p class="ts-tally" data-ts-tally>In this sample of 1,000 rooms of 23 people, {hits} had a shared birthday. The exact chance is {(anyMatch(23) * 100).toFixed(1)} per cent.</p>
+          <button type="button" class="ed-btn needs-js" data-ts-many>Run 1,000 rooms</button>
+        </figure>
+        <figure class="ts-card ts-runs needs-js">
+          <figcaption>Your runs: the share of rooms with a match</figcaption>
+          <div class="ts-pic" data-ts-runs set:html={runsChart([], 23)} />
+          <p class="ts-legend"><span class="ts-key ts-key-any" aria-hidden="true"></span> any two share <span class="ts-key ts-key-me" aria-hidden="true"></span> someone shares yours</p>
+        </figure>
+      </div>
+      <p class="visually-hidden" aria-live="polite" data-ts-say></p>
+    </div>
+
+    <Question
+      id="obs"
+      kind="check"
+      prompt="In rooms of 23, how often did someone share YOUR birthday?"
+      choices={[
+        {
+          id: 'half',
+          text: 'In about half of the rooms, the same as any two.',
+          feedback: 'Run it again in the "Someone shares my birthday" mode and look at the tally. The share is far lower: only the pairs with you in them count now.',
+        },
+        {
+          id: 'six',
+          text: 'In about 6 rooms out of every 100.',
+          correct: true,
+          feedback: 'In a room of 23 you can be paired with only 22 others. The exact chance that one of them has your birthday is 5.9 per cent. The other 231 pairs in the room do not involve you, and they are where most matches happen.',
+        },
+        {
+          id: 'never',
+          text: 'Almost never.',
+          feedback: 'Not never: about 6 rooms in 100 had someone with your birthday. That is rare, but far from zero.',
+        },
+      ]}
+    />
+  </Step>
+
+  <!-- 4. Why -->
+  <Step id="why" index={3} label="Why" title="It is about pairs, not about you" next="Use it" hint="">
+    <p class="lead">Most people picture themselves in the room and ask: will someone have my birthday? That question needs a crowd: you and 253 others. The real question counts every pair in the room, and a room has far more pairs than people.</p>
+
+    <div class="ts-compare">
+      <figure class="ts-card">
+        <div class="ts-pic" set:html={pairsView(23, 'any')} />
+        <figcaption><strong>Any two people:</strong> 23 people make 253 pairs. Every line is a pair that could share a birthday.</figcaption>
+      </figure>
+      <figure class="ts-card">
+        <div class="ts-pic" set:html={pairsView(23, 'me')} />
+        <figcaption><strong>Someone shares yours:</strong> only the 22 pairs with you in them count.</figcaption>
+      </figure>
+    </div>
+
+    <h3 class="ts-h3">Pairs grow faster than people</h3>
+    <p>When a 23rd person walks into a room of 22, they bring 22 new pairs with them. 10 people make 45 pairs, 23 make 253, and 40 make 780. Double the room and the pairs roughly quadruple.</p>
+
+    <h3 class="ts-h3">So why is the answer not 253 in 365?</h3>
+    <p>Each pair matches with a chance of 1 in 365, and 253 pairs times 1 in 365 is about 0.69. That is not the chance itself, because the pairs overlap: if Anna matches Ben and Ben matches Carl, Anna matches Carl too. The exact sum goes person by person. The second person must miss the first (364 days out of 365), the third must miss both (363 out of 365), and so on. Multiply all 22 of these together and you get 0.493. That is a 49.3 per cent chance that nobody matches, so 50.7 per cent that somebody does.</p>
+
+    <figure class="ts-card">
+      <div class="ts-pic ts-curves" set:html={curves()} />
+      <figcaption>The exact chances. Wine: any two people share a birthday. Gold: someone shares your birthday.</figcaption>
+    </figure>
+
+    <Reveal
+      question="size"
+      cases={[
+        { from: 2, to: 19, label: 'If you guessed fewer than 20', html: '<strong>You guessed {guess}.</strong> That is too few, but you saw that the answer is small, which most people do not. With 15 people the chance of a match is only about 25 per cent.' },
+        { from: 20, to: 26, label: 'If you guessed 20 to 26', html: '<strong>You guessed {guess}.</strong> That is close. The answer is 23: the first group size where a match is more likely than not.' },
+        { from: 27, to: 100, label: 'If you guessed 27 to 100', html: '<strong>You guessed {guess}.</strong> Higher than the answer, like most guesses. By 50 people a shared birthday is already 97 per cent likely.' },
+        { from: 101, to: 366, label: 'If you guessed more than 100', html: '<strong>You guessed {guess}.</strong> Many people start from half of 365, about 183. That instinct belongs to the other question: how many people you need to meet before one shares your own birthday. For the room as a whole, 23 is enough.' },
+      ]}
+    />
+
+    <div class="ed-aside">
+      <p class="ed-aside-title">Real birthdays are not spread evenly</p>
+      <p>Some months and some days of the week have more births than others. That makes a match slightly more likely than in this model, never less. The effect is small, and the answer stays at 23.</p>
+    </div>
+  </Step>
+
+  <!-- 5. Use it -->
+  <Step id="use" index={4} label="Use it" title="Three new situations" needs={['correct:pins', 'correct:planet', 'correct:wedding']} next="Finish" hint="Find the right answer to all three questions to finish.">
+    <p>Use what you found out. A wrong answer explains itself, and you can try again. Only your first try counts for your result.</p>
+
+    <Question
+      id="pins"
+      kind="apply"
+      prompt="A web shop gives each order a random four digit code, from 0000 to 9999. Roughly how many orders until two orders probably share a code?"
+      choices={[
+        { id: '120', text: 'About 120.', correct: true, feedback: 'With 10,000 possible codes, the pairs do the work again. 120 orders make 7,140 pairs, and the chance of a repeat passes one half at 119 orders. That is why shops and computers use much longer codes than you would think they need.' },
+        { id: '1200', text: 'About 1,200.', feedback: 'By 1,200 orders a repeat is all but certain. The pairs grow with the square of the number of orders, so repeats start much sooner: the chance passes one half at 119.' },
+        { id: '5000', text: 'About 5,000, half of the codes.', feedback: 'Half of the possible codes is the "my birthday" way of thinking: how long until someone gets one particular code. Any two orders can match, and the chance of that passes one half at 119 orders.' },
+      ]}
+    />
+
+    <Question
+      id="planet"
+      kind="apply"
+      prompt="On a planet where a year has 1,460 days, four times as many as ours, how many people would a room need for an even chance of a shared birthday?"
+      choices={[
+        { id: 'same', text: 'About 23, the same as on Earth.', feedback: 'With four times as many days, each pair is four times less likely to match, so the room needs more pairs. It needs about 46 people.' },
+        { id: 'double', text: 'About 46, twice as many.', correct: true, feedback: 'Four times as many days means the room needs about four times as many pairs. Doubling the people roughly quadruples the pairs, so twice as many people is enough: the exact answer is 46.' },
+        { id: 'four', text: 'About 92, four times as many.', feedback: 'Four times as many people would make about sixteen times as many pairs, far more than needed. Twice as many people make about four times the pairs: about 46.' },
+      ]}
+    />
+
+    <Question
+      id="wedding"
+      kind="apply"
+      prompt="You are one of 100 guests at a wedding. Which is more likely?"
+      choices={[
+        { id: 'two', text: 'That two of the guests share a birthday.', correct: true, feedback: 'With 100 people there are 4,950 pairs. A shared birthday somewhere in the room is all but certain: 99.99997 per cent.' },
+        { id: 'mine', text: 'That a guest shares your birthday.', feedback: 'Only 99 pairs include you, so the chance that one of the other guests has your birthday is about 24 per cent. A match somewhere among all 4,950 pairs is all but certain.' },
+        { id: 'equal', text: 'Both are about equally likely.', feedback: 'They are very different questions. A match among all 4,950 pairs is all but certain. A match with you, through your 99 pairs, is about 24 per cent.' },
+      ]}
+    />
+  </Step>
+
+  <!-- 6. Done -->
+  <Done
+    index={5}
+    discovery="In a room of 23 people a shared birthday is more likely than not, because what counts is the number of pairs. 23 people make 253 pairs, and pairs grow much faster than people."
+    takeaway="The same sum tells engineers how soon random codes start to repeat: after a little more than the square root of the number of possible codes, not after half of them."
+    deeper={edition.basedOn}
+  />
+</EditionLayout>
+
+<script>
+  import './sim';
+</script>

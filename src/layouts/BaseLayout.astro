@@ -28,6 +28,8 @@ interface Props {
   lang?: Lang;
   /** The same page in other languages, for search engines. Includes the page itself. */
   alternates?: { hreflang: string; href: string }[];
+  /** Which part of the site this page belongs to, for the menu. */
+  nav?: 'today' | 'archive' | 'library';
 }
 
 const {
@@ -37,6 +39,7 @@ const {
   bandInk,
   image = '/og-image.png',
   noindex = false,
+  nav,
   lang = 'en',
   alternates = [],
 } = Astro.props;
@@ -98,7 +101,7 @@ const bodyStyle = `--band: ${band ?? 'var(--paper)'}; --on-band: ${bandInk ?? 'v
   </head>
   <body style={bodyStyle}>
     <a class="skip-link" href="#main">{words.skip}</a>
-    <SiteHeader lang={lang} />
+    <SiteHeader lang={lang} current={nav} />
     <main id="main">
       <slot />
     </main>

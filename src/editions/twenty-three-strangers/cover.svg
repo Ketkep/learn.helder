@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <!-- Learndle No. 2: a year wheel with people as dots on their birthdays, and one pair that matches.
+       Fixed colours: the cover is used as an image. -->
+  <rect width="400" height="300" fill="#8c2f4b"/>
+  <circle cx="200" cy="150" r="112" fill="#fbf3e6"/>
+  <circle cx="200" cy="150" r="92" fill="none" stroke="#d9c7b8" stroke-width="3"/>
+  <g fill="#8a7a70">
+    <circle cx="200.0" cy="64.0" r="6"/>
+    <circle cx="252.9" cy="82.2" r="6"/>
+    <circle cx="283.4" cy="129.2" r="6"/>
+    <circle cx="279.7" cy="182.2" r="6"/>
+    <circle cx="249.3" cy="220.4" r="6"/>
+    <circle cx="144.7" cy="215.9" r="6"/>
+    <circle cx="119.2" cy="179.4" r="6"/>
+    <circle cx="119.2" cy="120.6" r="6"/>
+    <circle cx="151.9" cy="78.7" r="6"/>
+  </g>
+  <path d="M192.5 235.7L194.6 211.8" stroke="#2a1d22" stroke-width="3"/>
+  <circle cx="192.5" cy="235.7" r="9" fill="#8c2f4b" stroke="#2a1d22" stroke-width="3"/>
+  <circle cx="194.6" cy="211.8" r="9" fill="#8c2f4b" stroke="#2a1d22" stroke-width="3"/>
+  <text x="200" y="164" fill="#2a1d22" font-size="46" text-anchor="middle" font-family="Georgia, serif">23</text>
+</svg>

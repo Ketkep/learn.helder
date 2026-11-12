@@ -4,6 +4,8 @@ learn.helderlabs.com is a hub of interactive explainers by the studio Helder Lab
 
 `README.md` explains how everything is built. Read it first, then read the newest topic as a model. This file holds the rules and the daily routine.
 
+The site has two parts. **Learndle** is the daily discovery: the home page (`/`) shows today's edition, older ones are in `/archive/`, each at `/daily/<number>/`. Editions are scheduled in `src/data/editions.ts` and live in `src/editions/<slug>/` (README, "Daily editions"). **The library** at `/library/` is the grid of longer topics, each at `/<slug>/`. The nightly routine below builds library topics. It does not touch `src/data/editions.ts`, `src/editions/` or the daily parts unless the owner asks for that.
+
 ## Hard rules (never break these)
 
 - **No em dashes and no en dashes**, anywhere: page text, code comments, README, alt text, meta tags, commit messages, chat replies. Use a full stop, a comma or a colon.
@@ -38,7 +40,7 @@ Run all of these. Fix problems, never skip a check.
 3. `node tools/check-topic.mjs /<slug>/ --out <scratchpad folder>` has 0 FAIL. It checks 8 screen widths, errors, outside requests, headings, labels, dashes, buzzwords, emojis, reduced motion, no script, keyboard and contrast, and it writes screenshots and contact sheets. Read every WARN and decide.
 4. Look at the pictures with your own eyes: open `sheet-1366.png`, `sheet-390.png` and several single screenshots with the Read tool. Look for cut-off text, overlapping cards, empty areas, unreadable colours, a tool that does nothing.
 5. Drive every tool with Playwright (click, drag, type, keyboard), also with reduced motion on, and read the texts that come out. Chromium is at `/opt/pw-browsers/chromium`. Playwright loads through `createRequire` (see `tools/check-topic.mjs`).
-6. Run `node tools/check-topic.mjs / --no-shots --min-chars 300` for the home page and `node tools/check-topic.mjs /<old-slug>/ --no-shots` for every older topic. 0 FAIL, so nothing old broke. (Known harmless WARNs on old pages: the faded "Learn" in the logo, the film edge print and a caption on the Dutch page, focus rings drawn on the cover instead of the link.)
+6. Run `node tools/check-topic.mjs / --no-shots --min-chars 300` for the home page, the same for `/library/` and `/archive/`, `node tools/check-topic.mjs /daily/<number>/?preview --no-shots` for the newest edition, and `node tools/check-topic.mjs /<old-slug>/ --no-shots` for every older topic. 0 FAIL, so nothing old broke. (Known harmless WARNs on old pages: the faded "Learn" in the logo, the film edge print and a caption on the Dutch page, focus rings drawn on the cover instead of the link.)
 7. `grep -rnP "\xe2\x80[\x93\x94]" src README.md CLAUDE.md docs tools` prints nothing.
 
 ## The daily routine: three new topics

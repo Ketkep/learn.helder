@@ -1,6 +1,9 @@
 # Helder Labs Learn
 
-The source of learn.helderlabs.com: a hub of interactive explainers. The homepage lists the topics. Every topic is its own page with its own interaction.
+The source of learn.helderlabs.com. It has two parts:
+
+- **Learndle**, the daily discovery. The home page (`/`) shows today's edition: one question, a guess, an experiment, the explanation and three new situations, in about 5 to 10 minutes. Everyone gets the same edition on the same day. Older ones stay in the archive (`/archive/`). See "Daily editions" below.
+- **The library** (`/library/`): the collection of longer interactive explainers. Every topic is its own page with its own interaction, at its own address (`/<slug>/`), as before.
 
 Built with Astro and TypeScript, static output, plain CSS. No backend, no accounts, no tracking.
 
@@ -24,7 +27,39 @@ npm run build    # builds the real site into the dist folder
 npm run preview  # serves the built site, to see what visitors get
 ```
 
-## Add a new topic
+## Daily editions (Learndle)
+
+One edition a day, the same for everyone. The day changes at midnight in **Europe/Amsterdam**. That time zone, the name and the site address are set in one place: `src/lib/daily.ts`.
+
+**How a day is picked.** The browser works out today's date in Amsterdam time and picks the edition with that date from the schedule, which is built into the page. So the site does not need a rebuild at midnight. Without a script, the home page shows the edition of the day the site was built.
+
+- An edition before its day is built, but its page only says when it opens. Add `?preview` to the address to see it anyway (for checking). Nothing done in a preview is saved.
+- On a day without an edition, the home page says so plainly and shows the most recent one. It never passes an old edition off as new.
+- When midnight passes while the home page is open, a banner offers the new edition. Nothing changes under the reader. An edition page always stays the same edition.
+
+**Progress** is kept in the browser only (`localStorage`, key `learndle:v1`), with no account. A reader who comes back lands on the step they were on. The streak counts a day when that day's edition was finished on that day, Amsterdam time. Finishing an older one from the archive marks it done, but does not add to the streak. Days without an edition do not break a streak. The rules are in `src/lib/schedule.ts` and are explained on the home page.
+
+**What an edition is.** Six steps, always in this order: the question (a hook that does not add up), your guess, try it (an experiment where one change shows its effect), why (the explanation, which comes back to the reader's own guess), use it (three new situations), done (the discovery in two sentences, a result to share that gives nothing away, the streak, and when the next one opens). A step opens when the reader has done what it asks. Without a script all steps are open and the page reads as an article.
+
+### Add an edition
+
+1. **Schedule it.** Add an entry to `src/data/editions.ts`: the next number, a `slug`, the `date` it opens (`YYYY-MM-DD`), `status: 'draft'`, the title, the one question, a teaser without spoilers, the minutes, a subject, an accent colour and the learning goals. `basedOn` can name the library topic it grew from.
+2. **Make its folder**, `src/editions/<slug>/`, with:
+   - `Edition.astro`: the six steps, built from the parts in `src/components/daily/` (`Step`, `Question`, `Guess`, `Reveal`, `Done`), inside `EditionLayout`. Copy `src/editions/closer-and-colder/`, the quality example, and change everything.
+   - `model.ts` (the sums, with the simplifications written down), `draw.ts` (the pictures as SVG, drawn on the server and again in the browser), `sim.ts` (the experiment), `edition.css`, and `cover.svg` (400 by 300, fixed colours, its own background: it is shown as an image).
+   - An experiment tells the edition that the reader did something with `sim.dispatchEvent(new CustomEvent('learndle:goal', { detail: 'tilt-off', bubbles: true }))`. A step lists what it needs: a goal, `answered:<question>` or `correct:<question>`.
+3. **Check it** with `npm run dev` (drafts are visible there) and the checks in CLAUDE.md, with `?preview` for a date in the future.
+4. **Set `status: 'ready'`** and push. It goes live straight away, but opens for readers only on its date.
+
+`npm run schedule` prints the schedule and warns about days without an edition in the coming week. The build stops with a clear message when numbers skip, dates do not go forward, a ready edition follows a draft, or an edition has no folder. To take an edition offline, set it back to `'draft'`. Its number stays taken: never reuse a number or move a date that has passed, because people may have shared the address.
+
+### The three first editions
+
+- **No. 1, Closer to the Sun, colder outside** (Space, the quality example). A model of the sunlight on one square metre of ground, with two switches that remove one suspected cause each: the changing distance and the tilt. Four pictures move together: the Earth from the side at noon, the beam on the ground, the length of the day, and the whole year.
+- **No. 2, Twenty-three strangers** (Maths). A year wheel with a dot for every birthday in a room. One room at a time, or a thousand at once, with a chart that fills up with the reader's own runs. A switch changes the question from "any two" to "someone has my birthday", the mix-up behind most wrong guesses.
+- **No. 3, The digit that checks the others** (Technology). A barcode reading the reader can change, digit by digit or by swapping neighbours. The bars, the weights, the total and the scanner's verdict follow every change. The one kind of mistake it misses is left to be found.
+
+## Add a new topic (to the library)
 
 Three steps.
 
@@ -1127,6 +1162,18 @@ The page is a night blue party wall with three rooms side by side (stacked on a 
 ## Where things are
 
 ```
+src/lib/daily.ts         the daily settings (name, time zone, address) and date sums in that time zone
+src/lib/schedule.ts      which edition is today's, and the streak rules
+src/data/editions.ts     the schedule of daily editions: number, date, status, title, question, goals
+src/editions/<slug>/     one daily edition: Edition.astro, model.ts, draw.ts, sim.ts, edition.css, cover.svg
+src/components/daily/    the parts every edition shares: steps, questions, guesses, reveals, the end
+src/scripts/daily/       the edition flow, the home page, and the progress kept in the browser
+src/styles/daily.css     the shared look of the editions, the home page and the archive
+src/pages/index.astro    the home page: today's discovery
+src/pages/archive/       all editions so far
+src/pages/daily/[n]/     the address of each edition, /daily/<number>/, and its cover
+src/pages/library/       the library: the grid of all topics (this used to be the home page)
+tools/schedule.mjs       prints the schedule and warns about empty days (npm run schedule)
 src/data/topics.ts       the list of all topics
 src/data/gambits.ts      everything the chess page says: games, scenes, field guide, sources
 src/data/peru.ts         everything the Peru page says: shots, brick stamps, year line, sources

@@ -1,0 +1,25 @@
+---
+// One daily edition, at its permanent address /daily/<number>/. The page itself comes from the
+// edition's own folder, src/editions/<slug>/Edition.astro, so adding an edition needs no change here.
+import { getEditions, type Edition } from '../../../data/editions';
+
+export function getStaticPaths() {
+  const found = import.meta.glob('../../../editions/*/Edition.astro', { eager: true });
+  return getEditions(import.meta.env.DEV).map((edition) => {
+    if (!found[`../../../editions/${edition.slug}/Edition.astro`]) {
+      throw new Error(`Edition ${edition.number} has no page: add src/editions/${edition.slug}/Edition.astro`);
+    }
+    return { params: { n: String(edition.number) }, props: { edition } };
+  });
+}
+
+interface Props {
+  edition: Edition;
+}
+
+const { edition } = Astro.props;
+const pages = import.meta.glob<{ default: (props: { edition: Edition }) => unknown }>('../../../editions/*/Edition.astro', { eager: true });
+const Page = pages[`../../../editions/${edition.slug}/Edition.astro`].default;
+---
+
+<Page edition={edition} />

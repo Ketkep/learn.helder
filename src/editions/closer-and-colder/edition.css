@@ -1,0 +1,175 @@
+/* "Closer to the Sun, colder outside": the orbit at the start, the four pictures of the experiment
+   and the comparison in the explanation. The pictures carry their own dark night colours, the same
+   in light and dark mode, so only the frames and the words around them follow the theme. */
+
+.cc-hook {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.cc-hook figcaption {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.cc-hook svg,
+.cc-pic svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.cc-goals {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.cc-sim {
+  display: grid;
+  gap: 1rem;
+}
+
+.cc-panels {
+  display: grid;
+  gap: 0.9rem;
+}
+
+@media (min-width: 46rem) {
+  .cc-panels {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cc-panel {
+  display: grid;
+  align-content: start;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.cc-panel figcaption {
+  font-weight: 700;
+  font-size: 0.98rem;
+}
+
+/* The year comes in two drawings: a wide one, and one with bigger type for phones */
+.cc-year-narrow {
+  display: none;
+}
+
+@media (max-width: 34rem) {
+  .cc-year-wide {
+    display: none;
+  }
+
+  .cc-year-narrow {
+    display: block;
+  }
+}
+
+.cc-daybar {
+  padding: 0.5rem 0.6rem 0.1rem;
+  background: #0c1b2e;
+  border-radius: var(--radius);
+}
+
+.cc-daybar svg {
+  border-radius: 0;
+}
+
+.cc-daybar-label {
+  font-size: 0.98rem;
+}
+
+.cc-daybar-label span {
+  font-weight: 700;
+}
+
+/* The four numbers for the chosen day */
+.cc-read {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.cc-read div {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+
+.cc-read dt {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.cc-read dd {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.cc-controls {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+}
+
+.cc-day {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.4rem 0.9rem;
+}
+
+.cc-day label {
+  font-weight: 700;
+}
+
+.cc-day output {
+  min-width: 4.2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+@media (max-width: 30rem) {
+  .cc-day {
+    grid-template-columns: 1fr auto;
+  }
+
+  .cc-day .ed-range {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+/* Two beams side by side in the explanation */
+.cc-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.9rem;
+}
+
+.cc-compare figure {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.cc-compare figcaption {
+  font-size: 0.98rem;
+}
+
+.cc-h3 {
+  margin-top: 0.4rem;
+  font-size: 1.35rem;
+}

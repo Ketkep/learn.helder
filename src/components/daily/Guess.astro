@@ -1,0 +1,35 @@
+---
+// A guess on a number line, locked in with a button. Used when the prediction is a number, such as
+// "how many people". The edition comes back to it later (Reveal.astro can quote it with {guess}).
+interface Props {
+  id: string;
+  prompt: string;
+  min: number;
+  max: number;
+  step?: number;
+  /** Where the slider starts. */
+  start: number;
+  /** The unit after the number: "people". */
+  unit: string;
+  /** A guess inside this range counts as right for the result at the end. */
+  rightMin: number;
+  rightMax: number;
+  noted?: string;
+}
+
+const { id, prompt, min, max, step = 1, start, unit, rightMin, rightMax, noted = 'Your guess is saved. Keep it in mind.' } = Astro.props;
+---
+
+<div class="q q-guess" data-q={id} data-kind="guess" data-right-min={rightMin} data-right-max={rightMax}>
+  <p class="q-prompt" id={`q-${id}`}>{prompt}</p>
+  <div class="guess needs-js">
+    <label class="visually-hidden" for={`g-${id}`}>{prompt}</label>
+    <output class="guess-value" for={`g-${id}`} data-guess-out><span data-guess-num>{start}</span> {unit}</output>
+    <input class="guess-range" type="range" id={`g-${id}`} min={min} max={max} step={step} value={start} data-guess-input />
+    <div class="guess-scale" aria-hidden="true"><span>{min}</span><span>{max}</span></div>
+    <button type="button" class="ed-btn ed-btn-quiet" data-guess-lock>Lock in my guess</button>
+  </div>
+  <div class="q-feedback" data-feedback aria-live="polite"></div>
+  <template data-noted set:html={noted} />
+  <p class="nojs-only q-nojs-note">Pick a number in your head before you read on.</p>
+</div>

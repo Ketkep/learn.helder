@@ -62,6 +62,7 @@ const ink = readableInk(topic.accent);
   bandInk={ink}
   noindex={topic.status === 'draft'}
   lang={lang}
+  nav="library"
   alternates={alternates}
 >
   <div style={`--topic: ${topic.accent};`}>
@@ -69,7 +70,7 @@ const ink = readableInk(topic.accent);
       <div class="wrap head-inner">
         <div class="head-text">
           <div class="top-links">
-            <a class="back" href="/" hreflang={lang === 'en' ? undefined : 'en'}>
+            <a class="back" href="/library/" hreflang={lang === 'en' ? undefined : 'en'}>
               <span aria-hidden="true">&larr;</span> {words.allTopics}
             </a>
             {
@@ -160,7 +161,7 @@ const ink = readableInk(topic.accent);
             </a>
           </nav>
         ) : (
-          <a class="back-bottom" href="/" hreflang={lang === 'en' ? undefined : 'en'}>
+          <a class="back-bottom" href="/library/" hreflang={lang === 'en' ? undefined : 'en'}>
             <span aria-hidden="true">&larr;</span> {words.backToAll}
           </a>
         )

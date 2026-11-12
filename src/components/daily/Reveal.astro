@@ -1,0 +1,33 @@
+---
+// Comes back to the reader's own prediction: shows the one paragraph that fits what they picked.
+// For a number guess, a case can match a range with `from` and `to`, and {guess} is replaced by
+// the number they chose. Without a script all cases show, each with its own label.
+interface Case {
+  /** The choice ids this paragraph answers (for a choice question). */
+  when?: string[];
+  /** The range of guesses it answers (for a number guess), both ends included. */
+  from?: number;
+  to?: number;
+  /** Shown above the paragraph when there is no script, for example "If you picked the distance". */
+  label: string;
+  html: string;
+}
+
+interface Props {
+  question: string;
+  cases: Case[];
+}
+
+const { question, cases } = Astro.props;
+---
+
+<div class="reveal" data-reveal={question}>
+  {
+    cases.map((c) => (
+      <div class="reveal-case" data-when={c.when?.join(' ')} data-from={c.from} data-to={c.to}>
+        <p class="reveal-label nojs-only">{c.label}</p>
+        <p set:html={c.html} />
+      </div>
+    ))
+  }
+</div>

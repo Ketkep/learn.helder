@@ -1,0 +1,108 @@
+---
+// The frame of one daily edition: its number and date, the question, the bar of steps, the steps
+// themselves (the slot), and the sources. What an edition says and shows lives in its own folder,
+// src/editions/<slug>/. The behaviour is in src/scripts/daily/flow.ts.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { DAILY, formatDay } from '../../lib/daily';
+import { editionPath, getEditions, type Edition } from '../../data/editions';
+import { readableInk, coverVars } from '../../lib/color';
+import '../../styles/daily.css';
+
+interface Props {
+  edition: Edition;
+  /** The steps, in order, for the bar at the top. The ids match the Step components. */
+  steps: { id: string; label: string }[];
+  sources: { label: string; url: string; for: string }[];
+  /** How the facts were checked, and what the models leave out. */
+  sourcesNote: string;
+}
+
+const { edition, steps, sources, sourcesNote } = Astro.props;
+const ink = readableInk(edition.accent);
+const schedule = getEditions(import.meta.env.DEV).map((e) => ({ number: e.number, date: e.date, title: e.title, path: editionPath(e) }));
+const dateLabel = formatDay(edition.date, { year: true });
+---
+
+<BaseLayout
+  title={`${edition.title}: ${DAILY.name} No. ${edition.number} | Helder Labs Learn`}
+  description={`${edition.question} ${edition.teaser}`}
+  band={edition.accent}
+  bandInk={ink}
+  noindex={edition.status === 'draft'}
+  nav="archive"
+>
+  <div
+    class="ed"
+    data-edition
+    data-number={edition.number}
+    data-date={edition.date}
+    data-title={edition.title}
+    data-schedule={JSON.stringify(schedule)}
+    style={`--ed: ${edition.accent}; ${coverVars(edition.accent, ink)}`}
+  >
+    <header class="ed-head">
+      <div class="wrap ed-head-inner">
+        <p class="ed-kicker">
+          <a href="/">{DAILY.name}</a>
+          <span>No. {edition.number}</span>
+          <span>{dateLabel}</span>
+        </p>
+        <h1>{edition.title}</h1>
+        <p class="ed-question">{edition.question}</p>
+        <p class="ed-meta">
+          <span>About {edition.minutes} minutes</span>
+          <span>{edition.subject}</span>
+        </p>
+      </div>
+    </header>
+
+    <div class="wrap ed-notes">
+      <p class="ed-note" data-preview-note hidden></p>
+      <p class="ed-note" data-storage-note hidden>This browser is not keeping data, so your progress will be lost when you close the page.</p>
+    </div>
+
+    <div class="wrap ed-gate" data-gate hidden>
+      <p class="ed-gate-title">This discovery is not open yet</p>
+      <p data-gate-text></p>
+      <p><a class="ed-btn" href="/">Go to today’s discovery</a></p>
+    </div>
+
+    <nav class="ed-rail needs-js" aria-label="Steps of this discovery" data-rail-bar>
+      <ol class="wrap">
+        {
+          steps.map((s, i) => (
+            <li data-rail={i}>
+              <a href={`#step-${s.id}`}>
+                <span class="ed-rail-n">{i + 1}</span>
+                <span class="ed-rail-t">{s.label}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    <div class="ed-steps" data-steps>
+      <slot />
+    </div>
+
+    <details class="wrap ed-sources">
+      <summary>Sources, and what the models leave out</summary>
+      <p class="ed-sources-note">{sourcesNote}</p>
+      <ul>
+        {
+          sources.map((s) => (
+            <li>
+              <a href={s.url}>{s.label}</a>
+              <span>{s.for}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </details>
+  </div>
+</BaseLayout>
+
+<script>
+  import '../../scripts/daily/flow';
+</script>

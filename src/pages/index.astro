@@ -1,255 +1,126 @@
 ---
-// Homepage: hero, category filter and the shelf of covers. The shelf is built from
-// src/data/topics.ts, so nothing here changes when a topic is added.
+// The home page: today's discovery. The page is built once, but the day is worked out in the browser
+// (Europe/Amsterdam, see src/lib/daily.ts), so a new edition shows up at midnight without a rebuild.
+// The build day's edition is in the HTML, so the page also works without a script.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import TopicCard from '../components/TopicCard.astro';
-import Lamp from '../components/Lamp.astro';
-import { getVisibleTopics, getCategories, getTopicNumber } from '../data/topics';
+import { DAILY, dayAt } from '../lib/daily';
+import { pickToday } from '../lib/schedule';
+import { editionCards } from '../components/daily/meta';
+import { getVisibleTopics } from '../data/topics';
+import '../styles/daily.css';
 
-const topics = getVisibleTopics();
-const categories = getCategories();
+const cards = editionCards();
+const buildDay = dayAt(Date.now());
+const pick = pickToday(cards, buildDay);
+const hero = pick.kind === 'today' ? pick.edition : pick.kind === 'gap' ? pick.latest : pick.kind === 'soon' ? pick.next : undefined;
+const label = pick.kind === 'today' ? 'Today’s discovery' : pick.kind === 'gap' ? 'The most recent discovery' : 'The first discovery';
+const libraryCount = getVisibleTopics().length;
 ---
 
 <BaseLayout
-  title="Helder Labs Learn: interactive explainers"
-  description="Interactive explainers from Helder Labs, one topic at a time."
+  title={`${DAILY.name}: one small discovery a day | Helder Labs Learn`}
+  description="One short interactive discovery a day, the same for everyone. Guess first, try it, find out why, then use it. About seven minutes."
+  nav="today"
 >
-  <section class="hero">
-    <div class="wrap hero-inner">
-      <h1 class="hero-title">
-        <span class="line">Helder Labs</span>
-        <span class="line">
-          <!-- The orange marker circle draws itself around the word -->
-          <span class="circled">Learn<svg class="doodle" viewBox="0 0 240 110" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M34 30C74 6 172 4 214 28C242 44 228 88 168 99C112 110 40 100 14 74C-2 54 14 28 54 14C74 8 98 6 120 8" /></svg></span>
-        </span>
-      </h1>
+  <div class="today" data-today data-cards={JSON.stringify(cards)}>
+    <section class="wrap today-top" aria-labelledby="today-title">
+      <p class="today-brand">
+        <svg viewBox="0 0 28 24" width="28" height="24" aria-hidden="true" focusable="false">
+          <path d="M2 12h24" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          <circle cx="18" cy="12" r="6" fill="var(--accent)" stroke="currentColor" stroke-width="2"></circle>
+        </svg>
+        <span class="today-name">{DAILY.name}</span>
+        <span class="today-tagline">One small discovery a day</span>
+      </p>
 
-      <p class="lede">Interactive explainers, one topic at a time.</p>
+      <p class="today-banner" data-banner hidden></p>
 
-      <Lamp />
-    </div>
-  </section>
+      {
+        hero && (
+          <article class="today-card" data-hero style={`--ed: ${hero.accent}; --ed-ink: ${hero.ink};`}>
+            <div class="today-card-text">
+              <p class="today-kicker">
+                <span data-hero-label>{label}</span>
+                <span>
+                  No. <span data-hero-number>{hero.number}</span>
+                </span>
+                <span data-hero-date>{hero.dateLabel}</span>
+              </p>
+              <h1 class="today-title" id="today-title" data-hero-title>
+                {hero.title}
+              </h1>
+              <p class="today-question" data-hero-question>
+                {hero.question}
+              </p>
+              <p class="today-teaser" data-hero-teaser>
+                {hero.teaser}
+              </p>
+              <p class="today-meta">
+                <span>
+                  About <span data-hero-minutes>{hero.minutes}</span> minutes
+                </span>
+                <span data-hero-subject>{hero.subject}</span>
+                <span>Guess, try, find out, use it</span>
+              </p>
+              <div class="today-actions">
+                <a class="ed-btn ed-btn-big" href={hero.path} data-hero-link>
+                  <span data-hero-cta>{pick.kind === 'soon' ? 'See when it opens' : 'Start the discovery'}</span>
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </a>
+                <p class="today-status" data-hero-status aria-live="polite" />
+              </div>
+            </div>
+            <img class="today-cover" src={hero.cover} alt="" width="480" height="360" data-hero-cover />
+          </article>
+        )
+      }
 
-  <section class="topics wrap" aria-labelledby="topics-heading">
-    <h2 id="topics-heading" class="visually-hidden">Topics</h2>
+      <div class="today-strip needs-js">
+        <p class="today-streak" data-streak></p>
+        <p class="today-next" data-next></p>
+        <details class="today-rule">
+          <summary>How the streak is counted</summary>
+          <p>A day counts when you finish that day’s discovery on that day, Amsterdam time. Days without a discovery do not break a streak. Finishing an older one from the archive marks it done, but it does not add to the streak. Your progress stays in this browser only: there is no account, and nothing is sent anywhere.</p>
+        </details>
+      </div>
+    </section>
 
-    {
-      categories.length > 1 && (
-        <div class="filter" role="group" aria-label="Filter topics by category" data-filter hidden>
-          <span class="filter-label" aria-hidden="true">show:</span>
-          <button type="button" data-category="all" aria-pressed="true">All</button>
-          {categories.map((c) => (
-            <button type="button" data-category={c} aria-pressed="false">
-              {c}
-            </button>
-          ))}
-        </div>
-      )
-    }
-    <p class="visually-hidden" role="status" data-filter-status></p>
+    <section class="wrap today-recent" aria-labelledby="recent-title" data-recent-wrap>
+      <h2 id="recent-title">Earlier discoveries</h2>
+      <ol class="arch-list" data-recent>
+        {
+          [...cards].reverse().map((c) => (
+            <li class="arch-item" data-arch={c.number} data-date={c.date} hidden={c.date >= buildDay} style={`--ed: ${c.accent};`}>
+              <a href={c.path}>
+                <img src={c.cover} alt="" width="160" height="120" loading="lazy" />
+                <span class="arch-text">
+                  <span class="arch-kicker">
+                    No. {c.number} · {c.dateLabel}
+                  </span>
+                  <span class="arch-title">{c.title}</span>
+                  <span class="arch-status" data-arch-status />
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="today-empty" data-recent-empty hidden={cards.some((c) => c.date < buildDay)}>The archive starts filling up tomorrow. Every discovery stays here after its day.</p>
+      <p><a class="ed-link" href="/archive/">All editions</a></p>
+    </section>
 
-    {
-      topics.length > 0 ? (
-        <div class="grid">
-          {topics.map((t) => (
-            <TopicCard topic={t} number={getTopicNumber(t.slug)} />
-          ))}
-        </div>
-      ) : (
-        <p class="empty">The first explainers are on their way.</p>
-      )
-    }
-  </section>
+    <section class="wrap today-library" aria-labelledby="library-title">
+      <div>
+        <h2 id="library-title">The library</h2>
+        <p>{libraryCount} longer explainers on science, history, technology, language and more, to explore at your own pace. They are separate from the daily discoveries. Some discoveries started out as one of them.</p>
+      </div>
+      <p><a class="ed-btn ed-btn-quiet" href="/library/">Browse the library</a></p>
+    </section>
+  </div>
 </BaseLayout>
 
-<style>
-  .hero {
-    position: relative;
-    /* Keeps the lamp's long wire and its cone of light inside the hero */
-    overflow: hidden;
-  }
-
-  .hero-inner {
-    position: relative;
-    padding-block: clamp(1rem, 3vw, 2rem) clamp(1.75rem, 4vw, 3rem);
-  }
-
-  /* The lamp hangs at the top right. On phones it gets a row of its own above the title. */
-  @media (max-width: 52rem) {
-    .hero-inner {
-      padding-top: 6.5rem;
-    }
-  }
-
-  .hero-title,
-  .lede {
-    position: relative;
-    z-index: 1; /* above the lamp's light */
-  }
-
-  .hero-title {
-    font-size: clamp(3.4rem, 11vw, 7.25rem);
-    line-height: 1.04;
-    letter-spacing: -0.02em;
-  }
-
-  .hero-title .line {
-    display: block;
-  }
-
-  .circled {
-    position: relative;
-    display: inline-block;
-  }
-
-  .doodle {
-    position: absolute;
-    top: -0.14em;
-    left: -0.26em;
-    width: calc(100% + 0.52em);
-    height: calc(100% + 0.3em);
-    overflow: visible;
-    pointer-events: none;
-  }
-
-  .doodle path {
-    fill: none;
-    stroke: var(--accent);
-    stroke-width: 4.2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    /* A dash as long as the whole path, then a gap: moving the offset draws the line.
-       The gap also stops the round pen tip from showing as a dot before it starts. */
-    stroke-dasharray: 1 2;
-    stroke-dashoffset: 0;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    :global(html:not(.seen)) .doodle path {
-      animation: draw 1s cubic-bezier(0.5, 0.1, 0.3, 1) 0.8s both;
-    }
-  }
-
-  @keyframes draw {
-    from {
-      stroke-dashoffset: 1;
-    }
-
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-
-  .lede {
-    max-width: 30rem;
-    margin-top: 1.25rem;
-    text-wrap: balance;
-    font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.6rem);
-    font-weight: 500;
-    line-height: 1.3;
-  }
-
-  .topics {
-    padding-top: clamp(0.5rem, 2vw, 1rem);
-  }
-
-  /* The filter looks like stickers stuck on the wall, each a little crooked */
-  .filter {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.6rem 0.7rem;
-    margin-bottom: clamp(2rem, 4vw, 3rem);
-  }
-
-  .filter-label {
-    margin-right: 0.3rem;
-    color: var(--accent-text);
-    font-family: var(--font-hand);
-    font-size: 1.7rem;
-    line-height: 1;
-    rotate: -4deg;
-  }
-
-  .filter button {
-    padding: 0.3rem 1rem;
-    border: 2px solid var(--ink);
-    border-radius: 999px;
-    background: transparent;
-    color: var(--ink);
-    font-weight: 600;
-    cursor: pointer;
-    transition:
-      rotate 0.2s,
-      background-color 0.15s,
-      color 0.15s;
-  }
-
-  .filter button:nth-of-type(odd) {
-    rotate: -1.4deg;
-  }
-
-  .filter button:nth-of-type(even) {
-    rotate: 1.1deg;
-  }
-
-  .filter button:hover {
-    rotate: 0deg;
-    background: var(--hover-tint);
-  }
-
-  .filter button[aria-pressed='true'] {
-    background: var(--ink);
-    color: var(--paper);
-  }
-
-  /* The shelf: 1 cover per row on phones, 2 on tablets, 3 on desktop */
-  .grid {
-    --gap: clamp(1.75rem, 4vw, 2.75rem);
-
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
-    gap: clamp(2.5rem, 5vw, 3.5rem) var(--gap);
-  }
-
-  .empty {
-    padding-block: 3rem;
-    font-size: 1.25rem;
-  }
-</style>
-
 <script>
-  // The lamp (pull it to switch between light and dark) lives in its own file.
-  import '../scripts/lamp';
-
-  // Category filter: shows or hides covers by their data-category.
-  // Without JavaScript the buttons stay hidden and every cover stays visible.
-  const bar = document.querySelector<HTMLElement>('[data-filter]');
-
-  if (bar) {
-    const buttons = bar.querySelectorAll<HTMLButtonElement>('button[data-category]');
-    const cards = document.querySelectorAll<HTMLElement>('[data-card]');
-    const status = document.querySelector<HTMLElement>('[data-filter-status]');
-
-    bar.hidden = false;
-
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const chosen = button.dataset.category;
-        let shown = 0;
-
-        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
-
-        cards.forEach((card) => {
-          const match = chosen === 'all' || card.dataset.category === chosen;
-          card.hidden = !match;
-          if (match) shown++;
-        });
-
-        if (status) {
-          status.textContent = `Showing ${shown} of ${cards.length} topics`;
-        }
-      });
-    });
-  }
+  import '../scripts/daily/today';
 </script>

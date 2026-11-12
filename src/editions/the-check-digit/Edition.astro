@@ -1,0 +1,242 @@
+---
+// Learndle No. 3: "The digit that checks the others". The experiment is a scanner you can fool: type
+// over any digit of a barcode number, or swap two neighbours, and see the total and the verdict
+// change. The one kind of mistake it misses is left for the reader to find. The model is in model.ts.
+import EditionLayout from '../../components/daily/EditionLayout.astro';
+import Step from '../../components/daily/Step.astro';
+import Question from '../../components/daily/Question.astro';
+import Reveal from '../../components/daily/Reveal.astro';
+import Done from '../../components/daily/Done.astro';
+import type { Edition } from '../../data/editions';
+import { PACK, WEIGHTS, total } from './model';
+import { barcode, swapGrid } from './draw';
+import './edition.css';
+
+interface Props {
+  edition: Edition;
+}
+const { edition } = Astro.props;
+
+const sum = total(PACK);
+const wrongBy = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+const steps = [
+  { id: 'hook', label: 'The question' },
+  { id: 'guess', label: 'Your guess' },
+  { id: 'try', label: 'Try it' },
+  { id: 'why', label: 'Why' },
+  { id: 'use', label: 'Use it' },
+  { id: 'done', label: 'Done' },
+];
+
+const sources = [
+  { label: 'GS1: how to calculate a check digit manually', url: 'https://www.gs1.org/services/how-calculate-check-digit-manually', for: 'The rule (weights 3 and 1, then up to the next ten) and the example number 629104150021, with check digit 3.' },
+  { label: 'GS1: the GTIN, an executive summary', url: 'https://gs1.org/docs/idkeys/GS1_GTIN_Executive_Summary.pdf', for: 'The parts of a 13 digit product number: a company prefix, an item reference and a check digit.' },
+  { label: 'Wolfram MathWorld: check digit', url: 'https://mathworld.wolfram.com/CheckDigit.html', for: 'Swapping two neighbours goes unseen exactly when they differ by 5.' },
+  { label: 'Texas A&M University: notes on check digits (Math 167)', url: 'https://www.math.tamu.edu/~tcarter/Math167WIR_2015c/WIR_Chr16_M167_15c.pdf', for: 'The five pairs that slip through: 0 and 5, 1 and 6, 2 and 7, 3 and 8, 4 and 9.' },
+  { label: 'Cornell University: check digits', url: 'https://pi.math.cornell.edu/~mec/2008-2009/Anema/numbertheory/check.html', for: 'Why every single wrong digit is caught, and the ISBN-10 rule.' },
+  { label: 'Judson: Abstract Algebra, exercises on detecting errors', url: 'https://judsonbooks.org/aata-files/aata-html/groups-exercises-detecting-errors.html', for: 'A worked example of a swap the barcode check misses.' },
+  { label: 'Wolfram MathWorld: ISBN', url: 'https://mathworld.wolfram.com/ISBN.html', for: 'The ISBN-10 check: weights 10 down to 1, counting in elevens, with X for 10.' },
+  { label: 'Wikipedia: check digit', url: 'https://en.wikipedia.org/wiki/Check_digit', for: 'The kinds of mistakes check digits are made to catch.' },
+];
+
+const sourcesNote =
+  'The pages below could not be opened directly while this edition was made, so each fact was checked through search results that quote them, in at least two places. The 80 of 90 swaps and the 1 in 9 for two mistakes are worked out here, not quoted. The number used on this page is the example from GS1’s own guide, not a product. Real scanners have more checks than the check digit: the bar patterns themselves follow strict rules, so many misreads are caught before the sum is ever done. This edition looks only at the check digit.';
+---
+
+<EditionLayout edition={edition} steps={steps} sources={sources} sourcesNote={sourcesNote}>
+  <!-- 1. The question -->
+  <Step id="hook" index={0} label="The question" title="The last digit says nothing about the product" next="Make a guess" hint="">
+    <figure class="cd-label cd-hook">
+      <div class="cd-pic" set:html={barcode(PACK, [], true)} />
+      <figcaption>The example number from GS1, the body that hands out barcode numbers. The boxed digit is the check digit.</figcaption>
+    </figure>
+    <p class="lead">A barcode on a pack in a European shop carries 13 digits. The first twelve identify the product: a number for the company and a number for the item. The thirteenth says nothing about the product at all.</p>
+    <p>It is worked out from the other twelve, and it has one job. A scanner reads the bars through creases, smudges and glare. When it gets a digit wrong, the last digit should give it away, so the till does not ring up the wrong thing.</p>
+    <div class="ed-aside">
+      <p class="ed-aside-title">In about {edition.minutes} minutes you will be able to</p>
+      <ul class="cd-goals">
+        {edition.goals.map((g) => <li>{g}</li>)}
+      </ul>
+    </div>
+  </Step>
+
+  <!-- 2. Your guess -->
+  <Step id="guess" index={1} label="Your guess" title="How good is one digit?" needs={['answered:guess']} next="Put it to the test">
+    <p>One extra digit can only take ten values, 0 to 9. A wrong reading has a lot of ways to go wrong.</p>
+    <Question
+      id="guess"
+      kind="predict"
+      prompt="The scanner misreads exactly one of the 13 digits. How often does the check digit catch the mistake?"
+      right="always"
+      noted="Saved. Next, you get to make the mistakes yourself."
+      choices={[
+        { id: 'tenth', text: 'About 1 time in 10.' },
+        { id: 'most', text: 'About 9 times in 10: now and then a wrong digit happens to fit.' },
+        { id: 'always', text: 'Every time.' },
+      ]}
+    />
+  </Step>
+
+  <!-- 3. Try it -->
+  <Step
+    id="try"
+    index={2}
+    label="Try it"
+    title="Try to fool the scanner"
+    wide
+    needs={['single', 'swap', 'slip', 'correct:obs']}
+    todo={[
+      { goal: 'single', text: 'Change one digit of the reading.' },
+      { goal: 'swap', text: 'Swap two neighbouring digits that are not the same.' },
+      { goal: 'slip', text: 'Find a mistake the scanner does not notice.' },
+    ]}
+    next="See why"
+    hint="Do the three things in the list, then answer the question, to go on."
+  >
+    <p>Below is what the scanner read. Type over any digit, or use the arrow keys on it, to make it misread. The scanner multiplies the digits by 1 and 3 in turn, adds them up, and accepts the reading only if the total ends in 0.</p>
+
+    <div class="cd-sim" data-cd-sim>
+      <figure class="cd-label">
+        <figcaption>What the scanner read. <span class="cd-pack">On the pack: <span class="cd-mono">{PACK[0]} {PACK.slice(1, 7).join('')} {PACK.slice(7).join('')}</span></span></figcaption>
+        <div class="cd-pic" data-cd-bars set:html={barcode(PACK)} />
+      </figure>
+
+      <div class="cd-digits" role="group" aria-label="The 13 digits the scanner read, each with its weight">
+        {
+          PACK.map((d, i) => (
+            <div class:list={['cd-cell', { 'cd-check': i === 12 }]} data-cd-cell={i}>
+              <input
+                class="cd-in needs-js"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                value={d}
+                aria-label={`Digit ${i + 1}${i === 12 ? ', the check digit' : ''}, times ${WEIGHTS[i]}`}
+                data-cd-in={i}
+              />
+              <span class="cd-static nojs-only">{d}</span>
+              <span class="cd-w" aria-hidden="true">×{WEIGHTS[i]}</span>
+              <span class="cd-p" data-cd-p={i} aria-hidden="true">{d * WEIGHTS[i]}</span>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="cd-verdict" data-cd-verdict data-state="ok" aria-live="polite">
+        <p class="cd-total">Total <strong data-cd-total>{sum}</strong>, <span data-cd-ends>it ends in 0</span>.</p>
+        <p class="cd-say" data-cd-say><strong>Accepted.</strong> This is the code on the pack.</p>
+      </div>
+
+      <div class="cd-tools needs-js">
+        <div class="cd-swap">
+          <label for="cd-pair">Swap two neighbours</label>
+          <select id="cd-pair" data-cd-pair>
+            {PACK.slice(0, 12).map((_, i) => <option value={i}>{`Digits ${i + 1} and ${i + 2}`}</option>)}
+          </select>
+          <button type="button" class="ed-btn ed-btn-quiet" data-cd-swap>Swap them</button>
+        </div>
+        <button type="button" class="ed-btn ed-btn-quiet" data-cd-reset>Back to the code on the pack</button>
+      </div>
+      <p class="cd-hint needs-js" data-cd-hint hidden>A hint: it is not where the swap is that matters, but which two digits you swap. Look at how far apart they are. You can type new digits first, then swap them.</p>
+    </div>
+
+    <Question
+      id="obs"
+      kind="check"
+      prompt="Which mistake slipped past the scanner?"
+      choices={[
+        { id: 'any', text: 'Any swap: the scanner never notices swaps.', feedback: 'Most swaps were rejected. Try swapping digits 7 and 8, a 1 and a 5: the total changes and the scanner says no.' },
+        { id: 'five', text: 'A swap of two digits that are 5 apart, such as 5 and 0.', correct: true, feedback: 'A swap of two digits that are 5 apart leaves the last digit of the total as it was. In this code, swapping digits 8 and 9 (a 5 and a 0) gets through. The next step shows why only those pairs.' },
+        { id: 'middle', text: 'A swap in the middle of the code.', feedback: 'The place does not matter: every place has a weight of 1 or 3, and every pair of neighbours has one of each. What matters is the gap between the two digits.' },
+      ]}
+    />
+  </Step>
+
+  <!-- 4. Why -->
+  <Step id="why" index={3} label="Why" title="Times 3 never lands on a ten" next="Use it" hint="">
+    <p class="lead">A wrong digit changes the total. The scanner only looks at the last digit of the total. So a mistake can only hide if it changes the total by a whole number of tens: by 10, 20, 30 and so on.</p>
+
+    <h3 class="cd-h3">One wrong digit</h3>
+    <p>A digit can be wrong by 1 to 9. At a place with weight 1, the total changes by the same amount, never a whole ten. At a place with weight 3, it changes by three times as much. Look at the last digit of each:</p>
+    <div class="cd-table-wrap">
+      <table class="cd-table">
+        <caption class="visually-hidden">How much the last digit of the total moves when one digit is wrong</caption>
+        <thead>
+          <tr><th scope="row">Digit wrong by</th>{wrongBy.map((d) => <th scope="col">{d}</th>)}</tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Times 3</th>{wrongBy.map((d) => <td>{d * 3}</td>)}</tr>
+          <tr class="cd-what-if"><th scope="row">If it were times 2</th>{wrongBy.map((d) => <td class:list={{ 'cd-miss': (d * 2) % 10 === 0 }}>{d * 2}</td>)}</tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Times 3 never gives a whole ten, so every single wrong digit shows. That is why the weight is 3. A weight of 2 would fail: a digit wrong by 5 would change the total by exactly 10, and slip through. The weight must share no factor with 10.</p>
+
+    <h3 class="cd-h3">Two neighbours swapped</h3>
+    <p>Neighbours always have one weight of 1 and one of 3. Swap a digit <em>a</em> and a digit <em>b</em>, and the total changes by twice the gap between them. That is a whole ten only when the gap is 5.</p>
+    <figure class="cd-label cd-gridfig">
+      <div class="cd-pic cd-grid" set:html={swapGrid()} />
+      <figcaption>Every swap of two different neighbours. Green: caught. Red: slips through. Grey: the digits are the same, so nothing changes. 80 of the 90 swaps are caught, so about 1 swap in 9 gets through.</figcaption>
+    </figure>
+
+    <Reveal
+      question="guess"
+      cases={[
+        { when: ['tenth'], label: 'If you guessed 1 time in 10', html: '<strong>You guessed 1 time in 10.</strong> That would be true if the check digit were random. It is not: it is chosen so that the total ends in 0, and every single wrong digit moves that total off the ten. It catches all of them.' },
+        { when: ['most'], label: 'If you guessed 9 times in 10', html: '<strong>You guessed 9 times in 10.</strong> A close guess, and true for a random kind of mistake: two wrong digits get through about 1 time in 9. But one wrong digit never fits, because times 1 and times 3 never make a whole ten. It catches all of them.' },
+        { when: ['always'], label: 'If you guessed every time', html: '<strong>You guessed every time.</strong> That is right, for one wrong digit. You have also seen where the check stops: some swaps, and some pairs of mistakes.' },
+      ]}
+    />
+  </Step>
+
+  <!-- 5. Use it -->
+  <Step id="use" index={4} label="Use it" title="Three new situations" needs={['correct:two', 'correct:weights', 'correct:isbn']} next="Finish" hint="Find the right answer to all three questions to finish.">
+    <p>Use what you found out. A wrong answer explains itself, and you can try again. Only your first try counts for your result.</p>
+
+    <Question
+      id="two"
+      kind="apply"
+      prompt="A cashier types a barcode number by hand and gets two digits wrong. Is the mistake always caught?"
+      choices={[
+        { id: 'always', text: 'Yes: the check digit catches every wrong digit.', feedback: 'It catches every single wrong digit. With two, the changes can cancel out: one digit 1 too high and another 1 too low, both at weight 1, leave the total as it was.' },
+        { id: 'cancel', text: 'No: two mistakes can cancel each other out.', correct: true, feedback: 'Each mistake moves the total. If the second one moves it back to a whole ten, the reading passes. For two random mistakes that happens about 1 time in 9.' },
+        { id: 'never', text: 'No: two mistakes are never caught.', feedback: 'Most pairs of mistakes are still caught. Only when the second one moves the total back to a whole ten does the reading pass: about 1 time in 9.' },
+      ]}
+    />
+
+    <Question
+      id="weights"
+      kind="apply"
+      prompt="Someone suggests weights of 1 and 2 instead of 1 and 3. What would change?"
+      choices={[
+        { id: 'better', text: 'It would be better in every way.', feedback: 'It would catch every swap of neighbours, because a swap would change the total by just the gap, 1 to 9. But a digit wrong by 5 at a times 2 place would change the total by exactly 10, and slip through.' },
+        { id: 'singles', text: 'It would catch every swap, but miss some single wrong digits.', correct: true, feedback: 'A digit wrong by 5 at a times 2 place changes the total by exactly 10, so it slips through. In exchange, every swap would be caught: it would change the total by the gap between the digits, never a whole ten. Barcodes chose to catch every single wrong digit.' },
+        { id: 'same', text: 'Nothing: any weights work.', feedback: 'The weights matter. Times 2 turns a mistake of 5 into a whole ten, so it would miss some single wrong digits. Times 3 never does.' },
+      ]}
+    />
+
+    <Question
+      id="isbn"
+      kind="apply"
+      prompt="Old 10 digit book numbers (ISBN-10) use weights 10, 9, 8 and so on down to 1, and count in elevens instead of tens. They catch every single wrong digit and every swap of neighbours. Why can elevens do what tens cannot?"
+      choices={[
+        { id: 'prime', text: 'Because 11 shares no factor with any of the weights or gaps, so no mistake adds up to a whole eleven.', correct: true, feedback: '11 is a prime number. A mistake changes the total by a weight (1 to 10) times a gap (1 to 9), and no such product is a whole number of elevens. The price: the check digit can come out as 10, which is printed as an X.' },
+        { id: 'shorter', text: 'Because book numbers are shorter than barcode numbers.', feedback: 'The length is not the reason. It is the counting in elevens: 11 is prime, so a weight times a gap can never make a whole eleven.' },
+        { id: 'bigger', text: 'Because 11 is bigger than 10, so there is more room.', feedback: 'Bigger alone would not help: counting in twelves would fail, because 12 shares factors with weights such as 2, 3 and 4. It works because 11 is prime.' },
+      ]}
+    />
+  </Step>
+
+  <!-- 6. Done -->
+  <Done
+    index={5}
+    discovery="The check digit is picked so that a weighted total ends in 0. Times 1 and times 3 never turn a single wrong digit into a whole ten, so every single misread shows. A swap of two neighbours that are 5 apart is the one simple mistake it misses."
+    takeaway="The same idea is used in book numbers and in the check digits of many other codes. Each one picks its rule so that the most common mistakes cannot add up to a whole multiple."
+    deeper={edition.basedOn}
+  />
+</EditionLayout>
+
+<script>
+  import './sim';
+</script>

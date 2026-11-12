@@ -6,9 +6,16 @@ import type { Lang } from '../lib/text';
 
 interface Props {
   lang?: Lang;
+  /** The part of the site this page belongs to. */
+  current?: 'today' | 'archive' | 'library';
 }
-const { lang = 'en' } = Astro.props;
+const { lang = 'en', current } = Astro.props;
 const words = siteText[lang];
+const links = [
+  { id: 'today', href: '/', text: words.navToday },
+  { id: 'archive', href: '/archive/', text: words.navArchive },
+  { id: 'library', href: '/library/', text: words.navLibrary },
+] as const;
 ---
 
 <header class="site-header">
@@ -21,9 +28,8 @@ const words = siteText[lang];
       </svg>
       <span>Helder Labs <span class="wordmark-light">Learn</span></span>
     </a>
-    <nav aria-label={words.otherSites}>
-      <a href="https://helderlabs.com">helderlabs.com</a>
-      <a href="https://games.helderlabs.com">{words.games}</a>
+    <nav aria-label={words.mainNav}>
+      {links.map((l) => <a href={l.href} aria-current={current === l.id ? 'page' : undefined}>{l.text}</a>)}
     </nav>
   </div>
 </header>
@@ -34,12 +40,15 @@ const words = siteText[lang];
     color: var(--on-band);
   }
 
+  /* On a narrow phone the menu moves under the wordmark instead of pushing the page wider */
   .inner {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 0.4rem 1rem;
     min-height: 4.5rem;
+    padding-block: 0.5rem;
   }
 
   .wordmark {
@@ -49,6 +58,7 @@ const words = siteText[lang];
     font-family: var(--font-display);
     font-size: 1.25rem;
     letter-spacing: -0.01em;
+    white-space: nowrap;
     text-decoration: none;
   }
 
@@ -58,7 +68,8 @@ const words = siteText[lang];
 
   nav {
     display: flex;
-    gap: clamp(1rem, 3vw, 1.75rem);
+    flex-wrap: wrap;
+    gap: 0.3rem clamp(1rem, 3vw, 1.75rem);
     font-size: 0.95rem;
     font-weight: 500;
   }
@@ -71,12 +82,13 @@ const words = siteText[lang];
     transition: text-decoration-color 0.15s;
   }
 
-  nav a:hover {
+  nav a:hover,
+  nav a[aria-current='page'] {
     text-decoration-color: currentColor;
   }
 
-  /* On very narrow phones the wordmark is enough, the footer has the same links */
-  @media (max-width: 24rem) {
+  /* On phones "Helder Labs" is enough, so the menu fits next to it on one line */
+  @media (max-width: 27rem) {
     .wordmark-light {
       display: none;
     }

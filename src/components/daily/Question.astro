@@ -1,0 +1,70 @@
+---
+// A question with choices, and feedback that says WHY.
+// - kind "predict": the reader commits to a guess before seeing anything. There is no right or wrong
+//   yet: the edition comes back to the guess later (see Reveal.astro). `right` names the choice that
+//   turns out to be correct, for the result at the end.
+// - kind "check" or "apply": each choice has its own feedback. A wrong pick explains the mistake and
+//   lets the reader try again. Only the first try counts for the result.
+// Without a script the choices are listed and the answer sits in a fold-out below them.
+interface Choice {
+  id: string;
+  text: string;
+  correct?: boolean;
+  /** Shown when this choice is picked. Plain text or simple HTML (<strong>, <em>). */
+  feedback?: string;
+}
+
+interface Props {
+  id: string;
+  kind: 'predict' | 'check' | 'apply';
+  prompt: string;
+  choices: Choice[];
+  /** For a prediction: the choice that is right, for the result at the end. */
+  right?: string;
+  /** For a prediction: what to say once a guess is locked in. */
+  noted?: string;
+}
+
+const { id, kind, prompt, choices, right, noted = 'Your guess is saved. Keep it in mind.' } = Astro.props;
+const letters = 'ABCDEFG';
+const answer = choices.find((c) => c.correct);
+---
+
+<div class="q" data-q={id} data-kind={kind} data-right={right}>
+  <p class="q-prompt" id={`q-${id}`}>{prompt}</p>
+  <div class="q-choices needs-js" role="group" aria-labelledby={`q-${id}`}>
+    {
+      choices.map((c, i) => (
+        <button type="button" class="q-choice" data-choice={c.id} data-correct={c.correct ? 'true' : undefined} aria-pressed="false">
+          <span class="q-letter" aria-hidden="true">{letters[i]}</span>
+          <span class="q-text">{c.text}</span>
+          <span class="q-mark" aria-hidden="true" />
+        </button>
+      ))
+    }
+  </div>
+  <div class="q-feedback" data-feedback aria-live="polite"></div>
+  {kind === 'predict' && <template data-noted set:html={noted} />}
+  {choices.map((c) => c.feedback && <template data-feedback-for={c.id} set:html={c.feedback} />)}
+
+  <div class="nojs-only q-nojs">
+    <ol class="q-list" type="A">
+      {choices.map((c) => <li>{c.text}</li>)}
+    </ol>
+    {
+      kind === 'predict' ? (
+        <p class="q-nojs-note">Pick one in your head before you read on.</p>
+      ) : (
+        answer && (
+          <details>
+            <summary>Show the answer</summary>
+            <p>
+              <strong>{answer.text}</strong>
+            </p>
+            {answer.feedback && <p set:html={answer.feedback} />}
+          </details>
+        )
+      )
+    }
+  </div>
+</div>

@@ -1,0 +1,163 @@
+/* "Twenty-three strangers": the squads at the start, the year wheel, the thousand rooms, the chart of
+   runs and the pairs in the explanation. The pictures sit on cream cards with fixed colours, the same
+   in light and dark mode, so only the frames and the words around them follow the theme. */
+
+.ts-card {
+  display: grid;
+  align-content: start;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0.75rem;
+  background: #fbf3e6;
+  color: #2a1d22;
+  border-radius: var(--radius);
+}
+
+.ts-card figcaption {
+  font-size: 0.98rem;
+}
+
+.ts-panels .ts-card figcaption {
+  font-weight: 700;
+}
+
+.ts-pic svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ts-goals {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.ts-sim {
+  display: grid;
+  gap: 1rem;
+}
+
+.ts-controls {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+}
+
+.ts-size {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.4rem 0.9rem;
+}
+
+.ts-size label {
+  font-weight: 700;
+}
+
+.ts-size output {
+  min-width: 2.5rem;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  line-height: 1;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 30rem) {
+  .ts-size {
+    grid-template-columns: 1fr auto;
+  }
+
+  .ts-size .ed-range {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+.ts-panels {
+  display: grid;
+  gap: 0.9rem;
+}
+
+@media (min-width: 46rem) {
+  .ts-panels {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ts-runs {
+    grid-column: 1 / -1;
+  }
+
+  .ts-runs .ts-pic {
+    width: min(100%, 34rem);
+    justify-self: center;
+  }
+}
+
+.ts-pairs,
+.ts-tally {
+  min-height: 3em;
+  font-size: 0.98rem;
+}
+
+.ts-card .ed-btn {
+  justify-self: start;
+  border-color: #2a1d22;
+  background: #2a1d22;
+  color: #fbf3e6;
+}
+
+.ts-card .ed-btn-quiet {
+  background: transparent;
+  color: #2a1d22;
+}
+
+.ts-card .ed-btn:focus-visible {
+  outline: 3px solid #2a1d22;
+  outline-offset: 3px;
+}
+
+.ts-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+}
+
+.ts-key {
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+}
+
+.ts-key-any {
+  background: #8c2f4b;
+}
+
+.ts-key-me {
+  margin-left: 0.8rem;
+  background: #e0a526;
+  border: 2px solid #2a1d22;
+}
+
+.ts-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.9rem;
+}
+
+.ts-curves {
+  width: min(100%, 34rem);
+  justify-self: center;
+}
+
+.ts-h3 {
+  margin-top: 0.4rem;
+  font-size: 1.35rem;
+}

@@ -1,0 +1,47 @@
+---
+// The last step of every edition: the discovery in one or two sentences, the reader's result, a
+// result to share that gives nothing away, the streak, and when the next discovery opens.
+// The numbers are filled in by src/scripts/daily/flow.ts.
+import Step from './Step.astro';
+import { getTopic } from '../../data/topics';
+
+interface Props {
+  index: number;
+  /** The discovery itself, said plainly. */
+  discovery: string;
+  /** One sentence to take away: where else this shows up. */
+  takeaway: string;
+  /** The library explainer to go deeper with. */
+  deeper?: string;
+}
+
+const { index, discovery, takeaway, deeper } = Astro.props;
+const topic = deeper ? getTopic(deeper) : undefined;
+---
+
+<Step id="done" index={index} label="Done" title="What you found out">
+  <p class="done-discovery">{discovery}</p>
+  <p>{takeaway}</p>
+
+  <div class="done-card needs-js" data-result-card>
+    <p class="done-card-title">Your result</p>
+    <ul class="done-lines" data-result-lines></ul>
+    <div class="done-share">
+      <button type="button" class="ed-btn" data-share>Share your result</button>
+      <p class="done-share-note" data-share-note aria-live="polite">The shared text gives nothing away.</p>
+    </div>
+    <pre class="done-share-text" data-share-text hidden></pre>
+  </div>
+
+  <div class="done-next needs-js">
+    <p data-streak-line></p>
+    <p class="done-rule">A day counts for the streak when you finish that day’s discovery on that day, Amsterdam time. Finishing an older one from the archive marks it done, but it does not add to the streak.</p>
+    <p data-next-line></p>
+  </div>
+
+  <p class="done-links">
+    <a href="/archive/">All editions</a>
+    {topic && <a href={`/${topic.slug}/`}>Go deeper in the library: {topic.title}</a>}
+    <button type="button" class="done-again needs-js" data-again>Do this one again</button>
+  </p>
+</Step>

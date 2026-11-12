@@ -1,0 +1,255 @@
+/* "The digit that checks the others": the barcode label, the row of digits with their weights, the
+   scanner's verdict, the table of times 3 and the grid of swaps. The label and the grid are white, as
+   on a real pack, in light and dark mode alike. */
+
+.cd-label {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0.9rem;
+  background: #ffffff;
+  color: #14201a;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+
+.cd-label figcaption {
+  font-size: 0.98rem;
+}
+
+.cd-hook .cd-pic,
+.cd-sim .cd-label .cd-pic {
+  width: min(100%, 26rem);
+  justify-self: center;
+}
+
+.cd-pic svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cd-pack {
+  display: block;
+  font-weight: 400;
+}
+
+.cd-sim .cd-label figcaption {
+  font-weight: 700;
+}
+
+.cd-mono {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  letter-spacing: 0.04em;
+}
+
+.cd-goals {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.cd-sim {
+  display: grid;
+  gap: 1rem;
+}
+
+/* The 13 digits. On a phone they wrap into two rows: 7 and 6. */
+.cd-digits {
+  display: grid;
+  grid-template-columns: repeat(13, minmax(0, 1fr));
+  gap: 0.3rem;
+}
+
+@media (max-width: 40rem) {
+  .cd-digits {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    row-gap: 0.7rem;
+  }
+}
+
+.cd-cell {
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  padding: 0.3rem 0 0.4rem;
+  border-radius: var(--radius);
+}
+
+.cd-check {
+  background: var(--hover-tint);
+}
+
+.cd-in,
+.cd-static {
+  width: 100%;
+  max-width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 2px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 1.45rem;
+  font-weight: 700;
+  text-align: center;
+  caret-color: transparent;
+}
+
+.cd-static {
+  display: grid;
+  place-items: center;
+}
+
+.cd-in:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+  border-color: var(--ink);
+}
+
+.cd-cell[data-changed] .cd-in {
+  border-color: var(--bad);
+  background: var(--bad-wash);
+  color: var(--bad);
+}
+
+.cd-w {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.cd-p {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* What the scanner says */
+.cd-verdict {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.9rem 1.1rem;
+  border: 2px solid var(--good);
+  border-left-width: 8px;
+  border-radius: var(--radius);
+  background: var(--good-wash);
+}
+
+.cd-verdict[data-state='no'] {
+  border-color: var(--ink);
+  background: var(--card);
+}
+
+.cd-verdict[data-state='slip'] {
+  border-color: var(--bad);
+  background: var(--bad-wash);
+}
+
+.cd-total {
+  font-size: 1.15rem;
+}
+
+.cd-total strong {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+}
+
+.cd-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+}
+
+.cd-swap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.cd-swap label {
+  font-weight: 700;
+}
+
+.cd-swap select {
+  min-height: 2.6rem;
+  padding: 0.3rem 0.6rem;
+  border: 2px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+}
+
+.cd-swap select:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.cd-hint {
+  padding: 0.6rem 0.9rem;
+  border-left: 4px solid var(--ed, var(--accent));
+  background: var(--hover-tint);
+}
+
+/* The table of times 3 and times 2 */
+.cd-table-wrap {
+  overflow-x: auto;
+}
+
+.cd-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.cd-table th,
+.cd-table td {
+  padding: 0.45rem 0.4rem;
+  border-bottom: 1px solid var(--line-strong);
+  text-align: center;
+}
+
+.cd-table th[scope='row'] {
+  text-align: left;
+  white-space: nowrap;
+  padding-right: 0.8rem;
+}
+
+.cd-what-if {
+  color: var(--ink-soft);
+}
+
+.cd-table .cd-miss {
+  color: var(--bad);
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.cd-gridfig .cd-pic {
+  width: min(100%, 24rem);
+  justify-self: center;
+}
+
+.cd-h3 {
+  margin-top: 0.4rem;
+  font-size: 1.35rem;
+}
+
+@media (max-width: 30rem) {
+  .cd-table {
+    font-size: 0.9rem;
+  }
+
+  .cd-table th,
+  .cd-table td {
+    padding: 0.4rem 0.2rem;
+  }
+}

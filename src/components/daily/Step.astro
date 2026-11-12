@@ -1,0 +1,75 @@
+---
+// One step of a daily edition. The steps open one after another: the next one appears when the reader
+// has done what this one asks (picked an answer, tried the switches...). That is listed in `needs`.
+// Without a script every step is open, so the page reads top to bottom like an article.
+interface Props {
+  /** Short id, also the address: #step-<id> */
+  id: string;
+  /** Its place in the edition, from 0. */
+  index: number;
+  /** The name in the step bar: "Your guess", "Try it"... */
+  label: string;
+  title: string;
+  /**
+   * What must happen before the reader can go on. "answered:<question>", "correct:<question>",
+   * or a goal an experiment reports, such as "tilt-off".
+   */
+  needs?: string[];
+  /** A short list of things to try, ticked off as they happen. */
+  todo?: { goal: string; text: string }[];
+  /** The text on the button that opens the next step. Leave out on the last step. */
+  next?: string;
+  /** What to tell a reader whose button is still waiting. */
+  hint?: string;
+  /** Let the step use the full width of the page (for a big experiment). */
+  wide?: boolean;
+}
+
+const { id, index, label, title, needs = [], todo = [], next, hint, wide = false } = Astro.props;
+const defaultHint = needs.some((n) => n.startsWith('answered:') || n.startsWith('correct:'))
+  ? todo.length
+    ? 'Do the things in the list and answer the question to go on.'
+    : 'Pick an answer to go on.'
+  : 'Do the things in the list to go on.';
+---
+
+<section class:list={['ed-step', { 'ed-wide': wide }]} id={`step-${id}`} data-step={id} data-index={index} data-needs={needs.join(' ')} aria-labelledby={`step-${id}-title`}>
+  <div class="ed-step-inner">
+    <p class="ed-step-label"><span class="ed-step-n">{index + 1}</span> {label}</p>
+    <h2 class="ed-step-title" id={`step-${id}-title`} tabindex="-1">{title}</h2>
+    <p class="ed-welcome needs-js" data-welcome hidden>Welcome back. This is where you were.</p>
+    <slot />
+    {
+      todo.length > 0 && (
+        <div class="ed-todo needs-js">
+          <p class="ed-todo-title">Try these</p>
+          <ul data-todo>
+            {todo.map((t) => (
+              <li data-goal={t.goal}>
+                <svg class="ed-tick" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false">
+                  <circle cx="10" cy="10" r="8.5" fill="none" stroke="currentColor" stroke-width="2" />
+                  <path class="ed-tick-mark" d="M5.8 10.4l2.8 2.8 5.6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>{t.text}</span>
+                <span class="visually-hidden" data-todo-state>not done yet</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    {
+      next && (
+        <div class="ed-next needs-js">
+          <button type="button" class="ed-btn" data-continue>
+            {next}
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M12 5v14M6 13l6 6 6-6" />
+            </svg>
+          </button>
+          <p class="ed-next-hint" data-next-hint>{hint ?? defaultHint}</p>
+        </div>
+      )
+    }
+  </div>
+</section>

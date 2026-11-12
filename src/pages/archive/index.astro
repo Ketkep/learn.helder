@@ -1,0 +1,84 @@
+---
+// The archive: every daily discovery that has opened, newest first, with the reader's own progress.
+// Editions that are scheduled but not open yet are in the page, hidden, so they appear at midnight
+// without a rebuild. Without a script the list shows what had opened on the day the site was built.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { DAILY, dayAt } from '../../lib/daily';
+import { editionCards } from '../../components/daily/meta';
+import '../../styles/daily.css';
+
+const cards = [...editionCards()].reverse();
+const buildDay = dayAt(Date.now());
+---
+
+<BaseLayout
+  title={`The archive: every ${DAILY.name} discovery | Helder Labs Learn`}
+  description="Every daily discovery so far, newest first. Each one keeps its own page."
+  nav="archive"
+>
+  <section class="wrap arch" data-archive data-cards={JSON.stringify(cards)}>
+    <h1>The archive</h1>
+    <p class="arch-lede">Every daily discovery stays here after its day. You can do any of them at any time. Finishing an older one marks it done, but only the discovery of the day itself, finished on that day, adds to your streak.</p>
+    <p class="arch-stats needs-js" data-arch-stats></p>
+    <ol class="arch-list arch-big">
+      {
+        cards.map((c) => (
+          <li class="arch-item" data-arch={c.number} data-date={c.date} hidden={c.date > buildDay} style={`--ed: ${c.accent};`}>
+            <a href={c.path}>
+              <img src={c.cover} alt="" width="240" height="180" loading="lazy" />
+              <span class="arch-text">
+                <span class="arch-kicker">
+                  No. {c.number} · {c.dateLabel} · {c.subject}
+                </span>
+                <span class="arch-title">{c.title}</span>
+                <span class="arch-q">{c.question}</span>
+                <span class="arch-status" data-arch-status />
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="arch-empty" data-arch-empty hidden={cards.some((c) => c.date <= buildDay)}>Nothing has opened yet.</p>
+  </section>
+</BaseLayout>
+
+<script>
+  import { dayAt, formatDay } from '../../lib/daily';
+  import { streakOf } from '../../lib/schedule';
+  import { allProgress } from '../../scripts/daily/store';
+
+  const root = document.querySelector<HTMLElement>('[data-archive]');
+  if (root) {
+    const cards: { number: number; date: string }[] = JSON.parse(root.dataset.cards ?? '[]');
+    const day = dayAt(Date.now());
+    const progress = allProgress();
+    let shown = 0;
+    root.querySelectorAll<HTMLElement>('[data-arch]').forEach((li) => {
+      const n = Number(li.dataset.arch);
+      const c = cards.find((x) => x.number === n);
+      const open = !!c && c.date <= day;
+      li.hidden = !open;
+      if (!c || !open) return;
+      shown++;
+      const p = progress[n];
+      const tag = li.querySelector('[data-arch-status]');
+      let text = c.date === day ? 'Today. Not started yet' : 'Not started';
+      let state = 'new';
+      if (p?.completedDay) {
+        state = 'done';
+        text = p.completedDay === c.date ? `Done on its day (${formatDay(p.completedDay, { weekday: false })})` : `Done later, on ${formatDay(p.completedDay, { weekday: false })}`;
+      } else if (p && p.reached > 0) {
+        state = 'started';
+        text = `In progress: step ${p.reached + 1}${p.total ? ` of ${p.total}` : ''}`;
+      }
+      if (tag) tag.textContent = text;
+      li.dataset.state = state;
+    });
+    const empty = root.querySelector<HTMLElement>('[data-arch-empty]');
+    if (empty) empty.hidden = shown > 0;
+    const s = streakOf(cards, progress, day);
+    const stats = root.querySelector('[data-arch-stats]');
+    if (stats) stats.innerHTML = `<strong>${s.finished}</strong> of ${s.open} finished · <strong>${s.finishedOnTheDay}</strong> on their own day · streak <strong>${s.current}</strong>, best <strong>${s.best}</strong>`;
+  }
+</script>

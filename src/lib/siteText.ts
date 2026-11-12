@@ -9,6 +9,10 @@ export interface SiteText {
   homeLabel: string;
   otherSites: string;
   games: string;
+  mainNav: string;
+  navToday: string;
+  navArchive: string;
+  navLibrary: string;
   footer: string;
   ogAlt: string;
   ogLocale: string;
@@ -28,11 +32,15 @@ export const siteText: Record<Lang, SiteText> = {
     homeLabel: 'Helder Labs Learn, home',
     otherSites: 'Other Helder Labs sites',
     games: 'Games',
+    mainNav: 'Main',
+    navToday: 'Today',
+    navArchive: 'Archive',
+    navLibrary: 'Library',
     footer: 'Set in Young Serif and Hanken Grotesk. No cookies, no tracking.',
     ogAlt: 'Helder Labs Learn, interactive explainers',
     ogLocale: 'en_GB',
-    allTopics: 'All topics',
-    backToAll: 'Back to all topics',
+    allTopics: 'The library',
+    backToAll: 'Back to the library',
     stage: 'Interactive explainer',
     takeaways: 'Key takeaways',
     takeawaysPending: 'The takeaways will appear here when the explainer is ready.',
@@ -45,12 +53,16 @@ export const siteText: Record<Lang, SiteText> = {
     homeLabel: 'Helder Labs Learn, startpagina',
     otherSites: 'Andere sites van Helder Labs',
     games: 'Games',
+    mainNav: 'Hoofdmenu',
+    navToday: 'Vandaag',
+    navArchive: 'Archief',
+    navLibrary: 'Bibliotheek',
     footer: 'Gezet in Young Serif en Hanken Grotesk. Geen cookies, geen tracking.',
     ogAlt: 'Helder Labs Learn, interactieve uitleg',
     ogLocale: 'nl_NL',
     // The home page and the other topics are English only, so the links say so
-    allTopics: 'Alle onderwerpen (Engels)',
-    backToAll: 'Terug naar alle onderwerpen (Engels)',
+    allTopics: 'De bibliotheek (Engels)',
+    backToAll: 'Terug naar de bibliotheek (Engels)',
     stage: 'Interactieve uitleg',
     takeaways: 'De belangrijkste punten',
     takeawaysPending: 'De belangrijkste punten komen hier te staan als de uitleg klaar is.',
