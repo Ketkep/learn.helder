@@ -25,6 +25,7 @@ for (const e of sorted) {
   const when = e.date < today ? 'past' : e.date === today ? 'TODAY' : `in ${daysBetween(today, e.date)} d`;
   console.log(`  No. ${String(e.number).padStart(3)}  ${e.date}  ${e.status.padEnd(5)}  ${when.padEnd(8)}  ${e.title}`);
   if (missing.length) warnings.push(`No. ${e.number}: ${folder} is missing ${missing.join(' and ')}.`);
+  else if (!existsSync(`${root}${folder}/preview.png`)) warnings.push(`No. ${e.number} has no link preview picture yet: run npm run og.`);
 }
 
 const ready = sorted.filter((e) => e.status === 'ready');

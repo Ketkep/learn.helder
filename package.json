@@ -11,7 +11,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "schedule": "node --experimental-strip-types tools/schedule.mjs"
+    "schedule": "node --experimental-strip-types tools/schedule.mjs",
+    "og": "node --experimental-strip-types tools/og-images.mjs"
   },
   "dependencies": {
     "@fontsource-variable/hanken-grotesk": "^5.3.0",

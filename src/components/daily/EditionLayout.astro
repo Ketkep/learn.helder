@@ -6,6 +6,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { DAILY, formatDay } from '../../lib/daily';
 import { editionPath, getEditions, type Edition } from '../../data/editions';
 import { readableInk, coverVars } from '../../lib/color';
+import { previewOf } from './meta';
 import '../../styles/daily.css';
 
 interface Props {
@@ -29,6 +30,8 @@ const dateLabel = formatDay(edition.date, { year: true });
   band={edition.accent}
   bandInk={ink}
   noindex={edition.status === 'draft'}
+  image={previewOf(edition.slug)}
+  imageAlt={`${edition.title}. ${edition.question}`}
   nav="archive"
 >
   <div

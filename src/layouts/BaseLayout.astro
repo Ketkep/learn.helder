@@ -22,6 +22,8 @@ interface Props {
   bandInk?: string;
   /** Link preview image, path inside /public. */
   image?: string;
+  /** What the link preview image shows, for people who cannot see it. */
+  imageAlt?: string;
   /** Keep search engines away from this page. */
   noindex?: boolean;
   /** The language of the page. Sets <html lang> and the words in the header and footer. */
@@ -38,6 +40,7 @@ const {
   band,
   bandInk,
   image = '/og-image.png',
+  imageAlt,
   noindex = false,
   nav,
   lang = 'en',
@@ -76,7 +79,10 @@ const bodyStyle = `--band: ${band ?? 'var(--paper)'}; --on-band: ${bandInk ?? 'v
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={imageUrl} />
-    <meta property="og:image:alt" content={words.ogAlt} />
+    <meta property="og:image:alt" content={imageAlt ?? words.ogAlt} />
+    <!-- Every preview picture is 1200 by 630. Saying so lets apps show it at once, before it loads -->
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Load the main font files early so the big headings do not jump -->

@@ -257,11 +257,14 @@ function start(root: HTMLElement) {
 
   // ------------------------------------------------------------------ the end
   let shareText = '';
+  let shareBody = '';
+  let shareUrl = '';
   let timer = 0;
 
   function done() {
     const lines: string[] = [];
-    const marks: string[] = [];
+    let guessRight: boolean | undefined;
+    let guessed = '';
     questions.forEach((q) => {
       const a = p.answers[q.dataset.q ?? ''];
       if (q.dataset.kind === 'predict' || q.dataset.kind === 'guess') {
@@ -270,22 +273,32 @@ function start(root: HTMLElement) {
             ? a?.choice === q.dataset.right
             : !!a && Number(a.choice) >= Number(q.dataset.rightMin) && Number(a.choice) <= Number(q.dataset.rightMax);
         lines.push(right ? 'Your guess at the start was right.' : 'Your guess at the start was off, and now you know why.');
-        marks.unshift(`Guess ${right ? '●' : '○'}`);
+        guessRight = right;
+        guessed = a?.choice ?? '';
       }
     });
     const apply = questions.filter((q) => q.dataset.kind === 'apply');
-    if (apply.length) {
-      const first = apply.filter((q) => p.answers[q.dataset.q ?? '']?.firstTry).length;
-      lines.push(`You answered ${first} of ${apply.length} new situations right on the first try.`);
-      marks.push(`Use it ${apply.map((q) => (p.answers[q.dataset.q ?? '']?.firstTry ? '●' : '○')).join('')}`);
-    }
+    const first = apply.filter((q) => p.answers[q.dataset.q ?? '']?.firstTry).length;
+    if (apply.length) lines.push(`You answered ${first} of ${apply.length} new situations right on the first try.`);
     if (p.completedDay && p.completedDay !== date) lines.push(`You finished it on ${formatDay(p.completedDay)}, after its own day.`);
     if (preview) lines.push('This was a preview, so it is not saved.');
 
     const list = root.querySelector('[data-result-lines]');
     if (list) list.innerHTML = lines.map((l) => `<li>${l}</li>`).join('');
 
-    shareText = `${DAILY.name} No. ${number} · ${formatDay(date, { weekday: false, short: true })}\n${marks.join('   ')}\n${DAILY.site}/daily/${number}/`;
+    // What the reader shares: a line about them (from the edition, no spoilers), their score on the
+    // new situations, and the address. The link brings the edition's own preview picture along.
+    const card = root.querySelector<HTMLElement>('[data-result-card]');
+    const about = (guessRight === false ? card?.dataset.shareWrong : card?.dataset.shareRight) ?? '';
+    shareUrl = `https://${DAILY.site}/daily/${number}/`;
+    shareBody = [
+      `${DAILY.name} No. ${number} · ${formatDay(date, { weekday: false, short: true })}`,
+      about.split('{guess}').join(guessed),
+      apply.length ? `New situations: ${first} of ${apply.length} right first time.` : '',
+    ]
+      .filter(Boolean)
+      .join('\n');
+    shareText = `${shareBody}\n${shareUrl}`;
     const pre = root.querySelector<HTMLElement>('[data-share-text]');
     if (pre) {
       pre.hidden = false;
@@ -330,7 +343,8 @@ function start(root: HTMLElement) {
     const touch = matchMedia('(pointer: coarse)').matches;
     if (touch && navigator.share) {
       try {
-        await navigator.share({ text: shareText });
+        // Text and link apart, so the app can show the edition's picture under the text
+        await navigator.share({ text: shareBody, url: shareUrl });
         return;
       } catch {
         // The share sheet was closed: fall through to copying

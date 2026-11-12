@@ -47,6 +47,8 @@ One edition a day, the same for everyone. The day changes at midnight in **Europ
 2. **Make its folder**, `src/editions/<slug>/`, with:
    - `Edition.astro`: the six steps, built from the parts in `src/components/daily/` (`Step`, `Question`, `Guess`, `Reveal`, `Done`), inside `EditionLayout`. Copy `src/editions/closer-and-colder/`, the quality example, and change everything.
    - `model.ts` (the sums, with the simplifications written down), `draw.ts` (the pictures as SVG, drawn on the server and again in the browser), `sim.ts` (the experiment), `edition.css`, and `cover.svg` (400 by 300, fixed colours, its own background: it is shown as an image).
+   - `Done` takes `share`: two lines about the reader for the text they share, one for a right first guess and one for a wrong one (`{guess}` becomes the number they guessed). They make others curious and give the answer away nowhere. The text then adds their score on the new situations and the address.
+   - `preview.png`: the picture apps show when someone pastes the link (1200 by 630). Make it with `npm run og` once the title, the question and the cover are final, look at it, and commit it. After a change, `npm run og -- --all` makes it again. Without it the page falls back to the site's general picture, and `npm run schedule` warns.
    - An experiment tells the edition that the reader did something with `sim.dispatchEvent(new CustomEvent('learndle:goal', { detail: 'tilt-off', bubbles: true }))`. A step lists what it needs: a goal, `answered:<question>` or `correct:<question>`.
 3. **Check it** with `npm run dev` (drafts are visible there) and the checks in CLAUDE.md, with `?preview` for a date in the future.
 4. **Set `status: 'ready'`** and push. It goes live straight away, but opens for readers only on its date.
@@ -1165,7 +1167,7 @@ The page is a night blue party wall with three rooms side by side (stacked on a 
 src/lib/daily.ts         the daily settings (name, time zone, address) and date sums in that time zone
 src/lib/schedule.ts      which edition is today's, and the streak rules
 src/data/editions.ts     the schedule of daily editions: number, date, status, title, question, goals
-src/editions/<slug>/     one daily edition: Edition.astro, model.ts, draw.ts, sim.ts, edition.css, cover.svg
+src/editions/<slug>/     one daily edition: Edition.astro, model.ts, draw.ts, sim.ts, edition.css, cover.svg, preview.png
 src/components/daily/    the parts every edition shares: steps, questions, guesses, reveals, the end
 src/scripts/daily/       the edition flow, the home page, and the progress kept in the browser
 src/styles/daily.css     the shared look of the editions, the home page and the archive
@@ -1174,6 +1176,7 @@ src/pages/archive/       all editions so far
 src/pages/daily/[n]/     the address of each edition, /daily/<number>/, and its cover
 src/pages/library/       the library: the grid of all topics (this used to be the home page)
 tools/schedule.mjs       prints the schedule and warns about empty days (npm run schedule)
+tools/og-images.mjs      makes the link preview picture of each edition (npm run og)
 docs/edition-ideas.md    ideas for coming editions, with the bar each one has to meet
 drafts/                  editions that were started but not finished (outside src, so not built)
 src/data/topics.ts       the list of all topics

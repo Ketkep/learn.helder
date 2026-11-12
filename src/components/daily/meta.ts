@@ -17,6 +17,8 @@ export interface EditionCard {
   ink: string;
   path: string;
   cover: string;
+  /** The link preview picture, when there is one. */
+  preview?: string;
 }
 
 export function editionCards(): EditionCard[] {
@@ -33,5 +35,13 @@ export function editionCards(): EditionCard[] {
     ink: readableInk(e.accent),
     path: editionPath(e),
     cover: `${editionPath(e)}cover.svg`,
+    preview: previewOf(e.slug),
   }));
 }
+
+// The link preview pictures (src/editions/<slug>/preview.png, made by npm run og). The build gives each
+// one an address with a hash in it, so a changed picture gets a new address and apps fetch it again.
+const previews = import.meta.glob<string>('../../editions/*/preview.png', { query: '?url', import: 'default', eager: true });
+
+/** The link preview picture of an edition, or undefined when it has not been made yet. */
+export const previewOf = (slug: string): string | undefined => previews[`../../editions/${slug}/preview.png`];

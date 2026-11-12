@@ -13,9 +13,14 @@ interface Props {
   takeaway: string;
   /** The library explainer to go deeper with. */
   deeper?: string;
+  /**
+   * The line about the reader in the text they share, one for a right first guess and one for a wrong
+   * one. {guess} becomes the number they guessed. It must make others curious and give nothing away.
+   */
+  share: { right: string; wrong: string };
 }
 
-const { index, discovery, takeaway, deeper } = Astro.props;
+const { index, discovery, takeaway, deeper, share } = Astro.props;
 const topic = deeper ? getTopic(deeper) : undefined;
 ---
 
@@ -23,12 +28,12 @@ const topic = deeper ? getTopic(deeper) : undefined;
   <p class="done-discovery">{discovery}</p>
   <p>{takeaway}</p>
 
-  <div class="done-card needs-js" data-result-card>
+  <div class="done-card needs-js" data-result-card data-share-right={share.right} data-share-wrong={share.wrong}>
     <p class="done-card-title">Your result</p>
     <ul class="done-lines" data-result-lines></ul>
     <div class="done-share">
       <button type="button" class="ed-btn" data-share>Share your result</button>
-      <p class="done-share-note" data-share-note aria-live="polite">The shared text gives nothing away.</p>
+      <p class="done-share-note" data-share-note aria-live="polite">The text says how you did, not what the answer is.</p>
     </div>
     <pre class="done-share-text" data-share-text hidden></pre>
   </div>

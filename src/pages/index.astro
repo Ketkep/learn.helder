@@ -21,6 +21,8 @@ const libraryCount = getVisibleTopics().length;
   title={`${DAILY.name}: one small discovery a day | Helder Labs Learn`}
   description="One short interactive discovery a day, the same for everyone. Guess first, try it, find out why, then use it. About seven minutes."
   nav="today"
+  image={hero?.preview}
+  imageAlt={hero ? `${hero.title}. ${hero.question}` : undefined}
 >
   <div class="today" data-today data-cards={JSON.stringify(cards)}>
     <section class="wrap today-top" aria-labelledby="today-title">
