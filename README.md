@@ -51,7 +51,7 @@ One edition a day, the same for everyone. The day changes at midnight in **Europ
 3. **Check it** with `npm run dev` (drafts are visible there) and the checks in CLAUDE.md, with `?preview` for a date in the future.
 4. **Set `status: 'ready'`** and push. It goes live straight away, but opens for readers only on its date.
 
-`npm run schedule` prints the schedule and warns about days without an edition in the coming week. The build stops with a clear message when numbers skip, dates do not go forward, a ready edition follows a draft, or an edition has no folder. To take an edition offline, set it back to `'draft'`. Its number stays taken: never reuse a number or move a date that has passed, because people may have shared the address.
+The nightly routine (CLAUDE.md) makes one edition a night this way, a day or more ahead of its date, and picks from `docs/edition-ideas.md`. `npm run schedule` prints the schedule and warns about days without an edition in the coming week. The build stops with a clear message when numbers skip, dates do not go forward, a ready edition follows a draft, or an edition has no folder. To take an edition offline, set it back to `'draft'`. Its number stays taken: never reuse a number or move a date that has passed, because people may have shared the address.
 
 ### The three first editions
 
@@ -1174,6 +1174,8 @@ src/pages/archive/       all editions so far
 src/pages/daily/[n]/     the address of each edition, /daily/<number>/, and its cover
 src/pages/library/       the library: the grid of all topics (this used to be the home page)
 tools/schedule.mjs       prints the schedule and warns about empty days (npm run schedule)
+docs/edition-ideas.md    ideas for coming editions, with the bar each one has to meet
+drafts/                  editions that were started but not finished (outside src, so not built)
 src/data/topics.ts       the list of all topics
 src/data/gambits.ts      everything the chess page says: games, scenes, field guide, sources
 src/data/peru.ts         everything the Peru page says: shots, brick stamps, year line, sources
