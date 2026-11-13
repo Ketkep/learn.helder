@@ -1,0 +1,199 @@
+/* "The page that guessed your keys": the track, the keys, the readouts and the bars. The pictures carry
+   their own night colours, the same in light and dark mode, so only the frames and the words around
+   them follow the theme. */
+
+.rm-hook {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.rm-hook figcaption {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.rm-pic svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.rm-goals {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+/* A wide and a narrow drawing of the same track: the narrow one has fewer, bigger cells for a phone */
+.rm-narrow {
+  display: none;
+}
+
+@media (max-width: 40rem) {
+  .rm-wide {
+    display: none;
+  }
+
+  .rm-narrow {
+    display: block;
+  }
+}
+
+.rm-sim {
+  display: grid;
+  gap: 1rem;
+}
+
+.rm-panel {
+  display: grid;
+  align-content: start;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.rm-panel figcaption {
+  font-weight: 700;
+}
+
+.rm-controls {
+  display: grid;
+  gap: 0.8rem;
+  align-items: start;
+}
+
+.rm-keys,
+.rm-coin {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.rm-keys[hidden],
+.rm-coin[hidden] {
+  display: none;
+}
+
+.rm-key {
+  display: grid;
+  place-items: center;
+  width: 5.2rem;
+  height: 5.2rem;
+  padding: 0;
+  border: 3px solid #0c1b2e;
+  border-radius: 14px;
+  box-shadow: 0 5px 0 #0c1b2e;
+  color: #0c1b2e;
+  font: inherit;
+  font-size: 2.2rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.rm-key:active {
+  box-shadow: 0 1px 0 #0c1b2e;
+  transform: translateY(4px);
+}
+
+.rm-key-f {
+  background: #ffb257;
+}
+
+.rm-key-j {
+  background: #7fd0c4;
+}
+
+.rm-hint {
+  flex: 1 1 14rem;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.rm-read {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin: 0;
+}
+
+@media (min-width: 46rem) {
+  .rm-read {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.rm-read div {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.rm-read dt {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.rm-read dd {
+  margin: 0.1rem 0 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.rm-details {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.8rem;
+  background: var(--surface);
+}
+
+.rm-details summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.rm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.rm-table th,
+.rm-table td {
+  padding: 0.3rem 0.4rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.rm-table td {
+  position: relative;
+  min-width: 5rem;
+}
+
+.rm-bar {
+  display: inline-block;
+  height: 0.9rem;
+  min-width: 2px;
+  max-width: 70%;
+  margin-right: 0.4rem;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+
+.rm-n {
+  font-variant-numeric: tabular-nums;
+}
+
+.rm-h3 {
+  margin: 1.2rem 0 0.2rem;
+  font-size: 1.15rem;
+}
+
+.rm-bars {
+  max-width: 30rem;
+}

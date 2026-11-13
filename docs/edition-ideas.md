@@ -6,7 +6,7 @@ Each idea says: the hook, the mix-up most people have, what the reader does, the
 
 ## Ready to research
 
-### The page that reads your mind (the mind)
+### The page that reads your mind (the mind) (used: edition No. 4, read-my-mind)
 - Hook: press F and J as randomly as you can. The page guesses your next key before you press it, and it is right far more often than half the time.
 - Mix-up: people think they can be random on purpose.
 - The reader: types 100 keys. A live score shows the page's hits. A real coin, run by the page, scores about 50 per cent next to it.

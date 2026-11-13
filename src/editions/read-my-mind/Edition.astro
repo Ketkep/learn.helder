@@ -1,0 +1,276 @@
+---
+// Learndle No. 4: "The page that guessed your keys". The reader types two keys as randomly as they can
+// while the page guesses each key before it is pressed, then a coin plays the same game.
+// The arc: a hook (a page that reads keys), a guess of how many it will get right, an experiment with
+// two lanes (you and a coin) read by the same guesser, the explanation (habits are countable, a coin has
+// none), three new situations, and the end. The sums are in model.ts, the pictures in draw.ts, the
+// controls in sim.ts.
+import EditionLayout from '../../components/daily/EditionLayout.astro';
+import Step from '../../components/daily/Step.astro';
+import Guess from '../../components/daily/Guess.astro';
+import Question from '../../components/daily/Question.astro';
+import Reveal from '../../components/daily/Reveal.astro';
+import Done from '../../components/daily/Done.astro';
+import type { Edition } from '../../data/editions';
+import { type Key, newLane, press, runChance, pinRepeat } from './model';
+import { bars, learnedTable, trackView } from './draw';
+import './edition.css';
+
+interface Props {
+  edition: Edition;
+}
+const { edition } = Astro.props;
+
+// A made-up sample for the first picture: keys typed like a person might, with a guesser that has a
+// fixed coin so the page looks the same on every build.
+const sample = newLane();
+const fixed = (() => {
+  let s = 7;
+  return () => ((s = (s * 1664525 + 1013904223) % 4294967296) / 4294967296);
+})();
+'FJFJFFJFJJFJFJFFJFJJFJFJFJFJ'.split('').forEach((k) => press(sample, k as Key, fixed));
+const empty = newLane();
+
+const steps = [
+  { id: 'hook', label: 'The question' },
+  { id: 'guess', label: 'Your guess' },
+  { id: 'try', label: 'Try it' },
+  { id: 'why', label: 'Why' },
+  { id: 'use', label: 'Use it' },
+  { id: 'done', label: 'Done' },
+];
+
+const run6 = Math.round(runChance(100, 6) * 100);
+const run7 = Math.round(runChance(100, 7) * 100);
+const pin = Math.round(pinRepeat(6) * 100);
+
+const sources = [
+  { label: 'The Aaronson Oracle (Bill Mill’s notes)', url: 'https://notes.billmill.org/link_blog/2023/05/the_Aaronson_Oracle.html', for: 'What the program does: it guesses the next key of f and d from the last few presses.' },
+  { label: 'GreaterWrong: a quote from Scott Aaronson’s blog on the oracle', url: 'https://www.greaterwrong.com/posts/AGZD62scqRaoM6p4n/rock-paper-scissors-is-not-solved-in-practice/comment/QRmJhGvogQXLCXmJH', for: 'The reported 70 to 80 per cent hit rate for many players, and one student guessed at exactly 50 per cent. Second-hand.' },
+  { label: 'docs.rs: aaronson-oracle', url: 'https://docs.rs/aaronson-oracle/0.1.0/src/aaronson_oracle/lib.rs.html', for: 'A short implementation that counts what followed each run of keys.' },
+  { label: 'Wagenaar (1972), Sequential response bias (dissertation, TNO)', url: 'https://publications.tno.nl/publication/34643184/uVrpxSyQ/wagenaar1972diss.pdf', for: 'People are poor at making random sequences and lean for or against certain keys after earlier ones.' },
+  { label: 'Falk and Konold: making sense of randomness (University of Texas)', url: 'https://labs.la.utexas.edu/gilden/files/2016/04/falk.pdf', for: 'People see randomness in too many alternations and judge long runs as not random.' },
+  { label: 'Falk and Konold (1997): making sense of randomness (UMass)', url: 'https://srri.umass.edu/sites/srri/files/FalkKonold1997/index.pdf', for: 'The same finding in a second copy of the paper.' },
+  { label: 'Zhao and others (2014), Journal of Experimental Psychology', url: 'https://zhaolab.psych.ubc.ca/pdfs/Zhao_2014_JEPHPP.pdf', for: 'Over-alternation is widespread, with some pushback on the strongest claims.' },
+  { label: 'Neuringer (1986): can people behave randomly?', url: 'https://Www.Gwern.net/doc/statistics/decision/1986-neuringer.pdf', for: 'People can come closer to random with feedback, but not on their own.' },
+  { label: 'PubMed Central: randomisation experiments with people', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC5215234/', for: 'Randomisation tasks and the bias away from repeats.' },
+  { label: 'John D. Cook: probability of long runs', url: 'https://www.johndcook.com/blog/2012/11/14/probability-of-long-runs/', for: 'How often a run of a given length shows up in a number of flips.' },
+  { label: 'Mark Schilling: the longest run of heads (CSUN)', url: 'https://www.csun.edu/%7Ehcmth031/LongRunPredictions.pdf', for: 'The longest run in 100 flips is usually 6 or 7.' },
+  { label: 'Mathematical Association of America: Schilling’s paper', url: 'https://maa.org/node/113688', for: 'The rule of thumb for the longest run.' },
+  { label: 'Scientific American: has anyone ever flipped heads 76 times in a row?', url: 'https://www.scientificamerican.com/blog/roots-of-unity/has-anyone-ever-flipped-heads-76-times-in-a-row/', for: 'The expected longest run in 100 flips is about 6.' },
+];
+
+const sourcesNote =
+  'The pages below could not be opened directly while this edition was made, so each fact was checked through search results that quote them. The reported 70 to 80 per cent for Scott Aaronson’s original program comes from a quote in a comment, not from his own text, so the page says it is second-hand and gives it only as a report. That people over-alternate and avoid long runs appeared in several papers. The chance of a run in 100 flips (about 81 per cent for six or more, 54 per cent for seven or more) was worked out here and matches the figure of about 80 per cent for six in the search results. The 41 per cent for a doubled digit in a six digit PIN is worked out here too. The page’s guesser is a toy: it looks back at most four keys and flips a coin when it has nothing to go on, and it is not a model of the brain. A made-up sample is used for the first picture and is called that. On a fair coin no guesser can beat 50 per cent in the long run. Nothing is sent from your browser, and nothing here is security advice.';
+---
+
+<EditionLayout edition={edition} steps={steps} sources={sources} sourcesNote={sourcesNote}>
+  <!-- 1. The question -->
+  <Step id="hook" index={0} label="The question" title="A page that knows your next key" next="Make a guess" hint="">
+    <figure class="rm-hook">
+      <div class="rm-pic rm-wide" set:html={trackView(sample, 22, 'Typed')} />
+      <div class="rm-pic rm-narrow" set:html={trackView(sample, 9, 'Typed')} />
+      <figcaption>A made-up example. Top row: what the page expected. Bottom row: the key that was pressed. A tick means the page was right.</figcaption>
+    </figure>
+    <p class="lead">Press F or J, again and again, in an order you make up so that nobody could guess it. Before every press, this page writes down which key it expects.</p>
+    <p>You will see its guess above each of your keys. It cannot see you, and it has never met you. It only has the keys you press.</p>
+    <p>Then a coin takes your place and plays the same game. One of you is easier to read than the other.</p>
+    <div class="ed-aside">
+      <p class="ed-aside-title">In about {edition.minutes} minutes you will be able to</p>
+      <ul class="rm-goals">
+        {edition.goals.map((g) => <li>{g}</li>)}
+      </ul>
+    </div>
+  </Step>
+
+  <!-- 2. Your guess -->
+  <Step id="guess" index={1} label="Your guess" title="How many will it get right?" needs={['answered:guess']} next="Put it to the test" hint="Lock in a guess to go on.">
+    <p>Say you press 100 keys, F or J, in whatever order you like, trying to be as random as a coin. The page guesses each one before you press it. A coin would leave it right about 50 times in 100.</p>
+    <Guess
+      id="guess"
+      prompt="How many of your 100 keys will the page guess right?"
+      min={0}
+      max={100}
+      start={50}
+      unit="of 100"
+      rightMin={56}
+      rightMax={100}
+      noted="Saved. Now you can play it, and see how a coin does."
+    />
+  </Step>
+
+  <!-- 3. Try it -->
+  <Step
+    id="try"
+    index={2}
+    label="Try it"
+    title="You against a coin, read by the same page"
+    wide
+    needs={['typed-60', 'coin-200', 'saw-table', 'correct:obs']}
+    todo={[
+      { goal: 'typed-60', text: 'Press at least 60 keys yourself, as randomly as you can.' },
+      { goal: 'coin-200', text: 'Switch to the coin and let it play 200 flips.' },
+      { goal: 'saw-table', text: 'Open "What did the page learn?" and look.' },
+    ]}
+    next="See why"
+    hint="Do the three things in the list, then answer the question, to go on."
+  >
+    <p>Two lanes, one guesser. In the first, you press F or J. In the second, the page flips a coin for each key. The page guesses each key before it is shown, and it does the same sums in both lanes. It looks at the last four keys, counts what came after them before, and picks the key that came more often. When it has nothing to go on, it flips a coin of its own.</p>
+
+    <div class="rm-sim" data-rm-sim>
+      <div class="ed-chips needs-js" role="group" aria-label="Who presses the keys">
+        <button type="button" class="ed-chip" data-rm-mode="you" aria-pressed="true">You press</button>
+        <button type="button" class="ed-chip" data-rm-mode="coin" aria-pressed="false">The coin presses</button>
+      </div>
+
+      <figure class="rm-panel">
+        <figcaption>The last keys, with the page’s guess for each</figcaption>
+        <div class="rm-pic rm-wide" data-rm-track set:html={trackView(empty, 24, 'Your keys')} />
+        <div class="rm-pic rm-narrow" data-rm-track-narrow set:html={trackView(empty, 9, 'Your keys')} />
+      </figure>
+
+      <div class="rm-controls needs-js">
+        <div class="rm-keys" data-rm-for="you">
+          <button type="button" class="rm-key rm-key-f" data-rm-key="F" aria-label="Press F"><span aria-hidden="true">F</span></button>
+          <button type="button" class="rm-key rm-key-j" data-rm-key="J" aria-label="Press J"><span aria-hidden="true">J</span></button>
+          <p class="rm-hint">Or press F and J on your keyboard. Do not plan a pattern. Go by feel, as fast as is comfortable.</p>
+        </div>
+        <div class="rm-coin" data-rm-for="coin" hidden>
+          <button type="button" class="ed-btn" data-rm-flip>Flip once</button>
+          <button type="button" class="ed-btn" data-rm-flip-many>Let the coin play 200 flips</button>
+          <p class="rm-hint">The page flips a fair coin for each key. Nothing about you is used.</p>
+        </div>
+        <button type="button" class="ed-btn ed-btn-quiet" data-rm-reset>Start both lanes again</button>
+      </div>
+
+      <dl class="rm-read">
+        <div><dt>Your keys</dt><dd><span data-rm-n-you>0</span></dd></div>
+        <div><dt>Page right on yours</dt><dd data-rm-r-you>too few keys yet</dd></div>
+        <div><dt>Coin flips</dt><dd><span data-rm-n-coin>0</span></dd></div>
+        <div><dt>Page right on the coin</dt><dd data-rm-r-coin>too few keys yet</dd></div>
+        <div><dt>Your longest run of one key</dt><dd data-rm-run-you>none yet</dd></div>
+        <div><dt>The coin’s longest run</dt><dd data-rm-run-coin>none yet</dd></div>
+        <div><dt>How often your key changed</dt><dd data-rm-sw-you>none yet</dd></div>
+        <div><dt>How often the coin’s changed</dt><dd data-rm-sw-coin>none yet</dd></div>
+      </dl>
+
+      <figure class="rm-panel">
+        <figcaption>The share of keys the page guessed right. The dashed line is 50 per cent, what a coin leaves it with.</figcaption>
+        <div class="rm-pic rm-bars" data-rm-bars set:html={bars(empty, empty)} />
+      </figure>
+
+      <details class="rm-details needs-js" data-rm-details>
+        <summary>What did the page learn?</summary>
+        <p>After each run of three keys, how often F and how often J came next, in the lane you are looking at. A long bar on one side is a habit.</p>
+        <div data-rm-learned set:html={learnedTable(empty)} />
+      </details>
+      <p class="visually-hidden" aria-live="polite" data-rm-say></p>
+    </div>
+
+    <Question
+      id="obs"
+      kind="check"
+      prompt="Suppose the page guessed more of your keys than of the coin's. What is the best explanation?"
+      choices={[
+        {
+          id: 'luck',
+          text: 'Luck. With more keys the two would come out the same.',
+          feedback: 'Luck explains a handful of keys, not hundreds. On a fair coin the page settles close to half. Your keys can settle somewhere else, and they will if you keep going.',
+        },
+        {
+          id: 'pattern',
+          text: 'Your keys had habits that could be counted. The coin’s keys had none.',
+          correct: true,
+          feedback: 'The page does the same sums in both lanes. Where your keys follow a habit, such as changing key too often, counting finds it. A fair coin has no habits, so the best any guesser can do on it is about half.',
+        },
+        {
+          id: 'code',
+          text: 'The page is built to do better on people than on coins.',
+          feedback: 'It does not know who is pressing. Both lanes go through the same function. The difference comes from the keys, not from the page.',
+        },
+      ]}
+    />
+  </Step>
+
+  <!-- 4. Why -->
+  <Step id="why" index={3} label="Why" title="A coin has no memory. We do" next="Use it" hint="">
+    <p class="lead">A fair coin does not remember its last flip, so nothing in the past helps a guesser. However clever it is, it is right about half of the time in the long run. People are different. We try to be random by feel, and our feel has habits.</p>
+
+    <h3 class="rm-h3">We change key too often</h3>
+    <p>Studies of people making up coin flips find the same thing again and again: too many changes from one side to the other. A fair coin changes side half of the time. Your keys changed <strong data-rm-mine-switch>not measured yet</strong> of the time. If you press keys in the experiment above, this shows your own number.</p>
+
+    <h3 class="rm-h3">We avoid long runs</h3>
+    <p>A run of five heads in a row looks wrong to us, so we stop it. But real coins make long runs. In 100 flips, a run of six or more of the same side turns up about {run6} times in 100 sheets, and seven or more about {run7} times. Your longest run was <strong data-rm-mine-run>not measured yet</strong> keys.</p>
+
+    <h3 class="rm-h3">What the page does with that</h3>
+    <p>It counts. After each run of up to four keys it keeps a tally of what came next. If you tend to change key after two equal keys, the tally says so, and the page bets on the change. You never told it anything. The habit was in the keys. The page was right on <strong data-rm-mine-rate>not measured yet</strong> of yours.</p>
+
+    <Reveal
+      question="guess"
+      cases={[
+        { from: 0, to: 45, label: 'If you guessed fewer than 46', html: '<strong>You guessed {guess} of 100.</strong> That is fewer than a coin would leave it with. The page cannot do worse than chance for long, because even with nothing to go on it gets about half by luck.' },
+        { from: 46, to: 55, label: 'If you guessed 46 to 55', html: '<strong>You guessed {guess} of 100.</strong> That is the score of a typist as random as a coin. Most of us feel that we are that unpredictable. Some people are close. Many are not, because feeling random and being random are different things.' },
+        { from: 56, to: 100, label: 'If you guessed 56 or more', html: '<strong>You guessed {guess} of 100.</strong> You expected to be readable. That is a good instinct: the studies and the experiment above find that people usually are. How far above half depends on how many habits you have and how many keys you give the page.' },
+      ]}
+    />
+
+    <div class="ed-aside">
+      <p class="ed-aside-title">Does a high score mean you are not random?</p>
+      <p>No. It means your keys had habits that this simple counter found in a short time. Some players score close to half. Practice and feedback can push people closer to random, but not without help. The surest way to be unpredictable is to use something that has no habits.</p>
+    </div>
+  </Step>
+
+  <!-- 5. Use it -->
+  <Step id="use" index={4} label="Use it" title="Three new situations" needs={['correct:pin', 'correct:sheet', 'correct:method']} next="Finish" hint="Find the right answer to all three questions to finish.">
+    <p>Use what you found out. A wrong answer explains itself, and you can try again. Only your first try counts for your result.</p>
+
+    <Question
+      id="pin"
+      kind="apply"
+      prompt="Someone makes up a six digit PIN by typing digits that feel random. Compared with six digits chosen by dice, what is likely?"
+      choices={[
+        { id: 'same', text: 'Both are equally hard to guess.', feedback: 'Only the dice digits are free of habits. A person leaves out things that feel too tidy, and that leaves a trace.' },
+        { id: 'fewer', text: 'The made-up one has fewer equal digits side by side, and that makes it easier to guess.', correct: true, feedback: `People avoid doubles because they look unrandom. In random digits, some pair of neighbours is equal about ${pin} times in 100 (one minus 0.9 to the power 5, worked out here). A person’s PIN leans away from that, and a guesser can use the lean.` },
+        { id: 'harder', text: 'The made-up one is harder, because a person is unpredictable.', feedback: 'That is the belief the experiment tested. A person feels unpredictable and is not.' },
+      ]}
+    />
+
+    <Question
+      id="sheet"
+      kind="apply"
+      prompt="A teacher gets two sheets of 100 coin flips. One was made with a real coin, the other made up by a student. One sheet has seven heads in a row. Which sheet is it probably?"
+      choices={[
+        { id: 'made', text: 'The made-up one. Seven in a row looks too neat to be real.', feedback: 'That feeling is why students leave runs out. Real sheets have them.' },
+        { id: 'real', text: 'The real one. A real coin makes long runs, and people tend to avoid writing them.', correct: true, feedback: `In 100 real flips, a run of seven of one side turns up about ${run7} times in 100 sheets (worked out here). Students making up flips tend to avoid long runs, so they rarely write one. It is a bet, not proof.` },
+        { id: 'cannot', text: 'There is no way to tell. Every sequence is equally likely.', feedback: 'Every exact sequence is equally unlikely, but that is not the question. Long runs are common among real flips, about half of the sheets have one of seven, and rare among made-up ones.' },
+      ]}
+    />
+
+    <Question
+      id="method"
+      kind="apply"
+      prompt="You want a guesser to have no chance of reading your next key. What should you do?"
+      choices={[
+        { id: 'feel', text: 'Press as randomly as I can.', feedback: 'That is what you tried above. Feeling random and being random are different, and a counter can read the difference.' },
+        { id: 'switch', text: 'Change key every time, so that no run forms.', feedback: 'That is the easiest pattern of all to read. After a few presses the page would be right every time.' },
+        { id: 'coin', text: 'Let a coin, a die or a random number tool decide each key.', correct: true, feedback: 'A coin has no habits. The best any guesser can do on it is about half, however many keys it sees.' },
+      ]}
+    />
+  </Step>
+
+  <!-- 6. Done -->
+  <Done
+    index={5}
+    discovery="People cannot make up random keys by feel. We change key too often and avoid long runs, and a page that only counts what came after each short run of keys can use that to guess more than half. Only a coin, which has no habits, stays at half."
+    takeaway="When something has to be unpredictable, such as a draw or a code, do not make it up by feel. Let a coin, a die or a random number tool decide."
+    deeper={edition.basedOn}
+    share={{
+      right: 'I thought a page could read my keys, and it could. Can you beat it?',
+      wrong: 'I bet a page would guess {guess} of my 100 keys. Then I watched it.',
+    }}
+  />
+</EditionLayout>
+
+<script>
+  import './sim';
+</script>

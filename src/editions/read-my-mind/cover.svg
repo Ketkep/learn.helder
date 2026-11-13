@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <!-- Learndle No. 4: two key caps, F and J, and two rows of cells: the page's guesses above (outlined)
+       and the pressed keys below (filled), with ticks and crosses between. Fixed colours: the cover
+       is used as an image. -->
+  <rect width="400" height="300" fill="#92440f"/>
+  <rect x="0" y="176" width="400" height="124" fill="#0c1b2e"/>
+  <rect x="40" y="38" width="130" height="130" rx="20" fill="#ffb257" stroke="#0c1b2e" stroke-width="8"/>
+  <text x="105" y="128" fill="#0c1b2e" font-size="90" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">F</text>
+  <rect x="230" y="38" width="130" height="130" rx="20" fill="#7fd0c4" stroke="#0c1b2e" stroke-width="8"/>
+  <text x="295" y="128" fill="#0c1b2e" font-size="90" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">J</text>
+  <g stroke-width="5" fill="none">
+    <rect x="28" y="184" width="40" height="40" rx="6" stroke="#ffb257"/>
+    <rect x="86" y="184" width="40" height="40" rx="6" stroke="#7fd0c4"/>
+    <rect x="144" y="184" width="40" height="40" rx="6" stroke="#7fd0c4"/>
+    <rect x="202" y="184" width="40" height="40" rx="6" stroke="#ffb257"/>
+    <rect x="260" y="184" width="40" height="40" rx="6" stroke="#7fd0c4"/>
+    <rect x="318" y="184" width="40" height="40" rx="6" stroke="#ffb257"/>
+  </g>
+  <g>
+    <rect x="28" y="254" width="40" height="40" rx="6" fill="#ffb257"/>
+    <rect x="86" y="254" width="40" height="40" rx="6" fill="#7fd0c4"/>
+    <rect x="144" y="254" width="40" height="40" rx="6" fill="#ffb257"/>
+    <rect x="202" y="254" width="40" height="40" rx="6" fill="#ffb257"/>
+    <rect x="260" y="254" width="40" height="40" rx="6" fill="#7fd0c4"/>
+    <rect x="318" y="254" width="40" height="40" rx="6" fill="#ffb257"/>
+  </g>
+  <g fill="none" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M38 240l8 8 14 -16" stroke="#8fe3a0"/>
+    <path d="M96 234l20 20M116 234l-20 20" stroke="#ff7a7a"/>
+    <path d="M154 240l8 8 14 -16" stroke="#8fe3a0"/>
+    <path d="M212 234l20 20M232 234l-20 20" stroke="#ff7a7a"/>
+    <path d="M270 240l8 8 14 -16" stroke="#8fe3a0"/>
+    <path d="M328 240l8 8 14 -16" stroke="#8fe3a0"/>
+  </g>
+</svg>

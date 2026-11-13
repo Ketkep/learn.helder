@@ -60,6 +60,7 @@ The nightly routine (CLAUDE.md) makes one edition a night this way, a day or mor
 - **No. 1, Closer to the Sun, colder outside** (Space, the quality example). A model of the sunlight on one square metre of ground, with two switches that remove one suspected cause each: the changing distance and the tilt. Four pictures move together: the Earth from the side at noon, the beam on the ground, the length of the day, and the whole year.
 - **No. 2, Twenty-three strangers** (Maths). A year wheel with a dot for every birthday in a room. One room at a time, or a thousand at once, with a chart that fills up with the reader's own runs. A switch changes the question from "any two" to "someone has my birthday", the mix-up behind most wrong guesses.
 - **No. 3, The digit that checks the others** (Technology). A barcode reading the reader can change, digit by digit or by swapping neighbours. The bars, the weights, the total and the scanner's verdict follow every change. The one kind of mistake it misses is left to be found.
+- **No. 4, The page that guessed your keys** (The mind). Two lanes read by the same guesser: your F and J keys, and a coin the page flips. The guesser counts what came after each run of up to four keys and bets on the likelier key. A track shows its guess above every key, bars compare the hit rates against the 50 per cent line, and a table shows what it learned. The explanation shows the reader's own switch rate, longest run and hit rate. The guesser is a toy and the page says so.
 
 ## Add a new topic (to the library)
 

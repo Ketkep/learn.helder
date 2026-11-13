@@ -98,6 +98,24 @@ export const editions: Edition[] = [
     ],
     basedOn: 'how-a-barcode-is-read',
   },
+  {
+    number: 4,
+    slug: 'read-my-mind',
+    date: '2026-11-15',
+    status: 'ready',
+    title: 'The page that guessed your keys',
+    question: 'Can you press two keys in a truly random order, when a page tries to guess every one first?',
+    teaser:
+      'Press F or J a hundred times, as randomly as you can. The page writes down its guess before each key. Then a coin plays the same game, and the page struggles.',
+    minutes: 7,
+    subject: 'The mind',
+    accent: '#92440F',
+    goals: [
+      'Explain why keys made up by feel are easier to guess than a coin.',
+      'Name two habits people have when they try to be random.',
+      'Choose a way to get an unpredictable result, and say why it works.',
+    ],
+  },
 ];
 
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
